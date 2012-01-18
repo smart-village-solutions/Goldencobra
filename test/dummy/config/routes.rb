@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount Goldencobra::Engine => "/"
 end
 #== Route Map
-# Generated on 18 Jan 2012 17:03
+# Generated on 18 Jan 2012 17:06
 #
 #             user_session POST       /admin/login(.:format)                 active_admin/devise/sessions#create
 #     destroy_user_session DELETE|GET /admin/logout(.:format)                active_admin/devise/sessions#destroy
