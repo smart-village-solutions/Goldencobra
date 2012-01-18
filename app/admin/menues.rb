@@ -1,4 +1,4 @@
-ActiveAdmin.register Goldencobra::Menue do
+ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
   form do |f|
     f.inputs "Allgemein" do

@@ -1,4 +1,5 @@
 Goldencobra::Engine.routes.draw do
+  ActiveAdmin.routes(self)
   match "/:id", :to => "articles#show"
   
   # The priority is based upon order of creation:

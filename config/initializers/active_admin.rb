@@ -39,6 +39,8 @@ ActiveAdmin.setup do |config|
   # within the controller.
   config.authentication_method = :authenticate_user!
 
+  config.load_paths.delete_at(0)
+  config.load_paths << "#{Goldencobra::Engine.root}/app/admin/"
 
   # == Current User
   #
@@ -97,7 +99,7 @@ ActiveAdmin.setup do |config|
   #
   # To load a stylesheet:
   #   config.register_stylesheet 'my_stylesheet.css'
-      config.register_stylesheet 'goldencobra/ikusei_active_admin.css'
+  #    config.register_stylesheet 'goldencobra/ikusei_active_admin.css'
   #
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'

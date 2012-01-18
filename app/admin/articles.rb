@@ -1,4 +1,4 @@
-ActiveAdmin.register Goldencobra::Article do
+ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
   form do |f|
     f.inputs "Allgemein" do
