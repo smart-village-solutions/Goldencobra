@@ -1,7 +1,7 @@
 Goldencobra::Engine.routes.draw do
-  #ActiveAdmin.routes(self)
+  ActiveAdmin.routes(self)
   #devise_for :users, ActiveAdmin::Devise.config
-  #match "/:id", :to => "articles#show"
+  match "/:id", :to => "articles#show"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

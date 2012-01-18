@@ -1,4 +1,4 @@
-ActiveAdmin.register Article do
+ActiveAdmin.register Goldencobra::Article do
   
   form do |f|
     f.inputs "Allgemein" do
@@ -32,7 +32,7 @@ ActiveAdmin.register Article do
   end
   
   member_action :mark_as_startpage do
-    article = Article.find(params[:id])
+    article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
     redirect_to :action => :show, :notice => "This Article is the Startpage!"
   end

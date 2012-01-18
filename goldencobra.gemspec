@@ -35,4 +35,21 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'
   s.add_development_dependency 'pry'
+  
+  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'cucumber'
+  s.add_development_dependency 'cucumber-rails'
+  s.add_development_dependency 'factory_girl', '~> 2.3.2'
+  s.add_development_dependency "factory_girl_rails", "~> 1.4.0"
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'capybara'
+  s.add_development_dependency 'capybara-webkit'
+  s.add_development_dependency 'guard'
+  s.add_development_dependency 'guard-rspec'
+  s.add_development_dependency 'guard-cucumber'
+  s.add_development_dependency 'guard-livereload'
+  s.add_development_dependency 'rb-fsevent'
+  s.add_development_dependency 'growl'
+  
+  
 end
