@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+
 # Declare your gem's dependencies in goldencobra.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
@@ -20,7 +21,6 @@ gem 'devise', '~> 2.0.0.rc'
 gem 'activeadmin'
 gem "meta_search", :git => "git://github.com/ernie/meta_search.git"
 gem "compass", :git => 'git://github.com/chriseppstein/compass.git'
-gem 'pry'
 gem 'execjs'
 gem 'therubyracer'
 gem "friendly_id", "~> 4.0.0.beta14"

@@ -34,7 +34,20 @@ PATH
   remote: .
   specs:
     goldencobra (0.0.1)
+      activeadmin
+      ancestry
+      cancan
+      compass
+      devise (~> 2.0.0.rc)
+      execjs
+      friendly_id (~> 4.0.0.beta14)
+      meta_search
+      oa-oauth
+      oa-openid
+      omniauth
+      omniauth-openid
       rails (~> 3.2.0.rc2)
+      therubyracer
 
 GEM
   remote: http://rubygems.org/
@@ -187,6 +200,7 @@ GEM
     multi_json (1.0.4)
     multi_xml (0.4.1)
     multipart-post (1.1.4)
+    mysql2 (0.3.11)
     nokogiri (1.5.0)
     oa-core (0.3.2)
     oa-oauth (0.3.2)
@@ -330,6 +344,7 @@ DEPENDENCIES
   guard-rspec
   jquery-rails
   meta_search!
+  mysql2
   oa-oauth
   oa-openid
   omniauth
