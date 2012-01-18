@@ -1,6 +1,6 @@
 class CreateRoles < ActiveRecord::Migration
   def change
-    create_table :roles do |t|
+    create_table :goldencobra_roles do |t|
       t.string :name
       t.text :description
 

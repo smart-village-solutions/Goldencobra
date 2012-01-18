@@ -1,6 +1,6 @@
 class CreateMenues < ActiveRecord::Migration
   def change
-    create_table :menues do |t|
+    create_table :goldencobra_menues do |t|
       t.string :title
       t.string :target
       t.string :css_class

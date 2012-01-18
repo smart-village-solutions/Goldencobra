@@ -6,7 +6,7 @@ Feature: Create and manage articles
   Scenario: Go to the articles admin site
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
-    Given the following articles exist:
+    Given the following "articles" exist:
       | title                        |
       | "10 Internet Marketing Tips" |
       | "Top 10 Internet Marketers"  |
@@ -41,7 +41,7 @@ Feature: Create and manage articles
   Scenario: mark a Page as startpage
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
-    And the following articles exist:
+    And the following "articles" exist:
       | title                        | startpage | id |
       | "10 Internet Marketing Tips" | false     |  2 |
       | "Startseite"                 | false     |  3 |

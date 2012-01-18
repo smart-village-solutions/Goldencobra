@@ -5,9 +5,13 @@
 # files.
 
 require 'cucumber/rails'
+require "factory_girl"
+require "factory_girl_rails"
 require "factory_girl/step_definitions"
 require 'capybara/rails'
 require 'capybara/cucumber'
+
+#FactoryGirl.find_definitions
 
 Capybara.javascript_driver = :webkit
 

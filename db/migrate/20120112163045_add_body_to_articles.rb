@@ -1,6 +1,6 @@
 class AddBodyToArticles < ActiveRecord::Migration
   def change
-    add_column :articles, :content, :text
-    add_column :articles, :teaser, :text
+    add_column :goldencobra_articles, :content, :text
+    add_column :goldencobra_articles, :teaser, :text
   end
 end

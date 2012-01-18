@@ -2,7 +2,6 @@ Given /^that I am not logged in$/ do
   visit "/admin/logout"
 end
 
-
 When /^I click on "([^\"]*)"$/ do |arg1|
   find_link(arg1).click
 end
@@ -34,4 +33,10 @@ end
 
 Then /^I click on "([^"]*)" within "([^"]*)"$/ do |arg1, arg2|
   find(arg2).click_link(arg1)
+end
+
+Given /^the following "([^"]*)" exist:$/ do |arg1, table|
+  table.hashes.each do |data|
+    Factory(model_name.singularize.to_sym ,data)
+  end
 end

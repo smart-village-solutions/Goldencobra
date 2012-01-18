@@ -6,7 +6,7 @@ Feature: Create and manage menuitems and navigationbars
   Scenario: Go to the navigation admin site
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
-    Given the following menues exist:
+    Given the following "menues" exist:
       | title | id | parent_id |
       | "Top Navigation" | 1 | |
       | "News" | 2 | 1 |
@@ -32,7 +32,7 @@ Feature: Create and manage menuitems and navigationbars
   Scenario: Create a submenue item
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
-    And the following menues exist:
+    And the following "menues" exist:
       | title | id | parent_id |
       | "Top Navigation" | 1 |  |
       | "News" | 2 | 1 |

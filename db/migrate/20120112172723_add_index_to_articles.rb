@@ -1,9 +1,9 @@
 class AddIndexToArticles < ActiveRecord::Migration
   def up
-    add_index :articles, :ancestry
+    add_index :goldencobra_articles, :ancestry
   end
   
   def down
-    remove_index :articles, :ancestry
+    remove_index :goldencobra_articles, :ancestry
   end
 end
