@@ -1,7 +1,7 @@
 # This migration comes from goldencobra (originally 20120109111205)
 class AddDeviseToAdminUsers < ActiveRecord::Migration
   def self.up
-    create_table(:goldencobra_users) do |t|
+    create_table(:users) do |t|
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
@@ -42,11 +42,11 @@ class AddDeviseToAdminUsers < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :goldencobra_users, :email,                :unique => true
-    add_index :goldencobra_users, :reset_password_token, :unique => true
-    add_index :goldencobra_users, :confirmation_token,   :unique => true
-    add_index :goldencobra_users, :unlock_token,         :unique => true
-    add_index :goldencobra_users, :authentication_token, :unique => true
+    add_index :users, :email,                :unique => true
+    add_index :users, :reset_password_token, :unique => true
+    add_index :users, :confirmation_token,   :unique => true
+    add_index :users, :unlock_token,         :unique => true
+    add_index :users, :authentication_token, :unique => true
   end
 
   def self.down

@@ -15,14 +15,14 @@ Factory.define :menue, :class => Goldencobra::Menue do |u|
 end
 
 
-Factory.define :admin_user, :class => Goldencobra::User do |u|
+Factory.define :admin_user, :class => User do |u|
   u.email 'admin@test.de'
   u.password 'secure12'
   u.password_confirmation 'secure12'
   u.confirmed_at "2012-01-09 14:28:58"
 end
 
-Factory.define :guest_user, :class => Goldencobra::User do |u|
+Factory.define :guest_user, :class => User do |u|
   u.email 'guest@test.de'
   u.password 'secure12'
   u.password_confirmation 'secure12'

@@ -1,10 +1,30 @@
 Rails.application.routes.draw do
-
+  devise_for :users, ActiveAdmin::Devise.config
   mount Goldencobra::Engine => "/"
 end
 #== Route Map
-# Generated on 18 Jan 2012 16:51
+# Generated on 18 Jan 2012 17:03
 #
+#             user_session POST       /admin/login(.:format)                 active_admin/devise/sessions#create
+#     destroy_user_session DELETE|GET /admin/logout(.:format)                active_admin/devise/sessions#destroy
+#   user_omniauth_callback            /admin/auth/:action/callback(.:format) devise/omniauth_callbacks#(?-mix:(?!))
+#            user_password POST       /admin/password(.:format)              active_admin/devise/passwords#create
+#        new_user_password GET        /admin/password/new(.:format)          active_admin/devise/passwords#new
+#       edit_user_password GET        /admin/password/edit(.:format)         active_admin/devise/passwords#edit
+#                          PUT        /admin/password(.:format)              active_admin/devise/passwords#update
+# cancel_user_registration GET        /admin/cancel(.:format)                devise/registrations#cancel
+#        user_registration POST       /admin(.:format)                       devise/registrations#create
+#    new_user_registration GET        /admin/sign_up(.:format)               devise/registrations#new
+#   edit_user_registration GET        /admin/edit(.:format)                  devise/registrations#edit
+#                          PUT        /admin(.:format)                       devise/registrations#update
+#                          DELETE     /admin(.:format)                       devise/registrations#destroy
+#        user_confirmation POST       /admin/confirmation(.:format)          devise/confirmations#create
+#    new_user_confirmation GET        /admin/confirmation/new(.:format)      devise/confirmations#new
+#                          GET        /admin/confirmation(.:format)          devise/confirmations#show
+#              user_unlock POST       /admin/unlock(.:format)                devise/unlocks#create
+#          new_user_unlock GET        /admin/unlock/new(.:format)            devise/unlocks#new
+#                          GET        /admin/unlock(.:format)                devise/unlocks#show
+#              goldencobra            /                                      Goldencobra::Engine
 # 
 # Routes for Goldencobra::Engine:
 #    admin_dashboard        /admin(.:format)                   goldencobra/admin/dashboard#index

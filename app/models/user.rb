@@ -1,4 +1,3 @@
-module Goldencobra
   class User < ActiveRecord::Base
     # Include default devise modules. Others available are:
     # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable, 
@@ -15,7 +14,6 @@ module Goldencobra
     
   
   end
-end
 # == Schema Information
 #
 # Table name: users

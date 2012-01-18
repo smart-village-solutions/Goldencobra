@@ -397,3 +397,4 @@ Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 16:23:31 +0100
 Mysql2::Error: Table 'goldencobra_test.goldencobra_articles' doesn't exist: SHOW FULL FIELDS FROM `goldencobra_articles`
 Mysql2::Error: Table 'goldencobra_test.goldencobra_articles' doesn't exist: SHOW FULL FIELDS FROM `goldencobra_articles`
 Mysql2::Error: Table 'goldencobra_test.goldencobra_articles' doesn't exist: SHOW FULL FIELDS FROM `goldencobra_articles`
+Mysql2::Error: Table 'goldencobra_test.users' doesn't exist: SHOW FULL FIELDS FROM `users`
