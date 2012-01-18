@@ -7314,3 +7314,1044 @@ Processing by Goldencobra::ArticlesController#show as HTML
   [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`startpage` = 1 LIMIT 1[0m
 Completed 500 Internal Server Error in 14ms
   [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 17:36:16', NULL, NULL, 'admin@test.de', '$2a$04$PPWnaPtN0MDsNgypDOTv5.mjLYPobzsRLmG1ZJuanT6psRjkncnai', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 17:36:16')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 17:36:16', NULL, 'admin', '2012-01-18 17:36:16')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (49, 49)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:16 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:16 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 3ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:16 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (2.7ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (152.0ms)
+Completed 200 OK in 284ms (Views: 282.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:17 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.2ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (6.4ms)
+Completed 200 OK in 9ms (Views: 8.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:17 +0100
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"admin@test.de", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@test.de' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2012-01-18 17:36:17', `current_sign_in_at` = '2012-01-18 17:36:17', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2012-01-18 17:36:17' WHERE `users`.`id` = 49
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin
+Completed 302 Found in 125ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:17 +0100
+Processing by Admin::DashboardController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 49 LIMIT 1
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/dashboard/index.html.arb (20.3ms)
+Completed 200 OK in 28ms (Views: 25.6ms | ActiveRecord: 0.5ms)
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mGoldencobra::Article Load (0.6ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'short-title' OR `slug` LIKE 'short-title--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1
+  [1m[36mFriendlyId::Slug Load (0.3ms)[0m  [1mSELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` IS NULL AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'short-title' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:18', 'short-title', 0, NULL, '\"10 Internet Marketing Tips\"', '2012-01-18 17:36:18', 'Short Title')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:18', 'short-title', 39, 'Goldencobra::Article')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mGoldencobra::Article Load (0.4ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'short-title' OR `slug` LIKE 'short-title--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1
+  [1m[36mFriendlyId::Slug Load (0.2ms)[0m  [1mSELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` IS NULL AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'short-title--2' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:18', 'short-title--2', 0, NULL, '\"Top 10 Internet Marketers\"', '2012-01-18 17:36:18', 'Short Title')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:18', 'short-title--2', 40, 'Goldencobra::Article')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/admin/articles" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::ArticlesController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 49 LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count 
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `goldencobra_articles` [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count 
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  [1m[35mGoldencobra::Article Load (0.4ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` ORDER BY `goldencobra_articles`.id desc LIMIT 30 OFFSET 0
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/index.html.arb (149.9ms)
+Completed 200 OK in 159ms (Views: 152.9ms | ActiveRecord: 1.6ms)
+  [1m[36m (0.7ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 17:36:18', NULL, NULL, 'admin@test.de', '$2a$04$dcceKSvNYCr5yVcnL/ZNX..LVV/fNkLhonHWsB2iLkYnpTSo/m4aK', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 17:36:18')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 17:36:18', NULL, 'admin', '2012-01-18 17:36:18')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (50, 50)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.2ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (6.5ms)
+Completed 200 OK in 9ms (Views: 8.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (67.0ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (71.8ms)
+Completed 200 OK in 74ms (Views: 73.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"admin@test.de", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@test.de' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2012-01-18 17:36:18', `current_sign_in_at` = '2012-01-18 17:36:18', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2012-01-18 17:36:18' WHERE `users`.`id` = 50[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://www.example.com/admin
+Completed 302 Found in 9ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 50 LIMIT 1[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/dashboard/index.html.arb (4.3ms)
+Completed 200 OK in 7ms (Views: 5.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/admin/articles" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::ArticlesController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 50 LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/index.html.arb (140.5ms)
+Completed 200 OK in 145ms (Views: 141.5ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/admin/articles/new" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::ArticlesController#new as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 50 LIMIT 1
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/new.html.arb (10.9ms)
+Completed 200 OK in 18ms (Views: 13.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/admin/articles" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::ArticlesController#create as HTML
+  Parameters: {"utf8"=>"✓", "article"=>{"title"=>"Dies ist ein Neuer Artikel", "url_name"=>"dies ist kurz", "teaser"=>"", "content"=>""}, "commit"=>"Create Article"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 50 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'dies-ist-kurz' OR `slug` LIKE 'dies-ist-kurz--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35mFriendlyId::Slug Load (0.2ms)[0m  SELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` IS NULL AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'dies-ist-kurz' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, '', '2012-01-18 17:36:18', 'dies-ist-kurz', 0, '', 'Dies ist ein Neuer Artikel', '2012-01-18 17:36:18', 'dies ist kurz')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:18', 'dies-ist-kurz', 41, 'Goldencobra::Article')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin/articles/dies-ist-kurz
+Completed 302 Found in 17ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/articles/dies-ist-kurz" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::ArticlesController#show as HTML
+  Parameters: {"id"=>"dies-ist-kurz"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 50 LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = 'dies-ist-kurz' LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 41 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 41 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/show.html.arb (34.0ms)
+Completed 200 OK in 42ms (Views: 34.7ms | ActiveRecord: 2.7ms)
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.0ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (5.7ms)
+Completed 200 OK in 8ms (Views: 7.5ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'kurzer-titel' OR `slug` LIKE 'kurzer-titel--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35mFriendlyId::Slug Load (0.2ms)[0m  SELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` IS NULL AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'kurzer-titel' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, '\"Die kleine Maus wandert um den Käse...\"', '2012-01-18 17:36:18', 'kurzer-titel', 0, '\"Es war einmal...\"', '\"Dies ist ein Test\"', '2012-01-18 17:36:18', '\"Kurzer Titel\"')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:18', 'kurzer-titel', 42, 'Goldencobra::Article')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/kurzer-titel" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Goldencobra::ArticlesController#show as HTML
+  Parameters: {"id"=>"kurzer-titel"}
+  [1m[35mGoldencobra::Article Load (0.4ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = 'kurzer-titel' LIMIT 1
+  [1m[36mGoldencobra::Role Load (0.3ms)[0m  [1mSELECT `goldencobra_roles`.* FROM `goldencobra_roles` WHERE `goldencobra_roles`.`name` = 'admin' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = 'kurzer-titel' LIMIT 1
+  Rendered /Users/metz/git/goldencobra/app/views/goldencobra/articles/show.html.erb within layouts/goldencobra/application (0.7ms)
+Completed 200 OK in 22ms (Views: 9.1ms | ActiveRecord: 0.7ms)
+  [1m[36m (0.8ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 17:36:18', NULL, NULL, 'admin@test.de', '$2a$04$Xggn/funkUSCqW1.HL1UzOOK/QsLbpR2ZyBJVyIOYB8lWu9So4bWm', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 17:36:18')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 17:36:18', NULL, 'admin', '2012-01-18 17:36:18')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (51, 51)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.2ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (6.0ms)
+Completed 200 OK in 9ms (Views: 8.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.5ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (10.9ms)
+Completed 200 OK in 14ms (Views: 12.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"admin@test.de", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@test.de' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2012-01-18 17:36:18', `current_sign_in_at` = '2012-01-18 17:36:18', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2012-01-18 17:36:18' WHERE `users`.`id` = 51[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://www.example.com/admin
+Completed 302 Found in 13ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:18 +0100
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 51 LIMIT 1[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/dashboard/index.html.arb (4.0ms)
+Completed 200 OK in 7ms (Views: 5.3ms | ActiveRecord: 0.4ms)
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.5ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'short-title' OR `slug` LIKE 'short-title--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35mFriendlyId::Slug Load (0.3ms)[0m  SELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` = 2 AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'short-title' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `id`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:19', 2, 'short-title', 0, NULL, '\"10 Internet Marketing Tips\"', '2012-01-18 17:36:19', 'Short Title')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:19', 'short-title', 2, 'Goldencobra::Article')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'short-title' OR `slug` LIKE 'short-title--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35mFriendlyId::Slug Load (0.3ms)[0m  SELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` = 3 AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'short-title--2' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `id`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:19', 3, 'short-title--2', 0, NULL, '\"Startseite\"', '2012-01-18 17:36:19', 'Short Title')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:19', 'short-title--2', 3, 'Goldencobra::Article')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/articles" for 127.0.0.1 at 2012-01-18 18:36:19 +0100
+Processing by Admin::ArticlesController#index as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 51 LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `goldencobra_articles` 
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count 
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` ORDER BY `goldencobra_articles`.id desc LIMIT 30 OFFSET 0[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/index.html.arb (139.2ms)
+Completed 200 OK in 143ms (Views: 139.3ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/admin/articles/short-title--2" for 127.0.0.1 at 2012-01-18 18:36:19 +0100
+Processing by Admin::ArticlesController#show as HTML
+  Parameters: {"id"=>"short-title--2"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 51 LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = 'short-title--2' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 3 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 3 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/show.html.arb (16.8ms)
+Completed 200 OK in 21ms (Views: 17.6ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/admin/articles/3/mark_as_startpage" for 127.0.0.1 at 2012-01-18 18:36:19 +0100
+Processing by Admin::ArticlesController#mark_as_startpage as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 51 LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = '3' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT sluggable_id FROM `friendly_id_slugs` WHERE sluggable_type = 'Goldencobra::Article' AND slug = '3'
+  [1m[36mGoldencobra::Article Load (0.2ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`id` = 3 LIMIT 1[0m
+  [1m[35mGoldencobra::Article Load (0.2ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`startpage` = 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `goldencobra_articles` SET `startpage` = 1, `updated_at` = '2012-01-18 17:36:19' WHERE `goldencobra_articles`.`id` = 3
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin/articles/3?notice=This+Article+is+the+Startpage%21
+Completed 302 Found in 11ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/admin/articles/3?notice=This+Article+is+the+Startpage%21" for 127.0.0.1 at 2012-01-18 18:36:19 +0100
+Processing by Admin::ArticlesController#show as HTML
+  Parameters: {"notice"=>"This Article is the Startpage!", "id"=>"3"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 51 LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = '3' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT sluggable_id FROM `friendly_id_slugs` WHERE sluggable_type = 'Goldencobra::Article' AND slug = '3'
+  [1m[36mGoldencobra::Article Load (0.2ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 3 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 3 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/show.html.arb (21.4ms)
+Completed 200 OK in 27ms (Views: 22.6ms | ActiveRecord: 1.6ms)
+  [1m[35m (0.8ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:19 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:19 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:19 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.1ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (6.0ms)
+Completed 200 OK in 9ms (Views: 7.8ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:19', NULL, 0, NULL, 'Startseite', '2012-01-18 17:36:19', 'Startseite')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`startpage` = 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.5ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'startseite' OR `slug` LIKE 'startseite--%') AND (id <> 43) ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  UPDATE `goldencobra_articles` SET `startpage` = 1, `slug` = 'startseite', `updated_at` = '2012-01-18 17:36:19' WHERE `goldencobra_articles`.`id` = 43
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-01-18 18:36:19 +0100
+Processing by Goldencobra::ArticlesController#show as HTML
+  Parameters: {"startpage"=>true}
+  [1m[35mGoldencobra::Role Load (0.4ms)[0m  SELECT `goldencobra_roles`.* FROM `goldencobra_roles` WHERE `goldencobra_roles`.`name` = 'admin' LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`startpage` = 1 LIMIT 1[0m
+  Rendered /Users/metz/git/goldencobra/app/views/goldencobra/articles/show.html.erb within layouts/goldencobra/application (0.1ms)
+Completed 200 OK in 16ms (Views: 3.1ms | ActiveRecord: 0.8ms)
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 17:36:37', NULL, NULL, 'admin@test.de', '$2a$04$vk87wEVBHWIkABtkCnFuoOyWW2IPnRZYPhZ7bqYO/YRgDDJxoV4HK', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 17:36:37')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 17:36:37', NULL, 'admin', '2012-01-18 17:36:37')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (52, 52)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:37 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:38 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 2ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:38 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (64.3ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (146.3ms)
+Completed 200 OK in 270ms (Views: 269.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:38 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.1ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (5.8ms)
+Completed 200 OK in 8ms (Views: 7.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:38 +0100
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"admin@test.de", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@test.de' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2012-01-18 17:36:38', `current_sign_in_at` = '2012-01-18 17:36:38', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2012-01-18 17:36:38' WHERE `users`.`id` = 52
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin
+Completed 302 Found in 125ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:38 +0100
+Processing by Admin::DashboardController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 52 LIMIT 1
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/dashboard/index.html.arb (20.8ms)
+Completed 200 OK in 28ms (Views: 26.1ms | ActiveRecord: 0.5ms)
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mGoldencobra::Article Load (0.7ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'short-title' OR `slug` LIKE 'short-title--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1
+  [1m[36mFriendlyId::Slug Load (0.3ms)[0m  [1mSELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` IS NULL AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'short-title' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:39', 'short-title', 0, NULL, '\"10 Internet Marketing Tips\"', '2012-01-18 17:36:39', 'Short Title')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:39', 'short-title', 44, 'Goldencobra::Article')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mGoldencobra::Article Load (0.4ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'short-title' OR `slug` LIKE 'short-title--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1
+  [1m[36mFriendlyId::Slug Load (0.2ms)[0m  [1mSELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` IS NULL AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'short-title--2' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:39', 'short-title--2', 0, NULL, '\"Top 10 Internet Marketers\"', '2012-01-18 17:36:39', 'Short Title')
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:39', 'short-title--2', 45, 'Goldencobra::Article')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/admin/articles" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by Admin::ArticlesController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 52 LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count 
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `goldencobra_articles` [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count 
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  [1m[35mGoldencobra::Article Load (0.3ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` ORDER BY `goldencobra_articles`.id desc LIMIT 30 OFFSET 0
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/index.html.arb (78.3ms)
+Completed 200 OK in 87ms (Views: 81.5ms | ActiveRecord: 1.3ms)
+  [1m[36m (0.7ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 17:36:39', NULL, NULL, 'admin@test.de', '$2a$04$OcLQupgRqpBmYkKKB5ZKD.L90BgQpifeoCawedLfH98X91LSwcYna', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 17:36:39')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 17:36:39', NULL, 'admin', '2012-01-18 17:36:39')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (53, 53)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.4ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (7.0ms)
+Completed 200 OK in 10ms (Views: 9.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.0ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (5.6ms)
+Completed 200 OK in 8ms (Views: 7.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"admin@test.de", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@test.de' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2012-01-18 17:36:39', `current_sign_in_at` = '2012-01-18 17:36:39', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2012-01-18 17:36:39' WHERE `users`.`id` = 53[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://www.example.com/admin
+Completed 302 Found in 9ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 53 LIMIT 1[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/dashboard/index.html.arb (4.1ms)
+Completed 200 OK in 7ms (Views: 5.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/admin/articles" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by Admin::ArticlesController#index as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 53 LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/index.html.arb (125.6ms)
+Completed 200 OK in 129ms (Views: 126.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/admin/articles/new" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by Admin::ArticlesController#new as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 53 LIMIT 1
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/new.html.arb (10.3ms)
+Completed 200 OK in 18ms (Views: 12.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/admin/articles" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by Admin::ArticlesController#create as HTML
+  Parameters: {"utf8"=>"✓", "article"=>{"title"=>"Dies ist ein Neuer Artikel", "url_name"=>"dies ist kurz", "teaser"=>"", "content"=>""}, "commit"=>"Create Article"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 53 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'dies-ist-kurz' OR `slug` LIKE 'dies-ist-kurz--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35mFriendlyId::Slug Load (0.2ms)[0m  SELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` IS NULL AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'dies-ist-kurz' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, '', '2012-01-18 17:36:39', 'dies-ist-kurz', 0, '', 'Dies ist ein Neuer Artikel', '2012-01-18 17:36:39', 'dies ist kurz')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:39', 'dies-ist-kurz', 46, 'Goldencobra::Article')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin/articles/dies-ist-kurz
+Completed 302 Found in 91ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/articles/dies-ist-kurz" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by Admin::ArticlesController#show as HTML
+  Parameters: {"id"=>"dies-ist-kurz"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 53 LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = 'dies-ist-kurz' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 46 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 46 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/show.html.arb (33.8ms)
+Completed 200 OK in 41ms (Views: 34.4ms | ActiveRecord: 2.3ms)
+  [1m[35m (0.7ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.1ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (5.9ms)
+Completed 200 OK in 8ms (Views: 7.6ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'kurzer-titel' OR `slug` LIKE 'kurzer-titel--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35mFriendlyId::Slug Load (0.2ms)[0m  SELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` IS NULL AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'kurzer-titel' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, '\"Die kleine Maus wandert um den Käse...\"', '2012-01-18 17:36:39', 'kurzer-titel', 0, '\"Es war einmal...\"', '\"Dies ist ein Test\"', '2012-01-18 17:36:39', '\"Kurzer Titel\"')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:39', 'kurzer-titel', 47, 'Goldencobra::Article')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/kurzer-titel" for 127.0.0.1 at 2012-01-18 18:36:39 +0100
+Processing by Goldencobra::ArticlesController#show as HTML
+  Parameters: {"id"=>"kurzer-titel"}
+  [1m[35mGoldencobra::Article Load (0.4ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = 'kurzer-titel' LIMIT 1
+  [1m[36mGoldencobra::Role Load (0.3ms)[0m  [1mSELECT `goldencobra_roles`.* FROM `goldencobra_roles` WHERE `goldencobra_roles`.`name` = 'admin' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = 'kurzer-titel' LIMIT 1
+  Rendered /Users/metz/git/goldencobra/app/views/goldencobra/articles/show.html.erb within layouts/goldencobra/application (0.6ms)
+Completed 200 OK in 22ms (Views: 8.2ms | ActiveRecord: 0.7ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 17:36:40', NULL, NULL, 'admin@test.de', '$2a$04$nAvGEYCtouCoEMs4/bOZkeb0jPFNM7v3Mn9qRnNYdY8eN8UhFu7Yu', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 17:36:40')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 17:36:40', NULL, 'admin', '2012-01-18 17:36:40')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (54, 54)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.0ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (5.7ms)
+Completed 200 OK in 8ms (Views: 7.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.1ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (7.6ms)
+Completed 200 OK in 11ms (Views: 9.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"admin@test.de", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@test.de' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2012-01-18 17:36:40', `current_sign_in_at` = '2012-01-18 17:36:40', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2012-01-18 17:36:40' WHERE `users`.`id` = 54[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://www.example.com/admin
+Completed 302 Found in 11ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 54 LIMIT 1[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/dashboard/index.html.arb (4.2ms)
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.5ms)
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'short-title' OR `slug` LIKE 'short-title--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35mFriendlyId::Slug Load (0.3ms)[0m  SELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` = 2 AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'short-title' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `id`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:40', 2, 'short-title', 0, NULL, '\"10 Internet Marketing Tips\"', '2012-01-18 17:36:40', 'Short Title')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:40', 'short-title', 2, 'Goldencobra::Article')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'short-title' OR `slug` LIKE 'short-title--%') ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35mFriendlyId::Slug Load (0.3ms)[0m  SELECT id FROM `friendly_id_slugs` WHERE `friendly_id_slugs`.`sluggable_id` = 3 AND `friendly_id_slugs`.`sluggable_type` = 'Goldencobra::Article' AND `friendly_id_slugs`.`slug` = 'short-title--2' ORDER BY `friendly_id_slugs`.id DESC FOR UPDATE
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `id`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:40', 3, 'short-title--2', 0, NULL, '\"Startseite\"', '2012-01-18 17:36:40', 'Short Title')[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `friendly_id_slugs` (`created_at`, `slug`, `sluggable_id`, `sluggable_type`) VALUES ('2012-01-18 17:36:40', 'short-title--2', 3, 'Goldencobra::Article')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/articles" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::ArticlesController#index as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 54 LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `goldencobra_articles` 
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_articles` LIMIT 30 OFFSET 0) subquery_for_count 
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` ORDER BY `goldencobra_articles`.id desc LIMIT 30 OFFSET 0[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/index.html.arb (66.9ms)
+Completed 200 OK in 71ms (Views: 67.2ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/admin/articles/short-title--2" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::ArticlesController#show as HTML
+  Parameters: {"id"=>"short-title--2"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 54 LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = 'short-title--2' LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 3 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 3 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/show.html.arb (18.0ms)
+Completed 200 OK in 23ms (Views: 18.8ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/admin/articles/3/mark_as_startpage" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::ArticlesController#mark_as_startpage as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 54 LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = '3' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT sluggable_id FROM `friendly_id_slugs` WHERE sluggable_type = 'Goldencobra::Article' AND slug = '3'
+  [1m[36mGoldencobra::Article Load (0.2ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`id` = 3 LIMIT 1[0m
+  [1m[35mGoldencobra::Article Load (0.2ms)[0m  SELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`startpage` = 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `goldencobra_articles` SET `startpage` = 1, `updated_at` = '2012-01-18 17:36:40' WHERE `goldencobra_articles`.`id` = 3
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin/articles/3?notice=This+Article+is+the+Startpage%21
+Completed 302 Found in 11ms (ActiveRecord: 1.8ms)
+
+
+Started GET "/admin/articles/3?notice=This+Article+is+the+Startpage%21" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::ArticlesController#show as HTML
+  Parameters: {"notice"=>"This Article is the Startpage!", "id"=>"3"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 54 LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`slug` = '3' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT sluggable_id FROM `friendly_id_slugs` WHERE sluggable_type = 'Goldencobra::Article' AND slug = '3'
+  [1m[36mGoldencobra::Article Load (0.2ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`id` = 3 LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 3 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 3 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Article' AND `active_admin_comments`.`namespace` = 'admin'[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/show.html.arb (42.9ms)
+Completed 200 OK in 49ms (Views: 44.3ms | ActiveRecord: 1.5ms)
+  [1m[35m (0.7ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.1ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (6.0ms)
+Completed 200 OK in 9ms (Views: 7.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_articles` (`ancestry`, `content`, `created_at`, `slug`, `startpage`, `teaser`, `title`, `updated_at`, `url_name`) VALUES (NULL, NULL, '2012-01-18 17:36:40', NULL, 0, NULL, 'Startseite', '2012-01-18 17:36:40', 'Startseite')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`startpage` = 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Article Load (0.4ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE (`slug` = 'startseite' OR `slug` LIKE 'startseite--%') AND (id <> 48) ORDER BY LENGTH(`slug`) DESC, `slug` DESC LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `goldencobra_articles` SET `startpage` = 1, `slug` = 'startseite', `updated_at` = '2012-01-18 17:36:40' WHERE `goldencobra_articles`.`id` = 48
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Goldencobra::ArticlesController#show as HTML
+  Parameters: {"startpage"=>true}
+  [1m[35mGoldencobra::Role Load (0.4ms)[0m  SELECT `goldencobra_roles`.* FROM `goldencobra_roles` WHERE `goldencobra_roles`.`name` = 'admin' LIMIT 1
+  [1m[36mGoldencobra::Article Load (0.3ms)[0m  [1mSELECT `goldencobra_articles`.* FROM `goldencobra_articles` WHERE `goldencobra_articles`.`startpage` = 1 LIMIT 1[0m
+  Rendered /Users/metz/git/goldencobra/app/views/goldencobra/articles/show.html.erb within layouts/goldencobra/application (0.1ms)
+Completed 200 OK in 16ms (Views: 2.4ms | ActiveRecord: 0.7ms)
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 17:36:40', NULL, NULL, 'admin@test.de', '$2a$04$DpJxY3Zlg9jzMlgxbSrKLOlfCA3XRf8xbtkm5th0EMny9.c06GwY2', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 17:36:40')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 17:36:40', NULL, 'admin', '2012-01-18 17:36:40')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (55, 55)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.0ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (5.6ms)
+Completed 200 OK in 8ms (Views: 7.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.2ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (7.0ms)
+Completed 200 OK in 10ms (Views: 8.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"admin@test.de", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@test.de' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2012-01-18 17:36:40', `current_sign_in_at` = '2012-01-18 17:36:40', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2012-01-18 17:36:40' WHERE `users`.`id` = 55
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin
+Completed 302 Found in 9ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::DashboardController#index as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 55 LIMIT 1
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/dashboard/index.html.arb (4.1ms)
+Completed 200 OK in 7ms (Views: 5.3ms | ActiveRecord: 0.4ms)
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `goldencobra_menues` (`active`, `ancestry`, `created_at`, `css_class`, `id`, `target`, `title`, `updated_at`) VALUES (1, NULL, '2012-01-18 17:36:40', 'news', 1, 'www.ikusei.de', '\"Top Navigation\"', '2012-01-18 17:36:40')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mGoldencobra::Menue Load (0.4ms)[0m  SELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 1 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `goldencobra_menues` (`active`, `ancestry`, `created_at`, `css_class`, `id`, `target`, `title`, `updated_at`) VALUES (1, '1', '2012-01-18 17:36:40', 'news', 2, 'www.ikusei.de', '\"News\"', '2012-01-18 17:36:40')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mGoldencobra::Menue Load (0.3ms)[0m  SELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 1 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_menues` (`active`, `ancestry`, `created_at`, `css_class`, `id`, `target`, `title`, `updated_at`) VALUES (1, '1', '2012-01-18 17:36:40', 'news', 3, 'www.ikusei.de', '\"Bottom Navigation\"', '2012-01-18 17:36:40')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/menues" for 127.0.0.1 at 2012-01-18 18:36:40 +0100
+Processing by Admin::MenuesController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 55 LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_menues` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `goldencobra_menues` 
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_menues` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_menues` LIMIT 30 OFFSET 0) subquery_for_count 
+  [1m[36mGoldencobra::Menue Load (0.3ms)[0m  [1mSELECT `goldencobra_menues`.* FROM `goldencobra_menues` ORDER BY `goldencobra_menues`.id desc LIMIT 30 OFFSET 0[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/index.html.arb (133.2ms)
+Completed 200 OK in 142ms (Views: 135.5ms | ActiveRecord: 1.4ms)
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 17:36:41', NULL, NULL, 'admin@test.de', '$2a$04$RijcEvsSpMcQFmRhspsJtudBlforcTg6Qo4yX5/jj5UFlv6kOq55C', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 17:36:41')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 17:36:41', NULL, 'admin', '2012-01-18 17:36:41')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (56, 56)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.2ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (77.9ms)
+Completed 200 OK in 81ms (Views: 79.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.0ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (5.6ms)
+Completed 200 OK in 8ms (Views: 7.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"admin@test.de", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@test.de' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  UPDATE `users` SET `last_sign_in_at` = '2012-01-18 17:36:41', `current_sign_in_at` = '2012-01-18 17:36:41', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2012-01-18 17:36:41' WHERE `users`.`id` = 56
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin
+Completed 302 Found in 9ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::DashboardController#index as HTML
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 56 LIMIT 1
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/dashboard/index.html.arb (4.8ms)
+Completed 200 OK in 8ms (Views: 6.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/admin/menues" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::MenuesController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 56 LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_menues` LIMIT 30 OFFSET 0) subquery_for_count 
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/index.html.arb (116.2ms)
+Completed 200 OK in 120ms (Views: 117.1ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/admin/menues/new" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::MenuesController#new as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 56 LIMIT 1[0m
+  [1m[35mGoldencobra::Menue Load (0.4ms)[0m  SELECT `goldencobra_menues`.* FROM `goldencobra_menues` 
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/new.html.arb (12.1ms)
+Completed 200 OK in 19ms (Views: 14.7ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/admin/menues" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::MenuesController#create as HTML
+  Parameters: {"utf8"=>"✓", "menue"=>{"title"=>"Newspapers", "target"=>"www.newspapers.de", "parent_id"=>"", "active"=>"1", "css_class"=>"news"}, "commit"=>"Create Menue"}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 56 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_menues` (`active`, `ancestry`, `created_at`, `css_class`, `target`, `title`, `updated_at`) VALUES (1, NULL, '2012-01-18 17:36:41', 'news', 'www.newspapers.de', 'Newspapers', '2012-01-18 17:36:41')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://www.example.com/admin/menues/12
+Completed 302 Found in 11ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/menues/12" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::MenuesController#show as HTML
+  Parameters: {"id"=>"12"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 56 LIMIT 1[0m
+  [1m[35mGoldencobra::Menue Load (0.3ms)[0m  SELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 12 LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 12 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Menue' AND `active_admin_comments`.`namespace` = 'admin'[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 12 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Menue' AND `active_admin_comments`.`namespace` = 'admin'
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/show.html.arb (19.4ms)
+Completed 200 OK in 26ms (Views: 20.4ms | ActiveRecord: 1.2ms)
+  [1m[36m (0.7ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 17:36:41', NULL, NULL, 'admin@test.de', '$2a$04$w0UKUBsfej0yj4n2EXa2P.rYPgbnNC8z/2661bvbkG8d5Ujt86q2q', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 17:36:41')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 17:36:41', NULL, 'admin', '2012-01-18 17:36:41')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (57, 57)[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.0ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (5.6ms)
+Completed 200 OK in 81ms (Views: 80.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/devise-2.0.0.rc/app/views/devise/shared/_links.erb (1.0ms)
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (5.6ms)
+Completed 200 OK in 8ms (Views: 7.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "user"=>{"email"=>"admin@test.de", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Login"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'admin@test.de' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2012-01-18 17:36:41', `current_sign_in_at` = '2012-01-18 17:36:41', `last_sign_in_ip` = '127.0.0.1', `current_sign_in_ip` = '127.0.0.1', `sign_in_count` = 1, `updated_at` = '2012-01-18 17:36:41' WHERE `users`.`id` = 57[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://www.example.com/admin
+Completed 302 Found in 9ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 57 LIMIT 1[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/dashboard/index.html.arb (3.9ms)
+Completed 200 OK in 7ms (Views: 5.1ms | ActiveRecord: 0.4ms)
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_menues` (`active`, `ancestry`, `created_at`, `css_class`, `id`, `target`, `title`, `updated_at`) VALUES (1, NULL, '2012-01-18 17:36:41', 'news', 1, 'www.ikusei.de', '\"Top Navigation\"', '2012-01-18 17:36:41')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Menue Load (0.3ms)[0m  [1mSELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_menues` (`active`, `ancestry`, `created_at`, `css_class`, `id`, `target`, `title`, `updated_at`) VALUES (1, '1', '2012-01-18 17:36:41', 'news', 2, 'www.ikusei.de', '\"News\"', '2012-01-18 17:36:41')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mGoldencobra::Menue Load (0.3ms)[0m  [1mSELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 1 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_menues` (`active`, `ancestry`, `created_at`, `css_class`, `id`, `target`, `title`, `updated_at`) VALUES (1, '1', '2012-01-18 17:36:41', 'news', 3, 'www.ikusei.de', '\"Bottom Navigation\"', '2012-01-18 17:36:41')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+
+
+Started GET "/admin/menues" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::MenuesController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 57 LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_menues` LIMIT 30 OFFSET 0) subquery_for_count 
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `goldencobra_menues` [0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_menues` LIMIT 30 OFFSET 0) subquery_for_count 
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM `goldencobra_menues` LIMIT 30 OFFSET 0) subquery_for_count [0m
+  [1m[35mGoldencobra::Menue Load (0.4ms)[0m  SELECT `goldencobra_menues`.* FROM `goldencobra_menues` ORDER BY `goldencobra_menues`.id desc LIMIT 30 OFFSET 0
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/index.html.arb (127.9ms)
+Completed 200 OK in 132ms (Views: 128.1ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/admin/menues/new?parent=1" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::MenuesController#new as HTML
+  Parameters: {"parent"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 57 LIMIT 1[0m
+  [1m[35mGoldencobra::Menue Load (0.2ms)[0m  SELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 1 LIMIT 1
+  [1m[36mGoldencobra::Menue Load (0.2ms)[0m  [1mSELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 1 LIMIT 1[0m
+  [1m[35mGoldencobra::Menue Load (0.3ms)[0m  SELECT `goldencobra_menues`.* FROM `goldencobra_menues` 
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/new.html.arb (84.3ms)
+Completed 200 OK in 89ms (Views: 85.0ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/admin/menues" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::MenuesController#create as HTML
+  Parameters: {"utf8"=>"✓", "menue"=>{"title"=>"Sub of Top", "target"=>"", "parent_id"=>"1", "active"=>"1", "css_class"=>""}, "commit"=>"Create Menue"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 57 LIMIT 1[0m
+  [1m[35mGoldencobra::Menue Load (0.3ms)[0m  SELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 1 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_menues` (`active`, `ancestry`, `created_at`, `css_class`, `target`, `title`, `updated_at`) VALUES (1, '1', '2012-01-18 17:36:41', '', '', 'Sub of Top', '2012-01-18 17:36:41')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/admin/menues/13
+Completed 302 Found in 8ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/menues/13" for 127.0.0.1 at 2012-01-18 18:36:41 +0100
+Processing by Admin::MenuesController#show as HTML
+  Parameters: {"id"=>"13"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 57 LIMIT 1
+  [1m[36mGoldencobra::Menue Load (0.3ms)[0m  [1mSELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 13 LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  SELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 13 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Menue' AND `active_admin_comments`.`namespace` = 'admin'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT COUNT(*) FROM `active_admin_comments` WHERE `active_admin_comments`.`resource_id` = 13 AND `active_admin_comments`.`resource_type` = 'Goldencobra::Menue' AND `active_admin_comments`.`namespace` = 'admin'[0m
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/show.html.arb (16.4ms)
+Completed 200 OK in 20ms (Views: 17.0ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/admin/menues/13/edit" for 127.0.0.1 at 2012-01-18 18:36:42 +0100
+Processing by Admin::MenuesController#edit as HTML
+  Parameters: {"id"=>"13"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 57 LIMIT 1
+  [1m[36mGoldencobra::Menue Load (0.2ms)[0m  [1mSELECT `goldencobra_menues`.* FROM `goldencobra_menues` WHERE `goldencobra_menues`.`id` = 13 LIMIT 1[0m
+  [1m[35mGoldencobra::Menue Load (0.3ms)[0m  SELECT `goldencobra_menues`.* FROM `goldencobra_menues` 
+  Rendered /Users/metz/.rvm/gems/ruby-1.9.2-p136@goldencobra/gems/activeadmin-0.3.4/app/views/active_admin/resource/edit.html.arb (15.7ms)
+Completed 200 OK in 23ms (Views: 17.6ms | ActiveRecord: 1.0ms)
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
