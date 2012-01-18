@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 
-  mount Goldencobra::Engine => "/goldencobra"
+  mount Goldencobra::Engine => "/"
 end
