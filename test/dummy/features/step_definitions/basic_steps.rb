@@ -37,6 +37,6 @@ end
 
 Given /^the following "([^"]*)" exist:$/ do |arg1, table|
   table.hashes.each do |data|
-    Factory(model_name.singularize.to_sym ,data)
+    Factory(arg1.singularize.to_sym ,data)
   end
 end

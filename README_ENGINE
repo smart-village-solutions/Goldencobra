@@ -1,6 +1,7 @@
 SETUP Manuel
 
-Please insert in routes.rb
+Please insert in your config/routes.rb
+	ActiveAdmin.routes(self)
 	devise_for :users, ActiveAdmin::Devise.config
   	mount Goldencobra::Engine => "/"
 
