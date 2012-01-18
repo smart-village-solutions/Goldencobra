@@ -352,6 +352,7 @@ DEPENDENCIES
   pry
   rb-fsevent!
   rspec-rails
+  sass
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer
