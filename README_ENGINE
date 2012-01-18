@@ -1,8 +1,20 @@
-SETUP
+SETUP Manuel
 
 Please insert in routes.rb
 	devise_for :users, ActiveAdmin::Devise.config
   	mount Goldencobra::Engine => "/"
 
 
+in your config/environements/development.rb and ../test.rb insert
+	config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
   
+
+
+
+
+Setup Automatic
+
+
+	make db:migrations
+	make db:seed

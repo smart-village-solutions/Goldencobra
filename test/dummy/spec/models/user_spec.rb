@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Goldencobra::User do
+describe User do
   pending "add some examples to (or delete) #{__FILE__}"
 end
 # == Schema Information

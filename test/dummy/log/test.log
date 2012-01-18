@@ -398,3 +398,451 @@ Mysql2::Error: Table 'goldencobra_test.goldencobra_articles' doesn't exist: SHOW
 Mysql2::Error: Table 'goldencobra_test.goldencobra_articles' doesn't exist: SHOW FULL FIELDS FROM `goldencobra_articles`
 Mysql2::Error: Table 'goldencobra_test.goldencobra_articles' doesn't exist: SHOW FULL FIELDS FROM `goldencobra_articles`
 Mysql2::Error: Table 'goldencobra_test.users' doesn't exist: SHOW FULL FIELDS FROM `users`
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:11', NULL, NULL, 'admin@test.de', '$2a$04$QTJf7HZ1sxbTYTaP7YGapu1zLEEiWofJ5Dxj1H1gPXLLUmrVlpsAG', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:11')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:11', NULL, 'admin', '2012-01-18 16:08:11')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:11', NULL, NULL, 'admin@test.de', '$2a$04$EYihT6Y6MPSMZ7oZqEel2uRNjhdKdlRg7iPv88IHtri7MDYIn51LC', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:11')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:11', NULL, 'admin', '2012-01-18 16:08:11')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:08:11 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:08:11 +0100
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:11', NULL, NULL, 'admin@test.de', '$2a$04$FjS6fxU46rsVys6zNqiPoO./PUFenWlcauS43HSzCVRGodMoFgS7y', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:11')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:11', NULL, 'admin', '2012-01-18 16:08:11')[0m
+  [1m[35m (0.4ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (1.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:08:11 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:08:11 +0100
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:11', NULL, NULL, 'admin@test.de', '$2a$04$.fcJCGFXU8SWjksA/fuNseuab2wiAzkKOUbPCO..C0zEELOcLzsFm', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:11')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:11', NULL, 'admin', '2012-01-18 16:08:11')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:11', NULL, NULL, 'admin@test.de', '$2a$04$s0r16aw2xt57JKj8OQR9FO0Z7/UJrOM9CKOKHdTnHsaf773VXltZ2', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:11')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:11', NULL, 'admin', '2012-01-18 16:08:11')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:11', NULL, NULL, 'admin@test.de', '$2a$04$uGRt6CLhTueUsnHj1S/6a.JpE/R33tRKhiUz951h6IoyauCakmOci', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:11')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:11', NULL, 'admin', '2012-01-18 16:08:11')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:47', NULL, NULL, 'admin@test.de', '$2a$04$9QPEUZXPPrlFVUUQw24DhO5PNg5RouPvLG8WIUinvOkpxoMKJ/NZi', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:47')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:47', NULL, 'admin', '2012-01-18 16:08:47')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:47', NULL, NULL, 'admin@test.de', '$2a$04$KSu38oacJ82DFADCG2MoAOVkuDtYgjTOR0O1oj00wMhJ4TRHIDkKm', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:47')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:47', NULL, 'admin', '2012-01-18 16:08:47')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:08:47 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:08:47 +0100
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:48', NULL, NULL, 'admin@test.de', '$2a$04$cHKg6EPWVBKVl4ecM2Vjv.ITupo0I6RRdwSn4lnUltLFLZ.8atihW', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:48')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:48', NULL, 'admin', '2012-01-18 16:08:48')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:08:48 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:08:48 +0100
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:48', NULL, NULL, 'admin@test.de', '$2a$04$fQ6sW/MM84vFWZIvzSjjR.yLZApxutfOjGt/mjhxsBGBDF/juXHky', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:48')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:48', NULL, 'admin', '2012-01-18 16:08:48')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:48', NULL, NULL, 'admin@test.de', '$2a$04$vXrMan0W0yIrvxX9uQ/DUOA2cmZKVQOE6SbtvjUt1Lw6aXN8GOLvm', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:48')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:48', NULL, 'admin', '2012-01-18 16:08:48')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:08:48', NULL, NULL, 'admin@test.de', '$2a$04$NyQznugUnaljXErty0EqJeN.RdVjVHSnnUksYz0I3WJxivZ4fU7..', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:08:48')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:08:48', NULL, 'admin', '2012-01-18 16:08:48')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:19:22', NULL, NULL, 'admin@test.de', '$2a$04$1sdQo/U3NfFseIUcI.XtyOJNaVyVhpg7FR0UtNqz86FaI2n3ptiMS', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:19:22')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:19:22', NULL, 'admin', '2012-01-18 16:19:22')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (1, 1)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:19:22 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:19:22 +0100
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:19:22', NULL, NULL, 'admin@test.de', '$2a$04$uUwSUHrxn9ANUNNRgS45AOvzcpA1Ij8dP4ceWQopy6s3GEf/QcMkK', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:19:22')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:19:22', NULL, 'admin', '2012-01-18 16:19:22')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (2, 2)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:19:22 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:19:22 +0100
+  [1m[35m (1.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:19:23 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:19:23 +0100
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:19:23', NULL, NULL, 'admin@test.de', '$2a$04$xD5zRIQJawdrgDPJQ3KD8.q99aAKhDvDjI.3h2zymMpYeRJpipJzW', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:19:23')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:19:23', NULL, 'admin', '2012-01-18 16:19:23')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (3, 3)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:19:23 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:19:23 +0100
+  [1m[35m (0.8ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:19:23 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 4ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:19:23 +0100
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:19:23', NULL, NULL, 'admin@test.de', '$2a$04$.8ai9G17arMBcrITc4yHi.XxbziIB0QShfRqQXIqz82Ygs/aVR9/S', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:19:23')
+  [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (1.4ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:19:23', NULL, 'admin', '2012-01-18 16:19:23')[0m
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (2.1ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (4, 4)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:19:23 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:19:24 +0100
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:19:24', NULL, NULL, 'admin@test.de', '$2a$04$CGFmk4XoGsKRdMrNArQMe.lLdiMQTuyxTwyPogPHPHdq222UwCZUq', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:19:24')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:19:24', NULL, 'admin', '2012-01-18 16:19:24')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (5, 5)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:19:24 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:19:24 +0100
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:19:24', NULL, NULL, 'admin@test.de', '$2a$04$Hv.ilVu/bv0WPwUSABM1Du8axyllXDwBmMhIONzTsRe8eBEGJbtnS', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:19:24')
+  [1m[36m (0.5ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:19:24', NULL, 'admin', '2012-01-18 16:19:24')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (6, 6)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:19:24 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:19:24 +0100
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:22:47', NULL, NULL, 'admin@test.de', '$2a$04$vUop07tKxRQXGSa2w8Q1Nu375OcAAEJASeU7xLIv3MZMwmMM/Y8k.', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:22:47')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:22:47', NULL, 'admin', '2012-01-18 16:22:47')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (7, 7)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:22:47 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:22:47 +0100
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:22:47', NULL, NULL, 'admin@test.de', '$2a$04$5rg7ZkBlMEj4LVbWMPtml.Mg33GoEDBmv2MNTGmtlS7VLLPHa2kG2', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:22:47')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:22:47', NULL, 'admin', '2012-01-18 16:22:47')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (1.4ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (8, 8)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:22:47 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:22:47 +0100
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:22:47 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:22:47 +0100
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:22:47', NULL, NULL, 'admin@test.de', '$2a$04$Fjbs4l69Chcllct2/06Sm.8S.PoT/8hLBPnQYwY.hdg08vnfCrDOa', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:22:47')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:22:48', NULL, 'admin', '2012-01-18 16:22:48')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (9, 9)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:22:48', NULL, NULL, 'admin@test.de', '$2a$04$rveOeMQ2.A0diAeOgbISguyJAvM16YPwZ1GSU0XDS5yf.TSH40r26', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:22:48')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (2.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:22:48', NULL, 'admin', '2012-01-18 16:22:48')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (10, 10)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+  [1m[35m (0.8ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:22:48', NULL, NULL, 'admin@test.de', '$2a$04$BnNn95yZxAiZ6L9NfM/IMevVC0.ForwkEXVCapcDwYBqOZbOpTBcm', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:22:48')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:22:48', NULL, 'admin', '2012-01-18 16:22:48')[0m
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (11, 11)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 FROM `users` WHERE `users`.`email` = BINARY 'admin@test.de' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO `users` (`authentication_token`, `confirmation_sent_at`, `confirmation_token`, `confirmed_at`, `created_at`, `current_sign_in_at`, `current_sign_in_ip`, `email`, `encrypted_password`, `failed_attempts`, `last_sign_in_at`, `last_sign_in_ip`, `locked_at`, `password_salt`, `remember_created_at`, `reset_password_sent_at`, `reset_password_token`, `sign_in_count`, `unconfirmed_email`, `unlock_token`, `updated_at`) VALUES (NULL, NULL, NULL, '2012-01-09 14:28:58', '2012-01-18 16:22:48', NULL, NULL, 'admin@test.de', '$2a$04$MmW9QC8GrkLOR6H6yC/C/.pRLrShRNmCeK6a.ofDAg.X/xhMkzM8i', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2012-01-18 16:22:48')
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO `goldencobra_roles` (`created_at`, `description`, `name`, `updated_at`) VALUES ('2012-01-18 16:22:48', NULL, 'admin', '2012-01-18 16:22:48')[0m
+  [1m[35m (0.7ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO `goldencobra_roles_users` (`user_id`, `role_id`) VALUES (12, 12)
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Started GET "/admin/logout" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+Processing by ActiveAdmin::Devise::SessionsController#destroy as HTML
+Redirected to http://www.example.com/admin
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2012-01-18 17:22:48 +0100
+  [1m[35m (0.5ms)[0m  ROLLBACK
