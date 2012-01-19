@@ -14,7 +14,20 @@
 module Goldencobra
   class Menue < ActiveRecord::Base
     has_ancestry :orphan_strategy => :rootify
-    validates_presence_of :title
+    validates_presence_of :title    
+    
+    def is_active?(request)
+      #request.path.squeeze("/").starts_with?(self.target.gsub("\"",''))
+      request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
+    end
+    
+    def has_active_child?(request)
+      result = []
+      self.descendants.each do |desc|
+        result << request.path.squeeze("/").starts_with?(desc.target.gsub("\"",''))
+      end
+      return result.include?(true)
+    end
     
   end
 end

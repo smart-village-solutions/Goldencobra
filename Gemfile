@@ -45,7 +45,6 @@ gem 'uglifier', '>= 1.0.3'
 #end
 
 gem 'jquery-rails'
-
 gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
 
 group :development do
@@ -69,6 +68,7 @@ group :test do
   gem 'guard-livereload'
   gem 'rb-fsevent', :git => 'git://github.com/ttilley/rb-fsevent.git', :branch => 'pre-compiled-gem-one-off'
   gem 'growl' 
+  gem 'launchy'
 end
 
 # gem 'capistrano'

@@ -6,6 +6,11 @@ When /^I click on "([^\"]*)"$/ do |arg1|
   find_link(arg1).click
 end
 
+When /^I visit url "([^\"]*)"$/ do |arg1|
+  visit(arg1)
+end
+
+
 When /^I press "([^\"]*)"$/ do |arg1|
   find_button(arg1).click
 end
@@ -27,8 +32,13 @@ Then /^I should not see "([^\"]*)"$/ do |arg1|
   page.should have_no_content(arg1)
 end
 
+Then /^I should not see "([^"]*)" within "([^"]*)"$/ do |arg1, content_posistion|
+  find(content_posistion).should have_no_content(arg1)
+end
+
+
 Then /^show me the page$/ do
-  puts response.inspect
+  save_and_open_page
 end
 
 Then /^I click on "([^"]*)" within "([^"]*)"$/ do |arg1, arg2|

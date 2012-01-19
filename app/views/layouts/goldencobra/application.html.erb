@@ -8,7 +8,11 @@
 </head>
 <body>
 
+<%= navigation_menu(1, :depth => 1) %>	
+
 <%= yield %>
+
+<%= navigation_menu(2) %>	
 
 </body>
 </html>

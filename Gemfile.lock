@@ -189,6 +189,8 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
+    launchy (2.0.5)
+      addressable (~> 2.2.6)
     libv8 (3.3.10.4)
     mail (2.3.0)
       i18n (>= 0.4.0)
@@ -343,6 +345,7 @@ DEPENDENCIES
   guard-livereload
   guard-rspec
   jquery-rails
+  launchy
   meta_search!
   mysql2
   oa-oauth

@@ -19,3 +19,11 @@ Setup Automatic
 
 	make db:migrations
 	make db:seed
+	
+	
+	
+Usage:
+
+	navigation_menu(manue_id, option={})
+		with options:
+			:depth => integer       # 0 = unlimited, 1 = self, 2 = self and children 1. grades, 3 = self and up to children 2.grades,   default = 0
