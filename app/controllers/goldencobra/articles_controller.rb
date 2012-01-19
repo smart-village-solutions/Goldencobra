@@ -7,6 +7,7 @@ module Goldencobra
       else
         @article = Article.find(params[:id])
       end
+      set_meta_tags :title => 'Member Login', :description => 'Member login page.', :keywords => 'Site, Login, Members'
     end
   end
 end

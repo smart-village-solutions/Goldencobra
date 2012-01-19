@@ -196,6 +196,8 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta-tags (1.2.4)
+      actionpack
     method_source (0.6.7)
       ruby_parser (>= 2.3.1)
     mime-types (1.17.2)
@@ -346,6 +348,7 @@ DEPENDENCIES
   guard-rspec
   jquery-rails
   launchy
+  meta-tags
   meta_search!
   mysql2
   oa-oauth

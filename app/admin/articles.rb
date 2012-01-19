@@ -2,13 +2,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
   form do |f|
     f.inputs "Allgemein" do
-      f.input :title
-      f.input :url_name
+      f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
+      f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute oder Sonderzeichen enthalten. Aus 'Toller Artikel u&uml;ber mich' wird 'toller-artikel-ueber-mich'"
     end
     
     f.inputs "Inhalt" do
       f.input :teaser
-      f.input :content
+      f.input :content, :hint => "Dies ist ein Textfeld"
     end
     f.buttons
   end

@@ -20,6 +20,12 @@ Setup Automatic
 	make db:migrations
 	make db:seed
 	
+	<head>
+	  <%= display_meta_tags :site => 'My website', :open_graph => { :title => 'The Rock', :type => 'movie' } %>
+	</head>
+	
+
+	
 	
 	
 Usage:
