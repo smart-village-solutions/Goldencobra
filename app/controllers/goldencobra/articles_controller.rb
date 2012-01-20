@@ -7,7 +7,8 @@ module Goldencobra
       else
         @article = Article.find(params[:article_id].split("/").last)
       end
-      set_meta_tags :title => @article.metatag("Title Tag"),
+      set_meta_tags :site => "Goldencobra",
+                    :title => @article.metatag("Title Tag"),
                     :description => @article.metatag("Meta Description"), 
                     :keywords => @article.metatag("Keywords"),
                     :open_graph => {:title => @article.metatag("OpenGraph Title"), 

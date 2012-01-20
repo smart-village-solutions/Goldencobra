@@ -21,7 +21,7 @@ Setup Automatic
 	make db:seed
 	
 	<head>
-	  <%= display_meta_tags :site => 'My website', :open_graph => { :title => 'The Rock', :type => 'movie' } %>
+	  <%= display_meta_tags %>
 	</head>
 	
 

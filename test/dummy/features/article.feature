@@ -74,6 +74,7 @@ Feature: Create and manage articles
     And I press "Update Article"
     When I visit url "/seo-seite"
     Then I should see "Metatitle"
+    And show me the page
     
       
     
