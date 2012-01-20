@@ -18,12 +18,12 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     column :title
     column :target
     column :active
-    column "" do |article|
+    column "" do |menue|
       result = ""
-      result += link_to("New Submenu", new_admin_menue_path(:parent => article), :class => "member_link edit_link")
-      result += link_to("View", admin_menue_path(article), :class => "member_link view_link")
-      result += link_to("Edit", edit_admin_menue_path(article), :class => "member_link edit_link")
-      result += link_to("Delete", admin_menue_path(article), :method => :DELETE, :confirm => "Realy want to delete this Menuitem?", :class => "member_link delete_link")
+      result += link_to("New Submenu", new_admin_menue_path(:parent => menue), :class => "member_link edit_link")
+      result += link_to("View", admin_menue_path(menue), :class => "member_link view_link")
+      result += link_to("Edit", edit_admin_menue_path(menue), :class => "member_link edit_link")
+      result += link_to("Delete", admin_menue_path(menue), :method => :DELETE, :confirm => "Realy want to delete this Menuitem?", :class => "member_link delete_link")
       raw(result)
     end
   end

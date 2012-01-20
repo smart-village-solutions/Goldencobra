@@ -17,14 +17,13 @@ module Goldencobra
     validates_presence_of :title    
     
     def is_active?(request)
-      #request.path.squeeze("/").starts_with?(self.target.gsub("\"",''))
       request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
     end
     
     def has_active_child?(request)
       result = []
       self.descendants.each do |desc|
-        result << request.path.squeeze("/").starts_with?(desc.target.gsub("\"",''))
+        result << request.path.squeeze("/").split("?")[0] == desc.target.gsub("\"",'')
       end
       return result.include?(true)
     end

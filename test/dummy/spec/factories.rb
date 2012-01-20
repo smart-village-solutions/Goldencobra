@@ -2,7 +2,7 @@ require 'factory_girl'
 
 Factory.define :article, :class => Goldencobra::Article do |u|
   u.title "Article Title"
-  u.url_name "Short Title"
+  u.url_name "short-title"
   u.startpage false
 end
 
@@ -30,6 +30,7 @@ end
 
 Factory.define :startpage, :class => Goldencobra::Article do |u|
   u.title "Startseite"
+  u.url_name "root"
 end
 
 Factory.define :role, :class => Goldencobra::Role do |r|

@@ -7,9 +7,9 @@ Feature: Create and manage articles
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     Given the following "articles" exist:
-      | title                        |
-      | "10 Internet Marketing Tips" |
-      | "Top 10 Internet Marketers"  |
+      | title                        | url_name     |
+      | "10 Internet Marketing Tips" | top-10       |
+      | "Top 10 Internet Marketers"  | top-10-tips  |
     When I go to the admin list of articles
     Then I should see "10 Internet Marketing Tips"
     And I should see "Top 10 Internet Marketers" within ".index_content"
@@ -22,7 +22,7 @@ Feature: Create and manage articles
     When I click on "New Article"
     Then I should see "New Article"
     When I fill in "article_title" with "Dies ist ein Neuer Artikel"
-    And I fill in "article_url_name" with "dies ist kurz"
+    And I fill in "article_url_name" with "dies-ist-kurz"
     And I press "Create Article"
     Then I should see "Dies ist ein Neuer Artikel" within "table"
     And I should see "dies-ist-kurz" within "table"
@@ -31,7 +31,7 @@ Feature: Create and manage articles
     Given that I am not logged in
     And an article exists with the following attributes:
       |title| "Dies ist ein Test"|
-      |url_name| "Kurzer Titel"|
+      |url_name|kurzer-titel|
       |teaser| "Es war einmal..."|
       |content| "Die kleine Maus wandert um den Käse..."|
     Then I go to the article page "kurzer-titel"
@@ -57,9 +57,24 @@ Feature: Create and manage articles
     And an startarticle exists
     Then I go to the startpage
     And I should see "Startseite" within "h1"
-
-  
-  
+    
+  @javascript  
+  Scenario: Set metadescription for an article
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    Given the following "articles" exist:
+      | title           | id | url_name    |
+      | "Seo Seite"     | 2  | seo-seite |
+    When I go to the admin list of articles
+    Then I click on "Edit" within "tr#article_2"
+    And I click on "Add New Metatag" within "div.has_many.metatags"
+    Then I should see "Name" within "div.has_many.metatags"
+    And I select "Title Tag" within "select.metatag_names"
+    And I fill in "Metatitle" within "input.metatag_values"
+    And I press "Update Article"
+    When I visit url "/seo-seite"
+    Then I should see "Metatitle"
+    
       
     
     

@@ -10,6 +10,7 @@ require "factory_girl_rails"
 require "factory_girl/step_definitions"
 require 'capybara/rails'
 require 'capybara/cucumber'
+require 'capybara-webkit'
 
 #FactoryGirl.find_definitions
 

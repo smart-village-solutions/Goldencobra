@@ -3,14 +3,28 @@ module Goldencobra
     extend FriendlyId
     friendly_id :url_name, use: [:slugged, :history]
     has_ancestry :orphan_strategy => :restrict
-    before_save :verify_existens_of_url_name
+    
+    MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
+    has_many :metatags
+    accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
+    
+    validates_presence_of :title
+    validates_presence_of :url_name
+    validates_format_of :url_name, :with => /^[\w\d-]+$/
+    
+    before_save :verify_existens_of_url_name_and_slug
     attr_protected :startpage
     
     scope :startpage, where(:startpage => true)
      
+    def public_url
+      return "/" if self.startpage
+      "/#{self.path.map{|a| a.slug if !a.is_root?}.compact.join("/")}"
+    end 
     
-    def verify_existens_of_url_name
+    def verify_existens_of_url_name_and_slug
       self.url_name = self.title if self.url_name.blank?
+      self.slug = self.url_name if self.slug.blank?
     end
     
     def mark_as_startpage!
@@ -25,6 +39,12 @@ module Goldencobra
     def is_startpage?
       self.startpage
     end  
+    
+    def metatag(name)
+      return "" if !MetatagNames.include?(name) 
+      metatag = self.metatags.find_by_name(name)
+      metatag.value if metatag
+    end
       
   end
 end

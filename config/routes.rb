@@ -1,5 +1,5 @@
 Goldencobra::Engine.routes.draw do
-  match "/:id", :to => "articles#show"
+  match "/*article_id", :to => "articles#show"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
