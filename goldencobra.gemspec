@@ -2,9 +2,6 @@ $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
 require "goldencobra/version"
-require "friendly_id"
-require 'ancestry'
-require 'devise'
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "goldencobra"
