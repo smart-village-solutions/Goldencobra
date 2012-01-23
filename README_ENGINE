@@ -17,8 +17,8 @@ in your config/environements/development.rb and ../test.rb insert
 Setup Automatic
 
 
-	make db:migrations
-	make db:seed
+	rake db:migrations
+	rake db:seed
 	
 	<head>
 	  <%= display_meta_tags %>
