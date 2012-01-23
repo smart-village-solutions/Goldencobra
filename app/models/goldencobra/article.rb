@@ -1,5 +1,3 @@
-require "friendly_id"
-require 'ancestry'
 module Goldencobra
   class Article < ActiveRecord::Base
     extend FriendlyId
