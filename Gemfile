@@ -17,19 +17,19 @@ gem "jquery-rails"
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-gem 'devise', '~> 2.0.0.rc'
-gem 'activeadmin'
+##gem 'devise', '~> 2.0.0.rc'
+##gem 'activeadmin'
 gem "meta_search", :git => "git://github.com/ernie/meta_search.git"
 gem "compass", :git => 'git://github.com/chriseppstein/compass.git'
 gem 'execjs'
 gem 'therubyracer'
-gem "friendly_id", "~> 4.0.0.beta14"
-gem 'omniauth'
-gem 'omniauth-openid'
+##gem "friendly_id", "~> 4.0.0.beta14"
+##gem 'omniauth'
+##gem 'omniauth-openid'
 gem 'oa-oauth', :require => 'omniauth/oauth'
 gem 'oa-openid', :require => 'omniauth/openid'
-gem "cancan"
-gem 'ancestry'
+##gem "cancan"
+##gem 'ancestry'
 gem 'sass'
 gem 'sass-rails',   '~> 3.2.3'
 gem 'coffee-rails', '~> 3.2.0'
