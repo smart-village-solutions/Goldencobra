@@ -1,3 +1,8 @@
+require "activeadmin"
+#require "friendly_id"
+#require 'ancestry'
+#require 'devise'
+
 ActiveAdmin.setup do |config|
   if ActiveAdmin::VERSION == "0.3.4" && Rails.version == "3.2.0.rc2"
     class ActiveSupport::FileUpdateChecker
