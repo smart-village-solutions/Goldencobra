@@ -1,9 +1,9 @@
+require "friendly_id"
 module Goldencobra
   class Article < ActiveRecord::Base
     extend FriendlyId
     friendly_id :url_name, use: [:slugged, :history]
     has_ancestry :orphan_strategy => :restrict
-    
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     has_many :metatags
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
