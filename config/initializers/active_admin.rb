@@ -1,6 +1,6 @@
 require "activeadmin"
-#require "friendly_id"
-#require 'ancestry'
+require "friendly_id"
+require 'ancestry'
 #require 'devise'
 
 ActiveAdmin.setup do |config|
