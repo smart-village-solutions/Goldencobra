@@ -1,6 +1,17 @@
 require "activeadmin"
-ActiveAdmin.setup do |config|
 
+ActiveAdmin.setup do |config|
+  if ActiveAdmin::VERSION == "0.3.4" && Rails.version == "3.2.0.rc2"
+    class ActiveSupport::FileUpdateChecker
+      def paths
+        @files
+      end
+    end
+  else
+    warn = "!! double check the ActiveSupport::FileUpdateChecker duck punch in #{__FILE__} !!"
+    puts warn
+  end
+  
   # == Site Title
   #
   # Set the title that is displayed on the main layout
@@ -106,4 +117,5 @@ ActiveAdmin.setup do |config|
   #
   # To load a javascript file:
      config.register_javascript 'goldencobra/active_admin.js'
+     
 end
