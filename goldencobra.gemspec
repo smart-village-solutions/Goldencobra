@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Goldencobra::VERSION
   s.authors     = ["Marco Metz"]
   s.email       = ["metz@ikusei.de"]
-  s.homepage    = "www.ikusei.de"
+  s.homepage    = "http://www.ikusei.de"
   s.summary     = "Basic CMS based on Rails engines"
   s.description = "This is the Basic Module of Goldencobra. It Offers Devise, ActiveAdmin, an Article-Module and a Menu-Module"
 
