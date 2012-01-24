@@ -3,7 +3,7 @@ require "friendly_id"
 require 'ancestry'
 require 'devise'
 require 'cancan'
-require 'meta-tags'
+require 'meta_tags'
 
 module Goldencobra
   class Engine < ::Rails::Engine
