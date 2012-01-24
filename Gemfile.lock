@@ -31,12 +31,15 @@ PATH
       devise (~> 2.0.0.rc)
       execjs
       friendly_id (~> 4.0.0.beta14)
+      meta-tags
       meta_search
       oa-oauth
       oa-openid
       omniauth
       omniauth-openid
       rails (~> 3.2.0.rc2)
+      sass
+      sass-rails
       therubyracer
 
 GEM
@@ -356,6 +359,7 @@ DEPENDENCIES
   rspec-rails
   sass
   sass-rails (~> 3.2.3)
+  sprockets
   sqlite3
   therubyracer
   uglifier (>= 1.0.3)
