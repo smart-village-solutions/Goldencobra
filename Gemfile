@@ -31,6 +31,7 @@ gem 'oa-openid', :require => 'omniauth/openid'
 gem "cancan"
 gem 'ancestry'
 gem 'sass'
+gem 'sprockets'
 gem 'sass-rails',   '~> 3.2.3'
 gem 'coffee-rails', '~> 3.2.0'
 gem 'uglifier', '>= 1.0.3'
