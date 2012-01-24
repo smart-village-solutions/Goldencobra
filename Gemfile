@@ -29,9 +29,9 @@ gem 'oa-oauth', :require => 'omniauth/oauth'
 gem 'oa-openid', :require => 'omniauth/openid'
 gem "cancan"
 gem 'ancestry'
-gem 'sass'
 gem 'sprockets'
-gem 'sass-rails',   '~> 3.2.3'
+gem 'sass'
+gem 'sass-rails', :git => "git://github.com/rails/sass-rails.git", :branch => "3-2-stable"
 gem 'coffee-rails', '~> 3.2.0'
 gem "compass", :git => 'git://github.com/chriseppstein/compass.git', :branch => "master"
 gem 'uglifier', '>= 1.0.3'
