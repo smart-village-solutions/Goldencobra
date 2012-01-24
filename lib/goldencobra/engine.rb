@@ -8,7 +8,6 @@ require 'sass'
 require 'sprockets'
 require 'sprockets/railtie'
 require 'sass-rails'
-require 'compass'
 
 module Goldencobra
   class Engine < ::Rails::Engine
