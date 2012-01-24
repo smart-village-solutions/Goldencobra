@@ -45,7 +45,9 @@ module Goldencobra
         child.children.each do |subchild|
             content_level << navigation_menu_helper(subchild, depth, current_depth)
         end
-        child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth}" )
+        if content_level.present?
+          child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth}" )
+        end
       end  
       return content_tag(:li, raw(child_link), :class => "#{child.has_active_child?(request) ? 'has_active_child' : ''} #{child.is_active?(request) ? 'active' : ''} #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
     end
