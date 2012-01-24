@@ -25,7 +25,6 @@ module Goldencobra
       class_name = options[:class] || ""
       if @article
         list = ""
-        list << content_tag(:li, link_to("Homepage", "/"))
         @article.path.each do |art|
           link_name = link_to(art.title, art.public_url)
           list << content_tag(:li, raw(link_name))
