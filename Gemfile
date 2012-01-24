@@ -33,7 +33,7 @@ gem 'sprockets'
 gem 'sass'
 gem 'sass-rails', :git => "git://github.com/rails/sass-rails.git", :branch => "3-2-stable"
 gem 'coffee-rails', '~> 3.2.0'
-gem "compass", :git => 'git://github.com/chriseppstein/compass.git', :branch => "master"
+gem "compass", :git => 'git://github.com/chriseppstein/compass.git', :branch => "stable"
 gem 'uglifier', '>= 1.0.3'
 gem 'meta-tags', :require => 'meta_tags'
 
