@@ -6,3 +6,7 @@
 	<%= raw(@article.content) if @article%>	
 <% end %>
 
+<% content_for :article_teaser do %>
+	<%= raw(@article.teaser) if @article%>	
+<% end %>
+

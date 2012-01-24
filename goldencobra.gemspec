@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise', '~> 2.0.0.rc'
   s.add_dependency "activeadmin"
   s.add_dependency 'meta_search'
+  s.add_dependency "sass"
+  s.add_dependency "sass-rails"
   s.add_dependency "compass"
   s.add_dependency "execjs"
   s.add_dependency "therubyracer"
