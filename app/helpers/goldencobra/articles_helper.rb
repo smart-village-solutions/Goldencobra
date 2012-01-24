@@ -21,6 +21,21 @@ module Goldencobra
     end
     
     
+    def breadcrumb(options={})
+      class_name = options[:class] || ""
+      if @article
+        list = ""
+        list << content_tag(:li, link_to("Homepage", "/"))
+        @article.path.each do |art|
+          link_name = link_to(art.title, art.public_url)
+          list << content_tag(:li, raw(link_name))
+        end
+        content_list = content_tag(:ol, raw(list))
+    		result = content_tag(:nav, raw(content_list), :id => "breadcrumb", :class => "#{class_name}")
+        return raw(result)
+      end
+    end
+    
     
     private
     def navigation_menu_helper(child, depth, current_depth)

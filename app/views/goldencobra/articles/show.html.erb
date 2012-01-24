@@ -10,3 +10,7 @@
 	<%= raw(@article.teaser) if @article%>	
 <% end %>
 
+<% content_for :article_breadcrumb do %>
+	<%= breadcrumb() if @article%>	
+<% end %>
+

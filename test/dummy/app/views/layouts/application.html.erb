@@ -13,11 +13,16 @@
 
 <h1><%= yield(:article_title) %></h1>
 
+<div>
+	<%= breadcrumb() %>	
+</div>
+
 <%= yield %>
 
 <div id="article_content">
 	<%= yield(:article_content) %>	
 </div>
+
 
 <%= navigation_menu(2) %>	
 

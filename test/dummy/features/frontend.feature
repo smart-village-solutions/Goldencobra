@@ -48,3 +48,7 @@ Feature: visit pages in Frontend
     When I visit url "/blog/blog2/blog3/blog4?ids=a"
     Then I should see "Blog4" within "ul.navigation.bottom ul.level_4 li.active"
     And I should not see "Blog1" within "ul.navigation.bottom li.active"
+    And I should see "Blog1" within "#breadcrumb"
+    And I should see "Blog2" within "#breadcrumb"
+    And I should see "Blog3" within "#breadcrumb"
+    And I should see "Blog4" within "#breadcrumb"
