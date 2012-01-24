@@ -5,6 +5,7 @@ require 'devise'
 require 'cancan'
 require 'meta_tags'
 require 'sass'
+require 'sprockets'
 require 'sass-rails'
 require 'compass'
 
