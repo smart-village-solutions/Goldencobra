@@ -19,7 +19,7 @@ gem "jquery-rails"
 
 gem 'devise', '~> 2.0.0.rc'
 gem 'activeadmin'
-gem "meta_search", :git => "git://github.com/ernie/meta_search.git"
+gem "meta_search", '~> 1.1.2'
 gem "compass", :git => 'git://github.com/chriseppstein/compass.git'
 gem 'execjs'
 gem 'therubyracer'

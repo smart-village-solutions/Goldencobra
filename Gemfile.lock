@@ -14,16 +14,6 @@ GIT
     annotate (2.4.1.beta1)
 
 GIT
-  remote: git://github.com/ernie/meta_search.git
-  revision: 5bfe8322ac3c56ed8c714c1892aebf1390e7db5e
-  specs:
-    meta_search (1.1.2)
-      actionpack (~> 3.1)
-      activerecord (~> 3.1)
-      activesupport (~> 3.1)
-      polyamorous (~> 0.5.0)
-
-GIT
   remote: git://github.com/ttilley/rb-fsevent.git
   revision: f36a8cd01b49a6ce2a26d9e1083b5f6e6722c470
   branch: pre-compiled-gem-one-off
@@ -33,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    goldencobra (0.0.1)
+    goldencobra (0.0.2)
       activeadmin
       ancestry
       cancan
@@ -198,6 +188,12 @@ GEM
       treetop (~> 1.4.8)
     meta-tags (1.2.4)
       actionpack
+    meta_search (1.1.2)
+      actionpack (~> 3.1)
+      activerecord (~> 3.1)
+      activesupport (~> 3.1)
+      meta_search
+      polyamorous (~> 0.5.0)
     method_source (0.6.7)
       ruby_parser (>= 2.3.1)
     mime-types (1.17.2)
@@ -349,7 +345,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   meta-tags
-  meta_search!
+  meta_search (~> 1.1.2)
   mysql2
   oa-oauth
   oa-openid
