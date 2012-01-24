@@ -11,14 +11,15 @@
 
 <%= navigation_menu(1, :depth => 1) %>	
 
-<h2>
-	<%= yield(:article_title) %>
-</h2>
+<h1><%= yield(:article_title) %></h1>
 
 <%= yield %>
 
-<%= yield(:article_content) %>
+<div id="article_content">
+	<%= yield(:article_content) %>	
+</div>
 
+<%= navigation_menu(2) %>	
 
 
 </body>
