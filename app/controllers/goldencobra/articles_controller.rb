@@ -3,9 +3,9 @@ module Goldencobra
     load_and_authorize_resource
     def show
       if params[:startpage] && params[:startpage] == true && params[:article_id].blank?
-        @article = Article.startpage.first
+        @article = Goldencobra::Article.startpage.first
       else
-        @article = Article.find(params[:article_id].split("/").last)
+        @article = Goldencobra::Article.find(params[:article_id].split("/").last)
       end
       if @article
         set_meta_tags :site => "Goldencobra",

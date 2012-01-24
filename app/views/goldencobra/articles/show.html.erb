@@ -1,5 +1,8 @@
-<h1><%= @article.title %></h1>
+<% content_for :article_title do %>
+	<%= @article.title %>	
+<% end %>
 
-<div id="article_content">
+<% content_for :article_content do %>
 	<%= raw(@article.content) %>	
-</div>
+<% end %>
+
