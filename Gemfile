@@ -20,7 +20,6 @@ gem "jquery-rails"
 gem 'devise', '~> 2.0.0.rc'
 gem 'activeadmin'
 gem "meta_search", '~> 1.1.2'
-gem "compass", :git => 'git://github.com/chriseppstein/compass.git'
 gem 'execjs'
 gem 'therubyracer'
 gem "friendly_id", "~> 4.0.0.beta14", :require => "friendly_id"
@@ -34,6 +33,7 @@ gem 'sass'
 gem 'sprockets'
 gem 'sass-rails',   '~> 3.2.3'
 gem 'coffee-rails', '~> 3.2.0'
+gem "compass", :git => 'git://github.com/chriseppstein/compass.git', :branch => "master"
 gem 'uglifier', '>= 1.0.3'
 gem 'meta-tags', :require => 'meta_tags'
 

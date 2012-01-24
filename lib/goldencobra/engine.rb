@@ -6,6 +6,7 @@ require 'cancan'
 require 'meta_tags'
 require 'sass'
 require 'sprockets'
+require 'sprockets/railtie'
 require 'sass-rails'
 require 'compass'
 
