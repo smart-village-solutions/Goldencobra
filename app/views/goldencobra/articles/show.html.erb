@@ -1,8 +1,8 @@
 <% content_for :article_title do %>
-	<%= @article.title %>	
+	<%= @article.title if @article%>	
 <% end %>
 
 <% content_for :article_content do %>
-	<%= raw(@article.content) %>	
+	<%= raw(@article.content) if @article%>	
 <% end %>
 

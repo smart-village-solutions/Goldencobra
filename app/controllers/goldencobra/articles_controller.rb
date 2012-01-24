@@ -2,7 +2,7 @@ module Goldencobra
   class ArticlesController < ApplicationController
     load_and_authorize_resource
     def show
-      if params[:startpage] && params[:startpage] == true && params[:article_id].blank?
+      if params[:startpage] && (params[:startpage] == true || params[:startpage] == "true")
         @article = Goldencobra::Article.startpage.first
       else
         @article = Goldencobra::Article.find(params[:article_id].split("/").last)
