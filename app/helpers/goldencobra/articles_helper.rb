@@ -14,7 +14,7 @@ module Goldencobra
         master_menue.children.collect do |child|
           content << navigation_menu_helper(child, depth, 1)
         end
-        result = content_tag(:ul, raw(content),:id => "#{id_name}" :class => "#{class_name} #{depth} navigation #{master_menue.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
+        result = content_tag(:ul, raw(content),:id => "#{id_name}", :class => "#{class_name} #{depth} navigation #{master_menue.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
       end
       
       return raw(result)
