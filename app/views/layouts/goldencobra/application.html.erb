@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <%= display_meta_tags  %>
-  <%#= stylesheet_link_tag    "goldencobra/application", :media => "all" %>
+
+<% content_for :content do %>
+
+  <%= stylesheet_link_tag("goldencobra/application") %>
   <%= javascript_include_tag "goldencobra/application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
 
-<%= navigation_menu(1, :depth => 1) %>	
+  <%= yield %>
 
-<h1><%= yield(:article_title)%></h1>
+<% end -%>
 
-<%= yield %>
-
-
-<div id="article_content"><%= yield(:article_content)%></div>
-
-<%= navigation_menu(2) %>	
-
-</body>
-</html>
+<%= render :file => 'layouts/application' %>
