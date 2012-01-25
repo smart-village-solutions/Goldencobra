@@ -20,7 +20,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
     f.inputs "Zus&auml;tzliche Informationen" do
       f.input :teaser, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben"
-      f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist für eine Sidebar gedacht"
+      f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
     end
     
     f.inputs "Inhalt" do
