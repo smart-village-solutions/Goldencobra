@@ -74,6 +74,29 @@ Feature: Create and manage articles
     And I press "Update Article"
     When I visit url "/seo-seite"
     Then I should see "Metatitle"
+    
+  @javascript
+  Scenario: Set article offline and online
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    Given the following "articles" exist:
+      | title           | id | url_name  | active |
+      | "Seite1"        | 1  | seite1    | true   |
+      | "Seite2"        | 2  | seite2    | false  |
+    When I visit url "/seite1"
+    Then I should see "Seite1" within "h1"
+    When I visit url "/seite2"
+    Then I should not see "Seite2"
+    And I should see "404"
+    Then I go to the admin list of articles
+    And I click on "Edit" within "tr#article_2"
+    And  I check "article_active"
+    And I press "Update Article"
+    When I visit url "/seite2"
+    Then I should see "Seite2" within "h1"
+    
+    
+    
 
     
       

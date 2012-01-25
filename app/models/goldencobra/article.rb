@@ -14,6 +14,7 @@ module Goldencobra
     before_save :verify_existens_of_url_name_and_slug
     attr_protected :startpage
     
+    scope :active, where(:active => true)
     scope :startpage, where(:startpage => true)
      
     def public_url

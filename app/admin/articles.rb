@@ -5,16 +5,26 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
       f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten."
       f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| [c.title, c.id]}, :include_blank => true
+      f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
     end
-    f.inputs "Metadescription" do
+    
+    f.inputs "Metadescriptions" do
+      f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
+      f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
       f.has_many :metatags do |m|
         m.input :name, :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'} 
         m.input :value, :input_html => { :class => 'metatag_values'} 
         m.input :_destroy, :as => :boolean 
       end
     end
-    f.inputs "Inhalt" do
+
+    f.inputs "Zus&auml;tzliche Informationen" do
       f.input :teaser
+      f.input :context_info
+    end
+    
+    f.inputs "Inhalt" do
+      f.input :summary
       f.input :content, :hint => "Dies ist ein Textfeld"
     end
     f.buttons

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   mount Goldencobra::Engine => "/"
 end
 #== Route Map
-# Generated on 18 Jan 2012 18:22
+# Generated on 25 Jan 2012 16:22
 #
 #                  admin_comments GET        /admin/comments(.:format)                       admin/comments#index
 #                                 POST       /admin/comments(.:format)                       admin/comments#create
@@ -51,28 +51,5 @@ end
 #                     goldencobra            /                                               Goldencobra::Engine
 # 
 # Routes for Goldencobra::Engine:
-#                 admin_dashboard        /admin(.:format)                                goldencobra/admin/dashboard#index
-#                  admin_comments GET    /admin/comments(.:format)                       goldencobra/admin/comments#index
-#                                 POST   /admin/comments(.:format)                       goldencobra/admin/comments#create
-#               new_admin_comment GET    /admin/comments/new(.:format)                   goldencobra/admin/comments#new
-#              edit_admin_comment GET    /admin/comments/:id/edit(.:format)              goldencobra/admin/comments#edit
-#                   admin_comment GET    /admin/comments/:id(.:format)                   goldencobra/admin/comments#show
-#                                 PUT    /admin/comments/:id(.:format)                   goldencobra/admin/comments#update
-#                                 DELETE /admin/comments/:id(.:format)                   goldencobra/admin/comments#destroy
-# mark_as_startpage_admin_article GET    /admin/articles/:id/mark_as_startpage(.:format) goldencobra/admin/articles#mark_as_startpage
-#                  admin_articles GET    /admin/articles(.:format)                       goldencobra/admin/articles#index
-#                                 POST   /admin/articles(.:format)                       goldencobra/admin/articles#create
-#               new_admin_article GET    /admin/articles/new(.:format)                   goldencobra/admin/articles#new
-#              edit_admin_article GET    /admin/articles/:id/edit(.:format)              goldencobra/admin/articles#edit
-#                   admin_article GET    /admin/articles/:id(.:format)                   goldencobra/admin/articles#show
-#                                 PUT    /admin/articles/:id(.:format)                   goldencobra/admin/articles#update
-#                                 DELETE /admin/articles/:id(.:format)                   goldencobra/admin/articles#destroy
-#                    admin_menues GET    /admin/menues(.:format)                         goldencobra/admin/menues#index
-#                                 POST   /admin/menues(.:format)                         goldencobra/admin/menues#create
-#                 new_admin_menue GET    /admin/menues/new(.:format)                     goldencobra/admin/menues#new
-#                edit_admin_menue GET    /admin/menues/:id/edit(.:format)                goldencobra/admin/menues#edit
-#                     admin_menue GET    /admin/menues/:id(.:format)                     goldencobra/admin/menues#show
-#                                 PUT    /admin/menues/:id(.:format)                     goldencobra/admin/menues#update
-#                                 DELETE /admin/menues/:id(.:format)                     goldencobra/admin/menues#destroy
-#                                        /:id(.:format)                                  goldencobra/articles#show
-#                            root        /                                               goldencobra/articles#show {:startpage=>true}
+#       /*article_id(.:format) goldencobra/articles#show
+# root  /                      goldencobra/articles#show {:startpage=>true}

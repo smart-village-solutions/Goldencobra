@@ -4,6 +4,7 @@ Factory.define :article, :class => Goldencobra::Article do |u|
   u.title "Article Title"
   u.url_name "short-title"
   u.startpage false
+  u.active true
 end
 
 
@@ -31,6 +32,7 @@ end
 Factory.define :startpage, :class => Goldencobra::Article do |u|
   u.title "Startseite"
   u.url_name "root"
+  u.active true
 end
 
 Factory.define :role, :class => Goldencobra::Role do |r|

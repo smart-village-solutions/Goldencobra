@@ -2,6 +2,14 @@
 	<%= @article.title if @article%>	
 <% end %>
 
+<% content_for :article_subtitle do %>
+	<%= @article.subtitle if @article%>	
+<% end %>
+
+<% content_for :article_summary do %>
+	<%= @article.summary if @article%>	
+<% end %>
+
 <% content_for :article_content do %>
 	<%= raw(@article.content) if @article%>	
 <% end %>

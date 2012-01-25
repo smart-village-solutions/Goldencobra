@@ -55,6 +55,10 @@ Then /^I click on "([^"]*)" within "([^"]*)"$/ do |arg1, arg2|
   find(arg2).click_link(arg1)
 end
 
+Then /^I check "([^"]*)"$/ do |arg1|
+  check(arg1)
+end
+
 Given /^the following "([^"]*)" exist:$/ do |arg1, table|
   table.hashes.each do |data|
     Factory(arg1.singularize.to_sym ,data)

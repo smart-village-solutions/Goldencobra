@@ -52,3 +52,18 @@ Feature: visit pages in Frontend
     And I should see "Blog2" within "#breadcrumb"
     And I should see "Blog3" within "#breadcrumb"
     And I should see "Blog4" within "#breadcrumb"
+    
+  Scenario: Check a page for all elements
+    Given that I am not logged in
+    And an article exists with the following attributes:  
+      | title         | "Seite 1"               |
+      | url_name      | seite1                  |
+      | subtitle      | "Untertitel"            |
+      | summary       | "Zusammenfassung"       |
+      | canonical_url | "http://www.google.de"  |
+      | teaser        | "Dies ist ein Teaser"   |
+    When I visit url "/seite1"
+    Then I should see "Seite 1" within "h1"
+    And I should see "Untertitel"
+    And I should see "Zusammenfassung"
+    And I should see "Dies ist ein Teaser"
