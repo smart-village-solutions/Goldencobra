@@ -115,5 +115,6 @@ ActiveAdmin.setup do |config|
   #
   # To load a javascript file:
      config.register_javascript 'goldencobra/active_admin.js'
+     config.register_javascript "goldencobra/jquery.tinymce.js"
      
 end

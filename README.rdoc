@@ -16,6 +16,8 @@ This Project is under development
 	Add to your layouts/application.html.erb in the <head> instead of <title>YouAppName</title>:
 		<%= display_meta_tags  %>
 
+	rake goldencobra:install:migrations
+	rake db:migrate
 
 = Usage
 	

@@ -19,13 +19,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
 
     f.inputs "Zus&auml;tzliche Informationen" do
-      f.input :teaser
-      f.input :context_info
+      f.input :teaser, :input_html => { :class =>"tinymce"}
+      f.input :context_info, :input_html => { :class =>"tinymce"}
     end
     
     f.inputs "Inhalt" do
-      f.input :summary
-      f.input :content, :hint => "Dies ist ein Textfeld"
+      f.input :summary, :input_html => { :class =>"tinymce"}
+      f.input :content, :hint => "Dies ist ein Textfeld", :input_html => { :class =>"tinymce"}
     end
     f.buttons
   end
