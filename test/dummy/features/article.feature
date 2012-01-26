@@ -95,6 +95,15 @@ Feature: Create and manage articles
     When I visit url "/seite2"
     Then I should see "Seite2" within "h1"
     
+  @javascript
+  Scenario: Upload an Image and add it to an article
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    Given the following "articles" exist:
+      | title           | id | url_name  | active |
+      | "Seite1"        | 1  | seite1    | true   |
+    
+    
     
     
 

@@ -1,5 +1,5 @@
 //= require active_admin/base
-$().ready(function() {		
+$(document).ready(function() {	
 	$('textarea.tinymce').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
   		mode : "textareas",
@@ -11,4 +11,4 @@ $().ready(function() {
   		theme_advanced_toolbar_align : "center",
   		theme_advanced_resizing : false
 	});
-})
+});

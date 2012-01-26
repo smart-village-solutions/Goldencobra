@@ -1,6 +1,6 @@
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     
-  form do |f|
+  form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
       f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
       f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten."
@@ -56,6 +56,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       else
         link_to "Make this article Startpage", mark_as_startpage_admin_article_path(_article.id), :confirm => "Realy want to make this article as ROOT of your website"
       end
+  end
+  
+  
+  sidebar :image_upload, :only => [:edit] do
+    render "/goldencobra/admin/articles/image_upload_sidebar"
   end
   
   member_action :mark_as_startpage do

@@ -37,6 +37,7 @@ gem 'coffee-rails', '~> 3.2.0'
 gem "compass", :git => 'git://github.com/chriseppstein/compass.git', :branch => "stable"
 gem 'uglifier', '>= 1.0.3'
 gem 'meta-tags', :require => 'meta_tags'
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 
 
 # Gems used only for assets and not required
