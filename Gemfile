@@ -16,8 +16,9 @@ gem "jquery-rails"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-
-gem "bourbon", '~> 1.3.5'
+gem 'sprockets', "~> 2.1.2"
+gem 'sass-rails', "~> 3.2.1"
+gem "bourbon", :git => "git://github.com/thoughtbot/bourbon.git"
 gem 'devise', '~> 2.0.0.rc'
 gem 'activeadmin'
 gem "meta_search", '~> 1.1.2'
@@ -30,11 +31,11 @@ gem 'oa-oauth', :require => 'omniauth/oauth'
 gem 'oa-openid', :require => 'omniauth/openid'
 gem "cancan"
 gem 'ancestry'
-gem 'sprockets'
-gem 'sass'
-gem 'sass-rails', :git => "git://github.com/rails/sass-rails.git", :branch => "3-2-stable"
+
+#gem 'sass'
+
 gem 'coffee-rails', '~> 3.2.0'
-gem "compass", :git => 'git://github.com/chriseppstein/compass.git', :branch => "stable"
+gem 'compass', git: 'git://github.com/chriseppstein/compass.git'
 gem 'uglifier', '>= 1.0.3'
 gem 'meta-tags', :require => 'meta_tags'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
@@ -43,7 +44,7 @@ gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 # Gems used only for assets and not required
 # in production environments by default.
 #group :assets do
-#  gem 'sass-rails',   '~> 3.2.3'
+#  gem 'sass-rails', :git => "git://github.com/rails/sass-rails.git", :branch => "master"
 #  gem 'coffee-rails', '~> 3.2.0'
 #  gem 'uglifier', '>= 1.0.3'
 #end
