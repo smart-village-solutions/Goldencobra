@@ -111,22 +111,22 @@ ActiveAdmin.setup do |config|
   #
   # To load a stylesheet:
      config.register_stylesheet 'goldencobra/active_admin.css'
-     config.register_stylesheet 'goldencobra/jquery.fileupload-ui.css'
-     #  config.register_stylesheet 'goldencobra/ikusei_active_admin.css'
+     #config.register_stylesheet 'goldencobra/jquery.fileupload-ui.css'
+     #config.register_stylesheet 'goldencobra/ikusei_active_admin.css'
   #
   # To load a javascript file:
      config.register_javascript 'goldencobra/active_admin.js' 
-      config.register_javascript 'goldencobra/application.js' 
+     #config.register_javascript 'goldencobra/application.js' 
      config.register_javascript "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
      config.register_javascript "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
-     config.register_javascript "goldencobra/jquery.ui.widget.js"
-     config.register_javascript "http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"
-     config.register_javascript "http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"
-     config.register_javascript "http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.min.js"
-     config.register_javascript "http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-image-gallery.min.js"
+     #config.register_javascript "goldencobra/jquery.ui.widget.js"
+     #config.register_javascript "http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"
+     #config.register_javascript "http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"
+     #config.register_javascript "http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.min.js"
+     #config.register_javascript "http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-image-gallery.min.js"
      config.register_javascript "goldencobra/jquery.tinymce.js"
-     config.register_javascript "goldencobra/jquery.iframe-transport.js"
-     config.register_javascript "goldencobra/jquery.fileupload.js"
-     config.register_javascript "goldencobra/jquery.fileupload-ui.js"
+     #config.register_javascript "goldencobra/jquery.iframe-transport.js"
+     #config.register_javascript "goldencobra/jquery.fileupload.js"
+     #config.register_javascript "goldencobra/jquery.fileupload-ui.js"
 
 end
