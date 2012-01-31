@@ -49,6 +49,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
   end
   
+  
   sidebar :startpage_options, :only => [:show, :edit] do 
       _article = @_assigns['article']
       if _article.startpage
