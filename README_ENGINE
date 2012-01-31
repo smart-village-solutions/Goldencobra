@@ -16,7 +16,7 @@ in your config/environements/development.rb and ../test.rb insert
 
 Setup Automatic
 
-
+	copy /goldencobra/active_admin.css.scss to /app/assets/stylesheets/...
 	rake db:migrations
 	rake db:seed
 	
