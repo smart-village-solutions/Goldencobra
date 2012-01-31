@@ -16,12 +16,13 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.0.rc2"
-  # s.add_dependency "jquery-rails"
+  s.add_dependency "jquery-rails"
+
   s.add_dependency 'devise', '~> 2.0.0.rc'
   s.add_dependency "activeadmin"
-  s.add_dependency 'meta_search'
-  s.add_dependency "sass"
-  s.add_dependency "sass-rails"
+  s.add_dependency 'meta_search', '~> 1.1.2'
+  s.add_dependency 'sprockets'
+  s.add_dependency "sass-rails", "~> 3.2.1"
   s.add_dependency "compass"
   s.add_dependency "execjs"
   s.add_dependency "therubyracer"

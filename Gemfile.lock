@@ -1,24 +1,8 @@
 GIT
-  remote: git://github.com/chriseppstein/compass.git
-  revision: 36b0da8caf3087490d90c421cbe54f4b8c9c0fa3
-  specs:
-    compass (0.12.alpha.4.36b0da8)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
-
-GIT
   remote: git://github.com/ctran/annotate_models.git
   revision: a43c08f0eb4d69a48c6830630ebb60e35ccb2d2d
   specs:
     annotate (2.4.1.beta1)
-
-GIT
-  remote: git://github.com/thoughtbot/bourbon.git
-  revision: 10f978df88195c0f61fd49a6b4895c2b515b0710
-  specs:
-    bourbon (1.3.6)
-      sass (>= 3.1)
 
 GIT
   remote: git://github.com/thoughtbot/paperclip.git
@@ -40,7 +24,7 @@ GIT
 PATH
   remote: .
   specs:
-    goldencobra (0.0.2)
+    goldencobra (0.0.3)
       activeadmin
       ancestry
       cancan
@@ -48,15 +32,17 @@ PATH
       devise (~> 2.0.0.rc)
       execjs
       friendly_id (~> 4.0.0.beta14)
+      jquery-rails
       meta-tags
-      meta_search
+      meta_search (~> 1.1.2)
       oa-oauth
       oa-openid
       omniauth
       omniauth-openid
+      paperclip
       rails (~> 3.2.0.rc2)
-      sass
-      sass-rails
+      sass-rails (~> 3.2.1)
+      sprockets
       therubyracer
 
 GEM
@@ -105,6 +91,8 @@ GEM
       activerecord (>= 2.2.2)
     arel (3.0.0)
     bcrypt-ruby (3.0.1)
+    bourbon (1.0.0)
+      sass (>= 3.1)
     builder (3.0.0)
     cancan (1.6.7)
     capybara (1.1.2)
@@ -129,6 +117,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
+    compass (0.11.7)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
     cucumber (1.1.4)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.2)
@@ -337,19 +329,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activeadmin
-  ancestry
   annotate!
-  bourbon!
-  cancan
   capybara
   capybara-webkit
   coffee-rails (~> 3.2.0)
-  compass!
   cucumber
   cucumber-rails
   database_cleaner
-  devise (~> 2.0.0.rc)
   execjs
   factory_girl (~> 2.3.2)
   factory_girl_rails (~> 1.4.0)
@@ -364,7 +350,6 @@ DEPENDENCIES
   jquery-rails
   launchy
   meta-tags
-  meta_search (~> 1.1.2)
   mysql2
   oa-oauth
   oa-openid
@@ -374,8 +359,6 @@ DEPENDENCIES
   pry
   rb-fsevent!
   rspec-rails
-  sass-rails (~> 3.2.1)
-  sprockets (~> 2.1.2)
   sqlite3
   therubyracer
   uglifier (>= 1.0.3)

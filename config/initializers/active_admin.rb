@@ -110,7 +110,7 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-     config.register_stylesheet 'goldencobra/active_admin'
+     #config.register_stylesheet 'goldencobra/active_admin'
      #config.register_stylesheet 'goldencobra/jquery.fileupload-ui.css'
      #config.register_stylesheet 'goldencobra/ikusei_active_admin.css'
   #
