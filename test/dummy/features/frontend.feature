@@ -7,20 +7,21 @@ Feature: visit pages in Frontend
     Given that I am not logged in
     And an startarticle exists
     And the following "menues" exist:
-      | title               | id  | parent_id | target                    | css_class |
-      | "Top Navigation"    | 1   |           |                           | "main"    |
-      | "Bottom Navigation" | 2   |           |                           | "bottom"  |
-      | "News"              | 3   | 1         | "/news"                   | "news"    |
-      | "Sub-News"          | 6   | 3         | "/subnews"                | "subnews" |
-      | "Sub-News2"         | 7   | 3         | "/subnews2"               | "subnews" |
-      | "Sub-Sub-News2"     | 8   | 7         | "/subnews6"               | "subnews" |
-      | "Contact"           | 4   | 1         | "/contact"                |           |
-      | "Blog1"             | 5   | 2         | "/blog"                   |           |
-      | "Blog2"             | 9   | 5         | "/blog/blog2"             |           |
-      | "Blog2-2"           | 13  | 5         | "/blog/blog22"            |           |
-      | "Blog3"             | 10  | 9         | "/blog/blog2/blog3"       |           |
-      | "Blog4"             | 11  | 10        | "/blog/blog2/blog3/blog4" |"selected" |
-      | "Blog5"             | 12  | 10        | "/blog/blog2/blog3/blog5" |           |
+      | title               | id  | parent_id | target                    | css_class | active |
+      | "Top Navigation"    | 1   |           |                           | "main"    | true   |
+      | "Bottom Navigation" | 2   |           |                           | "bottom"  | true   |
+      | "News"              | 3   | 1         | "/news"                   | "news"    | true   |
+      | "Sub-News"          | 6   | 3         | "/subnews"                | "subnews" | true   |
+      | "Sub-News2"         | 7   | 3         | "/subnews2"               | "subnews" | true   |
+      | "Sub-Sub-News2"     | 8   | 7         | "/subnews6"               | "subnews" | true   |
+      | "Contact"           | 4   | 1         | "/contact"                |           | true   |
+      | "Blog1"             | 5   | 2         | "/blog"                   |           | true   |
+      | "Blog2"             | 9   | 5         | "/blog/blog2"             |           | true   |
+      | "Blog2-2"           | 13  | 5         | "/blog/blog22"            |           | true   |
+      | "Blog3"             | 10  | 9         | "/blog/blog2/blog3"       |           | true   |
+      | "Blog4"             | 11  | 10        | "/blog/blog2/blog3/blog4" |"selected" | true   |
+      | "Blog5"             | 12  | 10        | "/blog/blog2/blog3/blog5" |           | true   |
+      | "Invisible"         | 14  | 1         | "/invisible"              |           | false  |
     And the following "articles" exist:
       | title                         | content                           | id | url_name   | parent_id |
       | "Newspage"                    | "Dies ist eine Nachrichtenseite"  |  2 |  news      |           |
@@ -33,6 +34,7 @@ Feature: visit pages in Frontend
       | "Blog5"                       | "Dies ist eine Blogseite5"        |  9 |  blog5     |     7     |
     Then I go to the startpage
     And I should see "News" within "ul.navigation.main"
+    And I should not see "Invisible" within "ul.navigation.main"
     And I should see "Contact" within "ul.navigation.main"
     And I should not see "Blog1" within "ul.navigation.main"
     And I should not see "Sub-News" within "ul.navigation.main"

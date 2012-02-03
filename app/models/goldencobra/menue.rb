@@ -16,6 +16,8 @@ module Goldencobra
     has_ancestry :orphan_strategy => :rootify
     validates_presence_of :title    
     
+    scope :active, where(:active => true)
+    
     def is_active?(request)
       request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
     end

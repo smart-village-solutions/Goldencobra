@@ -1,4 +1,6 @@
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
+  
+  menu :parent => "Content-Management"
     
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do

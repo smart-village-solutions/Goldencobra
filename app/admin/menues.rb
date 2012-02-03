@@ -1,5 +1,7 @@
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
+  menu :parent => "Content-Management"
+
   form do |f|
     f.inputs "Allgemein" do
       f.input :title
