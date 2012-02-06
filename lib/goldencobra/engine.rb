@@ -8,6 +8,7 @@ require 'sass'
 require 'sprockets'
 require 'sprockets/railtie'
 require 'sass-rails'
+require 'paperclip'
 
 module Goldencobra
   class Engine < ::Rails::Engine
