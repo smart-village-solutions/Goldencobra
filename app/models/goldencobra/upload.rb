@@ -1,3 +1,5 @@
+require "paperclip"
+
 module Goldencobra
   class Upload < ActiveRecord::Base
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
