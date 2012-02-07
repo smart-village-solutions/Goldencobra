@@ -14,11 +14,8 @@ gem "jquery-rails"
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-#gem 'sprockets', :git => "git://github.com/sstephenson/sprockets.git"
+
 #gem 'sass-rails', "~> 3.2.1"
-#gem 'devise', '~> 2.0.0.rc'
-#gem 'activeadmin'
-#gem "meta_search", '~> 1.1.2'
 gem 'execjs'
 gem 'therubyracer'
 gem "friendly_id", "~> 4.0.0.beta14", :require => "friendly_id"
@@ -26,13 +23,7 @@ gem 'omniauth'
 gem 'omniauth-openid'
 gem 'oa-oauth', :require => 'omniauth/oauth'
 gem 'oa-openid', :require => 'omniauth/openid'
-#gem "cancan"
-#gem 'ancestry'
-
-#gem 'sass'
-
 gem 'coffee-rails', '~> 3.2.0'
-#gem 'compass', git: 'git://github.com/chriseppstein/compass.git'
 gem 'uglifier', '>= 1.0.3'
 gem 'meta-tags', :require => 'meta_tags'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"

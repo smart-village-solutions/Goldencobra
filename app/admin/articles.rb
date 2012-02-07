@@ -62,8 +62,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
   
   
-  sidebar :image_upload, :only => [:edit] do
-    render "/goldencobra/admin/articles/image_upload_sidebar"
+  sidebar :image_module, :only => [:edit] do
+    render "/goldencobra/admin/articles/image_module_sidebar"
   end
   
   member_action :mark_as_startpage do

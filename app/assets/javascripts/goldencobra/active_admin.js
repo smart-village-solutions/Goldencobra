@@ -17,4 +17,13 @@ $(document).ready(function() {
 		dialog_type : "modal",
 		paste_auto_cleanup_on_paste : true
 	});
+	
+	
+	
+	//Image Manager
+	$("a#open_goldencobra_image_maganger").bind("click", function(){
+		$("#goldencobra_image_maganger").fadeToggle();
+		return false;
+	})
+	
 });
