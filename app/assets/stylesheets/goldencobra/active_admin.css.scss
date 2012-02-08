@@ -13,11 +13,35 @@ span.startpage{
 }
 
 div#goldencobra_image_maganger{
-	position:absolute;
+	position:fixed;
 	right:330px;
 	top:200px;
 	height:200px;
 	width:350px;
 	background-color:$background-color;
 	opacity:0.8;
+	box-shadow:10px 10px 10px grey;
+	ul{
+		list-style:none;	
+		padding: 0;
+		li{
+			img{
+				
+			}
+		}
+	}
+	.header{
+		background-color: grey;
+		width:100%;
+		height:16px;
+		cursor:move;
+		.close{
+			margin:1px;
+			float:right;
+			height:14px;
+			width:14px;
+			background:url("/assets/goldencobra/close.png") no-repeat transparent;
+			cursor:pointer;
+		}
+	}
 }

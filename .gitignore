@@ -17,3 +17,4 @@ test/dummy/log/*
 test/dummy/tmp
 test/dummy/tmp/*
 test/dummy/log/test.log
+test/dummy/public/system/

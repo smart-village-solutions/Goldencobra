@@ -24,6 +24,10 @@ $(document).ready(function() {
 	$("a#open_goldencobra_image_maganger").bind("click", function(){
 		$("#goldencobra_image_maganger").fadeToggle();
 		return false;
-	})
+	});
+	
+	$("#goldencobra_image_maganger").draggable({
+		handle: ".header"
+	});
 	
 });
