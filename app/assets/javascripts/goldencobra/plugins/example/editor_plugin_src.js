@@ -39,7 +39,7 @@
 			ed.addButton('example', {
 				title : 'example.desc',
 				cmd : 'mceExample',
-				image : url + '/img/example.gif'
+				image : url + '/img/image_button.gif'
 			});
 
 			// Add a node change handler, selects the button in the UI when a image is selected

@@ -5,7 +5,7 @@ $(document).ready(function() {
 		script_url: "/assets/goldencobra/tiny_mce.js",
   		mode : "textareas",
   		theme : "advanced",
-  		theme_advanced_buttons1 : "formatselect, bold, italic, underline, strikethrough, |, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen",
+  		theme_advanced_buttons1 : "formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen",
   		theme_advanced_buttons2 : "",
   		theme_advanced_buttons3 : "",
   		theme_advanced_toolbar_location : "top",
@@ -30,4 +30,11 @@ $(document).ready(function() {
 		handle: ".header"
 	});
 	
+	$("#goldencobra_image_maganger div.header div.close").bind("click", function(){
+		$("#goldencobra_image_maganger").fadeOut();
+	});
+	
+	
+	
 });
+
