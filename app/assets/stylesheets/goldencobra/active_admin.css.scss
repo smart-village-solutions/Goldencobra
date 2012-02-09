@@ -47,24 +47,24 @@ div#goldencobra_image_maganger{
 }
 
 
+#header ul#tabs > li, #header #utility_nav {
+	font-weight:bold;
+}
+#header ul#tabs > li.has_nested.current > a, #header ul#tabs > li.has_nested > a {
+    padding-right: 35px;
+}
+#header h1 {
+	width:100px;
+	height:80px;
+	background:url("/assets/cobra.png") no-repeat;
+	text-indent:-9999px;
+	position:absolute;
+	left:30px;
+}
 #header {
 	padding:9px 30px 9px 150px;
-	h1 {
-		width:100px;
-		height:80px;
-		background:url("/assets/goldencobra/cobra.png") no-repeat;
-		text-indent:-9999px;
-		position:absolute;
-		left:30px;
-	}
-	ul#tabs > li.has_nested.current > a, ul#tabs > li.has_nested > a{
-		padding-right: 35px;
-	}
-	ul#tabs > li, #utility_nav {
-		font-weight:bold;
-	}
 }
-
 #title_bar {
 	padding:10px 30px 10px 158px;
 }
+
