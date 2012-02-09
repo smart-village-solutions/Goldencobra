@@ -2,6 +2,25 @@ module Goldencobra
   class Setting < ActiveRecord::Base
     has_ancestry :orphan_strategy => :restrict
     
+    before_save :downcase_title
+    
+    
+    def self.for_key(name) 
+      setting_title = name.split(".").last
+      settings = Setting.where(:title => setting_title)
+      if settings.count == 1
+        return settings.first.value
+      elsif settings.count > 1
+        settings.each do |set|
+          if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
+            return set.value
+          end
+        end
+      else
+        return ""
+      end
+    end
+    
     
     def self.import_default_settings(path_file_name)
       require 'yaml'
@@ -15,7 +34,6 @@ module Goldencobra
     
     private
     def self.generate_default_setting(key, yml_data, parent_id=nil)
-      puts "KEY: #{key}, YMLDATA: #{yml_data}, PARENT_ID: #{parent_id}"
       if yml_data[key].class == Hash
         parent = Setting.find_by_ancestry_and_title(parent_id, key)
         unless parent
@@ -25,13 +43,18 @@ module Goldencobra
           generate_default_setting(name, yml_data[key], [parent.ancestry,parent.id].compact.join('/'))
         end
       elsif yml_data[key].class == String
-        set = Setting.find_by_title_and_ancestry(yml_data[key], parent_id)
+        set = Setting.find_by_title_and_ancestry(key, parent_id)
         unless set
-          set = Setting.create(:title => key , :value => yml_data[key], :ancestry => parent_id)
+          Setting.create(:title => key , :value => yml_data[key], :ancestry => parent_id)
         end
       else
         raise "invalid yml File at: #{key}  -  #{yml_data}"
       end
+    end
+    
+    
+    def downcase_title
+      self.title = self.title.downcase
     end
     
   end
