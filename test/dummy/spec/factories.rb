@@ -15,6 +15,10 @@ Factory.define :menue, :class => Goldencobra::Menue do |u|
   u.css_class 'news'
 end
 
+Factory.define :setting, :class => Goldencobra::Setting do |u|
+  u.title 'Einstellung1'
+  u.value "Wert1"
+end
 
 Factory.define :admin_user, :class => User do |u|
   u.email 'admin@test.de'

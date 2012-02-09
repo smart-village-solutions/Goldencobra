@@ -5,7 +5,7 @@ module Goldencobra
 end
 # == Schema Information
 #
-# Table name: roles
+# Table name: goldencobra_roles
 #
 #  id          :integer(4)      not null, primary key
 #  name        :string(255)
