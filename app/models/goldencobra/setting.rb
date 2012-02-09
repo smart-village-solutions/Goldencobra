@@ -2,7 +2,7 @@ module Goldencobra
   class Setting < ActiveRecord::Base
     has_ancestry :orphan_strategy => :restrict
     
-    before_save :downcase_title
+    before_save :parse_title
     
     
     def self.for_key(name) 
@@ -53,8 +53,9 @@ module Goldencobra
     end
     
     
-    def downcase_title
+    def parse_title
       self.title = self.title.downcase
+      self.title = self.title.gsub(".", "_")
     end
     
   end
