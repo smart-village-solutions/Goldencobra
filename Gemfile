@@ -44,6 +44,7 @@ group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'guard-annotate'
   gem 'pry'
+  gem 'git-pivotal'
 end
 
 group :test do

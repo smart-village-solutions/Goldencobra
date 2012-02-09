@@ -162,6 +162,10 @@ GEM
     fssm (0.2.8.1)
     gherkin (2.7.6)
       json (>= 1.4.6)
+    git-pivotal (0.2.3)
+      builder
+      nokogiri
+      rest-client (~> 1.4.0)
     growl (1.0.3)
     guard (1.0.0)
       ffi (>= 0.5.0)
@@ -275,6 +279,8 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     responders (0.6.5)
+    rest-client (1.4.2)
+      mime-types (>= 1.16)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
       rspec-expectations (~> 2.8.0)
@@ -340,6 +346,7 @@ DEPENDENCIES
   factory_girl (~> 2.3.2)
   factory_girl_rails (~> 1.4.0)
   friendly_id (~> 4.0.0.beta14)
+  git-pivotal
   goldencobra!
   growl
   guard

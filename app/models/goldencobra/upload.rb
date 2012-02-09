@@ -7,7 +7,7 @@ module Goldencobra
     def complete_list_name 
       result = ""
       result << "#{self.image_file_name} " if self.image_file_name.present?
-      result << "(#{[self.source,self.rights].join(', ')}) " if self.source.present? || self.rights.present?
+      result << "(#{self.source}, #{self.rights}) " if self.source.present? || self.rights.present?
       result << "- #{self.created_at}"
     end
   end
