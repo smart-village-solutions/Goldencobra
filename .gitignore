@@ -20,3 +20,8 @@ test/dummy/log/test.log
 test/dummy/public/system/
 test/dummy/db
 test/dummy/db/*
+
+.DS_Store
+db/.DS_Store
+test/.DS_Store
+test/dummy/.DS_Store
