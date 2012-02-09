@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: goldencobra_uploads
+#
+#  id                 :integer(4)      not null, primary key
+#  source             :string(255)
+#  rights             :string(255)
+#  description        :text
+#  image_file_name    :string(255)
+#  image_content_type :string(255)
+#  image_file_size    :integer(4)
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#
+
 module Goldencobra
   class Upload < ActiveRecord::Base
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")

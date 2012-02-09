@@ -26,7 +26,7 @@ gem 'oa-openid', :require => 'omniauth/openid'
 gem 'coffee-rails', '~> 3.2.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'meta-tags', :require => 'meta_tags'
-gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git", :require => 'paperclip'
 
 
 # Gems used only for assets and not required

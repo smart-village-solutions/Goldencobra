@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: menues
+# Table name: goldencobra_menues
 #
 #  id         :integer(4)      not null, primary key
 #  title      :string(255)
@@ -11,6 +11,7 @@
 #  updated_at :datetime        not null
 #  ancestry   :string(255)
 #
+
 module Goldencobra
   class Menue < ActiveRecord::Base
     has_ancestry :orphan_strategy => :rootify
