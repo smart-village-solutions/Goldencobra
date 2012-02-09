@@ -30,3 +30,4 @@ Feature: Read and manage settings
     And I should see "titletag" within "table"
     And I should see "ikusei GmbH" within "table"
     And I should see "1/2" within "table"
+  
