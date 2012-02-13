@@ -1,0 +1,14 @@
+before_script:
+  - "mysql -e 'create database goldencobra_test;'"
+language: ruby
+rvm:
+  - 1.9.2
+  - 1.9.3
+# uncomment this line if your project needs to run something other than `rake`:
+# script: bundle exec rspec spec
+script: bundle exec rspec; bundle exec cucumber
+mysql:
+  adapter: mysql2
+  database: goldencobra_test
+  username: root
+  encoding: utf8
