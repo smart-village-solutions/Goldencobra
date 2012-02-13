@@ -1,3 +1,5 @@
+before_script:
+  - "mysql -e 'create database goldencobra_test;'"
 language: ruby
 rvm:
   - 1.9.2
@@ -9,5 +11,3 @@ mysql:
   database: goldencobra_test
   username: root
   encoding: utf8
-before_script:
-  - "mysql -e 'create database goldencobra_test;'"
