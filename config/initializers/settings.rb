@@ -10,6 +10,7 @@ Goldencobra::Setting.import_default_settings(Goldencobra::Engine.root + "config/
   
 end
 
+
 ::ActionController::Base.module_eval do
   
   def s(name)
