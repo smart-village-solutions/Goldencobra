@@ -13,4 +13,4 @@ module Goldencobra
 end
        
 ::ActionController::Base.send :include, Goldencobra::ActsAsSetting::Controller
-::ApplicationHelper.send :include, Goldencobra::ActsAsSetting::Controller
+#::ApplicationHelper.send :include, Goldencobra::ActsAsSetting::Controller

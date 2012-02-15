@@ -9,6 +9,7 @@ require 'sprockets'
 require 'sprockets/railtie'
 require 'sass-rails'
 require 'paperclip'
+require 'goldencobra/acts_as_setting'
 
 module Goldencobra
   class Engine < ::Rails::Engine
