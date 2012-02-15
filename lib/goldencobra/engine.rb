@@ -15,8 +15,8 @@ module Goldencobra
   class Engine < ::Rails::Engine
     isolate_namespace Goldencobra
     config.to_prepare do
-      ApplicationController.helper(Goldencobra::ArticlesHelper)
       ApplicationController.helper(Goldencobra::ApplicationHelper)
+      ApplicationController.helper(Goldencobra::ArticlesHelper)
     end
   end
 end
