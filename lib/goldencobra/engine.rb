@@ -17,8 +17,6 @@ module Goldencobra
     config.to_prepare do
       ApplicationController.helper(Goldencobra::ArticlesHelper)
       ApplicationController.helper(Goldencobra::ApplicationHelper)
-      #ActionController::Base.helper(Goldencobra::ArticlesHelper)
-      #ActionController::Base.helper(Goldencobra::ApplicationHelper)
     end
   end
 end
