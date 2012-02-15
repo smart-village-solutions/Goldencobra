@@ -12,7 +12,7 @@ module Goldencobra
         end
       end
       if @article
-        set_meta_tags :site => Goldencobra::Setting.for_key("goldencobra.page.default_title_tag"),
+        set_meta_tags :site => s("goldencobra.page.default_title_tag"),
                       :title => @article.metatag("Title Tag"),
                       :description => @article.metatag("Meta Description"), 
                       :keywords => @article.metatag("Keywords"),

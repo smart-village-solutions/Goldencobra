@@ -17,7 +17,7 @@ module Goldencobra
           end
         end
       else
-        return ""
+        return setting_title
       end
     end
     
