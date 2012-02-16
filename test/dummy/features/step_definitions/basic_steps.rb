@@ -64,3 +64,7 @@ Given /^the following "([^"]*)" exist:$/ do |arg1, table|
     Factory(arg1.singularize.to_sym ,data)
   end
 end
+
+Given /^default settings exists$/ do
+  Goldencobra::Setting.import_default_settings(Goldencobra::Engine.root + "config/settings.yml")
+end

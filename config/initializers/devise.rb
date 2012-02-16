@@ -70,7 +70,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "7eaa65780a09e6254c2d9ef8018d5ae2646dac226764c94adcaa99f80c2c6680a131ccd1db58286bba95fe494c55399112a07cc2d567ebc62a4d2ebce36b1ce6"
+  config.pepper = "7eaa65780a09e6254c2d9ef8018d5ae2646dac226764c94adcaa99f80c2c12345a131ccd1db58286bba95fe494c55399112a07cc2d567ebc62a4d2ebce36b1ce6"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -78,7 +78,7 @@ Devise.setup do |config|
   # able to access the website for two days without confirming his account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming his account.
-  # config.confirm_within = 2.days
+  config.confirm_within = 2.hours
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [ :email ]
@@ -113,7 +113,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  config.timeout_in = 2.hours
 
   # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.

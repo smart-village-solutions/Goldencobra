@@ -16,8 +16,9 @@ module Goldencobra
     isolate_namespace Goldencobra
     config.to_prepare do
       ApplicationController.helper(Goldencobra::ApplicationHelper)
-      ApplicationController.helper(Goldencobra::ArticlesHelper)
       ActionController::Base.helper(Goldencobra::ApplicationHelper)      
+      
+      ApplicationController.helper(Goldencobra::ArticlesHelper)
       ActionController::Base.helper(Goldencobra::ArticlesHelper)      
     end
   end
