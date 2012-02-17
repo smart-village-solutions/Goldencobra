@@ -29,5 +29,17 @@ end
 #  authentication_token   :string(255)
 #  created_at             :datetime        not null
 #  updated_at             :datetime        not null
+#  gender                 :boolean(1)
+#  title                  :string(255)
+#  firstname              :string(255)
+#  lastname               :string(255)
+#  function               :string(255)
+#  phone                  :string(255)
+#  fax                    :string(255)
+#  facebook               :string(255)
+#  twitter                :string(255)
+#  linkedin               :string(255)
+#  xing                   :string(255)
+#  googleplus             :string(255)
 #
 
