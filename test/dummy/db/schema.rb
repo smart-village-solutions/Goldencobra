@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120209100956) do
+ActiveRecord::Schema.define(:version => 20120217085735) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -147,6 +147,18 @@ ActiveRecord::Schema.define(:version => 20120209100956) do
     t.string   "authentication_token"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.boolean  "gender"
+    t.string   "title"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "function"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "facebook"
+    t.string   "twitter"
+    t.string   "linkedin"
+    t.string   "xing"
+    t.string   "googleplus"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
