@@ -34,7 +34,7 @@ $(document).ready(function() {
 		$("#goldencobra_image_maganger").fadeOut();
 	});
 	
-	
+	$('#footer').html("<p>Goldencobra</p>")
 	
 });
 

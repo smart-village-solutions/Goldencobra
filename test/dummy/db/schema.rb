@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120217085735) do
+ActiveRecord::Schema.define(:version => 20120221100021) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -59,6 +59,14 @@ ActiveRecord::Schema.define(:version => 20120217085735) do
 
   add_index "goldencobra_articles", ["ancestry"], :name => "index_goldencobra_articles_on_ancestry"
   add_index "goldencobra_articles", ["slug"], :name => "index_goldencobra_articles_on_slug"
+
+  create_table "goldencobra_helps", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "url"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "goldencobra_locations", :force => true do |t|
     t.string   "lat"

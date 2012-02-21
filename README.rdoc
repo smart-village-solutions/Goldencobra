@@ -2,6 +2,9 @@
 
 This Project is under development
 
+= Powered by
+	- ActiveAdmin
+
 
 = Installation
 
