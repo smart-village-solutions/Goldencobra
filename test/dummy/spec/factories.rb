@@ -22,6 +22,8 @@ end
 
 Factory.define :admin_user, :class => User do |u|
   u.email 'admin@test.de'
+  u.firstname "Tim"
+  u.lastname "Test"
   u.password 'secure12'
   u.password_confirmation 'secure12'
   u.confirmed_at "2012-01-09 14:28:58"

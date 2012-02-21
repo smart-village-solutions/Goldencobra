@@ -6,7 +6,9 @@
 	</div>
 	<ul>
 		<% Goldencobra::Upload.scoped.each do |upload| %>
-			<li><%= image_tag upload.image.url(:mini)%></li>
+			<% if upload && upload.image && upload.image.url %>
+				<li><%= image_tag upload.image.url(:mini)%></li>
+			<% end %>
 		<% end %>		
 	</ul>
 </div>
