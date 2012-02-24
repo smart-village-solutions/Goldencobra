@@ -33,6 +33,7 @@ PATH
       execjs
       friendly_id (~> 4.0.0.beta14)
       jquery-rails
+      jqueryui_rails
       meta-tags
       meta_search (~> 1.1.2)
       oa-oauth
@@ -193,6 +194,7 @@ GEM
     jquery-rails (2.0.0)
       railties (>= 3.2.0.beta, < 5.0)
       thor (~> 0.14)
+    jqueryui_rails (0.0.4)
     json (1.6.5)
     kaminari (0.13.0)
       actionpack (>= 3.0.0)

@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2.1"
   s.add_dependency "jquery-rails"
+  s.add_dependency "jqueryui_rails"
 
   s.add_dependency 'devise', '~> 2.0.0.rc'
   s.add_dependency "activeadmin"
