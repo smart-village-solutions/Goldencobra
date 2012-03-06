@@ -8,7 +8,9 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       f.input :description, :input_html => { :class =>"tinymce"}
       f.input :image, :as => :file
     end
-    f.buttons
+    f.inputs "" do
+      f.actions
+    end
   end
   
   index do
