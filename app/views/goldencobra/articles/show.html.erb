@@ -1,24 +1,24 @@
 <% content_for :article_title do %>
-	<%= @article.title if @article%>	
+	<%= @article.title if @article%>
 <% end %>
 
 <% content_for :article_subtitle do %>
-	<%= @article.subtitle if @article%>	
+	<%= @article.subtitle if @article%>
 <% end %>
 
 <% content_for :article_summary do %>
-	<%= @article.summary if @article%>	
+	<%= raw @article.summary if @article%>
 <% end %>
 
 <% content_for :article_content do %>
-	<%= raw(@article.content) if @article%>	
+	<%= raw(@article.content) if @article%>
 <% end %>
 
 <% content_for :article_teaser do %>
-	<%= raw(@article.teaser) if @article%>	
+	<%= raw(@article.teaser) if @article%>
 <% end %>
 
 <% content_for :article_breadcrumb do %>
-	<%= breadcrumb() if @article%>	
+	<%= breadcrumb() if @article%>
 <% end %>
 
