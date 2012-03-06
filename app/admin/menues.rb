@@ -12,7 +12,9 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :active
       f.input :css_class
     end
-    f.buttons
+    f.inputs "" do
+      f.actions
+    end
   end
   
   index do
