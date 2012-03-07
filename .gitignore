@@ -25,3 +25,4 @@ test/dummy/db/*
 db/.DS_Store
 test/.DS_Store
 test/dummy/.DS_Store
+.sass-cache/
