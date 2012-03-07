@@ -1,6 +1,6 @@
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
-  menu :parent => "Content-Management"
+  menu :parent => "Content-Management", :label => "Artikel"
     
   # 2) Block "Inhalt": Erst "Content", dann "Summary", dann "Context", dann "Teaser"; wenn möglich die letzten drei etwas kleiner.
   # 3) Block "Metadescriptions": Hier die Abstände der h3 und des Buttons links auf 10px setzen
