@@ -41,6 +41,7 @@ PATH
   remote: .
   specs:
     goldencobra (0.0.3)
+      activeadmin
       ancestry
       cancan
       compass
