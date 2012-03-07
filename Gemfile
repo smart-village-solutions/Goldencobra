@@ -4,7 +4,6 @@ source "http://rubygems.org"
 # Declare your gem's dependencies in goldencobra.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
-gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git"
 gemspec
 
 # jquery-rails is used by the dummy application
@@ -17,7 +16,7 @@ gem "jquery-rails"
 
 
 #gem 'sass-rails', "~> 3.2.1"
-
+gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git"
 gem 'execjs'
 gem 'therubyracer'
 gem "friendly_id", "~> 4.0.0.beta14", :require => "friendly_id"
