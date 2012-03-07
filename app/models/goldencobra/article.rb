@@ -49,6 +49,13 @@ module Goldencobra
       self.slug = self.url_name if self.slug.blank?
     end
     
+    def breadcrumb_name
+      if self.breadcrumb.present?
+        return self.breadcrumb
+      else
+        return self.title
+      end
+    end
     
     def mark_as_startpage!
       Article.startpage.each do |a|

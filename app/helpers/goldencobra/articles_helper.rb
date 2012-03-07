@@ -26,7 +26,7 @@ module Goldencobra
       if @article
         list = ""
         @article.path.each do |art|
-          link_name = link_to(art.title, art.public_url)
+          link_name = link_to(art.breadcrumb_name, art.public_url)
           list << content_tag(:li, raw(link_name))
         end
         content_list = content_tag(:ol, raw(list))

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221100021) do
+ActiveRecord::Schema.define(:version => 20120307151355) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20120221100021) do
     t.text     "context_info"
     t.string   "canonical_url"
     t.boolean  "robots_no_index", :default => false
+    t.string   "breadcrumb"
   end
 
   add_index "goldencobra_articles", ["ancestry"], :name => "index_goldencobra_articles_on_ancestry"
