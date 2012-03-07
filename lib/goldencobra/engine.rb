@@ -1,4 +1,4 @@
-#require "activeadmin"
+require "activeadmin"
 require "friendly_id"
 require 'ancestry'
 require 'devise'
