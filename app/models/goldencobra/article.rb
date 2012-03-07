@@ -49,6 +49,7 @@ module Goldencobra
       self.slug = self.url_name if self.slug.blank?
     end
     
+    
     def mark_as_startpage!
       Article.startpage.each do |a|
         a.startpage = false
