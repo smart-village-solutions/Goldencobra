@@ -2,6 +2,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
   menu :parent => "Content-Management"
     
+  # 2) Block "Inhalt": Erst "Content", dann "Summary", dann "Context", dann "Teaser"; wenn möglich die letzten drei etwas kleiner.
+  # 3) Block "Metadescriptions": Hier die Abstände der h3 und des Buttons links auf 10px setzen
+
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
       f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
@@ -20,14 +23,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
     end
 
-    f.inputs "Zus&auml;tzliche Informationen" do
-      f.input :teaser, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben"
-      f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
-    end
-    
     f.inputs "Inhalt" do
-      f.input :summary, :input_html => { :class =>"tinymce"}, :hint => "Dient der Einleitung in den Text und wird hervorgehoben dargestellt"
       f.input :content, :hint => "Dies ist das Haupt-Textfeld", :input_html => { :class =>"tinymce"}
+      f.input :summary, :input_html => { :class =>"tinymce"}, :hint => "Dient der Einleitung in den Text und wird hervorgehoben dargestellt"
+      f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
+      f.input :teaser, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben"
     end
     f.inputs "" do
       f.actions 
