@@ -16,7 +16,7 @@ gem "jquery-rails"
 
 
 #gem 'sass-rails', "~> 3.2.1"
-gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git"
+gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git", :require => "activeadmin"
 gem 'execjs'
 gem 'therubyracer'
 gem "friendly_id", "~> 4.0.0.beta14", :require => "friendly_id"
