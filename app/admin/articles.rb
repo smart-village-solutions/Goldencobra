@@ -2,12 +2,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
   menu :parent => "Content-Management", :label => "Artikel"
     
-  # 2) Block "Inhalt": Erst "Content", dann "Summary", dann "Context", dann "Teaser"; wenn möglich die letzten drei etwas kleiner.
-  # 3) Block "Metadescriptions": Hier die Abstände der h3 und des Buttons links auf 10px setzen
-
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
       f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
+      f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
       f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten."
       f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| [c.title, c.id]}, :include_blank => true
       f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
