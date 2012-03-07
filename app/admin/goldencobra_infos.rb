@@ -1,6 +1,6 @@
-ActiveAdmin.register_page "Goldencobra_Infos" do
+ActiveAdmin.register_page "GoldencobraInfos" do
 
-  menu :priority => 20
+  menu :priority => 20, :label => "Goldencobra Infos"
   
   content do
     panel "Ueber Goldencobra" do
