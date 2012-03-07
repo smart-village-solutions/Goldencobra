@@ -51,7 +51,7 @@ end
 group :test do
   gem 'sqlite3'
   gem 'cucumber'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', '~>1.2.1'
   gem 'factory_girl', '~> 2.3.2'
   gem "factory_girl_rails", "~> 1.4.0"
   gem 'database_cleaner'
@@ -62,7 +62,7 @@ group :test do
   gem 'guard-cucumber'
   gem 'guard-livereload'
   gem 'rb-fsevent', :git => 'git://github.com/ttilley/rb-fsevent.git', :branch => 'pre-compiled-gem-one-off'
-  gem 'growl' 
+  gem 'growl'
   gem 'launchy'
 end
 
