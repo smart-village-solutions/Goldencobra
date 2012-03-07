@@ -1,4 +1,4 @@
-ActiveAdmin.register_page "Goldencobra Infos" do
+ActiveAdmin.register_page "Goldencobra_Infos" do
 
   menu :priority => 20
   

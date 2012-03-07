@@ -1,6 +1,6 @@
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
-  menu :parent => "Content-Management"
+  menu :parent => "Content-Management", :label => "Artikel"
     
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
@@ -30,7 +30,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.input :content, :hint => "Dies ist das Haupt-Textfeld", :input_html => { :class =>"tinymce"}
     end
     f.inputs "" do
-      f.actions
+      f.actions 
     end
   end
   
