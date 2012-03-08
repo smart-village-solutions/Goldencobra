@@ -36,12 +36,22 @@ $(document).ready(function() {
 	
 	$('#footer').html("<p>Goldencobra</p>")
 	
+	//die fieldsets bekommen einen button zum auf und zu klappen
 	$('div#main_content fieldset.foldable legend').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
 	$('div#main_content fieldset.foldable legend').bind("click", function(){
 		$(this).closest("fieldset").find(".foldable_icon").toggleClass("open");
 		$(this).closest("fieldset").find('ol').slideToggle();
 	});
 	//$('div#main_content fieldset.foldable legend').trigger("click");
+	
+	
+	//die sidebar_section bekommen einen button zum auf und zu klappen
+	$('div#sidebar div.sidebar_section h3').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
+	$('div#sidebar div.sidebar_section h3').bind("click", function(){
+		$(this).closest(".sidebar_section").find(".foldable_icon").toggleClass("open");
+		$(this).closest(".sidebar_section").find('.panel_contents').slideToggle();
+	});
+	$('div#sidebar div.sidebar_section h3').trigger("click");
 	
 });
 
