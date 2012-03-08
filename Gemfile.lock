@@ -44,6 +44,7 @@ PATH
       activeadmin
       ancestry
       cancan
+      compass-rails
       devise (~> 2.0.0.rc)
       execjs
       friendly_id (~> 4.0.0.beta14)
@@ -57,6 +58,7 @@ PATH
       omniauth-openid
       paperclip
       rails (~> 3.2.2)
+      sass-rails
       sass-rails (~> 3.2.1)
       sprockets
       therubyracer
