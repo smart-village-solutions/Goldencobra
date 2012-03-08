@@ -3,7 +3,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   menu :parent => "Content-Management", :label => "Artikel"
     
   form :html => { :enctype => "multipart/form-data" }  do |f|
-    f.inputs "Allgemein" do
+    f.inputs "Allgemein", :class => "foldable inputs" do
       f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
       f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
       f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten."
@@ -11,7 +11,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
     end
     
-    f.inputs "Metadescriptions" do
+    f.inputs "Metadescriptions", :class => "foldable inputs" do
       f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
       f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
       f.has_many :metatags do |m|

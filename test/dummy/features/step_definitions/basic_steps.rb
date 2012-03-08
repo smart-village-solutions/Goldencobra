@@ -68,3 +68,13 @@ end
 Given /^default settings exists$/ do
   Goldencobra::Setting.import_default_settings(Goldencobra::Engine.root + "config/settings.yml")
 end
+
+Then /the text "([^"]*)"(?: within "([^"]*)")? should be visible/ do |text, nodes| 
+  scope = nodes ? nodes : '//*' 
+  page.find(:xpath, "#{scope}[contains(text(), '#{text}')]").visible?.should be_true 
+end
+
+Then /the text "([^"]*)"(?: within "([^"]*)")? should not be visible/ do |text, nodes| 
+  scope = nodes ? nodes : '//*' 
+  page.find(:xpath, "#{scope}[contains(text(), '#{text}')]").visible?.should be_false
+end
