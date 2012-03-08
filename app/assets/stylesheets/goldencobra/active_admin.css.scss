@@ -76,13 +76,30 @@ a.button {
   margin-left: 10px;
 }
 
-.foldable_icon_wrapper{
+legend .foldable_icon_wrapper{
 	.foldable_icon{
 		background:url("/assets/goldencobra/arrow.png");
 		width:20px;
 		height:20px;
 		float:right;
 		margin:5px;
+		cursor:pointer;
+		@include rotate(90deg);	
+		@include transition(all 500ms);
+		&.open{
+			@include rotate(0deg);	
+		}
+		
+	}	
+}
+
+h3 .foldable_icon_wrapper{
+	.foldable_icon{
+		background:url("/assets/goldencobra/arrow.png");
+		display:inline-block;
+		width:20px;
+		height:20px;
+		float:right;
 		cursor:pointer;
 		@include rotate(90deg);	
 		@include transition(all 500ms);
