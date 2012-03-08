@@ -24,7 +24,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'meta_search', '~> 1.1.2'
   s.add_dependency 'sprockets'
   s.add_dependency "sass-rails", "~> 3.2.1"
-#  s.add_dependency "compass"
+  s.add_dependency "sass-rails"
+  s.add_dependency "compass-rails"
   s.add_dependency "execjs"
   s.add_dependency "therubyracer"
   s.add_dependency "friendly_id", "~> 4.0.0.beta14"
