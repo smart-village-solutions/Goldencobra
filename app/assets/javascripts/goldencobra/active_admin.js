@@ -36,5 +36,12 @@ $(document).ready(function() {
 	
 	$('#footer').html("<p>Goldencobra</p>")
 	
+	$('div#main_content fieldset.foldable legend').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
+	$('div#main_content fieldset.foldable legend').bind("click", function(){
+		$(this).closest("fieldset").find(".foldable_icon").toggleClass("open");
+		$(this).closest("fieldset").find('ol').slideToggle();
+	});
+	//$('div#main_content fieldset.foldable legend').trigger("click");
+	
 });
 
