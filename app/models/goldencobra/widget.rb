@@ -13,5 +13,7 @@
 
 module Goldencobra
   class Widget < ActiveRecord::Base
+    has_many :article_widgets
+    has_many :articles, :through => :article_widgets
   end
 end

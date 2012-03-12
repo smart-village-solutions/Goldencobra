@@ -22,3 +22,11 @@
 	<%= breadcrumb() if @article%>
 <% end %>
 
+<% content_for :article_widgets do %>
+  <% if @article %>
+    <% @article.widgets.each do |widget| %>
+      <section class="<%= widget.css_name %>"><%= raw(widget.content) %></section>
+    <% end %>
+  <% end %>
+<% end %>
+

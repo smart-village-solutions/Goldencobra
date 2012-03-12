@@ -51,6 +51,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
   end
   
+  sidebar :widgets_options, only: [:edit] do
+    _article = @_assigns['article']
+    render "/goldencobra/admin/articles/widgets_sidebar", :locals => { :current_article => _article }
+  end
   
   sidebar :startpage_options, :only => [:show, :edit] do 
       _article = @_assigns['article']
@@ -72,6 +76,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     redirect_to :action => :show, :notice => "This Article is the Startpage!"
   end
   
+  member_action :update_widgets, :method => :post do
+    article = Goldencobra::Article.find(params[:id])
+    article.update_attributes(:widget_ids => params[:widget_ids])
+    redirect_to :action => :edit, :notice => "Widgets added"
+  end
   controller do 
     def new 
       @article = Goldencobra::Article.new
