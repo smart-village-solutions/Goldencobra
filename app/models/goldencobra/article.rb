@@ -18,6 +18,7 @@
 #  context_info    :text
 #  canonical_url   :string(255)
 #  robots_no_index :boolean(1)      default(FALSE)
+#  breadcrumb      :string(255)
 #
 
 module Goldencobra

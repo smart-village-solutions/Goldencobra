@@ -44,6 +44,13 @@ Factory.define :user, class: User do |u|
   u.password_confirmation 'bitte_aendern'
 end
 
+Factory.define :widget, class: Goldencobra::Widget do |w|
+  w.title "Mein Widget"
+  w.content "<ul><li><p>Mein Widget</p></li></p>"
+  w.css_name "meine-liste"
+  w.active true
+end
+
 Factory.define :startpage, :class => Goldencobra::Article do |u|
   u.title "Startseite"
   u.url_name "root"

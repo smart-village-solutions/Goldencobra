@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307151355) do
+ActiveRecord::Schema.define(:version => 20120312111338) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -132,6 +132,15 @@ ActiveRecord::Schema.define(:version => 20120307151355) do
     t.integer  "image_file_size"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "goldencobra_widgets", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "css_name"
+    t.boolean  "active"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
