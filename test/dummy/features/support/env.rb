@@ -11,6 +11,7 @@ require "factory_girl/step_definitions"
 require 'capybara/rails'
 require 'capybara/cucumber'
 require 'capybara-webkit'
+require 'faker'
 
 #FactoryGirl.find_definitions
 

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates_presence_of :lastname
     
   
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :gender, :title, :firstname, :lastname, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :gender, :title, :firstname, :lastname, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :role_ids
   has_and_belongs_to_many :roles, :join_table => "goldencobra_roles_users", :class_name => Goldencobra::Role
 
   def has_role?(name)
