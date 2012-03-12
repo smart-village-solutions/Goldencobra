@@ -41,6 +41,7 @@ gem 'compass-rails'
 
 #gem 'jquery-rails'
 gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
+gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks run properly
 
 group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
