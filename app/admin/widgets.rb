@@ -16,6 +16,16 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.actions
     end
   end
+  
+  index do
+    selectable_column
+    column :id
+    column :title
+    column :css_name
+    column :active
+    column :created_at
+    default_actions
+  end
 
   show :title => :title do
     panel "Widget" do
