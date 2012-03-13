@@ -34,6 +34,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
   
   index do 
+    selectable_column
     column "title", :title do |article|
       content_tag("span", article.title, :class => article.startpage ? "startpage" : "")
     end

@@ -19,6 +19,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   end
   
   index do
+    selectable_column
     column :id
     column :title
     column :target

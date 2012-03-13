@@ -17,6 +17,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   end
   
   index do
+    selectable_column
     column "url" do |upload|
       result = ""
       result << upload.image.url

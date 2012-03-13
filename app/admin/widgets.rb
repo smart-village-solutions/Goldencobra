@@ -25,7 +25,6 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
         end
       end
     end
-
     panel "Articles" do
       table do
         tr do
