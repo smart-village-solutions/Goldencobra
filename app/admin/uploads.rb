@@ -1,6 +1,6 @@
 ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   
-  menu :label => "Medienverwaltung"
+  menu :label => "Medienverwaltung", :if => proc{can?(:read, Goldencobra::Upload)}
   
   controller.authorize_resource :class => Goldencobra::Upload
   

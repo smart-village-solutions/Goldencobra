@@ -1,6 +1,6 @@
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
-  menu :parent => "Content-Management", :label => "Artikel"#, :if => proc{ can?(:manage, Goldencobra::Article) }     
+  menu :parent => "Content-Management", :label => "Artikel", :if => proc{can?(:read, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
     
   form :html => { :enctype => "multipart/form-data" }  do |f|

@@ -1,6 +1,6 @@
 ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   
-  menu :parent => "Einstellungen", :label => "Optionen"
+  menu :parent => "Einstellungen", :label => "Optionen", :if => proc{can?(:read, Goldencobra::Setting)}
   
   controller.authorize_resource :class => Goldencobra::Setting
   
