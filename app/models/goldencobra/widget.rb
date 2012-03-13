@@ -15,6 +15,6 @@ module Goldencobra
   class Widget < ActiveRecord::Base
     has_many :article_widgets
     has_many :articles, :through => :article_widgets
-    scope :active, where(:active => true)
+    scope :active, where(:active => true).order(:sorter)
   end
 end

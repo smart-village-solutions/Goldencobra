@@ -8,6 +8,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :id_name
       f.input :css_name
       f.input :active
+      f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter oben in der Ansicht"
     end
 
     f.inputs "Artikel" do
@@ -25,6 +26,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     column :id_name
     column :css_name
     column :active
+    column :sorter
     column :created_at
     default_actions
   end
