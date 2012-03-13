@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307151355) do
+ActiveRecord::Schema.define(:version => 20120312150558) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(:version => 20120307151355) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "goldencobra_article_widgets", :force => true do |t|
+    t.integer  "article_id"
+    t.integer  "widget_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "goldencobra_articles", :force => true do |t|
     t.string   "title"
@@ -132,6 +139,15 @@ ActiveRecord::Schema.define(:version => 20120307151355) do
     t.integer  "image_file_size"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "goldencobra_widgets", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "css_name"
+    t.boolean  "active"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

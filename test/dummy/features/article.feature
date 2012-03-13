@@ -102,12 +102,18 @@ Feature: Create and manage articles
     Given the following "articles" exist:
       | title           | id | url_name  | active |
       | "Seite1"        | 1  | seite1    | true   |
-    
-    
-    
-    
 
-    
-      
-    
-    
+  Scenario: Select two widgets for an article
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    Given the following "articles" exist:
+      | title     | id | url_name | active |
+      | "Seite 1" |  1 | seite1   | true   |
+    And the following "widgets" exist:
+      | title   | active |
+      | widget1 | true   |
+    And I go to the admin list of articles
+    And I click on "Edit" within "tr#article_1"
+    And I check "Widget1"
+    And I press "Update Article"
+    Then I should see "Widget1"
