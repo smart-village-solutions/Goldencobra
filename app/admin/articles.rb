@@ -1,6 +1,7 @@
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
-  menu :parent => "Content-Management", :label => "Artikel"
+  menu :parent => "Content-Management", :label => "Artikel"#, :if => proc{ can?(:manage, Goldencobra::Article) }     
+  controller.authorize_resource :class => Goldencobra::Article
     
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein", :class => "foldable inputs" do
@@ -73,11 +74,14 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
   
   controller do 
-    def new 
+    #load_and_authorize_resource
+    
+    def new       
       @article = Goldencobra::Article.new
       if params[:parent] && params[:parent].present? 
         @parent = Goldencobra::Article.find(params[:parent])
         @article.parent_id = @parent.id
+        #render :layout => 'active_admin'
       end
     end 
   end

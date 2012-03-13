@@ -2,6 +2,8 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   
   menu :label => "Medienverwaltung"
   
+  controller.authorize_resource :class => Goldencobra::Upload
+  
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
       f.input :source

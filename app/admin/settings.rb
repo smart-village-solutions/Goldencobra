@@ -2,6 +2,8 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   
   menu :label => "Einstellungen"
   
+  controller.authorize_resource :class => Goldencobra::Setting
+  
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
       f.input :title
@@ -12,5 +14,5 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
       f.actions
     end
   end
-  
+    
 end
