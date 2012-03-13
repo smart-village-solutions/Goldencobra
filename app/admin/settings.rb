@@ -1,6 +1,6 @@
 ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   
-  menu :label => "Einstellungen"
+  menu :parent => "Einstellungen", :label => "Optionen"
   
   controller.authorize_resource :class => Goldencobra::Setting
   
@@ -14,5 +14,6 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
       f.actions
     end
   end
+  
     
 end

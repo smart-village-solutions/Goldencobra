@@ -1,9 +1,10 @@
 ActiveAdmin.register User, :as => "User" do
-  menu :parent => "Benutzerverwaltung", :label => "Benutzer"
+  menu :parent => "Einstellungen", :label => "Benutzerverwaltung"
   
   filter :firstname
   filter :lastname
   filter :email
+  actions :all, :except => [:new]
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
@@ -28,6 +29,7 @@ ActiveAdmin.register User, :as => "User" do
  
 
   index do
+    selectable_column
     column :firstname
     column :lastname
     column :email
