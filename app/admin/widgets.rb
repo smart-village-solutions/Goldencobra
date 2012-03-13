@@ -5,6 +5,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     f.inputs "Allgemein" do
       f.input :title
       f.input :content
+      f.input :id_name
       f.input :css_name
       f.input :active
     end
@@ -21,6 +22,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     selectable_column
     column :id
     column :title
+    column :id_name
     column :css_name
     column :active
     column :created_at
@@ -43,8 +45,10 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
           end
         end
         widget.articles.each do |wa|
-          [wa.title, wa.url_name].each do |watd|
-            td watd
+          tr do
+            [wa.title, wa.url_name].each do |watd|
+              td watd
+            end
           end
         end
       end
