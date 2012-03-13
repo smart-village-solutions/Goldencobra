@@ -3,6 +3,7 @@ class Ability
 
   def initialize(user)
     user ||= User.new
+    can :read, Goldencobra::Article
     user.roles.each do |role|
       role.permissions.each do |permission|
         if permission.subject_class == ":all"          
