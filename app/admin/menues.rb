@@ -1,6 +1,7 @@
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
   menu :parent => "Content-Management", :label => "Navigationsmenu"
+  controller.authorize_resource :class => Goldencobra::Menue
 
   form do |f|
     f.inputs "Allgemein" do
