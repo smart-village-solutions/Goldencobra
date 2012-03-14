@@ -1,0 +1,7 @@
+<div class="overview-sidebar">
+	<ul>
+		<% Goldencobra::Article.roots.each do |root| %>
+			<%= render :partial => "/goldencobra/admin/articles/article", :object => root %>
+		<% end %>	
+	</ul>
+</div>	

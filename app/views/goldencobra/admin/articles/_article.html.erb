@@ -1,0 +1,18 @@
+<li>
+	<div class="item">
+		<div class="title"><%= link_to article.title, admin_articles_path(:q => {:parent_ids_in => article.id}) %></div>
+		<div class="options">
+			<%= link_to "new", new_admin_article_path(:parent => article), :class => "new_link"  %>
+			<%= link_to "edit", edit_admin_article_path(article), :class => "edit_link" %>
+		</div>		
+	</div>
+	<% if article.children %>				
+		<ul>
+			<% article.children.each do |art|%>
+				<%= render :partial => "/goldencobra/admin/articles/article", :object => art %>
+			<% end %>
+		</ul>
+	<% end %>
+</li>
+
+
