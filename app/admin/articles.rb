@@ -11,7 +11,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| [c.title, c.id]}, :include_blank => true
       f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
     end
-    
     f.inputs "Metadescriptions", :class => "foldable inputs" do
       f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
       f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
@@ -21,7 +20,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         m.input :_destroy, :as => :boolean 
       end
     end
-
     f.inputs "Inhalt" do
       f.input :content, :hint => "Dies ist das Haupt-Textfeld", :input_html => { :class =>"tinymce"}
       f.input :summary, :input_html => { :class =>"tinymce"}, :hint => "Dient der Einleitung in den Text und wird hervorgehoben dargestellt"
@@ -89,15 +87,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     article.update_attributes(:widget_ids => params[:widget_ids])
     redirect_to :action => :edit, :notice => "Widgets added"
   end
+  
   controller do 
-    #load_and_authorize_resource
-    
     def new       
       @article = Goldencobra::Article.new
       if params[:parent] && params[:parent].present? 
         @parent = Goldencobra::Article.find(params[:parent])
         @article.parent_id = @parent.id
-        #render :layout => 'active_admin'
       end
     end 
   end
