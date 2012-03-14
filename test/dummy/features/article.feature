@@ -114,7 +114,6 @@ Feature: Create and manage articles
       | 1 | Widget1 | true   |
     And I go to the admin list of articles
     And I click on "Edit" within "tr#article_1"
-    And show me the page
-    And I check "widget1"
-    And I press "Update Article"
-    Then I should see "Widget1"
+    And I check "widget_1"
+    And I press "Save Widgets"
+
