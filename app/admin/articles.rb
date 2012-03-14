@@ -32,6 +32,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.actions 
     end
   end
+
   
   index do 
     selectable_column
@@ -65,6 +66,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       else
         link_to "Make this article Startpage", mark_as_startpage_admin_article_path(_article.id), :confirm => "Realy want to make this article as ROOT of your website"
       end
+  end
+  
+  sidebar :layout, only: [:edit] do
+      _article = @_assigns['article']
+      render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => _article }
   end
   
   

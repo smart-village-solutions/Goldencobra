@@ -1,6 +1,9 @@
 module Goldencobra
   class ArticlesController < ApplicationController
     load_and_authorize_resource
+    
+    layout "osterlayout"
+    
     def show
       if params[:startpage] && (params[:startpage] == true || params[:startpage] == "true")
         @article = Goldencobra::Article.active.startpage.first
@@ -22,6 +25,9 @@ module Goldencobra
                                     :type => @article.metatag("OpenGraph Type"),
                                     :url => @article.metatag("OpenGraph URL"), 
                                     :image => @article.metatag("OpenGraph Image")}
+        respond_to do |format|
+          format.html {render :layout => @article.selected_layout}
+        end
       else
         render :text => "404", :status => 404
       end
