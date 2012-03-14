@@ -53,6 +53,18 @@ module Goldencobra
       self.slug = self.url_name if self.slug.blank?
     end
     
+    def self.templates_for_select
+      Dir.glob(File.join(::Rails.root, "app", "views", "layouts", "*.html.erb")).map{|a| File.basename(a, ".html.erb")}
+    end
+    
+    def selected_layout
+      if self.template_file.blank?
+        "application"
+      else
+        self.template_file
+      end
+    end
+    
     def breadcrumb_name
       if self.breadcrumb.present?
         return self.breadcrumb
