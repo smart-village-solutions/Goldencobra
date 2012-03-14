@@ -30,6 +30,12 @@ Factory.define :admin_user, :class => User do |u|
   u.confirmed_at "2012-01-09 14:28:58"
 end
 
+Factory.define :admin_permission, :class => Goldencobra::Permission do |p|
+  p.action "manage"
+  p.subject_class ":all"
+  p.subject_id ""
+end
+
 Factory.define :guest_user, :class => User do |u|
   u.email 'guest@test.de'
   u.password 'secure12'

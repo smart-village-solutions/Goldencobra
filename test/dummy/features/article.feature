@@ -110,10 +110,11 @@ Feature: Create and manage articles
       | title     | id | url_name | active |
       | "Seite 1" |  1 | seite1   | true   |
     And the following "widgets" exist:
-      | title   | active |
-      | widget1 | true   |
+      | id | title   | active |
+      | 1 | Widget1 | true   |
     And I go to the admin list of articles
     And I click on "Edit" within "tr#article_1"
-    And I check "Widget1"
+    And show me the page
+    And I check "widget1"
     And I press "Update Article"
     Then I should see "Widget1"

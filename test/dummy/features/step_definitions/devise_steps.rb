@@ -2,7 +2,11 @@ require 'Faker'
 
 Given /^that a confirmed admin exists$/ do
   @user = Factory.create(:admin_user)
-  @user.roles << Factory.create(:admin_role)
+  @admin_role = Factory.create(:admin_role)
+  @permission = Factory.create(:admin_permission)
+  @permission.role = @admin_role
+  @permission.save
+  @user.roles << @admin_role
 end
 
 Given /^that a confirmed guest exists$/ do
