@@ -3,6 +3,14 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   menu :parent => "Content-Management", :label => "Artikel", :if => proc{can?(:read, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
     
+  filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => "Parent"
+  filter :title
+  filter :subtitle
+  filter :breadcrumb
+  filter :template_file
+  filter :created_at
+  filter :updated_at
+    
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein", :class => "foldable inputs" do
       f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
@@ -50,6 +58,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       result += link_to("Delete", admin_article_path(article), :method => :DELETE, :confirm => "Realy want to delete this Article?", :class => "member_link delete_link")
       raw(result)
     end
+  end
+  
+  sidebar :overview do
+    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.roots, :locals => {:link_name => "title", :url_path => "article" }
   end
   
   sidebar :widgets_options, only: [:edit] do
