@@ -34,6 +34,11 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     end
   end
   
+  sidebar :overview, :class => "open" do
+    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Menue.roots, :locals => {:link_name => "title", :url_path => "menue" }
+  end
+  
+  
   controller do 
     def new 
       @menue = Goldencobra::Menue.new

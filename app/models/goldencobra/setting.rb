@@ -16,6 +16,13 @@ module Goldencobra
     
     before_save :parse_title
     
+    scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
+    search_methods :parent_ids_in_eq
+    
+    scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
+    search_methods :parent_ids_in
+    
+    
     
     def self.for_key(name) 
       setting_title = name.split(".").last

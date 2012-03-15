@@ -1,0 +1,7 @@
+<div class="overview-sidebar">
+	<ul>
+		<% overview.each do |root| %>
+			<%= render :partial => "/goldencobra/admin/shared/item", :object => root, :locals => {:link_name => link_name, :url_path => url_path } %>
+		<% end %>	
+	</ul>
+</div>	
