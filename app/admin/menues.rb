@@ -10,6 +10,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| [c.title, c.id]}, :include_blank => true
     end
     f.inputs "Optionen" do
+      f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
       f.input :active
       f.input :css_class
     end
@@ -24,6 +25,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     column :title
     column :target
     column :active
+    column :sorter
     column "" do |menue|
       result = ""
       result += link_to("New Submenu", new_admin_menue_path(:parent => menue), :class => "member_link edit_link")
