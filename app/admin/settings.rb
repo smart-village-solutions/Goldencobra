@@ -15,7 +15,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     end
   end
   
-  sidebar :overview do
+  sidebar :overview, only: [:index]  do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Setting.roots, :locals => {:link_name => "title", :url_path => "setting" }
   end
   

@@ -60,7 +60,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
   end
   
-  sidebar :overview do
+  sidebar :overview, only: [:index] do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.roots, :locals => {:link_name => "title", :url_path => "article" }
   end
   
