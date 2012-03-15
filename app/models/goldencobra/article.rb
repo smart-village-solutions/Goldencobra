@@ -41,7 +41,13 @@ module Goldencobra
     attr_protected :startpage
     
     scope :active, where(:active => true)
-    scope :startpage, where(:startpage => true)
+    scope :startpage, where(:startpage => true)    
+
+    scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
+    search_methods :parent_ids_in_eq
+    
+    scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
+    search_methods :parent_ids_in
      
     def public_url
       return "/" if self.startpage

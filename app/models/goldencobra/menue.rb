@@ -19,6 +19,13 @@ module Goldencobra
     
     scope :active, where(:active => true)
     
+    scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
+    search_methods :parent_ids_in_eq
+    
+    scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
+    search_methods :parent_ids_in
+    
+    
     def is_active?(request)
       request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
     end
