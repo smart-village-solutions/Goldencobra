@@ -1,0 +1,18 @@
+<li>
+	<div class="item">
+		<div class="title"><%= link_to item.send(link_name), eval("admin_#{url_path.pluralize}_path(:q => {:parent_ids_in => item.id})")   %></div>
+		<div class="options">
+			<%= link_to "new", eval("new_admin_#{url_path}_path(:parent => item)"), :class => "new_link"  %>
+			<%= link_to "edit", eval("edit_admin_#{url_path}_path(item)"), :class => "edit_link" %>
+		</div>		
+	</div>
+	<% if item.children %>				
+		<ul>
+			<% item.children.each do |art|%>
+				<%= render :partial => "/goldencobra/admin/shared/item", :object => art, :locals => {:link_name => link_name, :url_path => url_path } %>
+			<% end %>
+		</ul>
+	<% end %>
+</li>
+
+
