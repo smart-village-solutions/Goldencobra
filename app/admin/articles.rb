@@ -42,18 +42,19 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
   index do 
     selectable_column
-    column "title", :title do |article|
-      content_tag("span", article.title, :class => article.startpage ? "startpage" : "")
+    column "title", :sortable => :title do |article|
+      content_tag("span", link_to(article.title, edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
-    column "url" do |article|
-      link_to article.public_url, article.public_url, :target => "_blank"
+    column "url"  do |article|
+      article.public_url
     end
+    column :id
     column :created_at
     column :updated_at
     column "" do |article|
       result = ""
       result += link_to("New Subarticle", new_admin_article_path(:parent => article), :class => "member_link edit_link")
-      result += link_to("View", admin_article_path(article), :class => "member_link view_link")
+      #result += link_to("View", admin_article_path(article), :class => "member_link view_link")
       result += link_to("Edit", edit_admin_article_path(article), :class => "member_link edit_link")
       result += link_to("Delete", admin_article_path(article), :method => :DELETE, :confirm => "Realy want to delete this Article?", :class => "member_link delete_link")
       raw(result)
