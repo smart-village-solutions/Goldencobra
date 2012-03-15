@@ -25,6 +25,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     column :title
     column :target
     column :active
+    column :sorter
     column "" do |menue|
       result = ""
       result += link_to("New Submenu", new_admin_menue_path(:parent => menue), :class => "member_link edit_link")
