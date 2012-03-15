@@ -135,6 +135,10 @@ div.overview-sidebar{
 						text-decoration:none;
 						cursor:pointer;
 					}
+					overflow: hidden;
+					width: 160px;
+					height: 16px;
+					line-height: 16px;
 				}
 				div.options{
 					display:inline-block;
