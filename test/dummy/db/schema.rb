@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120314102039) do
+ActiveRecord::Schema.define(:version => 20120315161536) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20120314102039) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.string   "ancestry"
+    t.integer  "sorter",     :default => 0
   end
 
   add_index "goldencobra_menues", ["ancestry"], :name => "index_goldencobra_menues_on_ancestry"
