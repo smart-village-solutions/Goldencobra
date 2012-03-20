@@ -19,6 +19,5 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Setting.roots, :locals => {:link_name => "title", :url_path => "setting" }
   end
   
-  
     
 end
