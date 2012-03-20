@@ -65,6 +65,6 @@ Dummy::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   config.middleware.use ExceptionNotifier,
-    sender_address: s("goldencobra.email.exception_sender"),
+    sender_address: 'no_reply@goldencobra.de'
     exception_recipients: %w(holger@ikusei.de, marco.metz@ikusei.de)
   end
