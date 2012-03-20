@@ -35,7 +35,7 @@ ActiveAdmin.register User, :as => "User" do
     column :lastname
     column :email
     column "Roles" do |u|
-      u.roles.each.map{|r| r.name.capitalize}
+      u.roles.map{|r| r.name.capitalize}.join(", ")
     end
     default_actions
   end
