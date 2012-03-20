@@ -1,5 +1,5 @@
 ActiveAdmin.register Goldencobra::Permission, :as => "Permission" do
-    menu :parent => "Einstellungen", :label => "Rechteverwaltung", :if => proc{can?(:read, Goldencobra::Permission)}
+    menu :parent => "Einstellungen", :label => "Rechteverwaltung", :if => proc{can?(:update, Goldencobra::Permission)}
     controller.authorize_resource :class => Goldencobra::Permission
     
     index do
