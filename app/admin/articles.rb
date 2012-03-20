@@ -102,6 +102,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
   
   controller do 
+        
+    def show
+      show! do |format|
+         format.html { redirect_to edit_admin_article_path(@article), :flash => flash }
+      end
+    end
+    
     def new       
       @article = Goldencobra::Article.new
       if params[:parent] && params[:parent].present? 

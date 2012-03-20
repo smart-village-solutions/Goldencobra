@@ -2,4 +2,4 @@ goldencobra:
     page: 
         default_title_tag: "Goldencobra"
 	email:
-		exception_sender: "no_reply@goldencobra.de"
+        exception_sender: "no_reply@goldencobra.de"

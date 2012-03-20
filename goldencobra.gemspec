@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'meta-tags'
   s.add_dependency 'paperclip'
   s.add_dependency 'uglifier'#, "~> 1.0.3"
+  s.add_dependency 'exception_notification'
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'

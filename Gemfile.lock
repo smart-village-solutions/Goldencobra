@@ -47,6 +47,7 @@ PATH
       cancan
       compass-rails
       devise (~> 2.0.0.rc)
+      exception_notification
       execjs
       friendly_id (~> 4.0.0.beta14)
       jquery-rails
@@ -360,7 +361,6 @@ DEPENDENCIES
   cucumber
   cucumber-rails (~> 1.2.1)
   database_cleaner
-  exception_notification
   execjs
   factory_girl (~> 2.3.2)
   factory_girl_rails (~> 1.4.0)
