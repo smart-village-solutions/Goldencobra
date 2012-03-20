@@ -46,8 +46,8 @@ Feature: Create and manage articles
       | "10 Internet Marketing Tips" | false     |  2 |
       | "Startseite"                 | false     |  3 |
     When I go to the admin list of articles  
-    Then I click on "View" within "tr#article_3"
-    And I should see "Article #3" within "#page_title"
+    Then I click on "Edit" within "tr#article_3"
+    And I should see "Edit Article" within "#page_title"
     And I should see "Make this article Startpage"
     When I click on "Make this article Startpage" within "#startpage_options_sidebar_section"
     Then I should see "This Article is the Startpage!"
