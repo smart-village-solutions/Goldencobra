@@ -1,3 +1,6 @@
 goldencobra:
     page:
         default_title_tag: "Goldencobra"
+    article:
+        article_index:
+            link_to_article: "weiterlesen"
