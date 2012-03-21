@@ -84,7 +84,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       _article = @_assigns['article']
       render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => _article }
   end
-  
+
+  sidebar :index_of_articles, only: [:edit] do
+    render "/goldencobra/admin/articles/index_of_articles_sidebar"
+  end
+
   
   sidebar :image_module, :only => [:edit] do
     render "/goldencobra/admin/articles/image_module_sidebar"
