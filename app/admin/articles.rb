@@ -23,7 +23,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
       f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
       f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst"
-      f.input :enable_social_sharing, :label => "Display Social Sharing Buttons", :hint => "Sollen Besucher die Buttons angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
+      f.input :enable_social_sharing, :label => t("Display Social Sharing Buttons"), :hint => "Sollen Besucher die Buttons angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
       f.has_many :metatags do |m|
         m.input :name, :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'} 
         m.input :value, :input_html => { :class => 'metatag_values'} 

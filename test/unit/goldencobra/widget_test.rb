@@ -9,6 +9,8 @@
 #  active     :boolean(1)
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  id_name    :string(255)
+#  sorter     :integer(4)
 #
 
 require 'test_helper'

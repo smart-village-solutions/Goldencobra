@@ -2,23 +2,25 @@
 #
 # Table name: goldencobra_articles
 #
-#  id              :integer(4)      not null, primary key
-#  title           :string(255)
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  url_name        :string(255)
-#  slug            :string(255)
-#  content         :text
-#  teaser          :text
-#  ancestry        :string(255)
-#  startpage       :boolean(1)      default(FALSE)
-#  active          :boolean(1)      default(TRUE)
-#  subtitle        :string(255)
-#  summary         :text
-#  context_info    :text
-#  canonical_url   :string(255)
-#  robots_no_index :boolean(1)      default(FALSE)
-#  breadcrumb      :string(255)
+#  id                    :integer(4)      not null, primary key
+#  title                 :string(255)
+#  created_at            :datetime        not null
+#  updated_at            :datetime        not null
+#  url_name              :string(255)
+#  slug                  :string(255)
+#  content               :text
+#  teaser                :text
+#  ancestry              :string(255)
+#  startpage             :boolean(1)      default(FALSE)
+#  active                :boolean(1)      default(TRUE)
+#  subtitle              :string(255)
+#  summary               :text
+#  context_info          :text
+#  canonical_url         :string(255)
+#  robots_no_index       :boolean(1)      default(FALSE)
+#  breadcrumb            :string(255)
+#  template_file         :string(255)
+#  enable_social_sharing :boolean(1)
 #
 
 module Goldencobra
@@ -101,21 +103,6 @@ module Goldencobra
       
   end
 end
-  # == Schema Information
-#
-# Table name: articles
-#
-#  id         :integer(4)      not null, primary key
-#  title      :string(255)
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
-#  url_name   :string(255)
-#  slug       :string(255)
-#  content    :text
-#  teaser     :text
-#  ancestry   :string(255)
-#  startpage  :boolean(1)      default(FALSE)
-#
 
 #parent           Returns the parent of the record, nil for a root node
 #parent_id        Returns the id of the parent of the record, nil for a root node
