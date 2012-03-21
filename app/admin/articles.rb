@@ -19,10 +19,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| [c.title, c.id]}, :include_blank => true
       f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
     end
-    f.inputs "Metadescriptions", :class => "foldable inputs" do
+    f.inputs "Metadescriptions & Settings", :class => "foldable inputs" do
       f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
       f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
-      f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denne sich ein Artikel verschlagworten l&auml;&szlig;t"
+      f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst"
+      f.input :enable_social_sharing, :label => t("Display Social Sharing Buttons"), :hint => "Sollen Besucher die Buttons angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
       f.has_many :metatags do |m|
         m.input :name, :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'} 
         m.input :value, :input_html => { :class => 'metatag_values'} 
@@ -31,9 +32,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     f.inputs "Inhalt" do
       f.input :content, :hint => "Dies ist das Haupt-Textfeld", :input_html => { :class =>"tinymce"}
-      f.input :summary, :input_html => { :class =>"tinymce"}, :hint => "Dient der Einleitung in den Text und wird hervorgehoben dargestellt"
+      f.input :summary, :hint => "Dient der Einleitung in den Text und wird hervorgehoben dargestellt"
       f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
-      f.input :teaser, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben"
+      f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben"
     end
     f.inputs "Medien", :class => "foldable inputs"  do
       f.has_many :article_images do |ai|
