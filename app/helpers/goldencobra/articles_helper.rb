@@ -35,8 +35,30 @@ module Goldencobra
       end
     end
     
+    def index_of_articles(options={})
+      result_list = ""
+      if @article && @article.article_for_index_id.present? && master_index_article = Article.find_by_id(@article.article_for_index_id)
+        master_index_article.descendants.order(:created_at).limit(@article.article_for_index_limit).each do |art|
+          if @article.article_for_index_levels.to_i == 0 || (@article.depth + @article.article_for_index_levels.to_i > art.depth)
+            rendered_article_list_item = render_article_list_item(art)
+            result_list += content_tag(:li, rendered_article_list_item, :id => "article_index_list_item_#{art.id}", :class => "article_index_list_item")
+          end
+        end
+      end
+      return content_tag(:ul, raw(result_list), :id => "article_index_list")
+    end
     
     private
+    
+    def render_article_list_item(article)
+      result = ""
+      result += content_tag(:div, link_to(article.title, article.public_url), :class=> "title")
+      result += content_tag(:div, article.created_at.strftime("%d.%m.%Y %H:%M"), :class=>"created_at")
+      result += content_tag(:div, article.public_teaser, :class => "teaser")
+      result += content_tag(:div, link_to(s("goldencobra.article.article_index.link_to_article"), article.public_url), :class=> "link_to_article")      
+      return raw(result)
+    end
+    
     def navigation_menu_helper(child, depth, current_depth)
       child_link = content_tag(:a, child.title, :href => child.target.gsub("\"",''))
       current_depth = current_depth + 1
