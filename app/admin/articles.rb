@@ -55,6 +55,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     column "url"  do |article|
       article.public_url
     end
+    column :url_name
+    column :slug
     column :id
     column :created_at
     column :updated_at
