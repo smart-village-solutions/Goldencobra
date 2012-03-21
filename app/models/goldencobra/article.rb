@@ -2,6 +2,28 @@
 #
 # Table name: goldencobra_articles
 #
+#  id                       :integer(4)      not null, primary key
+#  title                    :string(255)
+#  created_at               :datetime        not null
+#  updated_at               :datetime        not null
+#  url_name                 :string(255)
+#  slug                     :string(255)
+#  content                  :text
+#  teaser                   :text
+#  ancestry                 :string(255)
+#  startpage                :boolean(1)      default(FALSE)
+#  active                   :boolean(1)      default(TRUE)
+#  subtitle                 :string(255)
+#  summary                  :text
+#  context_info             :text
+#  canonical_url            :string(255)
+#  robots_no_index          :boolean(1)      default(FALSE)
+#  breadcrumb               :string(255)
+#  template_file            :string(255)
+#  article_for_index_id     :integer(4)
+#  article_for_index_levels :integer(4)      default(0)
+#  article_for_index_count  :integer(4)      default(0)
+#  article_for_index_images :boolean(1)      default(FALSE)
 #
 
 module Goldencobra
