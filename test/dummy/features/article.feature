@@ -117,3 +117,14 @@ Feature: Create and manage articles
     And I check "widget_1"
     And I press "Save Widgets"
 
+    Scenario: Set article to display Twitter Button
+      Given that a confirmed admin exists
+      And I am logged in as "admin@test.de" with password "secure12"
+      Given the following "articles" exist:
+        | title           | id | url_name    |
+        | "Seo Seite"     | 2  | seo-seite |
+      When I go to the admin list of articles
+      Then I check "Display Social Sharing Buttons"
+      And I press "Update Article"
+      When I visit url "/seo-seite"
+      Then I should see "Tweet"
