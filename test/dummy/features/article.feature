@@ -124,7 +124,10 @@ Feature: Create and manage articles
         | title           | id | url_name    |
         | "Seo Seite"     | 2  | seo-seite |
       When I go to the admin list of articles
-      Then I check "Display Social Sharing Buttons"
+      Then I click on "Edit" within "tr#article_2"
+      Then I check "article_enable_social_sharing"
       And I press "Update Article"
       When I visit url "/seo-seite"
       Then I should see "Tweet"
+      Then the page should have content "div#google-plus-sharing"
+      Then the page should have content "div#facebook-sharing-iframe"

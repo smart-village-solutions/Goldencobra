@@ -3,6 +3,8 @@
 
 en:
   hello: "Hello world"  
+  Display Social Sharing Buttons: "Display Social Sharing Buttons"
+  tweet: "Tweet"
   active_admin:
     resource:
         article: "Article"

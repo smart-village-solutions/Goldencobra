@@ -33,8 +33,8 @@ Then /^I should see "([^\"]*)"$/ do |arg1|
   page.should have_content(arg1)
 end
 
-Then /^I should see "([^\"]*)" within "([^\"]*)"$/ do |arg1, content_posistion|
-  find(content_posistion).should have_content(arg1)
+Then /^I should see "([^\"]*)" within "([^\"]*)"$/ do |arg1, content_position|
+  find(content_position).should have_content(arg1)
 end
 
 
@@ -42,10 +42,13 @@ Then /^I should not see "([^\"]*)"$/ do |arg1|
   page.should have_no_content(arg1)
 end
 
-Then /^I should not see "([^"]*)" within "([^"]*)"$/ do |arg1, content_posistion|
-  find(content_posistion).should have_no_content(arg1)
+Then /^I should not see "([^"]*)" within "([^"]*)"$/ do |arg1, content_position|
+  find(content_position).should have_no_content(arg1)
 end
 
+Then /^the page should have content "([^"]*)"$/ do |arg1|
+  find(arg1)
+end
 
 Then /^show me the page$/ do
   save_and_open_page
@@ -77,4 +80,12 @@ end
 Then /the text "([^"]*)"(?: within "([^"]*)")? should not be visible/ do |text, nodes| 
   scope = nodes ? nodes : '//*' 
   page.find(:xpath, "#{scope}[contains(text(), '#{text}')]").visible?.should be_false
+end
+
+Then %r{^I should see "([^"]*)" inside ([^"].*)$} do |expected_text, named_element|
+  sleep 15
+  selector = element_for(named_element)
+  within_frame selector do
+    page.should have_content(expected_text)
+  end
 end

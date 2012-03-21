@@ -1,3 +1,6 @@
 goldencobra:
     page:
         default_title_tag: "Goldencobra"
+    url: "www.goldencobra.de"
+    facebook:
+        appid: "123456"
