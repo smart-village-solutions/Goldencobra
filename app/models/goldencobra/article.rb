@@ -34,9 +34,11 @@ module Goldencobra
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     has_many :metatags
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
-
+    has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
+    has_many :article_images
     has_many :article_widgets
     has_many :widgets, :through => :article_widgets
+    accepts_nested_attributes_for :article_images    
     
     validates_presence_of :title
     validates_presence_of :url_name
