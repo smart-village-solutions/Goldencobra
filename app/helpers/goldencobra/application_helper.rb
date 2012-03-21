@@ -8,6 +8,5 @@ module Goldencobra
       end
     end
     
-    
   end
 end
