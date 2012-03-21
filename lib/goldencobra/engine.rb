@@ -8,6 +8,7 @@ require 'sass'
 require 'sprockets'
 require 'sprockets/railtie'
 require 'sass-rails'
+require 'acts-as-taggable-on'
 require 'paperclip'
 require 'goldencobra/acts_as_setting'
 
