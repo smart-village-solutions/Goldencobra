@@ -50,12 +50,15 @@ module Goldencobra
     
     private
     
-    def render_article_list_item(article)
+    def render_article_list_item(article_item)
       result = ""
-      result += content_tag(:div, link_to(article.title, article.public_url), :class=> "title")
-      result += content_tag(:div, article.created_at.strftime("%d.%m.%Y %H:%M"), :class=>"created_at")
-      result += content_tag(:div, article.public_teaser, :class => "teaser")
-      result += content_tag(:div, link_to(s("goldencobra.article.article_index.link_to_article"), article.public_url), :class=> "link_to_article")      
+      result += content_tag(:div, link_to(article_item.title, article_item.public_url), :class=> "title")
+      result += content_tag(:div, article_item.created_at.strftime("%d.%m.%Y %H:%M"), :class=>"created_at")
+      if @article.article_for_index_images == true && article_item.images.count > 0
+        result += content_tag(:div, image_tag(article_item.images.first.image(:thumb)), :class => "article_image")
+      end
+      result += content_tag(:div, article_item.public_teaser, :class => "teaser")
+      result += content_tag(:div, link_to(s("goldencobra.article.article_index.link_to_article"), article_item.public_url), :class=> "link_to_article")      
       return raw(result)
     end
     
