@@ -35,6 +35,12 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
       f.input :teaser, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben"
     end
+    f.inputs "Medien", :class => "foldable inputs"  do
+      f.has_many :article_images do |ai|
+        ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file'}, :label => "Bild ausw&auml;hlen" 
+      end
+    end
+    
     f.inputs "" do
       f.actions 
     end
@@ -49,6 +55,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     column "url"  do |article|
       article.public_url
     end
+    column :url_name
+    column :slug
     column :id
     column :created_at
     column :updated_at
@@ -84,7 +92,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       _article = @_assigns['article']
       render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => _article }
   end
-  
+
+  sidebar :index_of_articles, only: [:edit] do
+    render "/goldencobra/admin/articles/index_of_articles_sidebar"
+  end
+
   
   sidebar :image_module, :only => [:edit] do
     render "/goldencobra/admin/articles/image_module_sidebar"

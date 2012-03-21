@@ -9,7 +9,14 @@ module Goldencobra
         @article = Goldencobra::Article.active.startpage.first
       else
         begin
-          @article = Goldencobra::Article.active.find(params[:article_id].split("/").last)
+          articles = Goldencobra::Article.active.where(:url_name => params[:article_id].split("/").last)
+          if articles.count == 1
+            @article = articles.first
+          elsif articles.count > 1
+            @article = articles.select{|a| a.public_url == "/#{params[:article_id]}"}.first
+          else
+            @article = nil
+          end
         rescue
           @article = nil
         end

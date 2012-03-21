@@ -10,6 +10,7 @@
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #  ancestry   :string(255)
+#  sorter     :integer(4)      default(0)
 #
 
 module Goldencobra

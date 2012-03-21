@@ -2,23 +2,27 @@
 #
 # Table name: goldencobra_articles
 #
-#  id              :integer(4)      not null, primary key
-#  title           :string(255)
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
-#  url_name        :string(255)
-#  slug            :string(255)
-#  content         :text
-#  teaser          :text
-#  ancestry        :string(255)
-#  startpage       :boolean(1)      default(FALSE)
-#  active          :boolean(1)      default(TRUE)
-#  subtitle        :string(255)
-#  summary         :text
-#  context_info    :text
-#  canonical_url   :string(255)
-#  robots_no_index :boolean(1)      default(FALSE)
-#  breadcrumb      :string(255)
+#  id                       :integer(4)      not null, primary key
+#  title                    :string(255)
+#  created_at               :datetime        not null
+#  updated_at               :datetime        not null
+#  url_name                 :string(255)
+#  slug                     :string(255)
+#  content                  :text
+#  teaser                   :text
+#  ancestry                 :string(255)
+#  startpage                :boolean(1)      default(FALSE)
+#  active                   :boolean(1)      default(TRUE)
+#  subtitle                 :string(255)
+#  summary                  :text
+#  context_info             :text
+#  canonical_url            :string(255)
+#  robots_no_index          :boolean(1)      default(FALSE)
+#  breadcrumb               :string(255)
+#  template_file            :string(255)
+#  article_for_index_id     :integer(4)
+#  article_for_index_levels :integer(4)      default(0)
+#  article_for_index_count  :integer(4)      default(0)
 #
 
 module Goldencobra
@@ -30,9 +34,11 @@ module Goldencobra
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     has_many :metatags
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
-
+    has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
+    has_many :article_images
     has_many :article_widgets
     has_many :widgets, :through => :article_widgets
+    accepts_nested_attributes_for :article_images    
     
     validates_presence_of :title
     validates_presence_of :url_name
@@ -52,7 +58,7 @@ module Goldencobra
      
     def public_url
       return "/" if self.startpage
-      "/#{self.path.map{|a| a.slug if !a.is_root?}.compact.join("/")}"
+      "/#{self.path.map{|a| a.url_name if !a.is_root?}.compact.join("/")}"
     end 
     
     def verify_existens_of_url_name_and_slug
@@ -77,6 +83,20 @@ module Goldencobra
         return self.breadcrumb
       else
         return self.title
+      end
+    end
+    
+    def public_teaser
+      return self.teaser if self.teaser.present?
+      return self.summary if self.teaser.blank? && self.summary.present?
+      return self.content[0..200] if self.teaser.blank? && self.summary.blank?
+    end
+    
+    def article_for_index_limit
+      if self.article_for_index_count.to_i <= 0
+        return 1000
+      else
+        self.article_for_index_count.to_i
       end
     end
     
