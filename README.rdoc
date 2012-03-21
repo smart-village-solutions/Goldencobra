@@ -21,6 +21,17 @@ This Project is under development
 
 	rake goldencobra:install:migrations
 	rake db:migrate
+	
+	
+= Settings
+	
+	We have a quite flexible settings system in place.
+	In the admin backend you have many values you can customize for your installation.  
+	
+	Important values are 
+	* Goldencobra-Facebook-AppId
+	* Goldencobra-url
+	
 
 = Usage
 	
@@ -40,6 +51,10 @@ This Project is under development
 		<%= yield(:article_title) %>			
 		<%= yield(:article_subtitle) %>			
 		<%= yield(:article_teaser) %>			
+	Include social media sharing buttons where applicable
+		<div id="social_sharing_buttons" class="bottom_buttons">
+			<%= yield(:social_sharing_buttons) %>
+		</div>
 		
 	
 
