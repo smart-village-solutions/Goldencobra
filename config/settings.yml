@@ -4,3 +4,6 @@ goldencobra:
     article:
         article_index:
             link_to_article: "weiterlesen"
+    url: "www.goldencobra.de"
+    facebook:
+        appid: "123456"
