@@ -23,13 +23,23 @@ $(document).ready(function() {
 		script_url: "/assets/goldencobra/tiny_mce.js",
   		mode : "textareas",
   		theme : "advanced",
+      readonly: 1,
+      theme_advanced_default_background_color : "#f4f4f4",
   		theme_advanced_buttons1 : "",
   		theme_advanced_buttons2 : "",
   		theme_advanced_buttons3 : "",
   		theme_advanced_toolbar_location : "bottom",
   		theme_advanced_toolbar_align : "center",
-  		theme_advanced_resizing : false
+  		theme_advanced_resizing : false,
+      body_id : "metadescription-tinymce-body",
+      content_css : "/assets/goldencobra/active_admin.css"
   });
+
+  function postInitWork()
+  {
+    var editor = tinyMCE.getInstanceById('metadescription-tinymce');
+    editor.getBody().style.backgroundColor = "#F4f4f4";
+  }
 	
 	//Image Manager
 	$("a#open_goldencobra_image_maganger").bind("click", function(){
