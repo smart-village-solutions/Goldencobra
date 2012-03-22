@@ -166,4 +166,21 @@ div.overview-sidebar{
 .metadescription_hint {
   background-color: transparent;
   border: 0px;
+  height: 185px;
+}
+
+#article_hint_label_input {
+  margin-top: 15px;
+}
+#metadescription-tinymce-body{ 
+   background: #f4f4f4; 
+   border: 0px;
+   color:#000;
+}
+
+#metadescription-tinymce_tbl {
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 0px;
 }
