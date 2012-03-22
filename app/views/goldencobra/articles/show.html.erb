@@ -36,6 +36,10 @@
 
 <% content_for :social_sharing_buttons do %>
 	<% if @article.enable_social_sharing %>
+		<!-- Facebook -->
+		<div id="facebook-sharing-iframe">
+			<iframe src="//www.facebook.com/plugins/like.php?href=http://<%= s("goldencobra.url").html_safe %><%= @article.public_url %>&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:20px;" allowTransparency="true"></iframe>
+		</div>
 		<!-- Twitter -->
 		<div id="twitter-sharing">
 			<a href="https://twitter.com/share" class="twitter-share-button" data-via="twitterapi" data-lang="<%= I18n.locale.to_s %>"><%= t("tweet") %></a>
@@ -53,10 +57,6 @@
 			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 			  })();
 			</script>
-		</div>
-		<!-- Facebook -->
-		<div id="facebook-sharing-iframe">
-			<iframe src="//www.facebook.com/plugins/like.php?href=http://<%= s("goldencobra.url").html_safe %><%= @article.public_url %>&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=recommend&amp;colorscheme=light&amp;font&amp;height=20" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:20px;" allowTransparency="true"></iframe>
 		</div>
 	<% end %>
 <% end %>
