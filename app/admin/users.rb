@@ -25,7 +25,9 @@ ActiveAdmin.register User, :as => "User" do
       f.input :xing
       f.input :googleplus
     end
-    f.buttons
+    f.inputs "" do
+      f.actions 
+    end
   end
  
 
