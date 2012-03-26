@@ -36,7 +36,14 @@ module Goldencobra
           format.html {render :layout => @article.selected_layout}
         end
       else
-        render :text => "404", :status => 404
+        @article = Goldencobra::Article.find_by_url_name("404")
+        if @article
+          respond_to do |format|
+            format.html {render :layout => @article.selected_layout}
+          end
+        else
+          render :text => "404", :status => 404
+        end
       end
       
     end
