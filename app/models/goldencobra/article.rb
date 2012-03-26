@@ -29,6 +29,7 @@
 module Goldencobra
   class Article < ActiveRecord::Base
     extend FriendlyId
+    attr_accessor :hint_label
     friendly_id :url_name, use: [:slugged, :history]
     has_ancestry :orphan_strategy => :restrict
     acts_as_taggable_on :tags #https://github.com/mbleigh/acts-as-taggable-on
