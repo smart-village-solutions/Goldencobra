@@ -2,6 +2,11 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  created_at: "created at" 
+  updated_at: "updated at"
+  new_subarticle: "new subarticle"
+  url: "url"
+  title: "title"
   hello: "Hello world"  
   Display Social Sharing Buttons: "Display Social Sharing Buttons"
   tweet: "Tweet"
