@@ -4,8 +4,6 @@ module Goldencobra
     
     layout "application"
     
-    caches_page :sitemap
-    
     def show
       if params[:startpage] && (params[:startpage] == true || params[:startpage] == "true")
         @article = Goldencobra::Article.active.startpage.first
@@ -53,7 +51,7 @@ module Goldencobra
     
     def sitemap
       @domain_name = Goldencobra::Setting.for_key("goldencobra.url")
-      @articles = Goldencobra::Article.active
+      @articles = Goldencobra::Article.active.robots_index.select([:id, :url_name, :updated_at, :startpage])
       respond_to do |format|
         format.xml 
       end

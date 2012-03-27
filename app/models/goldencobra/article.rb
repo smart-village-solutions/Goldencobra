@@ -47,8 +47,9 @@ module Goldencobra
     
     before_save :verify_existens_of_url_name_and_slug
     attr_protected :startpage
-    after_save :expire_sitemap_cache
     
+    scope :robots_index, where(:robots_no_index => false)
+    scope :robots_no_index, where(:robots_no_index => true)
     scope :active, where(:active => true)
     scope :startpage, where(:startpage => true)    
 
@@ -123,11 +124,7 @@ module Goldencobra
       metatag = self.metatags.find_by_name(name)
       metatag.value if metatag
     end
-    
-    def expire_sitemap_cache
-      expire_page :controller => :articles, :action => :sitemap
-    end
-      
+          
   end
 end
 
