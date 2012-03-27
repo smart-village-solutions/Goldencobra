@@ -11,14 +11,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   filter :created_at
   filter :updated_at
     
-  form :html => { :enctype => "multipart/form-data" }  do |f|
-   # f.inputs "Speichern" do
-    #  f.actions :submit, :cancel #do
-#        f.action :submit#, label: "Speichern und Weiterbearbeiten"
- #       f.action :cancel#, :as => :button, label: "Abbrechen und zurueck"
-  #    end
-    #end
-    f.buttons
+  form :html => { :enctype => "multipart/form-data" }  do |f|  
+    f.inputs :class => "buttons inputs" do
+      f.buttons
+    end
+
     f.inputs "Allgemein", :class => "foldable inputs" do
       f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
       f.input :content, :label => "Haupt-Textfeld", :input_html => { :class =>"tinymce"}
@@ -120,6 +117,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
   sidebar :image_module, :only => [:edit] do
     render "/goldencobra/admin/articles/image_module_sidebar"
+  end
+    
+  action_item :only => :edit do
+      _article = @_assigns['article']
+      link_to('Vorschau zu diesem Artikel anzeigen', _article.public_url, :target => "_blank")
   end
   
   member_action :mark_as_startpage do

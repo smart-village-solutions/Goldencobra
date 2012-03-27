@@ -43,7 +43,6 @@ module Goldencobra
     accepts_nested_attributes_for :article_images    
     
     validates_presence_of :title
-    validates_presence_of :url_name
     validates_format_of :url_name, :with => /^[\w\d-]+$/
     
     before_save :verify_existens_of_url_name_and_slug
@@ -59,8 +58,11 @@ module Goldencobra
     search_methods :parent_ids_in
      
     def public_url
-      return "/" if self.startpage
-      "/#{self.path.map{|a| a.url_name if !a.is_root?}.compact.join("/")}"
+      if self.startpage
+        return "/" 
+      else
+        "/#{self.path.map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+      end
     end 
     
     def verify_existens_of_url_name_and_slug
