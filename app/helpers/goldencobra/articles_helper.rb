@@ -38,7 +38,7 @@ module Goldencobra
     def index_of_articles(options={})
       if @article && @article.article_for_index_id.present? && master_index_article = Article.find_by_id(@article.article_for_index_id)
         result_list = ""
-        result_list += content_tag(:h2, "", class: "boxheader")
+        result_list += content_tag(:h2, " ", class: "boxheader")
         result_list += content_tag(:h1, "#{master_index_article.title}", class: "headline")
         dom_element = (options[:wrapper]).present? ? options[:wrapper] : :div
         master_index_article.descendants.order(:created_at).limit(@article.article_for_index_limit).each do |art|
@@ -61,8 +61,8 @@ module Goldencobra
       if @article.article_for_index_images == true && article_item.images.count > 0
         result += content_tag(:div, image_tag(article_item.images.first.image(:thumb)), :class => "article_image")
       end
-      result += content_tag(:div, article_item.public_teaser, :class => "teaser")
-      result += content_tag(:div, link_to(s("goldencobra.article.article_index.link_to_article"), article_item.public_url), :class=> "link_to_article")      
+      result += content_tag(:div, raw(article_item.public_teaser), :class => "teaser")
+      result += content_tag(:div, link_to(s("goldencobra.article.article_index.link_to_article"), article_item.public_url), :class=> "link_to_article")
       return raw(result)
     end
     
