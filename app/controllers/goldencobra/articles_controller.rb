@@ -3,24 +3,15 @@ module Goldencobra
     load_and_authorize_resource
     
     layout "application"
+    before_filter :get_article, :only => [:show]
+    
+    caches_action :show, :cache_path => :show_cache_path.to_proc
+
+    def show_cache_path
+      "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
+    end
     
     def show
-      if params[:startpage] && (params[:startpage] == true || params[:startpage] == "true")
-        @article = Goldencobra::Article.active.startpage.first
-      else
-        begin
-          articles = Goldencobra::Article.active.where(:url_name => params[:article_id].split("/").last)
-          if articles.count == 1
-            @article = articles.first
-          elsif articles.count > 1
-            @article = articles.select{|a| a.public_url == "/#{params[:article_id]}"}.first
-          else
-            @article = nil
-          end
-        rescue
-          @article = nil
-        end
-      end
       if @article
         set_meta_tags :site => s("goldencobra.page.default_title_tag"),
                       :title => @article.metatag("Title Tag"),
@@ -54,6 +45,25 @@ module Goldencobra
       @articles = Goldencobra::Article.active.robots_index.select([:id, :url_name, :updated_at, :startpage])
       respond_to do |format|
         format.xml 
+      end
+    end
+    
+    def get_article
+      if params[:startpage] && (params[:startpage] == true || params[:startpage] == "true")
+        @article = Goldencobra::Article.active.startpage.first
+      else
+        begin
+          articles = Goldencobra::Article.active.where(:url_name => params[:article_id].split("/").last)
+          if articles.count == 1
+            @article = articles.first
+          elsif articles.count > 1
+            @article = articles.select{|a| a.public_url == "/#{params[:article_id]}"}.first
+          else
+            @article = nil
+          end
+        rescue
+          @article = nil
+        end
       end
     end
     
