@@ -38,13 +38,15 @@ module Goldencobra
     def index_of_articles(options={})
       if @article && @article.article_for_index_id.present? && master_index_article = Article.find_by_id(@article.article_for_index_id)
         result_list = ""
+        dom_element = (options[:wrapper]).present? ? options[:wrapper] : :div
         master_index_article.descendants.order(:created_at).limit(@article.article_for_index_limit).each do |art|
           if @article.article_for_index_levels.to_i == 0 || (@article.depth + @article.article_for_index_levels.to_i > art.depth)
             rendered_article_list_item = render_article_list_item(art)
-            result_list += content_tag(:li, rendered_article_list_item, :id => "article_index_list_item_#{art.id}", :class => "article_index_list_item")
+
+            result_list += content_tag(dom_element, rendered_article_list_item, :id => "article_index_list_item_#{art.id}", :class => "article_index_list_item")
           end
         end
-        return content_tag(:ul, raw(result_list), :id => "article_index_list")
+        return content_tag(:div, raw(result_list), :id => "article_index_list")
       end
     end
     
