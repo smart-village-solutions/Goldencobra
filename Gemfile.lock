@@ -59,7 +59,7 @@ PATH
       oa-openid
       omniauth
       omniauth-openid
-      paperclip
+      paperclip (~> 2.7)
       rails (~> 3.2.2)
       sass-rails
       sass-rails (~> 3.2.1)
