@@ -2,7 +2,9 @@ module Goldencobra
   class ArticlesController < ApplicationController
     load_and_authorize_resource
     
-    layout "osterlayout"
+    layout "application"
+    
+    caches_page :sitemap
     
     def show
       if params[:startpage] && (params[:startpage] == true || params[:startpage] == "true")
@@ -47,5 +49,15 @@ module Goldencobra
       end
       
     end
+    
+    
+    def sitemap
+      @domain_name = Goldencobra::Setting.for_key("goldencobra.url")
+      @articles = Goldencobra::Article.active
+      respond_to do |format|
+        format.xml 
+      end
+    end
+    
   end
 end
