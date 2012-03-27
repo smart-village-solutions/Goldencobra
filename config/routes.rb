@@ -1,5 +1,7 @@
 Goldencobra::Engine.routes.draw do
+  get 'sitemap', :to => 'articles#sitemap', :defaults => {:format => "xml"}
   match "/*article_id", :to => "articles#show"
+
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
