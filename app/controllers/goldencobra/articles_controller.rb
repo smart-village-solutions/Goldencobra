@@ -8,7 +8,7 @@ module Goldencobra
     caches_action :show, :cache_path => :show_cache_path.to_proc
 
     def show_cache_path
-      "goldencobra/#{params[:article_id]}/#{@article.cache_key}"
+      "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
     end
     
     def show
