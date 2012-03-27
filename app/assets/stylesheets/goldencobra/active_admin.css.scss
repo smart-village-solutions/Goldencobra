@@ -163,7 +163,7 @@ div.overview-sidebar{
 	}
 }
 
-.metadescription_hint {
+textarea.metadescription_hint {
   background-color: transparent;
   border: 0px;
   height: 185px;
@@ -175,7 +175,7 @@ div.overview-sidebar{
 #metadescription-tinymce-body{ 
    background: #f4f4f4; 
    border: 0px;
-   color:#000;
+   color:#666;
 }
 
 #metadescription-tinymce_tbl {
@@ -183,4 +183,7 @@ div.overview-sidebar{
   border-left: 0px;
   border-right: 0px;
   border-bottom: 0px;
+}
+textarea#article_summary, textarea#article_teaser{
+  resize: none;
 }

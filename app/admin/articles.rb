@@ -12,18 +12,19 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   filter :updated_at
     
   form :html => { :enctype => "multipart/form-data" }  do |f|
+   # f.inputs "Speichern" do
+    #  f.actions :submit, :cancel #do
+#        f.action :submit#, label: "Speichern und Weiterbearbeiten"
+ #       f.action :cancel#, :as => :button, label: "Abbrechen und zurueck"
+  #    end
+    #end
+    f.buttons
     f.inputs "Allgemein", :class => "foldable inputs" do
       f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
-      f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
-      f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten."
-      f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| [c.title, c.id]}, :include_blank => true
+      f.input :content, :label => "Haupt-Textfeld", :input_html => { :class =>"tinymce"}
       f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
     end
-    f.inputs "Metadescriptions & Settings", :class => "foldable inputs" do
-      f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
-      f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
-      f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst"
-      f.input :enable_social_sharing, :label => t("Display Social Sharing Buttons"), :hint => "Sollen Besucher die Buttons angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
+    f.inputs "Metadescriptions", :class => "foldable inputs" do
       f.input :hint_label, :as => :text, :label => "Metatags fuer Suchmaschinenoptimierung", :input_html => {:disabled => true, :resize => false, :value => "<b>Metatags k&ouml;nnen genutzt werden, um den Artikel f&uuml;r Suchmaschinen besser sichtbar zu machen.</b><br />
                                                                                                              Sie haben folgende Werte zur Wahl:<br />
                                                                                                              <ul>
@@ -41,11 +42,19 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         m.input :_destroy, :as => :boolean 
       end
     end
-    f.inputs "Inhalt" do
-      f.input :content, :hint => "Dies ist das Haupt-Textfeld", :input_html => { :class =>"tinymce"}
-      f.input :summary, :hint => "Dient der Einleitung in den Text und wird hervorgehoben dargestellt"
-      f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
-      f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben"
+    f.inputs "Einstellungen" do
+      f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
+      f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", :label => "Website-Adresse des Artikels"
+      f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| [c.title, c.id]}, :include_blank => true, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
+      f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
+      f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
+      f.input :enable_social_sharing, :label => t("Display Social Sharing Buttons"), :hint => "Sollen Besucher die Buttons angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
+      f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
+    end
+    f.inputs "Weiterer Inhalt" do
+      f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht", label: "Seitenleisten Text"
+      f.input :summary, :label => "Zusammenfassung", hint: "Dient der Einleitung in den Text und wird hervorgehoben dargestellt", :input_html=>{ :rows=>5 }
+      f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben", label: "Teaser Text", :input_html=>{ :rows=>5 }
     end
     f.inputs "Medien", :class => "foldable inputs"  do
       f.has_many :article_images do |ai|
@@ -53,29 +62,30 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
     end
     
-    f.inputs "" do
-      f.actions 
-    end
   end
 
   
   index do 
     selectable_column
-    column "title", :sortable => :title do |article|
+    column "#{t(:title)}", :sortable => :title do |article|
       content_tag("span", link_to(article.title, edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
-    column "url"  do |article|
+    column "#{t(:url)}"  do |article|
       article.public_url
     end
     column :id
-    column :created_at
-    column :updated_at
+    column "#{t(:created_at)}", sortable: :created_at do |article|
+      l(article.created_at)
+    end
+    column "#{t(:updated_at)}", sortable: :updated_at do |article|
+      l(article.updated_at)
+    end
     column "" do |article|
       result = ""
-      result += link_to("New Subarticle", new_admin_article_path(:parent => article), :class => "member_link edit_link")
       #result += link_to("View", admin_article_path(article), :class => "member_link view_link")
-      result += link_to("Edit", edit_admin_article_path(article), :class => "member_link edit_link")
-      result += link_to("Delete", admin_article_path(article), :method => :DELETE, :confirm => "Realy want to delete this Article?", :class => "member_link delete_link")
+      result += link_to(t(:edit), edit_admin_article_path(article), :class => "member_link edit_link")
+      result += link_to("#{t(:new_subarticle)}", new_admin_article_path(:parent => article), :class => "member_link edit_link")
+      result += link_to(t(:delete), admin_article_path(article), :method => :DELETE, :confirm => "Realy want to delete this Article?", :class => "member_link delete_link")
       raw(result)
     end
   end

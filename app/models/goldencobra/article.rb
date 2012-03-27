@@ -64,8 +64,8 @@ module Goldencobra
     end 
     
     def verify_existens_of_url_name_and_slug
-      self.url_name = self.title if self.url_name.blank?
-      self.slug = self.url_name if self.slug.blank?
+      self.url_name = self.title.downcase.parameterize if self.url_name.blank?
+      self.slug = self.url_name.downcase.parameterize if self.slug.blank?
     end
     
     def self.templates_for_select
