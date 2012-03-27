@@ -38,7 +38,7 @@ module Goldencobra
     def index_of_articles(options={})
       if @article && @article.article_for_index_id.present? && master_index_article = Article.find_by_id(@article.article_for_index_id)
         result_list = ""
-        result_list += content_tag(:h2, " ", class: "boxheader")
+        result_list += content_tag(:h2, raw("&nbsp;"), class: "boxheader")
         result_list += content_tag(:h1, "#{master_index_article.title}", class: "headline")
         dom_element = (options[:wrapper]).present? ? options[:wrapper] : :div
         master_index_article.descendants.order(:created_at).limit(@article.article_for_index_limit).each do |art|
