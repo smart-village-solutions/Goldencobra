@@ -30,6 +30,7 @@ gem 'meta-tags', :require => 'meta_tags'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git", :require => 'paperclip'
 gem 'sass-rails'
 gem 'compass-rails'
+gem 'memcache-client'
 
 # Gems used only for assets and not required
 # in production environments by default.
