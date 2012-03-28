@@ -13,7 +13,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     
   form :html => { :enctype => "multipart/form-data" }  do |f|  
     f.inputs :class => "buttons inputs" do
-      f.buttons
+      f.actions
     end
 
     f.inputs "Allgemein", :class => "foldable inputs" do
