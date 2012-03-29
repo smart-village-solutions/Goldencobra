@@ -7,3 +7,4 @@ goldencobra:
     url: "www.goldencobra.de"
     facebook:
         appid: "123456"
+        opengraph_default_image: "/assets/open-graph.png"
