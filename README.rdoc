@@ -31,6 +31,8 @@ This Project is under development
 	Important values are 
 	* Goldencobra-Facebook-AppId
 	* Goldencobra-url
+
+  When creating articles, a default value is set for open graph image url. Please make sure you provide a default open graph image at "/assets/open-graph.png"
 	
 
 = Usage
