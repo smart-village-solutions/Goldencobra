@@ -71,7 +71,7 @@ module Goldencobra
 
     def verify_existence_of_opengraph_image
       if Goldencobra::Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
-        Goldencobra::Metatag.create(article_id: self.id, name: "OpenGraph Image", value: "/assets/open-graph.png")
+        Goldencobra::Metatag.create(article_id: self.id, name: "OpenGraph Image", value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
       end
     end
     
