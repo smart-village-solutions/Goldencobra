@@ -15,9 +15,9 @@ describe Goldencobra::Article do
     no_name_article.should_not be_valid
   end
   
-  it "should require a url_name" do
+  it "should not require a url_name because it is filled automatically" do
     no_url_name_article = Goldencobra::Article.new(@attr.merge(:url_name => ""))
-    no_url_name_article.should_not be_valid
+    no_url_name_article.should be_valid
   end
   
   it "should not display partial in templatefiles" do
