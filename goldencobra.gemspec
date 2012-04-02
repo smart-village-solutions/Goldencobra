@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency "cancan"
   s.add_dependency "ancestry"
   s.add_dependency 'meta-tags'
-  s.add_dependency 'paperclip', "~> 2.7"
+  s.add_dependency 'paperclip', "~> 3.0"
   s.add_dependency 'uglifier'#, "~> 1.0.3"
   s.add_dependency 'exception_notification'
   s.add_dependency 'acts-as-taggable-on', '~> 2.2.2'
