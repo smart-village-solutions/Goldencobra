@@ -121,7 +121,6 @@ ActiveAdmin.setup do |config|
       
   # To load a javascript file:
      config.register_javascript 'goldencobra/active_admin.js' 
-     config.register_javascript 'goldencobra/chosen.jquery.min.js' 
      #config.register_javascript 'goldencobra/application.js' 
      config.register_javascript "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
      config.register_javascript "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
@@ -132,6 +131,7 @@ ActiveAdmin.setup do |config|
      #config.register_javascript "http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-image-gallery.min.js"
      #config.register_javascript "goldencobra/tiny_mce_popup.js"
      config.register_javascript "goldencobra/jquery.tinymce.js"
+     config.register_javascript 'goldencobra/chosen.jquery.min.js' 
      #config.register_javascript "goldencobra/jquery.iframe-transport.js"
      #config.register_javascript "goldencobra/jquery.fileupload.js"
      #config.register_javascript "goldencobra/jquery.fileupload-ui.js"
