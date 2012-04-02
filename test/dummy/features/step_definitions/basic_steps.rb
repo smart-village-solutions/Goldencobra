@@ -89,3 +89,7 @@ Then %r{^I should see "([^"]*)" inside ([^"].*)$} do |expected_text, named_eleme
     page.should have_content(expected_text)
   end
 end
+
+Then /^I should see "([^"]*)" within textfield "([^"]*)"$/ do |arg1, arg2|
+  page.find_field("#{arg2}").value.should == "#{arg1}"
+end
