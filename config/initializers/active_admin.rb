@@ -115,11 +115,13 @@ ActiveAdmin.setup do |config|
   #
   # To load a stylesheet:
      config.register_stylesheet 'goldencobra/active_admin'
+     config.register_stylesheet 'goldencobra/chosen.css'
      #config.register_stylesheet 'goldencobra/jquery.fileupload-ui.css'
      #config.register_stylesheet 'goldencobra/ikusei_active_admin.css'
       
   # To load a javascript file:
      config.register_javascript 'goldencobra/active_admin.js' 
+     config.register_javascript 'goldencobra/chosen.jquery.min.js' 
      #config.register_javascript 'goldencobra/application.js' 
      config.register_javascript "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
      config.register_javascript "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
