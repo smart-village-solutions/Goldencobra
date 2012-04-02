@@ -43,9 +43,9 @@ module Goldencobra
     accepts_nested_attributes_for :article_images    
     
     validates_presence_of :title
-    validates_format_of :url_name, :with => /^[\w\d-]+$/
     
     before_save :verify_existens_of_url_name_and_slug
+    validates_format_of :url_name, :with => /^[\w\d-]+$/, allow_blank: true
     attr_protected :startpage
     
     scope :robots_index, where(:robots_no_index => false)
@@ -58,6 +58,8 @@ module Goldencobra
     
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
+
+    after_save :verify_existence_of_opengraph_image
      
     def public_url
       if self.startpage
@@ -66,6 +68,12 @@ module Goldencobra
         "/#{self.path.map{|a| a.url_name if !a.startpage}.compact.join("/")}"
       end
     end 
+
+    def verify_existence_of_opengraph_image
+      if Goldencobra::Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
+        Goldencobra::Metatag.create(article_id: self.id, name: "OpenGraph Image", value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
+      end
+    end
     
     def verify_existens_of_url_name_and_slug
       self.url_name = self.title.downcase.parameterize if self.url_name.blank?

@@ -115,6 +115,7 @@ ActiveAdmin.setup do |config|
   #
   # To load a stylesheet:
      config.register_stylesheet 'goldencobra/active_admin'
+     config.register_stylesheet 'goldencobra/chosen.css'
      #config.register_stylesheet 'goldencobra/jquery.fileupload-ui.css'
      #config.register_stylesheet 'goldencobra/ikusei_active_admin.css'
       
@@ -130,6 +131,7 @@ ActiveAdmin.setup do |config|
      #config.register_javascript "http://blueimp.github.com/Bootstrap-Image-Gallery/bootstrap-image-gallery.min.js"
      #config.register_javascript "goldencobra/tiny_mce_popup.js"
      config.register_javascript "goldencobra/jquery.tinymce.js"
+     config.register_javascript 'goldencobra/chosen.jquery.min.js' 
      #config.register_javascript "goldencobra/jquery.iframe-transport.js"
      #config.register_javascript "goldencobra/jquery.fileupload.js"
      #config.register_javascript "goldencobra/jquery.fileupload-ui.js"
