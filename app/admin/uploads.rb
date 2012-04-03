@@ -5,14 +5,14 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   controller.authorize_resource :class => Goldencobra::Upload
   
   form :html => { :enctype => "multipart/form-data" }  do |f|
+    f.inputs class: "buttons inputs" do
+      f.actions
+    end
     f.inputs "Allgemein" do
       f.input :source
       f.input :rights
       f.input :description, :input_html => { :class =>"tinymce"}
       f.input :image, :as => :file
-    end
-    f.inputs "" do
-      f.actions
     end
   end
   
@@ -20,13 +20,17 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     selectable_column
     column "url" do |upload|
       result = ""
-      result << upload.image.url
+      result << truncate(upload.image.url)
     end
-    column :image_file_name
-    column :image_content_type
-    column :image_file_size
-    column :source
-    column :created_at
+#     column :image_file_name
+#     column :image_content_type
+#     column :image_file_size
+    column :source do |upload|
+    	truncate(upload.source, length: 20)
+    end
+    column :created_at do |upload|
+    	l(upload.created_at, format: :short)
+	end
     default_actions
   end
   
