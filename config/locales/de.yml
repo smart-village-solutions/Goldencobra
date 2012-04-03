@@ -1,4 +1,11 @@
 de:
+  attributes:
+    article:
+      title: "Titel"
+    setting:
+      title: "Name"
+      value: "Wert"
+      ancestry: "Abstammung"
   formtastic:
     yes: 'Ja'
     no: 'Nein'
@@ -29,7 +36,7 @@ de:
         applicant: "Gast"
         artist: "Künstler"
         event_panel: "Panel"
-        event: "Event"
+        event: "Veranstaltung"
         pricegroup: "Preisgruppe"
         sponsor: "Sponsor"
         venue: "Veranstaltungsort"
@@ -79,9 +86,17 @@ de:
   activerecord:
     models:
       article: "Artikel"
+      setting: "Einstellung"
+      menue: "Menü"
+      metag: "Metatag"
+      widget: "Schnipsel"
     attributes:
       article:
         title: "Titel"
+      setting:
+        title: "Name"
+        value: "Wert"
+        ancestry: "Abstammung"
   date:
     abbr_day_names:
     - So
