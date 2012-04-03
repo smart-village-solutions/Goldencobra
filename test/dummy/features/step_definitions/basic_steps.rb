@@ -10,7 +10,6 @@ When /^I visit url "([^\"]*)"$/ do |arg1|
   visit(arg1)
 end
 
-
 When /^I press "([^\"]*)"$/ do |arg1|
   find_button(arg1).click
 end
@@ -64,7 +63,7 @@ end
 
 Given /^the following "([^"]*)" exist:$/ do |arg1, table|
   table.hashes.each do |data|
-    Factory(arg1.singularize.to_sym ,data)
+    create(arg1.singularize.to_sym ,data)
   end
 end
 

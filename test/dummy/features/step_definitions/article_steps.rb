@@ -4,11 +4,11 @@ Given /^an article exists with the following attributes:$/ do |attrs_table|
     sanitized_attr = attr.gsub(/\s+/, "-").underscore
     attrs[sanitized_attr.to_sym] = value
   end
-  Factory("article", attrs)
+  create("article", attrs)
 end
 
 Given /^an startarticle exists$/ do
-  @article = Factory.create(:startpage)
+  @article = create(:startpage)
   @article.mark_as_startpage!
 end
 
