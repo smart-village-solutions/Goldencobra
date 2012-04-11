@@ -53,10 +53,7 @@ ActiveAdmin.setup do |config|
 
 
   #Load Resourses from this Engine
-  config.load_paths.delete_at(0)
-  unless Rails.env == "production"
-    config.load_paths << "#{Goldencobra::Engine.root}/app/admin/"
-  end
+  config.load_paths << "#{Goldencobra::Engine.root}/admin/"
 
   # == Current User
   #
