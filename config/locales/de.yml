@@ -1,11 +1,18 @@
 de:
-  attributes:
-    article:
-      title: "Titel"
-    setting:
-      title: "Name"
-      value: "Wert"
-      ancestry: "Abstammung"
+  activerecord:
+    models:
+      article: "Artikel"
+      setting: "Einstellung"
+      menue: "Menü"
+      metag: "Metatag"
+      widget: "Schnipsel"
+    attributes:
+      article:
+        title: "Titel"
+      setting:
+        title: "Name"
+        value: "Wert"
+        ancestry: "Abstammung"
   formtastic:
     yes: 'Ja'
     no: 'Nein'
@@ -83,20 +90,6 @@ de:
       title_content: "Kommentare (%{count})"
       errors:
         empty_text: "Der Kommentar wurde nicht gespeichert, da der Text fehlt."
-  activerecord:
-    models:
-      article: "Artikel"
-      setting: "Einstellung"
-      menue: "Menü"
-      metag: "Metatag"
-      widget: "Schnipsel"
-    attributes:
-      article:
-        title: "Titel"
-      setting:
-        title: "Name"
-        value: "Wert"
-        ancestry: "Abstammung"
   date:
     abbr_day_names:
     - So
