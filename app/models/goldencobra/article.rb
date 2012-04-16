@@ -62,6 +62,8 @@ module Goldencobra
 
     after_save :verify_existence_of_opengraph_image
      
+    liquid_methods :title
+     
     def public_url
       if self.startpage
         return "/" 
