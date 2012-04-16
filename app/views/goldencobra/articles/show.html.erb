@@ -7,11 +7,17 @@
 <% end %>
 
 <% content_for :article_summary do %>
-	<%= raw @article.summary if @article%>
+	<% if @article%>
+		<% template = Liquid::Template.parse(@article.summary) %>
+		<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
+	<% end %>
 <% end %>
 
 <% content_for :article_content do %>
-	<%= raw(@article.content) if @article%>
+	<% if @article%>
+		<% template = Liquid::Template.parse(@article.content) %>
+		<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
+	<% end %>
 <% end %>
 
 <% content_for :article_context_info do %>
@@ -19,7 +25,10 @@
 <% end %>
 
 <% content_for :article_teaser do %>
-	<%= raw(@article.teaser) if @article%>
+	<% if @article%>
+		<% template = Liquid::Template.parse(@article.teaser) %>
+		<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
+	<% end %>
 <% end %>
 
 <% content_for :article_breadcrumb do %>
@@ -30,13 +39,9 @@
   <% if @article %>
     <% @article.widgets.active.each do |widget| %>
       <section class="<%= widget.css_name %>" id="<%= widget.id_name %>">
-				<%#= raw(widget.content) %>
 				<% template = Liquid::Template.parse(widget.content) %>
 				<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
 			</section>
-
-
-
     <% end %>
   <% end %>
 <% end %>

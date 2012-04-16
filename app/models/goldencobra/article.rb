@@ -62,7 +62,7 @@ module Goldencobra
 
     after_save :verify_existence_of_opengraph_image
      
-    liquid_methods :title
+    liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
      
     def public_url
       if self.startpage
