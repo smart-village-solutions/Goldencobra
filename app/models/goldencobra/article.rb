@@ -41,7 +41,7 @@ module Goldencobra
     has_many :article_images
     has_many :article_widgets
     has_many :widgets, :through => :article_widgets
-    has_many :vita_steps, :as => :loggable
+    has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
     accepts_nested_attributes_for :article_images    
     
     validates_presence_of :title
