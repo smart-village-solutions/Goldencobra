@@ -34,6 +34,7 @@ module Goldencobra
     has_ancestry :orphan_strategy => :restrict
     acts_as_taggable_on :tags #https://github.com/mbleigh/acts-as-taggable-on
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
+    LiquidParser = {}
     has_many :metatags
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
