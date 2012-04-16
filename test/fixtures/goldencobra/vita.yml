@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  loggable: 
+  user_id: 1
+  title: MyString
+  description: MyText
+
+two:
+  loggable: 
+  user_id: 1
+  title: MyString
+  description: MyText
