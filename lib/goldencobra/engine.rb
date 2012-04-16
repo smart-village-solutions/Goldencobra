@@ -11,6 +11,7 @@ require 'sass-rails'
 require 'acts-as-taggable-on'
 require 'paperclip'
 require 'goldencobra/acts_as_setting'
+require 'liquid'
 
 module Goldencobra
   class Engine < ::Rails::Engine
