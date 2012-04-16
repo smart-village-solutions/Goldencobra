@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'uglifier'#, "~> 1.0.3"
   s.add_dependency 'exception_notification'
   s.add_dependency 'acts-as-taggable-on', '~> 2.2.2'
+  s.add_dependency 'liquid'
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'
