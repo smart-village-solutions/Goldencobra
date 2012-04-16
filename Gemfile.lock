@@ -43,6 +43,7 @@ PATH
       friendly_id (~> 4.0.0.beta14)
       jquery-rails
       jqueryui_rails
+      liquid
       meta-tags
       meta_search (~> 1.1.2)
       oa-oauth
@@ -369,7 +370,6 @@ DEPENDENCIES
   guard-rspec
   jquery-rails
   launchy
-  liquid
   memcache-client
   meta-tags
   mysql2
