@@ -29,7 +29,14 @@
 <% content_for :article_widgets do %>
   <% if @article %>
     <% @article.widgets.active.each do |widget| %>
-      <section class="<%= widget.css_name %>" id="<%= widget.id_name %>"><%= raw(widget.content) %></section>
+      <section class="<%= widget.css_name %>" id="<%= widget.id_name %>">
+				<%#= raw(widget.content) %>
+				<% template = Liquid::Template.parse(widget.content) %>
+				<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
+			</section>
+
+
+
     <% end %>
   <% end %>
 <% end %>
