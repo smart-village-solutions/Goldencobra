@@ -136,6 +136,15 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     redirect_to :action => :edit, :notice => "Widgets added"
   end
   
+  batch_action :reset_cache, :confirm => "Cache leeren: sind Sie sicher?" do |selection|
+    Goldencobra::Article.find(selection).each do |article|
+      article.updated_at = Time.now
+      article.save
+    end
+    redirect_to :action => :index, :notice => "Cache wurde erneuert"
+  end
+  
+  
   controller do 
         
     def show
