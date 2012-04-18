@@ -23,6 +23,10 @@ de:
     reset: '%{model} zurücksetzen'
     required: 'Pflichtfeld'
   active_admin:
+    batch_actions:
+      labels:
+        reset_cache: "Cache leeren"
+        destroy: "löschen"
     dashboard: Übersicht
     dashboard_welcome:
       welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
