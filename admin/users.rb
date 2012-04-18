@@ -51,4 +51,7 @@ ActiveAdmin.register User, :as => "User" do
       end
     end #end panel applicant
   end
+  
+  batch_action :destroy, false
+  
 end
