@@ -45,4 +45,6 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     end
   end
   
+  batch_action :destroy, false
+  
 end

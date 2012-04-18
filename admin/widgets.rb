@@ -56,4 +56,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       end
     end
   end
+  
+  batch_action :destroy, false
+  
 end

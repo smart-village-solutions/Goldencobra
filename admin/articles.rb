@@ -143,6 +143,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     redirect_to :action => :index, :notice => "Cache wurde erneuert"
   end
+
+  batch_action :destroy, false
   
   
   controller do 
