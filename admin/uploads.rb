@@ -8,11 +8,17 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     f.inputs class: "buttons inputs" do
       f.actions
     end
+    f.inputs "File" do
+      f.input :image, :as => :file
+    end
     f.inputs "Allgemein" do
       f.input :source
       f.input :rights
-      f.input :description, :input_html => { :class =>"tinymce"}
-      f.input :image, :as => :file
+      f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
+      f.input :description, :input_html => { :class =>"tinymce", :rows => 3}
+    end
+    f.inputs class: "buttons inputs" do
+      f.actions
     end
   end
   

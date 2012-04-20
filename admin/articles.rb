@@ -59,7 +59,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file'}, :label => "Bild ausw&auml;hlen" 
       end
     end
-    
+    f.inputs class: "buttons inputs" do
+      f.actions
+    end
   end
 
   
