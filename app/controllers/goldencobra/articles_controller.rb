@@ -8,7 +8,11 @@ module Goldencobra
     caches_action :show, :cache_path => :show_cache_path.to_proc
 
     def show_cache_path
-      "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
+      if @article.cacheable
+        "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
+      else
+        "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }/#{Time.now.to_i}"
+      end
     end
     
     def show
