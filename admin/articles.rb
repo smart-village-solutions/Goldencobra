@@ -47,7 +47,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
       f.input :enable_social_sharing, :label => t("Display Social Sharing Buttons"), :hint => "Sollen Besucher die Buttons angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
       f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
-      f.input :cacheable, :hint => "Dieser Artikel darf im Cache liegen"
+      f.input :cacheable, :as => :checkbox, :hint => "Dieser Artikel darf im Cache liegen"
     end
     f.inputs "Weiterer Inhalt" do
       f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht", label: "Seitenleisten Text"
