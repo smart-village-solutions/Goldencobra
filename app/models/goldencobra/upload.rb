@@ -25,6 +25,8 @@ module Goldencobra
     has_many :article_images, :class_name => Goldencobra::ArticleImage
     has_many :articles, :through => :article_images
     
+    acts_as_taggable_on :tags
+    
     def complete_list_name 
       result = ""
       result << "#{self.image_file_name} " if self.image_file_name.present?
