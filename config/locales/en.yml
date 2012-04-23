@@ -1,4 +1,12 @@
 en:
+  active_admin:
+    resource:
+      upload: "Upload"
+      article: "Article"
+  title: "Title"
+  url: "URL"
+  created_at: "created at"
+  updated_at: "updated at"
   new_subarticle: "New subarticle"
   date:
     abbr_day_names:
