@@ -5,7 +5,7 @@ module Goldencobra
     layout "application"
     before_filter :get_article, :only => [:show]
     
-    caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article.cacheable}
+    caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article.present? && @article.cacheable ? true : false }
 
     def show_cache_path
       "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
