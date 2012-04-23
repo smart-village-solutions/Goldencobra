@@ -14,7 +14,7 @@ Feature: Read and manage settings
     And I should see "titletag_test" within "table"
     And I should see "ikusei GmbH" within "table"
 
-  Scenario: managa hirachical setting
+  Scenario: manage hierarchical setting
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     And the following "settings" exist:
