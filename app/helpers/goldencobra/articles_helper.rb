@@ -1,18 +1,6 @@
 module Goldencobra
   module ArticlesHelper
     
-    
-    def render_article_widgets
-      if @article
-        result = ""
-        @article.widgets.active.each do |widget|
-          template = Liquid::Template.parse(widget.content)
-          result << content_tag("section", raw(template.render(Goldencobra::Article::LiquidParser)) , :class => widget.css_name, :id => widget.id_name)
-        end
-        return raw(result)
-      end
-    end
-    
     def navigation_menu(menue_id, options={})
       return "id can't be blank" if menue_id.blank?
       #0 = unlimited, 1 = self, 2 = self and children 1. grades, 3 = self and up to children 2.grades

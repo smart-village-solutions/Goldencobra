@@ -39,9 +39,9 @@
   <% if @article %>
     <% @article.widgets.active.each do |widget| %>
       <section class="<%= widget.css_name %>" id="<%= widget.id_name %>">
-				<% template = Liquid::Template.parse(widget.content) %>
-				<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
-			</section>
+		<% template = Liquid::Template.parse(widget.content) %>
+		<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
+	  </section>
     <% end %>
   <% end %>
 <% end %>
