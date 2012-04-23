@@ -9,7 +9,7 @@ module Goldencobra
           template = Liquid::Template.parse(widget.content)
           result << content_tag("section", raw(template.render(Goldencobra::Article::LiquidParser)) , :class => widget.css_name, :id => widget.id_name)
         end
-        return result
+        return raw(result)
       end
     end
     
