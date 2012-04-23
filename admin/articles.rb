@@ -104,7 +104,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       if _article.startpage
         "This Article is the Startpage!"
       else
-        link_to "Make this article Startpage", mark_as_startpage_admin_article_path(_article.id), :confirm => "Realy want to make this article as ROOT of your website"
+        link_to "Make this article Startpage", mark_as_startpage_admin_article_path(_article.id), :confirm => "Really want to make this article as ROOT of your website"
       end
   end
   
