@@ -2,7 +2,11 @@ module Goldencobra
   class ApplicationController < ActionController::Base    
 
     rescue_from CanCan::AccessDenied do |exception|
-      redirect_to admin_dashboard_path, :alert => exception.message
+      if can?(:read, Goldencobra::Article)
+        redirect_to root_url, :alert => exception.message
+      else
+        redirect_to admin_dashboard_path, :alert => exception.message
+      end
     end  
       
     def s(name)
