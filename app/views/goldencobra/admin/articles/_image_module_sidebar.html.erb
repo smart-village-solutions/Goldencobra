@@ -1,5 +1,7 @@
+<h4>Einzelnes Bild einfügen</h4>
 
-<%= link_to "Bilder einfügen", "#", :id => "open_goldencobra_image_maganger" %>
+<%= link_to "Mediathek öffnen", "#", :id => "open_goldencobra_image_maganger" %>
+
 <div id="goldencobra_image_maganger" style="display:none">
 	<div class="header">
 		<div class="close"></div>
@@ -10,5 +12,18 @@
 				<li><%= image_tag upload.image.url(:mini)%></li>
 			<% end %>
 		<% end %>		
-	</ul>
+	</ul> 
 </div>
+
+<br/><br/>
+
+<h4>Bildergallery einfügen</h4>
+<p>Alle Bilder, die mit folgenden Tags versehen sind, sollen angezeigt werden</p>
+
+<%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_article_image_gallery_tags"} do |f| %>
+	<ul>
+		<%= f.input :image_gallery_tags %>
+	</ul>
+	<p><br/><%= f.submit "Bilder auswählen" %></p>
+<% end %>
+
