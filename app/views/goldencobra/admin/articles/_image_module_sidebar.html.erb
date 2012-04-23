@@ -24,6 +24,11 @@
 	<ul>
 		<%= f.input :image_gallery_tags %>
 	</ul>
+	
+	<% if @article.image_gallery_tags.present? %>
+		<p><%= pluralize(Goldencobra::Upload.tagged_with(@article.image_gallery_tags).count, "Bild", "Bilder") %> ausgewählt</p>
+	<% end %>
+	
 	<p><br/><%= f.submit "Bilder auswählen" %></p>
 <% end %>
 

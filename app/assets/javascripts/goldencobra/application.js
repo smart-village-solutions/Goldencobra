@@ -14,4 +14,3 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require goldencobra/jquery.tools.min.js
-
