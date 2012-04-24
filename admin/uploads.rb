@@ -26,11 +26,8 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     selectable_column
     column "url" do |upload|
       result = ""
-      result << truncate(upload.image.url)
+      result << upload.image.url
     end
-#     column :image_file_name
-#     column :image_content_type
-#     column :image_file_size
     column :source do |upload|
     	truncate(upload.source, length: 20)
     end
@@ -38,6 +35,37 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     	l(upload.created_at, format: :short)
 	end
     default_actions
+  end
+
+  show do
+    attributes_table do
+      row "original" do
+        upload.image(:original)
+      end
+      row "large" do
+        upload.image(:large)
+      end
+      row "big" do
+        upload.image(:big)
+      end
+      row "medium" do
+        upload.image(:medium)
+      end
+      row "thumb" do
+        upload.image(:thumb)
+      end
+      row "mini" do
+        upload.image(:mini)
+      end
+      row :source
+      row :rights
+      row :description
+      row :image_file_name
+      row :image_content_type
+      row :image_file_size
+      row :created_at
+      row :updated_at
+    end
   end
   
   sidebar :image_formates do
