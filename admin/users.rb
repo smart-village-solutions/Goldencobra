@@ -15,6 +15,8 @@ ActiveAdmin.register User, :as => "User" do
       f.input :email
       if current_user.has_role?('admin')
         f.input :roles, :as => :check_boxes, :collection => Goldencobra::Role.all
+        f.input :password, hint: "Freilassen, wenn das Passwort nicht geaendert werden soll."
+        f.input :password_confirmation, hint: "Passwort bei Aenderung hier erneut eingeben"
       end
       f.input :function
       f.input :phone
@@ -54,4 +56,16 @@ ActiveAdmin.register User, :as => "User" do
   
   batch_action :destroy, false
   
+  controller do
+    def update
+      @user = User.find(params[:id])
+      if params[:user] && params[:user][:password] && params[:user][:password_confirmation]
+        unless params[:user][:password].length > 0 && params[:user][:password_confirmation].length > 0
+          @user.update_without_password(params[:user])
+        end
+      end
+      @user.update_attributes(params[:user])
+      render action: :edit
+    end
+  end
 end
