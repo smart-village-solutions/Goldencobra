@@ -51,7 +51,6 @@ module Goldencobra
             File.delete("tmp/#{self.id}_#{zipped_file.name}")
           end
         end 
-        self.destroy
       end   
     end
     
