@@ -59,6 +59,7 @@ ActiveAdmin.register User, :as => "User" do
   
   batch_action :destroy, false
   
+  
   controller do
     def update
       @user = User.find(params[:id])
@@ -71,4 +72,7 @@ ActiveAdmin.register User, :as => "User" do
       render action: :edit
     end
   end
+  
+  
+  
 end

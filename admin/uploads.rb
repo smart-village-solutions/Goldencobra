@@ -60,6 +60,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       row :source
       row :rights
       row :description
+      row :tag_list
       row :image_file_name
       row :image_content_type
       row :image_file_size
@@ -81,4 +82,16 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   
   batch_action :destroy, false
   
+  member_action :unzip_file do
+    upload = Goldencobra::Upload.find(params[:id])
+    upload.unzip_files
+    redirect_to :action => :index, :notice => "File unzipped and deleted"
+  end
+  
+  action_item :only => [:edit, :show] do
+    _upload = @_assigns['upload']
+    if _upload.image_file_name.include?(".zip")
+      link_to('Zip-Datei entpacken und l&ouml;schen', unzip_file_admin_upload_path(_upload), :target => "_blank")
+    end
+   end
 end
