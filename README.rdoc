@@ -59,3 +59,4 @@ This Project is under development
 		</div>
 	
 		<%= render_article_image_gallery %>
+
