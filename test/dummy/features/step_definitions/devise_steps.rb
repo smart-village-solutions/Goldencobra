@@ -1,5 +1,3 @@
-require 'Faker'
-
 Given /^that a confirmed admin exists$/ do
   @user = create(:admin_user)
   @admin_role = create(:admin_role)
@@ -24,6 +22,7 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |email, passw
 end
 
 Given /^that "([^"]*)" users exist$/ do |arg1|
+require 'faker'
   arg1.to_i.times do
     password = "123456"#Time.now.to_s
     user = create(:user, firstname: "#{Faker::Name.first_name}",
