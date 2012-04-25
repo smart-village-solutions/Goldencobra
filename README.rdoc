@@ -57,13 +57,3 @@ This Project is under development
 		<div id="social_sharing_buttons" class="bottom_buttons">
 			<%= yield(:social_sharing_buttons) %>
 		</div>
-		
-	
-
-
-
-
-
-
-
-
