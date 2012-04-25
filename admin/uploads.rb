@@ -36,7 +36,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
 	end
 	  column "" do |upload|
 	    if upload.image_file_name.include?(".zip")
-	      link_to(raw("entpacken & l&ouml;schen"), unzip_file_admin_upload_path(upload))
+	      link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
 	    end
 	  end
     default_actions
@@ -90,13 +90,13 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   member_action :unzip_file do
     upload = Goldencobra::Upload.find(params[:id])
     upload.unzip_files
-    redirect_to :action => :index, :notice => "File unzipped and deleted"
+    redirect_to :action => :index, :notice => "File unzipped"
   end
   
   action_item :only => [:edit, :show] do
     _upload = @_assigns['upload']
     if _upload.image_file_name.include?(".zip")
-      link_to('Zip-Datei entpacken und l&ouml;schen', unzip_file_admin_upload_path(_upload), :target => "_blank")
+      link_to('Zip-Datei entpacken', unzip_file_admin_upload_path(_upload), :target => "_blank")
     end
    end
 end
