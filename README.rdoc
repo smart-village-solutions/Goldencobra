@@ -58,4 +58,3 @@ This Project is under development
 			<%= yield(:social_sharing_buttons) %>
 		</div>
 		
-		
