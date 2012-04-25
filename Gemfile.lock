@@ -52,6 +52,7 @@ PATH
       omniauth-openid
       paperclip (~> 3.0)
       rails (~> 3.2.3)
+      rubyzip
       sass-rails
       sass-rails (~> 3.2.1)
       sprockets
