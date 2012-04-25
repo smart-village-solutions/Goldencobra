@@ -34,6 +34,11 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     column :created_at do |upload|
     	l(upload.created_at, format: :short)
 	end
+	  column "" do |upload|
+	    if upload.image_file_name.include?(".zip")
+	      link_to(raw("entpacken & l&ouml;schen"), unzip_file_admin_upload_path(upload))
+	    end
+	  end
     default_actions
   end
 
@@ -80,7 +85,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     end
   end
   
-  batch_action :destroy, false
+  #batch_action :destroy, false
   
   member_action :unzip_file do
     upload = Goldencobra::Upload.find(params[:id])
