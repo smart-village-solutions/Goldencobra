@@ -1,6 +1,6 @@
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
-  menu :parent => "Content-Management", :label => "Navigationsmenu", :if => proc{can?(:read, Goldencobra::Menue)}
+  menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Menue)}
   controller.authorize_resource :class => Goldencobra::Menue
   
   form do |f|
