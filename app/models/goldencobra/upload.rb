@@ -42,13 +42,13 @@ module Goldencobra
         zipped_files = Zip::ZipFile.open(self.image.path)
         zipped_files.each do |zipped_file|
           if zipped_file.file? 
-            zipped_file.extract("tmp/#{self.id}_#{zipped_file.name}")
-            Goldencobra::Upload.create(:image => File.open("tmp/#{self.id}_#{zipped_file.name}"), 
+            zipped_file.extract("tmp/#{self.id}_unzipped_temp.jpg")
+            Goldencobra::Upload.create(:image => File.open("tmp/#{self.id}_unzipped_temp.jpg"), 
                         :source => self.source, 
                         :rights => self.rights, 
                         :description => self.description, 
                         :tag_list => self.tag_list.join(", ") )
-            File.delete("tmp/#{self.id}_#{zipped_file.name}")
+            File.delete("tmp/#{self.id}_unzipped_temp.jpg")
           end
         end 
       end   
