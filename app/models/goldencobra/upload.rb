@@ -40,15 +40,17 @@ module Goldencobra
         logger.info("===============   is a zip")
         require 'zip/zip'
         zipped_files = Zip::ZipFile.open(self.image.path)
+        int = 0
         zipped_files.each do |zipped_file|
+          int = int + 1
           if zipped_file.file? 
-            zipped_file.extract("tmp/#{self.id}_unzipped_temp.jpg")
-            Goldencobra::Upload.create(:image => File.open("tmp/#{self.id}_unzipped_temp.jpg"), 
+            zipped_file.extract("tmp/#{self.id}_unzipped_#{int}.jpg")
+            Goldencobra::Upload.create(:image => File.open("tmp/#{self.id}_unzipped_#{int}.jpg"), 
                         :source => self.source, 
                         :rights => self.rights, 
                         :description => self.description, 
                         :tag_list => self.tag_list.join(", ") )
-            File.delete("tmp/#{self.id}_unzipped_temp.jpg")
+            File.delete("tmp/#{self.id}_unzipped_#{int}.jpg")
           end
         end 
       end   
