@@ -1,0 +1,30 @@
+de:
+  activerecord:
+    models:
+      article: 
+        one: "Artikel"
+        other: "Artikel"
+      goldencobra/article: 
+        one: "Artikel"
+        other: "Artikel"
+      setting:
+        one: "Einstellung"
+        other: "Einstellungen"
+      menue: 
+        one: "Menü"
+        other: "Menüpunkte"
+      metag:
+        one: "Metatag"
+        other: "Metatags"
+      widget:
+        one: "Schnipsel"
+        other: "Schnipsel"
+      newsletter_registration:
+        one: "Newsletter Anmeldung"
+        other: "Newsletter Anmeldungen"
+      company:
+        one: "Unternehmen"
+        other: "Unternehmen"
+      sponsor: 
+        one: "Sponsor"
+        other: "Sponsor"
