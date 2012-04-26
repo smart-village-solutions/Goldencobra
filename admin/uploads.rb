@@ -31,6 +31,9 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     column :source do |upload|
     	truncate(upload.source, length: 20)
     end
+    column t("preview") do |upload|
+      image_tag(upload.image(:mini))
+    end
     column :created_at do |upload|
     	l(upload.created_at, format: :short)
 	end
@@ -44,6 +47,9 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
 
   show do
     attributes_table do
+      row "Vorschau" do
+          image_tag(upload.image(:thumb))
+      end
       row "original" do
         upload.image(:original)
       end
