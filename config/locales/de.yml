@@ -205,3 +205,5 @@ de:
   url: "Website"
   created_at: "Erstellt am"
   updated_at: "Bearbeitet am"
+  edit: "bearbeiten"
+  delete: "löschen"

@@ -67,24 +67,23 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
   index do 
     selectable_column
-    column "#{t(:title)}", :sortable => :title do |article|
+    column :title, :sortable => :title do |article|
       content_tag("span", link_to(truncate(article.title, :length => 40), edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
-    column "#{t(:url)}"  do |article|
+    column :url  do |article|
       article.public_url
     end
     column :id
-    column "#{t(:created_at)}", sortable: :created_at do |article|
+    column :created_at, sortable: :created_at do |article|
       l(article.created_at)
     end
-    column "#{t(:updated_at)}", sortable: :updated_at do |article|
+    column :updated_at, sortable: :updated_at do |article|
       l(article.updated_at)
     end
     column "" do |article|
       result = ""
-      #result += link_to("View", admin_article_path(article), :class => "member_link view_link")
       result += link_to(t(:edit), edit_admin_article_path(article), :class => "member_link edit_link")
-      result += link_to("#{t(:new_subarticle)}", new_admin_article_path(:parent => article), :class => "member_link edit_link")
+      result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link")
       result += link_to(t(:delete), admin_article_path(article), :method => :DELETE, :confirm => "Realy want to delete this Article?", :class => "member_link delete_link")
       raw(result)
     end
