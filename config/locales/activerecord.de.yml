@@ -1,6 +1,12 @@
 de:
     activerecord:
         models:
+            location:
+                one: "Adresse"
+                one: "Adressen"
+            goldencobra/location:
+                one: "Adresse"
+                one: "Adressen"                
             article: 
                 one: "Artikel"
                 other: "Artikel"
@@ -53,6 +59,16 @@ de:
                 one: "Benutzerrolle"
                 other: "Benutzerrollen"
         attributes:
+            goldencobra/location:
+                lat: "Latitude"        
+                lng: "Longitude"
+                street: "Straße"
+                city: "Stadt"
+                zip: "PLZ"
+                region: "Bezirk"  
+                country: "Land"
+                created_at: "erstellt am"
+                updated_at: "bearbeitet am"
             goldencobra/role:
                 description: "Beschreibung"
                 created_at: "Erstellt am"
