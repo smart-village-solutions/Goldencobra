@@ -153,8 +153,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   controller do 
         
     def show
-      ActiveAdmin.application.unload!
-      ActiveAdmin.application.load!
       show! do |format|
          format.html { redirect_to edit_admin_article_path(@article), :flash => flash }
       end
