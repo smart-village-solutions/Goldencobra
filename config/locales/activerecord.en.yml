@@ -1,0 +1,84 @@
+en:
+    activerecord:
+        models:
+            article: 
+                one: "Article"
+                other: "Articles"
+            goldencobra/article: 
+                one: "Article"
+                other: "Articles"
+            setting:
+                one: "Setting"
+                other: "Settings"
+            goldencobra/setting:
+                one: "Setting"
+                other: "Settings"
+            menue: 
+                one: "Menue"
+                other: "Menues"
+            goldencobra/menue: 
+                one: "Menue"
+                other: "Menues"
+            metag:
+                one: "Metatag"
+                other: "Metatags"
+            goldencobra/metag:
+                one: "Metatag"
+                other: "Metatags"
+            widget:
+                one: "Widget"
+                other: "Widgets"
+            goldencobra/widget:
+                one: "Widget"
+                other: "Widgets"
+            upload:
+                one: "Upload"    
+                other: "Uploads"
+            goldencobra/upload:                
+                one: "Medium"        
+                other: "Medien"    
+            user:
+                one: "User"
+                other: "Users"
+            permission:
+                one: "Permission"
+                other: "Permissions"
+            goldencobra/permission:
+                one: "Permission"
+                other: "Permissions"
+            role:
+                one: "Role"
+                other: "Roles"                
+            goldencobra/role:
+                one: "Role"
+                other: "Roles"
+        attributes:
+            goldencobra/role:
+                description: "Description"
+                created_at: "created at"
+                updated_at: "updated at"
+            user:
+                firstname: "firstname"
+                lastname: "lastname"
+                password: "password"
+                password_confirmation: "password confirmation"
+                roles: "roles"
+                function: "function"
+                phone: "phone"
+            goldencobra/article:
+                title: "title"
+                url: "url"
+                created_at: "created at"
+                updated_at: "updated at"
+            goldencobra/upload:
+                source: "source"
+                created_at: "created at"
+                updated_at: "updated at"
+                image_file_name: "image file name"
+                image_content_type: "image content type"
+                image_file_size: "image file size"
+                rights: "rights"
+                description: "description"
+                image: "image"
+                
+
