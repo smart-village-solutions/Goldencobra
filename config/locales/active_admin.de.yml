@@ -1,5 +1,5 @@
 de:
-  active_admin:
+  active_admin:    
     dashboard: Übersicht
     dashboard_welcome:
       welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
@@ -60,12 +60,3 @@ de:
       title_content: "Kommentare (%{count})"
       errors:
         empty_text: "Der Kommentar wurde nicht gespeichert, da der Text fehlt."
-    resource:
-      article: "Artikel"
-      menue: "Menü"
-      setting: "Einstellung"
-      widget: "Widget"
-      user: "Benutzer"
-      upload: "Upload"
-      permission: "Befugnis"
-      role: "Rolle"
