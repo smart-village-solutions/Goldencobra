@@ -87,6 +87,10 @@ de:
                 roles: "Nutzerrollen"
                 function: "Funktion"
                 phone: "Telefon"
+                complete_name: "Name"
+                email: "E-Mail"
+                created_at: "erstellt am"
+                updated_at: "bearbeitet am"
             goldencobra/article:
                 title: "Titel"
                 url: "Webseite"
