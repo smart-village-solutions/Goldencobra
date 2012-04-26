@@ -59,6 +59,12 @@ de:
                 one: "Benutzerrolle"
                 other: "Benutzerrollen"
         attributes:
+            goldencobra/setting:
+                title: "Titel"
+                value: "Wert"
+                ancestry: "Pfad"
+                created_at: "erstellt am"
+                updated_at: "bearbeitet am"
             goldencobra/location:
                 lat: "Latitude"        
                 lng: "Longitude"

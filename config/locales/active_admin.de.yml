@@ -44,6 +44,10 @@ de:
       content: "Es gibt noch keine %{resource_name}."
       link: "Erstellen"
     batch_actions:
+      labels:
+        reset_cache: "Cache leeren"
+        send_default_conf_mails: "Sende Bestätigungsmails"
+        destroy: "Löschen"
       button_label: "Batch Verarbeitung"
       delete_confirmation: "Sind Sie sicher Sie wollen all dise %{plural_model} löschen? Widerruf ist nicht möglich."
       succesfully_destroyed:
