@@ -1,5 +1,5 @@
 ActiveAdmin.register User, :as => "User" do
-  menu :parent => "Einstellungen", :label => "Benutzerverwaltung", :if => proc{can?(:update, User)}
+  menu :parent => "Einstellungen", :if => proc{can?(:update, User)}
   controller.authorize_resource :class => User
   
   filter :firstname
