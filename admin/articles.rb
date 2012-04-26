@@ -1,6 +1,6 @@
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
-  menu :parent => "Content-Management", :label => "Artikel", :if => proc{can?(:read, Goldencobra::Article)}
+  menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
     
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => "Parent"
