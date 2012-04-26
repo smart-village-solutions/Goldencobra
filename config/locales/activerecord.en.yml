@@ -65,6 +65,10 @@ en:
                 roles: "roles"
                 function: "function"
                 phone: "phone"
+                complete_name: "name"
+                email: "email"
+                created_at: "created at"
+                updated_at: "updated at"
             goldencobra/article:
                 title: "title"
                 url: "url"
