@@ -19,7 +19,8 @@ module Goldencobra
       has_attached_file :image, 
                         :styles => { :large => "900x900>",:big => "600x600>", :medium => "300x300>", :thumb => "100x100>", :mini => "50x50>" },
                         :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-                        :url => "/system/:attachment/:id/:style/:filename"
+                        :url => "/system/:attachment/:id/:style/:filename",
+                        :convert_options => { :all => '-auto-orient' }
       before_post_process :image_file?
     end
     
