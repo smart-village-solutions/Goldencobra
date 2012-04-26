@@ -1,0 +1,10 @@
+en:
+  formtastic:
+    yes: 'yes'
+    no: 'no'
+    create: 'create %{model}'
+    update: 'update %{model}'
+    submit: 'save %{model}'
+    cancel: 'cancel %{model}'
+    reset: 'reset %{model}'
+    required: 'required'

@@ -1,5 +1,5 @@
 ActiveAdmin.register User, :as => "User" do
-  menu :parent => "Einstellungen", :label => "Benutzerverwaltung", :if => proc{can?(:update, User)}
+  menu :parent => "Einstellungen", :if => proc{can?(:update, User)}
   controller.authorize_resource :class => User
   
   filter :firstname
@@ -41,7 +41,7 @@ ActiveAdmin.register User, :as => "User" do
     column :firstname
     column :lastname
     column :email
-    column "Roles" do |u|
+    column :roles do |u|
       u.roles.map{|r| r.name.capitalize}.join(", ")
     end
     default_actions

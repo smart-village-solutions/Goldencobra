@@ -1,5 +1,5 @@
 ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
-  menu parent: "Content-Management", label: "Widget", :if => proc{can?(:read, Goldencobra::Widget)}
+  menu parent: "Content-Management", :if => proc{can?(:read, Goldencobra::Widget)}
 
   form html: { enctype: "multipart/form-data" } do |f|
     f.inputs "Allgemein" do
