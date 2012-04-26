@@ -1,30 +1,55 @@
 de:
-  activerecord:
-    models:
-      article: 
-        one: "Artikel"
-        other: "Artikel"
-      goldencobra/article: 
-        one: "Artikel"
-        other: "Artikel"
-      setting:
-        one: "Einstellung"
-        other: "Einstellungen"
-      menue: 
-        one: "Menü"
-        other: "Menüpunkte"
-      metag:
-        one: "Metatag"
-        other: "Metatags"
-      widget:
-        one: "Schnipsel"
-        other: "Schnipsel"
-      newsletter_registration:
-        one: "Newsletter Anmeldung"
-        other: "Newsletter Anmeldungen"
-      company:
-        one: "Unternehmen"
-        other: "Unternehmen"
-      sponsor: 
-        one: "Sponsor"
-        other: "Sponsor"
+    activerecord:
+        models:
+            article: 
+                one: "Artikel"
+                other: "Artikel"
+            goldencobra/article: 
+                one: "Artikel"
+                other: "Artikel"
+            setting:
+                one: "Einstellung"
+                other: "Einstellungen"
+            goldencobra/setting:
+                one: "Einstellung"
+                other: "Einstellungen"
+            menue: 
+                one: "Menü"
+                other: "Menüpunkte"
+            goldencobra/menue: 
+                one: "Menü"
+                other: "Menüpunkte"
+            metag:
+                one: "Metatag"
+                other: "Metatags"
+            goldencobra/metag:
+                one: "Metatag"
+                other: "Metatags"
+            widget:
+                one: "Schnipsel"
+                other: "Schnipsel"
+            goldencobra/widget:
+                one: "Schnipsel"
+                other: "Schnipsel"
+            upload:
+                one: "Medium"    
+                other: "Medien"
+            goldencobra/upload:                
+                one: "Medium"        
+                other: "Medien"    
+            user:
+                one: "Benutzer"
+                other: "Benutzer"
+            permission:
+                one: "Zugriffsrecht"
+                other: "Zugriffsrechte"
+            goldencobra/permission:
+                one: "Zugriffsrecht"
+                other: "Zugriffsrechte"
+            role:
+                one: "Benutzerrolle"
+                other: "Benutzerrollen"                
+            goldencobra/role:
+                one: "Benutzerrolle"
+                other: "Benutzerrollen"
+

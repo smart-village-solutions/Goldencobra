@@ -12,6 +12,7 @@ de:
     create_model: "%{model} erstellen"
     edit_model: "%{model} bearbeiten"
     delete_model: "%{model} löschen"
+    update_model: "%{model} bearbeiten"
     details: "%{model} Details"
     cancel: "Abbrechen"
     empty: "Leer"
