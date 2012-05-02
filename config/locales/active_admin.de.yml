@@ -65,3 +65,5 @@ de:
       title_content: "Kommentare (%{count})"
       errors:
         empty_text: "Der Kommentar wurde nicht gespeichert, da der Text fehlt."
+    articles:
+      tag-select-placeholder: "Tag wählen"
