@@ -165,8 +165,28 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       article.updated_at = Time.now
       article.save
     end
-    redirect_to :action => :index, :notice => "Cache wurde erneuert"
+    flash[:notice] = "Cache wurde erneuert"
+    redirect_to :action => :index
   end
+  
+  batch_action :set_article_online, :confirm => "Artikel online stellen: sind Sie sicher?" do |selection|
+    Goldencobra::Article.find(selection).each do |article|
+      article.active = true
+      article.save
+    end
+    flash[:notice] = "Artikel wurden online gestellt"
+    redirect_to :action => :index
+  end
+
+  batch_action :set_article_offline, :confirm => "Artikel offline stellen: sind Sie sicher?" do |selection|
+    Goldencobra::Article.find(selection).each do |article|
+      article.active = false
+      article.save
+    end
+    flash[:notice] = "Artikel wurden offline gestellt"
+    redirect_to :action => :index
+  end
+  
 
   batch_action :destroy, false
   
