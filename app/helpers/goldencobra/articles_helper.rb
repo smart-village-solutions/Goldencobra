@@ -5,7 +5,7 @@ module Goldencobra
     def render_article_image_gallery
       if @article
         result = ""
-        uploads = Goldencobra::Upload.tagged_with(@article.image_gallery_tags)
+        uploads = Goldencobra::Upload.tagged_with(@article.image_gallery_tags.split(","))
         if uploads && uploads.count > 0
           uploads.each do |upload|
             result << content_tag("li", link_to(image_tag(upload.image.url(:thumb)), upload.image.url(:large)))
