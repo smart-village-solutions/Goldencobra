@@ -47,6 +47,7 @@ module Goldencobra
     validates_presence_of :title
     
     before_save :verify_existens_of_url_name_and_slug
+    before_save :parse_image_gallery_tags
     validates_format_of :url_name, :with => /^[\w\d-]+$/, allow_blank: true
     attr_protected :startpage
     
@@ -73,6 +74,9 @@ module Goldencobra
       end
     end 
 
+    def parse_image_gallery_tags
+      self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags.class == Array
+    end
     def verify_existence_of_opengraph_image
       if Goldencobra::Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
         Goldencobra::Metatag.create(article_id: self.id, name: "OpenGraph Image", value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
