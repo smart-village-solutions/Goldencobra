@@ -7,12 +7,12 @@ Feature: Create and manage articles
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     Given the following "articles" exist:
-      | title                        | url_name     |
-      | "10 Internet Marketing Tips" | top-10       |
-      | "Top 10 Internet Marketers"  | top-10-tips  |
+      | title                        | url_name     | breadcrumb |
+      | "10 Internet Marketing Tips" | top-10       | 10-internet |
+      | "Top 10 Internet Marketers"  | top-10-tips  | top-10 |
     When I go to the admin list of articles
-    Then I should see "10 Internet Marketing Tips"
-    And I should see "Top 10 Internet Marketers" within ".index_content"
+    Then I should see "10-internet"
+    And I should see "top-10" within ".index_content"
     And I should not see "Dies ist kein Artikel"
 
   Scenario: Create a new Article
