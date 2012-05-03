@@ -22,8 +22,10 @@
 
 <%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_article_image_gallery_tags"} do |f| %>
 	<ul>
-    <%= f.input :image_gallery_tags, as: :select, collection: Goldencobra::Upload.scoped.tag_counts_on(:tags).map{|tag| tag.name}, :input_html => {class: "chzn-select", 'data-placeholder' => t('active_admin.articles.tag-select-placeholder') } %>
-	</ul>
+    <%= select_tag 'article[image_gallery_tags][]', options_for_select(Goldencobra::Upload.scoped.tag_counts_on(:tags).map{|tag| tag.name},
+                                                                       @article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : []),
+                                                   :multiple => true, :class => "chzn-select" %>
+  </ul>
 	
 	<% if @article.image_gallery_tags.present? %>
 		<p><%= pluralize(Goldencobra::Upload.tagged_with(@article.image_gallery_tags).count, "Bild", "Bilder") %> ausgewählt</p>
