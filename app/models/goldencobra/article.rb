@@ -54,6 +54,7 @@ module Goldencobra
     scope :robots_index, where(:robots_no_index => false)
     scope :robots_no_index, where(:robots_no_index => true)
     scope :active, where(:active => true)
+    scope :inactive, where(:active => false)
     scope :startpage, where(:startpage => true)    
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
