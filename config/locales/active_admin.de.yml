@@ -31,6 +31,7 @@ de:
     logout: "Abmelden"
     sidebars:
       filters: "Filter"
+    per_page: "Einträge pro Seite"  
     pagination:
       empty: "Keine %{model} gefunden"
       one: "Zeige <b>1</b> %{model}"
