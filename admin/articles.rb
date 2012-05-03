@@ -67,8 +67,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   
   index do 
     selectable_column
-    column :title, :sortable => :title do |article|
-      content_tag("span", link_to(truncate(article.title, :length => 40), edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
+    column "name", :sortable => :breadcrumb do |article|
+      content_tag("span", link_to(truncate(article.breadcrumb, :length => 40), edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
     column :url  do |article|
       article.public_url
