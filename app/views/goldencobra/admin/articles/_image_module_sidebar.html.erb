@@ -22,7 +22,7 @@
 
 <%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_article_image_gallery_tags"} do |f| %>
 	<ul>
-		<%= f.input :image_gallery_tags %>
+    <%= f.input :image_gallery_tags, as: :select, collection: Goldencobra::Upload.scoped.tag_counts_on(:tags).map{|tag| tag.name}, :input_html => {class: "chzn-select", 'data-placeholder' => t('active_admin.articles.tag-select-placeholder') } %>
 	</ul>
 	
 	<% if @article.image_gallery_tags.present? %>
