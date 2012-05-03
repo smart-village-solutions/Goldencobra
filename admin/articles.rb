@@ -11,6 +11,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   filter :created_at
   filter :updated_at
   
+  scope "Alle", :scoped, :default => true
+  scope "online", :active
+  scope "offline", :inactive
+  
+  
   form :html => { :enctype => "multipart/form-data" }  do |f|  
     f.inputs :class => "buttons inputs" do
       f.actions
@@ -73,7 +78,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     column :url  do |article|
       article.public_url
     end
-    column :id
+    column :active, :sortable => :active do |article|
+      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article),:confirm => "Sichtbarkeit dieses Artikels aendern?", :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
+    end
     column :created_at, sortable: :created_at do |article|
       l(article.created_at)
     end
@@ -129,7 +136,22 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   member_action :mark_as_startpage do
     article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
-    redirect_to :action => :show, :notice => "This Article is the Startpage!"
+    flash[:notice] = "Dieser Artikel ist nun der Startartikel"
+    redirect_to :action => :show
+  end
+
+  member_action :set_page_online_offline do
+    article = Goldencobra::Article.find(params[:id])
+    if article.active
+      article.active = false
+      flash[:notice] = "Dieser Artikel ist nun online"
+    else
+      article.active = true
+      flash[:notice] = "Dieser Artikel ist nun offline"
+    end
+    article.save
+    
+    redirect_to :action => :index
   end
   
   member_action :update_widgets, :method => :post do
