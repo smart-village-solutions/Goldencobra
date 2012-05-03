@@ -10,7 +10,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   filter :template_file
   filter :created_at
   filter :updated_at
-    
+  
   form :html => { :enctype => "multipart/form-data" }  do |f|  
     f.inputs :class => "buttons inputs" do
       f.actions
