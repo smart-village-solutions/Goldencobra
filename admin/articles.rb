@@ -56,7 +56,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     f.inputs "Medien", :class => "foldable inputs"  do
       f.has_many :article_images do |ai|
-        ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file'}, :label => "Bild ausw&auml;hlen" 
+        ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen" 
       end
     end
     f.inputs class: "buttons inputs" do
