@@ -22,7 +22,21 @@ module Goldencobra
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
     
-    
+    def after_save(record)
+      if defined?(ActiveAdmin) and ActiveAdmin.application
+        ActiveAdmin.application.unload!
+        ActiveSupport::Dependencies.clear
+        ActiveAdmin.application.load!
+      end
+    end
+
+    def after_destroy(record)
+      if defined?(ActiveAdmin) and ActiveAdmin.application
+        ActiveAdmin.application.unload!
+        ActiveSupport::Dependencies.clear
+        ActiveAdmin.application.load!
+      end
+    end
     
     def self.for_key(name) 
       setting_title = name.split(".").last
