@@ -12,6 +12,7 @@ require 'acts-as-taggable-on'
 require 'paperclip'
 require 'goldencobra/acts_as_setting'
 require 'liquid'
+require 'radius'
 
 module Goldencobra
   class Engine < ::Rails::Engine
