@@ -39,19 +39,7 @@
   <% if @article %>
     <% @article.widgets.active.each do |widget| %>
       <section class="<%= widget.css_name %>" id="<%= widget.id_name %>">
-		<%# template = Liquid::Template.parse(widget.content) %>
-		<%#= raw(template.render(Goldencobra::Article::LiquidParser)) %>
-		<%#
-		
-		context = Radius::Context.new do |c|
-		    c.define_tag 'newsletter_form' do |tag|
-		      type = tag.attr['type']
-				render(:partial => "goldencobra_newsletter/newsletters/register" :locals => {:type => type })
-		    end
-		  end
-		%>
-		
-		<% parser = Radius::Parser.new(Goldencobra::Context.new, :tag_prefix => 'r') %>
+		<% parser = Radius::Parser.new(@article_radius_tags, :tag_prefix => 'r') %>
 		<%= raw(parser.parse(widget.content)) %>
 	  </section>
     <% end %>
