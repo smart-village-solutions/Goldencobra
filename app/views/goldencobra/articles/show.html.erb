@@ -39,8 +39,8 @@
   <% if @article %>
     <% @article.widgets.active.each do |widget| %>
       <section class="<%= widget.css_name %>" id="<%= widget.id_name %>">
-		<% parser = Radius::Parser.new(@article_radius_tags, :tag_prefix => 'r') %>
-		<%= raw(parser.parse(widget.content)) %>
+		<% template = Liquid::Template.parse(widget.content) %>
+		<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
 	  </section>
     <% end %>
   <% end %>
