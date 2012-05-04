@@ -31,6 +31,7 @@ de:
     logout: "Abmelden"
     sidebars:
       filters: "Filter"
+    per_page: "Einträge pro Seite"  
     pagination:
       empty: "Keine %{model} gefunden"
       one: "Zeige <b>1</b> %{model}"
@@ -45,6 +46,8 @@ de:
       link: "Erstellen"
     batch_actions:
       labels:
+        set_article_online: "Artikel online stellen"
+        set_article_offline: "Artikel offline stellen"
         reset_cache: "Cache leeren"
         send_default_conf_mails: "Sende Bestätigungsmails"
         destroy: "Löschen"

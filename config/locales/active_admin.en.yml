@@ -31,6 +31,7 @@ en:
     logout: "Logout"
     sidebars:
       filters: "Filters"
+    per_page: "Items per page"  
     pagination:
       empty: "No %{model} found"
       one: "Displaying <b>1</b> %{model}"
@@ -53,6 +54,10 @@ en:
       link: "Create one"
       action_label: "%{title} Selected"
       labels:
+        set_article_online: "Artikel online stellen"
+        set_article_offline: "Artikel offline stellen"
+        reset_cache: "reset cache"
+        send_default_conf_mails: "Send confirmation mails"
         destroy: "Delete"
     comments:
       body: "Body"

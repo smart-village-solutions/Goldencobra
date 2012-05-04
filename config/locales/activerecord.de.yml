@@ -96,6 +96,7 @@ de:
                 url: "Webseite"
                 created_at: "Erstellt am"
                 updated_at: "Bearbeitet am"
+                active: "online"
             goldencobra/upload:
                 source: "Quellenverweis"
                 created_at: "Erstellt am"
