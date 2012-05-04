@@ -39,8 +39,8 @@
   <% if @article %>
     <% @article.widgets.active.each do |widget| %>
       <section class="<%= widget.css_name %>" id="<%= widget.id_name %>">
-		<% template = Liquid::Template.parse(widget.content) %>
-		<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
+		<%# template = Liquid::Template.parse(widget.content) %>
+		<%#= raw(template.render(Goldencobra::Article::LiquidParser)) %>
 		<%#
 		
 		context = Radius::Context.new do |c|
@@ -51,8 +51,8 @@
 		  end
 		%>
 		
-		<%# parser = Radius::Parser.new(@radius_parser_context, :tag_prefix => 'r') %>
-		<%#= raw(parser.parse(widget.content)) %>
+		<% parser = Radius::Parser.new(Goldencobra::Context.new, :tag_prefix => 'r') %>
+		<%= raw(parser.parse(widget.content)) %>
 	  </section>
     <% end %>
   <% end %>
