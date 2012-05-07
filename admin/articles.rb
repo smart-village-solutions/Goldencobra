@@ -73,7 +73,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   index do 
     selectable_column
     column "name", :sortable => :breadcrumb do |article|
-      content_tag("span", link_to(truncate(article.breadcrumb, :length => 40), edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
+      content_tag("span", link_to(truncate(article.breadcrumb_name, :length => 40), edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
     column :url  do |article|
       article.public_url
@@ -97,7 +97,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
   
   sidebar :overview, label: "Ueberblick", only: [:index] do
-    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.roots, :locals => {:link_name => "breadcrumb", :url_path => "article" }
+    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.roots, :locals => {:link_name => "breadcrumb_name", :url_path => "article" }
   end
   
   sidebar :widgets_options, label: "Widgets", only: [:edit] do
