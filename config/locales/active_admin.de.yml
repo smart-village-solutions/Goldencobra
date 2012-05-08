@@ -4,6 +4,8 @@ de:
     dashboard_welcome:
       welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
       call_to_action: "Siehe 'app/admin/dashboards.rb', um Übersichts-Bereiche hinzuzufügen."
+    dashboard_sections:
+      last_updated_articles: 'Zuletzt bearbeitete Artikel'
     view: "Anzeigen"
     edit: "Bearbeiten"
     delete: "Löschen"
