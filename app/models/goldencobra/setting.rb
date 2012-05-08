@@ -89,8 +89,10 @@ module Goldencobra
     
     
     def parse_title
-      self.title = self.title.downcase
-      self.title = self.title.gsub(".", "_")
+      if self.title
+        self.title = self.title.downcase
+        self.title = self.title.gsub(".", "_")
+      end
     end
     
   end
