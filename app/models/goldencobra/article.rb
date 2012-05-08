@@ -76,7 +76,7 @@ module Goldencobra
     end 
 
     def parse_image_gallery_tags
-      if self.send(image_gallery_tags)
+      if self.respond_to?(:image_gallery_tags)
         self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags.class == Array
       end
     end
