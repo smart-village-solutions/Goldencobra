@@ -12,6 +12,7 @@
 
 module Goldencobra
   class Metatag < ActiveRecord::Base
+    attr_accessible :name, :value, :article_id
     belongs_to :article
     
   end
