@@ -38,4 +38,12 @@ describe Goldencobra::Article do
     File.delete("#{::Rails.root}/app/views/layouts/12layout.html.erb")
   end
   
+  it "should return a list of 5 last modified articles" do
+    Goldencobra::Article.create(title: "Blah")
+    Goldencobra::Article.create(title: "Blah2")
+    Goldencobra::Article.create(title: "Blah3")
+    Goldencobra::Article.create(title: "Blah4")
+    Goldencobra::Article.create(title: "Blah5")
+    Goldencobra::Article.recent(5).collect.count.should == 5
+  end
 end
