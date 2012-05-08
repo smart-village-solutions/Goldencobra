@@ -12,5 +12,6 @@
 
 module Goldencobra
   class Help < ActiveRecord::Base
+    attr_accessible :title, :description, :url
   end
 end
