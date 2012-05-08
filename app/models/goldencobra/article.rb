@@ -76,7 +76,9 @@ module Goldencobra
     end 
 
     def parse_image_gallery_tags
-      self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags && self.image_gallery_tags.class == Array
+      if self.send(image_gallery_tags)
+        self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags.class == Array
+      end
     end
     def verify_existence_of_opengraph_image
       if Goldencobra::Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
