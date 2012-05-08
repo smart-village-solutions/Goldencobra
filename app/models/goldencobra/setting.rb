@@ -12,6 +12,7 @@
 
 module Goldencobra
   class Setting < ActiveRecord::Base
+    attr_accessible :title, :value, :ancestry
     has_ancestry :orphan_strategy => :restrict
     
     before_save :parse_title

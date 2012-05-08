@@ -24,6 +24,9 @@
 #  article_for_index_levels :integer(4)      default(0)
 #  article_for_index_count  :integer(4)      default(0)
 #  article_for_index_images :boolean(1)      default(FALSE)
+#  enable_social_sharing    :boolean(1)
+#  cacheable                :boolean(1)      default(TRUE)
+#  image_gallery_tags       :string(255)
 #
 
 module Goldencobra
