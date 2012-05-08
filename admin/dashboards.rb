@@ -10,7 +10,7 @@ ActiveAdmin::Dashboards.build do
    section 'last_updated_articles', priority: 1 do
     table do
       tr do
-        [t(:title), t(:updated_at), t(:update)].each do |sa|
+        [t(:title, scope: [:activerecord, :models, :article]), t(:updated_at, scope: [:activerecord, :attributes, :article]), t(:edit, scope: :active_admin)].each do |sa|
           th sa
         end
       end
@@ -19,7 +19,7 @@ ActiveAdmin::Dashboards.build do
         tr do
           td article.title
           td l(article.updated_at, format: :short)
-          td link_to(t(:update), admin_article_path(article))
+          td link_to(t(:edit), admin_article_path(article))
         end        
       end
     end
