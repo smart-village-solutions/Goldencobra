@@ -31,6 +31,11 @@
 
 module Goldencobra
   class Article < ActiveRecord::Base
+    attr_accessible :title, :url_name, :content, :breadcrumb, :slug, :teaser, :ancestry, :startpage, :active, :subtitle, :summary
+    attr_accessible :canonical_url, :context_info, :robots_no_index, :breadcrumb, :template_file, :article_for_index_id
+    attr_accessible :article_for_index_levels, :article_for_index_count, :article_for_index_images, :enable_social_sharing
+    attr_accessible :cacheable, :image_gallery_tags
+    
     extend FriendlyId
     attr_accessor :hint_label
     friendly_id :url_name, use: [:slugged, :history]
