@@ -13,3 +13,7 @@ end
 Then /^I go to the article page "([^\"]*)"$/ do |arg1|
   visit("/#{arg1}")
 end
+
+Given /^I am on the admin dashboard$/ do
+  visit("/admin")
+end
