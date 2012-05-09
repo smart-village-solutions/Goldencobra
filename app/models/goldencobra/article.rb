@@ -146,6 +146,10 @@ module Goldencobra
       metatag = self.metatags.find_by_name(name)
       metatag.value if metatag
     end
+
+    def self.recent(count)
+      Goldencobra::Article.where('title IS NOT NULL').order('updated_at DESC').limit(count)
+    end
           
   end
 end
