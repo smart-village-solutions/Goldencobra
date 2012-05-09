@@ -3,10 +3,10 @@ de:
         models:
             location:
                 one: "Adresse"
-                one: "Adressen"
+                other: "Adressen"
             goldencobra/location:
                 one: "Adresse"
-                one: "Adressen"                
+                other: "Adressen"                
             article: 
                 one: "Artikel"
                 other: "Artikel"
