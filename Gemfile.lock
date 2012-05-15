@@ -47,7 +47,7 @@ PATH
       ancestry
       cancan
       compass-rails
-      devise
+      devise (~> 2.1.0.rc2)
       exception_notification
       execjs
       friendly_id (~> 4.0.0.beta14)
