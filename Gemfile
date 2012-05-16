@@ -21,7 +21,6 @@ gem "paperclip"#, '~> 2.7'#, :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'sass-rails'
 gem 'compass-rails'
 gem 'memcache-client'
-gem "geocoder"
 # gem 'nokogiri', '~> 1.5.2'
 
 gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
