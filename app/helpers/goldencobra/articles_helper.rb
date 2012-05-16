@@ -2,6 +2,10 @@ module Goldencobra
   module ArticlesHelper
     
     
+    def render_article_content_parts(article)
+      render :partial => "/goldencobra/articles/show", :locals => {:article => article}
+    end
+    
     def render_article_image_gallery
       if @article
         result = ""
