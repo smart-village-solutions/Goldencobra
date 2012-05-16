@@ -16,11 +16,15 @@
 
 module Goldencobra
   class Location < ActiveRecord::Base
+    geocoded_by :complete_location, :latitude  => :lat, :longitude => :lng
+    after_validation :geocode
+    
     def complete_location 
       result = ""
       result += "#{self.street}" if self.street.present?
       result += ", #{self.zip}" if self.zip.present?
       result += ", #{self.city}" if self.city.present?
     end
+        
   end
 end
