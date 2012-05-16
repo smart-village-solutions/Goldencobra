@@ -383,7 +383,6 @@ DEPENDENCIES
   factory_girl_rails (~> 3.1.0)
   faker
   friendly_id (~> 4.0.0.beta14)
-  geocoder
   git-pivotal
   goldencobra!
   growl
