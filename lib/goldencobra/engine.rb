@@ -22,10 +22,12 @@ module Goldencobra
       ApplicationController.helper(Goldencobra::ApplicationHelper)
       ActionController::Base.helper(Goldencobra::ApplicationHelper)      
       DeviseController.helper(Goldencobra::ApplicationHelper)           
+      Devise::SessionsController.helper(Goldencobra::ApplicationHelper)       
       
       ApplicationController.helper(Goldencobra::ArticlesHelper)
       ActionController::Base.helper(Goldencobra::ArticlesHelper)  
       DeviseController.helper(Goldencobra::ArticlesHelper)               
+      Devise::SessionsController.helper(Goldencobra::ArticlesHelper)  
     end
   end
 end
