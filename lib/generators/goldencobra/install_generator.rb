@@ -34,7 +34,7 @@ module Goldencobra
       def create_migrations
         Dir["#{self.class.source_root}/migrations/*.rb"].sort.each do |filepath|
           name = File.basename(filepath)
-          template "migrations/#{name}", "db/migrate/#{name.gsub(/^\d+_/,'')}"
+          template "migrations/#{name}", "db/migrate/#{name}"
           sleep 1
         end
       end
