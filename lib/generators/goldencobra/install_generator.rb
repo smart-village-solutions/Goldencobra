@@ -22,9 +22,9 @@ module Goldencobra
       end
 
       def setup_routes
-        route "ActiveAdmin.routes(self)"
-        route "devise_for :users, ActiveAdmin::Devise.config"
         route "mount Goldencobra::Engine => '/'"
+        route "devise_for :users, ActiveAdmin::Devise.config"
+        route "ActiveAdmin.routes(self)"
       end
 
       def self.source_root
@@ -34,7 +34,7 @@ module Goldencobra
       def create_migrations
         Dir["#{self.class.source_root}/migrations/*.rb"].sort.each do |filepath|
           name = File.basename(filepath)
-          migration_template "migrations/#{name}", "db/migrate/#{name.gsub(/^\d+_/,'')}"
+          template "migrations/#{name}", "db/migrate/#{name.gsub(/^\d+_/,'')}"
           sleep 1
         end
       end
