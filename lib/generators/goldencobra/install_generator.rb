@@ -10,15 +10,15 @@ module Goldencobra
 
       def copy_initializer
         @underscored_user_name = "user".underscore
-        template '../../templates/active_admin.rb.erb', 'config/initializers/active_admin.rb'
+        template '../templates/active_admin.rb.erb', 'config/initializers/active_admin.rb'
       end
 
       def install_assets
         require 'rails'
         require 'active_admin'
 
-        template '../../templates/active_admin.js', 'app/assets/javascripts/active_admin.js'
-        template '../../templates/active_admin.css.scss', 'app/assets/stylesheets/active_admin.css.scss'
+        template '../templates/active_admin.js', 'app/assets/javascripts/active_admin.js'
+        template '../templates/active_admin.css.scss', 'app/assets/stylesheets/active_admin.css.scss'
       end
 
       def setup_routes
@@ -28,7 +28,7 @@ module Goldencobra
       end
 
       def self.source_root
-        File.expand_path("../../templates", __FILE__)
+        File.expand_path("../templates", __FILE__)
       end 
 
       def create_migrations
