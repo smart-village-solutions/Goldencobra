@@ -9,7 +9,7 @@ module Goldencobra
       class_option :orm
 
       def copy_initializer
-        @underscored_user_name = name.underscore
+        @underscored_user_name = "user".underscore
         template '../../templates/active_admin.rb.erb', 'config/initializers/active_admin.rb'
       end
 
