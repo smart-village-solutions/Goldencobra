@@ -2,6 +2,11 @@ language: ruby
 before_script:
   - "mysql -e 'create database goldencobra_test;'"
 bundler_args: --without development
+before_script:
+  - "script: bundle exec gem install activerecord-mysql2-adapter"
+  - "script: bundle exec rails g goldencobra:install"
+  - "script: bundle exec rake db:migrate db:test:prepare"
+  - "script: bundle exec rake"
 rvm:
   - 1.9.2
 gemfile:
@@ -9,7 +14,6 @@ gemfile:
 branches:
   only:
     - master
-script: bundle exec rake
 mysql:
   adapter: mysql2
   database: goldencobra_test
