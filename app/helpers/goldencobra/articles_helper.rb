@@ -40,6 +40,7 @@ module Goldencobra
     
     
     def breadcrumb(options={})
+      id_name = options[:id] || "breadcrumb"
       class_name = options[:class] || ""
       if @article
         list = ""
@@ -48,7 +49,7 @@ module Goldencobra
           list << content_tag(:li, raw(link_name))
         end
         content_list = content_tag(:ol, raw(list))
-    		result = content_tag(:nav, raw(content_list), :id => "breadcrumb", :class => "#{class_name}")
+    		result = content_tag(:nav, raw(content_list), :id => "#{id_name}", :class => "#{class_name}")
         return raw(result)
       end
     end
