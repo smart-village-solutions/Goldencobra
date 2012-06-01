@@ -1,4 +1,5 @@
 //= require active_admin/base
+//= require goldencobra/keymaster
 
 $(document).ready(function() {	
 	$('textarea.tinymce').tinymce({
@@ -76,5 +77,22 @@ $(document).ready(function() {
 	
 	$(".chzn-select").chosen();
   $(".chzn-select-deselect").chosen({allow_single_deselect:true});
+
+
+  $("#main_content form input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
+  key('⌘+s, ctrl+s', function(){
+	$("#main_content form input:submit").trigger("click");
+	return false;
+  });
+
+  $("#title_bar .action_items a[href$='edit']").append(" (⌘-E)")
+  key('⌘+e, ctrl+e', function(){
+	target = $("#title_bar .action_items a[href$='edit']").attr("href");
+	window.location = target;
+	return false;
+  });
+
+
+
 });
 
