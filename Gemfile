@@ -4,6 +4,7 @@ gemspec
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
 
+
 #gem 'sass-rails', "~> 3.2.1"
 gem 'devise', :git => "git://github.com/plataformatec/devise.git"
 gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git", :require => "activeadmin"
