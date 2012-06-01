@@ -5,7 +5,7 @@ bundler_args: --without development
 before_script:
   #- "bundle exec gem install activerecord-mysql2-adapter"
   - "bundle exec rails g goldencobra:install"
-  - "bundle exec rake db:migrate db:test:prepare"
+  - "bundle exec rake db:setup db:test:prepare"
   - "bundle exec rake"
 rvm:
   - 1.9.2
