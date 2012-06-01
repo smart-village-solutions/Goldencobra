@@ -3,12 +3,15 @@ before_script:
   - "mysql -e 'create database goldencobra_test;'"
 bundler_args: --without development
 before_script:
-  #- "bundle exec gem install activerecord-mysql2-adapter"
-  #- "bundle exec rails g goldencobra:install"
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+  - rackup  # start a Web server
+  - sleep 3 # give Web server some time to bind to sockets, etc
   - "bundle exec rake db:create"
   - "bundle exec rake db:migrate"
   - "cd test/dummy && bundle exec rake db:test:prepare"
-  - "bundle exec rake"
+  - "bundle exec rake travis"
 rvm:
   - 1.9.2
 gemfile:
