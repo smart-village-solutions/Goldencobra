@@ -9,7 +9,7 @@ gemfile:
 branches:
   only:
     - master
-script: bundle exec rake travis
+script: bundle exec rake
 mysql:
   adapter: mysql2
   database: goldencobra_test
