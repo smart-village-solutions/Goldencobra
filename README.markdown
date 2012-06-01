@@ -1,6 +1,6 @@
 #Goldencobra
 
-[![Build Status](https://secure.travis-ci.org/[ikusei]/[Goldencobra].png)](http://travis-ci.org/[ikusei]/[Goldencobra])
+[![Build Status](https://secure.travis-ci.org/ikusei/Goldencobra.png)](http://travis-ci.org/ikusei/Goldencobra)
 
 This Project is under development
 
