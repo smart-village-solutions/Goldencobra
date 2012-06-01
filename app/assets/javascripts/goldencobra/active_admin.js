@@ -75,5 +75,6 @@ $(document).ready(function() {
 	$('div#sidebar div.sidebar_section:not(#overview_sidebar_section) h3').trigger("click");
 	
 	$(".chzn-select").chosen();
+  $(".chzn-select-deselect").chosen({allow_single_deselect:true});
 });
 
