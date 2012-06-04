@@ -33,7 +33,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       if f.object.article_type.present?
         render :partial => "articletypes/#{f.object.article_type_form_file}/edit", :locals => {:f => f}
       end
-      f.inputs "Metadescriptions", :class => "foldable closed inputs" do
+      f.inputs "Metadescriptions", :class => "foldable inputs" do
         f.input :hint_label, :as => :text, :label => "Metatags fuer Suchmaschinenoptimierung", :input_html => {:disabled => true, :resize => false, :value => "<b>Metatags k&ouml;nnen genutzt werden, um den Artikel f&uuml;r Suchmaschinen besser sichtbar zu machen.</b><br />
                                                                                                                Sie haben folgende Werte zur Wahl:<br />
                                                                                                                <ul>
