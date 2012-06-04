@@ -22,8 +22,9 @@ Feature: Create and manage articles
     When I click on "New Article"
     Then I should see "New Article"
     When I fill in "article_title" with "Dies ist ein Neuer Artikel"
-    And I fill in "article_url_name" with "dies-ist-kurz"
     And I press "Create Article"
+    And I fill in "article_url_name" with "dies-ist-kurz"
+    And I press "Update Article"
     Then I should see "Dies ist ein Neuer Artikel" within textfield "article_title"
     And I should see "dies-ist-kurz" within textfield "article_url_name"
     
