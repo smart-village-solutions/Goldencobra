@@ -97,6 +97,28 @@ module Goldencobra
     def self.templates_for_select
       Dir.glob(File.join(::Rails.root, "app", "views", "layouts", "*.html.erb")).map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_/ }
     end
+
+    def self.article_types_for_select
+      results = []
+      path_to_articletypes = File.join(::Rails.root, "app", "views", "articletypes")
+      if Dir.exist?(path_to_articletypes)
+        Dir.foreach(path_to_articletypes) do |name| #.map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_edit/ }
+          file_name_path = File.join(path_to_articletypes,name)
+          if File.directory?(file_name_path)
+            Dir.foreach(file_name_path) do |sub_name|
+                file_name = "#{name}#{sub_name}" if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0 
+                results << file_name.split(".").first.titleize if file_name.present?
+            end
+          end
+        end
+      end
+      return results
+    end
+    
+    def article_type_form_file
+      self.article_type.split(" ").first if self.article_type.present?
+    end
+
     
     def selected_layout
       if self.template_file.blank?
@@ -150,7 +172,7 @@ module Goldencobra
     def self.recent(count)
       Goldencobra::Article.where('title IS NOT NULL').order('updated_at DESC').limit(count)
     end
-          
+              
   end
 end
 
