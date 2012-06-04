@@ -61,6 +61,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :cacheable, :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
       end
       f.inputs "Weiterer Inhalt" do
+        f.input :subtitle
         f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht", label: "Seitenleisten Text"
         f.input :summary, :label => "Zusammenfassung", hint: "Dient der Einleitung in den Text und wird hervorgehoben dargestellt", :input_html=>{ :rows=>5 }
         f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben", label: "Teaser Text", :input_html=>{ :rows=>5 }
