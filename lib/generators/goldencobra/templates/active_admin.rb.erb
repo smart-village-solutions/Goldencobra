@@ -19,6 +19,10 @@ ActiveAdmin.setup do |config|
   #
   # config.site_title_image = "/images/logo.png"
 
+
+  # == Load Paths
+  config.load_paths << "#{Goldencobra::Engine.root}/admin/"
+
   # == Default Namespace
   #
   # Set the default namespace each administration resource
