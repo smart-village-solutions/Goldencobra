@@ -33,7 +33,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       if f.object.article_type.present?
         render :partial => "articletypes/#{f.object.article_type_form_file}/edit", :locals => {:f => f}
       end
-      f.inputs "Metadescriptions", :class => "foldable inputs" do
+      f.inputs "Metadescriptions", :class => "foldable closed inputs" do
         f.input :hint_label, :as => :text, :label => "Metatags fuer Suchmaschinenoptimierung", :input_html => {:disabled => true, :resize => false, :value => "<b>Metatags k&ouml;nnen genutzt werden, um den Artikel f&uuml;r Suchmaschinen besser sichtbar zu machen.</b><br />
                                                                                                                Sie haben folgende Werte zur Wahl:<br />
                                                                                                                <ul>
@@ -51,7 +51,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
           m.input :_destroy, :as => :boolean 
         end
       end
-      f.inputs "Einstellungen" do
+      f.inputs "Einstellungen", :class => "foldable closed inputs" do
         f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
         f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", :label => "Website-Adresse des Artikels", required: false
         f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| [c.title, c.id]}, :include_blank => true, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
@@ -61,13 +61,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
         f.input :cacheable, :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
       end
-      f.inputs "Weiterer Inhalt" do
+      f.inputs "Weiterer Inhalt", :class => "foldable closed inputs" do
         f.input :subtitle
         f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht", label: "Seitenleisten Text"
         f.input :summary, :label => "Zusammenfassung", hint: "Dient der Einleitung in den Text und wird hervorgehoben dargestellt", :input_html=>{ :rows=>5 }
         f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben", label: "Teaser Text", :input_html=>{ :rows=>5 }
       end
-      f.inputs "Medien", :class => "foldable inputs"  do
+      f.inputs "Medien", :class => "foldable closed inputs"  do
         f.has_many :article_images do |ai|
           ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen" 
         end
