@@ -10,3 +10,13 @@
  *
  *= require_self
 */
+
+.navigtion_link_imgage_wrapper{
+	display:none;
+}
+.navigtion_link_description{
+	display:none;
+}
+.navigtion_link_call_to_action_name{
+	display:none;
+}

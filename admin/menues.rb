@@ -14,6 +14,10 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :active
       f.input :css_class
     end
+    f.inputs "Details" do
+      f.input :description, :input_html => { :rows => 5}
+      f.input :call_to_action_name
+    end
     f.inputs "" do
       f.actions
     end
