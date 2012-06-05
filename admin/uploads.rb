@@ -5,9 +5,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   controller.authorize_resource :class => Goldencobra::Upload
   
   form :html => { :enctype => "multipart/form-data" }  do |f|
-    f.inputs class: "buttons inputs" do
-      f.actions
-    end
+    f.actions
     f.inputs "File" do
       f.input :image, :as => :file
     end
@@ -16,9 +14,6 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       f.input :rights
       f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
       f.input :description, :input_html => { :class =>"tinymce", :rows => 3}
-    end
-    f.inputs class: "buttons inputs" do
-      f.actions
     end
   end
   
