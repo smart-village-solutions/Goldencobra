@@ -57,6 +57,12 @@ div#goldencobra_image_maganger{
 #header ul#tabs > li.has_nested.current > a, #header ul#tabs > li.has_nested > a {
     padding-right: 35px;
 }
+#header ul#tabs.header-item {
+  left: 100px;
+}
+div#titlebar_left h2#page_title {
+  margin-left: 100px;
+}
 #header h1 {
 	width:100px;
 	height:80px;
@@ -64,6 +70,7 @@ div#goldencobra_image_maganger{
 	text-indent:-9999px;
 	position:absolute;
 	left:30px;
+  z-index: 5000;
 }
 #header {
 	padding:9px 30px 9px 150px;

@@ -8,9 +8,7 @@ ActiveAdmin.register User, :as => "User" do
   actions :all, :except => [:new]
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
-    f.inputs "" do
-      f.actions 
-    end
+    f.actions
     f.inputs "Allgemein" do
       f.input :title
       f.input :firstname
@@ -30,9 +28,7 @@ ActiveAdmin.register User, :as => "User" do
       f.input :xing
       f.input :googleplus
     end
-    f.inputs "" do
-      f.actions 
-    end
+    f.actions
   end
  
 
