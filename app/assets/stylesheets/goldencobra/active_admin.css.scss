@@ -57,13 +57,16 @@ div#goldencobra_image_maganger{
 #header ul#tabs > li.has_nested.current > a, #header ul#tabs > li.has_nested > a {
     padding-right: 35px;
 }
+#header ul#tabs.header-item {
+  left: 0px;
+}
 #header h1 {
 	width:100px;
 	height:80px;
 	background:url("/assets/goldencobra/cobra.png") no-repeat;
 	text-indent:-9999px;
-	position:absolute;
-	left:30px;
+	position:relative;
+	left:0px;
 }
 #header {
 	padding:9px 30px 9px 150px;
