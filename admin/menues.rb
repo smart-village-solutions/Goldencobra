@@ -4,6 +4,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   controller.authorize_resource :class => Goldencobra::Menue
   
   form do |f|
+    f.actions
     f.inputs "Allgemein" do
       f.input :title
       f.input :target
@@ -14,9 +15,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :active
       f.input :css_class
     end
-    f.inputs "" do
-      f.actions
-    end
+    f.actions
   end
   
   index do

@@ -2,6 +2,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
   menu parent: "Content-Management", :if => proc{can?(:read, Goldencobra::Widget)}
 
   form html: { enctype: "multipart/form-data" } do |f|
+    f.actions
     f.inputs "Allgemein" do
       f.input :title
       f.input :content
@@ -13,9 +14,6 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
 
     f.inputs "Artikel" do
       f.input :articles, :as => :check_boxes, :collection => Goldencobra::Article.find(:all, :order => "title ASC")
-    end
-    f.inputs "" do
-      f.actions
     end
   end
   
