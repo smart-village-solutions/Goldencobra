@@ -132,3 +132,17 @@ Feature: Create and manage articles
       Then I should see "Tweet"
       Then the page should have content "div#google-plus-sharing"
       Then the page should have content "div#facebook-sharing-iframe"
+
+  Scenario: Create a subarticle
+      Given that a confirmed admin exists
+      And I am logged in as "admin@test.de" with password "secure12"
+      Given the following "articles" exist:
+        | title           | id | url_name    |
+        | "Seo Seite"     | 2  | seo-seite |
+      When I go to the admin list of articles
+      And I click on "New subarticle"
+      Then I should see "New Article"
+      When I fill in "article_title" with "Dies ist ein Neuer Artikel"
+      And I press "Create Article"
+      And I go to the admin list of articles
+      Then I should see "/seo-seite/dies-ist-ein-neuer-artikel" within "tr#article_3"
