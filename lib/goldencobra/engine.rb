@@ -29,8 +29,7 @@ module Goldencobra
       ActionController::Base.helper(Goldencobra::ArticlesHelper)  
       DeviseController.helper(Goldencobra::ArticlesHelper)               
       Devise::SessionsController.helper(Goldencobra::ArticlesHelper)  
-      Devise::PasswordsController.helper(Goldencobra::ArticlesHelper)  
-      
+      Devise::PasswordsController.helper(Goldencobra::ArticlesHelper)        
     end
   end
 end
