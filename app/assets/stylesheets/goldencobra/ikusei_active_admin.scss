@@ -51,6 +51,10 @@ $dark_color:#636E2A;
 	color:lighten($dark_color,25%);
 }
 
+body.active_admin .breadcrumb {
+  margin-left: 100px;
+}
+
 table.dashboard .dashboard_section{
 	background-color:$light_color;
 	h3{
