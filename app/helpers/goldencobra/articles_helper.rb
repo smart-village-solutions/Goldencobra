@@ -88,6 +88,7 @@ module Goldencobra
     def navigation_menu_helper(child, depth, current_depth)
       child_link = content_tag(:a, child.title, :href => child.target.gsub("\"",''))
       child_link = child_link + content_tag(:a, "", :href => child.target.gsub("\"",''), :class => "navigtion_link_imgage_wrapper")
+      child_link = child_link + content_tag(:a, child.description_title, :class => "navigtion_link_description_title")
       child_link = child_link + content_tag("div", raw(child.description), :class => "navigtion_link_description")
       child_link = child_link + content_tag(:a, child.call_to_action_name, :href => child.target.gsub("\"",''), :class => "navigtion_link_call_to_action_name")
       current_depth = current_depth + 1
