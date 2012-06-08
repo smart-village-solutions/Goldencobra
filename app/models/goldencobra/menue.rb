@@ -17,7 +17,7 @@ module Goldencobra
   class Menue < ActiveRecord::Base
     has_ancestry :orphan_strategy => :rootify
     validates_presence_of :title   
-    after_save :recreate_article_cache 
+    after_save 'Goldencobra::Article.recreate_cache'
     
     scope :active, where(:active => true).order(:sorter)
     
@@ -39,13 +39,6 @@ module Goldencobra
       end
       return result.include?(true)
     end
-    
-    def recreate_article_cache
-      Goldencobra::Article.all.each do |article|
-        article.updated_at = Time.now
-        article.save
-      end
-    end
-    
+        
   end
 end
