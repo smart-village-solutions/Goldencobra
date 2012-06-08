@@ -55,6 +55,26 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
   end
   
+  member_action :revert do
+    @version = Version.find(params[:id])
+    if @version.reify
+      @version.reify.save!
+    else
+      @version.item.destroy
+    end
+    redirect_to :back, :notice => "Undid #{@version.event}"
+  end
+  
   batch_action :destroy, false
+  
+  action_item :only => :edit do
+    _widget = @_assigns['widget']
+    if _widget.versions.last
+      link_to("Undo", revert_admin_widget_path(:id => _widget.versions.last), :class => "undo")
+    end
+  end
+  
+  
+  
   
 end
