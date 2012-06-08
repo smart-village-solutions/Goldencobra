@@ -92,6 +92,15 @@ $(document).ready(function() {
 	return false;
   });
 
+  $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)")
+  key('⌘+z, ctrl+z', function(){
+	target = $("#title_bar .action_items a[href$='revert']").attr("href");
+	window.location = target;
+	return false;
+  });
+
+	
+
 
 
 });

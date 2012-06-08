@@ -143,6 +143,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       link_to('Vorschau zu diesem Artikel anzeigen', _article.public_url, :target => "_blank")
   end
   
+  
+  
   member_action :mark_as_startpage do
     article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
@@ -218,5 +220,21 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end 
   end
   
+  member_action :revert do
+    @version = Version.find(params[:id])
+    if @version.reify
+      @version.reify.save!
+    else
+      @version.item.destroy
+    end
+    redirect_to :back, :notice => "Undid #{@version.event}"
+  end
+  
+  action_item :only => :edit do
+    _article = @_assigns['article']
+    if _article.versions.last
+      link_to("Undo", revert_admin_article_path(:id => _article.versions.last), :class => "undo")
+    end
+  end
     
 end

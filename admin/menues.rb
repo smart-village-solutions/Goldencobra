@@ -58,5 +58,22 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     end 
   end
   
+  member_action :revert do
+    @version = Version.find(params[:id])
+    if @version.reify
+      @version.reify.save!
+    else
+      @version.item.destroy
+    end
+    redirect_to :back, :notice => "Undid #{@version.event}"
+  end
+  
+  action_item :only => :edit do
+    _menue = @_assigns['menue']
+    if _menue.versions.last
+      link_to("Undo", revert_admin_menue_path(:id => _menue.versions.last), :class => "undo")
+    end
+  end
+  
   
 end

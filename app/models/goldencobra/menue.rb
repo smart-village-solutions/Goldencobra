@@ -18,7 +18,7 @@ module Goldencobra
     has_ancestry :orphan_strategy => :rootify
     validates_presence_of :title   
     after_save 'Goldencobra::Article.recreate_cache'
-    
+    has_paper_trail
     scope :active, where(:active => true).order(:sorter)
     
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }

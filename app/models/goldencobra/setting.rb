@@ -14,7 +14,7 @@ module Goldencobra
   class Setting < ActiveRecord::Base
     attr_accessible :title, :value, :ancestry, :parent_id
     has_ancestry :orphan_strategy => :restrict
-    
+    has_paper_trail
     before_save :parse_title
     
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }

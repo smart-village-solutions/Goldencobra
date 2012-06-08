@@ -25,6 +25,7 @@ gem 'nokogiri', '~> 1.5.3'
 
 gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
 gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks run properly
+gem "paper_trail"
 
 group :development do
   gem 'thin'
