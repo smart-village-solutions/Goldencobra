@@ -75,5 +75,14 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     end
   end
   
+  controller do 
+    def show
+      show! do |format|
+         format.html { redirect_to edit_admin_menue_path(@menue), :flash => flash }
+      end
+    end
+  end
+  
+  
   
 end

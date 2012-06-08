@@ -74,7 +74,13 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
   end
   
-  
+  controller do 
+    def show
+      show! do |format|
+         format.html { redirect_to edit_admin_widget_path(@widget), :flash => flash }
+      end
+    end
+  end
   
   
 end
