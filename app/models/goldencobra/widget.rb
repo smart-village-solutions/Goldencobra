@@ -18,5 +18,6 @@ module Goldencobra
     has_many :article_widgets
     has_many :articles, :through => :article_widgets
     scope :active, where(:active => true).order(:sorter)
+    after_save 'Goldencobra::Article.recreate_cache'
   end
 end

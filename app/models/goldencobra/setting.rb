@@ -23,20 +23,12 @@ module Goldencobra
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
     
-    def after_save(record)
+    def self.regenerate_active_admin
       if defined?(ActiveAdmin) and ActiveAdmin.application
         ActiveAdmin.application.unload!
         ActiveSupport::Dependencies.clear
         ActiveAdmin.application.load!
-      end
-    end
-
-    def after_destroy(record)
-      if defined?(ActiveAdmin) and ActiveAdmin.application
-        ActiveAdmin.application.unload!
-        ActiveSupport::Dependencies.clear
-        ActiveAdmin.application.load!
-      end
+      end      
     end
     
     def self.for_key(name) 
@@ -54,7 +46,6 @@ module Goldencobra
         return setting_title
       end
     end
-    
     
     def self.import_default_settings(path_file_name)
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
