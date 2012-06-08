@@ -25,7 +25,7 @@ guard 'cucumber' do
 end
 
 
-guard 'annotate', :run_at_start => false,:routes => true do
+guard 'annotate', :run_at_start => false, :routes => true do
   #watch( 'db/schema.rb' )
 
   watch(%r{db/schema.rb}) do
