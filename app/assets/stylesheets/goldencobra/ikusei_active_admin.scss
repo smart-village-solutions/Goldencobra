@@ -47,8 +47,12 @@ $dark_color:#636E2A;
 	}
 }
 
-.breadcrumb a, .breadcrumb a:link{
+.breadcrumb a, .breadcrumb a:link {
 	color:lighten($dark_color,25%);
+}
+
+div#title_bar.title_bar div#titlebar_left span.breadcrumb{
+  margin-left: 100px;
 }
 
 table.dashboard .dashboard_section{
