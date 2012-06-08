@@ -78,6 +78,9 @@ div#titlebar_left h2#page_title {
 #title_bar {
 	padding:10px 30px 10px 158px;
 }
+body.active_admin .breadcrumb {
+  margin-left: 100px;
+}
 div#main_content h3 {
   margin-left: 10px;
 }
