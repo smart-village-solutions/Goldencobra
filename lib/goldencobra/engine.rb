@@ -13,6 +13,7 @@ require 'paperclip'
 require 'goldencobra/acts_as_setting'
 require 'liquid'
 require 'geocoder'
+require "paper_trail"
 
 
 module Goldencobra
