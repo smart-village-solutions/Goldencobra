@@ -26,8 +26,8 @@ Feature: Create and manage menuitems and navigationbars
     And I fill in "menue_target" with "www.newspapers.de"
     And I fill in "menue_css_class" with "news"
     And I press "Create Menue"
-    Then I should see "Newspapers" within "table"
-    And I should see "www.newspapers.de" within "table"
+    Then I should see "Newspapers" within textfield "menue_title"
+    And I should see "www.newspapers.de" within textfield "menue_target"
   
   Scenario: Create a submenue item
     Given that a confirmed admin exists
@@ -43,6 +43,5 @@ Feature: Create and manage menuitems and navigationbars
     Then I should see "Top Navigation" within "#menue_parent_id"
     When I fill in "menue_title" with "Sub of Top"
     And I press "Create Menue"
-    Then I should see "Sub of Top" within "table"
-    When I click on "Edit Menue"
-    Then I should see "Top Navigation" within "#menue_parent_id"
+    Then I should see "Sub of Top" within textfield "menue_title"
+    And I should see "Top Navigation" within "#menue_parent_id"
