@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: git://github.com/ikusei/active_admin.git
-  revision: 72fa5ef451689813dada9d742ba26a0431fc2413
+  revision: dc2424b0daec2c624decc32eed24418e11edac44
   specs:
     activeadmin (0.4.4)
       bourbon (>= 1.0.0)
@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git://github.com/plataformatec/devise.git
-  revision: 65325f7f815e6f040ce8154b08bbc6e2d209190a
+  revision: 6dd7ccee68fbd68910dc262e7f1fab34619bf6c3
   specs:
     devise (2.1.0)
       bcrypt-ruby (~> 3.0)
@@ -169,9 +169,9 @@ GEM
       multipart-post (~> 1.1)
     fastercsv (1.5.5)
     ffi (1.0.11)
-    formtastic (2.2.0)
+    formtastic (2.2.1)
       actionpack (>= 3.0)
-    friendly_id (4.0.6)
+    friendly_id (4.0.7)
     fssm (0.2.9)
     geocoder (1.1.2)
     gherkin (2.10.0)

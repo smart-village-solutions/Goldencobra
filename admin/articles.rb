@@ -230,6 +230,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     redirect_to :back, :notice => "Undid #{@version.event}"
   end
   
+  action_item :only => :index do
+    link_to("Import", new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
+  end
+  
   action_item :only => :edit do
     _article = @_assigns['article']
     if _article.versions.last

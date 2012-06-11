@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  assignment: MyText
+  target_model: MyString
+  successful: false
+  upload_id: 1
+
+two:
+  assignment: MyText
+  target_model: MyString
+  successful: false
+  upload_id: 1
