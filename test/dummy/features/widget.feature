@@ -18,8 +18,7 @@ Feature: Create and manage widgets
     When I fill in "widget_title" with "Mein erstes Widget"
     And I fill in "widget_content" with "<ul><li><p>Mein Widget</p></li></p>"
     And I press "Create Widget"
-    Then I should see "Mein erstes Widget" within "table"
-    And I should see "Mein Widget" within "table"
+    Then I should see "Mein erstes Widget" within textfield "widget_title"
 
   Scenario: Set articles for selected Widget
     #Given I am on the admin list of widgets
