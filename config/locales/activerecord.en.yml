@@ -1,6 +1,9 @@
 en:
     activerecord:
         models:
+            import:
+                one: "Import"
+                other: "Imports"
             article: 
                 one: "Article"
                 other: "Articles"

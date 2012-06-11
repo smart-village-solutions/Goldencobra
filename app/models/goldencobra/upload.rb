@@ -26,6 +26,12 @@ module Goldencobra
     
     has_many :article_images, :class_name => Goldencobra::ArticleImage
     has_many :articles, :through => :article_images
+    has_many :imports, :class_name => Goldencobra::Import
+    
+    
+    def title
+      "#{self.image_file_name} (#{image_content_type})"
+    end
     
     acts_as_taggable_on :tags
     

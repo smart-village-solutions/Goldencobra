@@ -1,6 +1,9 @@
 de:
     activerecord:
         models:
+            import:
+                one: "Import"
+                other: "Imports"
             location:
                 one: "Adresse"
                 other: "Adressen"
