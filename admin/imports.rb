@@ -13,24 +13,16 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
       links << link_to("Starte Import", run_admin_import_path(import) )
       links << link_to("Bearbeiten", edit_admin_import_path(import))
       links << link_to("Loeschen", admin_import_path(import),:method => :delete, :confirm => "Destroy Import?")
+      links << link_to("Zuweisungen", assignment_admin_import_path(import))
       raw(links.join(" "))
     end
   end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|  
-    if f.object.new_record?
-      f.inputs "Select File for #{f.object.target_model}" do
-        f.input :target_model
-        f.input :upload
-        f.input :separator
-      end
-    else
-      f.actions
-      f.object.get_model_attributes.each do |model_attr|
-        f.inputs "#{f.object.target_model} #{model_attr}" do
-          f.input "assignment_#{model_attr}", :input_html => { :name => "import[assignment][#{model_attr}]" },:label => "#{model_attr.humanize}", :as => :select, :collection => f.object.analyze_csv
-        end
-      end
+    f.inputs "Select File for #{f.object.target_model}" do
+      f.input :target_model
+      f.input :upload
+      f.input :separator
     end
     f.actions
   end
@@ -41,6 +33,16 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
     flash[:notice] = "Dieser Import wurde gestartet"
     redirect_to :action => :index
   end
+  
+  member_action :assignment do
+    @importer = Goldencobra::Import.find(params[:id])
+    if @importer
+      render 'goldencobra/imports/attributes', layout: 'active_admin'
+    else
+      render nothing: true
+    end
+  end
+  
 
   controller do
     
@@ -50,7 +52,7 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
     
     def show
       show! do |format|
-         format.html { redirect_to edit_admin_import_path(@import), :flash => flash }
+         format.html { redirect_to assignment_admin_import_path(@import), :flash => flash }
       end
     end
     

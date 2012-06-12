@@ -1,0 +1,25 @@
+<%= form_for @importer, :url => admin_import_path(@importer) do |f|%>
+	<table class="importer_assoziations">
+	<% f.object.get_model_attributes.each do |model_attr| %>	
+		<tr>
+			<td><%= model_attr.humanize %></td>
+			<td><%= f.select "assignment[#{model_attr}]", options_for_select(f.object.analyze_csv, @importer.assignment[model_attr]), :include_blank => true %></td>
+		</tr>
+	<%end%>
+	
+	<% f.object.get_association_names.each do |ass_name|%>
+		<tr>
+			<td class="nested_model_header"><%= ass_name %></td>
+			<td></td>
+		</tr>
+			<% f.object.target_model.constantize.new.send(ass_name).new.attributes.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a) }.keys.each do |ass_attr| %>
+				<tr>
+					<td><%= ass_attr.humanize %></td>
+					<% current_ass_attr = @importer.assignment[ass_name] ? @importer.assignment[ass_name][ass_attr] : ""%>
+					<td><%= f.select "assignment[#{ass_name}][#{ass_attr}]", options_for_select(f.object.analyze_csv, current_ass_attr ), :include_blank => true %>	</td>
+				</tr>
+			<% end%>
+	<% end%>
+	</table>
+	<%= f.submit "speichern"%>
+<% end %>

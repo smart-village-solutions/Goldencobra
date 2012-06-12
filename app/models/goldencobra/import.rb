@@ -19,9 +19,12 @@ module Goldencobra
       @get_model_attributes ||= eval("#{self.target_model}.new.attributes").delete_if{|a| BlockedAttributes.include?(a) }.keys
     end
     
+    def get_association_names 
+      self.target_model.constantize.reflect_on_all_associations.collect { |r| r.name }
+    end
     
     def method_missing(meth, *args, &block)
-      if meth.to_s.include?("assignment_")
+      if meth.to_s.include?("assignment_") && self.assignment.present?
         self.assignment[meth.to_s.split("_")[1]]
       end
     end   
@@ -41,14 +44,14 @@ module Goldencobra
           attr_value = row[value.to_i]
           new_object.send("#{attr_name}=", attr_value)
         end
-        begin
-          new_object.save
-        rescue e
-          self.result << "#{count} - #{e}"
+        unless new_object.save
+          self.result << "#{count} - #{new_object.errors.messages}"
         end
         count += 1
       end
+      self.save
     end
+    
     
   end
 end
