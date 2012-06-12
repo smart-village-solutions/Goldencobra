@@ -19,7 +19,7 @@ describe Goldencobra::Import do
       a.should be_valid
       a.content.should == "ein text"
       a.teaser.should == "ein teaser"
-      importer.result.should == ""
+      importer.result.should == []
     end
   end
 
@@ -39,7 +39,7 @@ describe Goldencobra::Import do
       importer.run!
       Goldencobra::Article.find_by_title("erster titel").should be_valid
       Goldencobra::Article.find_by_title("noch erster titel").should be_valid
-      importer.result.should == "2 - title can't be blank"
+      importer.result.first.should == "2 - {:title=>[\"can't be blank\"]}"
     end
   end
 
