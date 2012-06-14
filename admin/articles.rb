@@ -30,8 +30,12 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :content, :label => "Haupt-Textfeld", :input_html => { :class =>"tinymce"}
         f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
       end
-      if f.object.article_type.present?
+      if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
         render :partial => "articletypes/#{f.object.article_type_form_file}/edit", :locals => {:f => f}
+      elsif f.object.kind_of_article_type.downcase == "index"
+        #hier wird eine liste des oben genannten models ausgegeben...   tags dazu auswählbar machen
+      else
+        #error
       end
       f.inputs "Metadescriptions", :class => "foldable inputs" do
         f.input :hint_label, :as => :text, :label => "Metatags fuer Suchmaschinenoptimierung", :input_html => {:disabled => true, :resize => false, :value => "<b>Metatags k&ouml;nnen genutzt werden, um den Artikel f&uuml;r Suchmaschinen besser sichtbar zu machen.</b><br />
