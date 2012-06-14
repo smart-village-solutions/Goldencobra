@@ -120,6 +120,10 @@ module Goldencobra
       self.article_type.split(" ").first if self.article_type.present?
     end
 
+    def kind_of_article_type
+      self.article_type.present? ? self.article_type.split(" ").last : ""
+    end
+
     
     def selected_layout
       if self.template_file.blank?
