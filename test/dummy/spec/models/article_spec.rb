@@ -5,6 +5,21 @@ describe Goldencobra::Article do
   before(:each) do
     @attr = { :title  => "Testartikel", :url_name  => "testartikel" }
   end
+  
+  it "should have a valid redirect url by inserting an url without http" do
+    a = Goldencobra::Article.create!(@attr)
+    a.external_url_redirect = "www.google.de"
+    a.save
+    Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "http://www.google.de"
+  end
+
+  it "should have a valid redirect url by inserting an url with http" do
+    a = Goldencobra::Article.create!(@attr)
+    a.external_url_redirect = "http://www.google.de"
+    a.save
+    Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "http://www.google.de"
+  end
+
 
   it "should create a new article given valid attributes" do
     Goldencobra::Article.create!(@attr)
