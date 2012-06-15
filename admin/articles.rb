@@ -95,6 +95,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     column :active, :sortable => :active do |article|
       link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article),:confirm => "Sichtbarkeit dieses Artikels aendern?", :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
+    column :article_type, sortable: :article_type do |article|
+      article.article_type.blank? ? "Standard" : article.article_type
+    end
     column :created_at, sortable: :created_at do |article|
       l(article.created_at)
     end
