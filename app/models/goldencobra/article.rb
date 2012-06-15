@@ -48,7 +48,7 @@ module Goldencobra
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
     accepts_nested_attributes_for :article_images    
     has_paper_trail
-    
+    web_url :external_url_redirect
     validates_presence_of :title
     
     before_save :verify_existens_of_url_name_and_slug
