@@ -15,6 +15,9 @@ module Goldencobra
     def show
       if @article
         Goldencobra::Article::LiquidParser["current_article"] = @article
+        if @article.article_type.present?
+          Liquid::Template.register_tag(@article.article_type_form_file.downcase, @article.send(@article.article_type_form_file.downcase.to_sym))
+        end
         
         set_meta_tags :site => s("goldencobra.page.default_title_tag"),
                       :title => @article.metatag("Title Tag"),
