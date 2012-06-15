@@ -117,10 +117,12 @@ module Goldencobra
       return results
     end
     
+    # Gibt Consultant | Subsidiary | etc. zurück
     def article_type_form_file
       self.article_type.split(" ").first if self.article_type.present?
     end
 
+    # Gibt Index oder Show zurück
     def kind_of_article_type
       self.article_type.present? ? self.article_type.split(" ").last : ""
     end
