@@ -1,3 +1,4 @@
+require "activeadmin"
 ApplicationController.class_eval do  
     layout :layout_by_resource_for_user_model
 

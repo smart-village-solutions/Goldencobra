@@ -19,3 +19,4 @@ module HttpValidator
 end
 
 ActiveRecord::Base.extend HttpValidator
+
