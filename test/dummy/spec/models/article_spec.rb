@@ -20,7 +20,6 @@ describe Goldencobra::Article do
     Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "http://www.google.de"
   end
 
-
   it "should create a new article given valid attributes" do
     Goldencobra::Article.create!(@attr)
   end
