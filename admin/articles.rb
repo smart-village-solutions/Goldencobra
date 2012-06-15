@@ -31,7 +31,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
-        render :partial => "articletypes/#{f.object.article_type_form_file}/edit", :locals => {:f => f}
+        render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit", :locals => {:f => f}
       elsif f.object.kind_of_article_type.downcase == "index"
         #hier wird eine liste des oben genannten models ausgegeben...   tags dazu auswählbar machen
       else
