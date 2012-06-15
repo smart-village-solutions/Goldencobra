@@ -13,7 +13,7 @@ module Goldencobra
 
 
     def show
-      if @article
+      if @article && @article.external_url_redirect.blank?
         Goldencobra::Article::LiquidParser["current_article"] = @article
         if @article.article_type.present? && @sym = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @sym
@@ -32,6 +32,9 @@ module Goldencobra
         respond_to do |format|
           format.html {render :layout => @article.selected_layout}
         end
+      elsif @article && @article.external_url_redirect.present?
+        #redirect to external website
+        redirect_to @article.external_url_redirect, :target => "_blank"
       else
         @article = Goldencobra::Article.find_by_url_name("404")
         if @article
