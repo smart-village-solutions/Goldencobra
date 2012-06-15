@@ -10,7 +10,7 @@ require 'sprockets/railtie'
 require 'sass-rails'
 require 'acts-as-taggable-on'
 require 'paperclip'
-#require 'goldencobra/acts_as_setting'
+require 'goldencobra/acts_as_setting'
 require 'liquid'
 require 'geocoder'
 require "paper_trail"
