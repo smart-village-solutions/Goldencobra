@@ -1,5 +1,5 @@
 module Goldencobra
-  class ApplicationController < ActionController::Base    
+  class ApplicationController < ActionController::Base
 
     rescue_from CanCan::AccessDenied do |exception|
       if can?(:read, Goldencobra::Article)
@@ -7,13 +7,13 @@ module Goldencobra
       else
         redirect_to admin_dashboard_path, :alert => exception.message
       end
-    end  
-      
+    end
+
     def s(name)
       if name.present?
         Goldencobra::Setting.for_key(name)
       end
     end
-    
+
   end
 end
