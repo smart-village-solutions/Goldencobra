@@ -17,11 +17,14 @@ module Goldencobra
         Goldencobra::Article::LiquidParser["current_article"] = @article
         if @article.article_type.present? && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
-          if @article.kind_of_article_type.downcase == "index"   
+        elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"   
             @list_of_articles = Goldencobra::Article.where(:article_type => "#{@article.article_type_form_file} Show")
             @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",")) if @article.index_of_articles_tagged_with.present?
-          end    
         end
+        
+        <%= @article.kind_of_article_type.downcase == "index"  %>
+        <%= @list_of_articles = Goldencobra::Article.where(:article_type => "#{@article.article_type_form_file} Show") %>
+        
 
         set_meta_tags :site => s("goldencobra.page.default_title_tag"),
                       :title => @article.metatag("Title Tag"),
