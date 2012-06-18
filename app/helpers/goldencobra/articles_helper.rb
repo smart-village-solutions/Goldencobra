@@ -80,9 +80,9 @@ module Goldencobra
     end
     
     def render_article_widgets(options={})
-      custom_css = options["class"] || ""
-      taggs = options["tagged_with"] || ""
-      widget_wrapper = options["wrapper"] || "section"
+      custom_css = options[:class] || ""
+      taggs = options[:tagged_with] || ""
+      widget_wrapper = options[:wrapper] || "section"
       result = ""
       if @article
         widgets = @article.widgets.active
