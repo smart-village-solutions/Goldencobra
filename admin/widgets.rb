@@ -27,9 +27,11 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     column :title
     column :id_name
     column :css_name
-    column :active
+    column :active, :sortable => :active do |widget|
+      widget.active ? "online" : "offline"
+    end
     column :sorter
-    column :created_at
+    column :tag_list
     default_actions
   end
 
