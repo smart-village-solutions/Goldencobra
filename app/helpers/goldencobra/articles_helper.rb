@@ -30,7 +30,7 @@ module Goldencobra
       if master_menue
         content = ""
         master_menue.children.active.collect do |child|
-          content << navigation_menu_helper(child, depth, 1)
+          content << navigation_menu_helper(child, depth, 1, options)
         end
         result = content_tag(:ul, raw(content),:id => "#{id_name}", :class => "#{class_name} #{depth} navigation #{master_menue.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
       end
@@ -91,17 +91,17 @@ module Goldencobra
       return raw(result)
     end
     
-    def navigation_menu_helper(child, depth, current_depth)
-      child_link = content_tag(:a, child.title, :href => child.target.gsub("\"",''))
-      child_link = child_link + content_tag(:a, "", :href => child.target.gsub("\"",''), :class => "navigtion_link_imgage_wrapper")
-      child_link = child_link + content_tag(:a, child.description_title, :href => child.target.gsub("\"",''), :class => "navigtion_link_description_title")
-      child_link = child_link + content_tag("div", raw(child.description), :class => "navigtion_link_description")
-      child_link = child_link + content_tag(:a, child.call_to_action_name, :href => child.target.gsub("\"",''), :class => "navigtion_link_call_to_action_name")
+    def navigation_menu_helper(child, depth, current_depth, options)
+      child_link = content_tag(:a, child.title, :href => child.target.gsub("\"",'')) unless options[:show_title] == false
+      child_link = child_link + content_tag(:a, "", :href => child.target.gsub("\"",''), :class => "navigtion_link_imgage_wrapper") unless options[:show_image] == false
+      child_link = child_link + content_tag(:a, child.description_title, :href => child.target.gsub("\"",''), :class => "navigtion_link_description_title") unless options[:show_description_title] == false
+      child_link = child_link + content_tag("div", raw(child.description), :class => "navigtion_link_description") unless options[:show_description] == false
+      child_link = child_link + content_tag(:a, child.call_to_action_name, :href => child.target.gsub("\"",''), :class => "navigtion_link_call_to_action_name") unless options[:show_call_to_action_name] == false
       current_depth = current_depth + 1
       if child.children && (depth == 0 || current_depth <= depth)
         content_level = ""
         child.children.active.each do |subchild|
-            content_level << navigation_menu_helper(subchild, depth, current_depth)
+            content_level << navigation_menu_helper(subchild, depth, current_depth, options)
         end
         if content_level.present?
           child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{child.children.active.count}" )
