@@ -86,7 +86,11 @@ module Goldencobra
       result = ""
       if @article
         widgets = @article.widgets.active
-        widgets = widgets.tagged_with(taggs.split(",")) if taggs.present?
+        if taggs.present?
+          widgets = widgets.tagged_with(taggs.split(",")) 
+        else
+          widgets = widgets.where(:tag_list => "")
+        end
         widgets.each do |widget|
           template = Liquid::Template.parse(widget.content)
           result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}", :id => widget.id_name)

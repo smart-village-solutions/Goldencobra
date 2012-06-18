@@ -22,5 +22,11 @@ module Goldencobra
     after_save 'Goldencobra::Article.recreate_cache'
     has_paper_trail
     
+    before_save :set_default_tag
+    
+    def set_default_tag
+      self.tag_list = "sidebar" if self.tag_list.blank?
+    end
+    
   end
 end
