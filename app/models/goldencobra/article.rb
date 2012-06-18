@@ -109,7 +109,7 @@ module Goldencobra
           if File.directory?(file_name_path)
             Dir.foreach(file_name_path) do |sub_name|
                 file_name = "#{name}#{sub_name}" if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0 
-                results << file_name.split(".").first.titleize if file_name.present?
+                results << file_name.split(".").first.to_s.titleize if file_name.present?
             end
           end
         end
