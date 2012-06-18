@@ -53,7 +53,7 @@ module Goldencobra
     
     before_save :verify_existens_of_url_name_and_slug
     before_save :parse_image_gallery_tags
-    validates_format_of :url_name, :with => /^[\w\d-]+$/, allow_blank: true
+    validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
     attr_protected :startpage
     
     scope :robots_index, where(:robots_no_index => false)
