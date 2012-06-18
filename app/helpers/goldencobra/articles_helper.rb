@@ -79,6 +79,21 @@ module Goldencobra
       end
     end
     
+    def render_article_widgets(options={})
+      custom_css = options["class"] || ""
+      taggs = options["tagged_with"] || ""
+      result = ""
+      if @article
+        widgets = @article.widgets.active
+        widgets = widgets.tagged_with(taggs.split(",")) if taggs.present?
+        widgets.each do |widget|
+          template = Liquid::Template.parse(widget.content)
+          result << content_tag(:section, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}", :id => widget.id_name)
+        end
+      end
+      return result
+    end
+    
     private
     
     def render_article_list_item(article_item)
