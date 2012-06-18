@@ -6,10 +6,12 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     f.inputs "Allgemein" do
       f.input :title
       f.input :content
+      f.input :mobile_content
       f.input :id_name
       f.input :css_name
       f.input :active
       f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
+      f.input :tag_list
     end
 
     f.inputs "Artikel" do

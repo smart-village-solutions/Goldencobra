@@ -110,5 +110,13 @@ de:
                 rights: "Rechteinhaber"
                 description: "Beschreibung"
                 image: "Bild"
-                
+            goldencobra/widget:
+              title: "Name"
+              content: "Standard Inhalt"
+              mobile_content: "Inhalt für mobile Geräte"
+              id_name: "ID Wert für css"
+              css_name: "Class Wert für css"
+              sorter: "Sortiernummer"
+              tag_list: "Tag Liste"
+              articles: "Artikel"
 
