@@ -15,6 +15,7 @@
 
 module Goldencobra
   class Widget < ActiveRecord::Base
+    acts_as_taggable_on :tags
     has_many :article_widgets
     has_many :articles, :through => :article_widgets
     scope :active, where(:active => true).order(:sorter)
