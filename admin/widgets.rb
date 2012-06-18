@@ -9,14 +9,16 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :mobile_content
       f.input :id_name
       f.input :css_name
-      f.input :active
+      f.input :teaser
       f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
       f.input :tag_list
+      f.input :active
     end
 
     f.inputs "Artikel" do
       f.input :articles, :as => :check_boxes, :collection => Goldencobra::Article.find(:all, :order => "title ASC")
     end
+    f.actions
   end
   
   index do

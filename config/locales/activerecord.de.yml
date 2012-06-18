@@ -119,4 +119,8 @@ de:
               sorter: "Sortiernummer"
               tag_list: "Tag Liste"
               articles: "Artikel"
+              created_at: "Erstellt am"
+              updated_at: "Bearbeitet am"
+              teaser: "Teaser"
+
 
