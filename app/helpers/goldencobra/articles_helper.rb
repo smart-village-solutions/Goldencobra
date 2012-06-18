@@ -92,7 +92,7 @@ module Goldencobra
           result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}", :id => widget.id_name)
         end
       end
-      return result
+      return raw(result)
     end
     
     private
