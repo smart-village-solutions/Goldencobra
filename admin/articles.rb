@@ -32,9 +32,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
-        render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit", :locals => {:f => f}
+        render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_show", :locals => {:f => f}
       elsif f.object.kind_of_article_type.downcase == "index"
-        #hier wird eine liste des oben genannten models ausgegeben...   tags dazu auswählbar machen
+        render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_index", :locals => {:f => f}
       else
         #error
       end
