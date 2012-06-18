@@ -34,7 +34,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
         render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_show", :locals => {:f => f}
       elsif f.object.kind_of_article_type.downcase == "index"
-        render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_index", :locals => {:f => f}
+        f.inputs "Index of Articles" do
+          f.input :index_of_articles_tagged_with, :hint => "Auf der Uebersichtsseite werden alle Artikel des gleichen Typs mit diesen Tags ausgegeben. Sind keine Tags angegeben, werden alle Artikel des gleichen Typs ausgegeben."
+          render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_index", :locals => {:f => f}
+        end
       else
         #error
       end
