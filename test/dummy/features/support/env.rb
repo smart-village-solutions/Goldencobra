@@ -12,14 +12,17 @@ require 'capybara/rails'
 require 'capybara/cucumber'
 require 'capybara-webkit'
 require 'faker'
+require 'cuke_sunspot'
 
 
 #FactoryGirl.find_definitions
-Sunspot::Rails::Server.new.start
+
+CukeSunspot.new.start
 
 at_exit do
   Sunspot::Rails::Server.new.stop
 end
+
 Capybara.javascript_driver = :webkit
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
