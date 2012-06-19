@@ -72,6 +72,14 @@ module Goldencobra
      
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
      
+    searchable do
+      text :title, :boost => 5
+      text :content
+      text :subtitle
+      string :article_type
+    end 
+     
+     
     def public_url
       if self.startpage
         return "/" 
