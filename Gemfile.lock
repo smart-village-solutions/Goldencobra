@@ -62,6 +62,7 @@ PATH
       sass-rails
       sass-rails (~> 3.2.1)
       sprockets
+      sunspot_rails
       therubyracer
       uglifier
 

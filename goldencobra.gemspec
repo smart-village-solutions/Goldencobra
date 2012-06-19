@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'geocoder'
   s.add_dependency 'paper_trail'
   s.add_dependency 'sunspot_rails'
+  s.add_dependency 'sunspot_solr'
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'
