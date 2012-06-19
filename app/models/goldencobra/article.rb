@@ -30,7 +30,8 @@
 #  article_type                  :string(255)
 #  external_url_redirect         :string(255)
 #  index_of_articles_tagged_with :string(255)
-#  sort_option                   :string(255)
+#  sort_order                    :string(255)
+#  reverse_sort                  :boolean
 #
 
 module Goldencobra
