@@ -27,3 +27,4 @@ test/.DS_Store
 test/dummy/.DS_Store
 .sass-cache/
 test/dummy/coverage/*
+test/dummy/solr/*
