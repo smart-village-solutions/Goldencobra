@@ -12,6 +12,9 @@ require 'paperclip'
 require 'liquid'
 require 'geocoder'
 require "paper_trail"
+require 'sunspot_rails'
+require 'sunspot_solr'
+
 
 module Goldencobra
   class Engine < ::Rails::Engine
