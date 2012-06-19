@@ -5,7 +5,9 @@ ActiveAdmin.register User, :as => "User" do
   filter :firstname
   filter :lastname
   filter :email
-  actions :all, :except => [:new]
+
+  #TODO: Gab es hierfür eienn Grund?
+  #actions :all, :except => [:new]
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions

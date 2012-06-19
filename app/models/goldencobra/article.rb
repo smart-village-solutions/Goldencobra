@@ -74,9 +74,13 @@ module Goldencobra
      
     searchable do
       text :title, :boost => 5
+      text :summary
       text :content
       text :subtitle
       string :article_type
+      boolean :active
+      time :created_at
+      time :updated_at
     end 
      
      
