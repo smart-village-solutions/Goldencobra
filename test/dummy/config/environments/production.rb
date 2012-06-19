@@ -68,3 +68,5 @@ Dummy::Application.configure do
   #  :sender_address => 'no_reply@goldencobra.de'
   #  :exception_recipients => %w(holger@ikusei.de, marco.metz@ikusei.de)
 end
+
+
