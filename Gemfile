@@ -26,6 +26,7 @@ gem 'nokogiri', '~> 1.5.3'
 gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
 gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks run properly
 gem "paper_trail"
+gem 'sunspot_rails'
 
 group :development do
   gem 'thin'
@@ -33,6 +34,7 @@ group :development do
   gem 'guard-annotate'
   gem 'pry'
   gem 'brakeman'
+  gem 'hirb'
   #gem 'git-pivotal', '~> 0.8.2'
 end
 
