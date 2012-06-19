@@ -17,11 +17,11 @@ require 'cuke_sunspot'
 
 #FactoryGirl.find_definitions
 
-CukeSunspot.new.start
 
-at_exit do
-  Sunspot::Rails::Server.new.stop
-end
+#Sunspot::Rails::Server.new.start
+#at_exit do
+#  Sunspot::Rails::Server.new.stop
+#end
 
 Capybara.javascript_driver = :webkit
 
