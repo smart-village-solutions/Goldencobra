@@ -2,32 +2,35 @@
 #
 # Table name: goldencobra_articles
 #
-#  id                       :integer(4)      not null, primary key
-#  title                    :string(255)
-#  created_at               :datetime        not null
-#  updated_at               :datetime        not null
-#  url_name                 :string(255)
-#  slug                     :string(255)
-#  content                  :text
-#  teaser                   :text
-#  ancestry                 :string(255)
-#  startpage                :boolean(1)      default(FALSE)
-#  active                   :boolean(1)      default(TRUE)
-#  subtitle                 :string(255)
-#  summary                  :text
-#  context_info             :text
-#  canonical_url            :string(255)
-#  robots_no_index          :boolean(1)      default(FALSE)
-#  breadcrumb               :string(255)
-#  template_file            :string(255)
-#  enable_social_sharing    :boolean(1)
-#  article_for_index_id     :integer(4)
-#  article_for_index_levels :integer(4)      default(0)
-#  article_for_index_count  :integer(4)      default(0)
-#  article_for_index_images :boolean(1)      default(FALSE)
-#  cacheable                :boolean(1)      default(TRUE)
-#  image_gallery_tags       :string(255)
-#  article_type             :string(255)
+#  id                            :integer          not null, primary key
+#  title                         :string(255)
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  url_name                      :string(255)
+#  slug                          :string(255)
+#  content                       :text
+#  teaser                        :text
+#  ancestry                      :string(255)
+#  startpage                     :boolean          default(FALSE)
+#  active                        :boolean          default(TRUE)
+#  subtitle                      :string(255)
+#  summary                       :text
+#  context_info                  :text
+#  canonical_url                 :string(255)
+#  robots_no_index               :boolean          default(FALSE)
+#  breadcrumb                    :string(255)
+#  template_file                 :string(255)
+#  enable_social_sharing         :boolean
+#  article_for_index_id          :integer
+#  article_for_index_levels      :integer          default(0)
+#  article_for_index_count       :integer          default(0)
+#  article_for_index_images      :boolean          default(FALSE)
+#  cacheable                     :boolean          default(TRUE)
+#  image_gallery_tags            :string(255)
+#  article_type                  :string(255)
+#  external_url_redirect         :string(255)
+#  index_of_articles_tagged_with :string(255)
+#  sort_option                   :string(255)
 #
 
 module Goldencobra
@@ -50,12 +53,12 @@ module Goldencobra
     has_paper_trail
     web_url :external_url_redirect
     validates_presence_of :title
-    
+
     before_save :verify_existens_of_url_name_and_slug
     before_save :parse_image_gallery_tags
     validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
     attr_protected :startpage
-    
+
     scope :robots_index, where(:robots_no_index => false)
     scope :robots_no_index, where(:robots_no_index => true)
     scope :active, where(:active => true)
@@ -64,14 +67,16 @@ module Goldencobra
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in_eq
-    
+
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
 
     after_save :verify_existence_of_opengraph_image
-     
+
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
-     
+
+    SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetical"]
+
     searchable do
       text :title, :boost => 5
       text :summary
@@ -81,9 +86,8 @@ module Goldencobra
       boolean :active
       time :created_at
       time :updated_at
-    end 
-     
-     
+    end
+
     def public_url
       if self.startpage
         return "/" 

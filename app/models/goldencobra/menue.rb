@@ -2,15 +2,15 @@
 #
 # Table name: goldencobra_menues
 #
-#  id                  :integer(4)      not null, primary key
+#  id                  :integer          not null, primary key
 #  title               :string(255)
 #  target              :string(255)
 #  css_class           :string(255)
-#  active              :boolean(1)      default(TRUE)
-#  created_at          :datetime        not null
-#  updated_at          :datetime        not null
+#  active              :boolean          default(TRUE)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #  ancestry            :string(255)
-#  sorter              :integer(4)      default(0)
+#  sorter              :integer          default(0)
 #  description         :text
 #  call_to_action_name :string(255)
 #  description_title   :string(255)
