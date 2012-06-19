@@ -27,7 +27,7 @@ module Goldencobra
               @list_of_articles = @list_of_articles.flatten.shuffle!
             elsif @article.sort_order == "Alphabetical"
               @list_of_articles = @list_of_articles.flatten.sort_by!{|article| article.title }
-            else
+            elsif @article.send(@article.sort_order)
               sort_order = @article.sort_order.downcase
               @list_of_articles = @list_of_articles.flatten.sort_by!{|article| article.send(sort_order) ? article.send(sort_order) : article }
             end
