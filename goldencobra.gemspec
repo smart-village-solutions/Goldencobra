@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise'
   s.add_dependency 'activeadmin-cancan'
   s.add_dependency "activeadmin"
-  s.add_dependency 'meta_search', '~> 1.1.3'
+  #s.add_dependency 'meta_search', '~> 1.1.3'
   s.add_dependency 'sprockets'
   s.add_dependency "sass-rails", "~> 3.2.1"
   s.add_dependency "sass-rails"
