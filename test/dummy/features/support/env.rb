@@ -12,7 +12,6 @@ require 'capybara/rails'
 require 'capybara/cucumber'
 require 'capybara-webkit'
 require 'faker'
-require 'cuke_sunspot'
 
 
 #FactoryGirl.find_definitions
