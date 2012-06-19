@@ -27,6 +27,7 @@ gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake ta
 gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks run properly
 gem "paper_trail"
 gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 group :development do
   gem 'thin'
