@@ -14,7 +14,7 @@ module Goldencobra
 
     def show
       if @article && @article.external_url_redirect.blank?
-        Goldencobra::Article::LiquidParser["current_article"] = @article
+        initialize_article(@article)
         if @article.article_type.present? && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
         elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
@@ -37,19 +37,10 @@ module Goldencobra
           end
         end
 
-        set_meta_tags :site => s("goldencobra.page.default_title_tag"),
-                      :title => @article.metatag("Title Tag"),
-                      :description => @article.metatag("Meta Description"),
-                      :keywords => @article.metatag("Keywords"),
-                      :canonical => @article.canonical_url,
-                      :noindex => @article.robots_no_index,
-                      :open_graph => {:title => @article.metatag("OpenGraph Title"),
-                                    :type => @article.metatag("OpenGraph Type"),
-                                    :url => @article.metatag("OpenGraph URL"),
-                                    :image => @article.metatag("OpenGraph Image")}
         respond_to do |format|
           format.html {render :layout => @article.selected_layout}
         end
+        
       elsif @article && @article.external_url_redirect.present?
         #redirect to external website
         redirect_to @article.external_url_redirect, :target => "_blank"
