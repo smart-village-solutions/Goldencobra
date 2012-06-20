@@ -15,10 +15,10 @@ xml.rss version: "2.0" do
           xml.guid article.absolute_public_url
           if article.images && article.images.count > 0
             ai = article.images.first
-            xml.tag! "enclosure", :type => ai.image_content_type, :url => ai.image.url(:thumb), :length => ai.image_file_size
-            xml.tag! "enclosure", :type => ai.image_content_type, :url => ai.image.url(:medium), :length => ai.image_file_size
+            xml.tag! "enclosure", :type => ai.image_content_type, :url => "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{ai.image.url(:thumb)}"    #, :length => ai.image_file_size
+            xml.tag! "enclosure", :type => ai.image_content_type, :url => "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{ai.image.url(:medium)}"   #, :length => ai.image_file_size
           end
-          xml.tag! "quirin:rating", "0,0"
+          xml.tag! "quirin:rating", "0.0"
           xml.tag! "quirin:teaser", article.teaser
           xml.comments "article_comments_url(article)"
         end
