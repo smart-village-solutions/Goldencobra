@@ -11,8 +11,8 @@ xml.rss version: "2.0" do
           xml.title article.title
           xml.description article.teaser
           xml.pubDate article.published_at
-          xml.link article.public_url
-          xml.guid article.public_url
+          xml.link article.absolute_public_url
+          xml.guid article.absolute_public_url
           if article.images && article.images.count > 0
             xml.tag! "enclosure", :type => "image/jpeg", :url => article.images.first.image.url(:thumb)
             xml.tag! "enclosure", :type => "image/jpeg", :url => article.images.first.image.url(:medium)
