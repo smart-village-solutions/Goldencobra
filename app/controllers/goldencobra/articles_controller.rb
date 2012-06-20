@@ -81,6 +81,9 @@ module Goldencobra
           else
             @article = nil
           end
+          if params[:article_id].present? params[:article_id].include?(".")
+            params[:format] = params[:article_id].split('.').last
+          end
         rescue
           @article = nil
         end
