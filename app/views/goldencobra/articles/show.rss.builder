@@ -14,7 +14,8 @@ xml.rss version: "2.0" do
           xml.link article.public_url
           xml.guid article.public_url
           if article.images && article.images.count > 0
-            xml.enclosure article.images.first.image.url(:medium)
+            xml.tag! "enclosure", :type => "image/jpeg", :url => article.images.first.image.url(:thumb)
+            xml.tag! "enclosure", :type => "image/jpeg", :url => article.images.first.image.url(:medium)
           end
           xml.tag! "quirin:rating", "0,0"
           xml.tag! "quirin:teaser", article.summary
