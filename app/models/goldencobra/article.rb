@@ -83,10 +83,25 @@ module Goldencobra
       text :summary
       text :content
       text :subtitle
+      text :searchable_in_article_type
       string :article_type_for_search
       boolean :active
       time :created_at
       time :updated_at
+    end
+
+
+    # Instance Methods
+    # **************************
+    
+    #Gibt ein Textstring zurück der bei den speziellen Artiekltypen für die Volltextsuche durchsucht werden soll
+    def searchable_in_article_type
+      if self.article_type.present?
+        related_object = self.send(self.article_type_form_file.downcase)
+        if related_object && related_object.respond_to?(:fulltext_searchable_text)
+          related_object.fulltext_searchable_text
+        end
+      end
     end
 
     def public_url
@@ -113,26 +128,6 @@ module Goldencobra
       self.slug = self.url_name.downcase.parameterize if self.slug.blank?
     end
     
-    def self.templates_for_select
-      Dir.glob(File.join(::Rails.root, "app", "views", "layouts", "*.html.erb")).map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_/ }
-    end
-
-    def self.article_types_for_select
-      results = []
-      path_to_articletypes = File.join(::Rails.root, "app", "views", "articletypes")
-      if Dir.exist?(path_to_articletypes)
-        Dir.foreach(path_to_articletypes) do |name| #.map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_edit/ }
-          file_name_path = File.join(path_to_articletypes,name)
-          if File.directory?(file_name_path)
-            Dir.foreach(file_name_path) do |sub_name|
-                file_name = "#{name}#{sub_name}" if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0 
-                results << file_name.split(".").first.to_s.titleize if file_name.present?
-            end
-          end
-        end
-      end
-      return results
-    end
     
     # Gibt Consultant | Subsidiary | etc. zurück
     def article_type_form_file
@@ -144,6 +139,7 @@ module Goldencobra
       self.article_type.present? ? self.article_type.split(" ").last : ""
     end
     
+    # Liefert Kategorienenamen für sie Suche unabhängig ob Die Seite eine show oder indexseite ist
     def article_type_for_search
       if self.article_type.present?
         self.article_type.split(" ").first 
@@ -201,10 +197,15 @@ module Goldencobra
       metatag.value if metatag
     end
 
+
+    
+
+    # Class Methods
+    #**************************
+
     def self.recent(count)
       Goldencobra::Article.where('title IS NOT NULL').order('updated_at DESC').limit(count)
     end
-    
     
     def self.recreate_cache
       logger.info("========== TEST ===========")
@@ -212,6 +213,27 @@ module Goldencobra
         article.updated_at = Time.now
         article.save
       end
+    end
+    
+    def self.article_types_for_select
+      results = []
+      path_to_articletypes = File.join(::Rails.root, "app", "views", "articletypes")
+      if Dir.exist?(path_to_articletypes)
+        Dir.foreach(path_to_articletypes) do |name| #.map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_edit/ }
+          file_name_path = File.join(path_to_articletypes,name)
+          if File.directory?(file_name_path)
+            Dir.foreach(file_name_path) do |sub_name|
+                file_name = "#{name}#{sub_name}" if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0 
+                results << file_name.split(".").first.to_s.titleize if file_name.present?
+            end
+          end
+        end
+      end
+      return results
+    end
+    
+    def self.templates_for_select
+      Dir.glob(File.join(::Rails.root, "app", "views", "layouts", "*.html.erb")).map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_/ }
     end
     
               
