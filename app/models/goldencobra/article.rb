@@ -111,6 +111,10 @@ module Goldencobra
         "/#{self.path.map{|a| a.url_name if !a.startpage}.compact.join("/")}"
       end
     end 
+    
+    def absolute_public_url
+      "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
+    end
 
     def parse_image_gallery_tags
       if self.respond_to?(:image_gallery_tags)
