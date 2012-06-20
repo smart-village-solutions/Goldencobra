@@ -28,9 +28,6 @@ module Goldencobra
                                   :type => current_article.metatag("OpenGraph Type"),
                                   :url => current_article.metatag("OpenGraph URL"),
                                   :image => current_article.metatag("OpenGraph Image")}
-      
-      
-      
     end
 
   end
