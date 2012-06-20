@@ -198,7 +198,19 @@ module Goldencobra
     end
 
 
-    
+    #Datum für den RSS reader, Datum ist created_at es sei denn ein Articletype hat ein published_at definiert
+    def published_at
+      if self.article_type.present?
+        related_object = self.send(self.article_type_form_file.downcase)
+        if related_object && related_object.respond_to?(:published_at)
+          related_object.published_at
+        else
+          self.created_at
+        end
+      else
+        self.created_at
+      end
+    end
 
     # Class Methods
     #**************************
