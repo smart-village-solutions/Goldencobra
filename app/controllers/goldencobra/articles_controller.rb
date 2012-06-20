@@ -36,7 +36,7 @@ module Goldencobra
             end
           end
         end
-
+          
         respond_to do |format|
           format.html {render :layout => @article.selected_layout}
           format.rss 
@@ -50,7 +50,6 @@ module Goldencobra
         if @article
           respond_to do |format|
             format.html {render :layout => @article.selected_layout}
-            format.rss 
           end
         else
           render :text => "404", :status => 404
@@ -81,7 +80,7 @@ module Goldencobra
           else
             @article = nil
           end
-          if params[:article_id].present? params[:article_id].include?(".")
+          if params[:article_id].present? && params[:article_id].include?(".")
             params[:format] = params[:article_id].split('.').last
           end
         rescue
