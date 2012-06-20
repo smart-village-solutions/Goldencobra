@@ -1,5 +1,5 @@
 module Goldencobra
-  class ArticlesController < ApplicationController
+  class ArticlesController < Goldencobra::ApplicationController
     load_and_authorize_resource
 
     layout "application"
