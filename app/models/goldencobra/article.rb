@@ -83,7 +83,7 @@ module Goldencobra
       text :summary
       text :content
       text :subtitle
-      string :article_type
+      string :article_type_for_search
       boolean :active
       time :created_at
       time :updated_at
@@ -143,7 +143,14 @@ module Goldencobra
     def kind_of_article_type
       self.article_type.present? ? self.article_type.split(" ").last : ""
     end
-
+    
+    def article_type_for_search
+      if self.article_type.present?
+        self.article_type.split(" ").first 
+      else
+        "Article"
+      end
+    end
     
     def selected_layout
       if self.template_file.blank?
