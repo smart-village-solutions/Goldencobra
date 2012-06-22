@@ -93,7 +93,7 @@ module Goldencobra
     
     def is_cachable?
       if @article.cacheable
-        Devise.mappings.keys do |key|
+        Devise.mappings.keys.each do |key|
           if eval("current_#{key.to_s}.present?")
             return false
           end  
