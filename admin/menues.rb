@@ -8,7 +8,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     f.inputs "Allgemein" do
       f.input :title
       f.input :target
-      f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| [c.title, c.id]}, :include_blank => true
+      f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")} => #{c.title}", c.id]}, :include_blank => true
     end
     f.inputs "Optionen" do
       f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
