@@ -31,12 +31,14 @@ gem 'sunspot_solr'
 
 group :development do
   gem 'thin'
-  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'guard-annotate'
   gem 'pry'
+  gem 'pry-nav'
   gem 'brakeman'
   gem 'hirb'
   #gem 'git-pivotal', '~> 0.8.2'
+  gem "powder"
 end
 
 group :test do
