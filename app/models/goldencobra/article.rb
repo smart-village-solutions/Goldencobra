@@ -215,6 +215,10 @@ module Goldencobra
         self.created_at
       end
     end
+    
+    def linked_menues
+      Goldencobra::Menue.where(:target => self.public_url)
+    end
 
     # Class Methods
     #**************************
