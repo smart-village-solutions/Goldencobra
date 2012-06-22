@@ -106,6 +106,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     column :updated_at, sortable: :updated_at do |article|
       l(article.updated_at)
     end
+    column "Menue" do |article|
+      if article.linked_menues.count > 0
+        link_to("list", admin_menues_path("q[target_contains]" => article.public_url))
+      else
+        link_to("create", new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}))
+      end
+    end
     column "" do |article|
       result = ""
       result += link_to(t(:edit), edit_admin_article_path(article), :class => "member_link edit_link")

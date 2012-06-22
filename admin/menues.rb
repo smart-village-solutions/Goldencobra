@@ -57,7 +57,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   
   controller do 
     def new 
-      @menue = Goldencobra::Menue.new
+      @menue = Goldencobra::Menue.new(params[:menue])
       if params[:parent] && params[:parent].present? 
         @parent = Goldencobra::Menue.find(params[:parent])
         @menue.parent_id = @parent.id
