@@ -31,6 +31,13 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     column :target
     column :active
     column :sorter
+    column "Artikel" do |menue|
+      if menue.mapped_to_article?
+        link_to("search", admin_articles_path("q[url_name_contains]" => menue.target.split('/').last))
+      else
+        link_to("create one", new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.split('/').last}))
+      end
+    end
     column "" do |menue|
       result = ""
       result += link_to("New Submenu", new_admin_menue_path(:parent => menue), :class => "member_link edit_link")
