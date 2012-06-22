@@ -8,6 +8,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   filter :title
   filter :subtitle
   filter :breadcrumb
+  filter :url_name
   filter :template_file
   filter :created_at
   filter :updated_at
@@ -220,7 +221,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     
     def new       
-      @article = Goldencobra::Article.new
+      @article = Goldencobra::Article.new(params[:article])
       if params[:parent] && params[:parent].present? 
         @parent = Goldencobra::Article.find(params[:parent])
         @article.parent_id = @parent.id
