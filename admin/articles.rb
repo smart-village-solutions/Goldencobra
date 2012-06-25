@@ -66,6 +66,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
         f.input :cacheable, :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
         f.input :external_url_redirect
+        f.input :author, :hint => "Wer ist der Verfasser dieses Artikels"
       end
       f.inputs "Weiterer Inhalt", :class => "foldable closed inputs" do
         f.input :subtitle
