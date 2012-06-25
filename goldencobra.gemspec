@@ -6,7 +6,7 @@ require "goldencobra/version"
 Gem::Specification.new do |s|
   s.name        = "goldencobra"
   s.version     = Goldencobra::VERSION
-  s.authors     = ["Marco Metz"]
+  s.authors     = ["Marco Metz", "Holger Frohloff"]
   s.email       = ["metz@ikusei.de"]
   s.homepage    = "http://www.ikusei.de"
   s.summary     = "Basic CMS based on Rails engines"
@@ -25,12 +25,12 @@ Gem::Specification.new do |s|
   s.add_dependency 'sunspot_solr'
   #s.add_dependency 'meta_search', '~> 1.1.3'
   s.add_dependency 'sprockets'
-  s.add_dependency "sass-rails", "~> 3.2.1"
+  #s.add_dependency "sass-rails", "~> 3.2.1"
   s.add_dependency "sass-rails"
   s.add_dependency "compass-rails"
   s.add_dependency "execjs"
   s.add_dependency "therubyracer"
-  s.add_dependency "friendly_id", ">= 4.0.6"
+  s.add_dependency "friendly_id"#, ">= 4.0.6"
   s.add_dependency "omniauth"
   s.add_dependency "omniauth-openid"
   s.add_dependency 'oa-oauth'
