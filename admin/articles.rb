@@ -8,6 +8,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   filter :title
   filter :subtitle
   filter :breadcrumb
+  filter :url_name
   filter :template_file
   filter :created_at
   filter :updated_at
@@ -104,6 +105,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     column :updated_at, sortable: :updated_at do |article|
       l(article.updated_at)
+    end
+    column "Menue" do |article|
+      if article.linked_menues.count > 0
+        link_to("list", admin_menues_path("q[target_contains]" => article.public_url))
+      else
+        link_to("create", new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}))
+      end
     end
     column "" do |article|
       result = ""
@@ -220,7 +228,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     
     def new       
-      @article = Goldencobra::Article.new
+      @article = Goldencobra::Article.new(params[:article])
       if params[:parent] && params[:parent].present? 
         @parent = Goldencobra::Article.find(params[:parent])
         @article.parent_id = @parent.id

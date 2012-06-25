@@ -1,5 +1,5 @@
 ActiveAdmin.register Goldencobra::Import, :as => "Import" do
-
+  menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Import)}
 
   index do
     column :id

@@ -4,3 +4,5 @@ user = User.create!(:email => "admin@goldencobra.de", :password => "YMdgDmhQwF83
 user.confirm!
 user.roles << admin
 Goldencobra::Article.create!(content: "Diese Seite existiert leider nicht.", url_name: "404", breadcrumb: "Seite nicht gefunden", title: "404")
+Goldencobra::Article.create!(content: "", url_name: "search-results", breadcrumb: "Suchergebnisse", title: "Suchergebnisse")
+
