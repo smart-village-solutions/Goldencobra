@@ -1,11 +1,11 @@
 module Goldencobra
-  class ArticlesController < ApplicationController
+  class ArticlesController < Goldencobra::ApplicationController
     load_and_authorize_resource
 
     layout "application"
     before_filter :get_article, :only => [:show]
 
-    caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && @article.cacheable ? true : false }
+    caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
 
     def show_cache_path
       "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
@@ -14,7 +14,7 @@ module Goldencobra
 
     def show
       if @article && @article.external_url_redirect.blank?
-        Goldencobra::Article::LiquidParser["current_article"] = @article
+        initialize_article(@article)
         if @article.article_type.present? && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
         elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
@@ -36,20 +36,12 @@ module Goldencobra
             end
           end
         end
-
-        set_meta_tags :site => s("goldencobra.page.default_title_tag"),
-                      :title => @article.metatag("Title Tag"),
-                      :description => @article.metatag("Meta Description"),
-                      :keywords => @article.metatag("Keywords"),
-                      :canonical => @article.canonical_url,
-                      :noindex => @article.robots_no_index,
-                      :open_graph => {:title => @article.metatag("OpenGraph Title"),
-                                    :type => @article.metatag("OpenGraph Type"),
-                                    :url => @article.metatag("OpenGraph URL"),
-                                    :image => @article.metatag("OpenGraph Image")}
+          
         respond_to do |format|
           format.html {render :layout => @article.selected_layout}
+          format.rss 
         end
+        
       elsif @article && @article.external_url_redirect.present?
         #redirect to external website
         redirect_to @article.external_url_redirect, :target => "_blank"
@@ -80,17 +72,35 @@ module Goldencobra
         @article = Goldencobra::Article.active.startpage.first
       else
         begin
-          articles = Goldencobra::Article.active.where(:url_name => params[:article_id].split("/").last)
+          articles = Goldencobra::Article.active.where(:url_name => params[:article_id].split("/").last.to_s.split(".").first)
           if articles.count == 1
             @article = articles.first
           elsif articles.count > 1
-            @article = articles.select{|a| a.public_url == "/#{params[:article_id]}"}.first
+            @article = articles.select{|a| a.public_url == "/#{params[:article_id].split('.').first}"}.first
           else
             @article = nil
+          end
+          if params[:article_id].present? && params[:article_id].include?(".")
+            params[:format] = params[:article_id].split('.').last
           end
         rescue
           @article = nil
         end
+      end
+    end
+    
+    private
+    
+    def is_cachable?
+      if @article.cacheable
+        Devise.mappings.keys.each do |key|
+          if eval("current_#{key.to_s}.present?")
+            return false
+          end  
+        end
+        return true
+      else
+        return false
       end
     end
 

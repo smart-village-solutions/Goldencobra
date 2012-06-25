@@ -27,6 +27,10 @@ module Goldencobra
       result += ", #{self.zip}" if self.zip.present?
       result += ", #{self.city}" if self.city.present?
     end
+    
+    def title
+      self.complete_location
+    end
         
   end
 end

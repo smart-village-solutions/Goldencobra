@@ -8,7 +8,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     f.inputs "Allgemein" do
       f.input :title
       f.input :target
-      f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| [c.title, c.id]}, :include_blank => true
+      f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")} => #{c.title}", c.id]}, :include_blank => true
     end
     f.inputs "Optionen" do
       f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
@@ -31,6 +31,13 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     column :target
     column :active
     column :sorter
+    column "Artikel" do |menue|
+      if menue.mapped_to_article?
+        link_to("search", admin_articles_path("q[url_name_contains]" => menue.target.split('/').last))
+      else
+        link_to("create one", new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.split('/').last}))
+      end
+    end
     column "" do |menue|
       result = ""
       result += link_to("New Submenu", new_admin_menue_path(:parent => menue), :class => "member_link edit_link")
@@ -50,7 +57,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   
   controller do 
     def new 
-      @menue = Goldencobra::Menue.new
+      @menue = Goldencobra::Menue.new(params[:menue])
       if params[:parent] && params[:parent].present? 
         @parent = Goldencobra::Menue.find(params[:parent])
         @menue.parent_id = @parent.id

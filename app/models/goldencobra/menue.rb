@@ -35,12 +35,12 @@ module Goldencobra
       request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
     end
     
-    def has_active_child?(request)
-      result = []
-      self.descendants.each do |desc|
-        result << request.path.squeeze("/").split("?")[0] == desc.target.gsub("\"",'')
-      end
-      return result.include?(true)
+    def has_active_child?(request)      
+      self.descendants.map(&:target).include?(request.path.squeeze("/").split("?")[0])
+    end
+    
+    def mapped_to_article?
+      Goldencobra::Article.select([:url_name, :startpage, :ancestry, :id]).map{|a| a.public_url}.uniq.include?(self.target)
     end
         
   end
