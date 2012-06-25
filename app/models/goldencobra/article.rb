@@ -76,7 +76,7 @@ module Goldencobra
 
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
 
-    SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetical"]
+    SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
 
     searchable do
       text :title, :boost => 5
