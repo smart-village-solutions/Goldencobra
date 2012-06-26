@@ -7,7 +7,7 @@ class Ability
     can :manage, :all
     user.roles.each do |role|
       role.permissions.each do |permission|
-        if permission.subject_class == ":all"   
+        if permission.subject_class == ":all"
           if permission.action.include?("not_")
             cannot permission.action.gsub("not_", "").to_sym, :all
           else
@@ -15,9 +15,9 @@ class Ability
           end
         elsif permission.subject_id.nil?
           if permission.action.include?("not_")
-            cannot permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize          
+            cannot permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize
           else
-            can permission.action.to_sym, permission.subject_class.constantize          
+            can permission.action.to_sym, permission.subject_class.constantize
           end
         else
           if permission.action.include?("not_")
@@ -29,5 +29,4 @@ class Ability
       end
     end
   end
-
 end
