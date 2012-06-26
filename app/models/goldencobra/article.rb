@@ -78,7 +78,7 @@ module Goldencobra
 
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
 
-    if false
+    if Goldencobra::Setting.for_key("goldencobra.use_solr") == "true"
       searchable do
         text :title, :boost => 5
         text :summary

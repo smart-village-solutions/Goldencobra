@@ -14,12 +14,12 @@ require 'capybara/cucumber'
 require 'capybara-webkit'
 require 'faker'
 
-begin
-  Sunspot::Rails::Server.new.start
-  sleep 10
-rescue
-  puts "Solr already running"
-end
+#begin
+#  Sunspot::Rails::Server.new.start
+#  sleep 10
+#rescue
+#  puts "Solr already running"
+#end
 
 #FactoryGirl.find_definitions
 
@@ -77,8 +77,8 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 World FactoryGirl::Syntax::Methods
 
 # shut down the Solr server
-at_exit do
-  Sunspot::Rails::Server.new.stop
-end
+#at_exit do
+#  Sunspot::Rails::Server.new.stop
+#end
 
 
