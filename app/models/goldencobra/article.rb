@@ -185,7 +185,7 @@ module Goldencobra
     end
     
     def mark_as_startpage!
-      Article.startpage.each do |a|
+      Goldencobra::Article.startpage.each do |a|
         a.startpage = false
         a.save
       end
