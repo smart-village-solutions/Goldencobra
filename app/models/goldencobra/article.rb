@@ -78,18 +78,19 @@ module Goldencobra
 
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
 
-    searchable do
-      text :title, :boost => 5
-      text :summary
-      text :content
-      text :subtitle
-      text :searchable_in_article_type
-      string :article_type_for_search
-      boolean :active
-      time :created_at
-      time :updated_at
+    if false
+      searchable do
+        text :title, :boost => 5
+        text :summary
+        text :content
+        text :subtitle
+        text :searchable_in_article_type
+        string :article_type_for_search
+        boolean :active
+        time :created_at
+        time :updated_at
+      end
     end
-
 
     # Instance Methods
     # **************************

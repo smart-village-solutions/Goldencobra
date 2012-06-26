@@ -81,9 +81,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
     end
     f.actions
-    #f.inputs class: "actions inputs" do
-      #f.actions
-    #end
   end
 
   
