@@ -7,6 +7,7 @@ gem "jquery-rails"
 
 gem 'devise', :git => "git://github.com/plataformatec/devise.git"
 gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git", :require => "activeadmin"
+gem 'sunspot_solr', :git => 'https://github.com/sunspot/sunspot'
 gem 'execjs'
 gem 'therubyracer'
 gem "friendly_id"
