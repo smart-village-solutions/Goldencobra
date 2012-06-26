@@ -32,7 +32,7 @@ PATH
       activeadmin-cancan
       acts-as-taggable-on
       ancestry
-      cancan
+      cancan (= 1.6.7)
       compass-rails
       devise
       exception_notification
@@ -402,6 +402,7 @@ DEPENDENCIES
   activeadmin!
   annotate
   brakeman
+  cancan (= 1.6.7)
   capybara
   capybara-webkit
   coffee-rails (~> 3.2.0)
