@@ -39,7 +39,7 @@ module Goldencobra
             end
           end
 
-          if @article.sorter_limit > 0
+          if @article.sorter_limit && @article.sorter_limit > 0
             @list_of_articles = @list_of_articles[0..@article.sorter_limit-1]
           end
         end
