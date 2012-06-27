@@ -38,6 +38,10 @@ module Goldencobra
               @list_of_articles = @list_of_articles.reverse
             end
           end
+
+          if @article.sorter_limit > 0
+            @list_of_articles = @list_of_articles[0..@article.sorter_limit-1]
+          end
         end
           
         respond_to do |format|
