@@ -97,6 +97,10 @@ de:
             goldencobra/article:
                 title: "Titel"
                 url: "Webseite"
+                sorter_limit: "Zahl von Artikeln"
+                sort_order: "Sortierkriterium"
+                reverse_sort: "Sortierung absteigend?"
+                author: "Autor"
                 created_at: "Erstellt am"
                 updated_at: "Bearbeitet am"
                 active: "online"
