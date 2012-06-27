@@ -95,7 +95,7 @@ Feature: Create and manage articles
     And I press "Update Article"
     When I visit url "/seite2"
     Then I should see "Seite2" within "h1"
-    
+
   @javascript
   Scenario: Upload an Image and add it to an article
     Given that a confirmed admin exists
@@ -146,7 +146,7 @@ Feature: Create and manage articles
     And I press "Create Article"
     And I go to the admin list of articles
     Then I should see "/seo-seite/dies-ist-ein-neuer-artikel" within "tr#article_3"
-      
+
   Scenario: Follow a redirected Article
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -154,7 +154,6 @@ Feature: Create and manage articles
       | title           | url_name       | external_url_redirect | active | slug          |
       | "Seo Seite"     | weiterleitung  | http://www.google.de  | true   | weiterleitung |
     When I visit url "/weiterleitung"
-    
+
     #TODO: Aus rigend einem Grund oeffnet er im Test nicht die Google Seite
     Then I should see "404"
-        

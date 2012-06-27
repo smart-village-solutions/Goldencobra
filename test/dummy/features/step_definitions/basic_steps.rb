@@ -92,3 +92,9 @@ end
 Then /^I should see "([^"]*)" within textfield "([^"]*)"$/ do |arg1, arg2|
   page.find_field("#{arg2}").value.should == "#{arg1}"
 end
+
+Then /^I should see the "([^"]*)" in this order:$/ do |selector, table|
+  expected_order = table.raw
+  actual_order = page.all(selector).collect(&:text)
+  actual_order.should == expected_order.flatten
+end
