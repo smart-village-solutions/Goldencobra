@@ -53,7 +53,9 @@ module Goldencobra
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
     accepts_nested_attributes_for :article_images    
-    has_paper_trail
+    if ActiveRecord::Base.connection.table_exists?("versions")
+      has_paper_trail
+    end
     web_url :external_url_redirect
     validates_presence_of :title
 
