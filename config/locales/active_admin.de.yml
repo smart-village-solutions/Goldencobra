@@ -7,6 +7,14 @@ de:
     dashboard_sections:
       last_updated_articles: 'Zuletzt bearbeitete Artikel'
     view: "Anzeigen"
+    devise:
+      login:
+        title: " -- Administration"
+        remember_me: "Anmeldung merken"
+      links:
+        sign_up: "Registrieren"
+        forgot_your_password: "Passwort vergessen?"
+        resend_unlock_instructions: "E-Mail zum Entsperren neu zuschicken"
     edit: "Bearbeiten"
     delete: "Löschen"
     delete_confirmation: "Wollen Sie dieses Element wirklich löschen?"
