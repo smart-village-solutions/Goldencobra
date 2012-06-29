@@ -21,6 +21,7 @@ xml.rss version: "2.0" do
           xml.tag! "quirin:rating", "0.0"
           xml.tag! "quirin:teaser", article.teaser
           xml.comments "article_comments_url(article)"
+          article.article_type_xml_fields
         end
       end
     end
