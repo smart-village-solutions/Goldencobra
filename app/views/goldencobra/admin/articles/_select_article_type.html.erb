@@ -1,7 +1,8 @@
-<%= 
+<% article_types = Goldencobra::Article.article_types_for_select.map{|article_type| I18n.t("#{article_type.parameterize.downcase}", scope: [:article_types], default: "#{article_type}")} %>
+<%=
 f.inputs "Selection", :class => "foldable inputs" do
 	f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
-	f.input :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select, :include_blank => "Standard"
+	f.input :article_type, :as => :select, :collection => article_types.sort, include_blank: false
 	f.input :parent_id, :as => :hidden
 	f.input :url_name, :as => :hidden
 end
