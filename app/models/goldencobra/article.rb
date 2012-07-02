@@ -68,7 +68,9 @@ module Goldencobra
     scope :robots_no_index, where(:robots_no_index => true)
     scope :active, where(:active => true)
     scope :inactive, where(:active => false)
-    scope :startpage, where(:startpage => true)    
+    scope :startpage, where(:startpage => true)   
+    scope :articletype, lambda{ |name| where(:article_type => name)}
+    scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in_eq
