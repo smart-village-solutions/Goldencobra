@@ -39,22 +39,25 @@
 module Goldencobra
   class Article < ActiveRecord::Base    
     extend FriendlyId
-    attr_accessor :hint_label
-    friendly_id :url_name, use: [:slugged, :history]
-    has_ancestry :orphan_strategy => :restrict
-    acts_as_taggable_on :tags #https://github.com/mbleigh/acts-as-taggable-on
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     LiquidParser = {}
-    has_many :metatags
+    attr_accessor   :hint_label
+    
+    has_many        :metatags
+    has_many        :images, :through => :article_images, :class_name => Goldencobra::Upload
+    has_many        :article_images
+    has_many        :article_widgets
+    has_many        :widgets, :through => :article_widgets
+    has_many        :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
+
+    acts_as_taggable_on :tags #https://github.com/mbleigh/acts-as-taggable-on
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
-    has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
-    has_many :article_images
-    has_many :article_widgets
-    has_many :widgets, :through => :article_widgets
-    has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
     accepts_nested_attributes_for :article_images    
+    has_ancestry    :orphan_strategy => :restrict
+    friendly_id     :url_name, use: [:slugged, :history]
+    web_url         :external_url_redirect
     has_paper_trail
-    web_url :external_url_redirect
+    
     validates_presence_of :title
 
     before_save :verify_existens_of_url_name_and_slug
