@@ -43,12 +43,12 @@ module Goldencobra
             @list_of_articles = @list_of_articles[0..@article.sorter_limit-1]
           end
         end
-          
+
         respond_to do |format|
           format.html {render :layout => @article.selected_layout}
-          format.rss 
+          format.rss
         end
-        
+
       elsif @article && @article.external_url_redirect.present?
         #redirect to external website
         redirect_to @article.external_url_redirect, :target => "_blank"
@@ -70,7 +70,7 @@ module Goldencobra
       @domain_name = Goldencobra::Setting.for_key("goldencobra.url")
       @articles = Goldencobra::Article.active.robots_index.select([:id, :url_name, :updated_at, :startpage])
       respond_to do |format|
-        format.xml 
+        format.xml
       end
     end
 
