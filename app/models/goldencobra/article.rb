@@ -53,9 +53,7 @@ module Goldencobra
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
     accepts_nested_attributes_for :article_images    
-    if ActiveRecord::Base.connection.table_exists?("versions")
-      has_paper_trail
-    end
+    has_paper_trail
     web_url :external_url_redirect
     validates_presence_of :title
 
@@ -102,13 +100,28 @@ module Goldencobra
     # **************************
     
         
+    # Gets the related object by article_type
+    def get_related_object
+      if self.article_type.present?
+        return self.send(self.article_type_form_file.downcase)
+      else
+        return nil
+      end
+    end
+
     #Gibt ein Textstring zurück der bei den speziellen Artiekltypen für die Volltextsuche durchsucht werden soll
     def searchable_in_article_type
-      if self.article_type.present?
-        related_object = self.send(self.article_type_form_file.downcase)
-        if related_object && related_object.respond_to?(:fulltext_searchable_text)
-          related_object.fulltext_searchable_text
-        end
+      related_object = self.get_related_object
+      if related_object && related_object.respond_to?(:fulltext_searchable_text)
+        related_object.fulltext_searchable_text
+      end
+    end
+
+    # Returns a special article_typs customs rss fields as xml
+    def article_type_xml_fields
+      related_object = self.get_related_object
+      if related_object && related_object.respond_to?(:custom_rss_fields)
+        related_object.custom_rss_fields
       end
     end
 

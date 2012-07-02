@@ -9,7 +9,9 @@ xml.rss version: "2.0" do
       @list_of_articles.each do |article|
         xml.item do
           xml.title article.title
-          xml.description article.content
+          xml.description do
+            xml.cdata!(article.content)
+          end
           xml.pubDate article.published_at
           xml.link article.absolute_public_url
           xml.guid article.absolute_public_url
@@ -21,6 +23,9 @@ xml.rss version: "2.0" do
           xml.tag! "quirin:rating", "0.0"
           xml.tag! "quirin:teaser", article.teaser
           xml.comments "article_comments_url(article)"
+          article.article_type_xml_fields.each do |field, value|
+            xml.tag! field, raw(value)
+          end
         end
       end
     end
