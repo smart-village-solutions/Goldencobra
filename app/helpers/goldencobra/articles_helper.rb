@@ -71,7 +71,7 @@ module Goldencobra
       end
     end
 
-    def render_article_type_content
+    def render_article_type_content(options={})
       if @article && @article.article_type.present? && @article.kind_of_article_type.present?
         render :partial => "articletypes/#{@article.article_type_form_file.downcase}/#{@article.kind_of_article_type.downcase}"
       else
