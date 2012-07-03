@@ -23,9 +23,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     if f.object.new_record? 
       render :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f}
     else
-      #f.inputs :class => "actions inputs" do
-        f.actions
-      #end
+      f.actions
       f.inputs "Allgemein", :class => "foldable inputs" do
         f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
         f.input :content, :label => "Haupt-Textfeld", :input_html => { :class =>"tinymce"}
