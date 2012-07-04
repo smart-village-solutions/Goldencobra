@@ -4,7 +4,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   controller.authorize_resource :class => Goldencobra::Article
 
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => "Parent"
-  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select, :label => "Article Type"
+  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => "Article Type"
   filter :title
   filter :subtitle
   filter :breadcrumb
