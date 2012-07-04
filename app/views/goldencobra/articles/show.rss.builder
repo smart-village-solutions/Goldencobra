@@ -21,7 +21,9 @@ xml.rss version: "2.0" do
             xml.tag! "enclosure", :type => ai.image_content_type, :url => "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{ai.image.url(:medium)}", :length => ai.image_file_size
           end
           xml.tag! "quirin:rating", "0.0"
-          xml.tag! "quirin:teaser", article.teaser
+          xml.tag! "quirin:teaser" do
+           xml.cdata!(article.teaser)
+          end
           xml.comments "article_comments_url(article)"
           article.article_type_xml_fields.each do |field, value|
             xml.tag! field, raw(value)
