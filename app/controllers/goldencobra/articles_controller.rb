@@ -15,7 +15,7 @@ module Goldencobra
     def show
       if @article && @article.external_url_redirect.blank?
         initialize_article(@article)
-        if @article.article_type.present? && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
+        if @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
         elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
           @list_of_articles = Goldencobra::Article.where(:article_type => "#{@article.article_type_form_file} Show")
