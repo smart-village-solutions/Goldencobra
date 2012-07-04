@@ -1,8 +1,8 @@
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
-  
+
   menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
-    
+
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => "Parent"
   filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select, :label => "Article Type"
   filter :title
@@ -12,15 +12,14 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   filter :template_file
   filter :created_at
   filter :updated_at
-  
+
   scope "Alle", :scoped, :default => true
   scope "online", :active
   scope "offline", :inactive
-  
-  
-  form :html => { :enctype => "multipart/form-data" }  do |f|  
+
+  form :html => { :enctype => "multipart/form-data" }  do |f|
     render :partial => "/goldencobra/admin/articles/article_type", :locals => {:f => f}
-    if f.object.new_record? 
+    if f.object.new_record?
       render :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f}
     else
       f.actions
