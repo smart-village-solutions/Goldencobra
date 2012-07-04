@@ -106,7 +106,7 @@ module Goldencobra
 
     # Gets the related object by article_type
     def get_related_object
-      if self.article_type.present? && self.article_type != "default"
+      if self.article_type.present? && self.article_type != "Default Index"
         return self.send(self.article_type_form_file.downcase)
       else
         return nil
