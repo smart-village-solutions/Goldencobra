@@ -23,13 +23,13 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       result = ""
       result << upload.image.url
     end
-    column :source do |upload|
+    column :source, sortable: :source do |upload|
     	truncate(upload.source, length: 20)
     end
     column t("preview") do |upload|
       image_tag(upload.image(:mini))
     end
-    column :created_at do |upload|
+    column :created_at, sortable: :created_at do |upload|
     	l(upload.created_at, format: :short)
 	end
 	  column "" do |upload|
