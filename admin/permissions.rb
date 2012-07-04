@@ -4,7 +4,7 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission" do
     
     index do
       selectable_column
-      column "Role" do |permission|
+      column "Role", sortable: :role do |permission|
         permission.role.name
       end
       column :action
