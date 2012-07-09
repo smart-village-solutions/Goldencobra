@@ -6,7 +6,7 @@ end %>
 <%=
 f.inputs "Selection", :class => "foldable inputs" do
 	f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
-	f.input :article_type, :as => :select, :collection => article_types, include_blank: false
+	f.input :article_type, :as => :select, :collection => article_types, include_blank: false, selected: "Default Show"
 	f.input :parent_id, :as => :hidden
 	f.input :url_name, :as => :hidden
 end
