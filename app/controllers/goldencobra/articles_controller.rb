@@ -56,7 +56,7 @@ module Goldencobra
         # :not_modified.  So that's it, you're done.
         #
         if stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
-          expires_in 6.hours, :public => true
+          expires_in 30.seconds, :public => true
           respond_to do |format|
             format.html {render :layout => @article.selected_layout}
             format.rss
