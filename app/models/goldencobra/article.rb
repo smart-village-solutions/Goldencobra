@@ -79,6 +79,8 @@ module Goldencobra
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
 
+    scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
+
     after_save :verify_existence_of_opengraph_image
 
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
@@ -135,8 +137,16 @@ module Goldencobra
       else
         "/#{self.path.map{|a| a.url_name if !a.startpage}.compact.join("/")}"
       end
-    end 
-    
+    end
+
+    def date_of_last_modified_child
+      if self.children.length > 0
+        self.children.order("updated_at DESC").first.updated_at.utc
+      else
+        self.updated_at.utc
+      end
+    end
+
     def absolute_public_url
       "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
     end

@@ -19,6 +19,9 @@ module Goldencobra
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
         elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
           @list_of_articles = Goldencobra::Article.where(:article_type => "#{@article.article_type_form_file} Show")
+          if params[:format] && params[:format] == "rss" && params["If-Modified-Since"].present?
+            @list_of_articles = @list_of_articles.modified_since(params["If-Modified-Since"])
+          end
           @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",")) if @article.index_of_articles_tagged_with.present?
 
           # Sortierung
@@ -44,11 +47,21 @@ module Goldencobra
           end
         end
 
-        respond_to do |format|
-          format.html {render :layout => @article.selected_layout}
-          format.rss
+        # If the request is stale according to the given timestamp and etag value
+        # (i.e. it needs to be processed again) then execute this block
+        #
+        # If the request is fresh (i.e. it's not modified) then you don't need to do
+        # anything. The default render checks for this using the parameters
+        # used in the previous call to stale? and will automatically send a
+        # :not_modified.  So that's it, you're done.
+        #
+        if stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
+          expires_in 6.hours, :public => true
+          respond_to do |format|
+            format.html {render :layout => @article.selected_layout}
+            format.rss
+          end
         end
-
       elsif @article && @article.external_url_redirect.present?
         #redirect to external website
         redirect_to @article.external_url_redirect, :target => "_blank"
