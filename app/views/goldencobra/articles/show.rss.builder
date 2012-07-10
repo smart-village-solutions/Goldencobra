@@ -24,7 +24,7 @@ xml.rss version: "2.0" do
           xml.tag! "quirin:teaser" do
            xml.cdata!(article.teaser)
           end
-          xml.comments "article_comments_url(article)"
+          xml.comments ""
           article.article_type_xml_fields.each do |field, value|
             xml.tag! field, raw(value)
           end
