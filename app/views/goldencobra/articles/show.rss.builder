@@ -2,7 +2,7 @@ xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
     xml.title @article.title
-    xml.description @article.content
+    xml.description @article.summary
     xml.link @article.absolute_public_url
 
     if @list_of_articles
