@@ -25,7 +25,7 @@ xml.rss version: "2.0" do
            xml.cdata!(article.teaser)
           end
           xml.comments ""
-          if article.respond_to?(article_type_xml_fields)
+          if article.respond_to?(:article_type_xml_fields)
             article.article_type_xml_fields.each do |field, value|
               xml.tag! field, raw(value)
             end
