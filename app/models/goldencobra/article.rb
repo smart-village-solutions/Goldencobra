@@ -229,7 +229,7 @@ module Goldencobra
 
     #Datum für den RSS reader, Datum ist created_at es sei denn ein Articletype hat ein published_at definiert
     def published_at
-      if self.article_type.present?
+      if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.downcase)
         related_object = self.send(self.article_type_form_file.downcase)
         if related_object && related_object.respond_to?(:published_at)
           related_object.published_at
