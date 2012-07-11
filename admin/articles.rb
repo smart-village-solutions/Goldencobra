@@ -100,7 +100,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       article.public_url
     end
     column :active, :sortable => :active do |article|
-      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article),:confirm => "Sichtbarkeit dieses Artikels aendern?", :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
+      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article),:confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? "Standard" : article.article_type
@@ -122,7 +122,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       result = ""
       result += link_to(t(:edit), edit_admin_article_path(article), :class => "member_link edit_link")
       result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link")
-      result += link_to(t(:delete), admin_article_path(article), :method => :DELETE, :confirm => "Realy want to delete this Article?", :class => "member_link delete_link")
+      result += link_to(t(:delete), admin_article_path(article), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link")
       raw(result)
     end
   end
@@ -131,7 +131,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.roots, :locals => {:link_name => "breadcrumb_name", :url_path => "article" }
   end
   
-  sidebar :widgets_options, label: "Widgets", only: [:edit] do
+  sidebar :widgets_options, only: [:edit] do
     _article = @_assigns['article']
     render "/goldencobra/admin/articles/widgets_sidebar", :locals => { :current_article => _article }
   end
@@ -139,9 +139,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   sidebar :startpage_options, :only => [:show, :edit] do 
       _article = @_assigns['article']
       if _article.startpage
-        "This Article is the Startpage!"
+        t("startpage", :scope => [:goldencobra, :flash_notice]) 
       else
-        link_to "Make this article Startpage", mark_as_startpage_admin_article_path(_article.id), :confirm => "Really want to make this article as ROOT of your website"
+       # t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
+        link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(_article.id), :confirm => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
       end
   end
   

@@ -1,4 +1,11 @@
 en:
+  goldencobra:
+    flash_notice:
+      name_of_flashnotice: "Do you REALLY want make this Article as Startpage?"
+      action_Startpage: "Make this article Startpage"
+      startpage: "This Article is Startpage."
+      online: "Change the visibility of the article?"
+      delete_article: "Realy want to delete this Article?"
   active_admin:
     dashboard: Dashboard
     dashboard_welcome:
@@ -30,6 +37,14 @@ en:
     main_content: "Please implement %{model}#main_content to display content."
     logout: "Logout"
     sidebars:
+      submit_widget: "Save widget"
+      submit_layout: "allocate Layout"
+      widgets_options: "Widget Options"
+      overview: "Overview"
+      startpage_options: "Startpage Options"
+      layout: "Layout"
+      image_formates: "Image Formates"
+      image_module: "Image Module"
       filters: "Filters"
     per_page: "Items per page"  
     pagination:

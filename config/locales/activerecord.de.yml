@@ -95,6 +95,7 @@ de:
                 created_at: "erstellt am"
                 updated_at: "bearbeitet am"
             goldencobra/article:
+                article_type: "Artikeltyp"
                 title: "Titel"
                 url: "Webseite"
                 sorter_limit: "Zahl von Artikeln"
