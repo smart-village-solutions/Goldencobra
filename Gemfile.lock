@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ikusei/active_admin.git
-  revision: b0c12d968f0ca7fd57b20b93ff21ffaec2295cf2
+  revision: 930d80faa4633fd2df32ffed297bb0e0553760eb
   specs:
     activeadmin (0.4.4)
       bourbon (>= 1.0.0)
@@ -275,7 +275,7 @@ GEM
     omniauth-openid (1.0.1)
       omniauth (~> 1.0)
       rack-openid (~> 1.3.1)
-    orm_adapter (0.3.0)
+    orm_adapter (0.4.0)
     paper_trail (2.6.3)
       activerecord (~> 3.0)
       railties (~> 3.0)
