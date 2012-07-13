@@ -7,10 +7,10 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-   section 'last_updated_articles', priority: 1 do
+   section 'zuletzt bearbeitete Artikel', priority: 1 do
     table do
       tr do
-        [t(:title, scope: [:activerecord, :models, :article]), t(:updated_at, scope: [:activerecord, :attributes, :article]), t(:edit, scope: :active_admin)].each do |sa|
+        [t(:title, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:updated_at, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:edit, scope: :active_admin)].each do |sa|
           th sa
         end
       end

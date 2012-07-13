@@ -141,7 +141,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       if _article.startpage
         t("startpage", :scope => [:goldencobra, :flash_notice]) 
       else
-       # t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
         link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(_article.id), :confirm => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
       end
   end
