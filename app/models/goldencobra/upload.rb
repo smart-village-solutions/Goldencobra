@@ -19,10 +19,10 @@ module Goldencobra
   class Upload < ActiveRecord::Base
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
       has_attached_file :image, 
-                        :styles => { :large => "900x900>",:big => "600x600>", :medium => "300x300>", :thumb => "100x100>", :mini => "50x50>" },
+                        :styles => { :large => ["900x900>", :jpg], :big => ["600x600>",:jpg], :medium => ["300x300>",:jpg], :thumb => ["100x100>", :jpg], :mini => ["50x50>",:jpg] },
                         :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
                         :url => "/system/:attachment/:id/:style/:filename",
-                        :convert_options => { :all => '-auto-orient' }
+                        :convert_options => { :all => '-auto-orient -strip -colorspace RGB' }
       before_post_process :image_file?
     end
     
