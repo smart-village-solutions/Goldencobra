@@ -117,7 +117,8 @@ module Goldencobra
       child_link = content_tag(:a, child.title, :href => child.target.gsub("\"",''))
       child_link = child_link + content_tag(:a, "", :href => child.target.gsub("\"",''), :class => "navigtion_link_imgage_wrapper") unless options[:show_image] == false
       child_link = child_link + content_tag(:a, child.description_title, :href => child.target.gsub("\"",''), :class => "navigtion_link_description_title") unless options[:show_description_title] == false
-      child_link = child_link + content_tag("div", raw(child.description), :class => "navigtion_link_description") unless options[:show_description] == false
+      template = Liquid::Template.parse(child.description)
+      child_link = child_link + content_tag("div", raw(template.render(Goldencobra::Article::LiquidParser)), :class => "navigtion_link_description") unless options[:show_description] == false
       child_link = child_link + content_tag(:a, child.call_to_action_name, :href => child.target.gsub("\"",''), :class => "navigtion_link_call_to_action_name") unless options[:show_call_to_action_name] == false
       current_depth = current_depth + 1
       if child.children && (depth == 0 || current_depth <= depth)

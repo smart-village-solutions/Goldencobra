@@ -7,7 +7,7 @@ class PartialRenderer < Liquid::Tag
   end
   
   def render(context)
-      ActionController::Base.new.render_to_string(:partial => @message, :layout => false)
+      ActionController::Base.new.render_to_string(:partial => @message.strip, :layout => false)
   end
 end
 
