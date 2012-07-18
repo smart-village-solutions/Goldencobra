@@ -57,7 +57,6 @@ module Goldencobra
         #
         if stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
           expires_in 30.seconds, :public => true
-          response.headers['Last-Modified'] = @article.date_of_last_modified_child
           respond_to do |format|
             format.html {render :layout => @article.selected_layout}
             format.rss
