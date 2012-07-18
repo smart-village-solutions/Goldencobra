@@ -28,6 +28,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :content, :label => "Haupt-Textfeld", :input_html => { :class =>"tinymce"}
         f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
         f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
+        f.input :not_tagged_with, :hint => "Artikel mit diesen Tags NICHT anzeigen!", :label => "Liste von ausschlie&szlig;enden Tags"
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_show.html.erb")

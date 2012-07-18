@@ -23,7 +23,7 @@ module Goldencobra
             @list_of_articles = @list_of_articles.modified_since(params["If-Modified-Since"])
           end
           @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",")) if @article.index_of_articles_tagged_with.present?
-
+          @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(","), :exclude => true) if @article.not_tagged_with.present?
           # Sortierung
           if @article.sort_order.present?
             if @article.sort_order == "Random"
