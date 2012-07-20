@@ -83,15 +83,15 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
       f.inputs "Medien", :class => "foldable closed inputs"  do
         f.has_many :article_images do |ai|
-          ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen" 
+          ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen"
         end
       end
     end
     f.actions
   end
 
-  
-  index do 
+
+  index do
     selectable_column
     column "name", :sortable => :breadcrumb do |article|
       content_tag("span", link_to(truncate(article.breadcrumb_name, :length => 40), edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
@@ -126,25 +126,25 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       raw(result)
     end
   end
-  
+
   sidebar :overview, label: "Ueberblick", only: [:index] do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.roots, :locals => {:link_name => "breadcrumb_name", :url_path => "article" }
   end
-  
+
   sidebar :widgets_options, only: [:edit] do
     _article = @_assigns['article']
     render "/goldencobra/admin/articles/widgets_sidebar", :locals => { :current_article => _article }
   end
-  
-  sidebar :startpage_options, :only => [:show, :edit] do 
+
+  sidebar :startpage_options, :only => [:show, :edit] do
       _article = @_assigns['article']
       if _article.startpage
-        t("startpage", :scope => [:goldencobra, :flash_notice]) 
+        t("startpage", :scope => [:goldencobra, :flash_notice])
       else
         link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(_article.id), :confirm => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
       end
   end
-  
+
   sidebar :layout, only: [:edit] do
       _article = @_assigns['article']
       render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => _article }
@@ -156,18 +156,16 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     #render "/goldencobra/admin/articles/index_of_articles_sidebar"
   #end
 
-  
+
   sidebar :image_module, :only => [:edit] do
     render "/goldencobra/admin/articles/image_module_sidebar"
   end
-    
+
   action_item :only => :edit do
       _article = @_assigns['article']
       link_to('Vorschau zu diesem Artikel anzeigen', _article.public_url, :target => "_blank")
   end
-  
-  
-  
+
   member_action :mark_as_startpage do
     article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
@@ -185,16 +183,16 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       flash[:notice] = "Dieser Artikel ist nun offline"
     end
     article.save
-    
+
     redirect_to :action => :index
   end
-  
+
   member_action :update_widgets, :method => :post do
     article = Goldencobra::Article.find(params[:id])
     article.update_attributes(:widget_ids => params[:widget_ids])
     redirect_to :action => :edit, :notice => "Widgets added"
   end
-  
+
   batch_action :reset_cache, :confirm => "Cache leeren: sind Sie sicher?" do |selection|
     Goldencobra::Article.find(selection).each do |article|
       article.updated_at = Time.now
@@ -203,7 +201,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     flash[:notice] = "Cache wurde erneuert"
     redirect_to :action => :index
   end
-  
+
   batch_action :set_article_online, :confirm => "Artikel online stellen: sind Sie sicher?" do |selection|
     Goldencobra::Article.find(selection).each do |article|
       article.active = true
@@ -221,28 +219,27 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     flash[:notice] = "Artikel wurden offline gestellt"
     redirect_to :action => :index
   end
-  
+
 
   batch_action :destroy, false
-  
-  
-  controller do 
-        
+
+  controller do
+
     def show
       show! do |format|
          format.html { redirect_to edit_admin_article_path(@article), :flash => flash }
       end
     end
-    
-    def new       
+
+    def new
       @article = Goldencobra::Article.new(params[:article])
-      if params[:parent] && params[:parent].present? 
+      if params[:parent] && params[:parent].present?
         @parent = Goldencobra::Article.find(params[:parent])
         @article.parent_id = @parent.id
       end
-    end 
+    end
   end
-  
+
   member_action :revert do
     @version = Version.find(params[:id])
     if @version.reify
@@ -252,16 +249,15 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     redirect_to :back, :notice => "Undid #{@version.event}"
   end
-  
+
   action_item :only => :index do
     link_to("Import", new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
   end
-  
+
   action_item :only => :edit do
     _article = @_assigns['article']
     if _article.versions.last
       link_to("Undo", revert_admin_article_path(:id => _article.versions.last), :class => "undo")
     end
   end
-    
 end
