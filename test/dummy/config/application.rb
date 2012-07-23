@@ -53,6 +53,11 @@ module Dummy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    config.middleware.use PDFKit::Middleware
+    PDFKit.configure do |config|
+      config.wkhtmltopdf = "/usr/local/bin/wkhtmltopdf"
+      config.default_options[:ignore_load_errors] = true
+    end
     
     config.after_initialize do |app|
       if defined?(ActiveAdmin) and ActiveAdmin.application
