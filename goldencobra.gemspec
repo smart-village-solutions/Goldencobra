@@ -46,9 +46,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'rubyzip'
   s.add_dependency 'geocoder'
   s.add_dependency 'paper_trail'
-  s.add_dependency "pdfkit"
-  s.add_dependency 'wkhtmltopdf-binary'
-  s.add_dependency "wicked_pdf"
+  # s.add_dependency "pdfkit"
+  # s.add_dependency 'wkhtmltopdf-binary'
+  # s.add_dependency "wicked_pdf"
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'

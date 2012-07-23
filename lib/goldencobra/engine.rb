@@ -14,9 +14,9 @@ require 'geocoder'
 require "paper_trail"
 require 'sunspot_rails'
 require 'sunspot_solr'
-require "pdfkit"
-require 'wkhtmltopdf-binary'
-require "wicked_pdf"
+# require "pdfkit"
+# require 'wkhtmltopdf-binary'
+# require "wicked_pdf"
 
 
 
