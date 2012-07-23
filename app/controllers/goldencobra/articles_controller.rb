@@ -61,6 +61,7 @@ module Goldencobra
           respond_to do |format|
             format.html {render :layout => @article.selected_layout}
             format.rss
+            format.pdf {render :pdf => @article.title.downcase.underscore, :layout => @article.selected_layout, :wkhtmltopdf => '/usr/local/bin/wkhtmltopdf', :page_size => "A4"}
           end
         end
       elsif @article && @article.external_url_redirect.present?

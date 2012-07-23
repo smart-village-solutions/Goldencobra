@@ -29,6 +29,9 @@ gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks ru
 gem "paper_trail"
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'
 
 group :development do
   gem 'thin'
