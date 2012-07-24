@@ -1,4 +1,5 @@
 goldencobra:
+    html2pdf_uid: "c5c13af822"
     use_solr: "false"
     page:
         default_title_tag: "Goldencobra"
