@@ -286,6 +286,17 @@ module Goldencobra
       end
       return results
     end
+
+    def self.article_types_for_search
+      results = []
+      path_to_articletypes = File.join(::Rails.root, "app", "views", "articletypes")
+      if Dir.exist?(path_to_articletypes)
+        Dir.foreach(path_to_articletypes) do |name| #.map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_edit/ }
+          results << name.capitalize unless name.include?(".")
+        end
+      end
+      return results
+    end
     
     def self.templates_for_select
       Dir.glob(File.join(::Rails.root, "app", "views", "layouts", "*.html.erb")).map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_/ }
