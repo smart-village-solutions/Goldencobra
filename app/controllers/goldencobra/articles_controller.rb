@@ -89,7 +89,7 @@ module Goldencobra
       require 'net/http'
       require "uri"
       uid = Goldencobra::Setting.for_key("goldencobra.html2pdf_uid")
-      uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?uid=#{uid}&url=#{@article.absolute_public_url}?pdflayout=true")
+      uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?name=#{@article.absolute_public_url}&uid=#{uid}&url=#{@article.absolute_public_url}#{CGI::escape('?pdflayout=true')}")
       logger.debug(uri)
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Get.new(uri.request_uri)
