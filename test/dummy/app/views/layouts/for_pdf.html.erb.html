@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= display_meta_tags %>
+  <%= stylesheet_link_tag    "goldencobra/application", :media => "all" %>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "goldencobra/application" %>
+  <%= javascript_include_tag "application" %> 
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= navigation_menu(1, :depth => 1) %>  
+
+<h1><%= yield(:article_title) %></h1>
+
+<div>
+  <%= breadcrumb() %> 
+</div>
+<div id="social_sharing_buttons" class="top_buttons">
+  <%= yield(:social_sharing_buttons) %>
+</div>
+
+<%= yield %>
+
+<div id="article_content">
+  <%= yield(:article_subtitle) %> 
+  <%= yield(:article_summary) %>  
+  <%= yield(:article_content) %>
+  <%= render_article_image_gallery %> 
+  <%= yield(:article_teaser) %> 
+    <%= yield(:article_widgets) %>
+    <%= index_of_articles(:wrapper=>:article) %>
+</div>
+<div id="social_sharing_buttons" class="bottom_buttons">
+  <%= yield(:social_sharing_buttons) %>
+</div>
+<%= navigation_menu(2) %> 
+
+
+</body>
+</html>
