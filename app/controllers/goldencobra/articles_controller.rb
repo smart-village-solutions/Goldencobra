@@ -58,7 +58,7 @@ module Goldencobra
         if stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
           expires_in 30.seconds, :public => true
           response.last_modified = @article.date_of_last_modified_child
-          if params[:pdflayout] && params[:pdflayout].present? && params[:pdflayout] == "true"
+          if params[:pdf] && params[:pdf].present? && params[:pdf] == "1"
             layout_to_render = "for_pdf"
           else
             layout_to_render = @article.selected_layout
@@ -89,7 +89,7 @@ module Goldencobra
       require 'net/http'
       require "uri"
       uid = Goldencobra::Setting.for_key("goldencobra.html2pdf_uid")
-      uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?name=#{@article.absolute_public_url}&uid=#{uid}&url=#{@article.absolute_public_url}#{CGI::escape('?pdflayout=true')}")
+      uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?&uid=#{uid}&url=#{@article.absolute_public_url}#{CGI::escape('?pdf=1')}")
       logger.debug(uri)
       http = Net::HTTP.new(uri.host, uri.port)
       request = Net::HTTP::Get.new(uri.request_uri)
