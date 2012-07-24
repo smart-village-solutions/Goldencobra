@@ -3,7 +3,7 @@ module Goldencobra
     load_and_authorize_resource
 
     layout "application"
-    before_filter :get_article, :only => [:show]
+    before_filter :get_article, :only => [:show, :convert_to_pdf]
 
     caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
 
@@ -60,8 +60,7 @@ module Goldencobra
           response.last_modified = @article.date_of_last_modified_child
           respond_to do |format|
             format.html {render :layout => @article.selected_layout}
-            format.rss
-            #format.pdf {render :pdf => @article.title.downcase.underscore, :layout => @article.selected_layout, :wkhtmltopdf => '/usr/local/bin/wkhtmltopdf', :page_size => "A4"}
+            format.rss            
           end
         end
       elsif @article && @article.external_url_redirect.present?
@@ -78,6 +77,20 @@ module Goldencobra
         end
       end
 
+    end
+
+    def convert_to_pdf
+      require 'net/http'
+      require "uri"
+      uid = Goldencobra::Setting.for_key("goldencobra.html2pdf_uid")
+      uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?uid=#{uid}&url=#{@article.absolute_public_url}")
+      logger.debug(uri)
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+      doc = Nokogiri::HTML(response.body)  
+      file = doc.at_xpath("//file-name").text  
+      redirect_to "http://html2pdf.ikusei.de#{file}"
     end
 
 
