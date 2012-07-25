@@ -263,11 +263,7 @@ module Goldencobra
     end
     
     def self.recreate_cache
-      logger.info("========== TEST ===========")
-      Goldencobra::Article.active.each do |article|
-        article.updated_at = Time.now
-        article.save
-      end
+      ArticlesWorker.recreate_cache_async()
     end
     
     def self.article_types_for_select
