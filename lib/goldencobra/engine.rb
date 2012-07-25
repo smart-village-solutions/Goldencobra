@@ -17,6 +17,9 @@ require 'sunspot_solr'
 # require "pdfkit"
 # require 'wkhtmltopdf-binary'
 # require "wicked_pdf"
+require 'sidekiq'
+require 'sinatra'
+require 'slim'
 
 
 
