@@ -19,11 +19,9 @@ module Goldencobra
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
         elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
           @list_of_articles = Goldencobra::Article.where(:article_type => "#{@article.article_type_form_file} Show")
-          #if params[:format] && params[:format] == "rss" && params["If-Modified-Since"].present?
-            #@list_of_articles = @list_of_articles.modified_since(params["If-Modified-Since"])
-          #end
           @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",")) if @article.index_of_articles_tagged_with.present?
           @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(","), :exclude => true) if @article.not_tagged_with.present?
+          @list_of_articles = @list_of_articles.tagged_with(params[:frontend_tags], on: :frontend_tags, any: true) if params[:frontend_tags].present?
           # Sortierung
           if @article.sort_order.present?
             if @article.sort_order == "Random"
@@ -66,7 +64,7 @@ module Goldencobra
           respond_to do |format|
 
             format.html {render :layout => layout_to_render }
-            format.rss            
+            format.rss
           end
         end
       elsif @article && @article.external_url_redirect.present?
