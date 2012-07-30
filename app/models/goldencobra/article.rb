@@ -50,7 +50,7 @@ module Goldencobra
     has_many        :widgets, :through => :article_widgets
     has_many        :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
 
-    acts_as_taggable_on :tags #https://github.com/mbleigh/acts-as-taggable-on
+    acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     accepts_nested_attributes_for :article_images
     has_ancestry    :orphan_strategy => :restrict
