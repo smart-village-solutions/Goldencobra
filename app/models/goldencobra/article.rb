@@ -41,6 +41,7 @@ module Goldencobra
     extend FriendlyId
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     LiquidParser = {}
+    SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
     attr_accessor   :hint_label
 
     has_many        :metatags
@@ -49,20 +50,24 @@ module Goldencobra
     has_many        :article_widgets
     has_many        :widgets, :through => :article_widgets
     has_many        :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
-
-    acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
+    
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     accepts_nested_attributes_for :article_images
+
+    acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     has_ancestry    :orphan_strategy => :restrict
     friendly_id     :url_name, use: [:slugged, :history]
     web_url         :external_url_redirect
     has_paper_trail
+    liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
 
     validates_presence_of :title
-
+    validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
+    
     before_save :verify_existens_of_url_name_and_slug
     before_save :parse_image_gallery_tags
-    validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
+    after_save :verify_existence_of_opengraph_image
+
     attr_protected :startpage
 
     scope :robots_index, where(:robots_no_index => false)
@@ -72,20 +77,12 @@ module Goldencobra
     scope :startpage, where(:startpage => true)   
     scope :articletype, lambda{ |name| where(:article_type => name)}
     scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
-
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
-    search_methods :parent_ids_in_eq
-
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
-    search_methods :parent_ids_in
-
     scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
 
-    after_save :verify_existence_of_opengraph_image
-
-    liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
-
-    SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
+    search_methods :parent_ids_in
+    search_methods :parent_ids_in_eq
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.use_solr") == "true"
