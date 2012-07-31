@@ -4,6 +4,7 @@ module Goldencobra
 
     layout "application"
     before_filter :get_article, :only => [:show, :convert_to_pdf]
+    after_filter :geocode_ip_address, only: [:show]
 
     caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
 
@@ -127,15 +128,20 @@ module Goldencobra
         end
       end
     end
-    
+
+    def geocode_ip_address
+      result = request.location
+      return result
+    end
+
     private
-    
+
     def is_cachable?
       if @article.cacheable
         Devise.mappings.keys.each do |key|
           if eval("current_#{key.to_s}.present?")
             return false
-          end  
+          end
         end
         return true
       else
