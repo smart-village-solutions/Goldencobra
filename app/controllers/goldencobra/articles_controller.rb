@@ -135,7 +135,7 @@ module Goldencobra
 
     def geocode_ip_address
       @ip_result = request.location
-      return @ip_result
+      Goldencobra::Article::LiquidParser["user_location"] = @ip_result
     end
 
     private
