@@ -129,6 +129,10 @@ module Goldencobra
       end
     end
 
+
+
+    private
+
     def geocode_ip_address
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
@@ -137,8 +141,6 @@ module Goldencobra
         end
       end
     end
-
-    private
 
     def is_cachable?
       if @article.cacheable
