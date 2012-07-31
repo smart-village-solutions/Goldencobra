@@ -4,12 +4,8 @@ module Goldencobra
 
     layout "application"
     before_filter :get_article, :only => [:show, :convert_to_pdf]
-    if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
-      if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
-        before_filter :geocode_ip_address, only: [:show]
-      end
-    end
-
+    before_filter :geocode_ip_address, only: [:show]
+    
     caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
 
     def show_cache_path
@@ -134,8 +130,11 @@ module Goldencobra
     end
 
     def geocode_ip_address
-      @ip_result = request.location
-      Goldencobra::Article::LiquidParser["user_location"] = @ip_result
+      if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+        if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
+          @ip_result = request.location
+        end
+      end
     end
 
     private
