@@ -153,6 +153,9 @@ body.active_admin .sidebar_section > div div.overview-sidebar{
 				}
 				div.title{
 					display:inline-block;
+					ul{
+						display:none;
+					}
 					a{
 						text-decoration:none;
 						cursor:pointer;
