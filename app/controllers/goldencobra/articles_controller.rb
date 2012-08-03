@@ -3,8 +3,9 @@ module Goldencobra
     load_and_authorize_resource
 
     layout "application"
-    before_filter :get_article, :only => [:show]
-
+    before_filter :get_article, :only => [:show, :convert_to_pdf]
+    before_filter :geocode_ip_address, only: [:show]
+    
     caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
 
     def show_cache_path
@@ -18,12 +19,10 @@ module Goldencobra
         if @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
         elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
-          @list_of_articles = Goldencobra::Article.where(:article_type => "#{@article.article_type_form_file} Show")
-          if params[:format] && params[:format] == "rss" && params["If-Modified-Since"].present?
-            @list_of_articles = @list_of_articles.modified_since(params["If-Modified-Since"])
-          end
+          @list_of_articles = Goldencobra::Article.active.where(:article_type => "#{@article.article_type_form_file} Show")
           @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",")) if @article.index_of_articles_tagged_with.present?
-
+          @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(","), :exclude => true) if @article.not_tagged_with.present?
+          @list_of_articles = @list_of_articles.tagged_with(params[:frontend_tags], on: :frontend_tags, any: true) if params[:frontend_tags].present?
           # Sortierung
           if @article.sort_order.present?
             if @article.sort_order == "Random"
@@ -57,8 +56,15 @@ module Goldencobra
         #
         if stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
           expires_in 30.seconds, :public => true
+          response.last_modified = @article.date_of_last_modified_child
+          if params[:pdf] && params[:pdf].present? && params[:pdf] == "1"
+            layout_to_render = "for_pdf"
+          else
+            layout_to_render = @article.selected_layout
+          end
           respond_to do |format|
-            format.html {render :layout => @article.selected_layout}
+
+            format.html {render :layout => layout_to_render }
             format.rss
           end
         end
@@ -76,6 +82,20 @@ module Goldencobra
         end
       end
 
+    end
+
+    def convert_to_pdf
+      require 'net/http'
+      require "uri"
+      uid = Goldencobra::Setting.for_key("goldencobra.html2pdf_uid")
+      uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?&uid=#{uid}&url=#{@article.absolute_public_url}#{CGI::escape('?pdf=1')}")
+      logger.debug(uri)
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+      doc = Nokogiri::HTML(response.body)  
+      file = doc.at_xpath("//file-name").text  
+      redirect_to "http://html2pdf.ikusei.de#{file}"
     end
 
 
@@ -108,15 +128,26 @@ module Goldencobra
         end
       end
     end
-    
+
+
+
     private
-    
+
+    def geocode_ip_address
+      if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+        if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
+          @ip_result = request.location
+          Goldencobra::Article::LiquidParser["user_location"] = @ip_result
+        end
+      end
+    end
+
     def is_cachable?
       if @article.cacheable
         Devise.mappings.keys.each do |key|
           if eval("current_#{key.to_s}.present?")
             return false
-          end  
+          end
         end
         return true
       else

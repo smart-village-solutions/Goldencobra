@@ -1,4 +1,5 @@
 goldencobra:
+    html2pdf_uid: "c5c13af822"
     use_solr: "false"
     page:
         default_title_tag: "Goldencobra"
@@ -9,3 +10,4 @@ goldencobra:
     facebook:
         appid: "123456"
         opengraph_default_image: "/assets/open-graph.png"
+    geocode_ip_address: "false"

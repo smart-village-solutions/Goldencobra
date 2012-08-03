@@ -25,6 +25,7 @@ module Goldencobra
       has_paper_trail
     end
     scope :active, where(:active => true).order(:sorter)
+    scope :visible, where("css_class <> 'hidden'")
     
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in_eq
