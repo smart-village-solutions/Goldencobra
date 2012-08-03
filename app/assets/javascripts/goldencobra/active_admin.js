@@ -78,6 +78,12 @@ $(document).ready(function() {
 	$(".chzn-select").chosen();
   $(".chzn-select-deselect").chosen({allow_single_deselect:true});
 
+  //Menuepunkte bekommen eine funktion zum auf und zu klappen
+  $('div#overview_sidebar div.title a').bind("click", function(){
+  	$(this).children("ul").hide();
+  	
+  });
+  	$('div#overview_sidebar div.title a').trigger("click");
 
   $("#main_content form input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
   key('⌘+s, ctrl+s', function(){
@@ -100,7 +106,7 @@ $(document).ready(function() {
   });
 
 	
-
+ 
 
 
 });
