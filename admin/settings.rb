@@ -19,6 +19,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     column :title do |setting|
       "#{setting.parent_names}.#{setting.title}"
     end
+    column :value
     default_actions
   end
 
