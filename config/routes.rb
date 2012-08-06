@@ -4,7 +4,7 @@ end
 
 Goldencobra::Engine.routes.draw do
   if RUBY_VERSION.include?("1.9.")
-    mount Sidekiq::Web => '/background'
+    mount Sidekiq::Web => '/admin/background'
   end
   get 'sitemap', :to => 'articles#sitemap', :defaults => {:format => "xml"}
   match "/*article_id.pdf", :to => "articles#convert_to_pdf"
