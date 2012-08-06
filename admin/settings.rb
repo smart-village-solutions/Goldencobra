@@ -17,10 +17,9 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     selectable_column
     column :id
     column :title do |setting|
-      "#{setting.parent_names}.#{setting.title}"
+      link_to "#{setting.parent_names}.#{setting.title}", edit_admin_setting_path(setting)
     end
     column :value
-    default_actions
   end
 
   sidebar :overview, only: [:index]  do
