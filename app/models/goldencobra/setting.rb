@@ -24,6 +24,8 @@ module Goldencobra
     
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
+
+    scope :with_values, where("value IS NOT NULL")
     
     def self.regenerate_active_admin
       if defined?(ActiveAdmin) and ActiveAdmin.application
@@ -58,6 +60,10 @@ module Goldencobra
           generate_default_setting(key, imports)
         end  
       end    
+    end
+
+    def parent_names
+      self.ancestors.map(&:title).join(".")
     end
     
     

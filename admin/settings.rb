@@ -1,9 +1,9 @@
 ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   
   menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Setting)}
-  
   controller.authorize_resource :class => Goldencobra::Setting
-  
+  scope "Werte", :with_values, :default => true
+
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
       f.input :title
@@ -13,6 +13,15 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     f.actions
   end
   
+  index do
+    selectable_column
+    column :id
+    column :title do |setting|
+      "#{setting.parent_names}.#{setting.title}"
+    end
+    default_actions
+  end
+
   sidebar :overview, only: [:index]  do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Setting.roots, :locals => {:link_name => "title", :url_path => "setting" }
   end
