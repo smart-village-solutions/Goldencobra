@@ -260,10 +260,13 @@ module Goldencobra
     end
     
     def self.recreate_cache
-      logger.info("========== TEST ===========")
-      Goldencobra::Article.active.each do |article|
-        article.updated_at = Time.now
-        article.save
+      if RUBY_VERSION.include?("1.9.")
+        ArticlesWorker.recreate_cache_async()
+      else
+        Goldencobra::Article.active.each do |article|
+          article.updated_at = Time.now
+          article.save
+        end
       end
     end
     
