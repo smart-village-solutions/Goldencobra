@@ -32,6 +32,9 @@ gem 'sunspot_solr'
 # gem 'pdfkit'
 # gem 'wkhtmltopdf-binary'
 # gem 'wicked_pdf'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 
 group :development do
   gem 'thin'
