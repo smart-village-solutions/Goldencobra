@@ -21,7 +21,11 @@ module Goldencobra
     has_many :article_widgets
     has_many :articles, :through => :article_widgets
     scope :active, where(:active => true).order(:sorter)
-    after_save 'Goldencobra::Article.recreate_cache'
+    if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+      if Goldencobra::Setting.for_key("goldencobra.widgets.recreate_cache") == "true"
+        after_save 'Goldencobra::Article.recreate_cache'
+      end
+    end
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end

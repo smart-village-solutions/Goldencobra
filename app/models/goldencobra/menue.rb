@@ -20,7 +20,11 @@ module Goldencobra
   class Menue < ActiveRecord::Base
     has_ancestry :orphan_strategy => :rootify
     validates_presence_of :title   
-    after_save 'Goldencobra::Article.recreate_cache'
+    if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+      if Goldencobra::Setting.for_key("goldencobra.menues.recreate_cache") == "true"
+        after_save 'Goldencobra::Article.recreate_cache'
+      end
+    end
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end
