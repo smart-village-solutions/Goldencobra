@@ -19,6 +19,7 @@
 module Goldencobra
   class Menue < ActiveRecord::Base
     has_ancestry :orphan_strategy => :rootify
+    belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
     validates_presence_of :title   
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.menues.recreate_cache") == "true"

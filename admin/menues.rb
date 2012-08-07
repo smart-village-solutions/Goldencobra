@@ -17,6 +17,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     end
 
     f.inputs "Details" do
+      f.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswaehlen' }, :label => "Bild ausw&auml;hlen" 
       f.input :description_title
       f.input :description, :input_html => { :rows => 5}
       f.input :call_to_action_name
@@ -33,9 +34,9 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     column :sorter
     column "Artikel" do |menue|
       if menue.mapped_to_article?
-        link_to("search", admin_articles_path("q[url_name_contains]" => menue.target.split('/').last))
+        link_to("search", admin_articles_path("q[url_name_contains]" => menue.target.to_s.split('/').last))
       else
-        link_to("create one", new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.split('/').last}))
+        link_to("create one", new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.to_s.split('/').last}))
       end
     end
     column "" do |menue|
