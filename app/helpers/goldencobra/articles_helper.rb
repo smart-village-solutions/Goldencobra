@@ -115,7 +115,8 @@ module Goldencobra
     
     def navigation_menu_helper(child, depth, current_depth, options)
       child_link = content_tag(:a, child.title, :href => child.target.gsub("\"",''))
-      child_link = child_link + content_tag(:a, "", :href => child.target.gsub("\"",''), :class => "navigtion_link_imgage_wrapper") unless options[:show_image] == false
+      image_link = child.image.present? ? image_tag(child.image.image(:medium)) : ""
+      child_link = child_link + content_tag(:a, image_link, :href => child.target.gsub("\"",''), :class => "navigtion_link_imgage_wrapper") unless options[:show_image] == false
       child_link = child_link + content_tag(:a, child.description_title, :href => child.target.gsub("\"",''), :class => "navigtion_link_description_title") unless options[:show_description_title] == false
       template = Liquid::Template.parse(child.description)
       child_link = child_link + content_tag("div", raw(template.render(Goldencobra::Article::LiquidParser)), :class => "navigtion_link_description") unless options[:show_description] == false
