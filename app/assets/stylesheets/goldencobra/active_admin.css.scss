@@ -141,16 +141,33 @@ body.active_admin .sidebar_section > div div.overview-sidebar{
 		li{	
 			margin:0 0 0 0;
 			padding:0 0 0 0;
-			
+
 			div.item{
-				width:87%;
-				background:url("/assets/goldencobra/tree.png") no-repeat 5px;
-				padding:0 0 0 10%;
+				width:97%;
+				//background:url("/assets/goldencobra/tree.png") no-repeat 5px;
+				padding:0 0 0 3%;
 				line-height:14px;
 				border-bottom: 1px dotted transparent;
 				&:hover{
 					border-bottom: 1px dotted grey;
 				}
+
+				div.folder{
+					background:url("/assets/goldencobra/tree.png") no-repeat -6px;
+					height:12px;
+					width:12px;
+					display:inline-block;
+					cursor:pointer;
+				}
+
+				div.last_folder{
+					background:url("/assets/goldencobra/tree.png") no-repeat -9px;
+					height:12px;
+					width:12px;
+					display:inline-block;
+				}
+
+
 				div.title{
 					display:inline-block;
 					ul{

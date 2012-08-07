@@ -20,6 +20,12 @@ $(document).ready(function() {
 	});
 
 
+  //Foldable overview in sidebar
+  $("div.overview-sidebar div.folder").bind("click", function(){
+    $(this).closest('li').find("ul:first").slideToggle();
+  });
+  $("div.overview-sidebar div.folder").trigger("click");
+
   //Add Button Background Jobs zu Settings 
 	$('#einstellungen ul').append("<li><a href='/admin/background'>Background Jobs</a></li>")
 	

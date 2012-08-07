@@ -1,5 +1,10 @@
 <li>
 	<div class="item">
+		<% if item.children.count > 0 %>
+			<div class="folder"></div>
+		<% else %>
+			<div class="last_folder"></div>
+		<% end %>
 		<div class="title"><%= link_to item.send(link_name), eval("admin_#{url_path.pluralize}_path(:q => {:parent_ids_in => item.id})")   %></div>
 		<div class="options">
 			<%= link_to "new", eval("new_admin_#{url_path}_path(:parent => item)"), :class => "new_link"  %>

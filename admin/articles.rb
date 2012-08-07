@@ -106,12 +106,12 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     column :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? "Standard" : article.article_type
     end
-    column :created_at, sortable: :created_at do |article|
-      l(article.created_at)
-    end
-    column :updated_at, sortable: :updated_at do |article|
-      l(article.updated_at)
-    end
+    #column :created_at, sortable: :created_at do |article|
+    #  l(article.created_at)
+    #end
+    #column :updated_at, sortable: :updated_at do |article|
+    #  l(article.updated_at)
+    #end
     column "Menue" do |article|
       if article.linked_menues.count > 0
         link_to("list", admin_menues_path("q[target_contains]" => article.public_url))
