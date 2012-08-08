@@ -6,6 +6,21 @@ de:
       startpage: "Dieser Artikel ist die Startseite!"
       online: "Sichtbarkeit dieses Artikels aendern?"
       delete_article: "Artikel wirklich löchen?"
+    filter:
+      filter_titel: "Titel"
+      filter_subtitel: "Untertitel"
+      filter_breadcrumb: "Brotkrümel"
+      filter_url: "URL Name"
+      filter_template: "Template Datei"
+      filter_created: "erstellt am"
+      filter_updated: "bearbeitet am"
+      filter_parent: "Elternelement"
+      filter_type: "Artikeltyp"
+    menue:
+      menue: "Menü"
+      name: "Name"
+      list: "auflisten"
+      create: "erstellen"
   active_admin:    
     dashboard: Übersicht
     dashboard_welcome:
