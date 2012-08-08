@@ -3,15 +3,15 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
 
-  filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => "Parent"
-  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => "Article Type"
-  filter :title
-  filter :subtitle
-  filter :breadcrumb
-  filter :url_name
-  filter :template_file
-  filter :created_at
-  filter :updated_at
+  filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter])
+  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter])
+  filter :title, :label =>  I18n.t("filter_titel", :scope => [:goldencobra, :filter])
+  filter :subtitle, :label =>  I18n.t("filter_subtitel", :scope => [:goldencobra, :filter])
+  filter :breadcrumb, :label =>  I18n.t("filter_breadcrumb", :scope => [:goldencobra, :filter])
+  filter :url_name, :label =>  I18n.t("filter_url", :scope => [:goldencobra, :filter])
+  filter :template_file, :label =>  I18n.t("filter_template", :scope => [:goldencobra, :filter])
+  filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter])
+  filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter])
 
   scope "Alle", :scoped, :default => true
   scope "online", :active
@@ -94,7 +94,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   index do
     selectable_column
-    column "name", :sortable => :url_name do |article|
+    column I18n.t("name", :scope => [:goldencobra, :menue]), :sortable => :url_name do |article|
       content_tag("span", link_to(truncate(article.url_name, :length => 40), edit_admin_article_path(article), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
     column :url  do |article|
@@ -112,11 +112,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     #column :updated_at, sortable: :updated_at do |article|
     #  l(article.updated_at)
     #end
-    column "Menue" do |article|
+    column I18n.t("menue", :scope => [:goldencobra, :menue]) do |article|
       if article.linked_menues.count > 0
-        link_to("list", admin_menues_path("q[target_contains]" => article.public_url))
+        link_to(I18n.t("list", :scope => [:goldencobra, :menue]), admin_menues_path("q[target_contains]" => article.public_url))
       else
-        link_to("create", new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}))
+        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}))
       end
     end
     column "" do |article|

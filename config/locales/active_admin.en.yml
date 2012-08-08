@@ -6,6 +6,21 @@ en:
       startpage: "This Article is Startpage."
       online: "Change the visibility of the article?"
       delete_article: "Realy want to delete this Article?"
+    filter:
+      filter_titel: "title"
+      filter_subtitel: "subtitle"
+      filter_breadcrumb: "breadcrumb"
+      filter_url: "url"
+      filter_template: "template file"
+      filter_created: "creted at"
+      filter_updated: "updated at"
+      filter_parent: "parent"
+      filter_type: "article type"
+    menue:
+      menue: "Menue"
+      name: "name"
+      list: "list"
+      create: "create"
   active_admin:
     dashboard: Dashboard
     dashboard_welcome:
