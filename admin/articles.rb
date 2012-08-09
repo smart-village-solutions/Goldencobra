@@ -7,13 +7,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter])
   filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter])
-  filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter])
-  filter :subtitle, :label =>  I18n.t("filter_subtitel", :scope => [:goldencobra, :filter])
-  filter :breadcrumb, :label =>  I18n.t("filter_breadcrumb", :scope => [:goldencobra, :filter])
-  filter :url_name, :label =>  I18n.t("filter_url", :scope => [:goldencobra, :filter])
-  filter :template_file, :label =>  I18n.t("filter_template", :scope => [:goldencobra, :filter])
-  filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter])
-  filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter])
+  filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter], :default => "Titel")
+  filter :subtitle, :label =>  I18n.t("filter_subtitel", :scope => [:goldencobra, :filter], :default => "Unteritel")
+  filter :breadcrumb, :label =>  I18n.t("filter_breadcrumb", :scope => [:goldencobra, :filter], :default => "Brotkrümel")
+  filter :url_name, :label =>  I18n.t("filter_url", :scope => [:goldencobra, :filter], :default => "URL")
+  filter :template_file, :label =>  I18n.t("filter_template", :scope => [:goldencobra, :filter], :default => "Template Datei")
+  filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => "erstellt")
+  filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => "bearbeitet")
 
   scope "Alle", :scoped, :default => true
   scope "online", :active
