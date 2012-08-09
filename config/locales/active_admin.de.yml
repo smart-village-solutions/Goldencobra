@@ -14,7 +14,7 @@ de:
       filter_template: "Template Datei"
       filter_created: "erstellt am"
       filter_updated: "bearbeitet am"
-      
+      filter_parent: "Elternelement"
       filter_type: "Artikeltyp"
     menue:
       menue: "Menü"
@@ -71,7 +71,6 @@ de:
       image_module: "Bild einfügen"
       image_formates: "Bildgrößen"
       overview: "Überblick"
-      filter_parent: "Elternelement"
     per_page: "Einträge pro Seite"  
     pagination:
       empty: "Keine %{model} gefunden"
