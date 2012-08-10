@@ -17,6 +17,10 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = "GoldenCobra"
   
+  config.before_filter :set_admin_locale
+  def sef_admin_locale
+    I18n.locale = :de
+  end
   config.before_filter :current_ability
 
   # Set the link url for the title. For example, to take 
