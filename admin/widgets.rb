@@ -40,6 +40,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     column :tag_list
     column :default, :sortable => :default do |widget|
       widget.default ? "default" : "no default"
+    end
     default_actions
   end
 
