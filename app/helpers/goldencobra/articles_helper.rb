@@ -90,7 +90,7 @@ module Goldencobra
         if taggs.present? && default == "false"
           widgets = widgets.tagged_with(taggs.split(",")) 
         elsif default == true && taggs.present?
-          widgets = Goldencobra::Widget.where(:default => true).tagged_with(["header", "header_left", "header_right", "footer"], :any => true)  
+          widgets = Goldencobra::Widget.where(:default => true).tagged_with(taggs.split(","))  
         else
           widgets = widgets.where(:tag_list => "")
         end
