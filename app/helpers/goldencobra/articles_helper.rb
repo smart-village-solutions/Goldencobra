@@ -82,6 +82,7 @@ module Goldencobra
     def render_article_widgets(options={})
       custom_css = options[:class] || ""
       taggs = options[:tagged_with] || ""
+      default = options[:default] || ""
       widget_wrapper = options[:wrapper] || "section"
       result = ""
       if @article
@@ -90,6 +91,10 @@ module Goldencobra
           widgets = widgets.tagged_with(taggs.split(",")) 
         else
           widgets = widgets.where(:tag_list => "")
+        end
+
+        if (default == true)
+          @article.widgets.active
         end
         widgets.each do |widget|
           template = Liquid::Template.parse(widget.content)
