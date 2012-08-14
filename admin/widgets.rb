@@ -15,6 +15,12 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :active
     end
 
+    f.inputs "Admin" do
+      if(proc{can?(:read, Goldencobra::Widget)})
+        f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."
+      end
+      f.input :description
+    end
     f.inputs "Artikel" do
       f.input :articles, :as => :check_boxes, :collection => Goldencobra::Article.find(:all, :order => "title ASC")
     end
