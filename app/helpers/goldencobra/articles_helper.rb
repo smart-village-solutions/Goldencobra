@@ -82,6 +82,7 @@ module Goldencobra
     def render_article_widgets(options={})
       custom_css = options[:class] || ""
       taggs = options[:tagged_with] || ""
+      default = options[:default] || false
       widget_wrapper = options[:wrapper] || "section"
       result = ""
       if @article
