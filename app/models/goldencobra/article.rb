@@ -112,6 +112,19 @@ module Goldencobra
       end
     end
 
+    #dynamic methods for article.event or article.consultant .... depending on related object type
+    def method_missing(meth, *args, &block)
+      if meth.to_s.split(".").first == self.get_related_object.class.name.downcase
+          if meth.to_s.split(".").count == 1
+            self.get_related_object
+          else
+            self.get_related_object.send(meth.to_s.split(".").last)
+          end
+      else
+        super
+      end
+    end
+
     #Gibt ein Textstring zurück der bei den speziellen Artiekltypen für die Volltextsuche durchsucht werden soll
     def searchable_in_article_type
       related_object = self.get_related_object
