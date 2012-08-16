@@ -261,3 +261,8 @@ table.importer_assoziations td.nested_model_header{
 form li.hidden.input{
 	display:none;
 }
+
+body.active_admin .status{
+	background: none;
+	color: #000;
+}
