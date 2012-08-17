@@ -13,6 +13,8 @@
 #  sorter         :integer(4)
 #  mobile_content :text
 #  teaser         :string(255)
+#  default        :boolean(1)
+#  description    :text
 #
 
 require 'test_helper'
