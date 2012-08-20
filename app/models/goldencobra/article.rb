@@ -83,6 +83,12 @@ module Goldencobra
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
 
+    # Goldencobra::Article.article_types_for_select.each do |article_type|
+    #   next if article_type.include?("index") 
+    #   scope "#{article_type.split(' ').first}", where("article_type LIKE '%#{article_type.split(' ').first}%')
+    # end
+
+
     search_methods :parent_ids_in
     search_methods :parent_ids_in_eq
 
