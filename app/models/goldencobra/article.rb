@@ -125,6 +125,7 @@ module Goldencobra
       end
     end
 
+
     #Gibt ein Textstring zurück der bei den speziellen Artiekltypen für die Volltextsuche durchsucht werden soll
     def searchable_in_article_type
       related_object = self.get_related_object
