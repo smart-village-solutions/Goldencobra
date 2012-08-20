@@ -1,7 +1,7 @@
 <div class="widget-sidebar">
   <%= form_tag update_widgets_admin_article_path(@article.id) do %>
-    <% Goldencobra::Widget.find(:all, :conditions => "active = true", :order => "title ASC").each do |w| %>
-      <p><%= check_box_tag("widget_ids[]", "#{w.id}", @article.widget_ids.include?(w.id), :id => "widget_#{w.id}" ) %>&nbsp;<%= w.title %></p><br />
+    <% Goldencobra::Widget.find(:all, :conditions => "active = true").each do |w| %>
+      <p><%= check_box_tag("widget_ids[]", "#{w.id}", @article.widget_ids.include?(w.id), :id => "widget_#{w.id}" ) %>&nbsp;<%= w.tags.map{|tag| tag.name.capitalize } %>: <%= w.title %></p><br />
     <% end %>
     <%= submit_tag t("submit_widget", :scope => [:active_admin, :sidebars]), id: "submit_widgets_partial" %>
   <% end %>

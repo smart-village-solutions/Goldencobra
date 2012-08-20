@@ -14,6 +14,7 @@
 #  description         :text
 #  call_to_action_name :string(255)
 #  description_title   :string(255)
+#  image_id            :integer(4)
 #
 
 module Goldencobra
