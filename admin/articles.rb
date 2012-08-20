@@ -18,6 +18,12 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   scope "Alle", :scoped, :default => true
   scope "online", :active
   scope "offline", :inactive
+  # Goldencobra::Article.article_types_for_select.each do |article_type|
+  #   next if article_type.include?("index") 
+  #   scope "#{article_type.split(' ').first}", :scoped
+  # end
+
+
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     render :partial => "/goldencobra/admin/articles/article_type", :locals => {:f => f}
