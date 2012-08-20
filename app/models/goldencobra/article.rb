@@ -34,6 +34,8 @@
 #  reverse_sort                  :boolean(1)
 #  author                        :string(255)
 #  sorter_limit                  :integer(4)
+#  not_tagged_with               :string(255)
+#  use_frontend_tags             :boolean(1)      default(FALSE)
 #
 
 module Goldencobra
