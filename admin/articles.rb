@@ -138,7 +138,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   sidebar :overview, label: "Ueberblick", only: [:index] do
-    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.roots, :locals => {:link_name => "breadcrumb_name", :url_path => "article" }
+    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.roots, :locals => {:link_name => "url_name", :url_path => "article" }
   end
 
   sidebar :widgets_options, only: [:edit] do
