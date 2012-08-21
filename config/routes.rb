@@ -7,7 +7,7 @@ Goldencobra::Engine.routes.draw do
     mount Sidekiq::Web => '/admin/background'
   end
   get 'sitemap', :to => 'articles#sitemap', :defaults => {:format => "xml"}
-  match "/*article_id.pdf", :to => "articles#convert_to_pdf"
+  #match "/*article_id.pdf", :to => "articles#convert_to_pdf"
   match "/*article_id", :to => "articles#show"
   
   
