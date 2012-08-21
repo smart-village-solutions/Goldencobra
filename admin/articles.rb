@@ -21,7 +21,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   Goldencobra::Article.article_types_for_select.each do |article_type|
     next if article_type.include?("index") 
-    scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types])){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
+    scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => article_type.split(' ').first)){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
   end  
 
 
