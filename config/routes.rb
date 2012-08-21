@@ -7,13 +7,9 @@ Goldencobra::Engine.routes.draw do
     mount Sidekiq::Web => '/admin/background'
   end
   get 'sitemap', :to => 'articles#sitemap', :defaults => {:format => "xml"}
-  #match "/*article_id.pdf", :to => "articles#convert_to_pdf"
+  match "/*article_id.pdf", :to => "articles#convert_to_pdf"
   match "/*article_id", :to => "articles#show"
-  
-  
 
-
-  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -64,5 +60,4 @@ Goldencobra::Engine.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'articles#show', :defaults => {:startpage => true}
-  
 end
