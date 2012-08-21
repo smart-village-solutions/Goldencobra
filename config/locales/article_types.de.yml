@@ -19,4 +19,16 @@ de:
     pressrelease-show: "Pressemitteilung Einzelseite"
     faq-index: "FAQ Übersicht"
     faq-show: "FAQ Einzelseite"
-    
+  goldencobra:
+    article_types:
+      Chairman: "Vorstand"
+      Subsidiary: "Niederlassungen"
+      Consultant: "Berater"
+      Event: "Veranstaltungen"
+      Report: "News"
+      Article: "Artikel"
+      Pressreferent: "Pressereferenten"
+      Personelreferent: "Personalreferenten"
+      Faq: "Häufige Fragen"
+      Pressrelease: "Pressemitteilung"
+      Default: "Standard"
