@@ -5,7 +5,7 @@ module Goldencobra
     layout "application"
     before_filter :get_article, :only => [:show, :convert_to_pdf]
     before_filter :geocode_ip_address, only: [:show]
-    
+
     caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
 
     def show_cache_path
@@ -86,17 +86,21 @@ module Goldencobra
     end
 
     def convert_to_pdf
-      require 'net/http'
-      require "uri"
-      uid = Goldencobra::Setting.for_key("goldencobra.html2pdf_uid")
-      uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?&uid=#{uid}&url=#{@article.absolute_public_url}#{CGI::escape('?pdf=1')}")
-      logger.debug(uri)
-      http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
-      doc = Nokogiri::HTML(response.body)  
-      file = doc.at_xpath("//file-name").text  
-      redirect_to "http://html2pdf.ikusei.de#{file}"
+      if @article
+        require 'net/http'
+        require "uri"
+        uid = Goldencobra::Setting.for_key("goldencobra.html2pdf_uid")
+        uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?&uid=#{uid}&url=#{@article.absolute_public_url}#{CGI::escape('?pdf=1')}")
+        logger.debug(uri)
+        http = Net::HTTP.new(uri.host, uri.port)
+        request = Net::HTTP::Get.new(uri.request_uri)
+        response = http.request(request)
+        doc = Nokogiri::HTML(response.body)
+        file = doc.at_xpath("//file-name").text
+        redirect_to "http://html2pdf.ikusei.de#{file}"
+      else
+        render :text => "404", :status => 404
+      end
     end
 
 
