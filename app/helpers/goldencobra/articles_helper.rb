@@ -97,7 +97,11 @@ module Goldencobra
 
         widgets.each do |widget|
           template = Liquid::Template.parse(widget.content)
-          result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}", :id => widget.id_name)
+          if widget.id_name.present?
+            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}", :id => widget.id_name)
+          else
+            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}")
+          end
         end
       end
       return raw(result)
