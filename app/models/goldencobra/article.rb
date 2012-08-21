@@ -163,7 +163,11 @@ module Goldencobra
 
     def date_of_last_modified_child
       if self.children.length > 0
-        self.children.order("updated_at DESC").first.updated_at.utc
+        if self.children.order("updated_at DESC").first.updated_at.utc > self.updated_at.utc
+          self.children.order("updated_at DESC").first.updated_at.utc
+        else
+          self.updated_at.utc
+        end
       else
         self.updated_at.utc
       end
