@@ -106,6 +106,14 @@ module Goldencobra
     # Instance Methods
     # **************************
 
+    def respond_to_all?(method_name)
+      begin
+        return eval("self.#{method_name}.present?")
+      rescue
+        return false
+      end
+    end
+
     # Gets the related object by article_type
     def get_related_object
       if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.downcase)
