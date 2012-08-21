@@ -32,7 +32,11 @@ module Goldencobra
         master_menue.children.active.collect do |child|
           content << navigation_menu_helper(child, depth, 1, options)
         end
-        result = content_tag(:ul, raw(content),:id => "#{id_name}", :class => "#{class_name} #{depth} navigation #{master_menue.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
+        if id_name.present?
+          result = content_tag(:ul, raw(content),:id => "#{id_name}", :class => "#{class_name} #{depth} navigation #{master_menue.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
+        else
+          result = content_tag(:ul, raw(content), :class => "#{class_name} #{depth} navigation #{master_menue.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
+        end
       end
       
       return raw(result)
@@ -49,7 +53,11 @@ module Goldencobra
           list << content_tag(:li, raw(link_name))
         end
         content_list = content_tag(:ol, raw(list))
-    		result = content_tag(:nav, raw(content_list), :id => "#{id_name}", :class => "#{class_name}")
+        if id_name.present?
+    		  result = content_tag(:nav, raw(content_list), :id => "#{id_name}", :class => "#{class_name}")
+        else
+          result = content_tag(:nav, raw(content_list), :class => "#{class_name}")
+        end
         return raw(result)
       end
     end
