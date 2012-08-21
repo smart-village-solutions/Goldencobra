@@ -36,8 +36,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
         f.input :content, :label => "Haupt-Textfeld", :input_html => { :class =>"tinymce"}
         f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
-        f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
-        f.input :frontend_tag_list, hint: "Frontend Tags werden u.a. f&uuml;r die Filterung von &Uuml;bersichtsseiten benutzt. (komma-getrennt)", label: "Frontend Tags"
+        f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :label => "Liste von internen Tags"
+        f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium"
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_show.html.erb")
