@@ -26,15 +26,15 @@ module Goldencobra
           # Sortierung
           if @article.sort_order.present?
             if @article.sort_order == "Random"
-              @list_of_articles = @list_of_articles.flatten.shuffle!
+              @list_of_articles = @list_of_articles.flatten.shuffle
             elsif @article.sort_order == "Alphabetical"
-              @list_of_articles = @list_of_articles.flatten.sort_by!{|article| article.title }
+              @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.title }
             elsif @article.respond_to?(@article.sort_order)
               sort_order = @article.sort_order.downcase
-              @list_of_articles = @list_of_articles.flatten.sort_by!{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
+              @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
             elsif @article.sort_order.include?(".")
               sort_order = @article.sort_order.downcase.split(".")
-              @list_of_articles = @list_of_articles.flatten.sort_by!{|article| sort_order.inject(article){|result, message| result.send(message) if result.present? && a=result.send(message) && a.present?  } }
+              @list_of_articles = @list_of_articles.flatten.sort_by{|article| sort_order.inject(article){|result, message| result.send(message) if result.present? && a=result.send(message) && a.present?  } }
             end
             if @article.reverse_sort
               @list_of_articles = @list_of_articles.reverse
