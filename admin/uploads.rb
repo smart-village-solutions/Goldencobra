@@ -14,6 +14,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       f.input :rights
       f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
       f.input :description, :input_html => { :class =>"tinymce", :rows => 3}
+      f.input :alt_text
     end
   end
   
