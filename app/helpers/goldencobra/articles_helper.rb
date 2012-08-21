@@ -71,7 +71,6 @@ module Goldencobra
         master_index_article.descendants.order(:created_at).limit(@article.article_for_index_limit).each do |art|
           if @article.article_for_index_levels.to_i == 0 || (@article.depth + @article.article_for_index_levels.to_i > art.depth)
             rendered_article_list_item = render_article_list_item(art)
-
             result_list += content_tag(dom_element, rendered_article_list_item, :id => "article_index_list_item_#{art.id}", :class => "article_index_list_item")
           end
         end
