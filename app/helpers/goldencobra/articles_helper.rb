@@ -1,11 +1,11 @@
 module Goldencobra
   module ArticlesHelper
-    
-    
+
+
     def render_article_content_parts(article)
       render :partial => "/goldencobra/articles/show", :locals => {:article => article}
     end
-    
+
     def render_article_image_gallery
       if @article
         result = ""
@@ -18,7 +18,7 @@ module Goldencobra
         return content_tag("ul", raw(result), :class => "goldencobra_article_image_gallery")
       end
     end
-    
+
     def navigation_menu(menue_id, options={})
       return "id can't be blank" if menue_id.blank?
       #0 = unlimited, 1 = self, 2 = self and children 1. grades, 3 = self and up to children 2.grades
@@ -29,7 +29,7 @@ module Goldencobra
 
       if master_menue
         content = ""
-        master_menue.children.active.collect do |child|
+        master_menue.children.active.includes(:image).collect do |child|
           content << navigation_menu_helper(child, depth, 1, options)
         end
         if id_name.present?
@@ -38,11 +38,11 @@ module Goldencobra
           result = content_tag(:ul, raw(content), :class => "#{class_name} #{depth} navigation #{master_menue.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
         end
       end
-      
+
       return raw(result)
     end
-    
-    
+
+
     def breadcrumb(options={})
       id_name = options[:id] || "breadcrumb"
       class_name = options[:class] || ""
@@ -61,7 +61,7 @@ module Goldencobra
         return raw(result)
       end
     end
-    
+
     def index_of_articles(options={})
       if @article && @article.article_for_index_id.present? && master_index_article = Goldencobra::Article.find_by_id(@article.article_for_index_id)
         result_list = ""
@@ -85,7 +85,7 @@ module Goldencobra
         render :partial => "articletypes/default/show"
       end
     end
-    
+
     def render_article_widgets(options={})
       custom_css = options[:class] || ""
       taggs = options[:tagged_with] || ""
@@ -95,9 +95,9 @@ module Goldencobra
       if @article
         widgets = @article.widgets.active
         if taggs.present? && default == "false"
-          widgets = widgets.tagged_with(taggs.split(",")) 
+          widgets = widgets.tagged_with(taggs.split(","))
         elsif default == true && taggs.present?
-          widgets = Goldencobra::Widget.where(:default => true).tagged_with(taggs.split(","))  
+          widgets = Goldencobra::Widget.where(:default => true).tagged_with(taggs.split(","))
         else
           widgets = widgets.where(:tag_list => "")
         end
@@ -113,9 +113,9 @@ module Goldencobra
       end
       return raw(result)
     end
-    
+
     private
-    
+
     def render_article_list_item(article_item)
       result = ""
       result += content_tag(:div, link_to(article_item.title, article_item.public_url), :class=> "title")
@@ -127,7 +127,7 @@ module Goldencobra
       result += content_tag(:div, link_to(s("goldencobra.article.article_index.link_to_article"), article_item.public_url), :class=> "link_to_article")
       return raw(result)
     end
-    
+
     def navigation_menu_helper(child, depth, current_depth, options)
       child_link = content_tag(:a, child.title, :href => child.target.gsub("\"",''))
       image_link = child.image.present? ? image_tag(child.image.image(:original)) : ""
@@ -145,9 +145,9 @@ module Goldencobra
         if content_level.present?
           child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{child.children.active.visible.count}" )
         end
-      end  
+      end
       return content_tag(:li, raw(child_link), :class => "#{child.has_active_child?(request) ? 'has_active_child' : ''} #{child.is_active?(request) ? 'active' : ''} #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
     end
-    
+
   end
 end

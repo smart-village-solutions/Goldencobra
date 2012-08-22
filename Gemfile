@@ -35,6 +35,7 @@ gem 'sunspot_solr'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+#gem 'bullet'  testing for slow queries
 
 group :development do
   gem 'thin'
