@@ -52,7 +52,7 @@ module Goldencobra
     has_many        :article_widgets
     has_many        :widgets, :through => :article_widgets
     has_many        :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
-    
+
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     accepts_nested_attributes_for :article_images
 
@@ -65,7 +65,7 @@ module Goldencobra
 
     validates_presence_of :title
     validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
-    
+
     before_save :verify_existens_of_url_name_and_slug
     before_save :parse_image_gallery_tags
     after_save :verify_existence_of_opengraph_image
@@ -187,13 +187,12 @@ module Goldencobra
         Goldencobra::Metatag.create(article_id: self.id, name: "OpenGraph Image", value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
       end
     end
-    
+
     def verify_existens_of_url_name_and_slug
       self.url_name = self.title.downcase.parameterize if self.url_name.blank?
       self.slug = self.url_name.downcase.parameterize if self.slug.blank?
     end
-    
-    
+
     # Gibt Consultant | Subsidiary | etc. zurück je nach Seitentyp
     def article_type_form_file
       self.article_type.split(" ").first if self.article_type.present?
@@ -203,7 +202,7 @@ module Goldencobra
     def kind_of_article_type
       self.article_type.present? ? self.article_type.split(" ").last : ""
     end
-    
+
     # Liefert Kategorienenamen für sie Suche unabhängig ob Die Seite eine show oder indexseite ist
     def article_type_for_search
       if self.article_type.present?
@@ -212,7 +211,7 @@ module Goldencobra
         "Article"
       end
     end
-    
+
     def selected_layout
       if self.template_file.blank?
         "application"
@@ -220,7 +219,7 @@ module Goldencobra
         self.template_file
       end
     end
-    
+
     def breadcrumb_name
       if self.breadcrumb.present?
         return self.breadcrumb
@@ -228,13 +227,13 @@ module Goldencobra
         return self.title
       end
     end
-    
+
     def public_teaser
       return self.teaser if self.teaser.present?
       return self.summary if self.teaser.blank? && self.summary.present?
       return self.content[0..200] if self.teaser.blank? && self.summary.blank?
     end
-    
+
     def article_for_index_limit
       if self.article_for_index_count.to_i <= 0
         return 1000
@@ -242,7 +241,7 @@ module Goldencobra
         self.article_for_index_count.to_i
       end
     end
-    
+
     def mark_as_startpage!
       Goldencobra::Article.startpage.each do |a|
         a.startpage = false
@@ -251,11 +250,11 @@ module Goldencobra
       self.startpage = true
       self.save
     end
-    
+
     def is_startpage?
       self.startpage
-    end  
-    
+    end
+
     def metatag(name)
       return "" if !MetatagNames.include?(name) 
       metatag = self.metatags.find_by_name(name)
@@ -276,7 +275,7 @@ module Goldencobra
         self.created_at
       end
     end
-    
+
     def linked_menues
       Goldencobra::Menue.where(:target => self.public_url)
     end
@@ -287,7 +286,7 @@ module Goldencobra
     def self.recent(count)
       Goldencobra::Article.where('title IS NOT NULL').order('updated_at DESC').limit(count)
     end
-    
+
     def self.recreate_cache
       if RUBY_VERSION.include?("1.9.")
         ArticlesCacheWorker.perform_async()
@@ -298,7 +297,7 @@ module Goldencobra
         end
       end
     end
-    
+
     def self.article_types_for_select
       results = []
       path_to_articletypes = File.join(::Rails.root, "app", "views", "articletypes")
@@ -326,11 +325,10 @@ module Goldencobra
       end
       return results
     end
-    
+
     def self.templates_for_select
       Dir.glob(File.join(::Rails.root, "app", "views", "layouts", "*.html.erb")).map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_/ }
     end
-              
   end
 end
 
