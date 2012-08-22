@@ -29,7 +29,7 @@ module Goldencobra
         if @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
         elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
-          @list_of_articles = Goldencobra::Article.active.where(:article_type => "#{@article.article_type_form_file} Show").includes("#{@article.article_type_form_file.downcase}")
+          @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show").includes("#{@article.article_type_form_file.downcase}")
           @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(","), on: :tags) if @article.index_of_articles_tagged_with.present?
           @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(","), :exclude => true, on: :tags) if @article.not_tagged_with.present?
           @list_of_articles = @list_of_articles.tagged_with(params[:frontend_tags], on: :frontend_tags, any: true) if params[:frontend_tags].present?

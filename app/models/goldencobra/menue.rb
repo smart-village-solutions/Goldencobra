@@ -21,7 +21,7 @@ module Goldencobra
   class Menue < ActiveRecord::Base
     has_ancestry :orphan_strategy => :rootify
     belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
-    validates_presence_of :title   
+    validates_presence_of :title
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.menues.recreate_cache") == "true"
         after_save 'Goldencobra::Article.recreate_cache'
@@ -32,25 +32,28 @@ module Goldencobra
     end
     scope :active, where(:active => true).order(:sorter)
     scope :visible, where("css_class <> 'hidden'")
-    
+
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in_eq
-    
+
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
-    
-    
+
+
     def is_active?(request)
-      request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
+      @is_active_result ||= {}
+      @is_active_result[request.path.squeeze("/").split("?")[0]] ||= request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
     end
-    
-    def has_active_child?(request)      
-      self.descendants.map(&:target).include?(request.path.squeeze("/").split("?")[0])
+
+    def has_active_child?(request)
+      @has_active_child_result ||= {}
+      @has_active_child_result[request.path.squeeze("/").split("?")[0]] ||= self.descendants.map(&:target).include?(request.path.squeeze("/").split("?")[0])
     end
-    
+
+
     def mapped_to_article?
-      Goldencobra::Article.select([:url_name, :startpage, :ancestry, :id]).map{|a| a.public_url}.uniq.include?(self.target)
+      @mapped_to_article_result ||= Goldencobra::Article.select([:url_name, :startpage, :ancestry, :id]).map{|a| a.public_url}.uniq.include?(self.target)
     end
-        
+
   end
 end

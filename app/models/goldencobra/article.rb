@@ -139,9 +139,13 @@ module Goldencobra
 
     #Gibt ein Textstring zurück der bei den speziellen Artiekltypen für die Volltextsuche durchsucht werden soll
     def searchable_in_article_type
-      related_object = self.get_related_object
-      if related_object && related_object.respond_to?(:fulltext_searchable_text)
-        related_object.fulltext_searchable_text
+      @searchable_in_article_type_result ||= begin
+        related_object = self.get_related_object
+        if related_object && related_object.respond_to?(:fulltext_searchable_text)
+          related_object.fulltext_searchable_text
+        else
+          " "
+        end
       end
     end
 
