@@ -16,6 +16,7 @@ module Goldencobra
     def show
       if @article && @article.external_url_redirect.blank?
         initialize_article(@article)
+        Goldencobra::Article.load_liquid_methods(:request => request)
         if @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
         elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
@@ -143,7 +144,7 @@ module Goldencobra
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
           @ip_result = request.location
-          Goldencobra::Article::LiquidParser["user_location"] = @ip_result.ip
+          Goldencobra::Article::LiquidParser["user_location"] = @ip_result.city
         end
       end
     end

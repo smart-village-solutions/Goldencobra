@@ -76,7 +76,7 @@ module Goldencobra
     scope :robots_no_index, where(:robots_no_index => true)
     scope :active, where(:active => true)
     scope :inactive, where(:active => false)
-    scope :startpage, where(:startpage => true)   
+    scope :startpage, where(:startpage => true)
     scope :articletype, lambda{ |name| where(:article_type => name)}
     scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
@@ -155,7 +155,7 @@ module Goldencobra
 
     def public_url
       if self.startpage
-        return "/" 
+        return "/"
       else
         "/#{self.path.map{|a| a.url_name if !a.startpage}.compact.join("/")}"
       end
@@ -206,7 +206,7 @@ module Goldencobra
     # Liefert Kategorienenamen für sie Suche unabhängig ob Die Seite eine show oder indexseite ist
     def article_type_for_search
       if self.article_type.present?
-        self.article_type.split(" ").first 
+        self.article_type.split(" ").first
       else
         "Article"
       end
@@ -256,7 +256,7 @@ module Goldencobra
     end
 
     def metatag(name)
-      return "" if !MetatagNames.include?(name) 
+      return "" if !MetatagNames.include?(name)
       metatag = self.metatags.find_by_name(name)
       metatag.value if metatag
     end
@@ -283,6 +283,10 @@ module Goldencobra
     # Class Methods
     #**************************
 
+    def self.load_liquid_methods(options={})
+
+    end
+
     def self.recent(count)
       Goldencobra::Article.where('title IS NOT NULL').order('updated_at DESC').limit(count)
     end
@@ -306,7 +310,7 @@ module Goldencobra
           file_name_path = File.join(path_to_articletypes,name)
           if File.directory?(file_name_path)
             Dir.foreach(file_name_path) do |sub_name|
-                file_name = "#{name}#{sub_name}" if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0 
+                file_name = "#{name}#{sub_name}" if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0
                 results << file_name.split(".").first.to_s.titleize if file_name.present?
             end
           end
