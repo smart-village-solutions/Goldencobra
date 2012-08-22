@@ -15,7 +15,7 @@ module Goldencobra
   class Permission < ActiveRecord::Base
     attr_accessible :role_id, :action, :subject_class, :subject_id
     belongs_to :role
-    
+
     scope :by_role, lambda{|rid| where(:role_id => rid)}
   end
 end

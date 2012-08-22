@@ -40,16 +40,16 @@
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable, 
+  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable,
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :omniauthable, :registerable, :token_authenticatable
   acts_as_tagger
   # Setup accessible (or protected) attributes for your model
   validates_presence_of :firstname
   validates_presence_of :lastname
   liquid_methods :firstname, :lastname, :gender, :title, :function, :anrede
-  
+
   attr_accessible :email, :password, :password_confirmation, :remember_me, :gender, :title, :firstname, :lastname, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :role_ids
-  has_and_belongs_to_many :roles, :join_table => "goldencobra_roles_users", :class_name => Goldencobra::Role
+  has_and_belongs_to_many :roles, :join_table => "goldencobra_roles_users", :class_name => Goldencobra::Role, :include => [:permissions]
 
   before_save :ensure_authentication_token
 
