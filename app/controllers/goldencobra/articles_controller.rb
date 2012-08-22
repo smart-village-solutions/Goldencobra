@@ -9,7 +9,13 @@ module Goldencobra
     caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
 
     def show_cache_path
-      "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
+      request.location.latitude
+      loc = Goldencobra::Location.near([request.location.latitude,request.location.longitude], 200).limit(1).first
+      if loc && loc.city.present?
+      "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{loc.city.downcase.parameterize}"
+      else
+        "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
+      end
     end
 
 
