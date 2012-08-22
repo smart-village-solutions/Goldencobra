@@ -1,6 +1,13 @@
 ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
   menu parent: "Content-Management", :if => proc{can?(:read, Goldencobra::Widget)}
 
+  scope "Alle", :scoped, :default => true
+  scope "online", :active
+  scope "offline", :inactive
+  Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
+    scope(I18n.t(wtag, :scope => [:goldencobra, :widget_types], :default => wtag)){ |t| t.tagged_with(wtag) }
+  end
+
   form html: { enctype: "multipart/form-data" } do |f|
     f.actions
     f.inputs "Allgemein" do
@@ -26,7 +33,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
     f.actions
   end
-  
+
   index do
     selectable_column
     column :id
@@ -69,7 +76,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       end
     end
   end
-  
+
   member_action :revert do
     @version = Version.find(params[:id])
     if @version.reify
@@ -79,23 +86,23 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
     redirect_to :back, :notice => "Undid #{@version.event}"
   end
-  
+
   batch_action :destroy, false
-  
+
   action_item :only => :edit do
     _widget = @_assigns['widget']
     if _widget.versions.last
       link_to("Undo", revert_admin_widget_path(:id => _widget.versions.last), :class => "undo")
     end
   end
-  
-  controller do 
+
+  controller do
     def show
       show! do |format|
          format.html { redirect_to edit_admin_widget_path(@widget), :flash => flash }
       end
     end
   end
-  
-  
+
+
 end
