@@ -139,6 +139,7 @@ module Goldencobra
     private
 
     def geocode_ip_address
+      Goldencobra::Article::LiquidParser["user_location"] = ""
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
           @ip_result = request.location
