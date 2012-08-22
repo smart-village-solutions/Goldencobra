@@ -20,9 +20,13 @@
 module Goldencobra
   class Widget < ActiveRecord::Base
     acts_as_taggable_on :tags
+
     has_many :article_widgets
     has_many :articles, :through => :article_widgets
+
     scope :active, where(:active => true).order(:sorter)
+    scope :inactive, where(:active => false).order(:sorter)
+
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.widgets.recreate_cache") == "true"
         after_save 'Goldencobra::Article.recreate_cache'
@@ -31,12 +35,12 @@ module Goldencobra
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end
-    
+
     before_save :set_default_tag
-    
+
     def set_default_tag
       self.tag_list = "sidebar" if self.tag_list.blank?
     end
-    
+
   end
 end
