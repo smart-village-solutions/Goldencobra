@@ -18,24 +18,24 @@ module Goldencobra
       has_paper_trail
     end
     before_save :parse_title
-    
+
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in_eq
-    
+
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
 
     scope :with_values, where("value IS NOT NULL")
-    
+
     def self.regenerate_active_admin
       if defined?(ActiveAdmin) and ActiveAdmin.application
         ActiveAdmin.application.unload!
         ActiveSupport::Dependencies.clear
         ActiveAdmin.application.load!
-      end      
+      end
     end
-    
-    def self.for_key(name) 
+
+    def self.for_key(name)
       setting_title = name.split(".").last
       settings = Setting.where(:title => setting_title)
       if settings.count == 1
@@ -50,7 +50,25 @@ module Goldencobra
         return setting_title
       end
     end
-    
+
+    def self.set_value_for_key(value, name)
+      setting_title = name.split(".").last
+      settings = Setting.where(:title => setting_title)
+      if settings.count == 1
+        settings.first.update_attributes(value: value)
+        true
+      elsif settings.count > 1
+        settings.each do |set|
+          if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
+            set.update_attributes(value: value)
+            true
+          end
+        end
+      else
+        false
+      end
+    end
+
     def self.import_default_settings(path_file_name)
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         require 'yaml'
@@ -58,15 +76,15 @@ module Goldencobra
         imports = open(path_file_name) {|f| YAML.load(f) }
         imports.each_key do |key|
           generate_default_setting(key, imports)
-        end  
-      end    
+        end
+      end
     end
 
     def parent_names
       self.ancestors.map(&:title).join(".")
     end
-    
-    
+
+
     private
     def self.generate_default_setting(key, yml_data, parent_id=nil)
       if yml_data[key].class == Hash
@@ -86,14 +104,14 @@ module Goldencobra
         raise "invalid yml File at: #{key}  -  #{yml_data}"
       end
     end
-    
-    
+
+
     def parse_title
       if self.title.present?
         self.title = self.title.downcase
         self.title = self.title.gsub(".", "_")
       end
     end
-    
+
   end
 end
