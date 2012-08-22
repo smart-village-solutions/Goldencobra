@@ -30,7 +30,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :description
     end
     f.inputs "Artikel" do
-      f.input :articles, :as => :check_boxes, :collection => Goldencobra::Article.find(:all, :order => "title ASC")
+      f.input :articles, :as => :select, :collection => Goldencobra::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select'}
     end
     f.actions
   end
