@@ -14,8 +14,8 @@ module Goldencobra
         Goldencobra::Setting.for_key(name)
       end
     end
-    
-    
+
+
     def initialize_article(current_article)
       Goldencobra::Article::LiquidParser["current_article"] = @article
       set_meta_tags :site => s("goldencobra.page.default_title_tag"),
@@ -25,6 +25,7 @@ module Goldencobra
                     :canonical => current_article.canonical_url,
                     :noindex => current_article.robots_no_index,
                     :open_graph => {:title => current_article.metatag("OpenGraph Title"),
+                                  :description => current_article.metatag("OpenGraph Description"),
                                   :type => current_article.metatag("OpenGraph Type"),
                                   :url => current_article.metatag("OpenGraph URL"),
                                   :image => current_article.metatag("OpenGraph Image")}
