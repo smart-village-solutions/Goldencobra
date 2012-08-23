@@ -162,7 +162,11 @@ module Goldencobra
         if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
           @ip_result = request.location
           session[:user_location] = request.location
-          Goldencobra::Article::LiquidParser["user_location"] = @ip_result.city
+          if @ip_result && @ip_result.city.present?
+            Goldencobra::Article::LiquidParser["user_location"] = @ip_result.city
+          else
+            Goldencobra::Article::LiquidParser["user_location"] = "Berlin"
+          end
         end
       end
     end
