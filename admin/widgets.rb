@@ -6,7 +6,9 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
   scope "offline", :inactive
   scope "defaults", :default
   Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
-    scope(I18n.t(wtag, :scope => [:goldencobra, :widget_types], :default => wtag)){ |t| t.tagged_with(wtag) }
+    if Goldencobra::Widget.tag_counts_on(:tags).count > 1
+      scope(I18n.t(wtag, :scope => [:goldencobra, :widget_types], :default => wtag)){ |t| t.tagged_with(wtag) }
+    end
   end
 
   form html: { enctype: "multipart/form-data" } do |f|
