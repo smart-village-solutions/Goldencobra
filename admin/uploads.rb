@@ -6,7 +6,9 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   
 
   Goldencobra::Upload.tag_counts_on(:tags).map(&:name).each do |utag|
-    scope(I18n.t(utag, :scope => [:goldencobra, :widget_types], :default => utag)){ |t| t.tagged_with(utag) }
+    if(Goldencobra::Upload.tag_counts_on(:tags).count > 2)
+      scope(I18n.t(utag, :scope => [:goldencobra, :widget_types], :default => utag)){ |t| t.tagged_with(utag) }
+    end
   end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
