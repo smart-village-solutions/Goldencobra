@@ -20,9 +20,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   scope "offline", :inactive
 
   Goldencobra::Article.article_types_for_select.each do |article_type|
-    next if article_type.include?("index") 
+    next if article_type.include?("index")
     scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => article_type.split(' ').first)){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
-  end  
+  end
 
 
 
@@ -64,14 +64,15 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
                                                                                                                <li><strong>Metadescription:</strong> Wird als Beschreibung des Artikels angezeigt, wenn Google ihn gefunden hat. <strong>Wichtig!</strong></li>
                                                                                                                <li><strong>Keywords:</strong></li>
                                                                                                                <li><strong>OpenGraph Title:</strong> Title, der bei Facebook angezeigt werden soll, wenn der Artikel geteilt wird.</li>
+                                                                                                               <li><strong>OpenGraph Description:</strong> Description, die bei Facebook angezeigt werden soll, wenn der Artikel geteilt wird.</li>
                                                                                                                <li><strong>OpenGraph Type:</strong> Sie haben die Wahl zwischen Blog, Article oder Website</li>
                                                                                                                <li><strong>OpenGraph URL:</strong> Die URL der Website. Standardm&auml;&szlig; wird die URL des Artikels genutzt. Muss nur ver&auml;ndert werden, wenn dort etwas anderes stehen soll.</li>
                                                                                                                <li><strong>OpenGraph Image:</strong> Muss als URL &uuml;bergeben werden (http://www.mein.de/bild.jpg). Erscheint dann bei Facebook als Bild des Artikels.</li>
                                                                                                                </ul>", :class => "metadescription_hint", :id => "metadescription-tinymce"}
         f.has_many :metatags do |m|
           m.input :name, :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen."
-          m.input :value, :input_html => { :class => 'metatag_values'} 
-          m.input :_destroy, :as => :boolean 
+          m.input :value, :input_html => { :class => 'metatag_values'}
+          m.input :_destroy, :as => :boolean
         end
       end
       f.inputs "Einstellungen", :class => "foldable closed inputs" do
