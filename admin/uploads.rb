@@ -1,13 +1,13 @@
 ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
-  
-  menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Upload)}
-  
-  controller.authorize_resource :class => Goldencobra::Upload
-  
 
-  Goldencobra::Upload.tag_counts_on(:tags).map(&:name).each do |utag|
-    if(Goldencobra::Upload.tag_counts_on(:tags).map(&:name).count > 2)
-      scope(I18n.t(utag, :scope => [:goldencobra, :widget_types], :default => utag)){ |t| t.tagged_with(utag) }
+  menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Upload)}
+
+  controller.authorize_resource :class => Goldencobra::Upload
+
+
+  Goldencobra::Upload.tag_counts_on(:tags).each do |utag|
+    if(utag.count > 2)
+      scope(I18n.t(utag.name, :scope => [:goldencobra, :widget_types], :default => utag.name)){ |t| t.tagged_with(utag.name) }
     end
   end
 
@@ -24,7 +24,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       f.input :alt_text
     end
   end
-  
+
   index do
     selectable_column
     column "url" do |upload|
@@ -82,7 +82,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       row :updated_at
     end
   end
-  
+
   sidebar :image_formates do
     ul do
       li "original => AxB>"
@@ -93,15 +93,15 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       li "mini => 50x50>"
     end
   end
-  
+
   #batch_action :destroy, false
-  
+
   member_action :unzip_file do
     upload = Goldencobra::Upload.find(params[:id])
     upload.unzip_files
     redirect_to :action => :index, :notice => "File unzipped"
   end
-  
+
   action_item :only => [:edit, :show] do
     _upload = @_assigns['upload']
     if _upload.image_file_name && _upload.image_file_name.include?(".zip")
