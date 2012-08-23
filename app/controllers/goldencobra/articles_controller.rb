@@ -164,7 +164,7 @@ module Goldencobra
       #       if @ip_result && @ip_result.city.present?
       #         Goldencobra::Article::LiquidParser["user_location"] = @ip_result.city
       #       else
-      #         Goldencobra::Article::LiquidParser["user_location"] = "berlin"
+               Goldencobra::Article::LiquidParser["user_location"] = "berlin"
       #       end
       #     else
       #       Goldencobra::Article::LiquidParser["user_location"] = session[:user_location].city
