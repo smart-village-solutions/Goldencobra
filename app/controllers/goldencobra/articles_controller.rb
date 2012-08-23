@@ -10,8 +10,8 @@ module Goldencobra
     caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
 
     def show_cache_path
-      if request.location.present? && request.location.latitude.present? && request.location.longitude.present?
-        loc = Goldencobra::Location.near([request.location.latitude,request.location.longitude], 200).limit(1).first
+      if session[:user_location].present? && session[:user_location].latitude.present? && session[:user_location].longitude.present?
+        loc = Goldencobra::Location.near([session[:user_location].latitude,session[:user_location].longitude], 500).limit(1).first
         if loc && loc.city.present?
           "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{loc.city.downcase.parameterize}"
         else
@@ -87,7 +87,7 @@ module Goldencobra
         @article = Goldencobra::Article.find_by_url_name("404")
         if @article
           respond_to do |format|
-            format.html {render :layout => @article.selected_layout}
+            format.html {render :layout => @article.selected_layout, :status => 404}
           end
         else
           render :text => "404", :status => 404
@@ -160,6 +160,7 @@ module Goldencobra
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
           @ip_result = request.location
+          session[:user_location] = request.location
           Goldencobra::Article::LiquidParser["user_location"] = @ip_result.city
         end
       end
