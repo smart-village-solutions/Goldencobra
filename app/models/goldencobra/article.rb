@@ -41,7 +41,7 @@
 module Goldencobra
   class Article < ActiveRecord::Base
     extend FriendlyId
-    MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
+    MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Description", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     LiquidParser = {}
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
     attr_accessor   :hint_label
