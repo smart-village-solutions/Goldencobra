@@ -3,6 +3,7 @@ module Goldencobra
     load_and_authorize_resource
 
     layout "application"
+    before_filter :check_format
     before_filter :get_article, :only => [:show, :convert_to_pdf]
     before_filter :geocode_ip_address, only: [:show]
 
@@ -147,6 +148,12 @@ module Goldencobra
 
 
     private
+
+    def check_format
+      if request.format == "image/jpeg"  || request.format == "image/png"
+        render :text => "404", :status => 404
+      end
+    end
 
     def geocode_ip_address
       Goldencobra::Article::LiquidParser["user_location"] = "Test"
