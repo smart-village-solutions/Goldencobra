@@ -4,6 +4,11 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   
   controller.authorize_resource :class => Goldencobra::Upload
   
+
+  Goldencobra::Upload.tag_counts_on(:tags).map(&:name).each do |utag|
+    scope(I18n.t(utag, :scope => [:goldencobra, :widget_types], :default => utag)){ |t| t.tagged_with(utag) }
+  end
+
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
     f.inputs "File" do
