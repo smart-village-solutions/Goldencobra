@@ -18,7 +18,7 @@ module Goldencobra
       #     "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
       #   end
       # else
-        "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
+        "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}"
       # end
     end
 
@@ -150,8 +150,6 @@ module Goldencobra
     private
 
     def check_format
-      puts "*"*20
-      puts request.inspect
       if request.format == "image/jpeg"  || request.format == "image/png"
         render :text => "404", :status => 404
       end
