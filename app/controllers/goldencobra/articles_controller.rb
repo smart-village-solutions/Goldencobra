@@ -150,6 +150,8 @@ module Goldencobra
     private
 
     def check_format
+      puts "*"*20
+      puts request
       if request.format == "image/jpeg"  || request.format == "image/png"
         render :text => "404", :status => 404
       end
