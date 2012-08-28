@@ -67,19 +67,19 @@ module Goldencobra
         # used in the previous call to stale? and will automatically send a
         # :not_modified.  So that's it, you're done.
         #
-        # if stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
-        #   expires_in 30.seconds, :public => true
-        #   response.last_modified = @article.date_of_last_modified_child
-        #   if params[:pdf] && params[:pdf].present? && params[:pdf] == "1"
-        #     layout_to_render = "for_pdf"
-        #   else
-        #     layout_to_render = @article.selected_layout
-        #   end
-        #   respond_to do |format|
-        #     format.html {render :layout => layout_to_render }
-        #     format.rss
-        #   end
-        # end
+        if stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
+          expires_in 30.seconds, :public => true
+          response.last_modified = @article.date_of_last_modified_child
+          if params[:pdf] && params[:pdf].present? && params[:pdf] == "1"
+            layout_to_render = "for_pdf"
+          else
+            layout_to_render = @article.selected_layout
+          end
+          respond_to do |format|
+            format.html {render :layout => layout_to_render }
+            format.rss
+          end
+        end
       elsif @article && @article.external_url_redirect.present?
         #redirect to external website
         redirect_to @article.external_url_redirect, :target => "_blank"
