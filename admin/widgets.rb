@@ -45,7 +45,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       widget.active ? "online" : "offline"
     end
     column :sorter
-    column :tag_list
+    column :tag_list, :sortable => false
     column :default, :sortable => :default do |widget|
       widget.default ? "default" : "no default"
     end
