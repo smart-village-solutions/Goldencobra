@@ -1,4 +1,4 @@
-xml.instruct! :xml, version: "1.0" 
+xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
     xml.title @article.title
@@ -23,7 +23,7 @@ xml.rss version: "2.0" do
           xml.pubDate article.published_at.strftime("%a, %d %b %Y %H:%M:%S %z")
           xml.link article.absolute_public_url
           xml.guid article.absolute_public_url
-          if article.images && article.images.count > 0
+          if article.images && article.images.count > 0 && article.images.first.present?
             ai = article.images.first
             xml.tag! "enclosure", :type => ai.image_content_type, :url => "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{ai.image.url(:thumb)}", :length => ai.image_file_size
             xml.tag! "enclosure", :type => ai.image_content_type, :url => "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{ai.image.url(:medium)}", :length => ai.image_file_size
