@@ -18,7 +18,7 @@ module Goldencobra
       #     "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
       #   end
       # else
-        "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}"
+        "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}"
       # end
     end
 
