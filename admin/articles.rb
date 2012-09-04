@@ -1,6 +1,7 @@
+#Encoding: UTF-8
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
-  menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Article)}
+  menu :priority => 1, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
   I18n.locale = :de
   I18n.default_locale = :de
@@ -171,6 +172,18 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   sidebar :image_module, :only => [:edit] do
     render "/goldencobra/admin/articles/image_module_sidebar"
+  end
+
+  sidebar :menue_options, :only => [:show, :edit] do
+    ul do
+      _article = @_assigns['article']
+      if _article.linked_menues.count > 0
+        li link_to("Es existieren bereits passende Menüpunkte, Sie können diese hier auflisten", admin_menues_path("q[target_contains]" => _article.public_url))
+        li link_to("Einen weiteren Menüpunkt erstellen?", new_admin_menue_path(:menue => {:title => _article.title, :target => _article.public_url}))
+      else
+        li link_to("Es existiert noch kein Menüpunkt! Wollen Sie diesen erstellen?", new_admin_menue_path(:menue => {:title => _article.title, :target => _article.public_url}))
+      end
+    end
   end
 
   action_item :only => :edit do

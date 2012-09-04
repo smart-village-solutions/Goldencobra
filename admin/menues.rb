@@ -1,14 +1,14 @@
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
-  menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Menue)}
+  menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Menue)}
   controller.authorize_resource :class => Goldencobra::Menue
-  
+
   form do |f|
     f.actions
     f.inputs "Allgemein" do
       f.input :title
       f.input :target
-      f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")} => #{c.title}", c.id]}, :include_blank => true
+      f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")} => #{c.title}", c.id]}.sort{|a,b| b[0] <=> a[0]}, :include_blank => true
     end
     f.inputs "Optionen" do
       f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
@@ -17,14 +17,14 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     end
 
     f.inputs "Details" do
-      f.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswaehlen' }, :label => "Bild ausw&auml;hlen" 
+      f.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswaehlen' }, :label => "Bild ausw&auml;hlen"
       f.input :description_title
       f.input :description, :input_html => { :rows => 5}
       f.input :call_to_action_name
     end
       f.actions
   end
-  
+
   index do
     selectable_column
     column :id
@@ -48,24 +48,24 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       raw(result)
     end
   end
-  
+
   sidebar :overview, only: [:index] do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Menue.roots, :locals => {:link_name => "title", :url_path => "menue" }
   end
-  
+
   batch_action :destroy, false
-  
-  
-  controller do 
-    def new 
+
+
+  controller do
+    def new
       @menue = Goldencobra::Menue.new(params[:menue])
-      if params[:parent] && params[:parent].present? 
+      if params[:parent] && params[:parent].present?
         @parent = Goldencobra::Menue.find(params[:parent])
         @menue.parent_id = @parent.id
       end
-    end 
+    end
   end
-  
+
   member_action :revert do
     @version = Version.find(params[:id])
     if @version.reify
@@ -75,22 +75,22 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     end
     redirect_to :back, :notice => "Undid #{@version.event}"
   end
-  
+
   action_item :only => :edit do
     _menue = @_assigns['menue']
     if _menue.versions.last
       link_to("Undo", revert_admin_menue_path(:id => _menue.versions.last), :class => "undo")
     end
   end
-  
-  controller do 
+
+  controller do
     def show
       show! do |format|
          format.html { redirect_to edit_admin_menue_path(@menue), :flash => flash }
       end
     end
   end
-  
-  
-  
+
+
+
 end
