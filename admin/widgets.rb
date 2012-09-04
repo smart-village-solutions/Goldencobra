@@ -1,5 +1,5 @@
 ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
-  menu parent: "Content-Management", :if => proc{can?(:read, Goldencobra::Widget)}
+  menu :priority => 3, parent: "Content-Management", :if => proc{can?(:read, Goldencobra::Widget)}
 
   scope "Alle", :scoped, :default => true
   scope "online", :active
