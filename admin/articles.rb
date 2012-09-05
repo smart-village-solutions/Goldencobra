@@ -158,6 +158,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
   end
 
+
   sidebar :layout, only: [:edit] do
       _article = @_assigns['article']
       render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => _article }
@@ -175,13 +176,26 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   sidebar :menue_options, :only => [:show, :edit] do
+    _article = @_assigns['article']
     ul do
-      _article = @_assigns['article']
       if _article.linked_menues.count > 0
         li link_to("Es existieren bereits passende Menüpunkte, Sie können diese hier auflisten", admin_menues_path("q[target_contains]" => _article.public_url))
         li link_to("Einen weiteren Menüpunkt erstellen?", new_admin_menue_path(:menue => {:title => _article.title, :target => _article.public_url}))
       else
         li link_to("Es existiert noch kein Menüpunkt! Wollen Sie diesen erstellen?", new_admin_menue_path(:menue => {:title => _article.title, :target => _article.public_url}))
+      end
+    end
+    articles = Goldencobra::Article.active.where(:url_name => _article.url_name)
+    if articles.count > 1
+      results = articles.select{|a| a.public_url == _article.public_url}
+    end
+    if results && results.count > 0
+      h4 "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , "anderen Artikel", "andere Artikel")  } mit dieser URL:"
+      ul do
+        results.each do |r|
+          next if r == _article
+          li link_to "#{r.title}", admin_article_path(r)
+        end
       end
     end
   end
