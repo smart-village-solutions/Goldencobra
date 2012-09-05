@@ -1,3 +1,4 @@
+#Encoding: UTF-8
 require 'spec_helper'
 require "csv"
 
@@ -39,7 +40,7 @@ describe Goldencobra::Import do
       importer.run!
       Goldencobra::Article.find_by_title("erster titel").should be_valid
       Goldencobra::Article.find_by_title("noch erster titel").should be_valid
-      importer.result.first.should == "2 - {:title=>[\"can't be blank\"]}"
+      importer.result.first.should == "2 - {:title=>[\"muss ausgefüllt werden\"]}"
     end
   end
 
