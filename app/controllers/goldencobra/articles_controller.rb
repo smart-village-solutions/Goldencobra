@@ -129,10 +129,9 @@ module Goldencobra
       else
         begin
           articles = Goldencobra::Article.active.where(:url_name => params[:article_id].split("/").last.to_s.split(".").first)
-          if articles.count == 1
-            @article = articles.first
-          elsif articles.count > 1
-            @article = articles.select{|a| a.public_url == "/#{params[:article_id].split('.').first}"}.first
+          article_path = "/#{params[:article_id].split('.').first}"
+          if articles.count > 0
+            @article = articles.select{|a| a.public_url == article_path}.first
           else
             @article = nil
           end

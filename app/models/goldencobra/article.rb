@@ -161,7 +161,7 @@ module Goldencobra
       if self.startpage
         return "/"
       else
-        "/#{self.path.map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+        "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
       end
     end
 
