@@ -187,7 +187,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     articles = Goldencobra::Article.active.where(:url_name => _article.url_name)
     if articles.count > 1
-      results = articles.select{|a| a.public_url == _article.public_url}
+      results = articles.select{|a| a.public_url == _article.public_url}.flatten.compact.uniq
     end
     if results && results.count > 0
       h4 "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , "anderen Artikel", "andere Artikel")  } mit dieser URL:"
