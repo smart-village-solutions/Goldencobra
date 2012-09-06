@@ -189,7 +189,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     if articles.count > 1
       results = articles.select{|a| a.public_url == _article.public_url}.flatten.compact.uniq
     end
-    if results && results.count > 0
+    if results && results.count > 1
       h4 "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , "anderen Artikel", "andere Artikel")  } mit dieser URL:", :class => "warning"
       ul do
         results.each do |r|
