@@ -12,6 +12,7 @@
 
 module Goldencobra
   class Setting < ActiveRecord::Base
+    @key_value = {}
     attr_accessible :title, :value, :ancestry, :parent_id
     has_ancestry :orphan_strategy => :restrict
     if ActiveRecord::Base.connection.table_exists?("versions")
@@ -35,7 +36,13 @@ module Goldencobra
       end
     end
 
+
     def self.for_key(name)
+      @@key_value ||= {}
+      @@key_value[name] ||= for_key_helper(name)
+    end
+
+    def self.for_key_helper(name)
       setting_title = name.split(".").last
       settings = Setting.where(:title => setting_title)
       if settings.count == 1
