@@ -1,6 +1,12 @@
 module Goldencobra
   class ApplicationController < ActionController::Base
 
+    before_filter :set_locale
+
+    def set_locale
+      I18n.locale = session[:locale]
+    end
+
     rescue_from CanCan::AccessDenied do |exception|
       if can?(:read, Goldencobra::Article)
         redirect_to root_url, :alert => exception.message
