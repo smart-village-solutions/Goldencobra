@@ -9,12 +9,12 @@
 		<div class="options">
 			<%= link_to "new", eval("new_admin_#{url_path}_path(:parent => item)"), :class => "new_link"  %>
 			<%= link_to "edit", eval("edit_admin_#{url_path}_path(item)"), :class => "edit_link" %>
-		</div>		
+		</div>
 	</div>
-	<% if item.children %>				
+	<% if item.children %>
 		<ul>
-			<% item.children.each do |art|%>
-				<%= render :partial => "/goldencobra/admin/shared/item", :object => art, :locals => {:link_name => link_name, :url_path => url_path } %>
+			<% item.children.order(order_by.to_sym).each do |art|%>
+				<%= render :partial => "/goldencobra/admin/shared/item", :object => art, :locals => {:link_name => link_name, :url_path => url_path, :order_by => order_by } %>
 			<% end %>
 		</ul>
 	<% end %>
