@@ -6,7 +6,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
   scope "offline", :inactive
   scope "defaults", :default
 
-  ActiveRecord::Base.connection.table_exists?("tags")
+  if ActiveRecord::Base.connection.table_exists?("tags")
     Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
       scope(I18n.t(wtag, :scope => [:goldencobra, :widget_types], :default => wtag)){ |t| t.tagged_with(wtag) }
     end

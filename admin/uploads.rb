@@ -4,7 +4,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
 
   controller.authorize_resource :class => Goldencobra::Upload
 
-  ActiveRecord::Base.connection.table_exists?("tags")
+  if ActiveRecord::Base.connection.table_exists?("tags")
     Goldencobra::Upload.tag_counts_on(:tags).each do |utag|
       if(utag.count > 5)
         scope(I18n.t(utag.name, :scope => [:goldencobra, :widget_types], :default => utag.name)){ |t| t.tagged_with(utag.name) }
