@@ -18,7 +18,11 @@ module Goldencobra
       #     "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
       #   end
       # else
+      if Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true"
+        "goldencobra/#{Date.today.strftime("%Y%m%d")}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}"
+      else
         "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}"
+      end
       # end
     end
 
