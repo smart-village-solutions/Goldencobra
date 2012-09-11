@@ -8,6 +8,7 @@ goldencobra:
     page:
         default_title_tag: "Goldencobra"
     article:
+        cache_articles: "true"
         max_cache_24h: "false"
         article_index:
             link_to_article: "weiterlesen"
