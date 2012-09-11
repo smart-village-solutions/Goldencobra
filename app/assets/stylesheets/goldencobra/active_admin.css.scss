@@ -274,3 +274,35 @@ body.active_admin .status{
 	background: none;
 	color: #000;
 }
+
+body.active_admin .edit{
+	background: url(/assets/goldencobra/bearbeiten.jpg) no-repeat center center;
+	text-indent:-99999px;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+
+body.active_admin .view{
+	background: url(/assets/goldencobra/ansehen.jpg) no-repeat center center transparent;
+	text-indent:-99999px;
+	width: 30px;
+	height: 20px;
+	display: inline-block;
+}
+
+body.active_admin .delete{
+	background: url(/assets/goldencobra/loeschen.jpg) no-repeat center center transparent;
+	text-indent:-99999px;
+	width: 23px;
+	height: 20px;
+	display: inline-block;
+}
+
+body.active_admin .new_subarticle{
+	background: url(/assets/goldencobra/unterartikel.jpg) no-repeat center center transparent;
+	text-indent:-99999px;
+	width: 22px;
+	height: 20px;
+	display: inline-block;
+}
