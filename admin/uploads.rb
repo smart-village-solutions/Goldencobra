@@ -46,13 +46,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
 	      link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
 	    end
 	  end
-    column "" do |upload|
-      result = ""
-      result += link_to(t(:view), show_admin_upload_path(upload), :class => "member_link edit_link view", :title => "Vorschau")
-      result += link_to(t(:edit), edit_admin_upload_path(upload), :class => "member_link edit_link edit", :title => "bearbeiten")
-      result += link_to(t(:delete), admin_upload_path(upload), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
-      raw(result)
-    end
+    default_actions
   end
 
   show do
