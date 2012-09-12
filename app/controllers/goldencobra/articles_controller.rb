@@ -82,7 +82,10 @@ module Goldencobra
           respond_to do |format|
             format.html { render layout: layout_to_render }
             format.rss
-            format.json { render json: {article: @article, list_of_articles: @list_of_articles} }
+            format.json do
+              @article["list_of_articles"] = @list_of_articles
+              render json: @article.to_json
+            end
           end
         end
       elsif @article && @article.external_url_redirect.present?
