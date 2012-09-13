@@ -10,9 +10,9 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
     column :status
     column "" do |import|
       links = []
-      links << link_to("Starte Import", run_admin_import_path(import) )
-      links << link_to("Bearbeiten", edit_admin_import_path(import))
-      links << link_to("Loeschen", admin_import_path(import),:method => :delete, :confirm => "Destroy Import?")
+      links << link_to("Starte Import", run_admin_import_path(import), :class => "import", :title => "Starte Import" )
+      links << link_to("Bearbeiten", edit_admin_import_path(import), :class => "edit", :title => "bearbeiten")
+      links << link_to("Loeschen", admin_import_path(import),:method => :delete, :confirm => "Destroy Import?", :class => "delete", :title => "loeschen")
       links << link_to("Zuweisungen", assignment_admin_import_path(import))
       raw(links.join(" "))
     end
