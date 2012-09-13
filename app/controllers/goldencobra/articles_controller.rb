@@ -82,6 +82,7 @@ module Goldencobra
           respond_to do |format|
             format.html {render :layout => layout_to_render }
             format.rss
+            format.json { render :json => @article.to_json(:include => {:list_of_articles => @list_of_articles.to_json})}
           end
         end
       elsif @article && @article.external_url_redirect.present?
@@ -132,13 +133,7 @@ module Goldencobra
         @article = Goldencobra::Article.active.startpage.first
       else
         begin
-          articles = Goldencobra::Article.active.where(:url_name => params[:article_id].split("/").last.to_s.split(".").first)
-          article_path = "/#{params[:article_id].split('.').first}"
-          if articles.count > 0
-            @article = articles.select{|a| a.public_url == article_path}.first
-          else
-            @article = nil
-          end
+          @article = Goldencobra::Article.search_by_url(params[:article_id])
           if params[:article_id].present? && params[:article_id].include?(".")
             params[:format] = params[:article_id].split('.').last
           end
