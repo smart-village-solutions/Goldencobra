@@ -52,7 +52,12 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     column :default, :sortable => :default do |widget|
       widget.default ? "default" : "no default"
     end
-    default_actions
+    column "" do |widget|
+      result = ""
+      result += link_to(t(:edit), edit_admin_widget_path(widget), :class => "member_link edit_link edit", :title => "bearbeiten")
+      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
+      raw(result)
+    end
   end
 
   show :title => :title do

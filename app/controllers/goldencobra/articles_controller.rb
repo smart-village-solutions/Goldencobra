@@ -80,9 +80,12 @@ module Goldencobra
             layout_to_render = @article.selected_layout
           end
           respond_to do |format|
-            format.html {render :layout => layout_to_render }
+            format.html { render layout: layout_to_render }
             format.rss
-            format.json { render :json => @article.to_json(:include => {:list_of_articles => @list_of_articles.to_json})}
+            format.json do
+              @article["list_of_articles"] = @list_of_articles
+              render json: @article.to_json
+            end
           end
         end
       elsif @article && @article.external_url_redirect.present?
@@ -92,7 +95,7 @@ module Goldencobra
         @article = Goldencobra::Article.find_by_url_name("404")
         if @article
           respond_to do |format|
-            format.html {render :layout => @article.selected_layout, :status => 404}
+            format.html { render :layout => @article.selected_layout, :status => 404 }
           end
         else
           render :text => "404", :status => 404

@@ -133,10 +133,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     column "" do |article|
       result = ""
-      result += link_to(t(:view), article.public_url, :class => "member_link edit_link view")
-      result += link_to(t(:edit), edit_admin_article_path(article), :class => "member_link edit_link edit")
-      result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle")
-      result += link_to(t(:delete), admin_article_path(article), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete")
+      result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => "Vorschau")
+      result += link_to(t(:edit), edit_admin_article_path(article), :class => "member_link edit_link edit", :title => "bearbeiten")
+      result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => "Neuer Unterartikel")
+      result += link_to(t(:delete), admin_article_path(article), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
       raw(result)
     end
   end
