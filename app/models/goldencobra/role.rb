@@ -11,7 +11,7 @@
 
 module Goldencobra
   class Role < ActiveRecord::Base
-      has_and_belongs_to_many :users
+      has_and_belongs_to_many :users, :join_table => "goldencobra_roles_users", :class_name => User
       has_many :permissions
   end
 end
