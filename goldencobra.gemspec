@@ -49,6 +49,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sidekiq'
   s.add_dependency 'sinatra'
   s.add_dependency 'slim'
+  s.add_dependency 'whenever'
   # s.add_dependency "pdfkit"
   # s.add_dependency 'wkhtmltopdf-binary'
   # s.add_dependency "wicked_pdf"
