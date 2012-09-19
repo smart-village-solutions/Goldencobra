@@ -3,7 +3,7 @@ de:
     flash_notice:
       name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
       action_Startpage: "Artikel als Startseite machen"
-      startpage: "Dieser Artikel ist die Startseite!"
+      startpage: "Dieser Artikel ist nun der Startartikel"
       online: "Sichtbarkeit dieses Artikels aendern?"
       delete_article: "Artikel wirklich löchen?"
     filter:
@@ -21,7 +21,7 @@ de:
       name: "Name"
       list: "auflisten"
       create: "erstellen"
-  active_admin:    
+  active_admin:
     dashboard: Übersicht
     dashboard_welcome:
       welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
@@ -71,7 +71,7 @@ de:
       image_module: "Bild einfügen"
       image_formates: "Bildgrößen"
       overview: "Überblick"
-    per_page: "Einträge pro Seite"  
+    per_page: "Einträge pro Seite"
     pagination:
       empty: "Keine %{model} gefunden"
       one: "Zeige <b>1</b> %{model}"

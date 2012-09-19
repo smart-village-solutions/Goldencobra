@@ -3,8 +3,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   menu :priority => 1, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
-  I18n.locale = :de
-  I18n.default_locale = :de
+  unless Rails.env == "test"
+    I18n.locale = :de
+    I18n.default_locale = :de
+  end
 
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => "Elternelement")
   filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
@@ -209,7 +211,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   member_action :mark_as_startpage do
     article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
-    flash[:notice] = "Dieser Artikel ist nun der Startartikel"
+    flash[:notice] = I18n.t(:startpage, scope: [:flash_notice, :goldencobra]) #"Dieser Artikel ist nun der Startartikel"
     redirect_to :action => :show
   end
 
