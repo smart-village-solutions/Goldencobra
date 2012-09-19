@@ -33,7 +33,7 @@ gem 'sunspot_solr'
 # gem 'wkhtmltopdf-binary'
 # gem 'wicked_pdf'
 gem 'sidekiq'
-gem 'sinatra', require: false
+gem 'sinatra', :require => false
 gem 'slim'
 #gem 'bullet'  testing for slow queries
 
