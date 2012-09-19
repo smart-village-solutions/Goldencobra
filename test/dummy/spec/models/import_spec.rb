@@ -24,8 +24,8 @@ describe Goldencobra::Import do
     end
   end
 
-  describe "Upload CSV file with wron entries" do
-    it "should be successful" do
+  describe "Upload CSV file with wrong entries" do
+    it "should not be successful" do
       CSV.open("test_import.csv", "wb") do |csv|
         csv << ["Titel der Seite", "haupttext", "teaser text"]
         csv << ["erster titel", "ein text", "ein teaser"]
@@ -40,7 +40,7 @@ describe Goldencobra::Import do
       importer.run!
       Goldencobra::Article.find_by_title("erster titel").should be_valid
       Goldencobra::Article.find_by_title("noch erster titel").should be_valid
-      importer.result.first.should == "2 - {:title=>[\"muss ausgefüllt werden\"]}"
+      importer.result.first.should == "2 - {:title=>[\"can't be blank\"]}"
     end
   end
 

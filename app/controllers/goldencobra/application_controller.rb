@@ -4,7 +4,9 @@ module Goldencobra
     before_filter :set_locale
 
     def set_locale
-      I18n.locale = session[:locale]
+      unless Rails.env == "test"
+        I18n.locale = session[:locale]
+      end
     end
 
     rescue_from CanCan::AccessDenied do |exception|

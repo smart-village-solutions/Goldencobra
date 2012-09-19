@@ -11,7 +11,6 @@ Feature: Create and manage articles
       | "10 Internet Marketing Tips" | top-10       | 10-internet |
       | "Top 10 Internet Marketers"  | top-10-tips  | top-10 |
     When I go to the admin list of articles
-    Then I should see "10-internet"
     And I should see "top-10" within ".index_content"
     And I should not see "Dies ist kein Artikel"
 
@@ -27,7 +26,7 @@ Feature: Create and manage articles
     And I press "Update Article"
     Then I should see "Dies ist ein Neuer Artikel" within textfield "article_title"
     And I should see "dies-ist-kurz" within textfield "article_url_name"
-    
+
   Scenario: Visit new Article in frontend
     Given that I am not logged in
     And an article exists with the following attributes:
@@ -46,20 +45,20 @@ Feature: Create and manage articles
       | title                        | startpage | id |
       | "10 Internet Marketing Tips" | false     |  2 |
       | "Startseite"                 | false     |  3 |
-    When I go to the admin list of articles  
+    When I go to the admin list of articles
     Then I click on "Edit" within "tr#article_3"
     And I should see "Edit Article" within "#page_title"
     And I should see "Make this article Startpage"
     When I click on "Make this article Startpage" within "#startpage_options_sidebar_section"
     Then I should see "This Article is the Startpage!"
 
-  Scenario: Visit the startpage 
+  Scenario: Visit the startpage
     Given that I am not logged in
     And an startarticle exists
     Then I go to the startpage
     And I should see "Startseite" within "h1"
-    
-  @javascript  
+
+  @javascript
   Scenario: Set metadescription for an article
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -75,7 +74,7 @@ Feature: Create and manage articles
     And I press "Update Article"
     When I visit url "/seo-seite"
     Then I should see "Metatitle"
-    
+
   @javascript
   Scenario: Set article offline and online
     Given that a confirmed admin exists
@@ -111,8 +110,8 @@ Feature: Create and manage articles
       | title     | id | url_name | active |
       | "Seite 1" |  1 | seite1   | true   |
     And the following "widgets" exist:
-      | id | title   | active |
-      | 1 | Widget1 | true   |
+      | id | title   | active | tag_list | default |
+      | 1 | Widget1 | true   | "sidebar" | false |
     And I go to the admin list of articles
     And I click on "Edit" within "tr#article_1"
     And I check "widget_1"

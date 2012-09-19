@@ -19,18 +19,3 @@ Feature: Create and manage widgets
     And I fill in "widget_content" with "<ul><li><p>Mein Widget</p></li></p>"
     And I press "Create Widget"
     Then I should see "Mein erstes Widget" within textfield "widget_title"
-
-  Scenario: Set articles for selected Widget
-    #Given I am on the admin list of widgets
-    Given the following "widgets" exist:
-      | id |    title   |            content                  |   css_name   |  active  |
-      |  1 |     list   | <ul><li><p>Mein Widget</p></li></p> |  list-item   |    true  |
-    And the following "articles" exist:
-      | title                        | url_name     |
-      | "10 Internet Marketing Tips" | top-10       |
-    When I go to the admin list of widgets
-    Then I click on "Edit" within "tr#widget_1"
-    Then I should see "Edit Widget" within "#page_title"
-    And I check "10 Internet Marketing Tips"
-    And I press "Update Widget"
-    Then I should see "10 Internet Marketing Tips"

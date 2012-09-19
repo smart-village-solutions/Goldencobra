@@ -1,8 +1,8 @@
 goldencobra:
     menues:
-        recreate_cache: "true"
+        recreate_cache: "false"
     widgets:
-        recreate_cache: "true"
+        recreate_cache: "false"
     html2pdf_uid: "c5c13af822"
     use_solr: "false"
     page:
