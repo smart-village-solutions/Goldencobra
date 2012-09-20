@@ -319,3 +319,12 @@ body.active_admin table.index_table th:last-child {
 	width: 130px;
 	min-width: 130px;
 }
+
+div.has_many.vita_steps {
+  li.input {
+    fieldset.inputs.has_many_fields {
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+}
