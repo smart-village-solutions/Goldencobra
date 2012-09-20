@@ -1,8 +1,8 @@
 Feature: Manage users
-  In order to manage users 
+  In order to manage users
   As an admin
   I want to see and manage some users
-  
+
   Scenario: Go to the users admin site
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -48,4 +48,14 @@ Feature: Manage users
     And I press "Update User"
     Then I should see "doesn't match confirmation"
 
-
+  @javascript
+  Scenario: Update a user's vita steps
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    When I go to the admin list of users
+    And I click on "Edit"
+    And I click on "Add New Vita Step"
+    And I fill in "Eintrag" with "Das ist ein Test"
+    And I fill in "Bearbeiter" with "Holger"
+    And I press "Update User"
+    Then I should see "Das ist ein Test"

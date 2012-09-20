@@ -1,7 +1,7 @@
 ActiveAdmin.register User, :as => "User" do
   menu :parent => "Einstellungen", :if => proc{can?(:update, User)}
   controller.authorize_resource :class => User
-  
+
   filter :firstname
   filter :lastname
   filter :email
@@ -30,9 +30,20 @@ ActiveAdmin.register User, :as => "User" do
       f.input :xing
       f.input :googleplus
     end
+    f.inputs "Historie" do
+      f.has_many :vita_steps do |step|
+        if step.object.new_record?
+          step.input :description, as: :string, label: "Eintrag"
+          step.input :title, label: "Bearbeiter", hint: "Tragen Sie hier Ihren Namen ein, damit die Aktion zugeordnet werden kann"
+        else
+          render :partial => "/goldencobra/admin/users/vita_steps", :locals => {:step => step}
+        end
+      end
+    end
+
     f.actions
   end
- 
+
 
   index do
     selectable_column
@@ -54,10 +65,10 @@ ActiveAdmin.register User, :as => "User" do
       end
     end #end panel applicant
   end
-  
+
   batch_action :destroy, false
-  
-  
+
+
   controller do
     def update
       @user = User.find(params[:id])
@@ -70,7 +81,7 @@ ActiveAdmin.register User, :as => "User" do
       render action: :edit
     end
   end
-  
-  
-  
+
+
+
 end
