@@ -106,6 +106,10 @@ module Goldencobra
     # Instance Methods
     # **************************
 
+    def image
+      self.images.first if self.images && self.images.count > 0
+    end
+
     def respond_to_all?(method_name)
       begin
         return eval("self.#{method_name}.present?")
