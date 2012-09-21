@@ -107,7 +107,7 @@ module Goldencobra
     # **************************
 
     def image
-      self.images.first if self.images && self.images.count > 0
+      self.images.first.image.url if self.images && self.images.count > 0 && self.images.first.image
     end
 
     def respond_to_all?(method_name)
