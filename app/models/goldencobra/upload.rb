@@ -65,8 +65,14 @@ module Goldencobra
       end
     end
 
+    # Internal: Makes sure to only post-process files which are either pdf
+    # or image files. Word documents would break file upload.
+    #
+    # No params
+    #
+    # Returns true for image or pdf files and false for everything else
     def image_file?
-      !(self.image_content_type =~ /^image.*/).nil?
+      !(self.image_content_type =~ /^image.*/).nil? || !(self.image_content_type =~ /pdf/).nil?
     end
 
   end
