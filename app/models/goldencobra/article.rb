@@ -108,7 +108,7 @@ module Goldencobra
 
     def image(position="standard")
       if self.images && self.images.any? && self.images.first.image
-        self.article_images.where(position: position).first
+        self.article_images.where(position: position).first.image.image
       end
     end
 
