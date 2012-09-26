@@ -37,9 +37,13 @@ module Goldencobra
     end
 
 
-    def self.for_key(name)
-      @@key_value ||= {}
-      @@key_value[name] ||= for_key_helper(name)
+    def self.for_key(name, cacheable=true)
+      if cacheable
+        @@key_value ||= {}
+        @@key_value[name] ||= for_key_helper(name)
+      else
+        for_key_helper(name)
+      end
     end
 
     def self.for_key_helper(name)
