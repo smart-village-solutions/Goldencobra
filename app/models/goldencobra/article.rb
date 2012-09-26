@@ -115,7 +115,9 @@ module Goldencobra
     def image(position="standard")
       any_images = self.article_images.where(position: position)
       if any_images.any? && any_images.first.image && any_images.first.image.image
-        any_images.first.image.image
+        return any_images.first.image.image.url
+      else
+        return nil
       end
     end
 
