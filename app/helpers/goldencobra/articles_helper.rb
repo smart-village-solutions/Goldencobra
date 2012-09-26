@@ -25,7 +25,11 @@ module Goldencobra
       depth = options[:depth] || 0
       class_name = options[:class] || ""
       id_name = options[:id] || ""
-      master_menue = Goldencobra::Menue.active.find_by_id(menue_id)
+      if menue_id.class == String
+        master_menue = Goldencobra::Menue.active.find_by_title(menue_id)
+      else
+        master_menue = Goldencobra::Menue.active.find_by_id(menue_id)
+      end
 
       if master_menue
         content = ""
