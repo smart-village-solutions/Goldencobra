@@ -31,7 +31,7 @@ module Goldencobra
         master_menue = Goldencobra::Menue.active.find_by_id(menue_id)
       end
 
-      if master_menue
+      if master_menue.present?
         content = ""
         master_menue.children.active.includes(:image).collect do |child|
           content << navigation_menu_helper(child, depth, 1, options)
@@ -42,7 +42,6 @@ module Goldencobra
           result = content_tag(:ul, raw(content), :class => "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
         end
       end
-
       return raw(result)
     end
 
