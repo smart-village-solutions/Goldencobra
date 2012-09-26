@@ -106,6 +106,12 @@ module Goldencobra
     # Instance Methods
     # **************************
 
+    Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").each do |image_type|
+      define_method "image_#{image_type.underscore}" do
+        self.image(image_type)
+      end
+    end
+
     def image(position="standard")
       any_images = self.article_images.where(position: position)
       if any_images.any? && any_images.first.image && any_images.first.image.image
