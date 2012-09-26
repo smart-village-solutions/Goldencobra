@@ -106,8 +106,10 @@ module Goldencobra
     # Instance Methods
     # **************************
 
-    def image
-      self.images.first.image.url if self.images && self.images.count > 0 && self.images.first.image
+    def image(position="standard")
+      if self.images && self.images.any? && self.images.first.image
+        self.article_images.where(position: position).first.image.image
+      end
     end
 
     def respond_to_all?(method_name)
