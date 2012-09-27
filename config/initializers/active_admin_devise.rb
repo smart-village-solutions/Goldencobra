@@ -8,7 +8,7 @@ ApplicationController.class_eval do
     end
 
     rescue_from CanCan::AccessDenied do |exception|
-        redirect_to admin_dashboard_path, :alert => exception.message
+        redirect_to "/admin", :alert => exception.message
     end
 
     protected
