@@ -13,7 +13,7 @@ module Goldencobra
       if can?(:read, Goldencobra::Article)
         redirect_to root_url, :alert => exception.message
       else
-        redirect_to admin_dashboard_path, :alert => exception.message
+        redirect_to "/admin", :alert => exception.message
       end
     end
 
