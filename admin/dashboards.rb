@@ -7,7 +7,7 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-   section I18n.t('last_updated_articles', scope: [:dashboard_sections, :active_admin]), priority: 1 do
+   section I18n.t('last_updated_articles', scope: [:dashboard_sections, :active_admin]), priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
     table do
       tr do
         [t(:title, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:updated_at, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:edit, scope: :active_admin)].each do |sa|
