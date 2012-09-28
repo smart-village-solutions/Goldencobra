@@ -12,20 +12,11 @@ module Goldencobra
     end
 
     def show_cache_path
-      # if session[:user_location].present? && session[:user_location].latitude.present? && session[:user_location].longitude.present?
-      #   loc = Goldencobra::Location.near([session[:user_location].latitude,session[:user_location].longitude], 500).limit(1).first
-      #   if loc && loc.city.present?
-      #     "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{loc.city.downcase.parameterize}"
-      #   else
-      #     "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }"
-      #   end
-      # else
       if Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true"
         "goldencobra/#{Date.today.strftime("%Y%m%d")}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}"
       else
         "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}"
       end
-      # end
     end
 
 
@@ -74,8 +65,13 @@ module Goldencobra
         # :not_modified.  So that's it, you're done.
         #
         if !is_cachable? || stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
-          expires_in 30.seconds, :public => true
-          response.last_modified = @article.date_of_last_modified_child
+          if is_cachable?
+            expires_in 30.seconds, :public => true
+            response.last_modified = @article.date_of_last_modified_child
+          else
+            expires_in 1.seconds, :public => true
+            response.last_modified = Time.now
+          end
           if params[:pdf] && params[:pdf].present? && params[:pdf] == "1"
             layout_to_render = "for_pdf"
           else
