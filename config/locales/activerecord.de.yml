@@ -1,6 +1,12 @@
 de:
     activerecord:
         models:
+            article_comment:
+                one: "Kommentar"
+                other: "Kommentare"
+            goldencobra/comment:
+                one: "Kommentar"
+                other: "Kommentare"
             import:
                 one: "Import"
                 other: "Imports"
@@ -9,11 +15,11 @@ de:
                 other: "Adressen"
             goldencobra/location:
                 one: "Adresse"
-                other: "Adressen"                
-            article: 
+                other: "Adressen"
+            article:
                 one: "Artikel"
                 other: "Artikel"
-            goldencobra/article: 
+            goldencobra/article:
                 one: "Artikel"
                 other: "Artikel"
             setting:
@@ -22,10 +28,10 @@ de:
             goldencobra/setting:
                 one: "Einstellung"
                 other: "Einstellungen"
-            menue: 
+            menue:
                 one: "Menü"
                 other: "Menüpunkte"
-            goldencobra/menue: 
+            goldencobra/menue:
                 one: "Menü"
                 other: "Menüpunkte"
             metag:
@@ -41,11 +47,11 @@ de:
                 one: "Schnipsel"
                 other: "Schnipsel"
             upload:
-                one: "Medium"    
+                one: "Medium"
                 other: "Medien"
-            goldencobra/upload:                
-                one: "Medium"        
-                other: "Medien"    
+            goldencobra/upload:
+                one: "Medium"
+                other: "Medien"
             user:
                 one: "Benutzer"
                 other: "Benutzer"
@@ -57,11 +63,16 @@ de:
                 other: "Zugriffsrechte"
             role:
                 one: "Benutzerrolle"
-                other: "Benutzerrollen"                
+                other: "Benutzerrollen"
             goldencobra/role:
                 one: "Benutzerrolle"
                 other: "Benutzerrollen"
         attributes:
+            goldencobra/comment:
+                content: "Inhalt"
+                active: "aktiv"
+                approved: "kontrolliert"
+                reported: "gemeldet"
             goldencobra/setting:
                 title: "Titel"
                 value: "Wert"
@@ -69,12 +80,12 @@ de:
                 created_at: "erstellt am"
                 updated_at: "bearbeitet am"
             goldencobra/location:
-                lat: "Latitude"        
+                lat: "Latitude"
                 lng: "Longitude"
                 street: "Straße"
                 city: "Stadt"
                 zip: "PLZ"
-                region: "Bezirk"  
+                region: "Bezirk"
                 country: "Land"
                 created_at: "erstellt am"
                 updated_at: "bearbeitet am"

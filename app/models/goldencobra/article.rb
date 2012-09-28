@@ -52,6 +52,7 @@ module Goldencobra
     has_many        :article_widgets
     has_many        :widgets, :through => :article_widgets
     has_many        :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
+    has_many        :comments, :class_name => Goldencobra::Comment
 
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     accepts_nested_attributes_for :article_images, :allow_destroy => true

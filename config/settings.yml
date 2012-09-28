@@ -1,4 +1,6 @@
 goldencobra:
+    comments:
+        commentator: "User"
     menues:
         recreate_cache: "false"
     widgets:
