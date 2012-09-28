@@ -71,7 +71,7 @@ module Goldencobra
         # used in the previous call to stale? and will automatically send a
         # :not_modified.  So that's it, you're done.
         #
-        if stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
+        if !is_cachable? || stale?(:last_modified => @article.date_of_last_modified_child, :etag => @article.id)
           expires_in 30.seconds, :public => true
           response.last_modified = @article.date_of_last_modified_child
           if params[:pdf] && params[:pdf].present? && params[:pdf] == "1"
