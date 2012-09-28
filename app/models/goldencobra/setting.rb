@@ -47,6 +47,7 @@ module Goldencobra
     end
 
     def self.for_key_helper(name)
+    if !!defined? Goldencobra::Setting && ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       setting_title = name.split(".").last
       settings = Setting.where(:title => setting_title)
       if settings.count == 1
@@ -61,8 +62,10 @@ module Goldencobra
         return setting_title
       end
     end
+    end
 
     def self.set_value_for_key(value, name)
+    if !!defined? Goldencobra::Setting && ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       setting_title = name.split(".").last
       settings = Setting.where(:title => setting_title)
       if settings.count == 1
@@ -78,6 +81,7 @@ module Goldencobra
       else
         false
       end
+    end
     end
 
     def self.import_default_settings(path_file_name)
