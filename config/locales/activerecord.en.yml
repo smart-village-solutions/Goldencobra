@@ -1,13 +1,19 @@
 en:
     activerecord:
         models:
+            comment:
+                one: "Comment"
+                other: "Comments"
+            goldencobra/comment:
+                one: "Comment"
+                other: "Comments"
             import:
                 one: "Import"
                 other: "Imports"
-            article: 
+            article:
                 one: "Article"
                 other: "Articles"
-            goldencobra/article: 
+            goldencobra/article:
                 one: "Article"
                 other: "Articles"
             setting:
@@ -16,10 +22,10 @@ en:
             goldencobra/setting:
                 one: "Setting"
                 other: "Settings"
-            menue: 
+            menue:
                 one: "Menue"
                 other: "Menues"
-            goldencobra/menue: 
+            goldencobra/menue:
                 one: "Menue"
                 other: "Menues"
             metag:
@@ -35,11 +41,11 @@ en:
                 one: "Widget"
                 other: "Widgets"
             upload:
-                one: "Upload"    
+                one: "Upload"
                 other: "Uploads"
-            goldencobra/upload:                
-                one: "Medium"        
-                other: "Medien"    
+            goldencobra/upload:
+                one: "Medium"
+                other: "Medien"
             user:
                 one: "User"
                 other: "Users"
@@ -51,11 +57,16 @@ en:
                 other: "Permissions"
             role:
                 one: "Role"
-                other: "Roles"                
+                other: "Roles"
             goldencobra/role:
                 one: "Role"
                 other: "Roles"
         attributes:
+            goldencobra/comment:
+                content: "Content"
+                active: "active"
+                approved: "approved"
+                reported: "reported"
             goldencobra/role:
                 description: "Description"
                 created_at: "created at"
