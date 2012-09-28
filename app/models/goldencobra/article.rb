@@ -106,9 +106,11 @@ module Goldencobra
     # Instance Methods
     # **************************
 
-    Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").each do |image_type|
-      define_method "image_#{image_type.underscore}" do
-        self.image(image_type)
+    if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+      Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").each do |image_type|
+        define_method "image_#{image_type.underscore}" do
+          self.image(image_type)
+        end
       end
     end
 
