@@ -67,4 +67,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def title
+    "#{self.firstname} #{self.lastname} - #{self.email}"
+  end
+
 end
