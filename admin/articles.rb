@@ -1,7 +1,7 @@
 #Encoding: UTF-8
 ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
-  menu :priority => 1, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Article)}
+  menu :priority => 1, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
   unless Rails.env == "test"
     I18n.locale = :de
