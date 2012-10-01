@@ -8,5 +8,11 @@ module Goldencobra
       [self.article.title,self.content[0..20]].join(" - ")
     end
 
+    def commentator_title
+      if self.commentator.respond_to?(:title)
+        self.commentator.title
+      end
+    end
+
   end
 end
