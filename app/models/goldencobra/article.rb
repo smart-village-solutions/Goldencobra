@@ -113,7 +113,7 @@ module Goldencobra
           self.image(image_type,"original")
         end
         Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |style_name|
-          define_method "image_#{image_type.underscore}_#{style_name}" do
+          define_method "image_#{image_type.underscore}_#{style_name.to_s}" do
             self.image(image_type,style_name)
           end
         end
