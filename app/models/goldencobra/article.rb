@@ -110,15 +110,20 @@ module Goldencobra
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").each do |image_type|
         define_method "image_#{image_type.underscore}" do
-          self.image(image_type)
+          self.image(image_type,"original")
+        end
+        Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |style_name|
+          define_method "image_#{image_type.underscore}_#{style_name}" do
+            self.image(image_type,style_name)
+          end
         end
       end
     end
 
-    def image(position="standard")
+    def image(position="standard", size="original")
       any_images = self.article_images.where(position: position)
       if any_images.any? && any_images.first.image && any_images.first.image.image
-        return any_images.first.image.image.url
+        return any_images.first.image.image.url(size.to_sym)
       else
         return nil
       end
