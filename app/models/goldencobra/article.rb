@@ -84,7 +84,6 @@ module Goldencobra
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
 
-
     search_methods :parent_ids_in
     search_methods :parent_ids_in_eq
 
@@ -107,18 +106,23 @@ module Goldencobra
     # Instance Methods
     # **************************
 
-    if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
-      Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").each do |image_type|
-        define_method "image_#{image_type.underscore}" do
-          self.image(image_type,"original")
-        end
-        Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |style_name|
-          define_method "image_#{image_type.underscore}_#{style_name.to_s}" do
-            self.image(image_type,style_name)
+    def self.init_image_methods
+      if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+        Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").each do |image_type|
+          define_method "image_#{image_type.underscore}" do
+            self.image(image_type,"original")
+          end
+          Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |style_name|
+            define_method "image_#{image_type.underscore}_#{style_name.to_s}" do
+              self.image(image_type,style_name)
+            end
           end
         end
       end
     end
+
+    Goldencobra::Article.init_image_methods
+
 
     def image(position="standard", size="original")
       any_images = self.article_images.where(position: position)
