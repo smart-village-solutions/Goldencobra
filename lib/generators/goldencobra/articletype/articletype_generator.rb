@@ -16,6 +16,17 @@ module Goldencobra
         template 'initializer.rb', "config/initializers/goldencobra_#{name.underscore}.rb"
       end
 
+      def updates_model
+        inject_into_class "app/models/#{name.underscore}.rb", name.constantize do
+          "belongs_to  :article  , :class_name => Goldencobra::Article\n
+           SortOptions = []\n
+          \n
+          def fulltext_searchable_text\n
+            ''\n
+          end"
+        end
+      end
+
     end
   end
 end
