@@ -13,6 +13,7 @@
 #  updated_at         :datetime        not null
 #  attachable_id      :integer(4)
 #  attachable_type    :string(255)
+#  alt_text           :string(255)
 #
 
 require 'test_helper'
