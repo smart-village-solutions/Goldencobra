@@ -5,7 +5,6 @@ module Goldencobra
       argument :model_attributes, type: :array, default: [], banner: "model:attributes"
 
       def create_articletype_files
-        puts "Generating Model #{name} #{model_attributes}"
         generate("model", "#{name} #{model_attributes.join(' ')}")
       end
 
