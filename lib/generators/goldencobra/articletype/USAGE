@@ -1,8 +1,14 @@
 Description:
-    Explain the generator
+    A New Model and depending partials will be created for activeadmin and frontend
 
 Example:
-    rails generate articletype Thing
+    rails generate articletype Thing name:string
 
     This will create:
-        what/will/it/create
+        generate model Thing
+        generate /app/views/articletypes
+        generate /app/views/articletypes/thing
+        generate /app/views/articletypes/thing/_index.html.erb
+        generate /app/views/articletypes/thing/_show.html.erb
+        generate /app/views/articletypes/thing/_edit_show.html.erb
+        generate /app/views/articletypes/thing/_edit_index.html.erb

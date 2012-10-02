@@ -7,7 +7,6 @@ module Goldencobra
       def create_articletype_files
         puts "Generating Model #{name} #{model_attributes}"
         generate("model", "#{name} #{model_attributes.join(' ')}")
-        rake("db:migrate")
       end
 
       def create_partials
