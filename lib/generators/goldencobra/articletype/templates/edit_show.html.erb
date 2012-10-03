@@ -4,8 +4,8 @@
       <% model_attributes.each do |attr_name| -%>
         <%%= c.input :<%= attr_name.split(':')[0] %> %>
       <% end -%>
-    <%%= end %>
+    <%% end %>
     <%%= c.input :article_id, as: :hidden %>
     <%%= c.input :id, as: :hidden %>
-  <%%= end %>
-<%%= end %>
+  <%% end %>
+<%% end %>

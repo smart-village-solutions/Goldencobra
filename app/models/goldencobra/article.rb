@@ -110,9 +110,9 @@ module Goldencobra
 
     def find_related_subarticle
       if self.dynamic_redirection == "latest"
-        self.descendants.order("created_at DESC").first
+        self.descendants.order("id DESC").first
       else
-        self.descendants.order("created_at ASC").first
+        self.descendants.order("id ASC").first
       end
     end
 
