@@ -7,6 +7,7 @@
 #  image_id   :integer(4)
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
+#  position   :string(255)
 #
 
 require 'test_helper'
