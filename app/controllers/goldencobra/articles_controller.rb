@@ -87,19 +87,13 @@ module Goldencobra
           end
         end
       elsif @article && @article.external_url_redirect.present?
-        if @article.redirection_target_in_new_window == true
-          redirect_to @article.external_url_redirect, :target => "_blank"
-        else
-          redirect_to @article.external_url_redirect, :target => "self"
-        end
+          #static redirect to an spezified url
+          redirect_to @article.external_url_redirect
       elsif @article && !(@article.dynamic_redirection == "false")
+        #dynamic redirection to a child article (latest/oldest)
         target_article = @article.find_related_subarticle
         if target_article.present?
-          if @article.redirection_target_in_new_window == true
-            redirect_to target_article.public_url, :target => "_blank"
-          else
-            redirect_to target_article.public_url, :target => "self"
-          end
+          redirect_to target_article.public_url
         else
           redirect_to_404
         end
