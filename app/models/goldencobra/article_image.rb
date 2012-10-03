@@ -7,7 +7,7 @@
 #  image_id   :integer(4)
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
-#  position :string
+#  position   :string(255)
 #
 
 module Goldencobra
