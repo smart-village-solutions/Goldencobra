@@ -86,7 +86,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :enable_social_sharing, :label => t("Display Social Sharing actions"), :hint => "Sollen Besucher die actions angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
         f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
         f.input :cacheable, :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
+        f.input :dynamic_redirection, :as => :select, :collection => Goldencobra::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false
         f.input :external_url_redirect
+        f.input :redirection_target_in_new_window
         f.input :author, :hint => "Wer ist der Verfasser dieses Artikels"
       end
       f.inputs "Weiterer Inhalt", :class => "foldable closed inputs" do

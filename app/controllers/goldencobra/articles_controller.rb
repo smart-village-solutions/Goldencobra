@@ -21,7 +21,7 @@ module Goldencobra
 
 
     def show
-      if @article && @article.external_url_redirect.blank?
+      if @article && @article.external_url_redirect.blank? && @article.dynamic_redirection == "false"
         initialize_article(@article)
         Goldencobra::Article.load_liquid_methods(:location => session[:user_location], :article => @article, :params => params)
         if @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
@@ -87,19 +87,26 @@ module Goldencobra
           end
         end
       elsif @article && @article.external_url_redirect.present?
-        #redirect to external website
-        redirect_to @article.external_url_redirect, :target => "_blank"
-      else
-        @article = Goldencobra::Article.find_by_url_name("404")
-        if @article
-          respond_to do |format|
-            format.html { render :layout => @article.selected_layout, :status => 404 }
+        if @article.redirection_target_in_new_window == true
+          redirect_to @article.external_url_redirect, :target => "_blank"
+        else
+          redirect_to @article.external_url_redirect, :target => "self"
+        end
+      elsif @article && !(@article.dynamic_redirection == "false")
+        target_article = @article.find_related_subarticle
+        if target_article.present?
+          if @article.redirection_target_in_new_window == true
+            redirect_to target_article.public_url, :target => "_blank"
+          else
+            redirect_to target_article.public_url, :target => "self"
           end
         else
-          render :text => "404", :status => 404
+          redirect_to_404
         end
+      else
+        #Render 404 Article if no Article else is found
+        redirect_to_404
       end
-
     end
 
     def convert_to_pdf
@@ -147,6 +154,17 @@ module Goldencobra
 
 
     private
+
+    def redirect_to_404
+      @article = Goldencobra::Article.find_by_url_name("404")
+      if @article
+        respond_to do |format|
+          format.html { render :layout => @article.selected_layout, :status => 404 }
+        end
+      else
+        render :text => "404", :status => 404
+      end
+    end
 
     def check_format
       if request.format == "image/jpeg"  || request.format == "image/png"

@@ -1,3 +1,4 @@
+#Encoding: UTF-8
 # == Schema Information
 #
 # Table name: goldencobra_articles
@@ -44,6 +45,7 @@ module Goldencobra
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Description", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     LiquidParser = {}
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
+    DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
     attr_accessor   :hint_label
 
     has_many        :metatags
@@ -105,6 +107,14 @@ module Goldencobra
 
     # Instance Methods
     # **************************
+
+    def find_related_subarticle
+      if self.dynamic_redirection == "latest"
+        self.descendants.order("created_at DESC").first
+      else
+        self.descendants.order("created_at ASC").first
+      end
+    end
 
     def self.init_image_methods
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
