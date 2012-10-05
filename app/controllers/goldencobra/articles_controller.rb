@@ -19,14 +19,14 @@ module Goldencobra
       end
     end
 
-
     def show
       if @article && @article.external_url_redirect.blank? && @article.dynamic_redirection == "false"
         initialize_article(@article)
         Goldencobra::Article.load_liquid_methods(:location => session[:user_location], :article => @article, :params => params)
         if @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
-        elsif @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
+        end
+        if @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
           @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
           @list_of_articles = @list_of_articles.includes("#{@article.article_type_form_file.downcase}") if @article.respond_to?(@article.article_type_form_file.downcase)
           @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(","), on: :tags) if @article.index_of_articles_tagged_with.present?
