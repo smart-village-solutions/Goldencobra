@@ -108,7 +108,7 @@ module Goldencobra
     # Instance Methods
     # **************************
 
-    def comments_of_subarticle
+    def comments_of_subarticles
       all_comments = []
       self.subtree.each do |art|
         all_comments += art.comments
