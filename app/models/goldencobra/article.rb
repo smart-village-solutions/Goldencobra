@@ -108,6 +108,14 @@ module Goldencobra
     # Instance Methods
     # **************************
 
+    def comments_of_subarticle
+      all_comments = []
+      self.subtree.each do |art|
+        all_comments += art.comments
+      end
+      return all_comments
+    end
+
     def find_related_subarticle
       if self.dynamic_redirection == "latest"
         self.descendants.order("id DESC").first
