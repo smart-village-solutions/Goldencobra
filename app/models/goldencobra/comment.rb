@@ -21,6 +21,11 @@ module Goldencobra
     belongs_to :commentator, polymorphic: true
     has_ancestry :orphan_strategy => :rootify
 
+    scope :approved, where(:approved => true)
+    scope :not_approved, where(:approved => false)
+    scope :active, where(:active => true)
+    scope :reported, where(:reported => true)
+
     def title
       [self.article.title,self.content[0..20]].join(" - ")
     end
