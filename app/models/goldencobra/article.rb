@@ -109,11 +109,7 @@ module Goldencobra
     # **************************
 
     def comments_of_subarticles
-      all_comments = []
-      self.subtree.each do |art|
-        all_comments += art.comments
-      end
-      return all_comments
+      Goldencobra::Comment.where("article_id in (?)", self.subtree_ids)
     end
 
     def find_related_subarticle
