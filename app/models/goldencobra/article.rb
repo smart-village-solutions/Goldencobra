@@ -143,7 +143,7 @@ module Goldencobra
       if any_images.any? && any_images.first.image && any_images.first.image.image
         return any_images.first.image.image.url(size.to_sym)
       else
-        return nil
+        return ""
       end
     end
 
