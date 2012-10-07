@@ -39,6 +39,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
         f.input :content, :label => "Haupt-Textfeld", :input_html => { :class =>"tinymce"}
         f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
+        f.input :active_since, :hint => "Wenn der Artikel online ist, ab wann ist er Online?"
         f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :label => "Liste von internen Tags"
         f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium"
       end
