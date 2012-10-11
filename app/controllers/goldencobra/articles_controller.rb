@@ -20,7 +20,7 @@ module Goldencobra
     end
 
     def show
-      if @article && params["iframe"] == "true"
+      if @article && params["iframe"].present? && params["iframe"] == "true"
         logger.info "---------------------------"
         respond_to do |format|
           format.html { render layout: "/goldencobra/bare_layout" }
