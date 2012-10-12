@@ -13,9 +13,9 @@ module Goldencobra
 
     def show_cache_path
       if Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true"
-        "goldencobra/#{Date.today.strftime("%Y%m%d")}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}"
+        "goldencobra/#{Date.today.strftime("%Y%m%d")}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
       else
-        "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}"
+        "goldencobra/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
       end
     end
 
