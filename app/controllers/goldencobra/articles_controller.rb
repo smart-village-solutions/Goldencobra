@@ -21,16 +21,19 @@ module Goldencobra
 
     def show
       if @article && params["iframe"].present? && params["iframe"] == "true"
-        logger.info "---------------------------"
         respond_to do |format|
           format.html { render layout: "/goldencobra/bare_layout" }
         end
       elsif @article && @article.external_url_redirect.blank? && @article.dynamic_redirection == "false"
+
         initialize_article(@article)
+
         Goldencobra::Article.load_liquid_methods(:location => session[:user_location], :article => @article, :params => params)
+
         if @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
           Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
         end
+
         if @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
           @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
           @list_of_articles = @list_of_articles.includes("#{@article.article_type_form_file.downcase}") if @article.respond_to?(@article.article_type_form_file.downcase)
@@ -92,10 +95,10 @@ module Goldencobra
           end
         end
       elsif @article && @article.external_url_redirect.present?
-          #static redirect to an spezified url
+          # static redirect to an specified url
           redirect_to @article.external_url_redirect
       elsif @article && !(@article.dynamic_redirection == "false")
-        #dynamic redirection to a child article (latest/oldest)
+        # dynamic redirection to a child article (latest/oldest)
         target_article = @article.find_related_subarticle
         if target_article.present?
           redirect_to target_article.public_url
@@ -103,7 +106,7 @@ module Goldencobra
           redirect_to_404
         end
       else
-        #Render 404 Article if no Article else is found
+        # Render 404 Article if no Article else is found
         redirect_to_404
       end
     end
@@ -140,7 +143,12 @@ module Goldencobra
         @article = Goldencobra::Article.active.startpage.first
       else
         begin
-          @article = Goldencobra::Article.search_by_url(params[:article_id])
+          # Admins should get preview of article even if it's offline
+          if current_user && current_user.has_role?('Admin')
+            @article = Goldencobra::Article.search_by_url(params[:article_id])
+          else
+            @article = Goldencobra::Article.active.search_by_url(params[:article_id])
+          end
           if params[:article_id].present? && params[:article_id].include?(".")
             params[:format] = params[:article_id].split('.').last
           end
