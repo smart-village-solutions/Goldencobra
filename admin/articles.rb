@@ -37,10 +37,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.actions
       f.inputs "Allgemein", :class => "foldable inputs" do
         f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
-        f.input :content, :label => "Haupt-Textfeld", :input_html => { :class =>"tinymce"}
+        f.input :content, :input_html => { :class =>"tinymce"}
         f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
         f.input :active_since, :hint => "Wenn der Artikel online ist, ab wann ist er Online?"
-        f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :label => "Liste von internen Tags"
+        f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
         f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium"
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
@@ -81,7 +81,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
       f.inputs "Einstellungen", :class => "foldable closed inputs" do
         f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
-        f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", :label => "Website-Adresse des Artikels", required: false
+        f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
         f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
         f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
         f.input :enable_social_sharing, :label => t("Display Social Sharing actions"), :hint => "Sollen Besucher die actions angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
@@ -90,14 +90,15 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :commentable, :as => :boolean, :hint => "Kommentarfunktion für diesen Artikel aktivieren?"
         f.input :dynamic_redirection, :as => :select, :collection => Goldencobra::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false
         f.input :external_url_redirect
+        f.input :redirect_link_title
         f.input :redirection_target_in_new_window
         f.input :author, :hint => "Wer ist der Verfasser dieses Artikels"
       end
       f.inputs "Weiterer Inhalt", :class => "foldable closed inputs" do
         f.input :subtitle
-        f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht", label: "Seitenleisten Text"
-        f.input :summary, :label => "Zusammenfassung", hint: "Dient der Einleitung in den Text und wird hervorgehoben dargestellt", :input_html=>{ :rows=>5 }
-        f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben", label: "Teaser Text", :input_html=>{ :rows=>5 }
+        f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
+        f.input :summary, hint: "Dient der Einleitung in den Text und wird hervorgehoben dargestellt", :input_html=>{ :rows=>5 }
+        f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben", :input_html=>{ :rows=>5 }
       end
       f.inputs "Medien", :class => "foldable closed inputs"  do
         f.has_many :article_images do |ai|
