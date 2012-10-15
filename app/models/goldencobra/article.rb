@@ -339,7 +339,7 @@ module Goldencobra
 
     def self.search_by_url(url)
       article = nil
-      articles = Goldencobra::Article.active.where(:url_name => url.split("/").last.to_s.split(".").first)
+      articles = Goldencobra::Article.where(:url_name => url.split("/").last.to_s.split(".").first)
       article_path = "/#{url.split('.').first}"
       if articles.count > 0
         article = articles.select{|a| a.public_url == article_path}.first
