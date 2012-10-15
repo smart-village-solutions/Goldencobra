@@ -1,6 +1,16 @@
 module Goldencobra
   module ArticlesHelper
 
+    # 'Read on' link to article for index-pages
+    # If external_url_redirect is set and a link_title is given,
+    # display this link title. Otherwise display a generic link title.
+    def read_on(article)
+      if article.redirect_link_title.present?
+        link_to article.redirect_link_title, article.external_url_redirect, class: 'more'
+      else
+        link_to t(:read_on, scope: [:articles]), article.public_url, class: 'more'
+      end
+    end
 
     def render_article_content_parts(article)
       render :partial => "/goldencobra/articles/show", :locals => {:article => article}
