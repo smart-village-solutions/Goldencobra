@@ -1,5 +1,5 @@
 ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
-  
+
   menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Setting)}
   controller.authorize_resource :class => Goldencobra::Setting
   scope "Werte", :with_values, :default => true
@@ -12,7 +12,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     end
     f.actions
   end
-  
+
   index do
     selectable_column
     column :id
@@ -25,9 +25,9 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   sidebar :overview, only: [:index]  do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Setting.roots, :locals => {:link_name => "title", :url_path => "setting" }
   end
-  
+
   batch_action :destroy, false
-  
+
   member_action :revert do
     @version = Version.find(params[:id])
     if @version.reify
@@ -37,12 +37,12 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     end
     redirect_to :back, :notice => "Undid #{@version.event}"
   end
-  
+
   action_item :only => :edit do
     _setting = @_assigns['setting']
     if _setting.versions.last
       link_to("Undo", revert_admin_setting_path(:id => _setting.versions.last), :class => "undo")
     end
   end
-    
+
 end
