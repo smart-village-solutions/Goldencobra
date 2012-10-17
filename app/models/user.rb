@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   validates_presence_of :firstname
   validates_presence_of :lastname
-  liquid_methods :firstname, :lastname, :gender, :title, :function, :anrede :gender_anrede
+  liquid_methods :firstname, :lastname, :gender, :title, :function, :anrede, :gender_anrede
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :gender, :title, :firstname, :lastname, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :role_ids, :vita_steps_attributes
   has_and_belongs_to_many :roles, :join_table => "goldencobra_roles_users", :class_name => Goldencobra::Role, :include => [:permissions]
