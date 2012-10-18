@@ -132,7 +132,7 @@ module Goldencobra
 
     def sitemap
       @domain_name = Goldencobra::Setting.for_key("goldencobra.url")
-      @articles = Goldencobra::Article.active.robots_index.select([:id, :url_name, :updated_at, :startpage])
+      @articles = Goldencobra::Article.for_sitemap.select([:id, :url_name, :updated_at, :startpage])
       respond_to do |format|
         format.xml
       end
