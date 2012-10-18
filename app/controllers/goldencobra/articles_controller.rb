@@ -132,7 +132,10 @@ module Goldencobra
 
     def sitemap
       @domain_name = Goldencobra::Setting.for_key("goldencobra.url")
-      @articles = Goldencobra::Article.for_sitemap.select([:id, :url_name, :updated_at, :startpage])
+      @articles = Goldencobra::Article.for_sitemap
+      # Wofür wurden hier bestimmte Attribute gewählt? Aus
+      # Geschwindigkeitsgründen?
+      #.select([:id, :absolute_public_url, :updated_at, :startpage])
       respond_to do |format|
         format.xml
       end
