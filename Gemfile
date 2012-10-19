@@ -6,7 +6,7 @@ gem "jquery-rails"
 
 
 gem 'devise', :git => "git://github.com/plataformatec/devise.git"
-gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git", :require => "activeadmin"
+gem 'activeadmin', :git => "git://github.com/jazzgumpy/active_admin.git", :require => "activeadmin"
 gem 'execjs'
 gem 'therubyracer'
 gem "friendly_id"
