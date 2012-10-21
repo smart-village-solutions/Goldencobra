@@ -154,23 +154,20 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   sidebar :widgets_options, only: [:edit] do
-    _article = @_assigns['article']
-    render "/goldencobra/admin/articles/widgets_sidebar", :locals => { :current_article => _article }
+    render "/goldencobra/admin/articles/widgets_sidebar", :locals => { :current_article => resource }
   end
 
   sidebar :startpage_options, :only => [:show, :edit] do
-      _article = @_assigns['article']
-      if _article.startpage
+      if resource.startpage
         t("startpage", :scope => [:goldencobra, :flash_notice])
       else
-        link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(_article.id), :confirm => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
+        link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(resource.id), :confirm => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
       end
   end
 
 
   sidebar :layout, only: [:edit] do
-      _article = @_assigns['article']
-      render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => _article }
+    render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => resource }
   end
 
   # Wird derzeit nicht benötigt, da es den Artikeltyp Default Index gibt,
@@ -185,24 +182,23 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   sidebar :menue_options, :only => [:show, :edit] do
-    _article = @_assigns['article']
     ul do
-      if _article.linked_menues.count > 0
-        li link_to("Es existieren bereits passende Menüpunkte, Sie können diese hier auflisten", admin_menues_path("q[target_contains]" => _article.public_url))
-        li link_to("Einen weiteren Menüpunkt erstellen?", new_admin_menue_path(:menue => {:title => _article.title, :target => _article.public_url}))
+      if resource.linked_menues.count > 0
+        li link_to("Es existieren bereits passende Menüpunkte, Sie können diese hier auflisten", admin_menues_path("q[target_contains]" => resource.public_url))
+        li link_to("Einen weiteren Menüpunkt erstellen?", new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
       else
-        li link_to("Es existiert noch kein Menüpunkt! Wollen Sie diesen erstellen?", new_admin_menue_path(:menue => {:title => _article.title, :target => _article.public_url}))
+        li link_to("Es existiert noch kein Menüpunkt! Wollen Sie diesen erstellen?", new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
       end
     end
-    articles = Goldencobra::Article.active.where(:url_name => _article.url_name)
+    articles = Goldencobra::Article.active.where(:url_name => resource.url_name)
     if articles.count > 1
-      results = articles.select{|a| a.public_url == _article.public_url}.flatten.compact.uniq
+      results = articles.select{|a| a.public_url == resource.public_url}.flatten.compact.uniq
     end
     if results && results.count > 1
       h4 "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , "anderen Artikel", "andere Artikel")  } mit dieser URL:", :class => "warning"
       ul do
         results.each do |r|
-          next if r == _article
+          next if r == resource
           li link_to "#{r.title}", admin_article_path(r)
         end
       end
@@ -210,8 +206,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   action_item :only => :edit do
-      _article = @_assigns['article']
-      link_to('Vorschau zu diesem Artikel anzeigen', _article.public_url, :target => "_blank")
+    link_to('Vorschau zu diesem Artikel anzeigen', resource.public_url, :target => "_blank")
   end
 
   member_action :mark_as_startpage do
@@ -303,9 +298,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   action_item :only => :edit do
-    _article = @_assigns['article']
-    if _article.versions.last
-      link_to("Undo", revert_admin_article_path(:id => _article.versions.last), :class => "undo")
+    if resource.versions.last
+      link_to("Undo", revert_admin_article_path(:id => resource.versions.last), :class => "undo")
     end
   end
 end
