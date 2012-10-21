@@ -39,9 +39,8 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   end
 
   action_item :only => :edit do
-    _setting = @_assigns['setting']
-    if _setting.versions.last
-      link_to("Undo", revert_admin_setting_path(:id => _setting.versions.last), :class => "undo")
+    if resource.versions.last
+      link_to("Undo", revert_admin_setting_path(:id => resource.versions.last), :class => "undo")
     end
   end
 
