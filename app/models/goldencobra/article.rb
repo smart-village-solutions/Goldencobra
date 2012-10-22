@@ -82,7 +82,7 @@ module Goldencobra
 
     scope :robots_index, where(:robots_no_index => false)
     scope :robots_no_index, where(:robots_no_index => true)
-    scope :active, where(:active => true)
+    scope :active, where('active = 1 AND active_since < ?', Time.now)
     scope :inactive, where(:active => false)
     scope :startpage, where(:startpage => true)
     scope :articletype, lambda{ |name| where(:article_type => name)}
