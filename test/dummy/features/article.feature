@@ -76,7 +76,7 @@ Feature: Create and manage articles
     Then I should see "Metatitle"
 
   @javascript
-  Scenario: Set article offline and online
+  Scenario: Set article offline and online as an admin,I should see everything
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     Given the following "articles" exist:
@@ -86,14 +86,26 @@ Feature: Create and manage articles
     When I visit url "/seite1"
     Then I should see "Seite1" within "h1"
     When I visit url "/seite2"
-    Then I should not see "Seite2"
-    And I should see "404"
+    Then I should see "Seite2"
     Then I go to the admin list of articles
     And I click on "Edit" within "tr#article_2"
     And  I check "article_active"
     And I press "Update Article"
     When I visit url "/seite2"
     Then I should see "Seite2" within "h1"
+
+  @javascript
+  Scenario: Set article offline and online as an user, I should see not everything
+    Given that I am not logged in
+    Given the following "articles" exist:
+      | title           | id | url_name  | active |
+      | "Seite1"        | 1  | seite1    | true   |
+      | "Seite2"        | 2  | seite2    | false  |
+    When I visit url "/seite1"
+    Then I should see "Seite1" within "h1"
+    When I visit url "/seite2"
+    Then I should not see "Seite2"
+    And I should see "404"
 
   @javascript
   Scenario: Upload an Image and add it to an article

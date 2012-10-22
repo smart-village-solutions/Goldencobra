@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Goldencobra::Article do
-  
+
   before(:each) do
     @attr = { :title  => "Testartikel", :url_name  => "testartikel" }
   end
-  
+
   it "should have a valid redirect url by inserting an url without http" do
     a = Goldencobra::Article.create!(@attr)
     a.external_url_redirect = "www.google.de"
@@ -28,7 +28,7 @@ describe Goldencobra::Article do
     no_name_article = Goldencobra::Article.new(@attr.merge(:title => ""))
     no_name_article.should_not be_valid
   end
-  
+
   it "should not require a url_name because it is filled automatically" do
     no_url_name_article = Goldencobra::Article.new(@attr.merge(:url_name => ""))
     no_url_name_article.should be_valid
@@ -63,7 +63,7 @@ describe Goldencobra::Article do
 
   describe "rss-feed" do
     it "should respect modified-since parameter" do
-      
+
     end
   end
 end
