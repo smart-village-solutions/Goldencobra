@@ -38,10 +38,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.inputs "Allgemein", :class => "foldable inputs" do
         f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
         f.input :content, :input_html => { :class =>"tinymce"}
-        f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
-        f.input :active_since, :hint => "Wenn der Artikel online ist, ab wann ist er Online?"
         f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
         f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium"
+        f.input :active_since, :hint => "Wenn der Artikel online ist, ab wann ist er Online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%A, %d.%m.%Y %H:%M') if f.object.active_since}" }
+        f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_show.html.erb")
