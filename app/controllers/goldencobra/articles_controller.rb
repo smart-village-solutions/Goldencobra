@@ -44,7 +44,15 @@ module Goldencobra
         if serve_fresh_page?
           set_expires_in
           layout_to_render = choose_layout
-          render_page
+
+          respond_to do |format|
+            format.html { render layout: layout_to_render }
+            format.rss
+            format.json do
+              @article["list_of_articles"] = @list_of_articles
+              render json: @article.to_json
+            end
+          end
         end
       elsif should_statically_redirect?
           redirect_to @article.external_url_redirect
@@ -78,9 +86,6 @@ module Goldencobra
     def sitemap
       @domain_name = Goldencobra::Setting.for_key("goldencobra.url")
       @articles = Goldencobra::Article.for_sitemap
-      # Wofür wurden hier bestimmte Attribute gewählt? Aus
-      # Geschwindigkeitsgründen?
-      #.select([:id, :absolute_public_url, :updated_at, :startpage])
       respond_to do |format|
         format.xml
       end
@@ -99,21 +104,9 @@ module Goldencobra
       end
     end
 
-
-
     private
 
-    def render_page
-      respond_to do |format|
-        format.html { render layout: layout_to_render }
-        format.rss
-        format.json do
-          @article["list_of_articles"] = @list_of_articles
-          render json: @article.to_json
-        end
-      end
-    end
-
+    # ------------------ Redirection ------------------------------------------
     def redirect_dynamically
       target_article = @article.find_related_subarticle
       if target_article.present?
@@ -131,38 +124,33 @@ module Goldencobra
       @article && !(@article.dynamic_redirection == "false")
     end
 
-    def load_associated_model_into_liquid
-      Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
+    def redirect_to_404
+      @article = Goldencobra::Article.find_by_url_name("404")
+      if @article
+        respond_to do |format|
+          format.html { render :layout => @article.selected_layout, :status => 404 }
+        end
+      else
+        render :text => "404", :status => 404
+      end
     end
+    # ------------------ /Redirection -----------------------------------------
 
+    # ------------------ associated models ------------------------------------
     def can_load_associated_model?
       @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
     end
 
-    def serve_basic_article?
-      @article && @article.external_url_redirect.blank? && @article.dynamic_redirection == "false"
-    end
-
-    def get_articles_with_tags
-      @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(","), on: :tags)
-    end
-
-    def get_articles_without_tags
-      @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(","), :exclude => true, on: :tags)
-    end
-
-    def get_articles_by_frontend_tags
-      @list_of_articles = @list_of_articles.tagged_with(params[:frontend_tags], on: :frontend_tags, any: true)
+    def load_associated_model_into_liquid
+      Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
     end
 
     def include_related_models
       @list_of_articles = @list_of_articles.includes("#{@article.article_type_form_file.downcase}") if @article.respond_to?(@article.article_type_form_file.downcase)
     end
+    # ------------------ /associated models -----------------------------------
 
-    def get_articles_by_article_type
-      @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
-    end
-
+    # ------------------ choose article to render -----------------------------
     def generate_index_list?
       @article.article_type.present? && @article.kind_of_article_type.downcase == "index"
     end
@@ -171,38 +159,8 @@ module Goldencobra
       @article && params["iframe"].present? && params["iframe"] == "true"
     end
 
-    def sort_response
-      if @article.sort_order.present?
-        if @article.sort_order == "Random"
-          @list_of_articles = @list_of_articles.flatten.shuffle
-        elsif @article.sort_order == "Alphabetical"
-          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.title }
-        elsif @article.respond_to?(@article.sort_order)
-          sort_order = @article.sort_order.downcase
-          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
-        elsif @article.sort_order.include?(".")
-          sort_order = @article.sort_order.downcase.split(".")
-          #@list_of_articles = @list_of_articles.flatten.sort_by{|article| sort_order.inject(article){|result, message| result.send(message) if result.present? && a=result.send(message) && a.present?  } }
-          @list_of_articles = @list_of_articles.flatten.sort_by{|a| eval("a.#{@article.sort_order}") if a.respond_to_all?(@article.sort_order) }
-        end
-        if @article.reverse_sort
-          @list_of_articles = @list_of_articles.reverse
-        end
-      end
-
-      if @article.sorter_limit && @article.sorter_limit > 0
-        @list_of_articles = @list_of_articles[0..@article.sorter_limit-1]
-      end
-    end
-
-    def set_expires_in
-      if is_cachable?
-        expires_in 30.seconds, :public => true
-        response.last_modified = @article.date_of_last_modified_child
-      else
-        expires_in 1.seconds, :public => true
-        response.last_modified = Time.now
-      end
+    def serve_basic_article?
+      @article && @article.external_url_redirect.blank? && @article.dynamic_redirection == "false"
     end
 
     def serve_fresh_page?
@@ -224,12 +182,65 @@ module Goldencobra
         @article.selected_layout
       end
     end
+    # ------------------ /choose article to render ----------------------------
+
+    # ------------------ adjust response --------------------------------------
+    def sort_response
+      if @article.sort_order.present?
+        if @article.sort_order == "Random"
+          @list_of_articles = @list_of_articles.flatten.shuffle
+        elsif @article.sort_order == "Alphabetical"
+          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.title }
+        elsif @article.respond_to?(@article.sort_order)
+          sort_order = @article.sort_order.downcase
+          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
+        elsif @article.sort_order.include?(".")
+          sort_order = @article.sort_order.downcase.split(".")
+          @list_of_articles = @list_of_articles.flatten.sort_by{|a| eval("a.#{@article.sort_order}") if a.respond_to_all?(@article.sort_order) }
+        end
+        if @article.reverse_sort
+          @list_of_articles = @list_of_articles.reverse
+        end
+      end
+
+      if @article.sorter_limit && @article.sorter_limit > 0
+        @list_of_articles = @list_of_articles[0..@article.sorter_limit-1]
+      end
+    end
+
+    def get_articles_with_tags
+      @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(","), on: :tags)
+    end
+
+    def get_articles_without_tags
+      @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(","), :exclude => true, on: :tags)
+    end
+
+    def get_articles_by_frontend_tags
+      @list_of_articles = @list_of_articles.tagged_with(params[:frontend_tags], on: :frontend_tags, any: true)
+    end
+
+    def get_articles_by_article_type
+      @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
+    end
+
+    def set_expires_in
+      if is_cachable?
+        expires_in 30.seconds, :public => true
+        response.last_modified = @article.date_of_last_modified_child
+      else
+        expires_in 1.seconds, :public => true
+        response.last_modified = Time.now
+      end
+    end
+
 
     def set_format
       if params[:article_id].present? && params[:article_id].include?(".")
         params[:format] = params[:article_id].split('.').last
       end
     end
+    # ------------------ /adjust response -------------------------------------
 
     def article_by_role
       # Admins should get preview of article even if it's offline
@@ -245,16 +256,6 @@ module Goldencobra
       startpage && (startpage == true || startpage == "true")
     end
 
-    def redirect_to_404
-      @article = Goldencobra::Article.find_by_url_name("404")
-      if @article
-        respond_to do |format|
-          format.html { render :layout => @article.selected_layout, :status => 404 }
-        end
-      else
-        render :text => "404", :status => 404
-      end
-    end
 
     def check_format
       if request.format == "image/jpeg"  || request.format == "image/png"
@@ -292,6 +293,5 @@ module Goldencobra
         return false
       end
     end
-
   end
 end
