@@ -25,7 +25,12 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :tag_list
       f.input :active
     end
-
+    f.inputs "Darstellung" do
+      f.input :offline_time, input_html: { placeholder: 'Mo Do 17:30 - 19:30' }
+      # f.input :offline_day, as: :string, input_html: { placeholder: 'Mi Mo Do' }
+      #, as: :check_boxes, collection: [['Mo', 'Mo'], ['Di', 'Di'], ['Mi', 'Mi'], ['Do', 'Do'], ['Fr', 'Fr'], ['Sa', 'Sa'], ['So', 'So']]
+      # f.input :offline_hours, as: :string, input_html: { placeholder: '17:30 - 19:30' }
+    end
     f.inputs "Admin" do
       if(proc{can?(:read, Goldencobra::Widget)})
         f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."

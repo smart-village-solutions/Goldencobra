@@ -15,6 +15,7 @@
 #  teaser         :string(255)
 #  default        :boolean(1)
 #  description    :text
+#  offline_time   :string(255)
 #
 
 require 'test_helper'

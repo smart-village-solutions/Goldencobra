@@ -42,7 +42,9 @@
 #  redirection_target_in_new_window :boolean(1)      default(FALSE)
 #  commentable                      :boolean(1)      default(FALSE)
 #  active_since                     :datetime        default(2012-10-02 13:09:32 UTC)
+#  redirect_link_title              :string(255)
 #
+
 
 module Goldencobra
   class Article < ActiveRecord::Base

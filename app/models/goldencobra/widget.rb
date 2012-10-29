@@ -15,6 +15,7 @@
 #  teaser         :string(255)
 #  default        :boolean(1)
 #  description    :text
+#  offline_time   :string(255)
 #
 
 module Goldencobra
@@ -23,6 +24,8 @@ module Goldencobra
 
     has_many :article_widgets
     has_many :articles, :through => :article_widgets
+
+    # attr_accessor :offline_day, :offline_hours
 
     scope :active, where(:active => true).order(:sorter)
     scope :inactive, where(:active => false).order(:sorter)
@@ -44,5 +47,28 @@ module Goldencobra
       self.tag_list = "sidebar" if self.tag_list.blank?
     end
 
+    # def offline_day=(value)
+    #   if self.offline_time.present?
+    #     self.offline_time = self.offline_hours + value
+    #   else
+    #     self.offline_time = value
+    #   end
+    # end
+
+    # def offline_day
+    #   self.offline_time.scan(/[A-Za-z ]*/) if self.offline_time.present?
+    # end
+
+    # def offline_hours=(value)
+    #   # if self.offline_time.present?
+    #   #   self.offline_time = self.offline_day + value
+    #   # else
+    #   #   self.offline_time = value
+    #   # end
+    # end
+
+    # def offline_hours
+    #   self.offline_time.scan(/(\d{2}:\d{2})( )*(-)*( )*/) if self.offline_time.present?
+    # end
   end
 end
