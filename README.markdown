@@ -4,7 +4,7 @@
 
 This Project is under development
 
-[Demo in Heroku](http://demo-goldencobra.herokuapp.com/)
+[Demo in Heroku](http://demo-goldencobra.herokuapp.com/admin)
 
 ```
 To access use:
