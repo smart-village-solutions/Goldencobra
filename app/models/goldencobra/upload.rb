@@ -18,6 +18,8 @@
 
 module Goldencobra
   class Upload < ActiveRecord::Base
+    attr_accessible :image, :source, :rights, :tag_list, :description, :alt_text
+    
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
       has_attached_file :image,
                         :styles => { :large => ["900x900>", :jpg], :big => ["600x600>",:jpg], :medium => ["300x300>",:jpg], :thumb => ["100x100>", :jpg], :mini => ["50x50>",:jpg] },

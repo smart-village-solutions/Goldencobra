@@ -16,6 +16,7 @@
 module Goldencobra
   class Import < ActiveRecord::Base
     require "csv"
+    attr_accessible :target_model, :upload_id, :separator
     belongs_to :upload, :class_name => Goldencobra::Upload
     serialize :assignment
     

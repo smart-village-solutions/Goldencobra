@@ -26,6 +26,8 @@
 
 module Goldencobra
   class Widget < ActiveRecord::Base
+    attr_accessible :title, :content, :mobile_content, :id_name, :css_name, :teaser, :sorter, :tag_list, :active, :offline_day, :offline_time_start, :offline_time_end, :offline_time_active, :alternative_content, :default, :description, :article_ids
+
     acts_as_taggable_on :tags
 
     has_many :article_widgets
