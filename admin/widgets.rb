@@ -26,10 +26,11 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :active
     end
     f.inputs "Darstellung" do
-      f.input :offline_time, input_html: { placeholder: 'Mo Do 17:30 - 19:30' }
-      # f.input :offline_day, as: :string, input_html: { placeholder: 'Mi Mo Do' }
-      #, as: :check_boxes, collection: [['Mo', 'Mo'], ['Di', 'Di'], ['Mi', 'Mi'], ['Do', 'Do'], ['Fr', 'Fr'], ['Sa', 'Sa'], ['So', 'So']]
-      # f.input :offline_hours, as: :string, input_html: { placeholder: '17:30 - 19:30' }
+      f.input :offline_day, as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
+      f.input :offline_time_start, as: :string, hint: "Uhrzeit als HH:MM angeben: z.B. 16:00", input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
+      f.input :offline_time_end, as: :string, hint: "Uhrzeit als HH:MM angeben: z.B. 17:35", input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
+      f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
+      f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
     end
     f.inputs "Admin" do
       if(proc{can?(:read, Goldencobra::Widget)})

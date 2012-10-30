@@ -8,7 +8,7 @@ guard 'rspec', :version => 2 do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
-  
+
   # Rails example
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
@@ -28,7 +28,7 @@ guard 'cucumber' do
 end
 
 
-guard 'annotate', :run_at_start => false, :routes => true do
+guard 'annotate', :run_on_changes => true, :routes => true do
   #watch( 'db/schema.rb' )
 
   watch(%r{db/schema.rb}) do

@@ -14,3 +14,28 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require goldencobra/jquery.tools.min.js
+//= require goldencobra/moment
+
+$(document).ready(function(){
+
+  moment.weekdaysMin = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+
+  // Trigger display of widgets. If widget has offline_times set show
+  // alternative content instead.
+  $('[data-offline-active=true]').each( function(index, element){
+    var days = $(element).attr('data-time-day');
+    var start_time = parseInt($(element).attr('data-time-start'));
+    var end_time = parseInt($(element).attr('data-time-end'));
+
+    var cur_day = moment().format('dd');
+    var cur_time = parseInt(moment().format('Hmm'));
+
+    if ((days.indexOf(cur_day) != -1) && ((start_time < cur_time) && (cur_time < end_time))) {
+      // Widget muss ausgeblendet werden
+      $(element).hide();
+      $(element).next().show();
+    }
+
+  });
+
+});
