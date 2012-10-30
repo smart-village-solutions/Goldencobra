@@ -4,6 +4,15 @@
 
 This Project is under development
 
+[Demo in Heroku](http://demo-goldencobra.herokuapp.com/)
+
+```
+To access use:
+
+> email: admin@goldencobra.de
+> password: administrator
+```
+
 #Powered by
 - ActiveAdmin
 
@@ -64,4 +73,3 @@ renders Menue startign with id 1 and only childs of first grade
 
 ##Render an image gallery inside article content      
     <%= render_article_image_gallery %>  
-
