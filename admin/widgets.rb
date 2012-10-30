@@ -27,8 +27,8 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
     f.inputs "Darstellung" do
       f.input :offline_day, as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
-      f.input :offline_time_start, as: :string, hint: "Uhrzeit als HH:MM angeben: z.B. 16:00", input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
-      f.input :offline_time_end, as: :string, hint: "Uhrzeit als HH:MM angeben: z.B. 17:35", input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
+      f.input :offline_time_start, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
+      f.input :offline_time_end, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
       f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
       f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
     end
