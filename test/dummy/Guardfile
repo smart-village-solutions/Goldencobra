@@ -26,21 +26,3 @@ guard 'cucumber' do
   watch(%r{^features/support/.+$})          { 'features' }
   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
 end
-
-
-guard 'annotate', :run_on_changes => true, :routes => true do
-  #watch( 'db/schema.rb' )
-
-  watch(%r{db/schema.rb}) do
-      `rake db:test:prepare`
-  end
-
-  # Uncomment the following line if you also want to run annotate anytime
-  # a model file changes
-  #watch( 'app/models/**/*.rb' )
-
-  # Uncomment the following line if you are running routes annotation
-  # with the ":routes => true" option
-  watch( 'config/routes.rb' )
-end
-
