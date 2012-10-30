@@ -1,0 +1,126 @@
+"pt-BR":
+  goldencobra:
+    flash_notice:
+      name_of_flashnotice: "Do you REALLY want make this Article as Startpage?"
+      action_Startpage: "Make this article Startpage"
+      startpage: "This Article is the Startpage!"
+      online: "Change the visibility of the article?"
+      delete_article: "Realy want to delete this Article?"
+    filter:
+      filter_titel: "title"
+      filter_subtitel: "subtitle"
+      filter_breadcrumb: "breadcrumb"
+      filter_url: "url"
+      filter_template: "template file"
+      filter_created: "creted at"
+      filter_updated: "updated at"
+      filter_parent: "parent"
+      filter_type: "article type"
+    menue:
+      menue: "Menue"
+      name: "name"
+      list: "list"
+      create: "create"
+  # 
+  active_admin:
+    dashboard: "Painel"
+    dashboard_welcome:
+      welcome: "Bem vindo ao Active Admin. Esta é a página de painéis padrão."
+      call_to_action: "Para adicionar seções ao painel, verifique 'app/admin/dashboards.rb'"
+    dashboard_sections:
+      last_updated_articles: 'Últimas atualizações de Artigos'
+    view: "Visualizar"
+    edit: "Editar"
+    delete: "Remover"
+    delete_confirmation: "Você tem certeza que deseja remover este item?"
+    new_model: "Novo(a) %{model}"
+    create_model: "Novo(a) %{model}"
+    edit_model: "Editar %{model}"
+    update_model: "Atualizar %{model}"
+    delete_model: "Remover %{model}"
+    details: "Detalhes do(a) %{model}"
+    cancel: "Cancelar"
+    empty: "Vazio"
+    previous: "Anterior"
+    next: "Próximo"
+    download: "Baixar:"
+    has_many_new: "Adicionar Novo(a) %{model}"
+    has_many_delete: "Remover"
+    filter: "Filtrar"
+    clear_filters: "Limpar Filtros"
+    search_field: "Pesquisar %{field}"
+    equal_to: "Igual A"
+    greater_than: "Maior Que"
+    less_than: "Menor Que"
+    main_content: "Por favor implemente %{model}#main_content para exibir conteúdo."
+    logout: "Sair"
+    sidebars:
+      submit_widget: "Salvar Widgets"
+      submit_layout: "distribuir Layout"
+      widgets_options: "Widget Opções"
+      overview: "Visão Geral"
+      startpage_options: "Opções da Página de inicialização"
+      layout: "Layout"
+      image_formates: "Formatos de imagem"
+      image_module: "Modelo de imagem"
+      filters: "Filtros"
+    per_page: "Itens por página"
+    pagination:
+      empty: "Nenhum(a) %{model} encontrado(a)"
+      one: "Exibindo <b>1</b> %{model}"
+      one_page: "Exibindo <b>todos(as) os(as) %{n}</b> %{model}"
+      multiple: "Exibindo %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de um total de <b>%{total}</b>"
+      entry:
+        one: "registro"
+        other: "registros"
+    any: "Qualquer"
+    blank_slate:
+      content: "Não existem %{resource_name} ainda."
+      link: "Novo"
+    batch_actions:
+      button_label: "Ações em lote"
+      delete_confirmation: "Tem certeza que deseja excluir estes %{plural_model}? Não é possível desfazer esta ação."
+      succesfully_destroyed:
+        one: "Excluiu com sucesso 1 %{model}"
+        other: "Excluiu com sucesso %{count} %{plural_model}"
+      selection_toggle_explanation: "(Alternar Seleção)"
+      link: "Novo"
+      action_label: "%{title} Selecionado"
+      labels:
+        set_article_online: "Publicar artigo"
+        set_article_offline: "Anular publicação de artigo"
+        reset_cache: "redefinir o cache"
+        send_default_conf_mails: "Enviar e-mail de confirmação"
+        destroy: "Excluir"
+    comments:    
+      body: "Conteúdo"
+      author: "Autor"
+      title: "Comentário"
+      add: "Adicionar Comentário"
+      resource: "Objeto"
+      no_comments_yet: "Nenhum comentário."
+      title_content: "Comentários: %{count}"
+      errors:
+        empty_text: "O comentário não foi salvo porque o texto estava vazio."
+    articles:
+      tag-select-placeholder: "Selecionar tag"
+    devise:
+      login:
+        title: "Conta"
+        remember_me: "Lembrar da senha"
+        submit: "Entrar"
+      reset_password:
+        title: "Esqueceu sua senha?"
+        submit: "Reinicie minha senha"
+      change_password:
+        title: "Troque sua senha"
+        submit: "Troque minha senha"
+      links:
+        sign_in: "Entrar"
+        forgot_your_password: "Esqueceu sua senha?"
+  id: "ID"
+  name: "Nome"
+  content_type: "Tipo"
+  size: "Tamanho"
+  created_at: "Criado em"
+  updated_at: "Atualizado em"

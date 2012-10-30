@@ -1,0 +1,103 @@
+"pt-BR":
+  activerecord:
+    models:
+      comment:
+        one: "Comentário"
+        other: "Comentários"
+      goldencobra/comment:
+        one: "Comentário"
+        other: "Comentários"
+      import:
+        one: "Importar"
+        other: "Importações"
+      article:
+        one: "Artigo"
+        other: "Artigos"
+      goldencobra/article:
+        one: "Artigo"
+        other: "Artigos"
+      setting:
+        one: "Preferência"
+        other: "Preferências"
+      goldencobra/setting:
+        one: "Preferência"
+        other: "Preferências"
+      menue:
+        one: "Menu"
+        other: "Menus"
+      goldencobra/menue:
+        one: "Menu"
+        other: "Menus"
+      metag:
+        one: "Metatag"
+        other: "Metatags"
+      goldencobra/metag:
+        one: "Metatag"
+        other: "Metatags"
+      widget:
+        one: "Widget"
+        other: "Widgets"
+      goldencobra/widget:
+        one: "Widget"
+        other: "Widgets"
+      upload:
+        one: "Upload"
+        other: "Uploads"
+      goldencobra/upload:
+        one: "Upload"
+        other: "Uploads"
+      user:
+        one: "Usuário"
+        other: "Usuários"
+      permission:
+        one: "Permissão"
+        other: "Permissões"
+      goldencobra/permission:
+        one: "Permissão"
+        other: "Permissões"
+      role:
+        one: "Cargo"
+        other: "Cargos"
+      goldencobra/role:
+        one: "Cargo"
+        other: "Cargos"
+  attributes:
+      all: &all_attributes;
+        content: "Conteúdo"
+        active: "ativo"
+        approved: "aprovado"
+        reported: "relatado"
+        description: "Descrição"
+        created_at: "criado em"
+        updated_at: "atualizado em"
+
+        firstname: "Nome"
+        lastname: "Sobrenome"
+        password: "Senha"
+        password_confirmation: "confirmação de senha"
+        roles: "cargos"
+        function: "funções"
+        phone: "telefone"
+        complete_name: "Nome completo"
+        email: "e-mail"
+
+        title: "título"
+        url: "url"
+        article_type: "tipo de artigo"
+
+        source: "código"
+        image_file_name: "nome da imagem"
+        image_content_type: "tipo da imagem"
+        image_file_size: "tamanho da imagem"
+        rights: "direitos"
+        image: "imagem"
+      goldencobra/comment:
+        <<: *all_attributes
+      goldencobra/role:
+        <<: *all_attributes
+      user:
+        <<: *all_attributes
+      goldencobra/article:
+        <<: *all_attributes
+      goldencobra/upload:
+        <<: *all_attributes
