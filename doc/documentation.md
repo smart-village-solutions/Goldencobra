@@ -7,6 +7,28 @@
 - File manager with upload and preview generation
 - Flexible meta data & vanity URLs for Search Engine Optimization (SEO)
 - Content scheduling – write something now, and have it go live automatically later
+- Sitemap
+- RSS Feed
+- Solr Suchserver
+- Artikeltypen
+- Mehrsprachigkeit möglich
+- Widgets (statische und dynamische Inhalte)
+- User- & Rollenverwaltung 
+- Kommentarfunktion
+- Export zu CSV, XML
+
+- CMS ist der Held
+- Conrad Content
+- Mimi Medienverwaltung
+- Eddie Event (Event-, Sponsoren, Ticketverwaltung)
+- Newsletter-Modul mit Stammdatenverwaltung
+
+- Kommunikation mit externen CRMs (siehe quirin bank)
+- Anbindung an JavaScript MVC Frameworks möglich (siehe ulmen.tv)
+
+### Projekte die mit Goldencobra laufen
+4 Tagesspiegel-Portale, berlin-greeter.org, www.ulmen.tv ikusei.de, quirinbank.de
+
 
 ## System Requirements
 - Ruby 1.9.2 or higher (recommended: 1.9.3)
@@ -15,6 +37,14 @@
 - Ghostscript
 - MySQL 5.x or higher
 - Apache/nginx
+
+### Wann ist ein Artikel online und aufrufbar?
+
+1. Wenn das Häkchen „online“ gesetzt ist
+2. Wenn das Datum nicht in der Zukunft liegt
+3. Wenn unter **Einstellungen**—> Automatische Weiterleitung zu–> „deaktiviert“ ist
+4. Wenn „Weiterleitung zu externer URL“ leer ist
+- Wenn der unmittelbare und **alle weiteren Elternartikel** online sind (Punkte 1.– 4. müssen auch dort jeweils kontrolliert werden)
 
 ## License
 The MIT License
