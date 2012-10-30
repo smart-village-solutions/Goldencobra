@@ -1,26 +1,26 @@
 "pt-BR":
   goldencobra:
     flash_notice:
-      name_of_flashnotice: "Do you REALLY want make this Article as Startpage?"
-      action_Startpage: "Make this article Startpage"
-      startpage: "This Article is the Startpage!"
-      online: "Change the visibility of the article?"
-      delete_article: "Realy want to delete this Article?"
+      name_of_flashnotice: Você quer fazer deste artigo a página inicial?
+      action_Startpage: Faça deste artigo a página inicial
+      startpage: Este artigo é a página inicial
+      online: Alterar a visibilidade do artigo?
+      delete_article: Realmente quer apagar este artigo?
     filter:
-      filter_titel: "title"
-      filter_subtitel: "subtitle"
-      filter_breadcrumb: "breadcrumb"
+      filter_titel: "título"
+      filter_subtitel: "subtítulo"
+      filter_breadcrumb: "barra de navegação"
       filter_url: "url"
-      filter_template: "template file"
-      filter_created: "creted at"
-      filter_updated: "updated at"
-      filter_parent: "parent"
-      filter_type: "article type"
+      filter_template: "arquivo modelo"
+      filter_created: "criado em"
+      filter_updated: "atualizado em"
+      filter_parent: "pai"
+      filter_type: "tipo de arquivo"
     menue:
-      menue: "Menue"
-      name: "name"
-      list: "list"
-      create: "create"
+      menue: "Menu"
+      name: "nome"
+      list: "lista"
+      create: "criar"
   # 
   active_admin:
     dashboard: "Painel"
