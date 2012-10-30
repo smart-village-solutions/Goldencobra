@@ -23,3 +23,7 @@
 .navigtion_link_call_to_action_name{
 	display:none;
 }
+
+.hidden {
+  display: none;
+}

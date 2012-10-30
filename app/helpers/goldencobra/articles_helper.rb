@@ -117,10 +117,28 @@ module Goldencobra
 
         widgets.each do |widget|
           template = Liquid::Template.parse(widget.content)
+          alt_template = Liquid::Template.parse(widget.alternative_content)
           if widget.id_name.present?
-            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}", :id => "blah", 'data-time' => widget.offline_time)
+            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)),
+                                  class: "#{widget.css_name} #{custom_css}",
+                                  id: widget.id_name,
+                                  'data-time-day' => widget.offline_days,
+                                  'data-time-start' => widget.offline_time_start_display,
+                                  'data-time-end' => widget.offline_time_end_display,
+                                  'data-offline-active' => widget.offline_time_active)
+            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
+                                  class: "#{widget.css_name} #{custom_css} hidden",
+                                  id: widget.id_name)
           else
-            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}", 'data-time' => widget.offline_time)
+            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)),
+                                  class: "#{widget.css_name} #{custom_css}",
+                                  'data-time-day' => widget.offline_days,
+                                  'data-time-start' => widget.offline_time_start_display,
+                                  'data-time-end' => widget.offline_time_end_display,
+                                  'data-offline-active' => widget.offline_time_active)
+            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
+                                  class: "#{widget.css_name} #{custom_css} hidden",
+                                  id: widget.id_name)
           end
         end
       end
