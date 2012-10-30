@@ -29,3 +29,6 @@ test/dummy/.DS_Store
 test/dummy/coverage/*
 test/dummy/solr/*
 .rvmrc
+
+# Gem
+*.gem
