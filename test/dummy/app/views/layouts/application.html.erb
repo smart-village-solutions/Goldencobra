@@ -8,14 +8,13 @@
   <%= javascript_include_tag "application" %>
   <%= javascript_include_tag "goldencobra/moment.js" %>
   <%= csrf_meta_tags %>
+  <%= bugtracker %>
 </head>
 <body>
 
 <%= navigation_menu(1, :depth => 1) %>
 
 <h1><%= yield(:article_title) %></h1>
-
-<%= Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") %>Location: <%= session[:user_location] %> <%= request.location.inspect %>
 
 <div>
 	<%= breadcrumb() %>

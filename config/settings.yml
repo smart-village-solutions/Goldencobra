@@ -1,4 +1,8 @@
 goldencobra:
+    bugherd:
+        user: "current_user"
+        role: "admin"
+        api: "oebmenxxxztklejliapiyq"
     comments:
         commentator: "User"
     menues:
