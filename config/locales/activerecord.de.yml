@@ -162,8 +162,16 @@ de:
                 sorter: "Sortiernummer"
                 tag_list: "Tag Liste"
                 articles: "Artikel"
+                active: "Online sichtbar?"
                 created_at: "Erstellt am"
                 updated_at: "Bearbeitet am"
                 teaser: "Teaser"
-
-
+                offline_day: "Tage an denen alternativer Inhalt angezeigt wird"
+                offline_time_start: "Startzeit"
+                offline_time_start_hint: "Uhrzeit als HH:MM angeben: z.B. 16:00"
+                offline_time_end: "Endzeit"
+                offline_time_end_hint: "Uhrzeit als HH:MM angeben: z.B. 17:35"
+                offline_time_active: "Offline-Inhalt anzeigen?"
+                offline_time_active_hint: "Möchten Sie alternativen Offline Inhalt nutzen?"
+                alternative_content: "Offline-Inhalt"
+                alternative_content_hint: "Dieser Inhalt wird gezeigt, wenn das Widget offline ist."
