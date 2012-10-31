@@ -25,6 +25,7 @@ module Goldencobra
     scope :not_approved, where(:approved => false)
     scope :active, where(:active => true)
     scope :reported, where(:reported => true)
+    scope :not_reported_and_active, where(reported: false, active: true)
 
     def title
       [self.article.title,self.content[0..20]].join(" - ")
