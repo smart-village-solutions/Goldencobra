@@ -8,7 +8,7 @@ guard 'rspec', :version => 2 do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
-  
+
   # Rails example
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
@@ -26,21 +26,3 @@ guard 'cucumber' do
   watch(%r{^features/support/.+$})          { 'features' }
   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
 end
-
-
-guard 'annotate', :run_at_start => false, :routes => true do
-  #watch( 'db/schema.rb' )
-
-  watch(%r{db/schema.rb}) do
-      `rake db:test:prepare`
-  end
-
-  # Uncomment the following line if you also want to run annotate anytime
-  # a model file changes
-  #watch( 'app/models/**/*.rb' )
-
-  # Uncomment the following line if you are running routes annotation
-  # with the ":routes => true" option
-  watch( 'config/routes.rb' )
-end
-

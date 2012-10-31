@@ -101,26 +101,44 @@ module Goldencobra
 
     def render_article_widgets(options={})
       custom_css = options[:class] || ""
-      taggs = options[:tagged_with] || ""
+      tags = options[:tagged_with] || ""
       default = options[:default] || "false"
       widget_wrapper = options[:wrapper] || "section"
       result = ""
       if @article
         widgets = @article.widgets.active
-        if taggs.present? && default == "false"
-          widgets = widgets.tagged_with(taggs.split(","))
-        elsif default == true && taggs.present?
-          widgets = Goldencobra::Widget.where(:default => true).tagged_with(taggs.split(","))
+        if tags.present? && default == "false"
+          widgets = widgets.tagged_with(tags.split(","))
+        elsif default == true && tags.present?
+          widgets = Goldencobra::Widget.where(:default => true).tagged_with(tags.split(","))
         else
           widgets = widgets.where(:tag_list => "")
         end
 
         widgets.each do |widget|
           template = Liquid::Template.parse(widget.content)
+          alt_template = Liquid::Template.parse(widget.alternative_content)
           if widget.id_name.present?
-            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}", :id => widget.id_name)
+            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)),
+                                  class: "#{widget.css_name} #{custom_css}",
+                                  id: widget.id_name,
+                                  'data-time-day' => widget.offline_days,
+                                  'data-time-start' => widget.offline_time_start_display,
+                                  'data-time-end' => widget.offline_time_end_display,
+                                  'data-offline-active' => widget.offline_time_active)
+            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
+                                  class: "#{widget.css_name} #{custom_css} hidden",
+                                  id: widget.id_name)
           else
-            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)) , :class => "#{widget.css_name} #{custom_css}")
+            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)),
+                                  class: "#{widget.css_name} #{custom_css}",
+                                  'data-time-day' => widget.offline_days,
+                                  'data-time-start' => widget.offline_time_start_display,
+                                  'data-time-end' => widget.offline_time_end_display,
+                                  'data-offline-active' => widget.offline_time_active)
+            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
+                                  class: "#{widget.css_name} #{custom_css} hidden",
+                                  id: widget.id_name)
           end
         end
       end
