@@ -38,4 +38,6 @@ $(document).ready(function(){
 
   });
 
+  $('.goldencobra_widget.hidden').remove();
+
 });
