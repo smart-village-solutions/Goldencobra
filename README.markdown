@@ -95,11 +95,11 @@ When creating articles, a default value is set for open graph image url. Please 
 ##Navigation Menu
 call in any view_template:
 
-    navigation_menu(manue_id, option={})
+```ruby
+navigation_menu(manue_id, option={})
 
-``` ruby
-option: { depth: integer }
-
+# option: { depth: integer }
+#
 # 0 = unlimited
 # 1 = self
 # 2 = self and children 1st grade
@@ -114,14 +114,15 @@ option: { depth: integer }
 <%= navigation_menu(1, :depth => 1) %>
 # renders menue starting with id 1 and only childs of first grade
 ```
-``` ruby
+
+```ruby
 <%= navigation_menu(2) %>
 # renders menue starting with id 2 and all children as a nested list
 ```
 
 ##Activate Bugtracker in Application Layout
 place this code in your application layout in header section:
-    <%= bugtracker %>
+`<%= bugtracker %>`
 
 ##Rendering content in layouts
 ```erb
@@ -140,13 +141,13 @@ place this code in your application layout in header section:
 
 ##Include social media sharing buttons where applicable
 ```erb
-    <div id="social_sharing_buttons" class="bottom_buttons">
-      <%= yield(:social_sharing_buttons) %>
-    </div>
+<div id="social_sharing_buttons" class="bottom_buttons">
+  <%= yield(:social_sharing_buttons) %>
+</div>
 ```
 
 ##Render an image gallery inside article content
-```html
+```erb
 <%= render_article_image_gallery %>
 ```
 
