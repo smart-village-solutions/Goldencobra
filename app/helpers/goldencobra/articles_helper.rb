@@ -125,20 +125,21 @@ module Goldencobra
                                   'data-time-day' => widget.offline_days,
                                   'data-time-start' => widget.offline_time_start_display,
                                   'data-time-end' => widget.offline_time_end_display,
-                                  'data-offline-active' => widget.offline_time_active)
+                                  'data-offline-active' => widget.offline_time_active,
+                                  'data-id' => widget.id)
             result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
                                   class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget",
-                                  id: widget.id_name)
+                                  id: widget.id_name, 'data-id' => widget.id)
           else
             result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)),
                                   class: "#{widget.css_name} #{custom_css} goldencobra_widget",
                                   'data-time-day' => widget.offline_days,
                                   'data-time-start' => widget.offline_time_start_display,
                                   'data-time-end' => widget.offline_time_end_display,
-                                  'data-offline-active' => widget.offline_time_active)
+                                  'data-offline-active' => widget.offline_time_active,
+                                  'data-id' => widget.id)
             result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
-                                  class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget",
-                                  id: widget.id_name)
+                                  class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget", 'data-id' => widget.id)
           end
         end
       end

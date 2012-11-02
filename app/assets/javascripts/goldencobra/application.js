@@ -32,8 +32,8 @@ $(document).ready(function(){
 
     if ((days.indexOf(cur_day) != -1) && ((start_time < cur_time) && (cur_time < end_time))) {
       // Widget muss ausgeblendet werden
-      $(element).hide();
-      $(element).next().show();
+      $(element).addClass("hidden");
+      $(element).next("[data-id="+ $(element).attr('data-id') + "]").removeClass("hidden");
     }
 
   });
