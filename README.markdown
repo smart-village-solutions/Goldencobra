@@ -43,12 +43,9 @@ rake db:migrate db:test:prepare
 
 #Setup Goldencobra
 
-* If you want to use Batch Actions in Goldencobra (set a batch of articles offline), you need to uncomment the line
-`# config.batch_actions = true` in config/initializers/active_admin.rb
+If you want to use Batch Actions in Goldencobra (set a batch of articles offline), you need to uncomment the line `# config.batch_actions = true` in config/initializers/active_admin.rb
 
-This would also be the place where you can override stylesheets and javascripts. Just put them inside the block
-
-`# == Register Stylesheets & Javascripts`.
+This would also be the place where you can override stylesheets and javascripts. Just put them inside the block `# == Register Stylesheets & Javascripts`.
 
 #Create new article types
 Nearly every site in Goldencobra is an article. If the default article isn't enough for your needs you can create new article types. There's a generator for that:
