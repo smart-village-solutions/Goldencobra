@@ -2,7 +2,7 @@ goldencobra:
     bugherd:
         user: "current_user"
         role: "admin"
-        api: "oebmenxxxztklejliapiyq"
+        api: ""
     comments:
         commentator: "User"
     menues:
