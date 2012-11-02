@@ -35,7 +35,7 @@ bundle install
 rake db:create
 ```
 
-#Install prerequesites for Goldencobra
+#Install prerequisites for Goldencobra
 ```ruby
 rails generate goldencobra:install
 rake db:migrate db:test:prepare
@@ -45,8 +45,10 @@ rake db:migrate db:test:prepare
 
 * If you want to use Batch Actions in Goldencobra (set a batch of articles offline), you need to uncomment the line
 `# config.batch_actions = true` in config/initializers/active_admin.rb
-This would also be the place where you can override stylesheets and javascripts. Just put the inside the block
-  `# == Register Stylesheets & Javascripts`.
+
+This would also be the place where you can override stylesheets and javascripts. Just put them inside the block
+
+`# == Register Stylesheets & Javascripts`.
 
 #Create new article types
 Nearly every site in Goldencobra is an article. If the default article isn't enough for your needs you can create new article types. There's a generator for that:
@@ -81,7 +83,7 @@ Important values are
 * Goldencobra-Facebook-AppId
 * Goldencobra-url (should be set without http:// in front)
 * Commentator: If you have a different frontend user model (like 'Visitor') you can set this here. Default is User.
-* Bugherd: If you use [Bugherd.com](http://www.bugherd.com) for tracking problems for your website you should enter the project's API key here. You can further decide wich User should be logged in to be able to track bugs.
+* Bugherd: If you use [Bugherd.com](http://www.bugherd.com) for tracking frontend problems for your website you should enter the project's API key here. You can further decide wich User should be logged in to be able to track bugs.
 * You have can enable or disable Solr Search Server and decide wether you want to recreate all menues and widgets after updating them. This might be useful for caching.
 
 
@@ -95,35 +97,56 @@ call in any view_template:
 
     navigation_menu(manue_id, option={})
 
-`option:
-    :depth => integer`
-0 = unlimited, 1 = self, 2 = self and children 1st grade, 3 = self and up to children 2nd grade,   default = 0`
+``` ruby
+option: { depth: integer }
+
+# 0 = unlimited
+# 1 = self
+# 2 = self and children 1st grade
+# 3 = self and up to children 2nd grade
+# default = 0
+```
 
 
 **example:**
 
-- `<%= navigation_menu(1, :depth => 1) %>`
-renders menue starting with id 1 and only childs of first grade
-- `<%= navigation_menu(2) %>`
- renders menue starting with id 2 and all children as a nested list
+```ruby
+<%= navigation_menu(1, :depth => 1) %>
+# renders menue starting with id 1 and only childs of first grade
+```
+``` ruby
+<%= navigation_menu(2) %>
+# renders menue starting with id 2 and all children as a nested list
+```
 
 ##Activate Bugtracker in Application Layout
-    place this code in your application layout in header section:
+place this code in your application layout in header section:
     <%= bugtracker %>
 
 ##Rendering content in layouts
-    <%= yield(:article_content) %>
-    <%= yield(:article_title) %>
-    <%= yield(:article_subtitle) %>
-    <%= yield(:article_teaser) %>
+```erb
+<%= yield(:article_content) %>
+<%= yield(:article_title) %>
+<%= yield(:article_subtitle) %>
+<%= yield(:article_teaser) %>
+```
+
+##Render widgets
+```erb
+<%= render_article_widgets(tagged_with: "slider", wrapper: "div", class: "slide-content") %>
+#
+```
+
 
 ##Include social media sharing buttons where applicable
-
+```erb
     <div id="social_sharing_buttons" class="bottom_buttons">
       <%= yield(:social_sharing_buttons) %>
     </div>
-
+```
 
 ##Render an image gallery inside article content
-    <%= render_article_image_gallery %>
+```html
+<%= render_article_image_gallery %>
+```
 
