@@ -36,6 +36,7 @@ gem 'sidekiq'
 gem 'sinatra', :require => false
 gem 'slim'
 #gem 'bullet'  testing for slow queries
+gem 'geokit'
 
 group :development do
   gem 'thin'
