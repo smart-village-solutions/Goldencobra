@@ -84,6 +84,11 @@ module Goldencobra
 
 
     def sitemap
+      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
+        @use_ssl = "s"
+      else
+        @use_ssl = ""
+      end
       @domain_name = Goldencobra::Setting.for_key("goldencobra.url")
       @articles = Goldencobra::Article.for_sitemap
       respond_to do |format|
