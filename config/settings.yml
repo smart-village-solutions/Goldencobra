@@ -19,6 +19,7 @@ goldencobra:
         max_cache_24h: "false"
         article_index:
             link_to_article: "weiterlesen"
+    use_ssl: "false"
     url: "www.goldencobra.de"
     facebook:
         appid: "123456"
