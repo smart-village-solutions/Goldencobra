@@ -20,6 +20,7 @@ require 'sunspot_solr'
 require 'sidekiq'
 require 'sinatra'
 require 'slim'
+require 'geokit'
 
 
 
@@ -28,16 +29,16 @@ module Goldencobra
     isolate_namespace Goldencobra
     config.to_prepare do
       ApplicationController.helper(Goldencobra::ApplicationHelper)
-      ActionController::Base.helper(Goldencobra::ApplicationHelper)      
-      DeviseController.helper(Goldencobra::ApplicationHelper)           
-      Devise::SessionsController.helper(Goldencobra::ApplicationHelper)           
-      Devise::PasswordsController.helper(Goldencobra::ApplicationHelper)      
-      
+      ActionController::Base.helper(Goldencobra::ApplicationHelper)
+      DeviseController.helper(Goldencobra::ApplicationHelper)
+      Devise::SessionsController.helper(Goldencobra::ApplicationHelper)
+      Devise::PasswordsController.helper(Goldencobra::ApplicationHelper)
+
       ApplicationController.helper(Goldencobra::ArticlesHelper)
-      ActionController::Base.helper(Goldencobra::ArticlesHelper)  
-      DeviseController.helper(Goldencobra::ArticlesHelper)               
-      Devise::SessionsController.helper(Goldencobra::ArticlesHelper)  
-      Devise::PasswordsController.helper(Goldencobra::ArticlesHelper)        
+      ActionController::Base.helper(Goldencobra::ArticlesHelper)
+      DeviseController.helper(Goldencobra::ArticlesHelper)
+      Devise::SessionsController.helper(Goldencobra::ArticlesHelper)
+      Devise::PasswordsController.helper(Goldencobra::ArticlesHelper)
     end
   end
 end
