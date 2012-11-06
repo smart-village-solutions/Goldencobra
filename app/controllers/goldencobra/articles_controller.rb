@@ -11,8 +11,6 @@ module Goldencobra
       caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
     end
 
-    "asdf asdf _asdfd - 1234 GGÜ".parameterize
-
     def show_cache_path
       geo_cache = Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true" && session[:user_location].present? && session[:user_location].city.present? ? session[:user_location].city.parameterize.underscore : "no_geo"
       date_cache = Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true" ? Date.today.strftime("%Y%m%d") : "no_date"
