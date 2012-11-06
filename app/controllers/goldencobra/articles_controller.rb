@@ -11,12 +11,15 @@ module Goldencobra
       caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
     end
 
+    "asdf asdf _asdfd - 1234 GGÜ".parameterize
+
     def show_cache_path
-      if Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true"
-        "g/u_#{current_user.id if current_user.present?}/#{Date.today.strftime("%Y%m%d")}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
-      else
-        "g/u_#{current_user.id if current_user.present?}/#{params[:article_id]}/#{@article.cache_key if @article }_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
-      end
+      geo_cache = Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true" && session[:user_location].present? && session[:user_location].city.present? ? session[:user_location].city.parameterize.underscore : "no_geo"
+      date_cache = Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true" ? Date.today.strftime("%Y%m%d") : "no_date"
+      art_cache = @article ? @article.cache_key : "no_art"
+      user_cache = current_user.present? ? current_user.id : "no_user"
+
+      "g/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
     end
 
     def show
@@ -269,8 +272,6 @@ module Goldencobra
     end
 
     def geocode_ip_address
-
-
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
           if session[:user_location].blank?
@@ -279,7 +280,7 @@ module Goldencobra
             if @ip_result && @ip_result.city.present?
               Goldencobra::Article::LiquidParser["user_location"] = @ip_result.city
             else
-              Goldencobra::Article::LiquidParser["user_location"] = "berlin"
+              Goldencobra::Article::LiquidParser["user_location"] = "Berlin"
             end
           else
             Goldencobra::Article::LiquidParser["user_location"] = session[:user_location].city
