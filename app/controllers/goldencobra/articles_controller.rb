@@ -1,3 +1,4 @@
+#ENCODING: UTF-8
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
     load_and_authorize_resource
