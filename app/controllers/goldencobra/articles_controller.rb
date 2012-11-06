@@ -228,7 +228,11 @@ module Goldencobra
     end
 
     def get_articles_by_article_type
-      @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
+      if @article.article_type_form_file == "Default"
+        @list_of_articles = Goldencobra::Article.active
+      else
+        @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
+      end
     end
 
     def set_expires_in
