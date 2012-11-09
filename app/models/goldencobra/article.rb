@@ -227,7 +227,11 @@ module Goldencobra
     end
 
     def absolute_public_url
-      "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
+      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
+        "https://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
+      else
+        "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
+      end
     end
 
     def parse_image_gallery_tags
