@@ -25,3 +25,6 @@ goldencobra:
         appid: "123456"
         opengraph_default_image: "/assets/open-graph.png"
     geocode_ip_address: "false"
+    remove_old_versions:
+        active: "true"
+        weeks: "2"
