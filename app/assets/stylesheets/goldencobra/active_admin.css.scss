@@ -329,7 +329,36 @@ div.has_many.vita_steps {
   }
 }
 
-// fieldset.actions li.input_action input, input[type="submit"]:not(.disabled):hover {
-// 	background: -webkit-gradient(linear, left top, left bottom, from(#67B34B), to(#325724));
-// 	background: -moz-linear-gradient(-90deg, #67B34B, #325724);
-// }
+body.active_admin form input[type="submit"] {
+    display: inline-block;
+    margin-right: 3px;
+    padding: 7px 16px 6px;
+    cursor: pointer;
+
+    background-color: #7FBF4D;
+    background: -moz-linear-gradient(center top , #7FBF4D, #63A62F);
+    background: -webkit-gradient(linear, left top, left bottom, from(#7FBF4D), to(#63A62F));
+
+    border-color: #63A62F #63A62F #5B992B;
+    border-image: none;
+    border-radius: 200px 200px 200px 200px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 #96CA6D inset;
+
+    color: #FFFFFF;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 12px;
+    text-shadow: 0 -1px 0 #4C9021;
+    text-decoration: none;
+}
+
+
+body.active_admin form input[type="submit"]:hover:not(.disabled) {
+    background-color: #76B347;
+    background: -moz-linear-gradient(center top , #76B347, #5E9E2E);
+    background: -webkit-gradient(linear, left top, left bottom, from(#76B347), to(#5E9E2E));
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 #8DBF67 inset;
+}
