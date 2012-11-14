@@ -274,9 +274,13 @@ module Goldencobra
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
           if session[:user_location].blank?
-            @ip_result = Geokit::Geocoders::MultiGeocoder.geocode(request.remote_ip)
-            session[:user_location] = @ip_result
-            if @ip_result && @ip_result.city.present?
+            begin
+              @ip_result = Geokit::Geocoders::MultiGeocoder.geocode(request.remote_ip)
+              session[:user_location] = @ip_result
+            rescue
+              @ip_result = nil
+            end
+            if @ip_result.present? && @ip_result.city.present?
               Goldencobra::Article::LiquidParser["user_location"] = @ip_result.city
             else
               Goldencobra::Article::LiquidParser["user_location"] = "Berlin"
