@@ -275,15 +275,11 @@ module Goldencobra
         if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
           if session[:user_location].blank?
             begin
-              if request.present? && request.remote_ip.present? && request.remote_ip =~ /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/
                 @ip_result = Geokit::Geocoders::MultiGeocoder.geocode(request.remote_ip)
                 session[:user_location] = @ip_result
-              else
-                logger.error("***********")
-                logger.error(request.remote_ip)
-                @ip_result = nil
-              end
-            rescue
+            rescue Exception => e
+              logger.error("***********")
+              logger.error(e)
               @ip_result = nil
             end
             if @ip_result.present? && @ip_result.city.present?
