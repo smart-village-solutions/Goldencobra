@@ -22,6 +22,8 @@ ActiveAdmin.setup do |config|
 
   # == Load Paths
   config.load_paths << "#{Goldencobra::Engine.root}/admin/"
+  config.load_paths << "#{::Rails.root}/admin/"
+
   config.before_filter :current_ability
 
   # == Default Namespace
