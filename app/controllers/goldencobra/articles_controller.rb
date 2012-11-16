@@ -274,6 +274,7 @@ module Goldencobra
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         if Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true"
           if session[:user_location].blank?
+            #Geokit::Geocoders::MultiGeocoder.geocode("194.39.218.11") schlägt fehl daher...
             begin
                 @ip_result = Geokit::Geocoders::MultiGeocoder.geocode(request.remote_ip)
                 session[:user_location] = @ip_result
