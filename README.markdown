@@ -23,7 +23,13 @@ rails new PROJECTNAME -d mysql
 Add the following to file "PROJECTNAME/Gemfile":
 ``` ruby
 gem 'goldencobra', git: 'git://github.com/ikusei/Goldencobra.git'
-gem "inherited_resources" # Is needed by gem ActiveAdmin right now
+gem 'activeadmin', :git => 'git://github.com/ikusei/active_admin.git', :require => 'activeadmin'
+gem 'compass-960-plugin'
+gem 'progress_bar'
+
+group :assets do
+  gem 'compass-rails' # add to assets group
+end
 ```
 
 ```ruby
