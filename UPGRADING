@@ -1,0 +1,8 @@
+##################################################
+#         NOTE FOR GOLDENCOBRA UPDATING          #
+##################################################
+
+Please add acts-as-taggable to your Gemfile:
+gem 'acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on.git'
+
+We need the github version. Please add it to your Gemfile.
