@@ -125,6 +125,8 @@ module Goldencobra
                                   'data-time-day' => widget.offline_days,
                                   'data-time-start' => widget.offline_time_start_display,
                                   'data-time-end' => widget.offline_time_end_display,
+                                  'data-date-start' => widget.offline_date_start_display,
+                                  'data-date-end' => widget.offline_date_end_display,
                                   'data-offline-active' => widget.offline_time_active,
                                   'data-id' => widget.id)
             result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
@@ -136,6 +138,8 @@ module Goldencobra
                                   'data-time-day' => widget.offline_days,
                                   'data-time-start' => widget.offline_time_start_display,
                                   'data-time-end' => widget.offline_time_end_display,
+                                  'data-date-start' => widget.offline_date_start_display,
+                                  'data-date-end' => widget.offline_date_end_display,
                                   'data-offline-active' => widget.offline_time_active,
                                   'data-id' => widget.id)
             result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),

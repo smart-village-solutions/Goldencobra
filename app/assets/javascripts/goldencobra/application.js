@@ -30,12 +30,27 @@ $(document).ready(function(){
     var cur_day = moment().format('dd');
     var cur_time = parseInt(moment().format('Hmm'));
 
-    if ((days.indexOf(cur_day) != -1) && ((start_time < cur_time) && (cur_time < end_time))) {
-      // Widget muss ausgeblendet werden
-      $(element).addClass("hidden");
-      $(element).next("[data-id="+ $(element).attr('data-id') + "]").removeClass("hidden");
+    var start_date = parseInt($(element).attr('data-date-start'));
+    var end_date = parseInt($(element).attr('data-date-end'));
+    var cur_date = parseInt(moment().format('YYYYMD'));
+
+    //Ausgabe wenn start und enddatum nicht gesetzt sind
+    if ($(element).attr('data-date-start').length == 0 && $(element).attr('data-date-end').length == 0){
+      if ((days.indexOf(cur_day) != -1) && ((start_time < cur_time) && (cur_time < end_time))) {
+        // Widget muss ausgeblendet werden
+        $(element).addClass("hidden");
+        $(element).next("[data-id="+ $(element).attr('data-id') + "]").removeClass("hidden");
+      }
     }
 
+    //Ausgabe wenn start und enddatum gesetzt sind
+    if ($(element).attr('data-date-start').length > 0 && $(element).attr('data-date-end').length > 0 && start_date <= cur_date && end_date >= cur_date){
+      if ((days.indexOf(cur_day) != -1) && ((start_time < cur_time) && (cur_time < end_time))) {
+        // Widget muss ausgeblendet werden
+        $(element).addClass("hidden");
+        $(element).next("[data-id="+ $(element).attr('data-id') + "]").removeClass("hidden");
+      }
+    }
   });
 
   console.log($('.goldencobra_widget.hidden').length);

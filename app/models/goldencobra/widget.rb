@@ -79,6 +79,24 @@ module Goldencobra
       end
     end
 
+    def offline_date_start_display
+      if self.offline_date_start.present?
+        self.offline_date_start.strftime("%Y%m%d")
+      else
+        ""
+      end
+    end
+
+    def offline_date_end_display
+      if self.offline_date_end.present?
+        self.offline_date_end.strftime("%Y%m%d")
+      else
+        ""
+      end
+    end
+
+
+
     def validate_start_end_time
       if self.offline_time_active
 
