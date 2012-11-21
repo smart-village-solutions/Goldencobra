@@ -9,6 +9,15 @@ module Goldencobra
       end
     end
 
+    def after_sign_out_path_for(resource_or_scope)
+      request.referrer
+    end
+
+    def after_sign_in_path_for(resource_or_scope)
+      request.referrer
+    end
+
+
     rescue_from CanCan::AccessDenied do |exception|
       if can?(:read, Goldencobra::Article)
         redirect_to root_url, :alert => exception.message
