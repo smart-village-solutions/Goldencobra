@@ -23,6 +23,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst", :label => "Liste von Tags"
       f.input :description, :input_html => { :class =>"tinymce", :rows => 3}
       f.input :alt_text
+      f.input :sorter_number
     end
   end
 
@@ -40,7 +41,8 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     end
     column :created_at, sortable: :created_at do |upload|
     	l(upload.created_at, format: :short)
-	end
+	  end
+    column :sorter_number
 	  column "" do |upload|
 	    if upload.image_file_name && upload.image_file_name.include?(".zip")
 	      link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
