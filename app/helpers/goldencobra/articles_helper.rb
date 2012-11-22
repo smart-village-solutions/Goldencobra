@@ -21,7 +21,7 @@ module Goldencobra
         result = ""
         uploads = Goldencobra::Upload.tagged_with(@article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : "" )
         if uploads && uploads.count > 0
-          uploads.each do |upload|
+          uploads.order(:sorter_number).each do |upload|
             result << content_tag("li", link_to(image_tag(upload.image.url(:thumb), {alt: upload.alt_text}), upload.image.url(:large), title: raw(upload.description)))
           end
         end

@@ -2,17 +2,17 @@
 #
 # Table name: goldencobra_comments
 #
-#  id               :integer(4)      not null, primary key
-#  article_id       :integer(4)
-#  commentator_id   :integer(4)
+#  id               :integer          not null, primary key
+#  article_id       :integer
+#  commentator_id   :integer
 #  commentator_type :string(255)
 #  content          :text
-#  active           :boolean(1)      default(TRUE)
-#  approved         :boolean(1)      default(FALSE)
-#  reported         :boolean(1)      default(FALSE)
+#  active           :boolean          default(TRUE)
+#  approved         :boolean          default(FALSE)
+#  reported         :boolean          default(FALSE)
 #  ancestry         :string(255)
-#  created_at       :datetime        not null
-#  updated_at       :datetime        not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 
 require 'test_helper'

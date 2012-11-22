@@ -106,10 +106,13 @@ Feature: Create and manage articles
     When I visit url "/seite2"
     Then I should not see "Seite2"
     And I should see "404"
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
     Then I go to the admin list of articles
     And I click on "Edit" within "tr#article_2"
     And  I check "article_active"
     And I press "Update Article"
+    Given that I am not logged in
     When I visit url "/seite2"
     Then I should see "Seite2" within "h1"
 

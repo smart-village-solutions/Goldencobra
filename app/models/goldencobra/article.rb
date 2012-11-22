@@ -1,51 +1,51 @@
 #Encoding: UTF-8
+#For article rendering to string (:render_html) needed
 
 # == Schema Information
 #
 # Table name: goldencobra_articles
 #
-#  id                               :integer(4)      not null, primary key
+#  id                               :integer          not null, primary key
 #  title                            :string(255)
-#  created_at                       :datetime        not null
-#  updated_at                       :datetime        not null
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
 #  url_name                         :string(255)
 #  slug                             :string(255)
 #  content                          :text
 #  teaser                           :text
 #  ancestry                         :string(255)
-#  startpage                        :boolean(1)      default(FALSE)
-#  active                           :boolean(1)      default(TRUE)
+#  startpage                        :boolean          default(FALSE)
+#  active                           :boolean          default(TRUE)
 #  subtitle                         :string(255)
 #  summary                          :text
 #  context_info                     :text
 #  canonical_url                    :string(255)
-#  robots_no_index                  :boolean(1)      default(FALSE)
+#  robots_no_index                  :boolean          default(FALSE)
 #  breadcrumb                       :string(255)
 #  template_file                    :string(255)
-#  enable_social_sharing            :boolean(1)
-#  article_for_index_id             :integer(4)
-#  article_for_index_levels         :integer(4)      default(0)
-#  article_for_index_count          :integer(4)      default(0)
-#  article_for_index_images         :boolean(1)      default(FALSE)
-#  cacheable                        :boolean(1)      default(TRUE)
+#  enable_social_sharing            :boolean
+#  article_for_index_id             :integer
+#  article_for_index_levels         :integer          default(0)
+#  article_for_index_count          :integer          default(0)
+#  article_for_index_images         :boolean          default(FALSE)
+#  cacheable                        :boolean          default(TRUE)
 #  image_gallery_tags               :string(255)
 #  article_type                     :string(255)
 #  external_url_redirect            :string(255)
 #  index_of_articles_tagged_with    :string(255)
 #  sort_order                       :string(255)
-#  reverse_sort                     :boolean(1)
+#  reverse_sort                     :boolean
 #  author                           :string(255)
-#  sorter_limit                     :integer(4)
+#  sorter_limit                     :integer
 #  not_tagged_with                  :string(255)
-#  use_frontend_tags                :boolean(1)      default(FALSE)
-#  dynamic_redirection              :string(255)     default("false")
-#  redirection_target_in_new_window :boolean(1)      default(FALSE)
-#  commentable                      :boolean(1)      default(FALSE)
-#  active_since                     :datetime        default(2012-10-02 13:09:32 UTC)
+#  use_frontend_tags                :boolean          default(FALSE)
+#  dynamic_redirection              :string(255)      default("false")
+#  redirection_target_in_new_window :boolean          default(FALSE)
+#  commentable                      :boolean          default(FALSE)
+#  active_since                     :datetime         default(2012-10-02 13:09:32 UTC)
 #  redirect_link_title              :string(255)
 #
 
-#For article rendering to string (:render_html) needed
 include Goldencobra::ApplicationHelper
 
 module Goldencobra

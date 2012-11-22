@@ -2,24 +2,26 @@
 #
 # Table name: goldencobra_widgets
 #
-#  id                  :integer(4)      not null, primary key
+#  id                  :integer          not null, primary key
 #  title               :string(255)
 #  content             :text
 #  css_name            :string(255)
-#  active              :boolean(1)
-#  created_at          :datetime        not null
-#  updated_at          :datetime        not null
+#  active              :boolean
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #  id_name             :string(255)
-#  sorter              :integer(4)
+#  sorter              :integer
 #  mobile_content      :text
 #  teaser              :string(255)
-#  default             :boolean(1)
+#  default             :boolean
 #  description         :text
 #  offline_days        :string(255)
 #  offline_time_start  :datetime
 #  offline_time_end    :datetime
-#  offline_time_active :boolean(1)
+#  offline_time_active :boolean
 #  alternative_content :text
+#  offline_date_start  :date
+#  offline_date_end    :date
 #
 
 require 'test_helper'

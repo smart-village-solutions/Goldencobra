@@ -2,14 +2,14 @@
 #
 # Table name: goldencobra_vita
 #
-#  id            :integer(4)      not null, primary key
-#  loggable_id   :integer(4)
+#  id            :integer          not null, primary key
+#  loggable_id   :integer
 #  loggable_type :string(255)
-#  user_id       :integer(4)
+#  user_id       :integer
 #  title         :string(255)
 #  description   :text
-#  created_at    :datetime        not null
-#  updated_at    :datetime        not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 module Goldencobra
