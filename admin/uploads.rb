@@ -15,7 +15,13 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
     f.inputs "File" do
-      f.input :image, :as => :file
+      f.input :image, :as => :file, hint: "Upload a new picture for this ressource, if the file name is the same!"
+    end
+    f.inputs "Preview" do
+      image_tag(f.object.image(:medium)) if f.object && f.object.image.present?
+    end
+    f.inputs "Dateiname" do
+      f.object.image_file_name
     end
     f.inputs "Allgemein" do
       f.input :source
@@ -33,9 +39,9 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       result = ""
       result << upload.image.url
     end
-    column :source, sortable: :source do |upload|
-    	truncate(upload.source, length: 20)
-    end
+    # column :source, sortable: :source do |upload|
+    # 	truncate(upload.source, length: 20)
+    # end
     column t("preview") do |upload|
       image_tag(upload.image(:mini))
     end
@@ -43,9 +49,14 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     	l(upload.created_at, format: :short)
 	  end
     column :sorter_number
-	  column "" do |upload|
+    column "Tags" do |upload|
+      upload.tag_list
+    end
+	  column "zip" do |upload|
 	    if upload.image_file_name && upload.image_file_name.include?(".zip")
 	      link_to(raw("entpacken"), unzip_file_admin_upload_path(upload))
+      else
+        "-"
 	    end
 	  end
     column "" do |upload|
