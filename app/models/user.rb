@@ -60,11 +60,18 @@ class User < ActiveRecord::Base
   end
 
   def anrede
-    if self.gender == true
-      "Sehr geehrter Herr #{self.title} #{self.lastname}"
+    if self.lastname == "n.v."
+      r = "Sehr geehrte Damen und Herren"
     else
-      "Sehr geehrte Frau #{self.title} #{self.lastname}"
+      if self.gender == true
+        r = "Sehr geehrter Herr"
+      else
+        r = "Sehr geehrte Frau"
+      end
+      r << " #{self.title}" if self.title.present?
+      r << " #{self.lastname}"
     end
+    return r
   end
 
   def title
