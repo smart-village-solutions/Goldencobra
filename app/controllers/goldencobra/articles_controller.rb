@@ -216,11 +216,11 @@ module Goldencobra
     end
 
     def get_articles_with_tags
-      @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(","), on: :tags)
+      @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags)
     end
 
     def get_articles_without_tags
-      @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(","), :exclude => true, on: :tags)
+      @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(",").map{|t| t.strip}, :exclude => true, on: :tags)
     end
 
     def get_articles_by_frontend_tags
