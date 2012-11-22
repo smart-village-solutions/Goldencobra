@@ -7,7 +7,7 @@ gem "jquery-rails"
 
 gem 'devise', :git => "git://github.com/plataformatec/devise.git"
 gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git", :require => "activeadmin"
-gem 'acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on.git'
+gem 'acts-as-taggable-on', :git => 'git://github.com/mbleigh/acts-as-taggable-on.git'
 gem 'execjs'
 gem 'therubyracer'
 gem "friendly_id"
