@@ -88,6 +88,8 @@ de:
       labels:
         set_article_online: "Artikel online stellen"
         set_article_offline: "Artikel offline stellen"
+        set_menue_offline: "Menü online stellen"
+        set_menue_online: "Menü offline stellen"
         reset_cache: "Cache leeren"
         send_default_conf_mails: "Sende Bestätigungsmails"
         destroy: "Löschen"

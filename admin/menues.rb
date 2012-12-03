@@ -1,7 +1,17 @@
+#encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
   menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Menue)}
   controller.authorize_resource :class => Goldencobra::Menue
+
+  filter :title
+  filter :target
+  filter :css_class
+  filter :sorter
+
+  scope :active
+  scope :inactive
 
   form do |f|
     f.actions
@@ -53,8 +63,25 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Menue.order(:title).roots, :locals => {:link_name => "title", :url_path => "menue", :order_by => "title" }
   end
 
-  batch_action :destroy, false
+  #batch_action :destroy, false
 
+  batch_action :set_menue_offline, :confirm => "Menüpunkt offline stellen: sind Sie sicher?" do |selection|
+    Goldencobra::Menue.find(selection).each do |menue|
+      menue.active = false
+      menue.save
+    end
+    flash[:notice] = "Menüpunkte wurden offline gestellt"
+    redirect_to :action => :index
+  end
+
+  batch_action :set_menue_online, :confirm => "Menüpunkt offline stellen: sind Sie sicher?" do |selection|
+    Goldencobra::Menue.find(selection).each do |menue|
+      menue.active = true
+      menue.save
+    end
+    flash[:notice] = "Menüpunkte wurden online gestellt"
+    redirect_to :action => :index
+  end
 
   controller do
     def new
