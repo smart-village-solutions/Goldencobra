@@ -28,10 +28,10 @@ module Goldencobra
   class Engine < ::Rails::Engine
     isolate_namespace Goldencobra
     initializer "goldencobra.load_app_instance_data" do |app|
-      app.class.configure do
-        #Pull in all the migrations from goldencobra to the application
-        config.paths['db/migrate'] += Goldencobra::Engine.paths['db/migrate'].existent
-      end
+      #app.class.configure do
+      #  #Pull in all the migrations from goldencobra to the application
+      #  config.paths['db/migrate'] += Goldencobra::Engine.paths['db/migrate'].existent
+      #end
     end
     config.to_prepare do
       ApplicationController.helper(Goldencobra::ApplicationHelper)
