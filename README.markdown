@@ -27,10 +27,7 @@ gem 'activeadmin', :git => 'git://github.com/ikusei/active_admin.git', :require 
 gem 'compass-960-plugin'
 gem 'progress_bar'
 gem 'acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on.git' # The github repo offers advanced configuration options over rubygems.org
-
-group :assets do
-  gem 'compass-rails' # add to assets group
-end
+gem 'compass-rails'
 ```
 
 ```ruby
@@ -130,6 +127,11 @@ place this code in your application layout in header section:
 
 ##Rendering content in layouts
 ```erb
+<% # Renders contents of different article types %>
+<% if @article %>
+  <%= render_article_type_content() %>
+<% end %>
+      
 <%= yield(:article_content) %>
 <%= yield(:article_title) %>
 <%= yield(:article_subtitle) %>
