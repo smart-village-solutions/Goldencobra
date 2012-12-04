@@ -9,6 +9,7 @@ module ExtendGoldencobraArticlesController
   end
 
   def after_index
+    #@list_of_articles accessible
     #::Rails.logger.info("********************************** - AFTER-INDEX")
   end
 
