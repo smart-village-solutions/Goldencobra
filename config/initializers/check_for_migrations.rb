@@ -1,10 +1,10 @@
 unless ::Rails.root.to_s.include?("/test/dummy")
   all_files_exists = []
   Dir.foreach(File.join(Goldencobra::Engine.root,"db", "migrate")) do |f|
-    file_to_search = f.to_s.split(".")[0].to_s.split("_")[1..-1].join("_")
+    file_to_search = f.to_s.split(".")[0].to_s.split("_")[1..-1].to_a.join("_")
     single_all_files_exists = []
     Dir.foreach(File.join(::Rails.root,"db", "migrate")) do |g|
-      compare_with = g.to_s.split(".")[0].to_s.split("_")[1..-1].join("_")
+      compare_with = g.to_s.split(".")[0].to_s.split("_")[1..-1].to_a.join("_")
       if compare_with == file_to_search
         single_all_files_exists << true
       else
