@@ -1,4 +1,3 @@
-#ENCODING: UTF-8
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
     load_and_authorize_resource
@@ -30,23 +29,20 @@ module Goldencobra
         initialize_article(@article)
         Goldencobra::Article.load_liquid_methods(location: session[:user_location], article: @article, params: params)
 
-        if can_load_associated_model?
-          load_associated_model_into_liquid
-        end
+        load_associated_model_into_liquid() if can_load_associated_model?
 
         if generate_index_list?
           @list_of_articles = get_articles_by_article_type
-          include_related_models
-          get_articles_with_tags if @article.index_of_articles_tagged_with.present?
-          get_articles_without_tags if @article.not_tagged_with.present?
-          get_articles_by_frontend_tags if params[:frontend_tags].present?
-          sort_response
+          include_related_models()
+          get_articles_with_tags() if @article.index_of_articles_tagged_with.present?
+          get_articles_without_tags() if @article.not_tagged_with.present?
+          get_articles_by_frontend_tags() if params[:frontend_tags].present?
+          sort_response()
         end
 
         if serve_fresh_page?
-          set_expires_in
-          layout_to_render = choose_layout
-
+          set_expires_in()
+          layout_to_render = choose_layout()
           respond_to do |format|
             format.html { render layout: layout_to_render }
             format.rss
@@ -59,10 +55,10 @@ module Goldencobra
       elsif should_statically_redirect?
           redirect_to @article.external_url_redirect
       elsif should_dynamically_redirect?
-        redirect_dynamically
+        redirect_dynamically()
       else
         # Render 404 Article if no Article else is found
-        redirect_to_404
+        redirect_to_404()
       end
     end
 
