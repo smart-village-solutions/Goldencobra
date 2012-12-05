@@ -48,5 +48,12 @@ module Goldencobra
                                   :image => current_article.metatag("OpenGraph Image")}
     end
 
+    private
+    #Catcher for undefined Goldencobra Callback Hooks
+    def method_missing(meth, *args)
+      unless [:before_init, :before_render, :after_init, :after_index].include?(meth.to_sym)
+        super
+      end
+    end
   end
 end
