@@ -10,6 +10,7 @@ gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git", :require 
 gem 'acts-as-taggable-on', :git => 'git://github.com/mbleigh/acts-as-taggable-on.git'
 gem 'execjs'
 gem 'therubyracer'
+gem 'libv8', '~> 3.11.8'
 gem "friendly_id"
 gem 'omniauth'
 gem 'omniauth-openid'
