@@ -62,8 +62,8 @@ class Visitor < ActiveRecord::Base
   end
 
   def send_confirmation_mail
-    if self.email.present?
-      ConfirmationMailer.send_confirmation_mail(self.email).deliver!
+    if self.email.present? && Goldencobra::Setting.for_key('visitors.send_confirmation_mail') == 'true'
+      Goldencobra::ConfirmationMailer.send_confirmation_mail(self.email).deliver!
     end
   end
 

@@ -6,6 +6,15 @@ Goldencobra::Engine.routes.draw do
   if RUBY_VERSION.include?("1.9.")
     mount Sidekiq::Web => '/admin/background'
   end
+
+  # post '/goldencobra/api/v1/tokens' => 'goldencobra/api/v1/tokens_controller#create'
+
+  namespace "api" do
+    namespace "v1" do
+      resources :tokens, only: [:create]
+    end
+  end
+
   get 'sitemap', :to => 'articles#sitemap', :defaults => {:format => "xml"}
   match "/*article_id.pdf", :to => "articles#convert_to_pdf"
   match "/*article_id", :to => "articles#show"
