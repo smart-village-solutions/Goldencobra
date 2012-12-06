@@ -30,6 +30,7 @@ module Goldencobra
 
     scope :with_values, where("value IS NOT NULL")
 
+
     def self.regenerate_active_admin
       if defined?(ActiveAdmin) and ActiveAdmin.application
         ActiveAdmin.application.unload!
