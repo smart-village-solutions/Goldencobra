@@ -8,12 +8,14 @@
 #  ancestry   :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  data_type  :string(255)
 #
 
 module Goldencobra
   class Setting < ActiveRecord::Base
     @key_value = {}
-    attr_accessible :title, :value, :ancestry, :parent_id
+    attr_accessible :title, :value, :ancestry, :parent_id, :data_type
+    SettingsDataTypes = ["string","date","datetime","checkbox","array"]
     has_ancestry :orphan_strategy => :restrict
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
@@ -64,17 +66,17 @@ module Goldencobra
     end
     end
 
-    def self.set_value_for_key(value, name)
+    def self.set_value_for_key(value, name, data_type_name="string")
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       setting_title = name.split(".").last
       settings = Goldencobra::Setting.where(:title => setting_title)
       if settings.count == 1
-        settings.first.update_attributes(value: value)
+        settings.first.update_attributes(value: value, data_type: data_type_name)
         true
       elsif settings.count > 1
         settings.each do |set|
           if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
-            set.update_attributes(value: value)
+            set.update_attributes(value: value, data_type: data_type_name)
             true
           end
         end
@@ -103,20 +105,32 @@ module Goldencobra
     private
     def self.generate_default_setting(key, yml_data, parent_id=nil)
       if yml_data[key].class == Hash
-        parent = Setting.find_by_ancestry_and_title(parent_id, key)
-        unless parent
-          parent = Setting.create(:ancestry => parent_id, :title => key)
-        end
-        yml_data[key].each_key do |name|
-          generate_default_setting(name, yml_data[key], [parent.ancestry,parent.id].compact.join('/'))
+        #check if childen keys are value and type or not
+        if yml_data[key].keys.count == 2 && yml_data[key].keys.sort == ["type","value"]
+          #new way of defining settings by additional value and type params
+          create_setting_by_key_and_parent_and_type_and_value(key,parent_id, yml_data[key]["type"], yml_data[key]["value"])
+        else
+          #old way of defining Settings
+          parent = Setting.find_by_ancestry_and_title(parent_id, key)
+          unless parent
+            parent = Setting.create(:ancestry => parent_id, :title => key)
+          end
+          yml_data[key].each_key do |name|
+            generate_default_setting(name, yml_data[key], [parent.ancestry,parent.id].compact.join('/'))
+          end
         end
       elsif yml_data[key].class == String
-        set = Setting.find_by_title_and_ancestry(key, parent_id)
-        unless set
-          Setting.create(:title => key , :value => yml_data[key], :ancestry => parent_id)
-        end
+        create_setting_by_key_and_parent_and_type_and_value(key,parent_id, "string", yml_data[key])
       else
         raise "invalid yml File at: #{key}  -  #{yml_data}"
+      end
+    end
+
+
+    def self.create_setting_by_key_and_parent_and_type_and_value(key,parent, data_type, value_name)
+      set = Setting.find_by_title_and_ancestry(key, parent)
+      unless set
+        Setting.create(:title => key , :value => value_name, :ancestry => parent, :data_type => data_type )
       end
     end
 
