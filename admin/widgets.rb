@@ -15,18 +15,19 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
 
   form html: { enctype: "multipart/form-data" } do |f|
     f.actions
-    f.inputs "Allgemein" do
+    f.inputs "Allgemein", :class => "foldable inputs" do
       f.input :title
-      f.input :content
-      f.input :mobile_content
-      f.input :id_name
-      f.input :css_name
-      f.input :teaser
-      f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
       f.input :tag_list
       f.input :active
+      f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."
     end
-    f.inputs "Darstellung" do
+    f.inputs "Layout - Default", :class => "foldable inputs" do
+      f.input :content
+    end
+    f.inputs "Layout - Mobil", :class => "foldable inputs closed" do
+      f.input :mobile_content
+    end
+    f.inputs "Zeitsteuerung", :class => "foldable inputs closed" do
       f.input :offline_day, as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
       f.input :offline_time_start, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
       f.input :offline_time_end, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
@@ -35,13 +36,14 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
       f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
     end
-    f.inputs "Admin" do
-      if(proc{can?(:read, Goldencobra::Widget)})
-        f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."
-      end
-      f.input :description
+    f.inputs "Erweiterte Infos", :class => "foldable inputs closed"  do
+      f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
+      f.input :id_name
+      f.input :css_name
+      f.input :teaser
+      f.input :description, :hint => "Interne Beschreibung dieses Widgets"
     end
-    f.inputs "Artikel" do
+    f.inputs "Zugewiesene Artikel" do
       f.input :articles, :as => :select, :collection => Goldencobra::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select'}
     end
     f.actions
