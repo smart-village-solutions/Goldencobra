@@ -2,7 +2,10 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
 
   menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Setting)}
   controller.authorize_resource :class => Goldencobra::Setting
-  scope "Werte", :with_values, :default => true
+  scope "Alle Settings", :with_values, :default => true
+  Goldencobra::Setting.roots.each do |rs|
+    scope(rs.title){ |t| t.parent_ids_in(rs.id).with_values }
+  end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
