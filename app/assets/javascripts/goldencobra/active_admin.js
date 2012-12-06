@@ -69,12 +69,12 @@ $(document).ready(function() {
 	$('#footer').html("<p>Goldencobra</p>")
 
 	//die fieldsets bekommen einen button zum auf und zu klappen
-	$('div#main_content fieldset.foldable legend').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
-	$('div#main_content fieldset.foldable legend').bind("click", function(){
+	$('div#main_content > form > fieldset.foldable > legend').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
+	$('div#main_content > form > fieldset.foldable > legend').bind("click", function(){
 		$(this).closest("fieldset").find(".foldable_icon").toggleClass("open");
 		$(this).closest("fieldset").find('ol').slideToggle();
 	});
-	$('div#main_content fieldset.foldable.closed legend').trigger("click");
+	$('div#main_content > form > fieldset.foldable.closed legend').trigger("click");
 
 
 	//die sidebar_section bekommen einen button zum auf und zu klappen
