@@ -1,5 +1,4 @@
-#Encoding: UTF-8
-#For article rendering to string (:render_html) needed
+#encoding: utf-8
 
 # == Schema Information
 #
@@ -23,11 +22,11 @@
 #  robots_no_index                  :boolean          default(FALSE)
 #  breadcrumb                       :string(255)
 #  template_file                    :string(255)
-#  enable_social_sharing            :boolean
 #  article_for_index_id             :integer
 #  article_for_index_levels         :integer          default(0)
 #  article_for_index_count          :integer          default(0)
 #  article_for_index_images         :boolean          default(FALSE)
+#  enable_social_sharing            :boolean
 #  cacheable                        :boolean          default(TRUE)
 #  image_gallery_tags               :string(255)
 #  article_type                     :string(255)
@@ -42,10 +41,12 @@
 #  dynamic_redirection              :string(255)      default("false")
 #  redirection_target_in_new_window :boolean          default(FALSE)
 #  commentable                      :boolean          default(FALSE)
-#  active_since                     :datetime         default(2012-10-02 13:09:32 UTC)
+#  active_since                     :datetime         default(2012-09-30 12:53:13 UTC)
 #  redirect_link_title              :string(255)
 #
 
+
+#For article rendering to string (:render_html) needed
 include Goldencobra::ApplicationHelper
 
 module Goldencobra
