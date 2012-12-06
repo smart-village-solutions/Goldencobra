@@ -128,13 +128,15 @@ module Goldencobra
     end
 
 
-    def self.create_setting_by_key_and_parent_and_type_and_value(key,parent, data_type, value_name)
+    def self.create_setting_by_key_and_parent_and_type_and_value(key,parent, data_type_name, value_name)
       set = Goldencobra::Setting.find_by_title_and_ancestry(key, parent)
       unless set
         if Goldencobra::Setting.new.respond_to?(:data_type)
-          Goldencobra::Setting.create(:title => key , :value => value_name, :ancestry => parent, :data_type => data_type )
+          Goldencobra::Setting.create(:title => key , :value => value_name, :ancestry => parent, :data_type => data_type_name )
         else
-          Goldencobra::Setting.create(:title => key , :value => value_name, :ancestry => parent)
+          if data_type_name == "string"
+            Goldencobra::Setting.create(:title => key , :value => value_name, :ancestry => parent)
+          end
         end
       end
     end
