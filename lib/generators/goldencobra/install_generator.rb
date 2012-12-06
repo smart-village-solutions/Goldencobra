@@ -25,6 +25,7 @@ module Goldencobra
       def setup_routes
         route "mount Goldencobra::Engine => '/'"
         route "devise_for :users, ActiveAdmin::Devise.config"
+        route "devise_for :visitors"
         route "ActiveAdmin.routes(self)"
       end
 
