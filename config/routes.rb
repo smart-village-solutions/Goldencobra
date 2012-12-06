@@ -7,6 +7,12 @@ Goldencobra::Engine.routes.draw do
     mount Sidekiq::Web => '/admin/background'
   end
   get 'sitemap', :to => 'articles#sitemap', :defaults => {:format => "xml"}
+
+  devise_for :visitors, :controllers => { :omniauth_callbacks => "visitors/omniauth_callbacks" }
+  devise_scope :visitors do
+    get '/visitors/auth/:provider' => 'omniauth_callbacks#passthru'
+  end
+
   match "/*article_id.pdf", :to => "articles#convert_to_pdf"
   match "/*article_id", :to => "articles#show"
 
