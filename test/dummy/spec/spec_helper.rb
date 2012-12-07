@@ -14,6 +14,7 @@ DatabaseCleaner.strategy = :transaction
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.application = Goldencobra::Engine
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -34,7 +35,7 @@ RSpec.configure do |config|
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
-  
+
   # Add this line if you use Devise for authentication:
   config.include Devise::TestHelpers, :type => :controller
 end
