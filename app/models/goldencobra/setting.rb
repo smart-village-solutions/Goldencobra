@@ -15,7 +15,7 @@ module Goldencobra
   class Setting < ActiveRecord::Base
     @key_value = {}
     attr_accessible :title, :value, :ancestry, :parent_id, :data_type
-    SettingsDataTypes = ["string","date","datetime","checkbox","array"]
+    SettingsDataTypes = ["string","date","datetime","boolean","array"]
     has_ancestry :orphan_strategy => :restrict
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
