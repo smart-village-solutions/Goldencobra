@@ -28,3 +28,5 @@ goldencobra:
     remove_old_versions:
         active: "true"
         weeks: "2"
+    visitors:
+        send_confirmation_email: 'false'
