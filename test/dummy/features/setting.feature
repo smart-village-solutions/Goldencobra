@@ -2,7 +2,7 @@ Feature: Read and manage settings
   In order to make some global configurations
   As an admin
   I want to see and manage some settings
-  
+
   Scenario: Go to the settings admin site
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -30,4 +30,4 @@ Feature: Read and manage settings
     And I should see "titletag" within "table"
     And I should see "ikusei GmbH" within "table"
     And I should see "1/2" within "table"
-  
+
