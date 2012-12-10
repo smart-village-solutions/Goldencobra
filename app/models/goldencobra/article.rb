@@ -82,6 +82,7 @@ module Goldencobra
     before_save :verify_existens_of_url_name_and_slug
     before_save :parse_image_gallery_tags
     after_save :verify_existence_of_opengraph_image
+    after_save :set_default_opengraph_values
 
     attr_protected :startpage
 
@@ -255,9 +256,30 @@ module Goldencobra
         self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags.class == Array
       end
     end
+
     def verify_existence_of_opengraph_image
       if Goldencobra::Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
         Goldencobra::Metatag.create(article_id: self.id, name: "OpenGraph Image", value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
+      end
+    end
+
+    def set_default_opengraph_values
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'Title Tag').none?
+        Goldencobra::Metatag.create(name: 'Title Tag',
+                                    article_id: self.id,
+                                    value: self.title)
+      end
+
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
+        Goldencobra::Metatag.create(name: 'OpenGraph URL',
+                                    article_id: self.id,
+                                    value: self.absolute_public_url)
+      end
+
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
+        Goldencobra::Metatag.create(name: 'OpenGraph Description',
+                                    article_id: self.id,
+                                    value: self.teaser)
       end
     end
 
