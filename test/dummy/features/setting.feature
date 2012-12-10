@@ -3,6 +3,12 @@ Feature: Read and manage settings
   As an admin
   I want to see and manage some settings
 
+  Background:
+    And the following "settings" exist:
+      | title                        | value        | id | parent_id |
+      | "root"                       | "test1"      | 1  |           |
+      | "master"                     | "test2"      | 2  |       1   |
+
   Scenario: Go to the settings admin site
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -17,10 +23,6 @@ Feature: Read and manage settings
   Scenario: manage hierarchical setting
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
-    And the following "settings" exist:
-      | title                        | value        | id | parent_id |
-      | "root"                       | "test1"      | 1  |           |
-      | "master"                     | "test2"      | 2  |       1   |
     When I go to the admin list of settings
     And I click on "New Setting"
     Then I fill in "setting_title" with "titletag2"
