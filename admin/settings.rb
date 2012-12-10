@@ -3,7 +3,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Setting)}
   controller.authorize_resource :class => Goldencobra::Setting
   scope "Alle Settings", :with_values, :default => true
-  if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+  if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.count > 0
     Goldencobra::Setting.roots.each do |rs|
       scope(rs.title){ |t| t.parent_ids_in(rs.id).with_values }
     end
