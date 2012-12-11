@@ -17,7 +17,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     f.actions
     f.inputs "Allgemein", :class => "foldable inputs" do
       f.input :title
-      f.input :tag_list
+      f.input :tag_list, :label => "Position"
       f.input :active
       f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."
     end
@@ -47,6 +47,16 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :articles, :as => :select, :collection => Goldencobra::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select'}
     end
     f.actions
+  end
+
+  sidebar :layout_positions, :only => [:edit] do
+    ul do
+      Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
+        li do
+          wtag
+        end
+      end
+    end
   end
 
   index do
