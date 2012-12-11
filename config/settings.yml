@@ -30,3 +30,5 @@ goldencobra:
         weeks: "2"
     visitors:
         send_confirmation_email: 'false'
+    upload:
+        convert_options: '-auto-orient -strip -colorspace sRGB -flatten -normalize'
