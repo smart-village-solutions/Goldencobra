@@ -190,3 +190,27 @@ Feature: Create and manage articles
 
     #TODO: Aus rigend einem Grund oeffnet er im Test nicht die Google Seite
     Then I should see "404"
+
+  Scenario: Look for edit_article_link in frontend
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    And an article exists with the following attributes:
+      |title| "Dies ist ein Test"|
+      |url_name|kurzer-titel|
+      |teaser| "Es war einmal..."|
+      |content| "Die kleine Maus wandert um den Käse..."|
+    Then I go to the article page "kurzer-titel"
+    And I should see "Artikel editieren"
+
+  Scenario: Edit_article_link should lead to backend
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    And an article exists with the following attributes:
+      |title| "Dies ist ein Test"|
+      |url_name|kurzer-titel|
+      |teaser| "Es war einmal..."|
+      |content| "Die kleine Maus wandert um den Käse..."|
+    Then I go to the article page "kurzer-titel"
+    And I click on "Artikel editieren"
+    Then I should see "Edit Article"
+    And I should see "Dies ist ein Test"

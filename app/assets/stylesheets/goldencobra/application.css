@@ -27,3 +27,20 @@
 .hidden {
   display: none;
 }
+
+#edit_article_link {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  background: #ccc;
+  width: 130px;
+  height: 30px;
+  border: 1px solid #aaa;
+  padding: 12px 0 0px 5px;
+}
+
+#edit_article_link  a {
+  color: #000000;
+  font-family: Helvetica;
+  font-size: 13px;
+  }
