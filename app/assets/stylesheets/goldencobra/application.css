@@ -29,18 +29,23 @@
 }
 
 #edit_article_link {
-  position: absolute;
+  position: fixed;
   right: 5px;
   bottom: 5px;
-  background: #ccc;
-  width: 130px;
-  height: 30px;
-  border: 1px solid #aaa;
+  background-color: #24282F;
+  background: rgba(0, 0, 0, 0.4);
+  width: 95px;
+  height: 38px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   padding: 12px 0 0px 5px;
+  z-index: 99999;
 }
 
 #edit_article_link  a {
-  color: #000000;
+  color: #CCC;
   font-family: Helvetica;
-  font-size: 13px;
-  }
+  font-size: 12px;
+  text-decoration: none;
+}
