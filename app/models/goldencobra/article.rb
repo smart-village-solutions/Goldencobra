@@ -264,8 +264,8 @@ module Goldencobra
     end
 
     def set_default_opengraph_values
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'Title Tag').none?
-        Goldencobra::Metatag.create(name: 'Title Tag',
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
+        Goldencobra::Metatag.create(name: 'OpenGraph Title',
                                     article_id: self.id,
                                     value: self.title)
       end
@@ -276,7 +276,8 @@ module Goldencobra
                                     value: self.absolute_public_url)
       end
 
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none? &&
+        self.teaser.present?
         Goldencobra::Metatag.create(name: 'OpenGraph Description',
                                     article_id: self.id,
                                     value: self.teaser)
