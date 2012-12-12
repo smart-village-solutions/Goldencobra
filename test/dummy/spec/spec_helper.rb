@@ -6,6 +6,7 @@ require 'rspec/autorun'
 require 'capybara/rspec'
 require 'database_cleaner'
 require "factory_girl_rails"
+require 'test_helpers.rb'
 #require 'database_cleaner/cucumber'
 DatabaseCleaner.strategy = :transaction
 
