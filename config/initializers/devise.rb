@@ -80,7 +80,7 @@ Devise.setup do |config|
   # the user cannot access the website without confirming his account.
   #config.confirm_within = 2.hours
   config.allow_unconfirmed_access_for = 2.hours
-  
+
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [ :email ]
 
@@ -159,7 +159,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
-  # config.token_authentication_key = :auth_token
+  config.token_authentication_key = :auth_token
 
   # If true, authentication through token does not store user in session and needs
   # to be supplied on each request. Useful if you are using the token as API token.
@@ -203,7 +203,7 @@ Devise.setup do |config|
   #config.omniauth :open_id, OpenID::Store::Filesystem.new('/tmp')
   #config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id', :require => 'omniauth-openid'
   #config.omniauth :open_id, OpenID::Store::Filesystem.new('/tmp'), :name => 'yahoo', :identifier => 'http://yahoo.com'
-  
+
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

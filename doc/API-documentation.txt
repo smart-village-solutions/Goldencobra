@@ -1,0 +1,20 @@
+1. Schritt 'Token holen' (nur notwendig, wenn Token noch nicht vorhanden)
+Request mit JSON-encoded parametern:
+URL: http://www.url.de/api/v1/tokens
+METHOD: POST
+PARAMETERS (JSON encoded): 'email' : 'foo@bar.de', 'password' : '123456'
+
+RESPONSE:
+a) 'User gefunden'                  => status: 200, 'token': '1PzXLMSxvqKCpsxhsLxr'
+b) 'User nicht gefunden'            => status: 401, 'error': 'Invalid email or password.'
+c) 'Wenn email oder password fehlt' => status: 400, 'error': 'The request must contain the user email and password.'
+
+2. Schritt 'Downloads-Feed holen'
+URL: https://www.url.de/my-article?auth_token=1PzXLMSxvqKCpsxhsLxr
+METHOD: GET
+PARAMETERS: auth_token=1PzXLMSxvqKCpsxhsLxr
+
+RESPONSE:
+a) 'Token korrekt' => status: 200, Downloads.rss Feed inklusive der geschützten Dokumente
+b) 'Token falsch'  => status: 401, 'error': 'Nicht authorisiert.'
+c) 'ohne Token'    => status: 200, Downloads.rss Feed OHNE die geschützten Dokumente
