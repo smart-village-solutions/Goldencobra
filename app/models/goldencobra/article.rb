@@ -124,7 +124,6 @@ module Goldencobra
       av = ActionView::Base.new(ActionController::Base.view_paths + ["#{::Goldencobra::Engine.root}/app/views/goldencobra/articles/"])
       av.request = ActionDispatch::Request.new(Rack::MockRequest.env_for(self.public_url))
       av.request["format"] = "text/html"
-      av.request["format"] = "text/html"
       av.controller = Goldencobra::ArticlesController.new
       av.controller.request = av.request
       av.params.merge!(localparams[:params])
