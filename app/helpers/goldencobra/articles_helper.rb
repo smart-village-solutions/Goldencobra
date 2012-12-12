@@ -114,6 +114,7 @@ module Goldencobra
         else
           widgets = widgets.where(:tag_list => "")
         end
+        widgets = widgets.order(:sorter)
 
         widgets.each do |widget|
           template = Liquid::Template.parse(widget.content)
