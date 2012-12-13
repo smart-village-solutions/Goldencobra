@@ -26,7 +26,7 @@ module Goldencobra
     end
 
     def basic_goldencobra_headers(options={})
-      render :partial => "/goldencobra/articles/headers"
+      render :partial => "/goldencobra/articles/headers", :locals => {:options => options}
     end
   end
 end

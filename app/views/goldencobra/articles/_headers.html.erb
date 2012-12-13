@@ -1,5 +1,5 @@
-<%= stylesheet_link_tag "goldencobra/application", :media => "all" %>
-<%= javascript_include_tag "goldencobra/application" %>
-<%= display_meta_tags %>
-<%= bugtracker %>
-<%= edit_article_link %>
+<%= stylesheet_link_tag "goldencobra/application", :media => "all" unless options[:exclude].inlude?("stylesheets") %>
+<%= javascript_include_tag "goldencobra/application" unless options[:exclude].inlude?("javascripts") %>
+<%= display_meta_tags unless options[:exclude].inlude?("metatags") %>
+<%= bugtracker unless options[:exclude].inlude?("bugtracker") %>
+<%= edit_article_link unless options[:exclude].inlude?("article_administration") %>
