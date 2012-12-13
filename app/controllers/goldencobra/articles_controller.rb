@@ -217,7 +217,7 @@ module Goldencobra
     end
 
     def get_articles_with_tags
-      @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags)
+      @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags, any: true)
     end
 
     def get_articles_without_tags

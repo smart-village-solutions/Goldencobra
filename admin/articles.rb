@@ -60,7 +60,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       else
         #error
       end
-      f.inputs "Metadescriptions", :class => "foldable inputs" do
+      f.inputs "Metadescriptions", :class => "foldable closed inputs expert" do
         f.input :hint_label, :as => :text, :label => "Metatags fuer Suchmaschinenoptimierung", :input_html => {:disabled => true, :resize => false, :value => "<b>Metatags k&ouml;nnen genutzt werden, um den Artikel f&uuml;r Suchmaschinen besser sichtbar zu machen.</b><br />
                                                                                                                Sie haben folgende Werte zur Wahl:<br />
                                                                                                                <ul>
@@ -79,7 +79,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
           m.input :_destroy, :as => :boolean
         end
       end
-      f.inputs "Einstellungen", :class => "foldable closed inputs" do
+      f.inputs "Einstellungen", :class => "foldable closed inputs expert" do
         f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
         f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
         f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"

@@ -5,12 +5,16 @@
 end %>
 <%=
 f.inputs "Selection", :class => "foldable inputs" do
-	f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
-	if article_types.count > 0
-		f.input :article_type, :as => :select, :collection => article_types, include_blank: false, selected: "Default Show"
-	end
-	f.input :parent_id, :as => :hidden
-	f.input :url_name, :as => :hidden
+  if article_types.count > 0
+    f.input :article_type, :as => :select, :collection => article_types, include_blank: false, selected: "Default Show"
+  end
+  f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
+  f.input :content, :input_html => { :class =>"tinymce"}
+  f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
+  f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium"
+  f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt. Er wird für die Beschreibung bei Google & Facebook genutzt.", :input_html=>{ :rows=>5 }
+  f.input :parent_id, :as => :hidden
+  f.input :url_name, :as => :hidden
 end
 
 %>
