@@ -4,8 +4,8 @@ module Goldencobra
     respond_to :json, :xml
 
     def create
-      email = params[:email].to_s
-      password = params[:password].to_s
+      email = params[:email]
+      password = params[:password]
 
       if email.nil? || password.nil?
         render status: 400, json: { error: 'The request must contain ' +

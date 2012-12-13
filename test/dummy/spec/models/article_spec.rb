@@ -1,3 +1,4 @@
+#Encoding: UTF-8
 require 'spec_helper'
 
 describe Goldencobra::Article do
@@ -71,12 +72,12 @@ describe Goldencobra::Article do
 
     it "should set a default open graph title" do
       article = create :article
-      Goldencobra::Metatag.where(name: 'Title Tag', article_id: article.id).count.should == 1
+      Goldencobra::Metatag.where(name: 'OpenGraph Title', article_id: article.id).count.should == 1
     end
 
     it "should match the article's title" do
       article = create :article
-      Goldencobra::Metatag.where(name: 'Title Tag',
+      Goldencobra::Metatag.where(name: 'OpenGraph Title',
                                  article_id: article.id).first.value.should == article.title
     end
 
@@ -102,5 +103,29 @@ describe Goldencobra::Article do
       Goldencobra::Metatag.where(name: 'OpenGraph Description',
                                  article_id: article.id).first.value.should == article.teaser
     end
+
+    it "should match the article's content text if teaser is empty" do
+      article = create :article, content: 'Sed ut perspiciatis unde omnis iste natus' +
+      'error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ' +
+      'ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.'
+      Goldencobra::Metatag.where(name: 'OpenGraph Description',
+                                 article_id: article.id).first.value.should == article.content.truncate(200)
+    end
+
+    it "should match the article's title if neither teaser nor content present" do
+      article = create :article
+      Goldencobra::Metatag.where(name: 'OpenGraph Description',
+                                 article_id: article.id).first.value.should == article.title
+    end
+
+    # it "should use the articles image as OpenGraph Image" do
+    #   @article = create :article
+    #   upload = Goldencobra::Upload.create(image: File.new(fixture_file("50x50.png"), "rb"))
+    #   ai = Goldencobra::ArticleImage.create(article_id: @article.id, image_id: upload.id)
+    #   @article.save
+    #   puts "...#{@article.article_images}.."
+    #   Goldencobra::Metatag.where(name: 'OpenGraph Image',
+    #                              article_id: @article.id).first.value.should == @article.article_images.first.image.image.url
+    # end
   end
 end
