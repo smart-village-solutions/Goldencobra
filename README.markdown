@@ -94,10 +94,11 @@ When creating articles, a default value is set for open graph image url. Please 
 #Usage
 
 ##Basic Headers
-call in Header section of any view_template:
+call in head-section of any view_template:
 
 ```ruby
 basic_goldencobra_headers(option={})
+```
 
 # option: {:exclude => ["stylesheets", "javascripts", "bugtracker", "metatags", "article_administration"]}
 
