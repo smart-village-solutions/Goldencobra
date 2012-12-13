@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%= display_meta_tags %>
-  <%= stylesheet_link_tag "goldencobra/application", :media => "all" %>
+  <%= basic_goldencobra_headers() %>
   <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= javascript_include_tag "goldencobra/application" %>
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "goldencobra/moment.js" %>
   <%= csrf_meta_tags %>
-  <%= bugtracker %>
-  <%= edit_article_link %>
 </head>
 <body>
 
