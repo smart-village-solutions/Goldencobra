@@ -225,7 +225,7 @@ module Goldencobra
     end
 
     def get_articles_by_frontend_tags
-      @list_of_articles = @list_of_articles.tagged_with(params[:frontend_tags], on: :frontend_tags, any: true)
+      @list_of_articles = @list_of_articles.tagged_with(params[:frontend_tags], on: :frontend_tags)
     end
 
     def get_articles_by_article_type
