@@ -113,7 +113,7 @@ basic_goldencobra_headers(option={})
 call in any view_template:
 
 ```ruby
-navigation_menu(manue_id, option={})
+navigation_menu(menue_id, option={})
 
 # option: { depth: integer }
 #
@@ -135,6 +135,11 @@ navigation_menu(manue_id, option={})
 ```ruby
 <%= navigation_menu(2) %>
 # renders menue starting with id 2 and all children as a nested list
+```
+
+```ruby
+<%= navigation_menu("MainNavigation") %>
+# renders menue starting with first Menuitem including title 'MainNavigation' and all children as a nested list
 ```
 
 ##Activate Bugtracker in Application Layout
