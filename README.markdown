@@ -93,6 +93,15 @@ When creating articles, a default value is set for open graph image url. Please 
 
 #Usage
 
+##Basic Headers
+call in Header section of any view_template:
+
+```ruby
+basic_goldencobra_headers(option={})
+
+# option: {:exclude => ["stylesheets", "javascripts", "bugtracker", "metatags", "article_administration"]}
+
+
 ##Navigation Menu
 call in any view_template:
 
@@ -131,7 +140,7 @@ place this code in your application layout in header section:
 <% if @article %>
   <%= render_article_type_content() %>
 <% end %>
-      
+
 <%= yield(:article_content) %>
 <%= yield(:article_title) %>
 <%= yield(:article_subtitle) %>

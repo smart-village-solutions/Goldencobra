@@ -298,6 +298,7 @@ module Goldencobra
 
     def is_cachable?
       if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true" && @article.cacheable
+        #Wenn es einen current_user gibt, dann kein caching
         Devise.mappings.keys.each do |key|
           if eval("current_#{key.to_s}.present?")
             return false
