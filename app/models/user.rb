@@ -56,7 +56,12 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   def has_role?(name)
-    self.roles.include?(Goldencobra::Role.find_all_by_name(name))
+    if name.class == String
+      self.roles.include?(Goldencobra::Role.find_by_name(name))
+    end
+    if name.class == Array
+      (self.roles & Goldencobra::Role.find_all_by_name(name)).any?
+    end
   end
 
   def anrede
