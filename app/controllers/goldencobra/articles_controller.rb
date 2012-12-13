@@ -251,7 +251,7 @@ module Goldencobra
     # ------------------ /adjust response -------------------------------------
 
     def article_by_role
-      # Admins should get preview of article even if it's offline
+      # Admin should get preview of article even if it's offline
       if current_user && current_user.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
         @article = Goldencobra::Article.search_by_url(params[:article_id])
       else
