@@ -98,9 +98,9 @@ call in head-section of any view_template:
 
 ```ruby
 basic_goldencobra_headers(option={})
-```
 
 # option: {:exclude => ["stylesheets", "javascripts", "bugtracker", "metatags", "article_administration"]}
+```
 
 **example:**
 
