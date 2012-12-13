@@ -94,7 +94,7 @@ When creating articles, a default value is set for open graph image url. Please 
 #Usage
 
 ##Basic Headers
-call in head-section of any view_template:
+call in head-section of any view_template to include stylesheets, javascripts (jquery, jqueryui, jquery.tools ...), bugtracker, metatags and article_administration element:
 
 ```ruby
 basic_goldencobra_headers(option={})
@@ -107,6 +107,10 @@ basic_goldencobra_headers(option={})
 ```erb
 <%= basic_goldencobra_headers(:exclude => ["javascripts","stylesheets"]) %>
 ```
+
+##Only Activate Bugtracker in Application Layout
+place this code in your application layout in header section:
+`<%= bugtracker %>`
 
 
 ##Navigation Menu
@@ -141,10 +145,6 @@ navigation_menu(menue_id, option={})
 <%= navigation_menu("MainNavigation") %>
 # renders menue starting with first Menuitem including title 'MainNavigation' and all children as a nested list
 ```
-
-##Activate Bugtracker in Application Layout
-place this code in your application layout in header section:
-`<%= bugtracker %>`
 
 ##Rendering content in layouts
 ```erb
