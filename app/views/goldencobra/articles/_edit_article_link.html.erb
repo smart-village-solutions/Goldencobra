@@ -1,5 +1,7 @@
 <% if @article %>
-  <div id="edit_article_link">
-    <a href="/admin/articles/<%= @article.url_name %>/edit">Artikel editieren</a>
-  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('body').append("<div id='edit_article_link'><a href='/admin/articles/<%= @article.friendly_id %>/edit'>Artikel editieren</a></div>");
+    });
+  </script>
 <% end %>

@@ -24,5 +24,9 @@ module Goldencobra
         render :partial => "goldencobra/articles/edit_article_link"
       end
     end
+
+    def basic_goldencobra_headers(options={})
+      render :partial => "/goldencobra/articles/headers"
+    end
   end
 end
