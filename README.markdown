@@ -102,6 +102,12 @@ basic_goldencobra_headers(option={})
 
 # option: {:exclude => ["stylesheets", "javascripts", "bugtracker", "metatags", "article_administration"]}
 
+**example:**
+
+```erb
+<%= basic_goldencobra_headers(:exclude => ["javascripts","stylesheets"]) %>
+```
+
 
 ##Navigation Menu
 call in any view_template:
