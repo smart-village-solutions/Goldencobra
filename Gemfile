@@ -30,24 +30,21 @@ gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks ru
 gem "paper_trail"
 gem 'sunspot_rails'
 gem 'sunspot_solr'
-# gem 'pdfkit'
-# gem 'wkhtmltopdf-binary'
-# gem 'wicked_pdf'
 gem 'sidekiq'
 gem 'sinatra', :require => false
 gem 'slim'
-#gem 'bullet'  testing for slow queries
 gem 'geokit'
+
 
 group :development do
   gem 'thin'
-  #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem "better_errors"
+  gem "binding_of_caller"
   gem 'guard-annotate'
   gem 'pry'
   gem 'pry-nav'
   gem 'brakeman'
   gem 'hirb'
-  #gem 'git-pivotal', '~> 0.8.2'
   gem "powder"
 end
 
@@ -64,7 +61,7 @@ group :test do
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'guard-livereload'
-  gem 'rb-fsevent', '~> 0.9.1' #:git => 'git://github.com/ttilley/rb-fsevent.git', :branch => 'pre-compiled-gem-one-off'
+  gem 'rb-fsevent', '~> 0.9.1'
   gem 'growl'
   gem 'launchy'
   gem 'faker'
