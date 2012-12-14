@@ -123,6 +123,10 @@ GEM
       rake
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    better_errors (0.2.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.7.0)
+    binding_of_caller (0.6.8)
     bourbon (2.1.1)
       sass (>= 3.1)
     brakeman (1.8.2)
@@ -484,6 +488,8 @@ DEPENDENCIES
   activeadmin!
   acts-as-taggable-on!
   annotate
+  better_errors
+  binding_of_caller
   brakeman
   cancan (= 1.6.7)
   capybara
