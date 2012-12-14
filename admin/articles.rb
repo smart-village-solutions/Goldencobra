@@ -157,7 +157,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     render "/goldencobra/admin/articles/widgets_sidebar", :locals => { :current_article => resource }
   end
 
-  sidebar :startpage_options, {:only => [:show, :edit], class: 'expert'} do
+  sidebar :startpage_options, :only => [:show, :edit] do
       if resource.startpage
         t("startpage", :scope => [:goldencobra, :flash_notice])
       else
