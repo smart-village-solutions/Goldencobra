@@ -3,3 +3,4 @@
 <%= display_meta_tags unless options[:exclude] && options[:exclude].include?("metatags") %>
 <%= bugtracker unless options[:exclude] && options[:exclude].include?("bugtracker") %>
 <%= edit_article_link unless options[:exclude] && options[:exclude].include?("article_administration") %>
+<%= airbrake_javascript_notifier unless options[:exclude] && options[:exclude].include?("airbrake") %>

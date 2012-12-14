@@ -94,12 +94,12 @@ When creating articles, a default value is set for open graph image url. Please 
 #Usage
 
 ##Basic Headers
-call in head-section of any view_template to include stylesheets, javascripts (jquery, jqueryui, jquery.tools ...), bugtracker, metatags and article_administration element:
+call in head-section of any view_template to include stylesheets, javascripts (jquery, jqueryui, jquery.tools ...), bugtracker, metatags, airbrake and article_administration element:
 
 ```ruby
 basic_goldencobra_headers(option={})
 
-# option: {:exclude => ["stylesheets", "javascripts", "bugtracker", "metatags", "article_administration"]}
+# option: {:exclude => ["stylesheets", "javascripts", "bugtracker", "metatags", "article_administration", "airbrake"]}
 ```
 
 **example:**
