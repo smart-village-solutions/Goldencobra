@@ -38,10 +38,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.inputs "Allgemein", :class => "foldable inputs" do
         f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
         f.input :content, :input_html => { :class =>"tinymce"}
-        f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
-        f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium"
-        f.input :active_since, :hint => "Wenn der Artikel online ist, ab wann ist er Online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%d.%m.%Y %H:%M') if f.object.active_since}" }
-        f.input :active, :hint => "Ist dieser Artikel online zu sehen?"
+        f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben", :input_html=>{ :rows=>5 }
+        f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :wrapper_html => {class: 'expert'}
+        f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium", :wrapper_html => {class: 'expert'}
+        f.input :active_since, :hint => "Wenn der Artikel online ist, ab wann ist er Online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%d.%m.%Y %H:%M') if f.object.active_since}" }, :wrapper_html => {class: 'expert'}
+        f.input :active, :hint => "Ist dieser Artikel online zu sehen?", :wrapper_html => {class: 'expert'}
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_show.html.erb")
@@ -60,19 +61,26 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       else
         #error
       end
+      f.inputs "Weiterer Inhalt", :class => "foldable closed inputs" do
+        f.input :subtitle
+        f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
+        f.input :summary, hint: "Dient der Einleitung in den Text und wird hervorgehoben dargestellt", :input_html=>{ :rows=>5 }
+      end
       f.inputs "Metadescriptions", :class => "foldable closed inputs expert" do
-        f.input :hint_label, :as => :text, :label => "Metatags fuer Suchmaschinenoptimierung", :input_html => {:disabled => true, :resize => false, :value => "<b>Metatags k&ouml;nnen genutzt werden, um den Artikel f&uuml;r Suchmaschinen besser sichtbar zu machen.</b><br />
-                                                                                                               Sie haben folgende Werte zur Wahl:<br />
-                                                                                                               <ul>
-                                                                                                               <li><strong>Title Tag:</strong> Der Title der Seite. Wird nicht als Titel angezeigt. Ist nur f&uuml;r Google & Co. gedacht. </li>
-                                                                                                               <li><strong>Metadescription:</strong> Wird als Beschreibung des Artikels angezeigt, wenn Google ihn gefunden hat. <strong>Wichtig!</strong></li>
-                                                                                                               <li><strong>Keywords:</strong></li>
-                                                                                                               <li><strong>OpenGraph Title:</strong> Title, der bei Facebook angezeigt werden soll, wenn der Artikel geteilt wird.</li>
-                                                                                                               <li><strong>OpenGraph Description:</strong> Description, die bei Facebook angezeigt werden soll, wenn der Artikel geteilt wird.</li>
-                                                                                                               <li><strong>OpenGraph Type:</strong> Sie haben die Wahl zwischen Blog, Article oder Website</li>
-                                                                                                               <li><strong>OpenGraph URL:</strong> Die URL der Website. Standardm&auml;&szlig; wird die URL des Artikels genutzt. Muss nur ver&auml;ndert werden, wenn dort etwas anderes stehen soll.</li>
-                                                                                                               <li><strong>OpenGraph Image:</strong> Muss als URL &uuml;bergeben werden (http://www.mein.de/bild.jpg). Erscheint dann bei Facebook als Bild des Artikels.</li>
-                                                                                                               </ul>", :class => "metadescription_hint", :id => "metadescription-tinymce"}
+        # f.input :hint_label, :as => :text, :label => "Metatags fuer Suchmaschinenoptimierung", :input_html => {:disabled => true,
+          # :resize => false,
+          # :value => "<b>Metatags k&ouml;nnen genutzt werden, um den Artikel f&uuml;r Suchmaschinen besser sichtbar zu machen.</b><br />
+          # Sie haben folgende Werte zur Wahl:<br />
+          # <ul>
+          # <li><strong>Title Tag:</strong> Der Title der Seite. Wird nicht als Titel angezeigt. Ist nur f&uuml;r Google & Co. gedacht. </li>
+          # <li><strong>Metadescription:</strong> Wird als Beschreibung des Artikels angezeigt, wenn Google ihn gefunden hat. <strong>Wichtig!</strong></li>
+          # <li><strong>Keywords:</strong></li>
+          # <li><strong>OpenGraph Title:</strong> Title, der bei Facebook angezeigt werden soll, wenn der Artikel geteilt wird.</li>
+          # <li><strong>OpenGraph Description:</strong> Description, die bei Facebook angezeigt werden soll, wenn der Artikel geteilt wird.</li>
+          # <li><strong>OpenGraph Type:</strong> Sie haben die Wahl zwischen Blog, Article oder Website</li>
+          # <li><strong>OpenGraph URL:</strong> Die URL der Website. Standardm&auml;&szlig; wird die URL des Artikels genutzt. Muss nur ver&auml;ndert werden, wenn dort etwas anderes stehen soll.</li>
+          # <li><strong>OpenGraph Image:</strong> Muss als URL &uuml;bergeben werden (http://www.mein.de/bild.jpg). Erscheint dann bei Facebook als Bild des Artikels.</li>
+          # </ul>", :class => "metadescription_hint", :id => "metadescription-tinymce"}
         f.has_many :metatags do |m|
           m.input :name, :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen."
           m.input :value, :input_html => { :class => 'metatag_values'}
@@ -93,12 +101,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :redirect_link_title
         f.input :redirection_target_in_new_window
         f.input :author, :hint => "Wer ist der Verfasser dieses Artikels"
-      end
-      f.inputs "Weiterer Inhalt", :class => "foldable closed inputs" do
-        f.input :subtitle
-        f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
-        f.input :summary, hint: "Dient der Einleitung in den Text und wird hervorgehoben dargestellt", :input_html=>{ :rows=>5 }
-        f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben", :input_html=>{ :rows=>5 }
       end
       f.inputs "Medien", :class => "foldable closed inputs"  do
         f.has_many :article_images do |ai|
@@ -280,6 +282,17 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         @parent = Goldencobra::Article.find(params[:parent])
         @article.parent_id = @parent.id
       end
+    end
+  end
+
+  action_item :only => :edit do
+    link_to('Expert-Modus', toggle_expert_mode_admin_article_path, remote: true)
+  end
+
+  member_action :toggle_expert_mode do
+    logger.info "-----------------------------------"
+    respond_to do |format|
+      format.js { render template: '/goldencobra/admin/articles/toggle_expert_mode' }
     end
   end
 

@@ -233,6 +233,13 @@ textarea.metadescription_hint {
   border-left: 0px;
   border-right: 0px;
   border-bottom: 0px;
+  height: 200px;
+  width: 600px;
+}
+
+#metadescription-tinymce_ifr {
+  height: 200px;
+  width: 600px;
 }
 textarea#article_summary, textarea#article_teaser{
   resize: none;

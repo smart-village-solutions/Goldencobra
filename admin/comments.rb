@@ -1,5 +1,5 @@
 ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
-  menu :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Comment)}
+  menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Comment)}
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
@@ -15,4 +15,18 @@ ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
     f.actions
   end
 
+  index do
+    selectable_column
+    column :content
+    column :active
+    column :approved
+    column :reported
+    column :article do |comment|
+      link_to 'Anzeigen', comment.article.public_url if comment.article.present?
+    end
+    column :created_at do |comment|
+      comment.created_at.strftime('%d.%m.%Y %H:%M Uhr')
+    end
+    default_actions
+  end
 end
