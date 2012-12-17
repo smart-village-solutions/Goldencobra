@@ -264,7 +264,7 @@ module Goldencobra
                                     value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
       end
 
-      if self.article_images.any? && self.article_images.first.present ?? self.article_images.first.image.present? && self.article_images.first.image.image.present?
+      if self.article_images.any? && self.article_images.first.present && self.article_images.first.image.present? && self.article_images.first.image.image.present?
         meta_tag = Goldencobra::Metatag.where(article_id: self.id, name: "OpenGraph Image").first
         meta_tag.value = "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.article_images.first.image.image.url}"
         meta_tag.save
