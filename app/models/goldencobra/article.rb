@@ -79,6 +79,7 @@ module Goldencobra
     validates_presence_of :title
     validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
 
+    after_create :set_active_since
     before_save :verify_existens_of_url_name_and_slug
     before_save :parse_image_gallery_tags
     after_save :verify_existence_of_opengraph_image
@@ -389,6 +390,10 @@ module Goldencobra
 
     def complete_json
 
+    end
+
+    def set_active_since
+      self.active_since = self.created_at
     end
 
     # Class Methods

@@ -25,6 +25,11 @@ describe Goldencobra::Article do
       Goldencobra::Article.create!(@attr)
     end
 
+    it "should set active_since to the created_at datetime" do
+      article = create :article
+      article.active_since.should eql(article.created_at)
+    end
+
     it "should require a title" do
       no_name_article = Goldencobra::Article.new(@attr.merge(:title => ""))
       no_name_article.should_not be_valid
