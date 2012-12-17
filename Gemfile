@@ -17,7 +17,7 @@ gem 'oa-oauth', :require => 'omniauth/oauth'
 gem 'oa-openid', :require => 'omniauth/openid'
 gem 'coffee-rails', '~> 3.2.0'
 gem 'uglifier', '>= 1.0.3'
-#gem 'meta-tags', :require => 'meta_tags', :git => "git://github.com/jazzgumpy/meta-tags.git"
+gem 'meta-tags', :require => 'meta_tags', :git => "git://github.com/jazzgumpy/meta-tags.git"
 gem "paperclip"
 gem 'sass-rails'
 gem 'compass-rails'
