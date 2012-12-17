@@ -1,4 +1,3 @@
-#Encoding: UTF-8
 require 'spec_helper'
 
 describe Goldencobra::Article do
@@ -24,6 +23,11 @@ describe Goldencobra::Article do
 
     it "should create a new article given valid attributes" do
       Goldencobra::Article.create!(@attr)
+    end
+
+    it "should set active_since to the created_at datetime" do
+      article = create :article
+      article.active_since.should eql(article.created_at)
     end
 
     it "should require a title" do
