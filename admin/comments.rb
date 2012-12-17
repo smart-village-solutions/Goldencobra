@@ -1,5 +1,5 @@
 ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
-  menu :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Comment)}
+  menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Comment)}
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
