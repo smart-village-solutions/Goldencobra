@@ -130,8 +130,8 @@ module Goldencobra
       OfflineDays.each_with_index do |day,index|
         if self.offline_day.include?(day)
           current_day = OfflineDaysEN[index]
-          start_time = eval("self.offline_time_start_#{current_day}").gsub(/\D/, "").strip
-          end_time = eval("self.offline_time_end_#{current_day}").gsub(/\D/, "").strip
+          start_time = eval("self.offline_time_start_#{current_day}").to_s.gsub(/\D/, "").strip
+          end_time = eval("self.offline_time_end_#{current_day}").to_s.gsub(/\D/, "").strip
           start_time = "0001" if start_time.blank?
           end_time = "2359" if end_time.blank?
           self.offline_time_week_start_end[current_day] = "#{start_time}-#{end_time}"
