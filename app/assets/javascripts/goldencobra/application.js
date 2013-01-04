@@ -53,8 +53,8 @@ $(document).ready(function(){
     }
   });
 
-  console.log($('.goldencobra_widget.hidden').length);
+  //console.log($('.goldencobra_widget.hidden').length);
   $('.goldencobra_widget.hidden').remove();
-  console.log($('.goldencobra_widget.hidden').length);
+  //console.log($('.goldencobra_widget.hidden').length);
 
 });
