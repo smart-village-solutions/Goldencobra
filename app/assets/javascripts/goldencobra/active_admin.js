@@ -147,6 +147,9 @@ function notify(title,body,token) {
                     { 'body': body,
                       // prevent duplicate notifications
                       'tag' : token,
+                      'onclick': function(){
+                        console.log("notification clicked");
+                      },
                       // callback function when the notification is closed
                       'onclose': function() {
                            console.log('notification closed');
