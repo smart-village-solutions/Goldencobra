@@ -128,13 +128,15 @@ module Goldencobra
     def set_week_start_end_times
       self.offline_time_week_start_end = Hash.new
       OfflineDays.each_with_index do |day,index|
-        if self.offline_day.include?(day)
+        if self.offline_day.present? && self.offline_day.include?(day)
           current_day = OfflineDaysEN[index]
-          start_time = eval("self.offline_time_start_#{current_day}").to_s.gsub(/\D/, "").strip
-          end_time = eval("self.offline_time_end_#{current_day}").to_s.gsub(/\D/, "").strip
-          start_time = "0001" if start_time.blank?
-          end_time = "2359" if end_time.blank?
-          self.offline_time_week_start_end[current_day] = "#{start_time}-#{end_time}"
+          if current_day.present?
+            start_time = eval("self.offline_time_start_#{current_day}").to_s.gsub(/\D/, "").strip
+            end_time = eval("self.offline_time_end_#{current_day}").to_s.gsub(/\D/, "").strip
+            start_time = "0001" if start_time.blank?
+            end_time = "2359" if end_time.blank?
+            self.offline_time_week_start_end[current_day] = "#{start_time}-#{end_time}"
+          end
         end
       end
     end
