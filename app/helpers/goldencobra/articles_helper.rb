@@ -119,33 +119,18 @@ module Goldencobra
         widgets.each do |widget|
           template = Liquid::Template.parse(widget.content)
           alt_template = Liquid::Template.parse(widget.alternative_content)
-          if widget.id_name.present?
-            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)),
-                                  class: "#{widget.css_name} #{custom_css} goldencobra_widget",
-                                  id: widget.id_name,
-                                  'data-time-day' => widget.offline_days,
-                                  'data-time-start' => widget.offline_time_start_display,
-                                  'data-time-end' => widget.offline_time_end_display,
-                                  'data-date-start' => widget.offline_date_start_display,
-                                  'data-date-end' => widget.offline_date_end_display,
-                                  'data-offline-active' => widget.offline_time_active,
-                                  'data-id' => widget.id)
-            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
-                                  class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget",
-                                  id: widget.id_name, 'data-id' => widget.id)
-          else
-            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)),
-                                  class: "#{widget.css_name} #{custom_css} goldencobra_widget",
-                                  'data-time-day' => widget.offline_days,
-                                  'data-time-start' => widget.offline_time_start_display,
-                                  'data-time-end' => widget.offline_time_end_display,
-                                  'data-date-start' => widget.offline_date_start_display,
-                                  'data-date-end' => widget.offline_date_end_display,
-                                  'data-offline-active' => widget.offline_time_active,
-                                  'data-id' => widget.id)
-            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
-                                  class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget", 'data-id' => widget.id)
-          end
+          html_data_options = {"class" => "#{widget.css_name} #{custom_css} goldencobra_widget",
+                                "id" => widget.id_name || "widget_id_#{widget.id}",
+                                'data-date-start' => widget.offline_date_start_display,
+                                'data-date-end' => widget.offline_date_end_display,
+                                'data-offline-active' => widget.offline_time_active,
+                                'data-id' => widget.id
+                              }
+          html_data_options = html_data_options.merge(widget.offline_time_week)
+          result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
+          result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
+                        class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget",
+                        id: widget.id_name, 'data-id' => widget.id)
         end
       end
       return raw(result)
