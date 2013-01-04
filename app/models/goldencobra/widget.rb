@@ -112,12 +112,16 @@ module Goldencobra
 
     OfflineDaysEN.each do |day|
       define_method "offline_time_start_#{day}" do
-        a = self.offline_time_week_start_end[day].to_s.split("-")[0].to_s
-        "#{a.slice(0..1)}:#{a.slice(2..4)}" if a.present?
+        if self.offline_time_week_start_end.present?
+          a = self.offline_time_week_start_end[day].to_s.split("-")[0].to_s
+          "#{a.slice(0..1)}:#{a.slice(2..4)}" if a.present?
+        end
       end
       define_method "offline_time_end_#{day}" do
-        a = self.offline_time_week_start_end[day].to_s.split("-")[1].to_s
-        "#{a.slice(0..1)}:#{a.slice(2..4)}" if a.present?
+        if self.offline_time_week_start_end.present?
+          a = self.offline_time_week_start_end[day].to_s.split("-")[1].to_s
+          "#{a.slice(0..1)}:#{a.slice(2..4)}" if a.present?
+        end
       end
     end
 
