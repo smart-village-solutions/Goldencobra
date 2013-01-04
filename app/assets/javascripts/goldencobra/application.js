@@ -18,13 +18,13 @@
 
 $(function(){
   moment.weekdaysMin = ["su", "mo", "tu", "we", "th", "fr", "sa"];
-  
+
   /* Trigger display of widgets. If widget has offline_times set, show
      alternative content instead. */
   $("[data-offline-active=true]").each(function(index, element) {
     var currentDay = moment().format("dd");
     var isCurrentDay = $(element).attr("data-time-day-" + currentDay) && $(element).attr("data-time-day-" + currentDay).length > 0 ? true : false;
-    
+
     // wenn aktueller Wochentag gesetzt ist
     if (isCurrentDay) {
       // Zeitdaten
@@ -40,7 +40,7 @@ $(function(){
         // check, ob Start- und Endattribute vorhanden sind
         var isDataDateStart = $(element).attr("data-date-start") && $(element).attr("data-date-start").length > 0 ? true : false;
         var isDataDateEnd = $(element).attr("data-date-end") && $(element).attr("data-date-end").length > 0 ? true : false;
-        
+
         /* wenn Start- und Enddatum nicht gesetzt sind,
            dann muss der Offlineinhalt angezeigt werden */
         if (!isDataDateStart && !isDataDateEnd) {
@@ -54,7 +54,7 @@ $(function(){
            muss der Offlineinhalt angezeigt werden */
         else if (isDataDateStart && isDataDateEnd) {
           // Datumsdaten
-          var currentDate = parseInt(moment().format("YYYYMD"));
+          var currentDate = parseInt(moment().format("YYYYMMDD"));
           var startDate = parseInt($(element).attr("data-date-start"));
           var endDate = parseInt($(element).attr("data-date-end"));
           // Datumsboolean
