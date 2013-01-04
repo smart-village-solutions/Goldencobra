@@ -1,4 +1,5 @@
-#ENCODING: UTF-8
+#encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
   menu :priority => 3, parent: "Content-Management", :if => proc{can?(:read, Goldencobra::Widget)}
 
@@ -28,12 +29,24 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :mobile_content
     end
     f.inputs "Zeitsteuerung", :class => "foldable inputs closed" do
-      f.input :offline_day, as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
-      f.input :offline_time_start, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.offline_time_start.strftime("%H:%M") if f.object.offline_time_start.present?) }
-      f.input :offline_time_end, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.offline_time_end.strftime("%H:%M") if f.object.offline_time_end.present?) }
+      f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
       f.input :offline_date_start, :hint => "Ab diesem Datum wird dieses Widget jeden Mo,Di.. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
       f.input :offline_date_end, :hint => "Bis zu diesem Datum wird dieses Widget jeden Mo,Di.. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
-      f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
+      f.input :offline_day, as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
+      f.input :offline_time_start_mo, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_end_mo, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_start_tu, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_end_tu, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_start_we, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_end_we, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_start_th, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_end_th, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_start_fr, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_end_fr, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_start_sa, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_end_sa, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_start_su, as: :string, hint: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
+      f.input :offline_time_end_su, as: :string, hint:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget'])
       f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
     end
     f.inputs "Erweiterte Infos", :class => "foldable inputs closed"  do

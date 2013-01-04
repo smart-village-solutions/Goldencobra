@@ -28,13 +28,17 @@
 module Goldencobra
   class Widget < ActiveRecord::Base
     acts_as_taggable_on :tags
-
+    serialize :offline_time_week_start_end
     has_many :article_widgets
     has_many :articles, :through => :article_widgets
-
+    attr_accessor :offline_time_start_mo, :offline_time_end_mo, :offline_time_start_tu, :offline_time_end_tu, :offline_time_start_we, :offline_time_end_we
+    attr_accessor :offline_time_start_th, :offline_time_end_th, :offline_time_start_fr, :offline_time_end_fr, :offline_time_start_sa, :offline_time_end_sa
+    attr_accessor :offline_time_start_su, :offline_time_end_su
+    before_save :set_week_start_end_times
     before_save :validate_start_end_time
 
-    OfflineDays = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
+    OfflineDays = ["Mo", 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
+    OfflineDaysEN = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su']
 
     scope :active, where(:active => true).order(:sorter)
     scope :inactive, where(:active => false).order(:sorter)
@@ -64,21 +68,21 @@ module Goldencobra
       self.offline_days.split(",").map{|tag| tag.strip} if self.offline_days.present?
     end
 
-    def offline_time_start_display
-      if self.offline_time_start.present?
-        self.offline_time_start.strftime("%H%M")
-      else
-        ""
-      end
-    end
+    # def offline_time_start_display
+    #   if self.offline_time_start.present?
+    #     self.offline_time_start.strftime("%H%M")
+    #   else
+    #     ""
+    #   end
+    # end
 
-    def offline_time_end_display
-      if self.offline_time_end.present?
-        self.offline_time_end.strftime("%H%M")
-      else
-        ""
-      end
-    end
+    # def offline_time_end_display
+    #   if self.offline_time_end.present?
+    #     self.offline_time_end.strftime("%H%M")
+    #   else
+    #     ""
+    #   end
+    # end
 
     def offline_date_start_display
       if self.offline_date_start.present?
@@ -96,22 +100,54 @@ module Goldencobra
       end
     end
 
+    def offline_time_week
+      result = Hash.new
+      self.offline_time_week_start_end.each do |key,value|
+        result["data-time-day-#{key}"] = value
+      end
+      return result
+    end
+
+    OfflineDaysEN.each do |day|
+      define_method "offline_time_start_#{day}" do
+        a = self.offline_time_week_start_end[day].to_s.split("-")[0].to_s
+        "#{a.slice(0..1)}:#{a.slice(2..4)}" if a.present?
+      end
+      define_method "offline_time_end_#{day}" do
+        a = self.offline_time_week_start_end[day].to_s.split("-")[1].to_s
+        "#{a.slice(0..1)}:#{a.slice(2..4)}" if a.present?
+      end
+    end
+
+    def set_week_start_end_times
+      self.offline_time_week_start_end = Hash.new
+      OfflineDays.each_with_index do |day,index|
+        if self.offline_day.include?(day)
+          current_day = OfflineDaysEN[index]
+          start_time = eval("self.offline_time_start_#{current_day}").gsub(/\D/, "").strip
+          end_time = eval("self.offline_time_end_#{current_day}").gsub(/\D/, "").strip
+          start_time = "0001" if start_time.blank?
+          end_time = "2359" if end_time.blank?
+          self.offline_time_week_start_end[current_day] = "#{start_time}-#{end_time}"
+        end
+      end
+    end
 
 
     def validate_start_end_time
       if self.offline_time_active
 
-        if self.offline_time_start.present? && self.offline_time_end.present?
+        # if self.offline_time_start.present? && self.offline_time_end.present?
 
-          if self.offline_time_start > self.offline_time_end
-            errors.add(:offline_time_start, 'Startzeit muss VOR Endzeit liegen')
-            errors.add(:offline_time_end, 'Startzeit muss VOR Endzeit liegen')
-          end
+        #   if self.offline_time_start > self.offline_time_end
+        #     errors.add(:offline_time_start, 'Startzeit muss VOR Endzeit liegen')
+        #     errors.add(:offline_time_end, 'Startzeit muss VOR Endzeit liegen')
+        #   end
 
-        else
-          errors.add(:offline_time_start, 'Zeit muss gesetzt werden')
-          errors.add(:offline_time_end, 'Zeit muss gesetzt werden')
-        end
+        # else
+        #   errors.add(:offline_time_start, 'Zeit muss gesetzt werden')
+        #   errors.add(:offline_time_end, 'Zeit muss gesetzt werden')
+        # end
 
         if self.offline_days.blank?
           errors.add(:offline_day, 'Mindestens ein Tag muss ausgewählt sein.')
