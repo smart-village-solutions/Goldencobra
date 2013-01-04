@@ -102,8 +102,10 @@ module Goldencobra
 
     def offline_time_week
       result = Hash.new
-      self.offline_time_week_start_end.each do |key,value|
-        result["data-time-day-#{key}"] = value
+      if self.offline_time_week_start_end.present?
+        self.offline_time_week_start_end.each do |key,value|
+          result["data-time-day-#{key}"] = value
+        end
       end
       return result
     end
