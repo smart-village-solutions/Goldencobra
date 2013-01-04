@@ -120,7 +120,7 @@ module Goldencobra
           template = Liquid::Template.parse(widget.content)
           alt_template = Liquid::Template.parse(widget.alternative_content)
           html_data_options = {"class" => "#{widget.css_name} #{custom_css} goldencobra_widget",
-                                "id" => widget.id_name || "widget_id_#{widget.id}",
+                                "id" => widget.id_name.present? ? widget.id_name : "widget_id_#{widget.id}",
                                 'data-date-start' => widget.offline_date_start_display,
                                 'data-date-end' => widget.offline_date_end_display,
                                 'data-offline-active' => widget.offline_time_active,
