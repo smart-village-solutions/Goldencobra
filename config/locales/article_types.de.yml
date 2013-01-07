@@ -1,5 +1,6 @@
 de:
   article_types:
+    selection: "Artikel"
     consultant-index: "Berater Übersicht"
     consultant-show: "Berater Einzelseite"
     report-show: "Nachrichten Einzelseite"
@@ -9,6 +10,7 @@ de:
     event-index: "Veranstaltungen Übersicht"
     event-show: "Veranstaltungen Einzelseite"
     default-index: "Standard Übersicht"
+    default-show: "Standard"
     pressreferent-index: "Pressereferenten Übersicht"
     pressreferent-show: "Pressereferenten Einzelseite"
     personelreferent-index: "Personalreferenten Übersicht"

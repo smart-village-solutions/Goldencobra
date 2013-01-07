@@ -67,6 +67,9 @@ de:
             goldencobra/role:
                 one: "Benutzerrolle"
                 other: "Benutzerrollen"
+            visitor:
+                one: "Besucher"
+                other: "Besucher"
         attributes:
             goldencobra/comment:
                 content: "Inhalt"
@@ -175,3 +178,16 @@ de:
                 offline_time_active_hint: "Möchten Sie alternativen Offline Inhalt nutzen?"
                 alternative_content: "Offline-Inhalt"
                 alternative_content_hint: "Dieser Inhalt wird gezeigt, wenn das Widget offline ist."
+            visitor:
+                first_name: "Vorname"
+                last_name: "Nachname"
+                provider: "Anbieter"
+                uid: "Einzigartige ID"
+                newsletter: "Newsletter-Abo"
+                username: "Benutzername"
+                email: "E-Mail"
+                agb: "AGB akz."
+                last_sign_in_at: "Zuletzt eingeloggt"
+                created_at: "Erstellt am"
+                updated_at: "Bearbeitet am"
+                sign_in_count: "Wie oft eingeloggt"
