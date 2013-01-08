@@ -13,7 +13,7 @@
 
 module Goldencobra
   class Setting < ActiveRecord::Base
-    @key_value = {}
+    @@key_value = {}
     attr_accessible :title, :value, :ancestry, :parent_id, :data_type
     SettingsDataTypes = ["string","date","datetime","boolean","array"]
     has_ancestry :orphan_strategy => :restrict
@@ -21,6 +21,7 @@ module Goldencobra
       has_paper_trail
     end
     before_save :parse_title
+    after_update :update_cache
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in_eq
@@ -68,23 +69,23 @@ module Goldencobra
     end
 
     def self.set_value_for_key(value, name, data_type_name="string")
-    if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
-      setting_title = name.split(".").last
-      settings = Goldencobra::Setting.where(:title => setting_title)
-      if settings.count == 1
-        settings.first.update_attributes(value: value, data_type: data_type_name)
-        true
-      elsif settings.count > 1
-        settings.each do |set|
-          if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
-            set.update_attributes(value: value, data_type: data_type_name)
-            true
+      if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+        setting_title = name.split(".").last
+        settings = Goldencobra::Setting.where(:title => setting_title)
+        if settings.count == 1
+          settings.first.update_attributes(value: value, data_type: data_type_name)
+          true
+        elsif settings.count > 1
+          settings.each do |set|
+            if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
+              set.update_attributes(value: value, data_type: data_type_name)
+              true
+            end
           end
+        else
+          false
         end
-      else
-        false
       end
-    end
     end
 
     def self.import_default_settings(path_file_name)
@@ -147,6 +148,10 @@ module Goldencobra
         self.title = self.title.downcase
         self.title = self.title.gsub(".", "_")
       end
+    end
+
+    def update_cache
+      @@key_value = nil
     end
 
   end
