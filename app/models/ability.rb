@@ -13,7 +13,7 @@ class Ability
           else
             can permission.action.to_sym, :all
           end
-        elsif permission.subject_id.nil?
+        elsif permission.subject_id.blank?
           if permission.action.include?("not_")
             cannot permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize
           else
