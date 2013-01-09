@@ -69,6 +69,7 @@ module Goldencobra
     end
 
     def self.set_value_for_key(value, name, data_type_name="string")
+      @@key_value = nil
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         setting_title = name.split(".").last
         settings = Goldencobra::Setting.where(:title => setting_title)
