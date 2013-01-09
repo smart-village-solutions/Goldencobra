@@ -161,7 +161,7 @@ GEM
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.9.0)
     chunky_png (1.2.7)
-    cocaine (0.3.2)
+    cocaine (0.4.2)
     coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -319,11 +319,11 @@ GEM
     paper_trail (2.7.0)
       activerecord (~> 3.0)
       railties (~> 3.0)
-    paperclip (3.2.1)
+    paperclip (3.4.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-      cocaine (>= 0.0.2)
+      cocaine (~> 0.4.0)
       mime-types
     polyamorous (0.5.0)
       activerecord (~> 3.0)
@@ -491,7 +491,6 @@ DEPENDENCIES
   cancan (= 1.6.7)
   capybara
   capybara-webkit
-  cocaine (= 0.3.2)
   coffee-rails (~> 3.2.0)
   compass-rails
   cucumber
@@ -523,6 +522,7 @@ DEPENDENCIES
   omniauth
   omniauth-openid
   paper_trail
+  paperclip
   powder
   pry
   pry-nav
