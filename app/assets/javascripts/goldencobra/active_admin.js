@@ -1,7 +1,7 @@
 //= require active_admin/base
 //= require goldencobra/keymaster
 
-$(document).ready(function() {
+$(function() {
 	$('textarea.tinymce').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
   		mode : "textareas",
@@ -46,8 +46,7 @@ $(document).ready(function() {
       content_css : "/assets/goldencobra/active_admin.css"
   });
 
-  function postInitWork()
-  {
+  function postInitWork() {
     var editor = tinyMCE.getInstanceById('metadescription-tinymce');
     editor.getBody().style.backgroundColor = "#F4f4f4";
   }
@@ -92,35 +91,57 @@ $(document).ready(function() {
   //Menuepunkte bekommen eine funktion zum auf und zu klappen
   $('div#overview_sidebar div.title a').bind("click", function(){
   	$(this).children("ul").hide();
-
   });
-  	$('div#overview_sidebar div.title a').trigger("click");
+  
+  $('div#overview_sidebar div.title a').trigger("click");
 
   $("#main_content form input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
-  key('⌘+s, ctrl+s', function(){
-	$("#main_content form input:submit").trigger("click");
-	return false;
+  key('⌘+s, ctrl+s', function() {
+  	$("#main_content form input:submit").trigger("click");
+  	return false;
   });
 
   $("#title_bar .action_items a[href$='edit']").append(" (⌘-E)");
-  key('⌘+e, ctrl+e', function(){
+    key('⌘+e, ctrl+e', function(){
 	 target = $("#title_bar .action_items a[href$='edit']").attr("href");
 	 window.location = target;
 	 return false;
   });
 
- //  $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)");
- //  key('⌘+z, ctrl+z', function(){
+  // $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)");
+  // key('⌘+z, ctrl+z', function(){
 	// target = $("#title_bar .action_items a[href$='revert']").attr("href");
 	// window.location = target;
 	// return false;
- //  });
-
-
+  // });
 
   $('.expert').hide();
 
+  /**** DOM Manipulation Zeitsteuerung ****/
+  /* text input felder für den jeweiligen
+     tag in dom gruppieren */
 
+  // hilfsarray tage englisch kurz
+  var engDaysShort = ["mo", "tu", "we", "th", "fr", "sa", "su"];
+  // tages checkboxen elemente (mo, di, ..., so)
+  var checkBoxesDays = $(".choice");
+  // für jede checkbox die dazugehörigen input felder holen und anhängen
+  checkBoxesDays.each(function(i, el) {
+    // checkbox muss neue css styles erhalten
+    var addCssBox = {"float" : "left", "width" : "50px", "margin-top" : "8px"};
+    $(el).height(50).find("label").css(addCssBox);
+    // selektoren für start und end inputs eines tages
+    var startInput = $("#widget_offline_time_start_" + engDaysShort[i] + "_input");
+    var endInput = $("#widget_offline_time_end_" + engDaysShort[i] + "_input");
+    // label der inputs entfernen und benötigten css style ergänzen
+    var addCssInput = {"float" : "left", "width" : "180px"};
+    $(startInput).css(addCssInput).find("label").remove();
+    $(endInput).css(addCssInput).find("label").remove();
+    // inputs zur checkbox gruppieren
+    $(startInput).appendTo(el);
+    $(endInput).appendTo(el);
+  });
+  /**** END DOM Manipulation *****/
 });
 
 
@@ -159,7 +180,7 @@ function notify(title,body,token) {
     }
     // if the user does not want notifications to come from this domain
     else if(Notification.permissionLevel() === 'denied') {
-        // be silent
-        return;
+      // be silent
+      return;
     }
-};
+}
