@@ -8,6 +8,11 @@ module Goldencobra
       desc "Creates active_admin initializer, routes and copy locale files to your application."
       class_option :orm
 
+      def install_gems
+        gem('acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on')
+        gem('meta-tags', :git => 'git://github.com/jazzgumpy/meta-tags.git')
+      end
+
       def copy_initializer
         @underscored_user_name = "user".underscore
         template '../templates/active_admin.rb.erb', 'config/initializers/active_admin.rb'
@@ -16,7 +21,6 @@ module Goldencobra
       def install_assets
         require 'rails'
         require 'active_admin'
-
         template '../templates/active_admin.js', 'app/assets/javascripts/active_admin.js'
         template '../templates/active_admin.css.scss', 'app/assets/stylesheets/active_admin.css.scss'
         template '../templates/extend_goldencobra_articles_controller.rb', 'app/controllers/extend_goldencobra_articles_controller.rb'
