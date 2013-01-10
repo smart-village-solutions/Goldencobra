@@ -37,15 +37,15 @@ module Goldencobra
         File.expand_path("../templates", __FILE__)
       end
 
-      def create_migrations
+      # def create_migrations
         #rake("goldencobra:install:migrations")
-        generate("model", "#{name} #{model_attributes.join(' ')} article_id:integer")
-        Dir["#{self.class.source_root}/migrations/*.rb"].sort.each do |filepath|
-          name = File.basename(filepath)
-          template "migrations/#{name}", "db/migrate/#{name}"
-          sleep 1
-        end
-      end
+        # generate("model", "#{name} #{model_attributes.join(' ')} article_id:integer")
+        # Dir["#{self.class.source_root}/migrations/*.rb"].sort.each do |filepath|
+        #   name = File.basename(filepath)
+        #   template "migrations/#{name}", "db/migrate/#{name}"
+        #   sleep 1
+        # end
+      # end
 
       def install_optional_assets
         if yes?("Would you like to install Better Errors?")
