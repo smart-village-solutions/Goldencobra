@@ -40,6 +40,15 @@ module Goldencobra
           sleep 1
         end
       end
+
+      def install_optional_assets
+        if yes?("Would you like to install Better Errors?")
+          gem("better_errors", :group => "development")
+          gem("binding_of_caller", :group => "development")
+        end
+      end
+
+
     end
   end
 end
