@@ -38,7 +38,7 @@ module Goldencobra
       end
 
       def create_migrations
-        rake("goldencobra:install:migrations")
+        #rake("goldencobra:install:migrations")
         # generate("model", "#{name} #{model_attributes.join(' ')} article_id:integer")
         # Dir["#{self.class.source_root}/migrations/*.rb"].sort.each do |filepath|
         #   name = File.basename(filepath)
