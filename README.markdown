@@ -41,6 +41,7 @@ rake db:create
 
 #Install prerequisites for Goldencobra
 ```ruby
+rake goldencobra:install:migrations
 rails generate goldencobra:install
 rake db:migrate db:test:prepare
 ```
