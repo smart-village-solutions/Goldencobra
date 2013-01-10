@@ -38,11 +38,13 @@ module Goldencobra
       end
 
       def create_migrations
-        Dir["#{self.class.source_root}/migrations/*.rb"].sort.each do |filepath|
-          name = File.basename(filepath)
-          template "migrations/#{name}", "db/migrate/#{name}"
-          sleep 1
-        end
+        rake("goldencobra:install:migrations")
+        # generate("model", "#{name} #{model_attributes.join(' ')} article_id:integer")
+        # Dir["#{self.class.source_root}/migrations/*.rb"].sort.each do |filepath|
+        #   name = File.basename(filepath)
+        #   template "migrations/#{name}", "db/migrate/#{name}"
+        #   sleep 1
+        # end
       end
 
       def install_optional_assets
