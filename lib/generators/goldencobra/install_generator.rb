@@ -8,10 +8,10 @@ module Goldencobra
       desc "Creates active_admin initializer, routes and copy locale files to your application."
       class_option :orm
 
-      def install_gems
-        gem('acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on')
-        gem('meta-tags', :git => 'git://github.com/jazzgumpy/meta-tags.git')
-      end
+      # def install_gems
+      #   gem('acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on')
+      #   gem('meta-tags', :git => 'git://github.com/jazzgumpy/meta-tags.git')
+      # end
 
       def copy_initializer
         @underscored_user_name = "user".underscore
