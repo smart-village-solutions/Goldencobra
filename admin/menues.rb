@@ -1,5 +1,4 @@
 #encoding: utf-8
-
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
   menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Menue)}
