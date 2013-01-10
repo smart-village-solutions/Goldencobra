@@ -24,10 +24,6 @@ Add the following to file "PROJECTNAME/Gemfile":
 ``` ruby
 gem 'goldencobra', git: 'git://github.com/ikusei/Goldencobra.git'
 gem 'activeadmin', :git => 'git://github.com/ikusei/active_admin.git', :require => 'activeadmin'
-gem 'compass-960-plugin'
-gem 'progress_bar'
-gem 'acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on.git' # The github repo offers advanced configuration options over rubygems.org
-gem 'compass-rails'
 ```
 
 ```ruby

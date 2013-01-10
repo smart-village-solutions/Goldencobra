@@ -9,7 +9,6 @@ module Goldencobra
       class_option :orm
 
       def install_gems
-        gem('activeadmin', :git => 'git://github.com/ikusei/active_admin.git', :require => 'activeadmin')
         gem('acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on')
         gem('meta-tags', :git => 'git://github.com/jazzgumpy/meta-tags.git')
         gem('compass-960-plugin')
@@ -43,6 +42,7 @@ module Goldencobra
 
       # def create_migrations
         #rake("goldencobra:install:migrations")
+        ##oder
         # generate("model", "#{name} #{model_attributes.join(' ')} article_id:integer")
         # Dir["#{self.class.source_root}/migrations/*.rb"].sort.each do |filepath|
         #   name = File.basename(filepath)
