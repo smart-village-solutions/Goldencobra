@@ -58,6 +58,14 @@ module Goldencobra
         end
       end
 
+      def install_newrelic
+        if yes?("Would you like to install NewRelic? (www.newrelic.com)")
+          gem("newrelic_rpm")
+          @license_key = ask("What is your NewRelic license key? (bsp: b199ad3e4e0d728b1aac69aec4870af7ef9478bb)")
+          template '../templates/newrelic.yml.erb', 'config/newrelic.yml'
+        end
+      end
+
 
     end
   end
