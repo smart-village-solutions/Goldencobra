@@ -16,7 +16,7 @@ module Goldencobra
     attr_accessible :role_id, :action, :subject_class, :subject_id, :sorter_id
     belongs_to :role
 
-    default_scope order("sorter_id DESC")
+    default_scope order("sorter_id ASC, id")
     scope :by_role, lambda{|rid| where(:role_id => rid)}
   end
 end
