@@ -1,4 +1,6 @@
-ActiveAdmin.register Goldencobra::Permission, :as => "Permission" do
+#encoding: utf-8
+
+ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order => :sorter_id do
     menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Permission)}
     controller.authorize_resource :class => Goldencobra::Permission
 
@@ -10,6 +12,7 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission" do
       column :action
       column :subject_class
       column :subject_id
+      column :sorter_id
       default_actions
     end
 
@@ -20,7 +23,14 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission" do
         f.input :action
         f.input :subject_class
         f.input :subject_id
+        f.input :sorter_id
       end
       f.actions
     end
+
+    sidebar "Sortierung / Gewichtung", :only => [:index] do
+      raw("je Höher die Zahl desto wichtiger ist das Zugriffsrecht: <b>10 ist wichtiger als 1</b>. <br/>
+          Ist zu einer Rolle ein Model nicht definiert, so beitzt diese Rolle standardmäßig alle Rechte an diesem Model")
+    end
+
 end
