@@ -66,7 +66,7 @@ module Goldencobra
         end
       end
 
-      def create_admin_user_passwort
+      def create_admin_user_password
         admin_password = ask("What is your password for admin@goldencobra.de:")
         admin = User.find_by_email("admin@goldencobra.de")
         admin.password = admin_password
