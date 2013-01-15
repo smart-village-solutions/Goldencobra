@@ -92,7 +92,7 @@ $(function() {
   $('div#overview_sidebar div.title a').bind("click", function(){
   	$(this).children("ul").hide();
   });
-  
+
   $('div#overview_sidebar div.title a').trigger("click");
 
   $("#main_content form input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
@@ -184,3 +184,7 @@ function notify(title,body,token) {
       return;
     }
 }
+
+  $(document).ready(function() {
+   $.ajax({url: '/admin/articles/show_expert_settings'});
+  });

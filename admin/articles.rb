@@ -286,14 +286,21 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   action_item :only => :edit do
-    link_to('Expert-Modus', toggle_expert_mode_admin_article_path, remote: true)
+    link_to("Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}", toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
+  end
+
+  collection_action :show_expert_settings do
+    if current_user && current_user.enable_expert_mode == true
+      render template: '/goldencobra/admin/articles/toggle_expert_mode', format: 'js', locals: { enabled: true }
+    else
+      render nothing: true
+    end
   end
 
   member_action :toggle_expert_mode do
-    logger.info "-----------------------------------"
-    respond_to do |format|
-      format.js { render template: '/goldencobra/admin/articles/toggle_expert_mode' }
-    end
+    current_user.enable_expert_mode = !current_user.enable_expert_mode
+    current_user.save
+    render template: '/goldencobra/admin/articles/toggle_expert_mode', format: 'js', locals: { enabled: current_user.enable_expert_mode }
   end
 
   member_action :revert do
