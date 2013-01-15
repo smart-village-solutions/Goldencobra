@@ -204,7 +204,7 @@ module Goldencobra
           @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
         elsif @article.sort_order.include?(".")
           sort_order = @article.sort_order.downcase.split(".")
-          @unsortable = @list_of_articles.flatten.map{|a| !a.respond_to_all?(@article.sort_order) }
+          @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(@article.sort_order) }
           @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(@article.sort_order) }
           @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{@article.sort_order}") }
           if @unsortable.count > 0
