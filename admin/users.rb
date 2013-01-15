@@ -21,6 +21,7 @@ ActiveAdmin.register User, :as => "User" do
       end
       f.input :password, hint: "Freilassen, wenn das Passwort nicht geaendert werden soll."
       f.input :password_confirmation, hint: "Passwort bei Aenderung hier erneut eingeben"
+      f.input :enable_expert_mode
       f.input :function
       f.input :phone
       f.input :fax
