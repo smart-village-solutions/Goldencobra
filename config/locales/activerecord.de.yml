@@ -106,6 +106,7 @@ de:
                 phone: "Telefon"
                 complete_name: "Name"
                 email: "E-Mail"
+                enable_expert_mode: 'Expertenmodus aktivieren?'
                 created_at: "erstellt am"
                 updated_at: "bearbeitet am"
             goldencobra/article:
