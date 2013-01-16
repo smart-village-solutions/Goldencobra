@@ -85,9 +85,9 @@ module Goldencobra
           template '../templates/deploy.rb.erb', 'config/deploy.rb'
         end
         if yes?("Would you like to configure your server and deploy to it?")
-          run("cap deploy:setup")
-          run("cap deploy:setup:db")
-          run("cap deploy")
+          cap "deploy:setup"
+          cap "deploy:setup:db"
+          cap "deploy"
         end
       end
 
