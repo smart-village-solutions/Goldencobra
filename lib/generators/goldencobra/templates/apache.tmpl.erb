@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+  ServerName <%= @app_name %>.dev-ikusei.de
+  DocumentRoot /home/ikusei/<%= @app_name %>/current/public
+
+  RackBaseURI /
+  <Directory /home/ikusei/<%= @app_name %>/public>
+    AllowOverride all
+    Options -MultiViews
+  </Directory>
+</VirtualHost>
