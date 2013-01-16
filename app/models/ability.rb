@@ -5,6 +5,7 @@ class Ability
     user ||= User.new
     can :read, Goldencobra::Article
     can :manage, :all
+    #TODO: if user.respond_to?("roles")
     user.roles.each do |role|
       role.permissions.each do |permission|
         if permission.subject_class == ":all"
