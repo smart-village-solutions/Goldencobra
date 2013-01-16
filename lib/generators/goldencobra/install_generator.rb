@@ -78,8 +78,8 @@ module Goldencobra
 
       def install_capistrano
         if yes?("Would you like to configure capistrano?")
-          gem("capistrano", :group => "development")
-          gem("rvm-capistrano", :group => "development")
+          gem("capistrano")
+          gem("rvm-capistrano")
           system("bundle install")
           capify!
           @ip_address = ask("To which IP do you want to deploy? (bsp: Taurus 178.23.121.27)")
