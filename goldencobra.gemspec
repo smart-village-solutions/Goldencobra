@@ -22,6 +22,8 @@ Gem::Specification.new do |s|
   s.requirements << "ImageMagick"
   s.required_ruby_version = ">= 1.9.2"
 
+  s.add_dependency "capistrano"
+  s.add_dependency "rvm-capistrano"
   s.add_dependency "rails", "~> 3.2.11"
   s.add_dependency "jquery-rails"
   s.add_dependency "jqueryui_rails"
