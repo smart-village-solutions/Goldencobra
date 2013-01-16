@@ -1,0 +1,105 @@
+# RVM bootstrap
+require 'rvm/capistrano'
+set :rvm_ruby_string, 'ruby-1.9.2-p180@<%= @app_name %>'
+#set :rvm_ruby_string, 'ruby-1.9.3-p194@<%= @app_name %>'
+set :rvm_type, :user
+
+require 'bundler/capistrano'
+
+set :application, "<%= @app_name %>"
+
+set :scm, :git
+set :user, 'ikusei'
+
+#git
+set :repository,  "<%= @git_url %>"
+set :branch, "master"
+set :deploy_via, :remote_cache
+
+set :deploy_to, "/home/ikusei/<%= @app_name %>"
+set :db_name, "db_#{application}"
+set :db_username, "u_#{application}"
+
+set :ip_address, '<%= @ip_address %>'
+set :use_sudo, false
+
+role :web, "<%= @ip_address %>"                          # Your HTTP server, Apache/etc
+role :app, "<%= @ip_address %>"                          # This may be the same as your `Web` server
+role :db,  "<%= @ip_address %>", :primary => true        # This is where Rails migrations will run
+
+
+
+namespace :deploy do
+
+  desc "Upgrade and restart the application"
+  task :upgrade, :roles => :app do
+    restart
+    clear_caches
+  end
+
+  desc "Clear all caches"
+  task :clear_caches, :roles => :app do
+    run "cd #{deploy_to} && RAILS_ENV=production rake tmp:cache:clear"
+  end
+
+  desc "Migrate the Database"
+  task :migrate, :roles => :db do
+    run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:migrate"
+  end
+
+  desc "show status"
+  task :status, :role => :web do
+    sudo "/var/lib/gems/1.8/bin/passenger-status"
+  end
+
+  desc "show passenger memory stats"
+  task :memory_stats, :role => :web do
+    sudo "/var/lib/gems/1.8/bin/passenger-memory-stats"
+  end
+
+  desc "Restart the application"
+  task :restart do
+    run "touch #{current_release}/tmp/restart.txt"
+  end
+
+
+  desc "create config database"
+  task :setup_db do
+    run "ln -sf #{deploy_to}/shared/config/database.yml #{current_release}/config/database.yml"
+    run "ln -sf #{deploy_to}/shared/log #{current_release}/log"
+  end
+
+  desc "deploy apache 2 config file"
+  task :apache_setup do
+    sudo "mv /home/ikusei/#{application}/#{application} /etc/apache2/sites-available/"
+    sudo "a2ensite #{application}"
+    sudo "/etc/init.d/apache2 reload"
+  end
+
+  namespace :db do
+
+    task :setup, :role => :db do
+      set(:db_root_password) { Capistrano::CLI.password_prompt("Enter MySQL ROOT password [noecho]: ") }
+      set(:db_password) { Capistrano::CLI.password_prompt("Enter MySQL password for #{application} [noecho]: ") }
+      run "mkdir -p #{deploy_to}/shared/config/"
+
+      create = ERB.new(File.read("config/templates/create_database.mysql.erb")).result(binding)
+      create_location = "#{deploy_to}/shared/config/create_db_#{application}.sql"
+      put create, create_location
+
+      run <<-EOSQL
+        mysql --skip-pager --host=localhost --user=root --password=#{db_root_password} < #{create_location};
+        rm #{create_location}
+      EOSQL
+
+      config = ERB.new(File.read("config/templates/database.yml.erb")).result(binding)
+      location = "#{deploy_to}/shared/config/database.yml"
+      put config, location
+    end
+
+  end
+
+end
+
+after 'deploy:create_symlink', 'deploy:setup_db'
+after 'deploy:setup_db', 'deploy:migrate'
