@@ -78,6 +78,9 @@ module Goldencobra
 
       def install_capistrano
         if yes?("Would you like to configure capistrano?")
+          gem("capistrano", :group => "development")
+          gem("rvm-capistrano", :group => "development")
+          system("bundle install")
           capify!
           @ip_address = ask("To which IP do you want to deploy? (bsp: Taurus 178.23.121.27)")
           @git_url = ask("What is your git url? (bsp: ssh://git@git.ikusei.de:7999/KLIMA/website.git)")
@@ -85,9 +88,9 @@ module Goldencobra
           template '../templates/deploy.rb.erb', 'config/deploy.rb'
         end
         if yes?("Would you like to configure your server and deploy to it?")
-          system("bundle exec cap deploy:setup")
-          system("bundle exec cap deploy:setup:db")
-          system("bundle exec cap deploy")
+          system("cap deploy:setup")
+          system("cap deploy:setup:db")
+          system("cap deploy")
         end
       end
 
