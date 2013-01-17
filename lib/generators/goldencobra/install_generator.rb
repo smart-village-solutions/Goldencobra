@@ -8,6 +8,14 @@ module Goldencobra
       desc "Creates active_admin initializer, routes and copy locale files to your application."
       class_option :orm
 
+      def install_local_rvm
+        if yes?("Would you like to configure rvm?")
+          @ruby_version = ask("What is your current ruby version (bsp: 1.9.3-p194)")
+          template '../templates/rvmrc.erb', '.rvmrc'
+          system("/bin/bash -ce '[[ -s \"$HOME/.rvm/scripts/rvm\" ]] && source \"$HOME/.rvm/scripts/rvm\" && rvm use #{@ruby_version}@#{Rails.application.class.parent_name} --create'")
+        end
+      end
+
       def install_gems
         gem('acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on')
         gem('meta-tags', :git => 'git://github.com/jazzgumpy/meta-tags.git')
@@ -76,13 +84,6 @@ module Goldencobra
         end
       end
 
-      def install_local_rvm
-        if yes?("Would you like to configure rvm?")
-          @ruby_version = ask("What is your current ruby version (bsp: 1.9.3-p194)")
-          template '../templates/rvmrc.erb', '.rvmrc'
-          system("/bin/bash -ce '[[ -s \"$HOME/.rvm/scripts/rvm\" ]] && source \"$HOME/.rvm/scripts/rvm\" && rvm use #{@ruby_version}@#{Rails.application.class.parent_name} --create'")
-        end
-      end
 
       def install_capistrano
         @use_git = false
