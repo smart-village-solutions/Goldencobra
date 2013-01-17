@@ -47,6 +47,11 @@ namespace :deploy do
     run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:migrate"
   end
 
+  desc "Seed the Database"
+  task :seed, :roles => :db do
+    run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:seed"
+  end
+
   desc "show status"
   task :status, :role => :web do
     sudo "/var/lib/gems/1.8/bin/passenger-status"
