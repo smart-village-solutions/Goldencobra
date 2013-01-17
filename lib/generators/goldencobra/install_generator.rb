@@ -80,7 +80,7 @@ module Goldencobra
         if yes?("Would you like to configure rvm?")
           @ruby_version = ask("What is your current ruby version (bsp: 1.9.3-p194)")
           template '../templates/rvmrc.erb', '.rvmrc'
-          system("/bin/bash -ce '[[ -s \"$HOME/.rvm/scripts/rvm\" ]] && source \"$HOME/.rvm/scripts/rvm\" && rvm use #{@ruby_version}@#{Rails.application.class.parent_name} --create")
+          system("/bin/bash -ce '[[ -s \"$HOME/.rvm/scripts/rvm\" ]] && source \"$HOME/.rvm/scripts/rvm\" && rvm use #{@ruby_version}@#{Rails.application.class.parent_name} --create'")
         end
       end
 
