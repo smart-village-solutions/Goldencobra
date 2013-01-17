@@ -93,7 +93,7 @@ module Goldencobra
           git :init
           git :remote => "add origin #{@git_url}"
           git :add => "."
-          git :commit => "-m First commit!"
+          git :commit => "-m 'First commit'"
           git :push => "origin master"
         end
         if yes?("Would you like to configure capistrano? (a git repository is required)")
@@ -107,7 +107,7 @@ module Goldencobra
           template '../templates/deploy.rb.erb', 'config/deploy.rb'
           if @use_git
             git :add => "."
-            git :commit => "-m Deploy files added"
+            git :commit => "-m 'Deploy files added'"
             git :push => "origin master"
           end
         end
@@ -120,7 +120,7 @@ module Goldencobra
           system("bundle install")
           if @use_git
             git :add => "."
-            git :commit => "-m Server configuration files added"
+            git :commit => "-m 'Server configuration files added'"
             git :push => "origin master"
           end
           system("cap deploy:create_gemset")
