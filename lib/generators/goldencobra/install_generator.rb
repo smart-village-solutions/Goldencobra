@@ -91,9 +91,9 @@ module Goldencobra
           template '../templates/apache.tmpl.erb', "doc/#{@app_name}"
           system("cap deploy:create_gemset")
           system("cap deploy:setup")
+          system("cap deploy")
           system("cap deploy:db:setup")
           system("cap deploy:apache_setup")
-          system("cap deploy")
         end
       end
 
