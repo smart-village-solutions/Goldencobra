@@ -1,0 +1,8 @@
+USE mysql;
+CREATE DATABASE IF NOT EXISTS <%= db_name %>;
+DELETE FROM user WHERE User = '<%= db_username %>';
+INSERT INTO user (Host, User, Password, Select_priv) VALUES
+   ('localhost', '<%= db_username %>', password('<%= db_password %>'), 'Y');
+FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON <%= db_name %>.* TO <%= db_username %>@localhost;
+FLUSH PRIVILEGES;
