@@ -14,7 +14,13 @@ Installation of Goldencobra into a fresh Ruby on Rails project:
 * Rails 3.2.8
 * Mysql 5.5.x (tested with e.g. 5.5.19)
 
-#Create new project
+
+#Guided Installation wit rvm,git,capistrano and server deploy
+```ruby
+rails new PROJECTNAME -m https://raw.github.com/ikusei/goldencobra-installer/master/template.rb -d mysql
+```
+
+#OR Manual Installation: Create new project
 ``` ruby
 rails new PROJECTNAME -d mysql
 ```
