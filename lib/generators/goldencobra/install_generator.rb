@@ -9,7 +9,7 @@ module Goldencobra
       class_option :orm
 
       def install_local_rvm
-        if yes?("Would you like to configure rvm?")
+        if yes?("Would you like to configure a .rvmrc file?")
           @ruby_version = ask("What is your current ruby version (bsp: 1.9.3-p194)")
           template '../templates/rvmrc.erb', '.rvmrc'
           system("/bin/bash -ce '[[ -s \"$HOME/.rvm/scripts/rvm\" ]] && source \"$HOME/.rvm/scripts/rvm\" && rvm use #{@ruby_version}@#{Rails.application.class.parent_name} --create'")
@@ -17,7 +17,7 @@ module Goldencobra
       end
 
       def install_gems
-        gem('acts-as-taggable-on', git: 'git://github.com/mbleigh/acts-as-taggable-on')
+        gem('acts-as-taggable-on', :git => 'git://github.com/mbleigh/acts-as-taggable-on')
         gem('meta-tags', :git => 'git://github.com/jazzgumpy/meta-tags.git')
         gem('compass-960-plugin')
         gem('progress_bar')
