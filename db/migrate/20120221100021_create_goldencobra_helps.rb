@@ -7,7 +7,5 @@ class CreateGoldencobraHelps < ActiveRecord::Migration
 
       t.timestamps
     end
-    Goldencobra::Help.create!(:title => "Goldencobra", :description => "https://github.com/ikusei/Goldencobra")
-    
   end
 end

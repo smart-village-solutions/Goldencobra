@@ -79,15 +79,16 @@ module Goldencobra
       end
 
       def create_admin_user_password
-        admin_password = ask("What is your password for your local installation (user: admin@goldencobra.de):")
-        admin = User.find_by_email("admin@goldencobra.de")
-        if admin
-          admin.password = admin_password
-          admin.password_confirmation = admin_password
-          admin.save
+        @admin_email = ask("Please enter a email for your admin account (bsp: admin@goldencobra.de):")
+        @admin_password = ask("Please enter a new password for admin account (user: #{@admin_email}):")
+        template '../templates/seeds.rb.erb', "db/seeds.rb"
+        if yes?("Would you like to migrate your local db?")
+          rake("db:migrate")
+        end
+        if yes?("Would you like to seed your local db?")
+          rake("db:seed")
         end
       end
-
 
       def install_capistrano
         @use_git = false
@@ -133,6 +134,9 @@ module Goldencobra
             system("cap deploy:db:setup")
           end
           system("cap deploy")
+          if yes?("Would you like to seed your remote db?")
+            system("cap deploy:seed")
+          end
           if yes?("Would you like to configure apache?")
             system("cap deploy:apache_setup")
           end
