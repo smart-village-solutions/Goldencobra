@@ -76,14 +76,38 @@ module Goldencobra
         end
       end
 
+      def install_local_rvm
+        if yes?("Would you like to configure rvm?")
+          @ruby_version = ask("What is your current ruby version (bsp: 1.9.3-p194)")
+          template '../templates/rvmrc.erb', '.rvmrc'
+          system("rvm use #{@ruby_version}@#{Rails.application.class.parent_name} --create")
+        end
+      end
+
       def install_capistrano
-        if yes?("Would you like to configure capistrano?")
-          @ip_address = ask("To which IP do you want to deploy? (bsp: Taurus 178.23.121.27)")
+        @use_git = false
+        if yes?("Would you like to configure git?")
+          @use_git = true
           @git_url = ask("What is your git url? (bsp: ssh://git@git.ikusei.de:7999/KLIMA/website.git)")
+          git :clone  => "#{@git_url} ."
+          git :add => "."
+          git :commit => "-m First commit!"
+          git :push => "origin master"
+        end
+        if yes?("Would you like to configure capistrano? (a git repository is required)")
+          @ip_address = ask("To which IP do you want to deploy? (bsp: Taurus 178.23.121.27)")
+          if @git_url.blank?
+            @git_url = ask("What is your git url? (bsp: ssh://git@git.ikusei.de:7999/KLIMA/website.git)")
+          end
           @app_name = Rails.application.class.parent_name.parameterize.underscore
           capify!
           remove_file "config/deploy.rb"
           template '../templates/deploy.rb.erb', 'config/deploy.rb'
+          if @use_git
+            git :add => "."
+            git :commit => "-m Deploy files added"
+            git :push => "origin master"
+          end
         end
         if yes?("Would you like to configure your server and deploy to it?")
           #rvm gemset create 'installtestapp'
@@ -91,11 +115,21 @@ module Goldencobra
           copy_file '../templates/create_database.mysql.erb', 'config/templates/create_database.mysql.erb'
           copy_file '../templates/database.yml.erb', 'config/templates/database.yml.erb'
           template '../templates/apache.tmpl.erb', "config/templates/#{@app_name}"
+          system("bundle install")
+          if @use_git
+            git :add => "."
+            git :commit => "-m Server configuration files added"
+            git :push => "origin master"
+          end
           system("cap deploy:create_gemset")
           system("cap deploy:setup")
           system("cap deploy")
-          system("cap deploy:db:setup")
-          system("cap deploy:apache_setup")
+          if yes?("Would you like to create remote database?")
+            system("cap deploy:db:setup")
+          end
+          if yes?("Would you like to configure apache?")
+            system("cap deploy:apache_setup")
+          end
         end
       end
 
