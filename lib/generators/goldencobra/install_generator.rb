@@ -78,11 +78,11 @@ module Goldencobra
 
       def install_capistrano
         if yes?("Would you like to configure capistrano?")
-          capify!
-          remove_file "config/deploy.rb"
           @ip_address = ask("To which IP do you want to deploy? (bsp: Taurus 178.23.121.27)")
           @git_url = ask("What is your git url? (bsp: ssh://git@git.ikusei.de:7999/KLIMA/website.git)")
           @app_name = Rails.application.class.parent_name.parameterize.underscore
+          capify!
+          remove_file "config/deploy.rb"
           template '../templates/deploy.rb.erb', 'config/deploy.rb'
         end
         if yes?("Would you like to configure your server and deploy to it?")
