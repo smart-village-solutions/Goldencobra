@@ -23,6 +23,7 @@ module Goldencobra
         gem('progress_bar')
         gem('compass-rails')
         gem('activerecord-mysql2-adapter')
+        system("bundle install")
       end
 
       def copy_initializer
@@ -64,6 +65,7 @@ module Goldencobra
         if yes?("Would you like to install Better Errors?")
           gem("better_errors", :group => "development")
           gem("binding_of_caller", :group => "development")
+          system("bundle install")
         end
       end
 
@@ -72,11 +74,12 @@ module Goldencobra
           gem("newrelic_rpm")
           @license_key = ask("What is your NewRelic license key? (bsp: b199ad3e4e0d728b1aac69aec4870af7ef9478bb)")
           template '../templates/newrelic.yml.erb', 'config/newrelic.yml'
+          system("bundle install")
         end
       end
 
       def create_admin_user_password
-        admin_password = ask("What is your password for admin@goldencobra.de:")
+        admin_password = ask("What is your password for your local installation (user: admin@goldencobra.de):")
         admin = User.find_by_email("admin@goldencobra.de")
         if admin
           admin.password = admin_password
