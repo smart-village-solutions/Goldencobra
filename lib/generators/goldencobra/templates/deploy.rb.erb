@@ -78,7 +78,7 @@ namespace :deploy do
 
   desc "create gemset"
   task :create_gemset do
-    run "rvm use ruby-1.9.2-p180 && rvm gemset create '#{application}'"
+    run "/bin/bash -ce '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" && rvm use ruby-1.9.2-p180 && rvm gemset create #{application}'"
   end
 
   namespace :db do
