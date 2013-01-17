@@ -87,8 +87,9 @@ module Goldencobra
         if yes?("Would you like to configure your server and deploy to it?")
           #rvm gemset create 'installtestapp'
           #config/templates/create_database.mysql.erb
-
-          template '../templates/apache.tmpl.erb', "doc/#{@app_name}"
+          template '../templates/create_database.mysql.erb', 'config/templates/create_database.mysql.erb'
+          template '../templates/database.yml.erb', 'config/templates/database.yml.erb'
+          template '../templates/apache.tmpl.erb', "config/templates/#{@app_name}"
           system("cap deploy:create_gemset")
           system("cap deploy:setup")
           system("cap deploy")

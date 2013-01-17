@@ -1,0 +1,23 @@
+development:
+  adapter: mysql2
+  timeout: 5000
+  encoding: utf8
+  database: <%= db_name %>
+  username: <%= db_username %>
+  password: <%= db_password %>
+
+test:
+ adapter: mysql2
+ timeout: 5000
+ encoding: utf8
+ database: <%= db_name %>
+ username: <%= db_username %>
+ password: <%= db_password %>
+
+production:
+  adapter: mysql2
+  timeout: 5000
+  encoding: utf8
+  database: <%= db_name %>
+  username: <%= db_username %>
+  password: <%= db_password %>

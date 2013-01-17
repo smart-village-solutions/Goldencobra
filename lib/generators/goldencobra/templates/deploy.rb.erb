@@ -71,7 +71,7 @@ namespace :deploy do
 
   desc "deploy apache 2 config file"
   task :apache_setup do
-    sudo "mv /home/ikusei/#{application}/current/doc/#{application} /etc/apache2/sites-available/"
+    sudo "mv /home/ikusei/#{application}/current/config/templates/#{application} /etc/apache2/sites-available/"
     sudo "a2ensite #{application}"
     sudo "/etc/init.d/apache2 reload"
   end
