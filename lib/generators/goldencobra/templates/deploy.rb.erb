@@ -78,7 +78,7 @@ namespace :deploy do
 
   desc "create gemset"
   task :create_gemset do
-    sudo "rvm gemset create '#{application}'"
+    sudo "rvm gemset create #{application}"
   end
 
   namespace :db do
