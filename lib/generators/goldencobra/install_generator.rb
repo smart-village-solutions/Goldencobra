@@ -22,6 +22,7 @@ module Goldencobra
         gem('compass-960-plugin')
         gem('progress_bar')
         gem('compass-rails')
+        gem('activerecord-mysql2-adapter')
       end
 
       def copy_initializer
@@ -125,10 +126,10 @@ module Goldencobra
           end
           system("cap deploy:create_gemset")
           system("cap deploy:setup")
-          system("cap deploy")
           if yes?("Would you like to create remote database?")
             system("cap deploy:db:setup")
           end
+          system("cap deploy")
           if yes?("Would you like to configure apache?")
             system("cap deploy:apache_setup")
           end
