@@ -71,9 +71,10 @@ namespace :deploy do
 
   desc "deploy apache 2 config file"
   task :apache_setup do
-    sudo "mv /home/ikusei/#{application}/current/config/templates/#{application} /etc/apache2/sites-available/"
-    sudo "a2ensite #{application}"
-    sudo "/etc/init.d/apache2 reload"
+    set(:root_password) { Capistrano::CLI.password_prompt("Enter ROOT password [noecho]: ") }
+    run "echo #{root_password} | sudo -S mv /home/ikusei/#{application}/current/config/templates/#{application} /etc/apache2/sites-available/"
+    run "echo #{root_password} | sudo -S a2ensite #{application}"
+    run "echo #{root_password} | sudo -S /etc/init.d/apache2 reload"
   end
 
   desc "create gemset"
