@@ -6,7 +6,7 @@ class Ability
     #Wenn es keinen angemeldeten user gibt
     unless user
       user = User.new
-      #can :read, Goldencobra::Article
+
       Goldencobra::Permission.where("role_id IS NULL OR role_id = ''").each do |permission|
         if permission.subject_id.blank?
           if permission.action.include?("not_")
@@ -23,6 +23,7 @@ class Ability
           end
         end
       end
+      can :read, Goldencobra::Article
     end
 
 

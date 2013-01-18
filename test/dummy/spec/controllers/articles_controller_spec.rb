@@ -27,12 +27,10 @@ describe Goldencobra::ArticlesController do
       @visitor.roles << @guest_role
     end
     it "should be possible to read an article if not logged in" do
-      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :sorter_id => 10
       visit @parent_article.public_url
       page.should have_content(@parent_article.title)
     end
     it "should be possible to read an article if not logged in" do
-      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :sorter_id => 10
       visit @parent_article.public_url
       page.should have_content(@parent_article.title)
     end
