@@ -9,6 +9,7 @@
 #  role_id       :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  sorter_id     :integer          default(0)
 #
 
 require 'test_helper'
