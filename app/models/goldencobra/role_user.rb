@@ -1,6 +1,7 @@
 module Goldencobra
   class RoleUser < ActiveRecord::Base
-    belongs_to :user, :class_name => User, :foreign_key => :user_id
+    self.table_name = 'goldencobra.goldencobra_roles_users'
+    belongs_to :operator, :polymorphic => true
     belongs_to :role, :class_name => Goldencobra::Role
   end
 end

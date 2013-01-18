@@ -71,4 +71,5 @@ group :test do
   gem 'growl'
   gem 'launchy'
   gem 'faker'
+  gem 'shoulda-matchers'
 end

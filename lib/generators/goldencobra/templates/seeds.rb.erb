@@ -1,14 +1,19 @@
+Goldencobra::Role.delete_all
 admin = Goldencobra::Role.find_or_create_by_name("admin")
 guest = Goldencobra::Role.find_or_create_by_name("guest")
-user = User.create!(:email => "<%= @admin_email %>", :password => "<%= @admin_password %>", :password_confirmation => "<%= @admin_password %>", :firstname => "Admin", :lastname => "Goldencobra")
-user.confirm!
+
+User.delete_all
+user = User.create!(:email => "admin@goldencobra.de", :password => "Q6GWQrjQ9mxtdp", :password_confirmation => "Q6GWQrjQ9mxtdp", :firstname => "Admin", :lastname => "Goldencobra")
 user.roles << admin
 
+Goldencobra::Help.delete_all
 Goldencobra::Help.create!(:title => "Goldencobra", :description => "https://github.com/ikusei/Goldencobra")
 
+Goldencobra::Article.delete_all
 Goldencobra::Article.create!(content: "Diese Seite existiert leider nicht.", url_name: "404", breadcrumb: "Seite nicht gefunden", title: "404")
 Goldencobra::Article.create!(content: "", url_name: "search-results", breadcrumb: "Suchergebnisse", title: "Suchergebnisse")
 
+Goldencobra::Permission.delete_all
 Goldencobra::Permission.create(:sorter_id => 1, :role_id => Goldencobra::Role.find_by_name("admin").id, :action => "manage", :subject_class => ":all" )
 Goldencobra::Permission.create(:sorter_id => 1, :role_id => Goldencobra::Role.find_by_name("guest").id, :action => "read", :subject_class => "Goldencobra::Article" )
 Goldencobra::Permission.create(:sorter_id => 1, :role_id => Goldencobra::Role.find_by_name("guest").id, :action => "show", :subject_class => "User", :subject_id => "user.id" )
@@ -26,7 +31,7 @@ Goldencobra::Permission.create(:sorter_id => 1, :role_id => Goldencobra::Role.fi
 
 ### MAIN MENU ###
 puts "create main menu..."
-
+Goldencobra::Menue.delete_all
 main = Goldencobra::Menue.find_by_title("Top-Navigation")
 main = Goldencobra::Menue.create!(title: "Top-Navigation", css_class: "", target: "") if main.blank?
 home = Goldencobra::Menue.find_by_title("Startseite")
@@ -158,6 +163,7 @@ puts "content page articles created."
 ### DEFAULT SIDEBAR WIDGET ###
 puts "create default sidebar widget..."
 
+Goldencobra::Widget.delete_all
 contactwidget = Goldencobra::Widget.find_by_title("Kontakt")
 contactwidgetContent = "<h3>Allgemeine Kontaktinformationen</h3>
   <p>ikusei GmbH <br/>

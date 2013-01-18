@@ -45,7 +45,8 @@ class Visitor < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :provider, :uid, :agb, :newsletter, :username
   validates_acceptance_of :agb, accept: true
-
+  has_many :role_users, :as => :operator, :class_name => Goldencobra::RoleUser
+  has_many :roles, :through => :role_users, :class_name => Goldencobra::Role
   before_save :reset_authentication_token
   after_create :send_confirmation_mail
 
