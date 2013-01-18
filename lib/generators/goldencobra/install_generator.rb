@@ -83,9 +83,7 @@ module Goldencobra
       end
 
       def install_capistrano
-        @use_git = false
         if yes?("Would you like to configure git?")
-          @use_git = true
           @git_url = ask("What is your git url? (bsp: ssh://git@git.ikusei.de:7999/KLIMA/website.git)")
           git :init
           git :remote => "add origin #{@git_url}"
@@ -102,24 +100,23 @@ module Goldencobra
           capify!
           remove_file "config/deploy.rb"
           template '../templates/deploy.rb.erb', 'config/deploy.rb'
-          if @use_git
-            git :add => "."
-            git :commit => "-m 'Deploy files added'"
-            git :push => "origin master"
-          end
+
+          #Add Changes to git
+          git :add => "."
+          git :commit => "-m 'Deploy files added'"
+          git :push => "origin master"
         end
         if yes?("Would you like to configure your server and deploy to it?")
-          #rvm gemset create 'installtestapp'
-          #config/templates/create_database.mysql.erb
           copy_file '../templates/create_database.mysql.erb', 'config/templates/create_database.mysql.erb'
           copy_file '../templates/database.yml.erb', 'config/templates/database.yml.erb'
           template '../templates/apache.tmpl.erb', "config/templates/#{@app_name}"
           system("bundle install")
-          if @use_git
-            git :add => "."
-            git :commit => "-m 'Server configuration files added'"
-            git :push => "origin master"
-          end
+
+          #Add Changes to git
+          git :add => "."
+          git :commit => "-m 'Server configuration files added'"
+          git :push => "origin master"
+
           system("cap deploy:create_gemset")
           system("cap deploy:setup")
           if yes?("Would you like to create remote database?")
