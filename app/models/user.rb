@@ -49,7 +49,9 @@ class User < ActiveRecord::Base
   liquid_methods :firstname, :lastname, :gender, :title, :function, :anrede, :gender_anrede
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :gender, :title, :firstname, :lastname, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :role_ids, :vita_steps_attributes, :enable_expert_mode
-  has_and_belongs_to_many :roles, :join_table => "goldencobra_roles_users", :class_name => Goldencobra::Role, :include => [:permissions]
+  #has_and_belongs_to_many :roles, :join_table => "goldencobra_roles_users", :class_name => Goldencobra::Role, :include => [:permissions]
+  has_many :role_users, :as => :operator, :class_name => Goldencobra::RoleUser
+  has_many :roles, :through => :role_users, :class_name => Goldencobra::Role
   has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
   accepts_nested_attributes_for :vita_steps, allow_destroy: true, reject_if: lambda { |a| a[:description].blank? }
 

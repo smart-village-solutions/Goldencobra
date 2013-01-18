@@ -8,7 +8,6 @@ Goldencobra::Engine.routes.draw do
   end
 
   # post '/goldencobra/api/v1/tokens' => 'goldencobra/api/v1/tokens_controller#create'
-
   namespace "api" do
     namespace "v1" do
       resources :tokens, only: [:create]
