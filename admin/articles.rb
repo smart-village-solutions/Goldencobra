@@ -30,7 +30,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
-    #render :partial => "/goldencobra/admin/articles/article_type", :locals => {:f => f}
     if f.object.new_record?
       render :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f}
     else
