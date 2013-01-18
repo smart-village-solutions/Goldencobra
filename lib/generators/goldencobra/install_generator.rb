@@ -75,6 +75,7 @@ module Goldencobra
         if yes?("Would you like to create your local db?")
           rake("db:create")
         end
+        rake("goldencobra:install:migrations")
         if yes?("Would you like to migrate your local db?")
           rake("db:migrate")
         end
