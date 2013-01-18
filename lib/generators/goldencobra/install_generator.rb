@@ -61,9 +61,9 @@ module Goldencobra
       def install_newrelic
         if yes?("Would you like to install NewRelic? (www.newrelic.com)")
           gem("newrelic_rpm")
+          system("bundle install")
           @license_key = ask("What is your NewRelic license key? (bsp: b199ad3e4e0d728b1aac69aec4870af7ef9478bb)")
           template '../templates/newrelic.yml.erb', 'config/newrelic.yml'
-          system("bundle install")
         end
       end
 
@@ -71,6 +71,9 @@ module Goldencobra
         @admin_email = ask("Please enter a email for your admin account (bsp: admin@goldencobra.de):")
         @admin_password = ask("Please enter a new password for admin account (user: #{@admin_email}):")
         template '../templates/seeds.rb.erb', "db/seeds.rb"
+        if yes?("Would you like to create your local db?")
+          rake("db:create")
+        end
         if yes?("Would you like to migrate your local db?")
           rake("db:migrate")
         end
@@ -126,7 +129,7 @@ module Goldencobra
           if yes?("Would you like to seed your remote db?")
             system("cap deploy:seed")
           end
-          if yes?("Would you like to configure apache?")
+          if yes?("Would you like to configure apache on your server?")
             system("cap deploy:apache_setup")
           end
         end
