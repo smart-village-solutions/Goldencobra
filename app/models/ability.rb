@@ -2,9 +2,32 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new
-    can :read, Goldencobra::Article
-    can :manage, :all
+
+    #Wenn es keinen angemeldeten user gibt
+    unless user
+      user = User.new
+      #can :read, Goldencobra::Article
+      Goldencobra::Permission.where("role_id IS NULL OR role_id = ''").each do |permission|
+        if permission.subject_id.blank?
+          if permission.action.include?("not_")
+            cannot permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize
+          else
+            can permission.action.to_sym, permission.subject_class.constantize
+          end
+        else
+          if permission.action.include?("not_")
+            cannot permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize, :id => eval(permission.subject_id)
+          else
+            can permission.action.to_sym, permission.subject_class.constantize, :id => eval(permission.subject_id)
+            #check for parent
+          end
+        end
+      end
+    end
+
+
+
+    #can :manage, :all
     if user.respond_to?(:roles)
       user.roles.each do |role|
         role.permissions.each do |permission|

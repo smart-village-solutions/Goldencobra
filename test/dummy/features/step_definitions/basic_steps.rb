@@ -11,7 +11,7 @@ When /^I visit url "([^\"]*)"$/ do |arg1|
 end
 
 When /^I press "([^\"]*)"$/ do |arg1|
-  find_button(arg1).click
+  find_button(arg1).first.click
 end
 
 When /^I fill in "([^"]*)" with "([^"]*)"$/ do |arg1, arg2|
@@ -71,13 +71,13 @@ Given /^default settings exists$/ do
   Goldencobra::Setting.import_default_settings(Goldencobra::Engine.root + "config/settings.yml")
 end
 
-Then /the text "([^"]*)"(?: within "([^"]*)")? should be visible/ do |text, nodes| 
-  scope = nodes ? nodes : '//*' 
-  page.find(:xpath, "#{scope}[contains(text(), '#{text}')]").visible?.should be_true 
+Then /the text "([^"]*)"(?: within "([^"]*)")? should be visible/ do |text, nodes|
+  scope = nodes ? nodes : '//*'
+  page.find(:xpath, "#{scope}[contains(text(), '#{text}')]").visible?.should be_true
 end
 
-Then /the text "([^"]*)"(?: within "([^"]*)")? should not be visible/ do |text, nodes| 
-  scope = nodes ? nodes : '//*' 
+Then /the text "([^"]*)"(?: within "([^"]*)")? should not be visible/ do |text, nodes|
+  scope = nodes ? nodes : '//*'
   page.find(:xpath, "#{scope}[contains(text(), '#{text}')]").visible?.should be_false
 end
 

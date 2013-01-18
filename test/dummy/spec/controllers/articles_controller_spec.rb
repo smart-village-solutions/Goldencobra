@@ -27,23 +27,50 @@ describe Goldencobra::ArticlesController do
       @visitor.roles << @guest_role
     end
     it "should be possible to read an article if not logged in" do
-      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @admin_role.id
-      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @guest_role.id
-      get @parent_article.public_url
-      response.body.should have_content(@parent_article.title)
+      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :sorter_id => 10
+      visit @parent_article.public_url
+      page.should have_content(@parent_article.title)
+    end
+    it "should be possible to read an article if not logged in" do
+      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :sorter_id => 10
+      visit @parent_article.public_url
+      page.should have_content(@parent_article.title)
     end
     it "should be possible to read an article as a visitor" do
-      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @admin_role.id
-      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @guest_role.id
-      get @parent_article.public_url
-      response.body.should have_content(@parent_article.title)
+      sign_in(:visitor, @visitor)
+      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @guest_role.id, :sorter_id => 10
+      visit @parent_article.public_url
+      page.should have_content(@parent_article.title)
     end
     it "should be possible to read an article as an admin" do
       sign_in(:user, @user)
-      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @admin_role.id
-      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @guest_role.id
-      get :show, :id => @parent_article.public_url
-      response.body.should have_content(@parent_article.title)
+      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @admin_role.id, :sorter_id => 10
+      visit @parent_article.public_url
+      page.should have_content(@parent_article.title)
+    end
+    it "should not be possible to read an secured article as an admin" do
+      sign_in(:user, @user)
+      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @admin_role.id, :sorter_id => 10
+      visit @parent_article.public_url
+      Goldencobra::Permission.all.count.should == 1
+      page.should have_content("You need to sign in or sign up before continuing")
+    end
+    it "should not be possible to read an secured article as an visitor" do
+      sign_in(:visitor, @visitor)
+      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @guest_role.id, :sorter_id => 10
+      visit @parent_article.public_url
+      page.should have_content("You need to sign in or sign up before continuing")
+    end
+    it "should not be possible to read an article with secured parent article as an visitor" do
+      sign_in(:visitor, @visitor)
+      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @guest_role.id, :sorter_id => 10
+      visit @parent_article.public_url
+      page.should have_content("You need to sign in or sign up before continuing")
+    end
+    it "should not be possible to read secured an article if not logged in" do
+      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :sorter_id => 10
+      visit @parent_article.public_url
+      page.should have_content("You need to sign in or sign up before continuing")
     end
 
   end

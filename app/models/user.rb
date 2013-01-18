@@ -36,6 +36,7 @@
 #  linkedin               :string(255)
 #  xing                   :string(255)
 #  googleplus             :string(255)
+#  enable_expert_mode     :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
