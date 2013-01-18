@@ -6,7 +6,7 @@ end %>
 <%=
 f.inputs I18n.t(:selection, scope: [:article_types]), :class => "foldable inputs" do
   if article_types.count > 0
-    f.input :article_type, :as => :select, :collection => article_types, include_blank: false, selected: "Default Show"
+    f.input :article_type, :as => :select, :collection => article_types, include_blank: true
   end
   f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
   f.input :content, :input_html => { :class =>"tinymce"}
