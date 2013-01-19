@@ -76,7 +76,7 @@ module Goldencobra
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
 
-    validates_presence_of :title
+    validates_presence_of :title, :article_type
     validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
 
     after_create :set_active_since
