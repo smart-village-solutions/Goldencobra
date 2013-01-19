@@ -38,6 +38,7 @@ module Goldencobra
         template '../templates/active_admin.js', 'app/assets/javascripts/active_admin.js'
         template '../templates/active_admin.css.scss', 'app/assets/stylesheets/active_admin.css.scss'
         template '../templates/extend_goldencobra_articles_controller.rb', 'app/controllers/extend_goldencobra_articles_controller.rb'
+        remove_file "public/index.html"
       end
 
       def setup_routes
