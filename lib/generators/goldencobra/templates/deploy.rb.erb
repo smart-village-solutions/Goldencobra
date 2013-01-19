@@ -67,6 +67,11 @@ namespace :deploy do
     run "touch #{current_release}/tmp/restart.txt"
   end
 
+  desc "Precompile Assets"
+  task :precompile_assets do
+    run "cd #{current_release} && RAILS_ENV=production bundle exec rake assets:precompile"
+  end
+
 
   desc "create config database"
   task :setup_db do
@@ -113,4 +118,5 @@ namespace :deploy do
 end
 
 after 'deploy:create_symlink', 'deploy:setup_db'
+after 'deploy:setup_db', 'deploy:precompile_assets'
 after 'deploy:setup_db', 'deploy:migrate'
