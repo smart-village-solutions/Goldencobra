@@ -52,9 +52,9 @@ describe Goldencobra::ArticlesController do
     end
 
     it "should not be possible to read a secured article as a visitor" do
-      puts @guest_role.inspect
-      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :role_id => @guest_role.id, :sorter_id => 200
-      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200
+      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :role_id => @guest_role.id, :sorter_id => 200, :subject_id => @parent_article.id
+      puts Goldencobra::Permission.last.inspect
+      # create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200
       sign_in(:visitor, @visitor)
       visit @parent_article.public_url
       page.should have_content("You need to sign in or sign up before continuing")
