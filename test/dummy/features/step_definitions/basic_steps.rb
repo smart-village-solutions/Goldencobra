@@ -3,7 +3,7 @@ Given /^that I am not logged in$/ do
 end
 
 When /^I click on "([^\"]*)"$/ do |arg1|
-  find_link(arg1).click
+  first(:link,arg1).click
 end
 
 When /^I visit url "([^\"]*)"$/ do |arg1|
@@ -11,7 +11,7 @@ When /^I visit url "([^\"]*)"$/ do |arg1|
 end
 
 When /^I press "([^\"]*)"$/ do |arg1|
-  find_button(arg1).first.click
+  first(:button,arg1).click
 end
 
 When /^I fill in "([^"]*)" with "([^"]*)"$/ do |arg1, arg2|

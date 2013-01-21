@@ -1,6 +1,7 @@
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
-    load_and_authorize_resource
+    #load_and_authorize_resource
+    #authorize_resource
 
     layout "application"
     before_filter :check_format
@@ -94,6 +95,7 @@ module Goldencobra
       end
       @domain_name = Goldencobra::Setting.for_key("goldencobra.url")
       @articles = Goldencobra::Article.for_sitemap
+      #TODO: authorize! :read, @article
       respond_to do |format|
         format.xml
       end
@@ -262,6 +264,7 @@ module Goldencobra
         @article = Goldencobra::Article.search_by_url(params[:article_id])
       else
         @article = Goldencobra::Article.active.search_by_url(params[:article_id])
+        authorize! :show, @article
       end
     end
 

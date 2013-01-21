@@ -15,8 +15,9 @@ describe Goldencobra::ArticlesController do
   describe  "permissions" do
     render_views
     before(:each) do
+      Goldencobra::Setting.import_default_settings(::Rails.root + "../../config/settings.yml")
       @parent_article = create :article
-      @child_article = create :article
+      @child_article = create :article, :parent_id => @parent_article.id
       @user = create :user
       @visitor = create :visitor
       @admin_role = create :role, :name => "Admin"
@@ -43,34 +44,48 @@ describe Goldencobra::ArticlesController do
       page.should have_content(@parent_article.title)
     end
 
-    it "should not be possible to read a secured article as an admin" do
-      create :permission, :action => "read", :subject_class => "Goldencobra::Article", :sorter_id => 1
+    it "should be possible to read a secured article as an admin as a preview function" do
       create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :subject_id => @parent_article.id.to_s, :role_id => @admin_role.id, :sorter_id => 200
       sign_in(:user, @user)
       visit @parent_article.public_url
-      page.should have_content("You need to sign in or sign up before continuing")
+      page.should have_content(@parent_article.title)
     end
 
     it "should not be possible to read a secured article as a visitor" do
-      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :role_id => @guest_role.id, :sorter_id => 200, :subject_id => @parent_article.id
-      puts Goldencobra::Permission.last.inspect
+      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id
+      #puts Goldencobra::Permission.last.inspect
       # create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200
       sign_in(:visitor, @visitor)
       visit @parent_article.public_url
-      page.should have_content("You need to sign in or sign up before continuing")
+      page.should have_content("404")
     end
 
-    # it "should not be possible to read an article with secured parent article as an visitor" do
-    #   sign_in(:visitor, @visitor)
-    #   create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :role_id => @guest_role.id, :sorter_id => 200
-    #   visit @parent_article.public_url
-    #   page.should have_content("You need to sign in or sign up before continuing")
-    # end
+    it "should not be possible to read a secured article as a visitor for role guest" do
+      Goldencobra::Permission.create(:action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id, :role_id => @guest_role.id)
+      #create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id, :role_id => @guest_role.id
+      sign_in(:visitor, @visitor)
+      puts ""
+      visit @parent_article.public_url
+      page.should have_content("404")
+    end
 
-    it "should not be possible to read secured an article if not logged in" do
+    it "should not be possible to read a secured article if not logged in" do
+      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id
+      visit @parent_article.public_url
+      page.should have_content("404")
+    end
+
+    it "should not be possible to read an article with secured parent article as an visitor" do
+      sign_in(:visitor, @visitor)
+      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :role_id => @guest_role.id, :sorter_id => 200, :subject_id => @parent_article.id
+      visit @child_article.public_url
+      page.should have_content("404")
+    end
+
+    it "should not be possible to read all articles if not logged in" do
       create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200
       visit @parent_article.public_url
-      page.should have_content("You need to sign in or sign up before continuing")
+      page.should have_content("404")
     end
 
   end
