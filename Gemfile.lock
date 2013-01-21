@@ -46,7 +46,7 @@ PATH
       activeadmin-cancan
       acts-as-taggable-on
       ancestry
-      cancan (= 1.6.7)
+      cancan
       capistrano
       coffee-rails
       compass-960-plugin
@@ -147,7 +147,7 @@ GEM
       sass (~> 3.0)
       terminal-table (~> 1.4)
     builder (3.0.4)
-    cancan (1.6.7)
+    cancan (1.6.8)
     capistrano (2.14.1)
       highline
       net-scp (>= 1.0.0)
@@ -513,7 +513,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   brakeman
-  cancan (= 1.6.7)
+  cancan
   capybara
   capybara-webkit
   coffee-rails (~> 3.2.0)

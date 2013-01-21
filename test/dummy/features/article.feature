@@ -215,3 +215,17 @@ Feature: Create and manage articles
 #    And I click on "Artikel editieren"
 #    Then I should see "Edit Article"
 #    And I should see "Dies ist ein Test"
+
+  Scenario: Test Permissions site is avaliable
+    Given that I am not logged in
+    When I have a secured site and I log in as a visitor
+    When I visit url "/seite1"
+    Then I should see "Article Title"
+
+  Scenario: Test Permissions site is not avaliable
+    Given that I am not logged in
+    When I have a secured site and I log in as a visitor
+    And a restricting permission exists
+    And I visit url "/seite1"
+    Then I should see "Diese Seite existiert nicht"
+
