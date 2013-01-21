@@ -60,6 +60,7 @@ puts "create start and 404 page article..."
 
 start = Goldencobra::Article.find_by_title("Willkommen")
 start = Goldencobra::Article.create!(title: "Willkommen", article_type: "Default Show", ancestry: nil, startpage: true, active: true, url_name: "willkommen", template_file: "application") if start.blank?
+start.mark_as_startpage!
 notfound = Goldencobra::Article.find_by_title("404")
 notfound = Goldencobra::Article.create!(title: "404", article_type: "Default Show", ancestry: nil, active: true, content: "<p>Die angeforderte Seite exisitiert leider nicht.</p>", url_name: "404", template_file: "application") if notfound.blank?
 
