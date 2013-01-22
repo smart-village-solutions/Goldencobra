@@ -19,7 +19,7 @@ When /^I fill in "([^"]*)" with "([^"]*)"$/ do |arg1, arg2|
 end
 
 Then /^I select "([^"]*)" within "([^"]*)"$/ do |arg1, arg2|
-  find(arg2).select(arg1)
+  first(arg2).select(arg1)
 end
 
 
@@ -46,7 +46,7 @@ Then /^I should not see "([^"]*)" within "([^"]*)"$/ do |arg1, content_position|
 end
 
 Then /^the page should have content "([^"]*)"$/ do |arg1|
-  find(arg1)
+  first(arg1)
 end
 
 Then /^show me the page$/ do
