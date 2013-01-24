@@ -47,8 +47,10 @@ module Goldencobra
       def install_assets
         require 'rails'
         require 'active_admin'
-        template '../templates/active_admin.js', 'app/assets/javascripts/active_admin.js'
-        template '../templates/active_admin.css.scss', 'app/assets/stylesheets/active_admin.css.scss'
+        directory "../templates/assets", "app/"
+        directory "../templates/views", "app/"
+        #template '../templates/active_admin.js', 'app/assets/javascripts/active_admin.js'
+        #template '../templates/active_admin.css.scss', 'app/assets/stylesheets/active_admin.css.scss'
         template '../templates/extend_goldencobra_articles_controller.rb', 'app/controllers/extend_goldencobra_articles_controller.rb'
         remove_file "public/index.html"
       end

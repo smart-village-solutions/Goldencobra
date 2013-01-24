@@ -1,0 +1,61 @@
+<header>
+	<div class="container top-shadow">
+		<div class="row" style="margin-bottom: 20px; margin-left: 0;">
+
+			<div class="header-left span4">
+
+				<!-- *** delete this span when using widget *** -->
+				<span>Info</span>
+				<!-- *** *** *** *** *** *** *** *** *** *** ***-->
+
+				<%= render_article_widgets(tagged_with: "header-left", default: true) %>
+			</div><!-- end .header-left -->
+
+			<div class="header-center span4">
+				
+				<!-- *** delete this image when using widget *** -->
+				<img src="/assets/logo.gif" alt="ikusei"/>
+				<!-- *** *** *** *** *** *** *** *** *** *** ***-->
+
+				<%= render_article_widgets(tagged_with: "header-center", default: true) %>
+			</div><!-- end .header-center -->
+
+			<div class="header-right span4">
+
+				<!-- *** delete this span when using widget *** -->
+				<span>Button</span>
+				<!-- *** *** *** *** *** *** *** *** *** *** ***-->
+
+				<%= render_article_widgets(tagged_with: "header-right", default: true) %>
+			</div><!-- end .header-right -->
+
+		</div><!-- end .row -->
+	</div><!-- end .container -->
+
+	<!-- NAVIGATION -->
+
+	<div class="mobile-navigation">
+		<a class="btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<span>Men&uuml;</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</a>
+	</div><!-- end .mobile-navigation -->
+
+	<div class="container main-nav-container nav-collapse collapse">
+		<div class="row">
+			<div class="main-nav span12">
+				<nav>
+					<%= navigation_menu("Top-Navigation", class: "ul-main-nav") %>
+				</nav>
+			</div><!-- end .main-nav -->
+		</div><!-- end .row -->
+	</div><!-- end .container -->
+
+	<!-- END NAVIGATION -->
+
+	<!-- SLIDER -->
+	<%= render partial: "/layouts/header_slider" %>
+	<!-- END SLIDER -->
+</header>
