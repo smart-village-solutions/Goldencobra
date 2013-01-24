@@ -30,7 +30,6 @@ module Goldencobra
         gem('progress_bar')
         gem('compass-rails')
         gem('mysql2')
-        gem('activerecord-mysql2-adapter')
         system("bundle install")
       end
 
