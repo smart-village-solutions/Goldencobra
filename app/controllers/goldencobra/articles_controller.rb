@@ -268,7 +268,7 @@ module Goldencobra
         # @article = Goldencobra::Article.active.search_by_url(params[:article_id])
         # authorize! :read, @article
         article = Goldencobra::Article.active.search_by_url(params[:article_id])
-        operator = @current_user || @current_visitor
+        operator = current_user || current_visitor
         a = Ability.new(operator)
         if a.can?(:read, article)
           @article = article
