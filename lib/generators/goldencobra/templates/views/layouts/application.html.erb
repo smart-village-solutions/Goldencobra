@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= (@article.metatag("Title Tag") || @article.title) if @article%> | Standard Page</title>
+  <%= render partial: "/layouts/header_meta" %>
+</head>
+<body>
+	<!-- HEADER -->
+	<%= render partial: "/layouts/header" %>
+	<!-- END HEADER -->
+
+	<!-- CONTENT -->
+	<div class="body_content">
+		<div class="content container">
+			<div class="row">
+
+				<article class="span8">
+					<% if @article %>
+					  <%= render_article_type_content() %>
+					<% end %>
+				</article>
+
+				<!-- ASIDE -->
+				<aside class="span4">
+					<% if @article.public_url.present? %>
+					<section class="documents-options">
+						<ul class="ul-documents-options">
+							<li><a href="javascript:window.print()" class="print">Drucken</a></li>
+							<li><a href="#" class="bookmark" onclick="javascript:return bookmark();">Merken</a></li>
+							<li><%= link_to "PDF", "#{@article.public_url}.pdf", class: "make-pdf", target: "_blank" %></li>
+						</ul>
+					</section>
+					<% end %>
+					<%= yield(:sidebar) %>
+					<%= render_article_widgets(tagged_with: "sidebar", default: true) %>
+					<%= render_article_widgets(tagged_with: "sidebar") %>
+				</aside>
+				<!-- END ASIDE -->
+
+			</div><!-- end .row -->
+		</div><!-- end .content .container -->
+	</div><!-- end .body_content -->
+	<!-- END CONTENT-->
+
+	<!-- FOOTER -->
+	<footer>
+		<%= render partial: "/layouts/footer" %>
+	</footer>
+	<!-- END FOOTER-->
+</body>
+</html>

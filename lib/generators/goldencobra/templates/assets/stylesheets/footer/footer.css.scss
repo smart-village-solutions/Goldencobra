@@ -1,0 +1,31 @@
+footer {
+	color: $txt_color_footer;
+	background: $footer_background;
+	min-height: 105px;
+	a { color: $link_color_footer; }
+
+	nav.footer-nav { 
+		margin-top: 30px;
+		h5 { color: $h_color_footer; }
+		
+		li {
+			padding: 0 15px;
+			display: inline-block;
+			font-size: 0.9em;
+			line-height: 1em;
+			border-right: 1px solid $txt_color_footer;
+			&:first-child { padding-left: 0; }
+			&:last-child { border-right: none; }
+		} /* end li */
+	} /* end nav.footer-nav */
+
+	aside.footer-widget {
+    margin-top: 30px;
+    section { margin-bottom: 30px; }
+	}
+} /* end footer */
+
+
+
+
+

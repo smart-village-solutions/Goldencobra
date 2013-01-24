@@ -1,0 +1,22 @@
+<%= basic_goldencobra_headers() %>
+<%= stylesheet_link_tag "application", :media => "all" %>
+<%= stylesheet_link_tag "application", :media => "print" %>
+<%= javascript_include_tag "application" %>
+<%= csrf_meta_tags %>
+<% if params[:pdf].present? && params[:pdf] == "1" %>
+  <%#= stylesheet_link_tag "pdf", :media => "print" %>
+<% else %>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+<% end %>
+<!--[if IE]>
+    <%= stylesheet_link_tag "ie", :media => "screen" %>
+<![endif]-->
+
+<!--[if lte IE 8]>
+		<%= stylesheet_link_tag "ie8", :media => "screen" %>
+<![endif]-->
+
+<!--[if IE 7]>
+		<%= stylesheet_link_tag "ie7", :media => "screen" %>
+<![endif]-->
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
