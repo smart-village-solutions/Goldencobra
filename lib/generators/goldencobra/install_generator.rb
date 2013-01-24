@@ -68,6 +68,8 @@ module Goldencobra
 
       def install_errbit
         if yes?("Would you like to configure Errbit?")
+          gem("airbrake")
+          system("bundle install")
           @api_key = ask("What is your Errbit API key? (bsp: d3f8fe6c8d23f4a3b773040c6c8ab9cb)")
           @host = ask("What is your Errbit Host? (bsp: errors.ikusei.de)")
           @port = ask("What is your Errbit Port? (bsp: 80 default | 443 secure )")
