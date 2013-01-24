@@ -16,17 +16,12 @@ module Goldencobra
         end
       end
 
-      #config.assets.compile = true
       def modify_production_env
         line = "config.assets.compile = false"
         gsub_file 'config/environments/production.rb', /(#{Regexp.escape(line)})/mi do |match|
           "config.assets.compile = true"
         end
       end
-
-
-      #TODO: copy layouts to application
-
 
       def install_gems
         gem('acts-as-taggable-on', :git => 'git://github.com/mbleigh/acts-as-taggable-on')
