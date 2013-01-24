@@ -6,6 +6,7 @@ Feature: Create and manage widgets
   Background:
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
+    And that basic Settings exists
 
   Scenario: Go to the admin list of widgets
     When I go to the admin list of widgets

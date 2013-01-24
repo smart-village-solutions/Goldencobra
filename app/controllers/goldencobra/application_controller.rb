@@ -1,5 +1,5 @@
 module Goldencobra
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
 
     before_filter :set_locale
 
@@ -16,7 +16,6 @@ module Goldencobra
     def after_sign_in_path_for(resource_or_scope)
       request.referrer
     end
-
 
     rescue_from CanCan::AccessDenied do |exception|
       if can?(:read, Goldencobra::Article)

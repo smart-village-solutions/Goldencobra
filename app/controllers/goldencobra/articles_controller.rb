@@ -1,5 +1,7 @@
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
+    #require ::Rails.root + "app" + "controllers" + "application_controller"
+    #load_and_authorize_resource :class => "Goldencobra::Article"
     #load_and_authorize_resource
     #authorize_resource
 
@@ -263,8 +265,14 @@ module Goldencobra
       if current_user && current_user.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
         @article = Goldencobra::Article.search_by_url(params[:article_id])
       else
-        @article = Goldencobra::Article.active.search_by_url(params[:article_id])
-        authorize! :show, @article
+        # @article = Goldencobra::Article.active.search_by_url(params[:article_id])
+        # authorize! :read, @article
+        article = Goldencobra::Article.active.search_by_url(params[:article_id])
+        operator = @current_user || @current_visitor
+        a = Ability.new(operator)
+        if a.can?(:read, article)
+          @article = article
+        end
       end
     end
 

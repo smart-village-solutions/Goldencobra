@@ -98,3 +98,7 @@ Then /^I should see the "([^"]*)" in this order:$/ do |selector, table|
   actual_order = page.all(selector).collect(&:text)
   actual_order.should == expected_order.flatten
 end
+
+Given /^that basic Settings exists$/ do
+  Goldencobra::Setting.import_default_settings(::Rails.root + "../../config/settings.yml")
+end
