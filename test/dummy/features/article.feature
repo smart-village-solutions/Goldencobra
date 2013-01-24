@@ -3,6 +3,10 @@ Feature: Create and manage articles
   As an author
   I want to create and manage some articles
 
+  Background:
+    Given that basic Settings exists
+
+  @javascript
   Scenario: Go to the articles admin site
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -14,6 +18,7 @@ Feature: Create and manage articles
     And I should see "top-10" within ".index_content"
     And I should not see "Dies ist kein Artikel"
 
+  @javascript
   Scenario: Create a new Article
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -27,6 +32,7 @@ Feature: Create and manage articles
     Then I should see "Dies ist ein Neuer Artikel" within textfield "article_title"
     And I should see "dies-ist-kurz" within textfield "article_url_name"
 
+  @javascript
   Scenario: Visit new Article in frontend
     Given that I am not logged in
     And an article exists with the following attributes:
@@ -38,6 +44,7 @@ Feature: Create and manage articles
     And I should see "Dies ist ein Test" within "h1"
     And I should see "Die kleine Maus wandert um den Käse..." within "#article_content"
 
+  @javascript
   Scenario: mark a Page as startpage
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -48,10 +55,12 @@ Feature: Create and manage articles
     When I go to the admin list of articles
     Then I click on "Edit" within "tr#article_3"
     And I should see "Edit Article" within "#page_title"
+    And I click on "Startpage Options" within "#startpage_options_sidebar_section"
     And I should see "Make this article Startpage"
     When I click on "Make this article Startpage" within "#startpage_options_sidebar_section"
     Then I should see "This Article is the Startpage!"
 
+  @javascript
   Scenario: Visit the startpage
     Given that I am not logged in
     And an startarticle exists
@@ -74,8 +83,7 @@ Feature: Create and manage articles
     And I fill in "Metatitle" within "input.metatag_values"
     And I press "Update Article"
     When I visit url "/seo-seite"
-    And I should see "Artikel editieren"
-    Then I should see "Metatitle"
+    Then I should see "Metatitle" within "head"
 
   @javascript
   Scenario: Set article offline and online as an admin,I should see everything
@@ -193,9 +201,7 @@ Feature: Create and manage articles
       | title           | url_name       | external_url_redirect | active | slug          |
       | "Seo Seite"     | weiterleitung  | http://www.google.de  | true   | weiterleitung |
     When I visit url "/weiterleitung"
-
-    #TODO: Aus rigend einem Grund oeffnet er im Test nicht die Google Seite
-    Then I should see "404"
+    Then I should see "Google"
 
   @javascript
   Scenario: Look for edit_article_link in frontend
@@ -219,7 +225,6 @@ Feature: Create and manage articles
      |teaser| "Es war einmal..."|
      |content| "Die kleine Maus wandert um den Käse..."|
    Then I go to the article page "kurzer-titel"
-   And show me the page
    And I click on "Artikel editieren"
    Then I should see "Edit Article"
    And I should see "Dies ist ein Test"

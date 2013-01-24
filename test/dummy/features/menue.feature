@@ -3,6 +3,9 @@ Feature: Create and manage menuitems and navigationbars
   As an admin
   I want to create and manage some menuitems
 
+  Background:
+    Given that basic Settings exists
+
   Scenario: Go to the navigation admin site
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -15,7 +18,7 @@ Feature: Create and manage menuitems and navigationbars
     Then I should see "Top Navigation"
     And I should see "News"
     And I should see "Bottom Navigation"
-    
+
   Scenario: Create a new Menuitem
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -28,7 +31,7 @@ Feature: Create and manage menuitems and navigationbars
     And I press "Create Menue"
     Then I should see "Newspapers" within textfield "menue_title"
     And I should see "www.newspapers.de" within textfield "menue_target"
-  
+
   Scenario: Create a submenue item
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"

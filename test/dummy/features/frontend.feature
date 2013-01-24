@@ -3,6 +3,9 @@ Feature: visit pages in Frontend
   As an user
   I see some pages and navigate between them
 
+  Background:
+    Given that basic Settings exists
+
   Scenario: Visit the startpage with an Mainmenue
     Given that I am not logged in
     And an startarticle exists
@@ -54,10 +57,10 @@ Feature: visit pages in Frontend
     And I should see "Blog2" within "#breadcrumb"
     And I should see "Blog3" within "#breadcrumb"
     And I should see "Blog4" within "#breadcrumb"
-    
+
   Scenario: Check a page for all elements
     Given that I am not logged in
-    And an article exists with the following attributes:  
+    And an article exists with the following attributes:
       | title         | "Seite 1"               |
       | url_name      | seite1                  |
       | subtitle      | "Untertitel"            |

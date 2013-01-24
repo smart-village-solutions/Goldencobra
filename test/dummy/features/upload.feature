@@ -3,6 +3,9 @@ Feature: Manage uploads
   As an admin
   I want to upload and manage some uploads
 
+  Background:
+    Given that basic Settings exists
+
   Scenario: Have a list of uploads inside the backend
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
