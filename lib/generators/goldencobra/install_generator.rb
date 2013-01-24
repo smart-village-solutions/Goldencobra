@@ -41,6 +41,7 @@ module Goldencobra
       def install_assets
         require 'rails'
         require 'active_admin'
+        remove_file "app/assets/stylesheets/application.css"
         directory "../templates/assets", "app/assets"
         directory "../templates/views", "app/views"
         template '../templates/extend_goldencobra_articles_controller.rb', 'app/controllers/extend_goldencobra_articles_controller.rb'
