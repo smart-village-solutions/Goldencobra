@@ -23,6 +23,13 @@ module Goldencobra
         end
       end
 
+      def modify_application_rb
+        line = "config.active_record.whitelist_attributes = true"
+        gsub_file 'config/application.rb', /(#{Regexp.escape(line)})/mi do |match|
+          "config.active_record.whitelist_attributes = false"
+        end
+      end
+
       def install_gems
         gem('acts-as-taggable-on', :git => 'git://github.com/mbleigh/acts-as-taggable-on')
         gem('meta-tags', :git => 'git://github.com/jazzgumpy/meta-tags.git')
