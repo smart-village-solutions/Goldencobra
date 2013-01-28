@@ -1,7 +1,6 @@
 admin = Goldencobra::Role.find_or_create_by_name("admin")
 guest = Goldencobra::Role.find_or_create_by_name("guest")
 user = User.create!(:email => "<%= @admin_email %>", :password => "<%= @admin_password %>", :password_confirmation => "<%= @admin_password %>", :firstname => "Admin", :lastname => "Goldencobra")
-user.confirm!
 user.roles << admin
 
 Goldencobra::Help.create!(:title => "Goldencobra", :description => "https://github.com/ikusei/Goldencobra")
