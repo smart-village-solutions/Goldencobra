@@ -78,6 +78,7 @@ FactoryGirl.define do
     u.title "Startseite"
     u.url_name "root"
     u.active true
+    article_type "Default Show"
   end
 
   factory :role, :class => Goldencobra::Role do |r|
