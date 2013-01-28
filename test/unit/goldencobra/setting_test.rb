@@ -8,7 +8,7 @@
 #  ancestry   :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  data_type  :string(255)
+#  data_type  :string(255)      default("string")
 #
 
 require 'test_helper'
