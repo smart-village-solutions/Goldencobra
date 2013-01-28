@@ -79,8 +79,8 @@ module Goldencobra
         if yes?("Would you like to configure Errbit?")
           gem("airbrake")
           system("bundle install")
-          @api_key = ask("What is your Errbit API key? (default: d3f8fe6c8d23f4a3b773040c6c8ab9cb)")
-          @api_key = "d3f8fe6c8d23f4a3b773040c6c8ab9cb" if @api_key.blank?
+          @api_key = ask("What is your Errbit API key? (default: 1eacfe13fb5d9eca2dee5401a9b93ddb)")
+          @api_key = "1eacfe13fb5d9eca2dee5401a9b93ddb" if @api_key.blank?
 
           @host = ask("What is your Errbit Host? (default: errors.ikusei.de)")
           @host = "errors.ikusei.de" if @host.blank?
@@ -93,9 +93,10 @@ module Goldencobra
 
       def install_newrelic
         if yes?("Would you like to install NewRelic? (www.newrelic.com)")
-          gem("newrelic_rpm")
+          gem("newrelic_rpm", "3.5.5.38")
           system("bundle install")
-          @license_key = ask("What is your NewRelic license key? (bsp: b199ad3e4e0d728b1aac69aec4870af7ef9478bb)")
+          @license_key = ask("What is your NewRelic license key? (default: b199ad3e4e0d728b1aac69aec4870af7ef9478bb)")
+          @license_key = "b199ad3e4e0d728b1aac69aec4870af7ef9478bb" if @license_key.blank?
           template '../templates/newrelic.yml.erb', 'config/newrelic.yml'
         end
       end
@@ -107,6 +108,7 @@ module Goldencobra
         @admin_password = ask("Please enter a new password for admin account (user: #{@admin_email}):")
         template '../templates/seeds.rb.erb', "db/seeds.rb"
         if yes?("Would you like to create your local db?")
+          system("bundle install")
           rake("db:create")
         end
         rake("goldencobra:install:migrations")
