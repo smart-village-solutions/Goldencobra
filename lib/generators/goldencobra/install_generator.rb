@@ -10,7 +10,8 @@ module Goldencobra
 
       def install_local_rvm
         if yes?("Would you like to configure a .rvmrc file?")
-          @ruby_version = ask("What is your current ruby version (bsp: 1.9.3-p194)")
+          @ruby_version = ask("What is your current ruby version (default: 1.9.3-p194)")
+          @ruby_version = "1.9.3-p194" if @ruby_version.blank?
           template '../templates/rvmrc.erb', '.rvmrc'
           system("/bin/bash -ce '[[ -s \"$HOME/.rvm/scripts/rvm\" ]] && source \"$HOME/.rvm/scripts/rvm\" && rvm use #{@ruby_version}@#{Rails.application.class.parent_name} --create'")
         end
@@ -78,9 +79,14 @@ module Goldencobra
         if yes?("Would you like to configure Errbit?")
           gem("airbrake")
           system("bundle install")
-          @api_key = ask("What is your Errbit API key? (bsp: d3f8fe6c8d23f4a3b773040c6c8ab9cb)")
-          @host = ask("What is your Errbit Host? (bsp: errors.ikusei.de)")
+          @api_key = ask("What is your Errbit API key? (default: d3f8fe6c8d23f4a3b773040c6c8ab9cb)")
+          @api_key = "d3f8fe6c8d23f4a3b773040c6c8ab9cb" if @api_key.blank?
+
+          @host = ask("What is your Errbit Host? (default: errors.ikusei.de)")
+          @host = "errors.ikusei.de" if @host.blank?
+
           @port = ask("What is your Errbit Port? (bsp: 80 default | 443 secure )")
+          @port = "80" if @port.blank?
           template '../templates/errbit.rb.erb', 'config/initializers/errbit.rb'
         end
       end
@@ -95,7 +101,9 @@ module Goldencobra
       end
 
       def create_admin_user_password
-        @admin_email = ask("Please enter a email for your admin account (bsp: admin@goldencobra.de):")
+        @admin_email = ask("Please enter a email for your admin account (default: admin@goldencobra.de):")
+        @admin_email = "admin@goldencobra.de" if @admin_email.blank?
+
         @admin_password = ask("Please enter a new password for admin account (user: #{@admin_email}):")
         template '../templates/seeds.rb.erb', "db/seeds.rb"
         if yes?("Would you like to create your local db?")
