@@ -7,6 +7,7 @@ FactoryGirl.define do
     url_name "short-title"
     startpage false
     active true
+    article_type "Default Show"
   end
 
   factory :visitor do

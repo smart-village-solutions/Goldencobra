@@ -98,8 +98,10 @@ module Goldencobra
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
     scope :for_sitemap, where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0')
-    scope :frontend_tags_eq, lambda{|tag_name| tagged_with(tag_name, :on => :frontend_tags)}
+    scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
 
+
+    search_methods :frontend_tag_name_contains
     search_methods :parent_ids_in
     search_methods :parent_ids_in_eq
 

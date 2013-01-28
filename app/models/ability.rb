@@ -1,12 +1,8 @@
 class Ability
   include CanCan::Ability
 
-
-
   def initialize(operator=nil)
     can :read, Goldencobra::Article
-    #cannot :read, Goldencobra::Article, :id => 16
-
 
     #Rechte die alle betreffen
     Goldencobra::Permission.where("role_id IS NULL OR role_id = ''").each do |permission|
