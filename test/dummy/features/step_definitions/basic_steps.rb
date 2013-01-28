@@ -3,7 +3,7 @@ Given /^that I am not logged in$/ do
 end
 
 When /^I click on "([^\"]*)"$/ do |arg1|
-  find_link(arg1).click
+  first(:link,arg1).click
 end
 
 When /^I visit url "([^\"]*)"$/ do |arg1|
@@ -11,7 +11,7 @@ When /^I visit url "([^\"]*)"$/ do |arg1|
 end
 
 When /^I press "([^\"]*)"$/ do |arg1|
-  find_button(arg1).click
+  first(:button,arg1).click
 end
 
 When /^I fill in "([^"]*)" with "([^"]*)"$/ do |arg1, arg2|
@@ -19,7 +19,7 @@ When /^I fill in "([^"]*)" with "([^"]*)"$/ do |arg1, arg2|
 end
 
 Then /^I select "([^"]*)" within "([^"]*)"$/ do |arg1, arg2|
-  find(arg2).select(arg1)
+  first(arg2).select(arg1)
 end
 
 
@@ -46,7 +46,7 @@ Then /^I should not see "([^"]*)" within "([^"]*)"$/ do |arg1, content_position|
 end
 
 Then /^the page should have content "([^"]*)"$/ do |arg1|
-  find(arg1)
+  first(arg1)
 end
 
 Then /^show me the page$/ do
@@ -71,13 +71,13 @@ Given /^default settings exists$/ do
   Goldencobra::Setting.import_default_settings(Goldencobra::Engine.root + "config/settings.yml")
 end
 
-Then /the text "([^"]*)"(?: within "([^"]*)")? should be visible/ do |text, nodes| 
-  scope = nodes ? nodes : '//*' 
-  page.find(:xpath, "#{scope}[contains(text(), '#{text}')]").visible?.should be_true 
+Then /the text "([^"]*)"(?: within "([^"]*)")? should be visible/ do |text, nodes|
+  scope = nodes ? nodes : '//*'
+  page.find(:xpath, "#{scope}[contains(text(), '#{text}')]").visible?.should be_true
 end
 
-Then /the text "([^"]*)"(?: within "([^"]*)")? should not be visible/ do |text, nodes| 
-  scope = nodes ? nodes : '//*' 
+Then /the text "([^"]*)"(?: within "([^"]*)")? should not be visible/ do |text, nodes|
+  scope = nodes ? nodes : '//*'
   page.find(:xpath, "#{scope}[contains(text(), '#{text}')]").visible?.should be_false
 end
 
@@ -97,4 +97,8 @@ Then /^I should see the "([^"]*)" in this order:$/ do |selector, table|
   expected_order = table.raw
   actual_order = page.all(selector).collect(&:text)
   actual_order.should == expected_order.flatten
+end
+
+Given /^that basic Settings exists$/ do
+  Goldencobra::Setting.import_default_settings(::Rails.root + "../../config/settings.yml")
 end

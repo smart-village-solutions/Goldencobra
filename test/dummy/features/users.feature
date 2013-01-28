@@ -3,6 +3,9 @@ Feature: Manage users
   As an admin
   I want to see and manage some users
 
+  Background:
+    Given that basic Settings exists
+
   Scenario: Go to the users admin site
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"

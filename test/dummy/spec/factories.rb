@@ -9,6 +9,15 @@ FactoryGirl.define do
     active true
   end
 
+  factory :visitor do
+    email 'admin@test.de'
+    first_name "Tim"
+    last_name "Test"
+    password 'secure12'
+    password_confirmation 'secure12'
+    confirmed_at "2012-01-09 14:28:58"
+    agb true
+  end
 
   factory :menue, :class => Goldencobra::Menue do
     title 'Nachrichten'
@@ -32,6 +41,12 @@ FactoryGirl.define do
   end
 
   factory :admin_permission, :class => Goldencobra::Permission do
+    action "manage"
+    subject_class ":all"
+    subject_id ""
+  end
+
+  factory :permission, :class => Goldencobra::Permission do
     action "manage"
     subject_class ":all"
     subject_id ""

@@ -34,6 +34,7 @@ module Goldencobra
       #end
     end
     config.to_prepare do
+      #ActionController::Base.send :include, Goldencobra::ArticlesController
       ApplicationController.helper(Goldencobra::ApplicationHelper)
       ActionController::Base.helper(Goldencobra::ApplicationHelper)
       DeviseController.helper(Goldencobra::ApplicationHelper)

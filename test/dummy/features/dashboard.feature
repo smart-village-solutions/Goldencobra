@@ -3,6 +3,9 @@ Feature: Have a nice dashboard
   As an author
   I want to have a nice dashboard
 
+  Background:
+    Given that basic Settings exists
+
   Scenario: As an author go to the dashboard and see recent articles
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
