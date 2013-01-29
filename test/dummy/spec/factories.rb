@@ -39,6 +39,7 @@ FactoryGirl.define do
     password 'secure12'
     password_confirmation 'secure12'
     confirmed_at "2012-01-09 14:28:58"
+    enable_expert_mode true
   end
 
   factory :admin_permission, :class => Goldencobra::Permission do
@@ -57,6 +58,7 @@ FactoryGirl.define do
     email 'guest@test.de'
     password 'secure12'
     password_confirmation 'secure12'
+    enable_expert_mode true
   end
 
   factory :user, class: User do |u|
@@ -65,6 +67,7 @@ FactoryGirl.define do
     u.lastname Faker::Name.last_name
     u.password 'bitte_aendern'
     u.password_confirmation 'bitte_aendern'
+    u.enable_expert_mode true
   end
 
   factory :widget, class: Goldencobra::Widget do |w|
