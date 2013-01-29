@@ -20,17 +20,18 @@ module Goldencobra
     geocoded_by :complete_location, :latitude  => :lat, :longitude => :lng
     after_validation :geocode
     liquid_methods :street, :city, :zip, :region, :country, :title
-    
-    def complete_location 
+    belongs_to :locateable, :polymorphic => true
+
+    def complete_location
       result = ""
       result += "#{self.street}" if self.street.present?
       result += ", #{self.zip}" if self.zip.present?
       result += ", #{self.city}" if self.city.present?
     end
-    
+
     def title
       self.complete_location
     end
-        
+
   end
 end
