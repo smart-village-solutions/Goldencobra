@@ -27,10 +27,11 @@ Feature: Create and manage articles
     Then I should see "New Article"
     When I fill in "article_title" with "Dies ist ein Neuer Artikel"
     And I press "Create Article"
-    And I fill in "article_url_name" with "dies-ist-kurz"
+    And show me the page
+    #And I fill in "article_url_name" with "dies-ist-kurz"
     And I press "Update Article"
     Then I should see "Dies ist ein Neuer Artikel" within textfield "article_title"
-    And I should see "dies-ist-kurz" within textfield "article_url_name"
+    #And I should see "dies-ist-kurz" within textfield "article_url_name"
 
   @javascript
   Scenario: Visit new Article in frontend
@@ -76,7 +77,6 @@ Feature: Create and manage articles
       | "Seo Seite"     | 2  | seo-seite |
     When I go to the admin list of articles
     Then I click on "Edit" within "tr#article_2"
-    Then I click on "Expert-Modus aktivieren"
     And I click on "Add New Metatag" within "div.has_many.metatags"
     Then I should see "Name" within "div.has_many.metatags"
     And I select "Title Tag" within "select.metatag_names"
