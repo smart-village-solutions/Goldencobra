@@ -20,7 +20,7 @@ module Goldencobra
     def edit_article_link
       user_mod = Goldencobra::Setting.for_key("goldencobra.article.edit_link.user")
       role_mod = Goldencobra::Setting.for_key("goldencobra.article.edit_link.role")
-      if user_mod.present? && role_mod.present? && eval("#{user_mod} && #{user_mod}.has_role?('#{role_mod}')")
+      if user_mod.present? && role_mod.present? && eval("#{user_mod}.present? && #{user_mod}.has_role?('#{role_mod}')")
         render :partial => "goldencobra/articles/edit_article_link"
       end
     end
