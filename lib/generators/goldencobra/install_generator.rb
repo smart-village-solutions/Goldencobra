@@ -68,11 +68,9 @@ module Goldencobra
       end
 
       def install_optional_assets
-        if yes?("Would you like to install Better Errors?")
-          gem("better_errors", :group => "development")
-          gem("binding_of_caller", :group => "development")
-          system("bundle install")
-        end
+        gem("better_errors", :group => "development")
+        gem("binding_of_caller", :group => "development")
+        system("bundle install")
       end
 
       def install_errbit
