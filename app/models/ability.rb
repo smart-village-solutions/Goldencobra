@@ -15,9 +15,11 @@ class Ability
       else
         if permission.action.include?("not_")
           cannot permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize, :id => permission.subject_id.to_i
+          set_child_permissions("cannot",permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize,permission.subject_id.to_i)
         else
           can permission.action.to_sym, permission.subject_class.constantize, :id => permission.subject_id.to_i
-          #check for parent
+          #set permissions for childrens
+          set_child_permissions("can",permission.action.to_sym, permission.subject_class.constantize,permission.subject_id.to_i)
         end
       end
     end
@@ -46,8 +48,10 @@ class Ability
           if !permission.subject_class.include?(":all") && permission.subject_id.present?
             if permission.action.include?("not_")
               cannot permission.action.to_s.gsub("not_", "").to_sym, permission.subject_class.constantize, :id => permission.subject_id.to_i
+              set_child_permissions("cannot",permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize,permission.subject_id.to_i)
             else
               can permission.action.to_sym, permission.subject_class.constantize, :id => permission.subject_id.to_i
+              set_child_permissions("can",permission.action.to_sym, permission.subject_class.constantize,permission.subject_id.to_i)
               #check for parent
             end
           end
@@ -56,4 +60,19 @@ class Ability
     end
 
   end
+
+  def set_child_permissions(able,action_name, model_name,id_name)
+    if able == "can" && model_name.new.respond_to?(:descendant_ids) && object = model_name.find_by_id(id_name)
+      object.descendant_ids.each do |child_id|
+        can action_name, model_name, :id => child_id
+      end
+    end
+    if able == "cannot" && model_name.new.respond_to?(:descendant_ids) && object = model_name.find_by_id(id_name)
+      object.descendant_ids.each do |child_id|
+        cannot action_name, model_name, :id => child_id
+      end
+    end
+
+  end
+
 end
