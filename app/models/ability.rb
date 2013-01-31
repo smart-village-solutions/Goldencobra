@@ -18,7 +18,6 @@ class Ability
           set_child_permissions("cannot",permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize,permission.subject_id.to_i)
         else
           can permission.action.to_sym, permission.subject_class.constantize, :id => permission.subject_id.to_i
-          #set permissions for childrens
           set_child_permissions("can",permission.action.to_sym, permission.subject_class.constantize,permission.subject_id.to_i)
         end
       end
@@ -52,7 +51,6 @@ class Ability
             else
               can permission.action.to_sym, permission.subject_class.constantize, :id => permission.subject_id.to_i
               set_child_permissions("can",permission.action.to_sym, permission.subject_class.constantize,permission.subject_id.to_i)
-              #check for parent
             end
           end
         end
