@@ -86,6 +86,12 @@ describe Goldencobra::ArticlesController do
       page.should have_content("404")
     end
 
+    it "should not be possible to read an article with secured parent article as a guest" do
+      create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id
+      visit "#{@child_article.public_url}"
+      page.should have_content("404")
+    end
+
     it "should not be possible to read all articles if not logged in" do
       create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200
       visit @parent_article.public_url
