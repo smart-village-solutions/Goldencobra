@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "capistrano"
   s.add_dependency "rvm-capistrano"
   s.add_dependency "rails", "~> 3.2.11"
-  s.add_dependency "jquery-rails"
+  s.add_dependency "jquery-rails", "2.1.4"
   s.add_dependency "jqueryui_rails"
   s.add_dependency 'devise'
   s.add_dependency 'activeadmin-cancan'

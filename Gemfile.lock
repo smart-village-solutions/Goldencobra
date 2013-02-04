@@ -58,7 +58,7 @@ PATH
       geocoder
       geokit
       inherited_resources
-      jquery-rails
+      jquery-rails (= 2.1.4)
       jqueryui_rails
       liquid
       meta-tags

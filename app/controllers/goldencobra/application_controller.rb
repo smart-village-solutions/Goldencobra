@@ -31,7 +31,6 @@ module Goldencobra
       end
     end
 
-
     def initialize_article(current_article)
       Goldencobra::Article::LiquidParser["current_article"] = @article
       set_meta_tags :site => s("goldencobra.page.default_title_tag"),
