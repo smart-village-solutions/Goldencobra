@@ -86,6 +86,7 @@ de:
                 lat: "Latitude"
                 lng: "Longitude"
                 street: "Straße"
+                street_number: "Hausnummer"
                 city: "Stadt"
                 zip: "PLZ"
                 region: "Bezirk"
