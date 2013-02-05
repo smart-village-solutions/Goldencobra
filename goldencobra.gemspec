@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.version     = Goldencobra::VERSION
   s.authors     = ["Marco Metz", "Holger Frohloff"]
   s.email       = ["metz@ikusei.de"]
-  s.homepage    = "http://www.ikusei.de"
+  s.homepage    = "https://github.com/ikusei/Goldencobra"
   s.summary     = "Basic CMS based on Rails engines"
   s.description = "This is the Basic Module of Goldencobra. It Offers Devise, ActiveAdmin, an Article-Module, a Menu-Module, and global Settings for an CMS"
-
+  s.licenses    = "Lizenz CC BY-NC-SA 3.0"
   s.files = Dir["{app,config,db,lib}/**/*"] + ["CC-LICENSE", "Rakefile", "README.markdown"]
   s.test_files = Dir["test/**/*"]
 

@@ -17,6 +17,32 @@ module Goldencobra
         end
       end
 
+      def install_test_env
+        if yes?("Would you like to install a test Environment")
+          gem("rspec-rails", '~> 2.12.2', :group => "test")
+          gem("annotate", :group => "test")
+          gem("ruby-graphviz", :group => "test")
+          gem("mysql2", :group => "test")
+          gem("cucumber", :group => "test")
+          gem("cucumber-rails", :group => "test", :require => false)
+          gem("factory_girl", :group => "test")
+          gem("factory_girl_rails", :group => "test")
+          gem("database_cleaner", :group => "test")
+          gem("capybara", :group => "test")
+          gem("capybara-webkit", :group => "test")
+          gem("guard", :group => "test")
+          gem("guard-rspec", :group => "test")
+          gem("guard-cucumber", :group => "test")
+          gem("guard-livereload", :group => "test")
+          gem("rb-fsevent", '~> 0.9.1', :group => "test")
+          gem("growl", :group => "test")
+          gem("launchy", :group => "test")
+          gem("faker", :group => "test")
+          gem("email_spec", :group => "test")
+          gem("shoulda-matchers", :group => "test")
+        end
+      end
+
       def modify_production_env
         line = "config.assets.compile = false"
         gsub_file 'config/environments/production.rb', /(#{Regexp.escape(line)})/mi do |match|
