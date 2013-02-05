@@ -273,7 +273,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
     def show
       show! do |format|
-         format.html { redirect_to edit_admin_article_path(@article), :flash => flash }
+         format.html { redirect_to edit_admin_article_path(@article.id), :flash => flash }
       end
     end
 
