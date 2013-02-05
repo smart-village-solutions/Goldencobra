@@ -39,18 +39,17 @@ class Visitor < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :token_authenticatable, :lockable
 
   has_many :comments, :class_name => Goldencobra::Comment, :as => :commentator
-  # has_many :blogs
-  # has_many :blogs, :foreign_key => "user_id"
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :provider, :uid, :agb, :newsletter, :username
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :provider, :uid, :agb, :newsletter, :username, :loginable
 
   validates_acceptance_of :agb, :accept => true
   has_many :role_users, :as => :operator, :class_name => Goldencobra::RoleUser
   has_many :roles, :through => :role_users, :class_name => Goldencobra::Role
+  belongs_to :loginable, :polymorphic => true
 
   before_save :reset_authentication_token
   after_create :send_confirmation_mail
+
 
   scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
 
