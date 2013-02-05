@@ -71,7 +71,7 @@ module Goldencobra
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     has_ancestry    :orphan_strategy => :restrict
-    friendly_id     :url_name, use: [:slugged] #, :history
+    friendly_id     :for_friendly_name, use: [:slugged] #, :history
     web_url         :external_url_redirect
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info
@@ -80,7 +80,6 @@ module Goldencobra
     validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
 
     after_create :set_active_since
-    before_save :verify_existens_of_url_name_and_slug
     before_save :parse_image_gallery_tags
     after_save :verify_existence_of_opengraph_image
     after_save :set_default_opengraph_values
@@ -301,9 +300,12 @@ module Goldencobra
       end
     end
 
-    def verify_existens_of_url_name_and_slug
-      self.url_name = self.title.downcase.parameterize if self.url_name.blank?
-      self.slug = self.url_name.downcase.parameterize if self.slug.blank?
+    def for_friendly_name
+      if self.url_name.present?
+        self.url_name
+      else
+        self.title
+      end
     end
 
     # Gibt Consultant | Subsidiary | etc. zurück je nach Seitentyp
