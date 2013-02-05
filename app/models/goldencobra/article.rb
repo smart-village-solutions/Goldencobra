@@ -83,6 +83,8 @@ module Goldencobra
     before_save :parse_image_gallery_tags
     after_save :verify_existence_of_opengraph_image
     after_save :set_default_opengraph_values
+    after_create :notification_event_create
+    after_update :notification_event_update
 
     attr_protected :startpage
 
@@ -401,6 +403,14 @@ module Goldencobra
 
     def set_active_since
       self.active_since = self.created_at
+    end
+
+    def notification_event_create
+      ActiveSupport::Notifications.instrument("goldencobra.article.created", :article_id => self.id)
+    end
+
+    def notification_event_update
+      ActiveSupport::Notifications.instrument("goldencobra.article.updated", :article_id => self.id)
     end
 
     # Class Methods

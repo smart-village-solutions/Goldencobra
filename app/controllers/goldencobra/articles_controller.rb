@@ -25,6 +25,7 @@ module Goldencobra
 
 
     def show
+      ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)
       before_init()
       if serve_iframe?
         respond_to do |format|
@@ -49,10 +50,10 @@ module Goldencobra
 
         if serve_fresh_page?
           set_expires_in()
-          layout_to_render = choose_layout()
+          ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
           before_render()
           respond_to do |format|
-            format.html { render layout: layout_to_render }
+            format.html { render layout: choose_layout() }
             format.rss
             format.json do
               @article["list_of_articles"] = @list_of_articles
@@ -137,6 +138,7 @@ module Goldencobra
     end
 
     def redirect_to_404
+      ActiveSupport::Notifications.instrument("goldencobra.article.not_found", :params => params)
       @article = Goldencobra::Article.find_by_url_name("404")
       if @article
         respond_to do |format|
