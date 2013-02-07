@@ -149,9 +149,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     #end
     column I18n.t("menue", :scope => [:goldencobra, :menue]) do |article|
       if article.linked_menues.count > 0
-        link_to(I18n.t("list", :scope => [:goldencobra, :menue]), admin_menues_path("q[target_contains]" => article.public_url))
+        link_to(I18n.t("list", :scope => [:goldencobra, :menue]), admin_menues_path("q[target_contains]" => article.public_url), :class => "list", :title => "Menüpunkte auflisten")
       else
-        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}))
+        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}), :class => "create", :title => "Menüpunkt erzeugen")
       end
     end
     column "" do |article|
@@ -298,7 +298,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
   end
 
-  action_item :only => :edit do
+  action_item :only => :edit, :inner_html => {:class => "expert"} do
     link_to("Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}", toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
   end
 
