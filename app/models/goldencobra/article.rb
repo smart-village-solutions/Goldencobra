@@ -87,7 +87,7 @@ module Goldencobra
     after_save :set_default_opengraph_values
     after_create :notification_event_create
     after_update :notification_event_update
-    after_save :set_url_name_if_blank
+    before_save :set_url_name_if_blank
 
     attr_protected :startpage
 
