@@ -43,14 +43,13 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     column :sorter
     column "Artikel" do |menue|
       if menue.mapped_to_article?
-        link_to("search", admin_articles_path("q[url_name_contains]" => menue.target.to_s.split('/').last))
+        link_to("search", admin_articles_path("q[url_name_contains]" => menue.target.to_s.split('/').last), :class => "list", :title => "Artikel auflisten")
       else
-        link_to("create one", new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.to_s.split('/').last}))
+        link_to("create one", new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.to_s.split('/').last}), :class => "create", :title => "Artikel erzeugen")
       end
     end
     column "" do |menue|
       result = ""
-      result += link_to("View", admin_menue_path(menue), :class => "member_link view_link view", :title => "Vorschau")
       result += link_to("Edit", edit_admin_menue_path(menue), :class => "member_link edit_link edit", :title => "bearbeiten")
       result += link_to("New Submenu", new_admin_menue_path(:parent => menue), :class => "member_link edit_link", :class => "new_subarticle", :title => "neues Untermenue")
       result += link_to("Delete", admin_menue_path(menue), :method => :DELETE, :confirm => "Realy want to delete this Menuitem?", :class => "member_link delete_link delete", :title => "loeschen")

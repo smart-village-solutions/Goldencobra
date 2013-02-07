@@ -18,7 +18,12 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
       column :subject_class
       column :subject_id
       column :sorter_id
-      default_actions
+      column "" do |permission|
+        result = ""
+        result += link_to(t(:edit), edit_admin_permission_path(permission.id), :class => "member_link edit_link edit", :title => "bearbeiten")
+        result += link_to(t(:delete), admin_permission_path(permission.id), :method => :DELETE, :confirm => "Kommentar löschen?", :class => "member_link delete_link delete", :title => "loeschen")
+        raw(result)
+      end
     end
 
     form html: {enctype: "multipart/form-data"} do |f|

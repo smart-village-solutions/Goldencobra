@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
   menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Comment)}
 
@@ -27,6 +29,11 @@ ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
     column :created_at do |comment|
       comment.created_at.strftime('%d.%m.%Y %H:%M Uhr')
     end
-    default_actions
+    column "" do |comment|
+      result = ""
+      result += link_to(t(:edit), edit_admin_comment_path(comment.id), :class => "member_link edit_link edit", :title => "bearbeiten")
+      result += link_to(t(:delete), admin_comment_path(comment.id), :method => :DELETE, :confirm => "Kommentar löschen?", :class => "member_link delete_link delete", :title => "loeschen")
+      raw(result)
+    end
   end
 end

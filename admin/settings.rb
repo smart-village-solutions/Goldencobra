@@ -27,6 +27,11 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     end
     column :value
     column :data_type
+    column "" do |setting|
+      result = ""
+      result += link_to(t(:edit), edit_admin_setting_path(setting), :class => "member_link edit_link edit", :title => "bearbeiten")
+      raw(result)
+    end
   end
 
   sidebar :overview, only: [:index]  do

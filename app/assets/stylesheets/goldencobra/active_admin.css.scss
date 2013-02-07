@@ -152,7 +152,6 @@ body.active_admin .sidebar_section > div div.overview-sidebar{
 
 			div.item{
 				width:90%;
-				//background:url("/assets/goldencobra/tree.png") no-repeat 5px;
 				padding:0 0 0 8%;
 				line-height:14px;
 				border-bottom: 1px dotted transparent;
@@ -200,12 +199,14 @@ body.active_admin .sidebar_section > div div.overview-sidebar{
 					a.new_link{
 						width:14px;
 						height:14px;
-						background:url("/assets/goldencobra/create.png");
+						background:url("/assets/goldencobra/icons/16/plus.png");
+            @include background-size(14px);
 					}
 					a.edit_link{
 						width:14px;
 						height:14px;
-						background:url("/assets/goldencobra/edit.png");
+						background:url("/assets/goldencobra/icons/16/compose-3.png");
+            @include background-size(14px);
 					}
 				}
 			}
@@ -283,34 +284,74 @@ body.active_admin .status{
 }
 
 body.active_admin .edit{
-	background: url("/assets/goldencobra/bearbeiten.png") no-repeat center center;
+	background: url("/assets/goldencobra/icons/32/compose-3.png") no-repeat center center transparent;
+  @include background-size(20px);
 	text-indent:-99999px;
-	width: 20px;
-	height: 20px;
+	width: 22px;
+	height: 22px;
 	display: inline-block;
 }
 
+body.active_admin tbody .online{
+  background: url("/assets/goldencobra/icons/32/play.png") no-repeat center center transparent;
+  @include background-size(20px);
+  text-indent:-99999px;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+
+body.active_admin tbody .list{
+  background: url("/assets/goldencobra/icons/32/list-2.png") no-repeat center center transparent;
+  @include background-size(20px);
+  text-indent:-99999px;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+
+body.active_admin tbody .create{
+  background: url("/assets/goldencobra/icons/32/plus.png") no-repeat center center transparent;
+  @include background-size(20px);
+  text-indent:-99999px;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+
+body.active_admin tbody .offline{
+  background: url("/assets/goldencobra/icons/32/stop.png") no-repeat center center transparent;
+  @include background-size(20px);
+  text-indent:-99999px;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+
 body.active_admin .view{
-	background: url("/assets/goldencobra/ansehen.png") no-repeat center center transparent;
+	background: url("/assets/goldencobra/icons/32/eye.png") no-repeat center center transparent;
+  @include background-size(20px);
 	text-indent:-99999px;
-	width: 30px;
-	height: 20px;
+	width: 22px;
+	height: 22px;
 	display: inline-block;
 }
 
 body.active_admin .delete{
-	background: url("/assets/goldencobra/loeschen.png") no-repeat center center transparent;
+	background: url("/assets/goldencobra/icons/32/delete.png") no-repeat center center transparent;
+  @include background-size(20px);
 	text-indent:-99999px;
-	width: 23px;
-	height: 20px;
+	width: 22px;
+	height: 22px;
 	display: inline-block;
 }
 
 body.active_admin .new_subarticle{
-	background: url("/assets/goldencobra/unterartikel.png") no-repeat center center transparent;
+	background: url("/assets/goldencobra/icons/32/folder-add.png") no-repeat center center transparent;
+  @include background-size(20px);
 	text-indent:-99999px;
 	width: 22px;
-	height: 20px;
+	height: 22px;
 	display: inline-block;
 }
 
