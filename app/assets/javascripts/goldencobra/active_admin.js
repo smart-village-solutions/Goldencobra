@@ -185,6 +185,3 @@ function notify(title,body,token) {
     }
 }
 
-  $(document).ready(function() {
-   $.ajax({url: '/admin/articles/show_expert_settings'});
-  });

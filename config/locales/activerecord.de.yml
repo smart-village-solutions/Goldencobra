@@ -148,6 +148,9 @@ de:
                 tag_list: "Liste von internen Tags"
                 created_at: "Erstellt am"
                 updated_at: "Bearbeitet am"
+            goldencobra/permission:
+                role: "Rolle"
+                action: "Aktion"
             goldencobra/upload:
                 source: "Quellenverweis"
                 created_at: "Erstellt am"
