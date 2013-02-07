@@ -47,7 +47,7 @@ PATH
       acts-as-taggable-on
       ancestry
       cancan
-      capistrano
+      capistrano (= 2.14.1)
       coffee-rails
       compass-960-plugin
       compass-rails
