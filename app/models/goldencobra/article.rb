@@ -87,6 +87,7 @@ module Goldencobra
     after_save :set_default_opengraph_values
     after_create :notification_event_create
     after_update :notification_event_update
+    after_save :set_url_name_if_blank
 
     attr_protected :startpage
 
@@ -236,6 +237,12 @@ module Goldencobra
         return "/"
       else
         "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+      end
+    end
+
+    def set_url_name_if_blank
+      if self.url_name.blank?
+        self.url_name = self.friendly_id.split("--")[0]
       end
     end
 
