@@ -17,6 +17,7 @@ module Goldencobra
     attr_accessible :role_id, :action, :subject_class, :subject_id, :sorter_id
     belongs_to :role
     PossibleSubjectClasses = [":all"] + ActiveRecord::Base.descendants.map(&:name)
+    PossibleActions = ["read", "not_read", "manage", "not_manage", "update", "not_update", "destroy", "not_destroy"]
 
     default_scope order("sorter_id ASC, id")
     scope :by_role, lambda{|rid| where(:role_id => rid)}

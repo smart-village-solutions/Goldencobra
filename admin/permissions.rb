@@ -9,7 +9,6 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
         scope(role.name){ |t| t.where(:role_id => role.id) }
     end
 
-
     index do
       selectable_column
       column "Role", sortable: :role do |permission|
@@ -21,8 +20,6 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
       column :sorter_id
       default_actions
     end
-
-
 
     form html: {enctype: "multipart/form-data"} do |f|
       f.actions

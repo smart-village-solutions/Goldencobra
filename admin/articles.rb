@@ -103,6 +103,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :redirection_target_in_new_window
         f.input :author, :hint => "Wer ist der Verfasser dieses Artikels"
       end
+      f.inputs "Zugriffsrechte", :class => "foldable closed inputs expert" do
+        f.has_many :permissions do |p|
+          p.input :role, :include_blank => "Alle"
+          p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
+          p.input :_destroy, :as => :boolean
+        end
+      end
       f.inputs "Medien", :class => "foldable closed inputs"  do
         f.has_many :article_images do |ai|
           ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen"
@@ -110,6 +117,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
           ai.input :_destroy, :as => :boolean
         end
        end
+    end
+    f.inputs "JS-Scripts", :style => "display:none"  do
+      if current_user && current_user.enable_expert_mode == true
+        render partial: '/goldencobra/admin/articles/toggle_expert_mode'
+      end
     end
     f.actions
   end
@@ -288,14 +300,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   action_item :only => :edit do
     link_to("Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}", toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
-  end
-
-  collection_action :show_expert_settings do
-    if current_user && current_user.enable_expert_mode == true
-      render template: '/goldencobra/admin/articles/toggle_expert_mode', format: 'js', locals: { enabled: true }
-    else
-      render nothing: true
-    end
   end
 
   member_action :toggle_expert_mode do
