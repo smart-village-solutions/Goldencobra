@@ -5,8 +5,10 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
     controller.authorize_resource :class => Goldencobra::Permission
 
     scope "Alle", :scoped, :default => true
-    Goldencobra::Role.all.each do |role|
-        scope(role.name){ |t| t.where(:role_id => role.id) }
+    if ActiveRecord::Base.connection.table_exists?("goldencobra_roles") && Goldencobra::Role.all.count > 0
+      Goldencobra::Role.all.each do |role|
+          scope(role.name){ |t| t.where(:role_id => role.id) }
+      end
     end
 
     index do
