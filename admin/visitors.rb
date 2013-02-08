@@ -17,6 +17,9 @@ ActiveAdmin.register Visitor do
     column :agb, sortable: :agb do |v|
       v.agb ? 'Ja' : 'Nein'
     end
+    column "status" do |visitor|
+      "gesperrt" if visitor.locked_at?
+    end
     column :newsletter, sortable: :newsletter do |v|
       v.newsletter ? 'Ja' : 'Nein'
     end
@@ -38,6 +41,29 @@ ActiveAdmin.register Visitor do
       f.input :newsletter
     end
     f.actions
+  end
+
+  action_item :only => :edit do
+    if resource.locked_at?
+      result = link_to('Account sperren', switch_lock_status_admin_visitor_path(resource.id))
+    else
+      result = link_to('Account entsperren', switch_lock_status_admin_visitor_path(resource.id))
+    end
+    raw(result)
+  end
+
+  member_action :switch_lock_status do
+    visitor = Visitor.find(params[:id])
+    if visitor.locked_at?
+      visitor.locked_at = Time.now
+      status = "gesperrt"
+    else
+      visitor.locked_at = nil
+      status = "entsperrt"
+    end
+    visitor.save
+    flash[:notice] = "Dieser Account wurde #{status}"
+    redirect_to :action => :edit
   end
 
   controller do
