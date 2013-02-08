@@ -56,7 +56,7 @@ This would also be the place where you can override stylesheets and javascripts.
 
 #Create new article types
 Nearly every site in Goldencobra is an article. If the default article isn't enough for your needs you can create new article types. There's a generator for that:
-`rails generate articletype Thing name:string`
+`rails generate goldencobra:articletype Thing name:string`
 
 Where "Thing" would be your associated model and "name:string" are the usual ruby attributes.
 
