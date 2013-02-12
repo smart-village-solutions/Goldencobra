@@ -160,7 +160,7 @@ de:
                 image_file_size: "Dateigröße"
                 rights: "Rechteinhaber"
                 description: "Beschreibung"
-                image: "Bild"
+                image: "Datei"
             goldencobra/widget:
                 title: "Name"
                 content: "Standard Inhalt"
