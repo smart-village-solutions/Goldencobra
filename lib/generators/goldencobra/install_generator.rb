@@ -40,6 +40,7 @@ module Goldencobra
           gem("faker", :group => "test")
           gem("email_spec", :group => "test")
           gem("shoulda-matchers", :group => "test")
+          system("bundle install")
         end
       end
 
