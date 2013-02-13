@@ -29,10 +29,16 @@ module Goldencobra
       end
     end
 
+
+    #
+    # navigation_menu("Hauptmenue", :depth => 1, :class => "top", :id => "menue1", :offset => 1 )
+    # depth: 0 = unlimited, 1 = self, 2 = self and children 1. grades, 3 = self and up to children 2.grades
+    # offset: number of levels to skip, 0 = none
+    #TODO: offset implementieren
     def navigation_menu(menue_id, options={})
       return "id can't be blank" if menue_id.blank?
-      #0 = unlimited, 1 = self, 2 = self and children 1. grades, 3 = self and up to children 2.grades
       depth = options[:depth] || 0
+      offset = options[:offset] || 0
       class_name = options[:class] || ""
       id_name = options[:id] || ""
       if menue_id.class == String
@@ -40,7 +46,6 @@ module Goldencobra
       else
         master_menue = Goldencobra::Menue.active.find_by_id(menue_id)
       end
-
       if master_menue.present?
         content = ""
         master_menue.children.active.includes(:image).collect do |child|
@@ -168,7 +173,7 @@ module Goldencobra
           child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{child.children.active.visible.count}" )
         end
       end
-      return content_tag(:li, raw(child_link),"data-id" => child.id , :class => "#{child.has_active_child?(request) ? 'has_active_child' : ''} #{child.is_active?(request) ? 'active' : ''} #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
+      return content_tag(:li, raw(child_link),"data-id" => child.id , :class => "#{ child.children.active.visible.count > 0 ? 'has_children' : ''} #{child.has_active_child?(request) ? 'has_active_child' : ''} #{child.is_active?(request) ? 'active' : ''} #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
     end
 
   end
