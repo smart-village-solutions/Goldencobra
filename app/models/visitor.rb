@@ -47,7 +47,7 @@ class Visitor < ActiveRecord::Base
   has_many :roles, :through => :role_users, :class_name => Goldencobra::Role
   belongs_to :loginable, :polymorphic => true
 
-  before_save :reset_authentication_token
+  before_save :ensure_authentication_token
   after_create :send_confirmation_mail
 
 
