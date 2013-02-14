@@ -8,6 +8,7 @@ module Goldencobra
     layout "application"
     before_filter :check_format
     before_filter :get_article, :only => [:show, :convert_to_pdf]
+    before_filter :verify_token, :only => [:show]
     before_filter :geocode_ip_address, only: [:show]
 
     if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true"
@@ -40,6 +41,9 @@ module Goldencobra
 
         if generate_index_list?
           @list_of_articles = get_articles_by_article_type
+
+          @list_of_articles = filter_with_permissions(@list_of_articles)
+
           include_related_models()
           get_articles_with_tags() if @article.index_of_articles_tagged_with.present?
           get_articles_without_tags() if @article.not_tagged_with.present?
@@ -66,8 +70,11 @@ module Goldencobra
       elsif should_dynamically_redirect?
         redirect_dynamically()
       else
-        # Render 404 Article if no Article else is found
-        redirect_to_404()
+        if @unauthorized
+          render :text => "Nicht authorisiert", :status => 401
+        else
+          redirect_to_404()
+        end
       end
     end
 
@@ -104,6 +111,17 @@ module Goldencobra
       end
     end
 
+    private
+
+    def verify_token
+      if params[:auth_token].present?
+        @current_visitor = Visitor.find_by_authentication_token(params[:auth_token])
+        unless @current_visitor || current_user
+          render :text => "Nicht authorisiert", :status => 401
+        end
+      end  
+    end
+
     def get_article
       if is_startpage?
         @article = Goldencobra::Article.active.startpage.first
@@ -117,7 +135,6 @@ module Goldencobra
       end
     end
 
-    private
 
     # ------------------ Redirection ------------------------------------------
     def redirect_dynamically
@@ -268,12 +285,36 @@ module Goldencobra
         @article = Goldencobra::Article.search_by_url(params[:article_id])
       else
         article = Goldencobra::Article.active.search_by_url(params[:article_id])
-        operator = current_user || current_visitor
-        a = Ability.new(operator)
-        if a.can?(:read, article)
-          @article = article
+        if article
+          operator = current_user || current_visitor
+          a = Ability.new(operator)
+          if a.can?(:read, article)
+            @article = article
+          else
+            @unauthorized = true
+          end
         end
       end
+    end
+
+    # Methode filtert die @list_of_articles.
+    # Rückgabewert: Ein Array all der Artikel, die der operator lesen darf.
+    def filter_with_permissions(list)
+      if current_user && current_user.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
+        new_list = list
+      else
+        operator = current_user || current_visitor
+        a = Ability.new(operator)
+
+        new_list = []
+        list.each do |article|
+          if a.can?(:read, article)
+            new_list << article 
+          end
+        end
+      end
+
+      return new_list
     end
 
     def is_startpage?
