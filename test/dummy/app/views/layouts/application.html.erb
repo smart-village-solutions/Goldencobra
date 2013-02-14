@@ -19,14 +19,13 @@
 	<%= yield(:social_sharing_buttons) %>
 </div>
 
-<%= yield %>
 
 <div id="article_content">
-	<%= yield(:article_subtitle) %>
-	<%= yield(:article_summary) %>
-	<%= yield(:article_content) %>
+<%= yield %>
+
+    <%= render_article_type_content() %>
+
 	<%= render_article_image_gallery %>
-	<%= yield(:article_teaser) %>
   <div id="widgets">
   	<%= render_article_widgets(:default => true,:tagged_with => "sidebar") %>
   </div>

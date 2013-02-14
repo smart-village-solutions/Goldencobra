@@ -1,0 +1,27 @@
+<h1>
+	<%= yield(:article_title) %>
+</h1>
+<% if yield(:article_summary).present? %>
+	<div class="summary">
+		<%= yield(:article_summary) %>
+	</div>
+<% end %>
+<%= yield(:article_content) %>
+
+
+<% if @list_of_articles %>
+	<% @list_of_articles.each do |article| %>
+		<article class="index-article">
+	  		<h2><%= link_to article.title, article.public_url %></h2>
+			<% if article.teaser.present? %>
+				<div class="event-description">
+					<%= raw(article.teaser) %>
+				</div>
+				<p><%= read_on(article) %></p>
+		  		<% if @list_of_articles.count > 1 %>
+		  			<hr class="line" />
+		  		<% end %>
+		  	<% end %>
+		</article>
+	<% end %>
+<% end %>
