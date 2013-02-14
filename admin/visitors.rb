@@ -39,6 +39,9 @@ ActiveAdmin.register Visitor do
       f.input :uid
       f.input :agb
       f.input :newsletter
+      if current_user.has_role?('admin')
+        f.input :roles, :as => :check_boxes, :collection => Goldencobra::Role.all
+      end
     end
     f.actions
   end
