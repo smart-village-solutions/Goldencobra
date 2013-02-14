@@ -10,7 +10,11 @@ xml.rss version: "2.0" do
         xml.item do
           xml.title article.title
           xml.description do
-            xml.cdata!(article.content)
+            if article.content.present?
+              xml.cdata!(article.content)
+            else
+              ''
+            end
           end
           xml.pubDate article.published_at.strftime("%a, %d %b %Y %H:%M:%S %z")
           xml.link article.absolute_public_url
@@ -19,7 +23,7 @@ xml.rss version: "2.0" do
             ai = article.images.first
             xml.tag! "enclosure", :type => ai.image_content_type, :url => "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{ai.image.url(:medium)}", :length => ai.image_file_size
           end
-          xml.cdata!(article.teaser)
+          xml.cdata!(article.teaser.present? ? article.teaser : '')
         end
       end
     end
