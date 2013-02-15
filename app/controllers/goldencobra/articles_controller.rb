@@ -115,11 +115,10 @@ module Goldencobra
 
     def verify_token
       if params[:auth_token].present?
-        @current_visitor = Visitor.find_by_authentication_token(params[:auth_token])
-        unless @current_visitor || current_user
+        unless current_visitor || current_user
           render :text => "Nicht authorisiert", :status => 401
         end
-      end  
+      end
     end
 
     def get_article
@@ -309,7 +308,7 @@ module Goldencobra
         new_list = []
         list.each do |article|
           if a.can?(:read, article)
-            new_list << article 
+            new_list << article
           end
         end
       end
