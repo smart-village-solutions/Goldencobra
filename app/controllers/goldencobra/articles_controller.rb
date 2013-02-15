@@ -298,7 +298,7 @@ module Goldencobra
     # Rückgabewert: Ein Array all der Artikel, die der operator lesen darf.
     def filter_with_permissions(list)
       if current_user && current_user.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
-        new_list = list
+        return list
       else
         operator = current_user || current_visitor
         a = Ability.new(operator)
@@ -306,12 +306,12 @@ module Goldencobra
         new_list = []
         list.each do |article|
           if a.can?(:read, article)
-            new_list << article
+            new_list << article.id
           end
         end
       end
 
-      return new_list
+      return list.where('id in (?)', new_list)
     end
 
     def is_startpage?
