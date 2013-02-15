@@ -311,7 +311,7 @@ module Goldencobra
         end
       end
 
-      return list.where('id in (?)', new_list)
+      return list.where('goldencobra_articles.id in (?)', new_list)
     end
 
     def is_startpage?
