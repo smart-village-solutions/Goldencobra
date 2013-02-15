@@ -31,7 +31,7 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
     form html: {enctype: "multipart/form-data"} do |f|
       f.actions
       f.inputs do
-        f.input :role_id, as: :select, collection: Goldencobra::Role.all.map{|role| [role.name.capitalize, role.id]}, include_blank: true
+        f.input :role_id, as: :select, collection: Goldencobra::Role.all.map{|role| [role.name.capitalize, role.id]}, include_blank: 'Alle'
         f.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
         f.input :subject_class, as: :select, collection: Goldencobra::Permission::PossibleSubjectClasses, include_blank: false
         f.input :subject_id
