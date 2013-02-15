@@ -41,13 +41,11 @@ module Goldencobra
 
         if generate_index_list?
           @list_of_articles = get_articles_by_article_type
-
-          @list_of_articles = filter_with_permissions(@list_of_articles)
-
           include_related_models()
           get_articles_with_tags() if @article.index_of_articles_tagged_with.present?
           get_articles_without_tags() if @article.not_tagged_with.present?
           get_articles_by_frontend_tags() if params[:frontend_tags].present?
+          @list_of_articles = filter_with_permissions(@list_of_articles)
           sort_response()
           after_index()
         end
