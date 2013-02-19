@@ -101,7 +101,6 @@ module Goldencobra
       end
 
       def install_errbit
-        if yes?("Would you like to configure Errbit?")
           gem("airbrake")
           system("bundle install")
           @api_key = ask("What is your Errbit API key? (default: 1eacfe13fb5d9eca2dee5401a9b93ddb)")
@@ -113,7 +112,6 @@ module Goldencobra
           @port = ask("What is your Errbit Port? (bsp: 80 default | 443 secure )")
           @port = "80" if @port.blank?
           template '../templates/errbit.rb.erb', 'config/initializers/errbit.rb'
-        end
       end
 
       def install_newrelic
