@@ -1,6 +1,7 @@
 # RVM bootstrap
 require 'rvm/capistrano'
 require 'airbrake/capistrano'
+require 'capistrano/maintenance'
 set :rvm_ruby_string, 'ruby-1.9.2-p180@<%= @app_name %>'
 #set :rvm_ruby_string, 'ruby-1.9.3-p194@<%= @app_name %>'
 set :rvm_type, :user
@@ -118,6 +119,8 @@ namespace :deploy do
 
 end
 
+after 'deploy:create_symlink', 'deploy:web:disable'
 after 'deploy:create_symlink', 'deploy:setup_db'
 #after 'deploy:setup_db', 'deploy:precompile_assets'
 after 'deploy:setup_db', 'deploy:migrate'
+after 'airbrake:deploy', 'deploy:web:enable'
