@@ -1,5 +1,6 @@
 # RVM bootstrap
 require 'rvm/capistrano'
+require 'airbrake/capistrano'
 set :rvm_ruby_string, 'ruby-1.9.2-p180@<%= @app_name %>'
 #set :rvm_ruby_string, 'ruby-1.9.3-p194@<%= @app_name %>'
 set :rvm_type, :user
