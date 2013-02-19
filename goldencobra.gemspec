@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "capistrano", "2.14.1"
   s.add_dependency "rvm-capistrano"
+  s.add_dependency 'capistrano-maintenance'
   s.add_dependency "rails", "~> 3.2.11"
   s.add_dependency "jquery-rails", "2.1.4"
   s.add_dependency "jqueryui_rails"
