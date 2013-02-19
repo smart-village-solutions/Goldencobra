@@ -5,7 +5,7 @@ module Goldencobra
 
     def set_locale
       unless Rails.env == "test"
-        I18n.locale = session[:locale]
+        I18n.locale = params[:locale] || session[:locale]
       end
     end
 
