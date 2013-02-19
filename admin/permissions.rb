@@ -45,4 +45,12 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
           Ist zu einer Rolle ein Model nicht definiert, so beitzt diese Rolle standardmäßig alle Rechte an diesem Model")
     end
 
+  action_item only: [:edit, :show] do
+    render partial: '/goldencobra/admin/shared/prev_item', locals: { resource: resource, url: '' }
+  end
+
+  action_item only: [:edit, :show] do
+    render partial: '/goldencobra/admin/shared/next_item', locals: { resource: resource, url: '' }
+  end
+
 end
