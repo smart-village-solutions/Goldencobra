@@ -42,6 +42,14 @@ module Goldencobra
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
 
+    def self.find_by_pathname(name)
+      if name.include?("/")
+        where(:title => name.split("/").last).select{|a| a.path.map(&:title).join("/") == name}.first
+      else
+        find_by_title(name)
+      end
+    end
+
     def is_active?(request)
       @is_active_result ||= {}
       @is_active_result[request.path.squeeze("/").split("?")[0]] ||= request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
