@@ -220,10 +220,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
   end
 
-  action_item :only => :edit do
-    link_to('Vorschau zu diesem Artikel anzeigen', resource.public_url, :target => "_blank")
-  end
-
   member_action :mark_as_startpage do
     article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
@@ -298,10 +294,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
   end
 
-  action_item :only => :edit, :inner_html => {:class => "expert"} do
-    link_to("Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}", toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
-  end
-
   member_action :toggle_expert_mode do
     current_user.enable_expert_mode = !current_user.enable_expert_mode
     current_user.save
@@ -318,6 +310,22 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     redirect_to :back, :notice => "Undid #{@version.event}"
   end
 
+
+  action_item only: [:edit, :show] do
+    id = Goldencobra::Article.where('goldencobra_articles.id < ? ', resource.id).order('goldencobra_articles.id DESC').pluck(:id).first
+    if id
+      link_to '<- Artikel', "/admin/articles/#{id}/edit"
+    end
+  end
+
+  action_item :only => :edit do
+    link_to('Vorschau zu diesem Artikel anzeigen', resource.public_url, :target => "_blank")
+  end
+
+  action_item :only => :edit, :inner_html => {:class => "expert"} do
+    link_to("Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}", toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
+  end
+
   action_item :only => :index do
     link_to("Import", new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
   end
@@ -325,6 +333,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   action_item :only => :edit do
     if resource.versions.last
       link_to("Undo", revert_admin_article_path(:id => resource.versions.last), :class => "undo")
+    end
+  end
+
+  action_item only: [:edit, :show] do
+    id = Goldencobra::Article.where('goldencobra_articles.id > ? ', resource.id).order('goldencobra_articles.id ASC').pluck(:id).first
+    if id
+      link_to 'Artikel ->', "/admin/articles/#{id}/edit"
     end
   end
 end
