@@ -127,4 +127,12 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       link_to('Zip-Datei entpacken', unzip_file_admin_upload_path(resource), :target => "_blank")
     end
    end
+
+  action_item only: [:edit, :show] do
+    render partial: '/goldencobra/admin/shared/prev_item', locals: { resource: resource, url: '' }
+  end
+
+  action_item only: [:edit, :show] do
+    render partial: '/goldencobra/admin/shared/next_item', locals: { resource: resource, url: '' }
+  end
 end

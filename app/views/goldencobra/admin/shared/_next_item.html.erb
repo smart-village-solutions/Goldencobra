@@ -1,0 +1,6 @@
+<% class_name = resource.class.to_s.pluralize.downcase.gsub("::","_") %>
+<% id = resource.class.where("#{class_name}.id > ?", resource.id).order("#{class_name}.id ASC").pluck(:id).first %>
+<% resource_name = class_name.split('_').last %>
+<% if id %>
+  <%= link_to "#{resource_name.singularize.capitalize} ->", "/admin/#{url.present? ? url : resource_name}/#{id}/edit" %>
+<% end %>
