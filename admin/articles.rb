@@ -312,10 +312,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
 
   action_item only: [:edit, :show] do
-    id = Goldencobra::Article.where('goldencobra_articles.id < ? ', resource.id).order('goldencobra_articles.id DESC').pluck(:id).first
-    if id
-      link_to '<- Artikel', "/admin/articles/#{id}/edit"
-    end
+    render partial: '/goldencobra/admin/shared/prev_item', locals: { resource: resource, url: '' }
   end
 
   action_item :only => :edit do
@@ -337,9 +334,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   action_item only: [:edit, :show] do
-    id = Goldencobra::Article.where('goldencobra_articles.id > ? ', resource.id).order('goldencobra_articles.id ASC').pluck(:id).first
-    if id
-      link_to 'Artikel ->', "/admin/articles/#{id}/edit"
-    end
+    render partial: '/goldencobra/admin/shared/next_item', locals: { resource: resource, url: '' }
   end
 end

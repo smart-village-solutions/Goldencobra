@@ -21,6 +21,8 @@ module Goldencobra
     belongs_to :commentator, polymorphic: true
     has_ancestry :orphan_strategy => :rootify
 
+    validates_presence_of :article_id, :content, :commentator_id
+
     scope :approved, where(:approved => true)
     scope :not_approved, where(:approved => false)
     scope :active, where(:active => true)
