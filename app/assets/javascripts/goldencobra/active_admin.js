@@ -101,7 +101,7 @@ $(function() {
   	return false;
   });
 
-  $("#title_bar .action_items a[href$='edit']").append(" (⌘-E)");
+  $("body.show #title_bar .action_items a[href$='edit']").append(" (⌘-E)");
     key('⌘+e, ctrl+e', function(){
 	 target = $("#title_bar .action_items a[href$='edit']").attr("href");
 	 window.location = target;
