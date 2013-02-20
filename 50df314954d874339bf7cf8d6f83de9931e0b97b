@@ -1,0 +1,4 @@
+From: blaettern
+To: master
+Conflict: (content) Merge conflict in Gemfile.lock
+	MODIFY|Gemfile.lock
