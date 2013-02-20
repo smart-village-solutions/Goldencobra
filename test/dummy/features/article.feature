@@ -26,11 +26,12 @@ Feature: Create and manage articles
     When I click on "New Article"
     Then I should see "New Article"
     When I fill in "article_title" with "Dies ist ein Neuer Artikel"
+    And I select "Default Show" within "#article_article_type"
     And I press "Create Article"
-    #And I fill in "article_url_name" with "dies-ist-kurz"
+    And I fill in "article_url_name" with "dies-ist-kurz"
     And I press "Update Article"
     Then I should see "Dies ist ein Neuer Artikel" within textfield "article_title"
-    #And I should see "dies-ist-kurz" within textfield "article_url_name"
+    And I should see "dies-ist-kurz" within textfield "article_url_name"
 
   @javascript
   Scenario: Visit new Article in frontend
@@ -173,6 +174,7 @@ Feature: Create and manage articles
     Then I check "article_enable_social_sharing"
     And I press "Update Article"
     When I visit url "/seo-seite"
+    Then show me the page
     Then I should see "Tweet"
     Then the page should have content "div#google-plus-sharing"
     Then the page should have content "div#facebook-sharing-iframe"

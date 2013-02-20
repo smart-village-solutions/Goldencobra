@@ -22,12 +22,16 @@
 module Goldencobra
   class Menue < ActiveRecord::Base
     attr_accessible :title, :target, :css_class, :active, :ancestry, :parent_id,
-                    :sorter, :description, :call_to_action_name, :description_title, :image_attributes, :image_id
+                    :sorter, :description, :call_to_action_name, :description_title, :image_attributes, :image_id,
+                    :permissions_attributes
     has_ancestry :orphan_strategy => :rootify
     belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
 
     validates_presence_of :title
     validates_format_of :title, :with => /^[\w\d\s&üÜöÖäÄß-]+$/
+    has_many :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Menue"}
+
+    accepts_nested_attributes_for :permissions, :allow_destroy => true
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.menues.recreate_cache") == "true"

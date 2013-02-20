@@ -36,10 +36,19 @@ module Goldencobra
       else
         master_menue = Goldencobra::Menue.active.find_by_id(menue_id)
       end
+      #Check for Permission
+      operator = current_user || current_visitor
+      ability = Ability.new(operator)
+      if !ability.can?(:read, master_menue)
+        return ""
+      end
       if master_menue.present?
         content = ""
         master_menue.children.active.includes(:image).collect do |child|
-          content << navigation_menu_helper(child, depth, 1, options)
+          #check if Menuitem is readable by permissions
+          if ability.can?(:read, child)
+            content << navigation_menu_helper(child, depth, 1, options)
+          end
         end
         if id_name.present?
           result = content_tag(:ul, raw(content),:id => "#{id_name}", :class => "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)

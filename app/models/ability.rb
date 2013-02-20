@@ -3,6 +3,7 @@ class Ability
 
   def initialize(operator=nil)
     can :read, Goldencobra::Article
+    can :read, Goldencobra::Menue
 
     #Rechte die alle betreffen
     Goldencobra::Permission.where("role_id IS NULL OR role_id = ''").each do |permission|

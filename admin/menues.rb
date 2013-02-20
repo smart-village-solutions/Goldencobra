@@ -19,13 +19,19 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :target
       f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true
     end
-    f.inputs "Optionen" do
+    f.inputs "Optionen", :class => "foldable closed inputs" do
       f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
       f.input :active
       f.input :css_class
     end
-
-    f.inputs "Details" do
+    f.inputs "Zugriffsrechte", :class => "foldable closed inputs" do
+      f.has_many :permissions do |p|
+        p.input :role, :include_blank => "Alle"
+        p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
+        p.input :_destroy, :as => :boolean
+      end
+    end
+    f.inputs "Details", :class => "foldable closed inputs" do
       f.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswaehlen' }, :label => "Bild ausw&auml;hlen"
       f.input :description_title
       f.input :description, :input_html => { :rows => 5}

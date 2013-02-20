@@ -9,14 +9,8 @@
 <body>
 
 <%= navigation_menu(1, :depth => 1) %>
-
-TEst
 <%= navigation_menu("A-Menu", :depth => 1) %>
-TEst
-
 <%= navigation_menu("A-Menu/Z-Menu", :depth => 1) %>
-
-<h1><%= yield(:article_title) %></h1>
 
 <div>
 	<%= breadcrumb() %>
@@ -28,9 +22,7 @@ TEst
 
 <div id="article_content">
 <%= yield %>
-
-    <%= render_article_type_content() %>
-
+  <%= render_article_type_content() %>
 	<%= render_article_image_gallery %>
   <div id="widgets">
   	<%= render_article_widgets(:default => true,:tagged_with => "sidebar") %>
