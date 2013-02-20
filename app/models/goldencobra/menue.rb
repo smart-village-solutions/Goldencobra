@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # == Schema Information
 #
 # Table name: goldencobra_menues
@@ -23,7 +25,10 @@ module Goldencobra
                     :sorter, :description, :call_to_action_name, :description_title, :image_attributes, :image_id
     has_ancestry :orphan_strategy => :rootify
     belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
+
     validates_presence_of :title
+    validates_format_of :title, :with => /^[\w\d\s&üÜöÖäÄß-]+$/
+
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.menues.recreate_cache") == "true"
         after_save 'Goldencobra::Article.recreate_cache'
