@@ -46,11 +46,11 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
     end
 
   action_item only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/prev_item', locals: { resource: resource, url: '' }
+    render partial: '/goldencobra/admin/shared/prev_item'
   end
 
   action_item only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/next_item', locals: { resource: resource, url: '' }
+    render partial: '/goldencobra/admin/shared/next_item'
   end
 
 end

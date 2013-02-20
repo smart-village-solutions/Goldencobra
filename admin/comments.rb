@@ -38,11 +38,11 @@ ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
   end
 
   action_item only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/prev_item', locals: { resource: resource, url: 'article_comments' }
+    render partial: '/goldencobra/admin/shared/prev_item'
   end
 
   action_item only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/next_item', locals: { resource: resource, url: 'article_comments' }
+    render partial: '/goldencobra/admin/shared/next_item'
   end
 
 end
