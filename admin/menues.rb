@@ -102,7 +102,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   end
 
   action_item only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/prev_item', locals: { resource: resource, url: '' }
+    render partial: '/goldencobra/admin/shared/prev_item'
   end
 
   action_item :only => :edit do
@@ -112,7 +112,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   end
 
   action_item only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/next_item', locals: { resource: resource, url: '' }
+    render partial: '/goldencobra/admin/shared/next_item'
   end
 
   controller do
