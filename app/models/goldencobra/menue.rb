@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # == Schema Information
 #
 # Table name: goldencobra_menues
@@ -23,7 +25,10 @@ module Goldencobra
                     :sorter, :description, :call_to_action_name, :description_title, :image_attributes, :image_id
     has_ancestry :orphan_strategy => :rootify
     belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
+
     validates_presence_of :title
+    validates_format_of :title, :with => /^[\w\d\s&üÜöÖäÄß-]+$/
+
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.menues.recreate_cache") == "true"
         after_save 'Goldencobra::Article.recreate_cache'
@@ -41,6 +46,14 @@ module Goldencobra
 
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
+
+    def self.find_by_pathname(name)
+      if name.include?("/")
+        where(:title => name.split("/").last).select{|a| a.path.map(&:title).join("/") == name}.first
+      else
+        find_by_title(name)
+      end
+    end
 
     def is_active?(request)
       @is_active_result ||= {}
