@@ -1,6 +1,7 @@
 <h1>
-	<%= yield(:article_title) %>
+	<%= yield(:article_title) %><br/><%= yield(:article_subtitle) %>
 </h1>
+<%= yield(:article_teaser) %>
 <% if yield(:article_summary).present? %>
 	<div class="summary">
 		<%= yield(:article_summary) %>

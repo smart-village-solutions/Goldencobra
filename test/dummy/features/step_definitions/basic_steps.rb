@@ -33,7 +33,7 @@ Then /^I should see "([^\"]*)"$/ do |arg1|
 end
 
 Then /^I should see "([^\"]*)" within "([^\"]*)"$/ do |arg1, content_position|
-  find(content_position).should have_content(arg1)
+  first(content_position).should have_content(arg1)
 end
 
 
@@ -42,7 +42,7 @@ Then /^I should not see "([^\"]*)"$/ do |arg1|
 end
 
 Then /^I should not see "([^"]*)" within "([^"]*)"$/ do |arg1, content_position|
-  find(content_position).should have_no_content(arg1)
+  first(content_position).should have_no_content(arg1)
 end
 
 Then /^the page should have content "([^"]*)"$/ do |arg1|
@@ -54,7 +54,7 @@ Then /^show me the page$/ do
 end
 
 Then /^I click on "([^"]*)" within "([^"]*)"$/ do |arg1, arg2|
-  find(arg2).click_link(arg1)
+  first(arg2).click_link(arg1)
 end
 
 Then /^I check "([^"]*)"$/ do |arg1|

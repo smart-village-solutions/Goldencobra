@@ -35,7 +35,7 @@ RSpec.configure do |config|
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
-  config.infer_base_class_for_anonymous_controllers = false
+  #config.infer_base_class_for_anonymous_controllers = false
 
   # Add this line if you use Devise for authentication:
   config.include Devise::TestHelpers, :type => :controller

@@ -11,9 +11,9 @@ Feature: Create and manage menuitems and navigationbars
     And I am logged in as "admin@test.de" with password "secure12"
     Given the following "menues" exist:
       | title | id | parent_id |
-      | "Top Navigation" | 1 | |
-      | "News" | 2 | 1 |
-      | "Bottom Navigation" | 3 | 1 |
+      | Top Navigation | 1 | |
+      | News | 2 | 1 |
+      | Bottom Navigation | 3 | 1 |
     When I go to the admin list of menues
     Then I should see "Top Navigation"
     And I should see "News"
@@ -37,9 +37,9 @@ Feature: Create and manage menuitems and navigationbars
     And I am logged in as "admin@test.de" with password "secure12"
     And the following "menues" exist:
       | title | id | parent_id |
-      | "Top Navigation" | 1 |  |
-      | "News" | 2 | 1 |
-      | "Bottom Navigation" | 3 | 1 |
+      | Top Navigation | 1 |  |
+      | News | 2 | 1 |
+      | Bottom Navigation | 3 | 1 |
     And I am on the admin list of menues
     Then I should see "Menues" within "h2"
     When I click on "New Submenu" within "tr#menue_1"
@@ -48,3 +48,33 @@ Feature: Create and manage menuitems and navigationbars
     And I press "Create Menue"
     Then I should see "Sub of Top" within textfield "menue_title"
     And I should see "Top Navigation" within "#menue_parent_id"
+
+  Scenario: Go to the Startpage and check the NavigationMenue with no restrictions
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    And the following "menues" exist:
+      | title | id | parent_id |
+      | Top Navigation | 1 |  |
+      | News | 2 | 1 |
+      | Secured | 3 | 1 |
+    And an startarticle exists
+    Then I go to the startpage
+    And I should see "News"
+    And I should see "Secured"
+
+  Scenario: Go to the Startpage and check the NavigationMenue with restricted Access
+    Given that a confirmed guest exists
+    And I am logged in as "guest@test.de" with password "secure12"
+    And the following "menues" exist:
+      | title | id | parent_id |
+      | Top Navigation | 1 |  |
+      | News | 2 | 1 |
+      | Secured | 3 | 1 |
+    And the following "permissions" exist:
+      |action|subject_class|subject_id|role_id|
+      |not_read|Goldencobra::Menue|3|2|
+    And an startarticle exists
+    Then I go to the startpage
+    And I should see "News"
+    And show me the page
+    And I should not see "Secured"
