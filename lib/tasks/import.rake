@@ -10,7 +10,7 @@ namespace :db do
       system("ssh -C #{server} mysqldump --opt --add-drop-table -hlocalhost -u#{user_name} -p#{password} #{remote_db} |mysql #{local_db}")
     else
       puts "Missing Attributes! e.g.:"
-      puts "rake db:import SERVER=taurus LOCAL=qvnia_development REMOTE=db_qvnia USER=user_qvnia PASSWORD=yq1rx5qiHIzh"
+      puts "rake db:import SERVER=taurus LOCAL=qvnia_development REMOTE=db_qvnia USER=user_qvnia PASSWORD=yq1rx5qiHIz"
     end
   end
 end
