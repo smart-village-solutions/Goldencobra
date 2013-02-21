@@ -28,17 +28,23 @@
 
 module Goldencobra
   class Widget < ActiveRecord::Base
-    acts_as_taggable_on :tags
+
     serialize :offline_time_week_start_end
-    has_many :article_widgets
-    has_many :articles, :through => :article_widgets
+
+    has_many  :article_widgets
+    has_many  :articles, :through => :article_widgets
+    has_many  :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Widget"}
+
+    accepts_nested_attributes_for :permissions, :allow_destroy => true
+
     attr_accessor :offline_time_start_mo, :offline_time_end_mo, :offline_time_start_tu, :offline_time_end_tu, :offline_time_start_we, :offline_time_end_we
     attr_accessor :offline_time_start_th, :offline_time_end_th, :offline_time_start_fr, :offline_time_end_fr, :offline_time_start_sa, :offline_time_end_sa
     attr_accessor :offline_time_start_su, :offline_time_end_su
+
     before_save :set_week_start_end_times
     before_save :validate_start_end_time
 
-    OfflineDays = ["Mo", 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
+    OfflineDays   = ["Mo", 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
     OfflineDaysEN = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su']
 
     scope :active, where(:active => true).order(:sorter)
@@ -54,6 +60,7 @@ module Goldencobra
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end
+    acts_as_taggable_on :tags
 
     before_save :set_default_tag
 

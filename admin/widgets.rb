@@ -49,6 +49,13 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       f.input :offline_time_end_su, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_end_su) }
       f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
     end
+    f.inputs "Zugriffsrechte", :class => "foldable closed inputs" do
+      f.has_many :permissions do |p|
+        p.input :role, :include_blank => "Alle"
+        p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
+        p.input :_destroy, :as => :boolean
+      end
+    end
     f.inputs "Erweiterte Infos", :class => "foldable inputs closed"  do
       f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
       f.input :id_name
@@ -74,12 +81,16 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
 
   index do
     selectable_column
-    column :id
-    column :title
+    column :title do |widget|
+      link_to(widget.title, edit_admin_widget_path(widget), :title => "bearbeiten")
+    end
     column :id_name
     column :css_name
     column :active, :sortable => :active do |widget|
-      widget.active ? "online" : "offline"
+      raw("<span class='#{widget.active ? 'online' : 'offline'}'>#{widget.active ? 'online' : 'offline'}</span>")
+    end
+    column "Zugriff" do |widget|
+      Goldencobra::Permission.restricted?(widget) ? raw("<span class='secured'>beschränkt</span>") : ""
     end
     column :sorter
     column :tag_list, :sortable => false

@@ -62,6 +62,8 @@ module Goldencobra
       default = options[:default] || "false"
       widget_wrapper = options[:wrapper] || "section"
       result = ""
+      operator = current_user || current_visitor
+      ability = Ability.new(operator)
       if @article
         widgets = @article.widgets.active
         if tags.present? && default == "false"
@@ -74,20 +76,23 @@ module Goldencobra
         widgets = widgets.order(:sorter)
 
         widgets.each do |widget|
-          template = Liquid::Template.parse(widget.content)
-          alt_template = Liquid::Template.parse(widget.alternative_content)
-          html_data_options = {"class" => "#{widget.css_name} #{custom_css} goldencobra_widget",
-                                "id" => widget.id_name.present? ? widget.id_name : "widget_id_#{widget.id}",
-                                'data-date-start' => widget.offline_date_start_display,
-                                'data-date-end' => widget.offline_date_end_display,
-                                'data-offline-active' => widget.offline_time_active,
-                                'data-id' => widget.id
-                              }
-          html_data_options = html_data_options.merge(widget.offline_time_week)
-          result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
-          result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
-                        class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget",
-                        id: widget.id_name, 'data-id' => widget.id)
+          #check if current user has permissions to see this widget
+          if ability.can?(:read, widget)
+            template = Liquid::Template.parse(widget.content)
+            alt_template = Liquid::Template.parse(widget.alternative_content)
+            html_data_options = {"class" => "#{widget.css_name} #{custom_css} goldencobra_widget",
+                                  "id" => widget.id_name.present? ? widget.id_name : "widget_id_#{widget.id}",
+                                  'data-date-start' => widget.offline_date_start_display,
+                                  'data-date-end' => widget.offline_date_end_display,
+                                  'data-offline-active' => widget.offline_time_active,
+                                  'data-id' => widget.id
+                                }
+            html_data_options = html_data_options.merge(widget.offline_time_week)
+            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
+            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
+                          class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget",
+                          id: widget.id_name, 'data-id' => widget.id)
+          end
         end
       end
       return raw(result)

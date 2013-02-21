@@ -21,5 +21,11 @@ module Goldencobra
 
     default_scope order("sorter_id ASC, id")
     scope :by_role, lambda{|rid| where(:role_id => rid)}
+
+
+    def self.restricted?(item)
+      where(:subject_class => item.class, :subject_id => item.id).count > 0
+    end
+
   end
 end

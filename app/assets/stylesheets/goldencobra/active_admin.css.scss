@@ -300,6 +300,15 @@ body.active_admin .edit{
 	display: inline-block;
 }
 
+body.active_admin .secured{
+  width:20px;
+  height:20px;
+  text-indent:-99999px;
+  background:url("/assets/goldencobra/icons/32/locked.png");
+  @include background-size(20px);
+  display: inline-block;
+}
+
 body.active_admin tbody .online{
   background: url("/assets/goldencobra/icons/32/play.png") no-repeat center center transparent;
   @include background-size(20px);
@@ -328,7 +337,7 @@ body.active_admin tbody .create{
 }
 
 body.active_admin tbody .offline{
-  background: url("/assets/goldencobra/icons/32/stop.png") no-repeat center center transparent;
+  background: url("/assets/goldencobra/icons/32/power.png") no-repeat center center transparent;
   @include background-size(20px);
   text-indent:-99999px;
   width: 22px;
