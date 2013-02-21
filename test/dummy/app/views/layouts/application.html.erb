@@ -11,7 +11,7 @@
 <%= navigation_menu(1, :depth => 1) %>
 <%= navigation_menu("A-Menu", :depth => 1) %>
 <%= navigation_menu("A-Menu/Z-Menu", :depth => 1) %>
-
+<%= render_article_widgets(:tagged_with => "header") %>
 <div>
 	<%= breadcrumb() %>
 </div>

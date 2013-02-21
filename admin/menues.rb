@@ -46,6 +46,9 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     column :title
     column :target
     column :active
+    column "Zugriff" do |menue|
+      Goldencobra::Permission.restricted?(menue) ? "beschränkt" : "frei"
+    end
     column :sorter
     column "Artikel" do |menue|
       if menue.mapped_to_article?
