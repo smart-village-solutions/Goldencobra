@@ -6,6 +6,15 @@ When /^I click on "([^\"]*)"$/ do |arg1|
   first(:link,arg1).click
 end
 
+Then /^I click on element "([^"]*)" within "([^"]*)"$/ do |arg1, arg2|
+  find(arg2).first(arg1).click
+end
+
+Then /^I click on element "([^"]*)"$/ do |arg1|
+  first(arg1).click
+end
+
+
 When /^I visit url "([^\"]*)"$/ do |arg1|
   visit(arg1)
 end

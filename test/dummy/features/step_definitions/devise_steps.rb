@@ -34,3 +34,12 @@ end
 Then /^I should see "([^"]*)" of the last created "([^"]*)"$/ do |arg1, arg2|
   page.should have_content(arg2.to_s.capitalize.constantize.last.send(arg1))
 end
+
+Given /^a "(.*?)" permission on "(.*?)" at id "(.*?)" for role "(.*?)"$/ do |action, subject, arg3, arg4|
+  permission = create(:permission)
+  permission.action = action
+  permission.subject_class = subject
+  permission.subject_id = arg3
+  permission.role_id = Goldencobra::Role.find_by_name(arg4).id
+  permission.save
+end

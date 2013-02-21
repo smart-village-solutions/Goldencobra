@@ -55,6 +55,8 @@ FactoryGirl.define do
   end
 
   factory :guest_user, :class => User do
+    firstname "Tina"
+    lastname "Test"
     email 'guest@test.de'
     password 'secure12'
     password_confirmation 'secure12'

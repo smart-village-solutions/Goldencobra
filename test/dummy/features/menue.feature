@@ -70,11 +70,8 @@ Feature: Create and manage menuitems and navigationbars
       | Top Navigation | 1 |  |
       | News | 2 | 1 |
       | Secured | 3 | 1 |
-    And the following "permissions" exist:
-      |action|subject_class|subject_id|role_id|
-      |not_read|Goldencobra::Menue|3|2|
+    And a "not_read" permission on "Goldencobra::Menue" at id "3" for role "guest"
     And an startarticle exists
     Then I go to the startpage
     And I should see "News"
-    And show me the page
     And I should not see "Secured"
