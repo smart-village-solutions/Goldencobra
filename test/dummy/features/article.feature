@@ -56,7 +56,7 @@ Feature: Create and manage articles
     When I go to the admin list of articles
     Then I click on "Edit" within "tr#article_3"
     And I should see "Edit Article" within "#page_title"
-    And I click on "Startpage Options" within "#startpage_options_sidebar_section"
+    And I click on element "Startpage Options"
     And I should see "Make this article Startpage"
     When I click on "Make this article Startpage" within "#startpage_options_sidebar_section"
     Then I should see "This Article is the Startpage!"
@@ -174,7 +174,6 @@ Feature: Create and manage articles
     Then I check "article_enable_social_sharing"
     And I press "Update Article"
     When I visit url "/seo-seite"
-    Then show me the page
     Then I should see "Tweet"
     Then the page should have content "div#google-plus-sharing"
     Then the page should have content "div#facebook-sharing-iframe"
