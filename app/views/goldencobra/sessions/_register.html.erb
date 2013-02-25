@@ -1,0 +1,50 @@
+<div class="register_form">
+  <%= form_for(Visitor.new, :as => "visitor", :url => frontend_register_path(usermodel), :html => {:id => "new_registration_visitor"}) do |f| %>
+    <p class="errors"></p>
+    <div class="clearfix">
+      <%= f.label :email, 'E-Mail Adresse *' %>
+    <div class="input">
+        <%= f.email_field :email, required: true %>
+      </div>
+    </div>
+
+    <div class="clearfix">
+      <%= f.label :username, 'Benutzername *' %>
+    <div class="input">
+        <%= f.text_field :username, required: true %>
+      </div>
+    </div>
+
+    <div class="clearfix">
+      <%= f.label :password, 'Passwort *' %>
+    <div class="input">
+        <%= f.password_field :password, required: true %>
+      </div>
+    </div>
+
+    <div class="clearfix">
+      <%= f.label :password_confirmation, 'Passwort bestätigen *' %>
+    <div class="input">
+        <%= f.password_field :password_confirmation, required: true %>
+      </div>
+    </div>
+
+    <div class="clearfix agb">
+      <div class="input">
+          <%= f.check_box :agb, required: true %>
+      </div>
+      Ich akzeptiere die AGB & Datenschutzbestimmungen *
+    </div>
+    <div class="clearfix agb">
+      <div class="input">
+          <%= f.check_box :newsletter %>
+      </div>
+      Ich möchte mich für den UlmenTV-Newsletter anmelden
+    </div>
+
+    <div class="actions">
+    <%= f.submit "Registrieren", :class => "button" %>
+    <%#= render :partial => "devise/shared/links" %>
+    </div>
+  <% end %>
+</div>
