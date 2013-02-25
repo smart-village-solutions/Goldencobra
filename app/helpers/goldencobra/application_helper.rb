@@ -2,6 +2,7 @@ module Goldencobra
   module ApplicationHelper
     include Goldencobra::ArticlesHelper
     include Goldencobra::NavigationHelper
+    include Goldencobra::LoginHelper
 
     def s(name)
       if name.present?

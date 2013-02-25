@@ -131,7 +131,6 @@ navigation_menu(menue_id, option={})
 # default = 0
 ```
 
-
 **example:**
 
 ```ruby
@@ -148,6 +147,14 @@ navigation_menu(menue_id, option={})
 <%= navigation_menu("MainNavigation") %>
 # renders menue starting with first Menuitem including title 'MainNavigation' and all children as a nested list
 ```
+
+
+##Breadcrumb Menue
+in your view_templates:
+```erb
+    <%= breadcrumb() %>
+```
+
 
 ##Rendering content in layouts
 ```erb
@@ -167,6 +174,17 @@ navigation_menu(menue_id, option={})
 <%= render_article_widgets(tagged_with: "slider", wrapper: "div", class: "slide-content") %>
 #
 ```
+
+
+##Render Login and Registration Widgets
+in your view_templates:
+```erb
+    <%= render_login_widget(User) %>
+    <%= render_login_widget(Visitor) %>
+    <%= render_registration_widget(User) %>
+    <%= render_registration_widget(Visitor) %>
+```
+
 
 
 ##Include social media sharing buttons where applicable

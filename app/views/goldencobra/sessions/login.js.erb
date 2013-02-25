@@ -1,0 +1,16 @@
+<% if @errors.any? %>
+  $(".login_form form p.errors").html("");
+  <% @errors.each do |error| %>
+    $(".login_form form p.errors").append("<%= error %>")
+  <% end %>
+<% else %>
+  $(".login_form form p.errors").html("Anmeldung Erfolgreich. Umleitung");
+<% end %>
+
+<% if @redirect_to.present? %>
+  <% if @redirect_to == "reload" %>
+    location.reload();
+  <% else %>
+    window.location.href = "<%= @redirect_to %>";
+  <% end %>
+<% end %>
