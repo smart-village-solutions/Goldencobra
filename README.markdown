@@ -148,6 +148,23 @@ navigation_menu(menue_id, option={})
 # renders menue starting with first Menuitem including title 'MainNavigation' and all children as a nested list
 ```
 
+```ruby
+<%= navigation_menu("Sub/MainNavigation") %>
+# renders menue starting with first Menuitem including title 'MainNavigation' in the submenue 'Sub' and all children as a nested list
+```
+
+```ruby
+<%= navigation_menu("#{I18n.locale.to_s}/MainNavigation") %>
+# renders menue starting with first Menuitem including title 'MainNavigation' in the submenue 'de' or 'en' depending of your current Locale and all children as a nested list
+```
+
+##Switching Languages
+```erb
+<%= link_to "Deutsch", switch_language("de") %>
+<%= link_to "Englisch", switch_language("en") %>
+```
+
+
 
 ##Breadcrumb Menue
 in your view_templates:

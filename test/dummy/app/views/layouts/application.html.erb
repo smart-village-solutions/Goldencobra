@@ -8,6 +8,11 @@
 </head>
 <body>
 
+
+  <%= I18n.locale %>
+  <%= link_to "Deutsch", switch_language_path("de") %>
+  <%= link_to "Englisch", switch_language_path("en") %>
+
 <%= navigation_menu(1, :depth => 1) %>
 <%= navigation_menu("A-Menu", :depth => 1) %>
 <%= navigation_menu("A-Menu/Z-Menu", :depth => 1) %>
