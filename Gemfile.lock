@@ -50,6 +50,7 @@ PATH
       capistrano (= 2.14.1)
       capistrano-maintenance
       coffee-rails
+      coffee-script-source (= 1.4.0)
       compass-960-plugin
       compass-rails
       devise
