@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.requirements << "ImageMagick"
   s.required_ruby_version = ">= 1.9.2"
 
+  s.add_dependency 'coffee-script-source', "1.4.0"
   s.add_dependency "capistrano", "2.14.1"
   s.add_dependency "rvm-capistrano"
   s.add_dependency 'capistrano-maintenance'
