@@ -76,6 +76,16 @@ module Goldencobra
       end
     end
 
+    def switch_language
+      I18n.locale = params[:locale] || session[:locale]
+      session[:locale] = I18n.locale
+      if params[:redirect_to].present?
+        redirect_to params[:redirect_to]
+      else
+        redirect_to "/"
+      end
+    end
+
     def convert_to_pdf
       if @article
         require 'net/http'
