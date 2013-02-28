@@ -56,7 +56,7 @@ module Goldencobra
     LiquidParser = {}
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
-    attr_accessor   :hint_label
+    attr_accessor   :hint_label, :manual_article_sort
 
     has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
