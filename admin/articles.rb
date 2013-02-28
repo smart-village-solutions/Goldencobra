@@ -60,6 +60,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
             f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/edit_index" do
             end
           end
+          #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
       else
         #error
       end

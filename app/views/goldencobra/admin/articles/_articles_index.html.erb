@@ -1,3 +1,3 @@
-<% f.inputs "Index Options" do %>
+<% f.inputs "Index Options", :class => "foldable inputs" do %>
   <% f.input :article_for_index_id, label: "Übersicht von Artikeln im Verzeichnis", :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => "/", id: "article_event_articleindex_id", :hint => "alle Artikel unterhalb dieses Artikels werden aufgelistet, exklusive diesem selbst." %>
 <% end %>
