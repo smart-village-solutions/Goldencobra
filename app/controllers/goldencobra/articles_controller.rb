@@ -269,7 +269,18 @@ module Goldencobra
     end
 
     def get_articles_by_article_type
-      @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
+      if @article.article_for_index_id.blank?
+        #Index aller Artikel anzeigen
+        @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
+      else
+        #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
+        parent_article = Goldencobra::Article.find_by_id(@article.article_for_index_id)
+        if parent_article
+          @list_of_articles = parent_article.descendants.active.articletype("#{@article.article_type_form_file} Show")
+        else
+          @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
+        end
+      end
     end
 
     def set_expires_in

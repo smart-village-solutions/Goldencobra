@@ -1,6 +1,7 @@
 <% f.inputs "Index of Articles" do %>
-	<% f.input :index_of_articles_tagged_with, :hint => "Auf der Uebersichtsseite werden alle Artikel des gleichen Typs mit diesen Tags ausgegeben. Sind keine Tags angegeben, werden alle Artikel des gleichen Typs ausgegeben."%>
+  <% f.input :index_of_articles_tagged_with, :hint => "Auf der Uebersichtsseite werden alle Artikel des gleichen Typs mit diesen Tags ausgegeben. Sind keine Tags angegeben, werden alle Artikel des gleichen Typs ausgegeben."%>
   <% f.input :not_tagged_with, :hint => "Artikel mit diesen Tags NICHT anzeigen!", :label => "Liste von ausschlie&szlig;enden Tags" %>
+  <% f.input :use_frontend_tags, hint: "Soll eine Filterauswahl eingeblendet werden?" %>
   <% sort_options = Goldencobra::Article::SortOptions %>
   <% f.input :sort_order, as: :select, collection: sort_options, include_blank: false %>
   <% f.input :sorter_limit %>
