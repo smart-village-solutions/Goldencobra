@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require goldencobra/jquery.tools.min.js
 //= require goldencobra/moment
+//= require goldencobra/notifications
 
 $(function(){
   moment.weekdaysMin = ["su", "mo", "tu", "we", "th", "fr", "sa"];
