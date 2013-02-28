@@ -74,3 +74,9 @@ $(function(){
   $(".goldencobra_widget.hidden").remove();
   //console.log($(".goldencobra_widget.hidden").length);
 });
+
+$(document).ready(function(){
+  $('#_frontend_tags').live('change', function() {
+    $('#index-filter-search').submit()
+  });
+});

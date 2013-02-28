@@ -4,10 +4,10 @@ end
 
 Goldencobra::Engine.routes.draw do
 
+  match "switch_language/:locale" => "articles#switch_language", :as => :switch_language
   match "frontend_login/:usermodel" => "sessions#login", :as => :frontend_login
   match "frontend_logout/:usermodel" => "sessions#logout", :as => :frontend_logout
   match "frontend_register/:usermodel" => "sessions#register", :as => :frontend_register
-  match "switch_language/:locale" => "articles#switch_language", :as => :switch_language
 
   if RUBY_VERSION.include?("1.9.")
     mount Sidekiq::Web => '/admin/background'
