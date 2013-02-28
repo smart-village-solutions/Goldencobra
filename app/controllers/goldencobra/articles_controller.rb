@@ -40,13 +40,8 @@ module Goldencobra
         after_init()
 
         if generate_index_list?
-          @list_of_articles = get_articles_by_article_type
-          include_related_models()
-          get_articles_with_tags() if @article.index_of_articles_tagged_with.present?
-          get_articles_without_tags() if @article.not_tagged_with.present?
-          get_articles_by_frontend_tags() if params[:frontend_tags].present?
-          @list_of_articles = filter_with_permissions(@list_of_articles)
-          sort_response()
+          current_operator = current_user || current_visitor
+          @list_of_articles = @article.index_articles(current_operator,params[:frontend_tags])
           after_index()
         end
 
@@ -174,6 +169,7 @@ module Goldencobra
     end
     # ------------------ /Redirection -----------------------------------------
 
+
     # ------------------ associated models ------------------------------------
     def can_load_associated_model?
       @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
@@ -183,9 +179,6 @@ module Goldencobra
       Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
     end
 
-    def include_related_models
-      @list_of_articles = @list_of_articles.includes("#{@article.article_type_form_file.downcase}") if @article.respond_to?(@article.article_type_form_file.downcase)
-    end
     # ------------------ /associated models -----------------------------------
 
     # ------------------ choose article to render -----------------------------
@@ -227,61 +220,6 @@ module Goldencobra
     # ------------------ /choose article to render ----------------------------
 
     # ------------------ adjust response --------------------------------------
-    def sort_response
-      if @article.sort_order.present?
-        if @article.sort_order == "Random"
-          @list_of_articles = @list_of_articles.flatten.shuffle
-        elsif @article.sort_order == "Alphabetical"
-          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.title }
-        elsif @article.respond_to?(@article.sort_order)
-          sort_order = @article.sort_order.downcase
-          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
-        elsif @article.sort_order.include?(".")
-          sort_order = @article.sort_order.downcase.split(".")
-          @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(@article.sort_order) }
-          @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(@article.sort_order) }
-          @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{@article.sort_order}") }
-          if @unsortable.count > 0
-            @list_of_articles = @unsortable + @list_of_articles
-            @list_of_articles = @list_of_articles.flatten
-          end
-        end
-        if @article.reverse_sort
-          @list_of_articles = @list_of_articles.reverse
-        end
-      end
-
-      if @article.sorter_limit && @article.sorter_limit > 0
-        @list_of_articles = @list_of_articles[0..@article.sorter_limit-1]
-      end
-    end
-
-    def get_articles_with_tags
-      @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags, any: true)
-    end
-
-    def get_articles_without_tags
-      @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(",").map{|t| t.strip}, :exclude => true, on: :tags)
-    end
-
-    def get_articles_by_frontend_tags
-      @list_of_articles = @list_of_articles.tagged_with(params[:frontend_tags], on: :frontend_tags, any: true)
-    end
-
-    def get_articles_by_article_type
-      if @article.article_for_index_id.blank?
-        #Index aller Artikel anzeigen
-        @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
-      else
-        #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
-        parent_article = Goldencobra::Article.find_by_id(@article.article_for_index_id)
-        if parent_article
-          @list_of_articles = parent_article.descendants.active.articletype("#{@article.article_type_form_file} Show")
-        else
-          @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
-        end
-      end
-    end
 
     def set_expires_in
       if is_cachable?
@@ -319,25 +257,6 @@ module Goldencobra
       end
     end
 
-    # Methode filtert die @list_of_articles.
-    # Rückgabewert: Ein Array all der Artikel, die der operator lesen darf.
-    def filter_with_permissions(list)
-      if current_user && current_user.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
-        return list
-      else
-        operator = current_user || current_visitor
-        a = Ability.new(operator)
-
-        new_list = []
-        list.each do |article|
-          if a.can?(:read, article)
-            new_list << article.id
-          end
-        end
-      end
-
-      return list.where('goldencobra_articles.id in (?)', new_list)
-    end
 
     def is_startpage?
       startpage = params[:startpage]
