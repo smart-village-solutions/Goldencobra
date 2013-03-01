@@ -56,6 +56,7 @@ module Goldencobra
     LiquidParser = {}
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
+    DisplayIndexTypes = [["Einzelseiten", "show"],["Übersichtsseiten", "index"], ["Alle Seiten", "all"]]
     attr_accessor   :hint_label, :manual_article_sort
 
     has_many :metatags
@@ -129,6 +130,17 @@ module Goldencobra
 
     # Instance Methods
     # **************************
+
+    #scope for index articles, display show articles, index articless or both articles of an current type
+    def articletype_for_index
+      if self.display_index_types == "show"
+        articletype("#{self.article_type_form_file} Show")
+      elsif self.display_index_types == "index"
+        articletype("#{self.article_type_form_file} Index")
+      else
+        where("article_type == '#{self.article_type_form_file} Show' OR article_type == '#{self.article_type_form_file} Index'")
+      end
+    end
 
     def render_html(layoutfile="application", localparams={})
       av = ActionView::Base.new(ActionController::Base.view_paths + ["#{::Goldencobra::Engine.root}/app/views/goldencobra/articles/"])
@@ -216,14 +228,14 @@ module Goldencobra
     def index_articles(current_operator=nil, user_frontend_tags=nil)
       if self.article_for_index_id.blank?
         #Index aller Artikel anzeigen
-        @list_of_articles = Goldencobra::Article.active.articletype("#{self.article_type_form_file} Show")
+        @list_of_articles = Goldencobra::Article.active.articletype_for_index
       else
         #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
         parent_article = Goldencobra::Article.find_by_id(self.article_for_index_id)
         if parent_article
-          @list_of_articles = parent_article.descendants.active.articletype("#{self.article_type_form_file} Show")
+          @list_of_articles = parent_article.descendants.active.articletype_for_index
         else
-          @list_of_articles = Goldencobra::Article.active.articletype("#{self.article_type_form_file} Show")
+          @list_of_articles = Goldencobra::Article.active.articletype_for_index
         end
       end
       #include related models
