@@ -132,13 +132,13 @@ module Goldencobra
     # **************************
 
     #scope for index articles, display show articles, index articless or both articles of an current type
-    def articletype_for_index
-      if self.display_index_types == "show"
-        articletype("#{self.article_type_form_file} Show")
-      elsif self.display_index_types == "index"
-        articletype("#{self.article_type_form_file} Index")
+    def self.articletype_for_index(current_article)
+      if current_article.display_index_types == "show"
+        articletype("#{current_article.article_type_form_file} Show")
+      elsif current_article.display_index_types == "index"
+        articletype("#{current_article.article_type_form_file} Index")
       else
-        where("article_type == '#{self.article_type_form_file} Show' OR article_type == '#{self.article_type_form_file} Index'")
+        where("article_type == '#{current_article.article_type_form_file} Show' OR article_type == '#{current_article.article_type_form_file} Index'")
       end
     end
 
@@ -228,14 +228,14 @@ module Goldencobra
     def index_articles(current_operator=nil, user_frontend_tags=nil)
       if self.article_for_index_id.blank?
         #Index aller Artikel anzeigen
-        @list_of_articles = Goldencobra::Article.active.articletype_for_index
+        @list_of_articles = Goldencobra::Article.active.articletype_for_index(self)
       else
         #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
         parent_article = Goldencobra::Article.find_by_id(self.article_for_index_id)
         if parent_article
-          @list_of_articles = parent_article.descendants.active.articletype_for_index
+          @list_of_articles = parent_article.descendants.active.articletype_for_index(self)
         else
-          @list_of_articles = Goldencobra::Article.active.articletype_for_index
+          @list_of_articles = Goldencobra::Article.active.articletype_for_index(self)
         end
       end
       #include related models
