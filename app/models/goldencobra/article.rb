@@ -138,7 +138,7 @@ module Goldencobra
       elsif current_article.display_index_types == "index"
         articletype("#{current_article.article_type_form_file} Index")
       else
-        where("article_type == '#{current_article.article_type_form_file} Show' OR article_type == '#{current_article.article_type_form_file} Index'")
+        where("article_type = '#{current_article.article_type_form_file} Show' OR article_type = '#{current_article.article_type_form_file} Index'")
       end
     end
 
