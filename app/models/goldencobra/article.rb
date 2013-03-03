@@ -170,12 +170,12 @@ module Goldencobra
     #@article.image_standard @article.image_logo @article.image_logo_medium
     def self.init_image_methods
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
-        Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").each do |image_type|
-          define_method "image_#{image_type.strip.underscore}" do
+        Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").map(&:strip).each do |image_type|
+          define_method "image_#{image_type.underscore}" do
             self.image(image_type,"original")
           end
           Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |style_name|
-            define_method "image_#{image_type.strip.underscore}_#{style_name.to_s}" do
+            define_method "image_#{image_type.underscore}_#{style_name.to_s}" do
               self.image(image_type,style_name)
             end
           end
