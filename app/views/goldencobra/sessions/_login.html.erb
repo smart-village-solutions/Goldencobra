@@ -1,9 +1,9 @@
 <div class="login_form">
   <% if eval("current_#{usermodel.to_s.downcase}.present?") %>
     Angemeldet als <%= eval("current_#{usermodel.to_s.downcase}.email") %>
-    <%= link_to "abmelden", frontend_logout_path(usermodel), :class => "logout", :remote => true %>
+    <%= link_to "abmelden", "/frontend_logout/#{usermodel}", :class => "logout", :remote => true %>
   <% else %>
-    <%= form_for(usermodel.new, :as => "loginmodel", :url => frontend_login_path(usermodel), :remote => true) do |f| %>
+    <%= form_for(usermodel.new, :as => "loginmodel", :url => "/frontend_login/#{usermodel}", :remote => true) do |f| %>
       <p class="errors"></p>
       <div class="clearfix">
         <%= f.label :email, 'E-Mail Adresse' %>
