@@ -174,6 +174,9 @@ module Goldencobra
           define_method "image_#{image_type.underscore}" do
             self.image(image_type,"original")
           end
+          define_method "image_alt_#{image_type.underscore}" do
+            self.article_images.where(position: image_type).first.image.alt_text || self.article_images.where(position: image_type).first.image.image_file_name
+          end
           Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |style_name|
             define_method "image_#{image_type.underscore}_#{style_name.to_s}" do
               self.image(image_type,style_name)
