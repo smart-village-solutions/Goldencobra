@@ -245,6 +245,8 @@ module Goldencobra
       if I18n.available_locales.include?(locale_article.to_sym)
         I18n.locale = locale_article
         session[:locale] = I18n.locale
+      else
+        I18n.locale = session[:locale]
       end
     end
 
