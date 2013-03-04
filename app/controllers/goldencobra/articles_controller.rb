@@ -21,7 +21,7 @@ module Goldencobra
       art_cache = @article ? @article.cache_key : "no_art"
       user_cache = current_user.present? ? current_user.id : "no_user"
 
-      "g/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
+      "g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
     end
 
 
