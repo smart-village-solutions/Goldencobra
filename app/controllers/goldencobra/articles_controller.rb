@@ -129,6 +129,7 @@ module Goldencobra
         @article = Goldencobra::Article.active.startpage.first
       else
         begin
+          set_locale_by_url
           article_by_role
           set_format
         rescue
@@ -238,6 +239,14 @@ module Goldencobra
       end
     end
     # ------------------ /adjust response -------------------------------------
+
+    def set_locale_by_url
+      locale_article = params[:article_id].split("/").first
+      if I18n.available_locales.include?(locale_article.to_sym)
+        I18n.locale = locale_article
+      end
+    end
+
 
     def article_by_role
       # Admin should get preview of article even if it's offline
