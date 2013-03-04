@@ -261,6 +261,8 @@ module Goldencobra
           @list_of_articles = @list_of_articles.flatten.shuffle
         elsif self.sort_order == "Alphabetical"
           @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.title }
+        elsif self.sort_order == "Created_at"
+          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.created_at.to_i }
         elsif self.respond_to?(self.sort_order)
           sort_order = self.sort_order.downcase
           @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
