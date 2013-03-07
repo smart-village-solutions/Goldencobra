@@ -67,6 +67,12 @@ module Goldencobra
     private
 
     def navigation_menu_helper(child, depth, current_depth, options)
+      if params[:frontend_tags] && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
+        ability = Ability.new()
+      else
+        operator = current_user || current_visitor
+        ability = Ability.new(operator)
+      end
       child_link = content_tag(:a, child.title, :href => child.target.gsub("\"",''))
       image_link = child.image.present? ? image_tag(child.image.image(:original)) : ""
       child_link = child_link + content_tag(:a, image_link, :href => child.target.gsub("\"",''), :class => "navigtion_link_imgage_wrapper") unless options[:show_image] == false
@@ -78,7 +84,9 @@ module Goldencobra
       if child.children && (depth == 0 || current_depth <= depth)
         content_level = ""
         child.children.active.each do |subchild|
+          if ability.can?(:read, subchild)
             content_level << navigation_menu_helper(subchild, depth, current_depth, options)
+          end
         end
         if content_level.present?
           child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{child.children.active.visible.count}" )
