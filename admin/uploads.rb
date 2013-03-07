@@ -85,6 +85,15 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       row "medium" do
         upload.image(:medium)
       end
+      row "px250" do
+        upload.image(:px250)
+      end
+      row "px200" do
+        upload.image(:px200)
+      end
+      row "px100" do
+        upload.image(:px100)
+      end
       row "thumb" do
         upload.image(:thumb)
       end
@@ -109,6 +118,9 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       li "large => 900x900>"
       li "big => 600x600>"
       li "medium => 300x300>"
+      li "px250 => 250x250>"
+      li "px200 => 200x200>"
+      li "px150 => 150x150>"
       li "thumb => 100x100>"
       li "mini => 50x50>"
     end
