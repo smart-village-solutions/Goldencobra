@@ -19,6 +19,9 @@ module Goldencobra
     PossibleSubjectClasses = [":all"] + ActiveRecord::Base.descendants.map(&:name)
     PossibleActions = ["read", "not_read", "manage", "not_manage", "update", "not_update", "destroy", "not_destroy"]
 
+    validates_presence_of :action
+    validates_presence_of :subject_class
+
     default_scope order("sorter_id ASC, id")
     scope :by_role, lambda{|rid| where(:role_id => rid)}
     before_create :set_min_sorter_id
@@ -28,7 +31,7 @@ module Goldencobra
     end
 
     def set_min_sorter_id
-      self.sorter_id = self.id if self.sorter_id.blank?
+      self.sorter_id = Permission.order(:created_at).last.id + 1 if self.sorter_id.blank? || self.sorter_id == 0
     end
 
   end
