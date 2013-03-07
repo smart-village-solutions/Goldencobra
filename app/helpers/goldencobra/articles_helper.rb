@@ -62,8 +62,13 @@ module Goldencobra
       default = options[:default] || "false"
       widget_wrapper = options[:wrapper] || "section"
       result = ""
-      operator = current_user || current_visitor
-      ability = Ability.new(operator)
+      if params[:frontend_tags] && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
+        #Wenn format email, dann gibt es keinen realen webseit besucher
+        ability = Ability.new()
+      else
+        operator = current_user || current_visitor
+        ability = Ability.new(operator)
+      end
       if @article
         widgets = @article.widgets.active
         if tags.present? && default == "false"
