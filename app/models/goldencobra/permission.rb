@@ -16,15 +16,19 @@ module Goldencobra
   class Permission < ActiveRecord::Base
     attr_accessible :role_id, :action, :subject_class, :subject_id, :sorter_id
     belongs_to :role
-    PossibleSubjectClasses = [":all"] + ActiveRecord::Base.descendants.map(&:name) + ["Test"]
+    PossibleSubjectClasses = [":all"] + ActiveRecord::Base.descendants.map(&:name)
     PossibleActions = ["read", "not_read", "manage", "not_manage", "update", "not_update", "destroy", "not_destroy"]
 
     default_scope order("sorter_id ASC, id")
     scope :by_role, lambda{|rid| where(:role_id => rid)}
-
+    before_create :set_min_sorter_id
 
     def self.restricted?(item)
       where(:subject_class => item.class, :subject_id => item.id).count > 0
+    end
+
+    def set_min_sorter_id
+      self.sorter_id = self.id if self.sorter_id.blank?
     end
 
   end
