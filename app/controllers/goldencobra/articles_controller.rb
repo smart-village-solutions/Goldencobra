@@ -64,7 +64,7 @@ module Goldencobra
         redirect_dynamically()
       else
         if @unauthorized
-          render :text => "Nicht authorisiert", :status => 401
+          redirect_to_401()
         else
           redirect_to_404()
         end
@@ -166,6 +166,18 @@ module Goldencobra
         end
       else
         render :text => "404", :status => 404
+      end
+    end
+
+    def redirect_to_401
+      ActiveSupport::Notifications.instrument("goldencobra.article.not_authorized", :params => params)
+      @article = Goldencobra::Article.find_by_url_name("401")
+      if @article
+        respond_to do |format|
+          format.html { render :layout => @article.selected_layout, :status => 401 }
+        end
+      else
+        render :text => "401: Nicht authorisiert", :status => 401
       end
     end
     # ------------------ /Redirection -----------------------------------------
