@@ -76,6 +76,10 @@ module Goldencobra
       self.offline_days.split(",").map{|tag| tag.strip} if self.offline_days.present?
     end
 
+    def self.recent(count)
+      Goldencobra::Widget.where('title IS NOT NULL').order('created_at DESC').limit(count)
+    end
+
     # def offline_time_start_display
     #   if self.offline_time_start.present?
     #     self.offline_time_start.strftime("%H%M")

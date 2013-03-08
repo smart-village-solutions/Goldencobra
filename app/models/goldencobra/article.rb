@@ -540,7 +540,7 @@ module Goldencobra
     end
 
     def self.recent(count)
-      Goldencobra::Article.where('title IS NOT NULL').order('updated_at DESC').limit(count)
+      Goldencobra::Article.where('title IS NOT NULL').order('created_at DESC').limit(count)
     end
 
     def self.recreate_cache
