@@ -190,12 +190,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => resource }
   end
 
-  # Wird derzeit nicht benötigt, da es den Artikeltyp Default Index gibt,
-  # der über Tags den Index gewünschter Artikel erstellt
-  #sidebar :index_of_articles, only: [:edit] do
-    #render "/goldencobra/admin/articles/index_of_articles_sidebar"
-  #end
-
 
   sidebar :image_module, :only => [:edit] do
     render "/goldencobra/admin/articles/image_module_sidebar"
