@@ -125,11 +125,12 @@ module Goldencobra
     end
 
     def get_article
-      set_locale_by_url
       if is_startpage?
+        I18n.locale = :de
         @article = Goldencobra::Article.active.startpage.first
       else
         begin
+          set_locale_by_url
           article_by_role
           set_format
         rescue
