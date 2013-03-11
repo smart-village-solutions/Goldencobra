@@ -58,6 +58,7 @@ module Goldencobra
     end
 
     def render_article_widgets(options={})
+      @timecontrol = Goldencobra::Setting.for_key("goldencobra.widgets.time_control") == "true"
       custom_css = options[:class] || ""
       tags = options[:tagged_with] || ""
       default = options[:default] || "false"
@@ -95,9 +96,11 @@ module Goldencobra
                                 }
             html_data_options = html_data_options.merge(widget.offline_time_week)
             result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
-            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
+            if @timecontrol
+              result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
                           class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget",
                           id: widget.id_name, 'data-id' => widget.id)
+            end
           end
         end
       end
