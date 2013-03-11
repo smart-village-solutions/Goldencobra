@@ -8,8 +8,8 @@
   <%= link_to "#{@operator.email} abmelden", "/admin/logout" %>
   <a href='/admin/articles/<%= @article.id %>/edit' target="_blank" >Artikel im Backend bearbeiten</a>
   <% if @article.active? %>
-    <%= link_to "Seite offline stellen", "manage/article_visibility/#{@article.id}", :remote => true %>
+    <%= link_to "Seite offline stellen", "manage/article_visibility/#{@article.id}", :remote => true, :confirm => "Seite offline schalten?" %>
   <% else %>
-    <%= link_to "Seite online stellen", "manage/article_visibility/#{@article.id}", :remote => true %>
+    <%= link_to "Seite online stellen", "manage/article_visibility/#{@article.id}", :remote => true, :confirm => "Seite online schalten?" %>
   <% end %>
 </div>
