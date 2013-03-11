@@ -37,7 +37,7 @@
   position:static;
   width:100%;
   z-index: 99999;
-  color:white;
+  color:#cdcdcd;
   font-size: 11px;
   box-shadow: 2px 2px 5px #636e2a;
   height:20px;
@@ -55,19 +55,20 @@
 
 #admin_article_manager .right a {
   float:right;
-  border-right: 1px solid white;
+  border-right: 1px solid #cdcdcd;
   margin-top:5px;
 }
 
 #admin_article_manager a {
-  color: white;
+  color: #cdcdcd;
   text-decoration: none;
   padding-right:3px;
   padding-left:3px;
 }
 
 #admin_article_manager a:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  color:white;
 }
 
 body{
