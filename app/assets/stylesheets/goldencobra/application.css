@@ -31,9 +31,6 @@
 #admin_article_manager{
   padding: 3px;
   background-color: #636e2a;
-  -webkit-border-radius: 0 0 4px 4px;
-  -moz-border-radius: 0 0 4px 4px;
-  border-radius: 0 0 4px 4px;
   border-bottom: 1px solid black;
   position:static;
   width:100%;
@@ -41,13 +38,28 @@
   color:white;
   font-size: 11px;
   box-shadow: 2px 2px 5px #636e2a;
+  height:20px;
+  padding-top:3px;
+}
+
+#admin_article_manager .left a {
+  float:left;
+}
+
+#admin_article_manager .center a {
+  float:left;
+  margin-top:5px;
+}
+
+#admin_article_manager .right a {
+  float:right;
+  border-right: 1px solid white;
+  margin-top:5px;
 }
 
 #admin_article_manager a {
-  float:right;
   color: white;
   text-decoration: none;
-  border-right: 1px solid white;
   padding-right:3px;
   padding-left:3px;
 }
