@@ -11,7 +11,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs "Allgemein" do
-      f.input :title
+      f.input :title, :input_html => {:disabled => "disabled"}
       f.input :value
       f.input :data_type, :as => :select, :collection => Goldencobra::Setting::SettingsDataTypes, :include_blank => false
       f.input :parent_id, :as => :select, :collection => Goldencobra::Setting.all.map{|c| [c.title, c.id]}, :include_blank => true
