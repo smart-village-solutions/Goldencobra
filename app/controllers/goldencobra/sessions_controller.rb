@@ -32,9 +32,11 @@ module Goldencobra
       render :js => "location.reload();"
     end
 
+
     def register
 
     end
+
 
   end
 end

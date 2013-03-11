@@ -1,0 +1,3 @@
+<% if @article_saved %>
+  $('#admin_article_manager_content').html("<%= escape_javascript(render :partial => '/goldencobra/manage/admin_article_management_content') %>");
+<% end %>

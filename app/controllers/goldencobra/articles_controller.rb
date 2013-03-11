@@ -59,7 +59,7 @@ module Goldencobra
           end
         end
       elsif should_statically_redirect?
-          redirect_to @article.external_url_redirect
+        redirect_to @article.external_url_redirect
       elsif should_dynamically_redirect?
         redirect_dynamically()
       else
