@@ -1,0 +1,4 @@
+<% if @article %>
+  $('body').prepend("<%= escape_javascript(render :partial => '/goldencobra/manage/admin_article_management') %>");
+  $('#admin_article_manager').slideDown("fast");
+<% end %>

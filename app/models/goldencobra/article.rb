@@ -525,6 +525,10 @@ module Goldencobra
       Goldencobra::Article.where("active = 1 AND active_since < '#{Time.now.utc}'")
     end
 
+    def active?
+      self.active && self.active_since < Time.now.utc
+    end
+
     def self.search_by_url(url)
       article = nil
       articles = Goldencobra::Article.where(:url_name => url.split("/").last.to_s.split(".").first)

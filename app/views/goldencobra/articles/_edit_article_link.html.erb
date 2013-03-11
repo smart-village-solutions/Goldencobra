@@ -1,7 +1,7 @@
 <% if @article %>
   <script type="text/javascript">
     $(document).ready(function(){
-      $('body').append("<div id='edit_article_link'><a href='/admin/articles/<%= @article.friendly_id %>/edit'>Artikel editieren</a></div>");
+      $.ajax("/manage/render_admin_menue?id=<%= @article.id %>");
     });
   </script>
 <% end %>
