@@ -1,8 +1,15 @@
-Admin <%= Goldencobra::Setting.for_key('goldencobra.page.default_title_tag') %>
-<%= link_to "#{@operator.email} abmelden", "/admin/logout" %>
-<a href='/admin/articles/<%= @article.id %>/edit' target="_blank" >Artikel im Backend bearbeiten</a>
-<% if @article.active? %>
-  <%= link_to "Seite offline stellen", "manage/article_visibility/#{@article.id}", :remote => true %>
-<% else %>
-  <%= link_to "Seite online stellen", "manage/article_visibility/#{@article.id}", :remote => true %>
-<% end %>
+<div class="left">
+  <%= link_to image_tag("goldencobra/cobra_small.png"), "/admin" %>
+</div>
+<div class="center">
+  <%= link_to Goldencobra::Setting.for_key('goldencobra.page.default_title_tag'), "/admin" %>
+</div>
+<div class="right">
+  <%= link_to "#{@operator.email} abmelden", "/admin/logout" %>
+  <a href='/admin/articles/<%= @article.id %>/edit' target="_blank" >Artikel im Backend bearbeiten</a>
+  <% if @article.active? %>
+    <%= link_to "Seite offline stellen", "manage/article_visibility/#{@article.id}", :remote => true %>
+  <% else %>
+    <%= link_to "Seite online stellen", "manage/article_visibility/#{@article.id}", :remote => true %>
+  <% end %>
+</div>
