@@ -50,6 +50,8 @@ class Visitor < ActiveRecord::Base
   before_save :ensure_authentication_token
   after_create :send_confirmation_mail
 
+  alias_attribute :firstname, :first_name
+  alias_attribute :lastname, :last_name
 
   scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
 

@@ -1,6 +1,6 @@
 <div class="login_form">
   <% if eval("current_#{usermodel.to_s.downcase}.present?") %>
-    Angemeldet als <%= eval("current_#{usermodel.to_s.downcase}.email") %>
+    Angemeldet als <%= eval("current_#{usermodel.to_s.downcase}.firstname") <%= eval("current_#{usermodel.to_s.downcase}.lastname") %>
     <%= link_to "abmelden", "/frontend_logout/#{usermodel}", :class => "logout", :remote => true %>
   <% else %>
     <%= form_for(usermodel.new, :as => "loginmodel", :url => "/frontend_login/#{usermodel}", :remote => true) do |f| %>
