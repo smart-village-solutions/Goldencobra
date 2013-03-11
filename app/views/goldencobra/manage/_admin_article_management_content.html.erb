@@ -1,8 +1,8 @@
 <div class="left">
-  <%= link_to image_tag("goldencobra/cobra_small.png"), "/admin" %>
+  <%= link_to image_tag("goldencobra/cobra_small.png"), "/admin", :target => "_blank" %>
 </div>
 <div class="center">
-  <%= link_to Goldencobra::Setting.for_key('goldencobra.page.default_title_tag'), "/admin" %>
+  <%= link_to Goldencobra::Setting.for_key('goldencobra.page.default_title_tag'), "/admin", :target => "_blank" %>
 </div>
 <div class="right">
   <%= link_to "#{@operator.email} abmelden", "/admin/logout" %>
