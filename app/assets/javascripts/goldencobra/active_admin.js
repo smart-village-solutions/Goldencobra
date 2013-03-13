@@ -1,7 +1,6 @@
 //= require active_admin/base
 //= require goldencobra/keymaster
 //= require goldencobra/notifications
-//= require active_admmin.js
 
 $(function() {
 	$('textarea.tinymce').tinymce({
