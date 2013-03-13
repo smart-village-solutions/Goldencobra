@@ -48,9 +48,9 @@ ActiveAdmin.register Visitor do
 
   action_item :only => :edit do
     if resource.locked_at?
-      result = link_to('Account sperren', switch_lock_status_admin_visitor_path(resource.id))
-    else
       result = link_to('Account entsperren', switch_lock_status_admin_visitor_path(resource.id))
+    else
+      result = link_to('Account sperren', switch_lock_status_admin_visitor_path(resource.id))
     end
     raw(result)
   end
