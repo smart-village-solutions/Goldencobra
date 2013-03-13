@@ -58,11 +58,11 @@ ActiveAdmin.register Visitor do
   member_action :switch_lock_status do
     visitor = Visitor.find(params[:id])
     if visitor.locked_at?
-      visitor.locked_at = Time.now
-      status = "gesperrt"
-    else
       visitor.locked_at = nil
       status = "entsperrt"
+    else
+      visitor.locked_at = Time.now
+      status = "gesperrt"
     end
     visitor.save
     flash[:notice] = "Dieser Account wurde #{status}"
