@@ -1,5 +1,5 @@
 <div class="register_form">
-  <%= form_for(Visitor.new, :as => "visitor", :url => frontend_register_path(usermodel), :html => {:id => "new_registration_visitor"}) do |f| %>
+  <%= form_for(Visitor.new, :as => "visitor", :url => "/frontend_register/#{usermodel}", :html => {:id => "new_registration_visitor"}) do |f| %>
     <p class="errors"></p>
     <div class="clearfix">
       <%= f.label :email, 'E-Mail Adresse *' %>
