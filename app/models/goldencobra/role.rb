@@ -11,6 +11,9 @@
 
 module Goldencobra
   class Role < ActiveRecord::Base
+
+      validates_presence_of :name
+
       has_many :role_users
       has_many :permissions
   end
