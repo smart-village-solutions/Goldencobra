@@ -32,8 +32,8 @@ module Goldencobra
 
     def set_min_sorter_id
       last_permission = Permission.order(:created_at).last
-      if last_permission && ( self.sorter_id.blank? || self.sorter_id == 0 )
-        self.sorter_id = last_permission.id + 1 if
+      if last_permission.present? && ( self.sorter_id.blank? || self.sorter_id == 0 )
+        self.sorter_id = last_permission.id + 1
       else
         self.sorter_id = 0
       end
