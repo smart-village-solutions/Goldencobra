@@ -18,7 +18,11 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |email, passw
   fill_in "user[email]", :with => email
   fill_in "user[password]", :with => password
   click_button "Login"
-  page.should have_content('Signed in successfully.')
+  if I18n.locale == :de
+    page.should have_content('Erfolgreich angemeldet')
+  else
+    page.should have_content('Signed in successfully.')
+  end
 end
 
 Given /^that "([^"]*)" users exist$/ do |arg1|
