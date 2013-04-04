@@ -5,6 +5,7 @@ module Goldencobra
     before_filter :get_article, :only => [:show, :convert_to_pdf]
     before_filter :verify_token, :only => [:show]
     before_filter :geocode_ip_address, only: [:show]
+    after_filter :analytics, :only => [:show]
 
     if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true"
       caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
@@ -330,5 +331,13 @@ module Goldencobra
         return false
       end
     end
+
+    def analytics
+      if Goldencobra::Setting.for_key("goldencobra.analytics.active") == "true"
+        Goldencobra::Tracking.create(:language => request.env["HTTP_ACCEPT_LANGUAGE"], :user_agent => request.env["HTTP_USER_AGENT"], :session_id => request.session_options[:id], :referer => request.referer, :url => request.url, :ip => request.env['REMOTE_ADDR'] )
+      end
+    end
+
+
   end
 end
