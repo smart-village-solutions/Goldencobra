@@ -1,4 +1,7 @@
 goldencobra:
+    analytics:
+        active: "false"
+        timespan_in_days: "360"
     bugherd:
         user: "current_user"
         role: "admin"
