@@ -1,10 +1,5 @@
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
-    #require ::Rails.root + "app" + "controllers" + "application_controller"
-    #load_and_authorize_resource :class => "Goldencobra::Article"
-    #load_and_authorize_resource
-    #authorize_resource
-
     layout "application"
     before_filter :check_format
     before_filter :get_article, :only => [:show, :convert_to_pdf]
