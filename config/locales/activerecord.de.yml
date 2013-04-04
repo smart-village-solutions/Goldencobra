@@ -1,6 +1,9 @@
 de:
     activerecord:
         models:
+            analytic:
+                one: "Analytic"
+                other: "Analytics"
             article_comment:
                 one: "Kommentar"
                 other: "Kommentare"
