@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  request: MyText
+  session_id: MyString
+  referer: MyString
+  url: MyString
+  ip: MyString
+
+two:
+  request: MyText
+  session_id: MyString
+  referer: MyString
+  url: MyString
+  ip: MyString

@@ -2,6 +2,7 @@ module Goldencobra
   class ApplicationController < ::ApplicationController
 
     before_filter :set_locale
+    #after_filter :analytics
 
     def set_locale
       unless Rails.env == "test"
@@ -53,5 +54,16 @@ module Goldencobra
         super
       end
     end
+
+    # def analytics
+    #   if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+    #     if Goldencobra::Setting.for_key("goldencobra.analytics.active") == "true"
+    #       if request.present? && session.present?
+    #         Goldencobra::Tracking.create(:request => request, :session_id => session[:session_id], :referer => request.referer, :url => request.url, :ip => request.env['REMOTE_ADDR'] )
+    #       end
+    #     end
+    #   end
+    # end
+
   end
 end
