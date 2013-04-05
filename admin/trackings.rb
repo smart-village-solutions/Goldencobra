@@ -8,6 +8,7 @@ ActiveAdmin.register Goldencobra::Tracking, :as => "Analytic" do
   filter :url
   filter :language
   filter :user_agent
+  filter :url_paremeters
   filter :created_at
 
   index do
@@ -16,7 +17,11 @@ ActiveAdmin.register Goldencobra::Tracking, :as => "Analytic" do
     column :referer
     column :url
     column :language
+    column :created_at
     default_actions
   end
 
 end
+
+
+#http://www.test.de/?utm_source=quelle&utm_medium=medium&utm_term=begriff&utm_content=content&utm_campaign=name
