@@ -333,7 +333,7 @@ module Goldencobra
     end
 
     def analytics
-      Goldencobra::Tracking.analytics(request)
+      Goldencobra::Tracking.analytics(request, session[:user_location])
     end
 
 
