@@ -37,7 +37,7 @@ module Goldencobra
         master_menue = Goldencobra::Menue.active.find_by_id(menue_id)
       end
       #Check for Permission
-      if params[:frontend_tags] && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
+      if params[:frontend_tags] && params[:frontend_tags].class == Array && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
         #Wenn format email, dann gibt es keinen realen webseit besucher
         ability = Ability.new()
       else
