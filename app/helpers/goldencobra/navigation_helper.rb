@@ -67,7 +67,7 @@ module Goldencobra
     private
 
     def navigation_menu_helper(child, depth, current_depth, options)
-      if params[:frontend_tags] && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
+      if params[:frontend_tags] && params[:frontend_tags].class == Array && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
         ability = Ability.new()
       else
         operator = current_user || current_visitor
