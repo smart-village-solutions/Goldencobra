@@ -33,8 +33,8 @@ module Goldencobra
 
     def initialize_article(current_article)
       Goldencobra::Article::LiquidParser["current_article"] = current_article
-      set_meta_tags :site => "#{s('goldencobra.page.default_title_tag')}",
-                    :title => "#{current_article.metatag("Title Tag").present? ? current_article.metatag("Title Tag") : current_article.title}",
+      set_meta_tags :site => s('goldencobra.page.default_title_tag'),
+                    :title => current_article.metatag("Title Tag").present? ? current_article.metatag("Title Tag") : current_article.title,
                     :reverse => true,
                     :description => current_article.metatag("Meta Description"),
                     :keywords => current_article.metatag("Keywords"),
