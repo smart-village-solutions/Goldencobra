@@ -522,7 +522,7 @@ module Goldencobra
     #**************************
 
     def self.active
-      Goldencobra::Article.where("active = 1 AND active_since < '#{Time.now.utc}'")
+      Goldencobra::Article.where("active = 1 AND active_since < '#{Time.now.strftime('%Y-%m-%d %H:%M:%S ')}'")
     end
 
     def active?
