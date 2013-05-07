@@ -1,4 +1,6 @@
 goldencobra:
+    translations:
+        use_db_store: "false"
     analytics:
         active: "false"
         timespan_in_days: "360"
