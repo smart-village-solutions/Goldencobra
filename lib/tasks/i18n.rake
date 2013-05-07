@@ -32,7 +32,17 @@ namespace :i18n do
       [:de, :en].each do |locale|
         I18n.locale = locale
         t = Translation.find_by_key_and_locale(key,locale.to_s)
-        unless t
+        if t
+          if t.value.blank?
+            begin
+              a = I18n.translate(key, :raise => true)
+              t.value = a
+              t.save
+            rescue I18n::MissingTranslationData
+              #noop
+            end
+          end
+        else
           begin
             I18n.translate(key, :raise => true)
             Translation.create(:key => key, :value => I18n.translate(key), :locale => locale )
@@ -40,17 +50,6 @@ namespace :i18n do
             Translation.create(:key => key, :locale => locale )
           end
         end
-        # begin
-        #   result = I18n.translate(key, :raise => true)
-        # rescue I18n::MissingInterpolationArgument
-        #   # noop
-        # rescue I18n::MissingTranslationData
-        #   if missing_keys[key]
-        #     missing_keys[key] << locale
-        #   else
-        #     missing_keys[key] = [locale]
-        #   end
-        # end
       end
     end
     puts "#{missing_keys.size} #{missing_keys.size == 1 ? 'key is missing' : 'keys are missing'} from one or more locales:"
