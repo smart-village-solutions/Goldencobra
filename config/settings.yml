@@ -19,6 +19,7 @@ goldencobra:
     use_solr: "false"
     page:
         default_title_tag: "Goldencobra"
+        default_meta_description_tag: "Goldencobra Default MetaDescription: You found me in Goldencobra Settings"
     article:
         preview:
             roles: "Admin"

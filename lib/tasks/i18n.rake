@@ -1,5 +1,5 @@
 namespace :i18n do
-  desc "Find and list translation keys that do not exist in all locales"
+  desc "Find and create db translation"
   task :missing_keys => :environment do
 
     def collect_keys(scope, translations)
