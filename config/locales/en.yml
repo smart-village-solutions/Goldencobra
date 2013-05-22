@@ -2,8 +2,8 @@ en:
   login:
     messages:
       errors:
-        no_user_found_with_this_email: "No user found"
-        wrong_username_or_password: "Wrong username or password"
+        no-user-found-with-this-email: "No user found"
+        wrong-username-or-password: "Wrong username or password"
       success_redirect: "Login success. Redirecting ..."
   active_admin:
     resource:
