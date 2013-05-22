@@ -1,10 +1,10 @@
 <% if @errors.any? %>
   $(".login_form form p.errors").html("");
   <% @errors.each do |error| %>
-    $(".login_form form p.errors").append("<%= error %>")
+    $(".login_form form p.errors").append("<%= t('login.messages.errors.' + error.parameterize) %>")
   <% end %>
 <% else %>
-  $(".login_form form p.errors").html("Anmeldung Erfolgreich. Umleitung");
+  $(".login_form form p.errors").html("<%= t('login.messages.success_redirect') %>");
 <% end %>
 
 <% if @redirect_to.present? %>
