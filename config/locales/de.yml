@@ -3,7 +3,7 @@ de:
     messages:
       errors:
         no-user-found-with-this-email: "Unbekannter Nutzer"
-        wrong-username-or-password: "Benutzername oder Password falsch"
+        wrong-username-or-password: "Benutzername oder Passwort falsch"
       success_redirect: "Anmeldung erfolgreich. Umleitung ..."
   views:
     pagination:
