@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: goldencobra.goldencobra_roles_users
+# Table name: goldencobra_roles_users
 #
 #  operator_id   :integer
 #  role_id       :integer
