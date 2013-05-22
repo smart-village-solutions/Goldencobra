@@ -1,4 +1,10 @@
 en:
+  login:
+    messages:
+      errors:
+        no_user_found_with_this_email: "No user found"
+        wrong_username_or_password: "Wrong username or password"
+      success_redirect: "Login success. Redirecting ..."
   active_admin:
     resource:
       upload: "Upload"
@@ -18,7 +24,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mar
@@ -44,7 +50,7 @@ en:
       long: ! '%B %d, %Y'
       short: ! '%b %d'
     month_names:
-    - 
+    -
     - January
     - February
     - March
