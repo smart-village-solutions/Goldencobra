@@ -16,6 +16,8 @@ module Goldencobra
           sign_in @usermodel
           @redirect_to = @usermodel.roles.try(:first).try(:redirect_after_login)
         else
+          @usermodel.failed_attempts = @usermodel.failed_attempts.to_i + 1
+          @usermodel.save
           @errors << "Wrong username or password"
         end
       else

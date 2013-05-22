@@ -47,7 +47,9 @@ $(function(){
         if (!isDataDateStart && !isDataDateEnd) {
           // Widget muss ausgeblendet werden
           $(element).addClass("hidden");
-          $(element).next("[data-id=" + $(element).attr("data-id") + "]").removeClass("hidden");
+          offlineElement = $(element).next("[data-id=" + $(element).attr("data-id") + "]");
+          offlineElement.attr('id',$(element).attr('id'));
+          offlineElement.removeClass("hidden");
         }
         /* Wenn Start- und Enddatum gesetzt sind,
            muss geprüft werden, ob der aktuelle Tag
@@ -63,16 +65,15 @@ $(function(){
           if (isCurrentDate) {
             // Widget muss ausgeblendet werden
             $(element).addClass("hidden");
-            $(element).next("[data-id=" + $(element).attr("data-id") + "]").removeClass("hidden");
+            offlineElement = $(element).next("[data-id=" + $(element).attr("data-id") + "]");
+            offlineElement.attr('id',$(element).attr('id'));
+            offlineElement.removeClass("hidden");
           }
         }
       }
     }
   });
-
-  //console.log($(".goldencobra_widget.hidden").length);
   $(".goldencobra_widget.hidden").remove();
-  //console.log($(".goldencobra_widget.hidden").length);
 });
 
 $(document).ready(function(){

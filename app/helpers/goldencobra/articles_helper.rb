@@ -98,8 +98,7 @@ module Goldencobra
             result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
             if @timecontrol
               result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
-                          class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget",
-                          id: widget.id_name, 'data-id' => widget.id)
+                          class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget", 'data-id' => widget.id)
             end
           end
         end

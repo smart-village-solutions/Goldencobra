@@ -30,6 +30,8 @@
 #  locked_at              :datetime
 #  authentication_token   :string(255)
 #  username               :string(255)
+#  loginable_type         :string(255)
+#  loginable_id           :integer
 #
 
 class Visitor < ActiveRecord::Base
