@@ -1,4 +1,10 @@
 de:
+  login:
+    messages:
+      errors:
+        no_user_found_with_this_email: "Unbekannter Nutzer"
+        wrong_username_or_password: "Benutzername oder Password falsch"
+      success_redirect: "Anmeldung erfolgreich. Umleitung ..."
   views:
     pagination:
       last: "Letzte"
