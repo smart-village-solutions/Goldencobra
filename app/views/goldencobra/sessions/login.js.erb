@@ -1,7 +1,7 @@
 <% if @errors.any? %>
   $(".login_form form p.errors").html("");
   <% @errors.each do |error| %>
-    $(".login_form form p.errors").append("<%= t('login.messages.errors.' + error.parameterize) %>")
+    $(".login_form form p.errors").append("<%= t('login.messages.errors.' + error.parameterize) %>");
   <% end %>
 <% else %>
   $(".login_form form p.errors").html("<%= t('login.messages.success_redirect') %>");
