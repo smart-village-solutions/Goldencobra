@@ -19,6 +19,9 @@ de:
             goldencobra/location:
                 one: "Adresse"
                 other: "Adressen"
+            seo-article:
+                one: "SEO-Artikel"
+                other: "SEO-Artikel"
             article:
                 one: "Artikel"
                 other: "Artikel"
