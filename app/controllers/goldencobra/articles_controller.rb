@@ -16,12 +16,12 @@ module Goldencobra
       date_cache = Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true" ? Date.today.strftime("%Y%m%d") : "no_date"
       art_cache = @article ? @article.cache_key : "no_art"
       user_cache = current_user.present? ? current_user.id : "no_user"
-
       "g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
     end
 
 
     def show
+     flash[:confirmation] = "TEST"
       ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)
       before_init()
       if serve_iframe?
@@ -319,6 +319,9 @@ module Goldencobra
     end
 
     def is_cachable?
+      if session.present? && session['flash'].present?
+        return false
+      end
       if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true" && @article.cacheable
         #Wenn es einen current_user gibt, dann kein caching
         Devise.mappings.keys.each do |key|
