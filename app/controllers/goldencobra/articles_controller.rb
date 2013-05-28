@@ -21,7 +21,6 @@ module Goldencobra
 
 
     def show
-     flash[:confirmation] = "TEST"
       ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)
       before_init()
       if serve_iframe?
