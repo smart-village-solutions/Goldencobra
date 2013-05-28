@@ -16,7 +16,8 @@ module Goldencobra
       date_cache = Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true" ? Date.today.strftime("%Y%m%d") : "no_date"
       art_cache = @article ? @article.cache_key : "no_art"
       user_cache = current_user.present? ? current_user.id : "no_user"
-      "g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
+      flash_message = session.present? && session['flash'].present? ? Time.now.to_i : ""
+      "g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}"
     end
 
 
