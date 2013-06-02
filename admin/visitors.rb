@@ -48,9 +48,9 @@ ActiveAdmin.register Visitor do
 
   action_item :only => :edit do
     if resource.locked_at?
-      result = link_to('Account sperren', switch_lock_status_admin_visitor_path(resource.id))
-    else
       result = link_to('Account entsperren', switch_lock_status_admin_visitor_path(resource.id))
+    else
+      result = link_to('Account sperren', switch_lock_status_admin_visitor_path(resource.id))
     end
     raw(result)
   end
@@ -58,11 +58,11 @@ ActiveAdmin.register Visitor do
   member_action :switch_lock_status do
     visitor = Visitor.find(params[:id])
     if visitor.locked_at?
-      visitor.locked_at = Time.now
-      status = "gesperrt"
-    else
       visitor.locked_at = nil
       status = "entsperrt"
+    else
+      visitor.locked_at = Time.now
+      status = "gesperrt"
     end
     visitor.save
     flash[:notice] = "Dieser Account wurde #{status}"

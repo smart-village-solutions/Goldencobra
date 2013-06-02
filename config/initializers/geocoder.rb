@@ -1,3 +1,4 @@
+Geocoder::Configuration.always_raise << Geocoder::OverQueryLimitError
 Geocoder::Configuration.lookup = :google
 #Geocoder::Configuration.api_key = "AIzaSyCFREOloLh2CTRpELzzGJJSEPV-LKyAfjY"
 Geocoder::Configuration.api_key = ""

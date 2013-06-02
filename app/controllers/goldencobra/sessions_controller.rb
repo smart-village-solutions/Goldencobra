@@ -6,6 +6,9 @@ module Goldencobra
       @errors = []
       if params[:usermodel] && params[:usermodel].constantize && params[:usermodel].constantize.present? && params[:usermodel].constantize.attribute_method?(:email)
         @usermodel = params[:usermodel].constantize.find_by_email(params[:loginmodel][:email])
+        unless @usermodel && params[:usermodel].constantize.attribute_method?(:username)
+          @usermodel = params[:usermodel].constantize.find_by_username(params[:loginmodel][:email])
+        end
       end
 
       if @usermodel.present?
@@ -29,9 +32,11 @@ module Goldencobra
       render :js => "location.reload();"
     end
 
+
     def register
 
     end
+
 
   end
 end

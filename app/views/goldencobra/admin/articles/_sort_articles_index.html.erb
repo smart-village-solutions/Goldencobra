@@ -1,0 +1,5 @@
+<% f.inputs "Manuell Index Sorting", :class => "foldable inputs" do %>
+  <% f.object.index_articles.each do |indexart| %>
+    <%= f.input :manual_article_sort, :as => :number, :label => indexart.title %>
+  <% end %>
+<% end %>

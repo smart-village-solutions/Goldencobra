@@ -11,6 +11,7 @@ Goldencobra::Help.create!(:title => "Goldencobra", :description => "https://gith
 Goldencobra::Article.delete_all
 
 Goldencobra::Article.create!(content: "Diese Seite existiert leider nicht.", url_name: "404", breadcrumb: "Seite nicht gefunden", title: "404",article_type: "Default Show")
+Goldencobra::Article.create!(content: "kein Zugriff", url_name: "401", breadcrumb: "Kein Zugriff", title: "401",article_type: "Default Show")
 Goldencobra::Article.create!(content: "", url_name: "search-results", breadcrumb: "Suchergebnisse", title: "Suchergebnisse",article_type: "Default Show")
 
 Goldencobra::Permission.delete_all

@@ -7,10 +7,10 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-   section I18n.t('last_updated_articles', scope: [:active_admin, :dashboard_sections]), priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
+   section I18n.t('last_created_articles', scope: [:active_admin, :dashboard_sections]), priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
     table do
       tr do
-        [t(:title, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:updated_at, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:edit, scope: :active_admin)].each do |sa|
+        [t(:title, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:created_at, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:edit, scope: :active_admin)].each do |sa|
           th sa
         end
       end
@@ -18,8 +18,26 @@ ActiveAdmin::Dashboards.build do
       Goldencobra::Article.recent(5).collect do |article|
         tr do
           td article.title
-          td l(article.updated_at, format: :short)
+          td l(article.created_at, format: :short)
           td link_to(t(:edit), admin_article_path(article))
+        end
+      end
+    end
+   end
+
+   section I18n.t('last_created_widgets', scope: [:active_admin, :dashboard_sections]), priority: 1, :if => proc{can?(:update, Goldencobra::Widget)} do
+    table do
+      tr do
+        [t(:title, scope: [:activerecord, :attributes, "goldencobra/widget"]), t(:created_at, scope: [:activerecord, :attributes, "goldencobra/widget"]), t(:edit, scope: :active_admin)].each do |sa|
+          th sa
+        end
+      end
+
+      Goldencobra::Widget.recent(5).collect do |widget|
+        tr do
+          td widget.title
+          td l(widget.created_at, format: :short)
+          td link_to(t(:edit), admin_widget_path(widget))
         end
       end
     end

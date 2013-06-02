@@ -21,7 +21,10 @@
 <% end %>
 
 <% content_for :article_context_info do %>
-	<%= raw(article.context_info) if article%>
+	<% if article %>
+		<% template = Liquid::Template.parse(article.context_info) %>
+		<%= raw(template.render(Goldencobra::Article::LiquidParser)) %>
+	<% end %>
 <% end %>
 
 <% content_for :article_teaser do %>

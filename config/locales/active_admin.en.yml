@@ -28,6 +28,8 @@ en:
       call_to_action: "To add dashboard sections, checkout 'app/admin/dashboards.rb'"
     dashboard_sections:
       last_updated_articles: 'Last Updated Articles'
+      last_created_articles: 'Last Created Articles'
+      last_created_widgets: 'Last Created Widgets'
     view: "View"
     edit: "Edit"
     delete: "Delete"

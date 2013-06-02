@@ -28,24 +28,49 @@
   display: none;
 }
 
-#edit_article_link {
-  position: fixed;
-  right: 70px;
-  bottom: 5px;
-  background-color: #24282F;
-  background: rgba(0, 0, 0, 0.4);
-  width: 95px;
-  height: 38px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  padding: 12px 0 0px 5px;
+#admin_article_manager{
+  padding: 3px;
+  background-color: #6a7176;
+  background: -webkit-gradient(linear, left top, left bottom, from(#6a7176), to(#4d5256));
+  background: -moz-linear-gradient(-90deg, #6a7176, #4d5256);
+  border-bottom: 1px solid black;
+  position:static;
+  width:100%;
   z-index: 99999;
+  color:#cdcdcd;
+  font-size: 11px;
+  box-shadow: 2px 2px 5px #636e2a;
+  height:20px;
+  padding-top:3px;
 }
 
-#edit_article_link  a {
-  color: #CCC;
-  font-family: Helvetica;
-  font-size: 12px;
+#admin_article_manager .left a {
+  float:left;
+}
+
+#admin_article_manager .center a {
+  float:left;
+  margin-top:5px;
+}
+
+#admin_article_manager .right a {
+  float:right;
+  border-right: 1px solid #cdcdcd;
+  margin-top:5px;
+}
+
+#admin_article_manager a {
+  color: #cdcdcd;
   text-decoration: none;
+  padding-right:3px;
+  padding-left:3px;
+}
+
+#admin_article_manager a:hover {
+  text-decoration: none;
+  color:white;
+}
+
+body{
+  margin:0px;
 }

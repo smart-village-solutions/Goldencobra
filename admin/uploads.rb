@@ -76,20 +76,10 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       row "original" do
         upload.image(:original)
       end
-      row "large" do
-        upload.image(:large)
-      end
-      row "big" do
-        upload.image(:big)
-      end
-      row "medium" do
-        upload.image(:medium)
-      end
-      row "thumb" do
-        upload.image(:thumb)
-      end
-      row "mini" do
-        upload.image(:mini)
+      Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |image_size|
+        row "#{image_size}" do
+          upload.image(image_size)
+        end
       end
       row :source
       row :rights
@@ -109,6 +99,9 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       li "large => 900x900>"
       li "big => 600x600>"
       li "medium => 300x300>"
+      li "px250 => 250x250>"
+      li "px200 => 200x200>"
+      li "px150 => 150x150>"
       li "thumb => 100x100>"
       li "mini => 50x50>"
     end
