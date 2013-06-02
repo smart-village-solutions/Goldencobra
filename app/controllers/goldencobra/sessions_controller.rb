@@ -14,8 +14,14 @@ module Goldencobra
       if @usermodel.present?
         if ::BCrypt::Password.new(@usermodel.encrypted_password) == "#{params[:loginmodel][:password]}#{Devise.pepper}"
           sign_in @usermodel
+          @usermodel.failed_attempts = 0
+          @usermodel.sign_in_count = @usermodel.sign_in_count.to_i + 1
+          @usermodel.last_sign_in_at = Time.now
+          @usermodel.save
           @redirect_to = @usermodel.roles.try(:first).try(:redirect_after_login)
         else
+          @usermodel.failed_attempts = @usermodel.failed_attempts.to_i + 1
+          @usermodel.save
           @errors << "Wrong username or password"
         end
       else

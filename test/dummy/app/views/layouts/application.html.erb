@@ -9,6 +9,12 @@
 <body>
 
 
+  <%= session['flash'].inspect %>
+  <%= session['flash'].present? %>
+
+  <%#= request.inspect %>
+
+
   <%= I18n.locale %>
   <%= link_to "Deutsch", switch_language_path("de") %>
   <%= link_to "Englisch", switch_language_path("en") %>
@@ -24,6 +30,8 @@
 	<%= yield(:social_sharing_buttons) %>
 </div>
 
+
+<h2><%= t('welcome') %></h2>
 
 <div id="article_content">
 <%= yield %>
