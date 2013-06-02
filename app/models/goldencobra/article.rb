@@ -1,5 +1,4 @@
 #encoding: utf-8
-
 # == Schema Information
 #
 # Table name: goldencobra_articles
@@ -43,6 +42,7 @@
 #  commentable                      :boolean          default(FALSE)
 #  active_since                     :datetime         default(2012-09-30 12:53:13 UTC)
 #  redirect_link_title              :string(255)
+#  display_index_types              :string(255)      default("show")
 #
 
 
@@ -522,7 +522,7 @@ module Goldencobra
     #**************************
 
     def self.active
-      Goldencobra::Article.where("active = 1 AND active_since < '#{Time.now.utc}'")
+      Goldencobra::Article.where("active = 1 AND active_since < '#{Time.now.strftime('%Y-%m-%d %H:%M:%S ')}'")
     end
 
     def active?

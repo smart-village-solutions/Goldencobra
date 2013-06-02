@@ -36,7 +36,7 @@ module Goldencobra
       set_meta_tags :site => s('goldencobra.page.default_title_tag'),
                     :title => current_article.metatag("Title Tag").present? ? current_article.metatag("Title Tag") : current_article.title,
                     :reverse => true,
-                    :description => current_article.metatag("Meta Description"),
+                    :description => current_article.metatag("Meta Description") || s('goldencobra.page.default_meta_description_tag'),
                     :keywords => current_article.metatag("Keywords"),
                     :canonical => current_article.canonical_url,
                     :noindex => current_article.robots_no_index,

@@ -1,4 +1,13 @@
 de:
+  login:
+    messages:
+      errors:
+        no-user-found-with-this-email: "Unbekannter Nutzer"
+        wrong-username-or-password: "Benutzername oder Passwort falsch"
+      success_redirect: "Anmeldung erfolgreich. Umleitung ..."
+  views:
+    pagination:
+      last: "Letzte"
   new_subarticle: "Neuer Unterartikel"
   date:
     abbr_day_names:
@@ -10,7 +19,7 @@ de:
     - Fr
     - Sa
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mär
@@ -36,7 +45,7 @@ de:
       long: ! '%e. %B %Y'
       short: ! '%e. %b'
     month_names:
-    - 
+    -
     - Januar
     - Februar
     - März
