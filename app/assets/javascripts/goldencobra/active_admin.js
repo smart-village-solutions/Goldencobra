@@ -29,14 +29,15 @@ $(function() {
   		theme_advanced_buttons2 : "removeformat, fontsizeselect, forecolor, backcolor, forecolorpicker, backcolorpicker",
   		theme_advanced_buttons3 : "tablecontrols",
   		theme_advanced_toolbar_location : "top",
-  		theme_advanced_toolbar_align : "center",
+  		theme_advanced_toolbar_align : "left",
   		theme_advanced_resizing : false,
 		relative_urls : true,
-    convert_urls : false,
+    	convert_urls : false,
 		theme_advanced_blockformats : "p,h1,h2,h3,div",
 		plugins : "fullscreen,autolink,paste,table",
 		dialog_type : "modal",
-		paste_auto_cleanup_on_paste : true
+		paste_auto_cleanup_on_paste : true,
+		verify_html : false
 	});
 
 
