@@ -1,5 +1,5 @@
 <div class="widget-sidebar">
-
+  <h5>Folgende Widgets werden zusätzlich zu den Standardwidgets angezeigt</h5>
   <%= form_tag update_widgets_admin_article_path(@article.id) do %>
     <ul>
     <% Goldencobra::Widget.tag_counts_on(:tags).each do |widget_tag| %>

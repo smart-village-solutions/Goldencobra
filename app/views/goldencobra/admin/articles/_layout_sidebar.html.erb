@@ -1,4 +1,5 @@
 <div class="layout-sidebar">
+  <h5>Artikel-Seitentyp: <%= I18n.t(@article.article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => @article.article_type.split(' ').first) %></h5>
 	<%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_events_article_event_modul"} do |f| %>
 		<ul>
 			<%= f.input :template_file, :as => :select, :collection => Goldencobra::Article.templates_for_select, :include_blank => false %>

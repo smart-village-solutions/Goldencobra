@@ -7,7 +7,7 @@ class Ability
     can :read, Goldencobra::Widget
 
     #Rechte die alle betreffen
-    Goldencobra::Permission.where("role_id IS NULL OR role_id = ''").each do |permission|
+    Goldencobra::Permission.where("action IS NOT NULL").where("role_id IS NULL OR role_id = ''").each do |permission|
       if permission.subject_id.blank?
         if permission.action.include?("not_")
           cannot permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize

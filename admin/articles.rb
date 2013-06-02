@@ -53,12 +53,14 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
           end
         end
       elsif f.object.kind_of_article_type.downcase == "index"
-        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_index.html.erb")
-          render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_index", :locals => {:f => f}
-        else
-          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/edit_index" do
+          render :partial => "goldencobra/admin/articles/articles_index", :locals => {:f => f}
+          if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_index.html.erb")
+            render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_index", :locals => {:f => f}
+          else
+            f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/edit_index" do
+            end
           end
-        end
+          #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
       else
         #error
       end
@@ -113,7 +115,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.inputs "Medien", :class => "foldable closed inputs"  do
         f.has_many :article_images do |ai|
           ai.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen"
-          ai.input :position, :as => :select, :collection => Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(","), :include_blank => false
+          ai.input :position, :as => :select, :collection => Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").map(&:strip), :include_blank => false
           ai.input :_destroy, :as => :boolean
         end
        end
@@ -187,12 +189,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   sidebar :layout, only: [:edit] do
     render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => resource }
   end
-
-  # Wird derzeit nicht benötigt, da es den Artikeltyp Default Index gibt,
-  # der über Tags den Index gewünschter Artikel erstellt
-  #sidebar :index_of_articles, only: [:edit] do
-    #render "/goldencobra/admin/articles/index_of_articles_sidebar"
-  #end
 
 
   sidebar :image_module, :only => [:edit] do

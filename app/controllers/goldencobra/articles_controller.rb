@@ -1,15 +1,11 @@
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
-    #require ::Rails.root + "app" + "controllers" + "application_controller"
-    #load_and_authorize_resource :class => "Goldencobra::Article"
-    #load_and_authorize_resource
-    #authorize_resource
-
     layout "application"
     before_filter :check_format
     before_filter :get_article, :only => [:show, :convert_to_pdf]
     before_filter :verify_token, :only => [:show]
     before_filter :geocode_ip_address, only: [:show]
+    after_filter :analytics, :only => [:show]
 
     if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true"
       caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
@@ -21,7 +17,7 @@ module Goldencobra
       art_cache = @article ? @article.cache_key : "no_art"
       user_cache = current_user.present? ? current_user.id : "no_user"
 
-      "g/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
+      "g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}"
     end
 
 
@@ -40,13 +36,8 @@ module Goldencobra
         after_init()
 
         if generate_index_list?
-          @list_of_articles = get_articles_by_article_type
-          include_related_models()
-          get_articles_with_tags() if @article.index_of_articles_tagged_with.present?
-          get_articles_without_tags() if @article.not_tagged_with.present?
-          get_articles_by_frontend_tags() if params[:frontend_tags].present?
-          @list_of_articles = filter_with_permissions(@list_of_articles)
-          sort_response()
+          current_operator = current_user || current_visitor
+          @list_of_articles = @article.index_articles(current_operator,params[:frontend_tags])
           after_index()
         end
 
@@ -64,15 +55,25 @@ module Goldencobra
           end
         end
       elsif should_statically_redirect?
-          redirect_to @article.external_url_redirect
+        redirect_to @article.external_url_redirect
       elsif should_dynamically_redirect?
         redirect_dynamically()
       else
         if @unauthorized
-          render :text => "Nicht authorisiert", :status => 401
+          redirect_to_401()
         else
           redirect_to_404()
         end
+      end
+    end
+
+    def switch_language
+      I18n.locale = params[:locale] || session[:locale]
+      session[:locale] = I18n.locale
+      if params[:redirect_to].present?
+        redirect_to params[:redirect_to]
+      else
+        redirect_to "/"
       end
     end
 
@@ -121,9 +122,11 @@ module Goldencobra
 
     def get_article
       if is_startpage?
+        I18n.locale = :de
         @article = Goldencobra::Article.active.startpage.first
       else
         begin
+          set_locale_by_url
           article_by_role
           set_format
         rescue
@@ -162,7 +165,20 @@ module Goldencobra
         render :text => "404", :status => 404
       end
     end
+
+    def redirect_to_401
+      ActiveSupport::Notifications.instrument("goldencobra.article.not_authorized", :params => params)
+      @article = Goldencobra::Article.find_by_url_name("401")
+      if @article
+        respond_to do |format|
+          format.html { render :layout => @article.selected_layout, :status => 401 }
+        end
+      else
+        render :text => "401: Nicht authorisiert", :status => 401
+      end
+    end
     # ------------------ /Redirection -----------------------------------------
+
 
     # ------------------ associated models ------------------------------------
     def can_load_associated_model?
@@ -173,9 +189,6 @@ module Goldencobra
       Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
     end
 
-    def include_related_models
-      @list_of_articles = @list_of_articles.includes("#{@article.article_type_form_file.downcase}") if @article.respond_to?(@article.article_type_form_file.downcase)
-    end
     # ------------------ /associated models -----------------------------------
 
     # ------------------ choose article to render -----------------------------
@@ -192,7 +205,11 @@ module Goldencobra
     end
 
     def serve_fresh_page?
-      !is_cachable? || stale?(last_modified: @article.date_of_last_modified_child, etag: @article.id)
+      if request.format == 'application/rss+xml'
+        stale?(last_modified: @article.date_of_last_modified_child, etag: @article.id)
+      else
+        !is_cachable? || stale?(last_modified: @article.date_of_last_modified_child, etag: @article.id)
+      end
       # If the request is stale according to the given timestamp and etag value
       # (i.e. it needs to be processed again) then execute this block
       #
@@ -213,50 +230,6 @@ module Goldencobra
     # ------------------ /choose article to render ----------------------------
 
     # ------------------ adjust response --------------------------------------
-    def sort_response
-      if @article.sort_order.present?
-        if @article.sort_order == "Random"
-          @list_of_articles = @list_of_articles.flatten.shuffle
-        elsif @article.sort_order == "Alphabetical"
-          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.title }
-        elsif @article.respond_to?(@article.sort_order)
-          sort_order = @article.sort_order.downcase
-          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
-        elsif @article.sort_order.include?(".")
-          sort_order = @article.sort_order.downcase.split(".")
-          @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(@article.sort_order) }
-          @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(@article.sort_order) }
-          @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{@article.sort_order}") }
-          if @unsortable.count > 0
-            @list_of_articles = @unsortable + @list_of_articles
-            @list_of_articles = @list_of_articles.flatten
-          end
-        end
-        if @article.reverse_sort
-          @list_of_articles = @list_of_articles.reverse
-        end
-      end
-
-      if @article.sorter_limit && @article.sorter_limit > 0
-        @list_of_articles = @list_of_articles[0..@article.sorter_limit-1]
-      end
-    end
-
-    def get_articles_with_tags
-      @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags, any: true)
-    end
-
-    def get_articles_without_tags
-      @list_of_articles = @list_of_articles.tagged_with(@article.not_tagged_with.split(",").map{|t| t.strip}, :exclude => true, on: :tags)
-    end
-
-    def get_articles_by_frontend_tags
-      @list_of_articles = @list_of_articles.tagged_with(params[:frontend_tags], on: :frontend_tags, any: true)
-    end
-
-    def get_articles_by_article_type
-      @list_of_articles = Goldencobra::Article.active.articletype("#{@article.article_type_form_file} Show")
-    end
 
     def set_expires_in
       if is_cachable?
@@ -276,6 +249,19 @@ module Goldencobra
     end
     # ------------------ /adjust response -------------------------------------
 
+    def set_locale_by_url
+      locale_article = params[:article_id].split("/").first
+      if I18n.available_locales.include?(locale_article.to_sym)
+        I18n.locale = locale_article
+        session[:locale] = I18n.locale
+      else
+        if session[:locale].present?
+          I18n.locale = session[:locale]
+        end
+      end
+    end
+
+
     def article_by_role
       # Admin should get preview of article even if it's offline
       if current_user && current_user.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
@@ -294,25 +280,6 @@ module Goldencobra
       end
     end
 
-    # Methode filtert die @list_of_articles.
-    # Rückgabewert: Ein Array all der Artikel, die der operator lesen darf.
-    def filter_with_permissions(list)
-      if current_user && current_user.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
-        return list
-      else
-        operator = current_user || current_visitor
-        a = Ability.new(operator)
-
-        new_list = []
-        list.each do |article|
-          if a.can?(:read, article)
-            new_list << article.id
-          end
-        end
-      end
-
-      return list.where('goldencobra_articles.id in (?)', new_list)
-    end
 
     def is_startpage?
       startpage = params[:startpage]
@@ -364,5 +331,11 @@ module Goldencobra
         return false
       end
     end
+
+    def analytics
+      Goldencobra::Tracking.analytics(request, session[:user_location])
+    end
+
+
   end
 end

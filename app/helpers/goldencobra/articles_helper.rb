@@ -5,10 +5,11 @@ module Goldencobra
     # If external_url_redirect is set and a link_title is given,
     # display this link title. Otherwise display a generic link title.
     def read_on(article)
+      target_window = article.redirection_target_in_new_window ? "_blank" : "_top"
       if article.redirect_link_title.present?
-        link_to article.redirect_link_title, article.external_url_redirect, class: 'more'
+        link_to article.redirect_link_title, article.external_url_redirect, :class => 'more', :target => target_window
       else
-        link_to t(:read_on, scope: [:articles]), article.public_url, class: 'more'
+        link_to t(:read_on, scope: [:articles]), article.public_url, :class => 'more', :target => target_window
       end
     end
 
@@ -57,13 +58,19 @@ module Goldencobra
     end
 
     def render_article_widgets(options={})
+      @timecontrol = Goldencobra::Setting.for_key("goldencobra.widgets.time_control") == "true"
       custom_css = options[:class] || ""
       tags = options[:tagged_with] || ""
       default = options[:default] || "false"
       widget_wrapper = options[:wrapper] || "section"
       result = ""
-      operator = current_user || current_visitor
-      ability = Ability.new(operator)
+      if params[:frontend_tags] && params[:frontend_tags].class != String && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
+        #Wenn format email, dann gibt es keinen realen webseit besucher
+        ability = Ability.new()
+      else
+        operator = current_user || current_visitor
+        ability = Ability.new(operator)
+      end
       if @article
         widgets = @article.widgets.active
         if tags.present? && default == "false"
@@ -89,9 +96,11 @@ module Goldencobra
                                 }
             html_data_options = html_data_options.merge(widget.offline_time_week)
             result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
-            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
+            if @timecontrol
+              result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
                           class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget",
                           id: widget.id_name, 'data-id' => widget.id)
+            end
           end
         end
       end

@@ -1,21 +1,22 @@
-<h4>Einzelnes Bild einfügen</h4>
+<!-- <h4>Einzelnes Bild einfügen</h4> -->
 
-<%= link_to "Mediathek öffnen", "#", :id => "open_goldencobra_image_maganger" %>
-
+<%#= link_to "Mediathek öffnen", "#", :id => "open_goldencobra_image_maganger" %>
+<!--
 <div id="goldencobra_image_maganger" style="display:none">
 	<div class="header">
 		<div class="close"></div>
 	</div>
 	<ul>
-		<% Goldencobra::Upload.scoped.each do |upload| %>
-			<% if upload && upload.image && upload.image.url %>
-				<li><%= image_tag upload.image.url(:mini)%></li>
-			<% end %>
-		<% end %>		
-	</ul> 
+		<%# Goldencobra::Upload.scoped.each do |upload| %>
+			<%# if upload && upload.image && upload.image.url %>
+				<li><%#= image_tag upload.image.url(:mini)%></li>
+			<%# end %>
+		<%# end %>
+	</ul>
 </div>
 
 <br/><br/>
+ -->
 
 <h4>Bildergallery einfügen</h4>
 <p>Alle Bilder, die mit folgenden Tags versehen sind, sollen angezeigt werden</p>
@@ -26,11 +27,11 @@
                                                                        @article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : []),
                                                    :multiple => true, :class => "chzn-select" %>
   </ul>
-	
+
 	<% if @article.image_gallery_tags.present? %>
 		<p><%= pluralize(Goldencobra::Upload.tagged_with(@article.image_gallery_tags).count, "Bild", "Bilder") %> ausgewählt</p>
 	<% end %>
-	
+
 	<p><br/><%= f.submit "Bilder auswählen" %></p>
 <% end %>
 

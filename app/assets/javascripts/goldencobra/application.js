@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require goldencobra/jquery.tools.min.js
 //= require goldencobra/moment
+//= require goldencobra/notifications
 
 $(function(){
   moment.weekdaysMin = ["su", "mo", "tu", "we", "th", "fr", "sa"];
@@ -72,4 +73,10 @@ $(function(){
   //console.log($(".goldencobra_widget.hidden").length);
   $(".goldencobra_widget.hidden").remove();
   //console.log($(".goldencobra_widget.hidden").length);
+});
+
+$(document).ready(function(){
+  $('#_frontend_tags').live('change', function() {
+    $('#index-filter-search').submit()
+  });
 });
