@@ -74,11 +74,11 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
           image_tag(upload.image(:thumb))
       end
       row "original" do
-        upload.image(:original)
+        link_to("http://#{Goldencobra::Setting.for_key("goldencobra.url").html_safe}" + upload.image(:original),upload.image(:original), :target => "_blank" )
       end
       Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |image_size|
         row "#{image_size}" do
-          upload.image(image_size)
+          link_to("http://#{Goldencobra::Setting.for_key("goldencobra.url").html_safe}" + upload.image(image_size),upload.image(image_size), :target => "_blank" )
         end
       end
       row :source
