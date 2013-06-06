@@ -65,7 +65,7 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'capybara-webkit', "0.14.2"
-  gem 'guard', '~> 1.1.1'
+  gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'guard-livereload'
