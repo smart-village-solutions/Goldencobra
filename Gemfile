@@ -64,7 +64,7 @@ group :test do
   gem "factory_girl_rails"
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', "0.14.2"
   gem 'guard', '~> 1.1.1'
   gem 'guard-rspec'
   gem 'guard-cucumber'
