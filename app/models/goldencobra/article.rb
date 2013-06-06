@@ -467,7 +467,6 @@ module Goldencobra
     #Nachdem ein Artikel gelöscht wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht wurde
     def update_parent_article_etag
       if self.parent.present?
-        #self.parent.updated_at = Time.now
         self.parent.update_attributes(:updated_at => Time.now)
       end
     end
