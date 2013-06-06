@@ -208,9 +208,9 @@ module Goldencobra
 
     def serve_fresh_page?
       if request.format == 'application/rss+xml'
-        stale?(last_modified: @article.date_of_last_modified_child, etag: @article.id)
+        stale?(last_modified: @article.date_of_last_modified_child, etag: @article)
       else
-        !is_cachable? || stale?(last_modified: @article.date_of_last_modified_child, etag: @article.id)
+        !is_cachable? || stale?(last_modified: @article.date_of_last_modified_child, etag: @article)
       end
       # If the request is stale according to the given timestamp and etag value
       # (i.e. it needs to be processed again) then execute this block
