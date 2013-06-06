@@ -17,7 +17,8 @@ module Goldencobra
       art_cache = @article ? @article.cache_key : "no_art"
       user_cache = current_user.present? ? current_user.id : "no_user"
       flash_message = session.present? && session['flash'].present? ? Time.now.to_i : ""
-      "g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}"
+      auth_code = params[:auth_token].presnet? ? 'with_auth' : ''
+      "g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}_#{auth_code}"
     end
 
 
