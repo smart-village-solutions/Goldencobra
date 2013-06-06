@@ -89,6 +89,7 @@ module Goldencobra
     after_create :notification_event_create
     after_update :notification_event_update
     before_save :set_url_name_if_blank
+    before_destroy :update_parent_article_etag
 
     attr_protected :startpage
 
@@ -127,6 +128,8 @@ module Goldencobra
         end
       end
     end
+
+
 
     # Instance Methods
     # **************************
@@ -336,12 +339,6 @@ module Goldencobra
       end
     end
 
-    def set_url_name_if_blank
-      if self.url_name.blank?
-        self.url_name = self.friendly_id.split("--")[0]
-      end
-    end
-
     def date_of_last_modified_child
       if self.children.length > 0
         if self.children.order("updated_at DESC").first.updated_at.utc > self.updated_at.utc
@@ -362,50 +359,6 @@ module Goldencobra
       end
     end
 
-    def parse_image_gallery_tags
-      if self.respond_to?(:image_gallery_tags)
-        self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags.class == Array
-      end
-    end
-
-    def verify_existence_of_opengraph_image
-      if Goldencobra::Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
-        Goldencobra::Metatag.create(article_id: self.id,
-                                    name: "OpenGraph Image",
-                                    value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
-      end
-
-      if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
-        meta_tag = Goldencobra::Metatag.where(article_id: self.id, name: "OpenGraph Image").first
-        meta_tag.value = "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.article_images.first.image.image.url}"
-        meta_tag.save
-      end
-    end
-
-    def set_default_opengraph_values
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph Title',
-                                    article_id: self.id,
-                                    value: self.title)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph URL',
-                                    article_id: self.id,
-                                    value: self.absolute_public_url)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
-        if self.teaser.present?
-          value = self.teaser
-        else
-          value = self.content.present? ? self.content.truncate(200) : self.title
-        end
-        Goldencobra::Metatag.create(name: 'OpenGraph Description',
-                                    article_id: self.id,
-                                    value: value)
-      end
-    end
 
     def for_friendly_name
       if self.url_name.present?
@@ -506,8 +459,66 @@ module Goldencobra
 
     end
 
+
+
+    #Callback Methods
+    ###########################
+
+    #Nachdem ein Artikel gelöscht wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht wurde
+    def update_parent_article_etag
+      if self.parent.present?
+        #self.parent.updated_at = Time.now
+        self.parent.update_attributes(:updated_at => Time.now)
+      end
+    end
+
     def set_active_since
       self.active_since = self.created_at
+    end
+
+    def parse_image_gallery_tags
+      if self.respond_to?(:image_gallery_tags)
+        self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags.class == Array
+      end
+    end
+
+    def verify_existence_of_opengraph_image
+      if Goldencobra::Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
+        Goldencobra::Metatag.create(article_id: self.id,
+                                    name: "OpenGraph Image",
+                                    value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
+      end
+
+      if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
+        meta_tag = Goldencobra::Metatag.where(article_id: self.id, name: "OpenGraph Image").first
+        meta_tag.value = "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.article_images.first.image.image.url}"
+        meta_tag.save
+      end
+    end
+
+    def set_default_opengraph_values
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
+        Goldencobra::Metatag.create(name: 'OpenGraph Title',
+                                    article_id: self.id,
+                                    value: self.title)
+      end
+
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
+        Goldencobra::Metatag.create(name: 'OpenGraph URL',
+                                    article_id: self.id,
+                                    value: self.absolute_public_url)
+      end
+
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
+        if self.teaser.present?
+          value = self.teaser
+        else
+          value = self.content.present? ? self.content.truncate(200) : self.title
+        end
+        Goldencobra::Metatag.create(name: 'OpenGraph Description',
+                                    article_id: self.id,
+                                    value: value)
+      end
     end
 
     def notification_event_create
@@ -517,6 +528,14 @@ module Goldencobra
     def notification_event_update
       ActiveSupport::Notifications.instrument("goldencobra.article.updated", :article_id => self.id)
     end
+
+    def set_url_name_if_blank
+      if self.url_name.blank?
+        self.url_name = self.friendly_id.split("--")[0]
+      end
+    end
+
+
 
     # Class Methods
     #**************************
