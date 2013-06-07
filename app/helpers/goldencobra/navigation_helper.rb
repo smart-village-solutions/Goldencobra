@@ -31,8 +31,13 @@ module Goldencobra
       offset = options[:offset] || 0
       class_name = options[:class] || ""
       id_name = options[:id] || ""
+      submenue_of_article = options[:submenue_of_article] || ""
       if menue_id.class == String
-        master_menue = Goldencobra::Menue.active.find_by_pathname(menue_id)
+        if submenue_of_article.present? && submenue_of_article.public_url.present?
+          master_menue = Goldencobra::Menue.active.where(:target => submenue_of_article.public_url).select{|a| a.path.map(&:title).join("/").include?(menue_id)}
+        else
+          master_menue = Goldencobra::Menue.active.find_by_pathname(menue_id)
+        end
       else
         master_menue = Goldencobra::Menue.active.find_by_id(menue_id)
       end
