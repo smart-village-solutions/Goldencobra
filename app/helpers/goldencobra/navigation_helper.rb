@@ -40,7 +40,11 @@ module Goldencobra
       if menue_id.class == String
         if current_article.present? && current_article.public_url.present?
           current_menue = Goldencobra::Menue.active.where(:target => current_article.public_url).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
-          master_menue = Goldencobra::Menue.find_by_id(current_menue.path_ids[offset])
+          if current_menue
+            master_menue = Goldencobra::Menue.find_by_id(current_menue.path_ids[offset])
+          else
+            return ""
+          end
         elsif submenue_of_article.present? && submenue_of_article.public_url.present?
           master_menue = Goldencobra::Menue.active.where(:target => submenue_of_article.public_url).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
         else
