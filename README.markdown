@@ -158,6 +158,10 @@ navigation_menu(menue_id, option={})
 # renders menue starting with first Menuitem including title 'MainNavigation' in the submenue 'de' or 'en' depending of your current Locale and all children as a nested list
 ```
 
+```ruby
+<%= navigation_menu("Top-Menue", :submenue_of_article => @article, :class => "ul_submain_nav", :depth => 2, :show_image => false, :show_description_title => false, :show_description => false, :show_call_to_action_name => false) %>
+```
+
 ##Switching Languages
 ```erb
 <%= link_to "Deutsch", switch_language("de") %>
