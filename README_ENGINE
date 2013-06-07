@@ -9,7 +9,7 @@ Please insert in your config/routes.rb
 in your config/environements/development.rb and ../test.rb insert
 	config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-  
+
 
 
 Setup Automatic
@@ -17,33 +17,32 @@ Setup Automatic
 	copy /goldencobra/active_admin.css.scss to /app/assets/stylesheets/...
 	rake db:migrations
 	rake db:seed
-	
+
 	<head>
 	  <%= display_meta_tags %>
 	  <%= stylesheet_link_tag    "goldencobra/application", :media => "all" %>
 	  <%= stylesheet_link_tag    "application", :media => "all" %>
 	  <%= javascript_include_tag "goldencobra/application" %>
-	  <%= javascript_include_tag "application" %>	
+	  <%= javascript_include_tag "application" %>
 	  <%= csrf_meta_tags %>
 	</head>
-	
 
-	
-	
-	
+
+
+
+
 Usage:
 
 	navigation_menu(menue_id, option={})
 		with options:
 			:depth => integer       # 0 = unlimited, 1 = self, 2 = self and children 1. grades, 3 = self and up to children 2.grades,   default = 0
-			
+			:submenue_of_article => Goldencobra::Article - Object
 
-	<%= breadcrumb() %>	
+	<%= breadcrumb() %>
 	<%= yield(:article_title) %>
-	<%= yield(:article_subtitle) %>	
-	<%= yield(:article_summary) %>	
-	<%= yield(:article_content) %>	
+	<%= yield(:article_subtitle) %>
+	<%= yield(:article_summary) %>
+	<%= yield(:article_content) %>
 	<%= yield(:article_teaser) %>
-	<%= navigation_menu(2) %>	
-	<%= navigation_menu(1, :depth => 1) %>		
-	
+	<%= navigation_menu(2) %>
+	<%= navigation_menu(1, :depth => 1) %>

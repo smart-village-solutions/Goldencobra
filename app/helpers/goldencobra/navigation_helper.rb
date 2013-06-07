@@ -34,7 +34,7 @@ module Goldencobra
       submenue_of_article = options[:submenue_of_article] || ""
       if menue_id.class == String
         if submenue_of_article.present? && submenue_of_article.public_url.present?
-          master_menue = Goldencobra::Menue.active.where(:target => submenue_of_article.public_url).select{|a| a.path.map(&:title).join("/").include?(menue_id)}
+          master_menue = Goldencobra::Menue.active.where(:target => submenue_of_article.public_url).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
         else
           master_menue = Goldencobra::Menue.active.find_by_pathname(menue_id)
         end
