@@ -79,23 +79,24 @@ module Goldencobra
       end
     end
 
-    def convert_to_pdf
-      if @article
-        require 'net/http'
-        require "uri"
-        uid = Goldencobra::Setting.for_key("goldencobra.html2pdf_uid")
-        uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?&print_layout=true&uid=#{uid}&url=#{@article.absolute_public_url}#{CGI::escape('?pdf=1')}")
-        logger.debug(uri)
-        http = Net::HTTP.new(uri.host, uri.port)
-        request = Net::HTTP::Get.new(uri.request_uri)
-        response = http.request(request)
-        doc = Nokogiri::HTML(response.body)
-        file = doc.at_xpath("//file-name").text
-        redirect_to "http://html2pdf.ikusei.de#{file}"
-      else
-        render :text => "404", :status => 404
-      end
-    end
+    # def convert_to_pdf
+    #   if @article
+    #     kit = PDFKit.new(@article.render_html(@article.selected_layout), :page_size => 'Letter')
+    #     # require 'net/http'
+    #     # require "uri"
+    #     # uid = Goldencobra::Setting.for_key("goldencobra.html2pdf_uid")
+    #     # uri = URI.parse("http://html2pdf.ikusei.de/converter/new.xml?&print_layout=true&uid=#{uid}&url=#{@article.absolute_public_url}#{CGI::escape('?pdf=1')}")
+    #     # logger.debug(uri)
+    #     # http = Net::HTTP.new(uri.host, uri.port)
+    #     # request = Net::HTTP::Get.new(uri.request_uri)
+    #     # response = http.request(request)
+    #     # doc = Nokogiri::HTML(response.body)
+    #     # file = doc.at_xpath("//file-name").text
+    #     # redirect_to "http://html2pdf.ikusei.de#{file}"
+    #   else
+    #     render :text => "404", :status => 404
+    #   end
+    # end
 
 
     def sitemap

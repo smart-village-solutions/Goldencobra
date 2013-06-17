@@ -29,7 +29,7 @@ Goldencobra::Engine.routes.draw do
     get '/visitors/auth/:provider' => 'omniauth_callbacks#passthru'
   end
 
-  match "/*article_id.pdf", :to => "articles#convert_to_pdf"
+  #match "/*article_id.pdf", :to => "articles#convert_to_pdf"
   match "/*article_id", :to => "articles#show"
 
   # The priority is based upon order of creation:
