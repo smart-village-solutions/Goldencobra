@@ -7,6 +7,10 @@ require "goldencobra"
 
 module Dummy
   class Application < Rails::Application
+
+    require 'pdfkit'
+    config.middleware.use PDFKit::Middleware
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -53,7 +57,7 @@ module Dummy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     config.after_initialize do |app|
       if defined?(ActiveAdmin) and ActiveAdmin.application
         # Try enforce reloading after app bootup
@@ -63,7 +67,7 @@ module Dummy
         self.reload_routes!
       end
     end
-    
+
   end
 end
 

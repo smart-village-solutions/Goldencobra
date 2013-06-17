@@ -43,6 +43,9 @@ gem 'sinatra', :require => false
 gem 'slim'
 gem 'geokit'
 
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
+
 
 group :development do
   gem 'thin'
@@ -64,7 +67,7 @@ group :test do
   gem "factory_girl_rails"
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'capybara-webkit', "0.14.2"
+  #gem 'capybara-webkit', "0.14.2"
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
