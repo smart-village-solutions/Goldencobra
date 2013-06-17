@@ -68,8 +68,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'inherited_resources'
   s.add_dependency 'geokit'
   s.add_dependency 'i18n-active_record'
-  # s.add_dependency "pdfkit"
-  # s.add_dependency 'wkhtmltopdf-binary'
+  s.add_dependency "pdfkit"
+  s.add_dependency 'wkhtmltopdf-binary'
   # s.add_dependency "wicked_pdf"
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
