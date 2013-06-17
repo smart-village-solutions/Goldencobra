@@ -35,7 +35,7 @@ module Goldencobra
         sign_out
         reset_session
       end
-      render :js => "location.reload();"
+      render :js => "window.location.href = '/';"
     end
 
 
