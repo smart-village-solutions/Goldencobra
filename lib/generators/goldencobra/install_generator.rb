@@ -56,6 +56,14 @@ module Goldencobra
         gsub_file 'config/application.rb', /(#{Regexp.escape(line)})/mi do |match|
           "config.active_record.whitelist_attributes = false"
         end
+
+        line = "class Application < Rails::Application"
+        gsub_file 'config/environments/production.rb', /(#{Regexp.escape(line)})/mi do |match|
+          "class Application < Rails::Application"
+          "  require 'pdfkit'"
+          "  config.middleware.use PDFKit::Middleware, :print_media_type => true"
+        end
+
       end
 
       def install_gems
