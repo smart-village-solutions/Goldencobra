@@ -19,20 +19,11 @@
 @import "share/variables";
 @import "share/mixins";
 
-/* Grid */
-@import "share/bootstrap";
-
 /* Header Elements */
-@import "header/header";
+@import "header/content";
 
-/* Body Elements */
-@import "body/body";
+/* Main Elements */
+@import "main/content";
 
 /* Footer Elements */
-@import "footer/footer";
-
-/* Mobile Styles */
-@media (max-width: 960px) {
-	@import "share/bootstrap-responsive";
-	@import "application-mobile";
-}
+@import "footer/content";

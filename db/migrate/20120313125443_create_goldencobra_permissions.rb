@@ -5,6 +5,7 @@ class CreateGoldencobraPermissions < ActiveRecord::Migration
       t.string :subject_class
       t.string :subject_id
       t.integer :role_id
+      t.integer :sorter_id, :default => 0
 
       t.timestamps
     end

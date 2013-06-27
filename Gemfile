@@ -8,6 +8,7 @@ gemspec
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
+gem "jquery-ui-rails"
 
 gem 'multi_json', "~> 1.3"
 gem 'devise', :git => "git://github.com/plataformatec/devise.git"
