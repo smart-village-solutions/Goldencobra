@@ -16,7 +16,7 @@
 //= require goldencobra/moment
 //= require goldencobra/notifications
 
-$(function(){
+$(function() {
   moment.weekdaysMin = ["su", "mo", "tu", "we", "th", "fr", "sa"];
 
   /* Trigger display of widgets. If widget has offline_times set, show
@@ -75,8 +75,10 @@ $(function(){
   $(".goldencobra_widget.hidden").remove();
 });
 
-$(document).ready(function(){
-  $('#_frontend_tags').live('change', function() {
-    $('#index-filter-search').submit()
-  });
+$(function() {
+  if($('#_frontend_tags').length) {
+    $('#_frontend_tags').live('change', function() {
+      $('#index-filter-search').submit();
+    });
+  }
 });
