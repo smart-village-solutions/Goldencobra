@@ -107,6 +107,10 @@ $(function() {
 
 	$(".chzn-select").chosen();
   $(".chzn-select-deselect").chosen({allow_single_deselect:true});
+  $('a.button').live("click", function(){
+    $(".chzn-select").chosen();
+    $(".chzn-select-deselect").chosen({allow_single_deselect:true});
+  })
 
   //Menuepunkte bekommen eine funktion zum auf und zu klappen
   $('div#overview_sidebar div.title a').bind("click", function(){
