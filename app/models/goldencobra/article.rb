@@ -33,7 +33,7 @@
 #  index_of_articles_tagged_with    :string(255)
 #  sort_order                       :string(255)
 #  reverse_sort                     :boolean
-#  author                           :string(255)
+#  author_backup                    :string(255)
 #  sorter_limit                     :integer
 #  not_tagged_with                  :string(255)
 #  use_frontend_tags                :boolean          default(FALSE)
@@ -43,6 +43,7 @@
 #  active_since                     :datetime         default(2012-09-30 12:53:13 UTC)
 #  redirect_link_title              :string(255)
 #  display_index_types              :string(255)      default("show")
+#  author_id                        :integer
 #
 
 
@@ -68,6 +69,8 @@ module Goldencobra
     has_many :comments, :class_name => Goldencobra::Comment
     has_many :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Article"}
 
+    belongs_to :author
+
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     accepts_nested_attributes_for :article_images, :allow_destroy => true
     accepts_nested_attributes_for :permissions, :allow_destroy => true
@@ -83,12 +86,12 @@ module Goldencobra
     validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
 
     after_create :set_active_since
+    after_create :notification_event_create
     before_save :parse_image_gallery_tags
+    before_save :set_url_name_if_blank
     after_save :verify_existence_of_opengraph_image
     after_save :set_default_opengraph_values
-    after_create :notification_event_create
     after_update :notification_event_update
-    before_save :set_url_name_if_blank
     before_destroy :update_parent_article_etag
 
     attr_protected :startpage
@@ -106,7 +109,6 @@ module Goldencobra
     scope :for_sitemap, where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0')
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
     scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
-
 
     search_methods :frontend_tag_name_contains
     search_methods :tag_name_contains

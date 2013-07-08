@@ -29,8 +29,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => article_type.split(' ').first)){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
   end
 
-
-
   form :html => { :enctype => "multipart/form-data" }  do |f|
     if f.object.new_record?
       render :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f}
