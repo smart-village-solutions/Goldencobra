@@ -10,7 +10,7 @@ gemspec
 gem "jquery-rails"
 
 gem 'multi_json', "~> 1.3"
-gem 'devise', :git => "git://github.com/plataformatec/devise.git"
+gem 'devise', "~> 2.2.4"#, :git => "git://github.com/plataformatec/devise.git"
 gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git", :require => "activeadmin"
 gem 'acts-as-taggable-on', :git => 'git://github.com/mbleigh/acts-as-taggable-on.git'
 gem 'i18n-active_record', :git => 'git://github.com/svenfuchs/i18n-active_record.git', :require => 'i18n/active_record'
