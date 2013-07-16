@@ -31,7 +31,7 @@ module Goldencobra
       result += "#{self.street}" if self.street.present?
       result += " #{self.street_number}" if self.street_number.present?
       result += ", #{self.zip}" if self.zip.present?
-      result += ", #{self.city}" if self.city.present?
+      result += " #{self.city}" if self.city.present?
     end
 
     def title
