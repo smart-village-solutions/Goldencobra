@@ -7,6 +7,12 @@ de:
             article_comment:
                 one: "Kommentar"
                 other: "Kommentare"
+            author:
+                one: "Autor"
+                other: "Autoren"
+            goldencobra/author:
+                one: "Autor"
+                other: "Autoren"
             goldencobra/comment:
                 one: "Kommentar"
                 other: "Kommentare"
@@ -202,3 +208,8 @@ de:
                 created_at: "Erstellt am"
                 updated_at: "Bearbeitet am"
                 sign_in_count: "Wie oft eingeloggt"
+            goldencobra/author:
+                firstname: "Vorname"
+                lastname: "Nachname"
+                email: "E-Mail"
+                googleplus: "Google Plus URL"
