@@ -15,39 +15,43 @@
 
 module Goldencobra
   class Import < ActiveRecord::Base
-    require "csv"
+    require 'iconv'
+    require 'csv'
+
     belongs_to :upload, :class_name => Goldencobra::Upload
     serialize :assignment
-    
+    EncodingTypes = ["UTF-8","ISO-8859-1", "US-ASCII", "Big5", "UTF-16BE", "IBM437", "Windows-1252"]
+    accepts_nested_attributes_for :upload, :allow_destroy => true, :reject_if => proc { |attributes| attributes['image'].blank? }
+    after_initialize :init_nested_attributes
     BlockedAttributes = ["id", "created_at", "updated_at", "url_name", "slug"]
-    
+
     def analyze_csv
       result = []
-      data = CSV.read(self.upload.image.path, {:col_sep => self.separator})
+      data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
       data.first.each_with_index do |a, index|
         result << [a,index.to_s]
-      end 
+      end
       @analyze_csv ||= result
     end
-    
+
     def get_model_attributes
       @get_model_attributes ||= eval("#{self.target_model}.new.attributes").delete_if{|a| BlockedAttributes.include?(a) }.keys
     end
-    
-    def get_association_names 
+
+    def get_association_names
       self.target_model.constantize.reflect_on_all_associations.collect { |r| r.name }
     end
-    
+
     def method_missing(meth, *args, &block)
       if meth.to_s.include?("assignment_") && self.assignment.present?
         self.assignment[meth.to_s.split("_")[1]]
       end
-    end   
-    
+    end
+
     def status
       @status ||="ready to import"
     end
-    
+
     def run!
       self.result = []
       count = 0
@@ -66,7 +70,12 @@ module Goldencobra
       end
       self.save
     end
-    
-    
+
+    def init_nested_attributes
+      self.upload ||= build_upload
+      self.assignment ||= {}
+    end
+
+
   end
 end
