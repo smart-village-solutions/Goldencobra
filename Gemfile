@@ -46,11 +46,11 @@ gem 'geokit'
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
 
+gem "better_errors", :group => "development"
+gem "binding_of_caller", :group => "development"
 
 group :development do
   gem 'thin'
-  gem "better_errors"
-  gem "binding_of_caller"
   gem 'guard-annotate'
   gem 'pry'
   gem 'pry-nav'
