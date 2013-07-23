@@ -21,7 +21,7 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.actions
     f.inputs "Select File for #{f.object.target_model}" do
-      f.input :target_model
+      f.input :target_model, as: :select, collection: ActiveRecord::Base.descendants.map(&:name), include_blank: false
       f.inputs "Upload", :class=> "inputs" do
         f.fields_for :upload do |u|
           u.inputs "" do
@@ -53,6 +53,10 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
 
   action_item :only => [:show, :edit, :assignment] do
     link_to('Starte Import', run_admin_import_path(resource.id))
+  end
+
+  action_item :only => [:assignment] do
+    link_to("Import Bearbeiten", edit_admin_import_path(resource.id))
   end
 
   controller do

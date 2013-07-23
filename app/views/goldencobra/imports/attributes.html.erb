@@ -17,7 +17,7 @@
 		<% @importer.assignment[@importer.target_model][model_attr] ||= {} %>
 		<tr>
 			<td><%= model_attr.humanize %></td>
-			<td><%= f.select "assignment[#{@importer.target_model}][#{model_attr}][data_function]", options_for_select(["default"], @importer.assignment[@importer.target_model][model_attr]["data_function"]), :include_blank => false %></td>
+			<td><%= f.select "assignment[#{@importer.target_model}][#{model_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions, @importer.assignment[@importer.target_model][model_attr]["data_function"]), :include_blank => false %></td>
 			<td><%= f.select "assignment[#{@importer.target_model}][#{model_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment[@importer.target_model][model_attr]["csv"]), :include_blank => true %></td>
 		</tr>
 	<%end%>
@@ -38,7 +38,7 @@
 				<% @importer.assignment[ass_class.to_s] ||= {} %>
 				<% @importer.assignment[ass_class.to_s][ass_attr] ||= {} %>
 				<% @importer.assignment[ass_class.to_s][ass_attr]["data_function"] ||= "" %>
-				<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][data_function]", options_for_select(["default"], @importer.assignment[ass_class.to_s][ass_attr]["data_function"]), :include_blank => false %></td>
+				<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions, @importer.assignment[ass_class.to_s][ass_attr]["data_function"]), :include_blank => false %></td>
 				<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment[ass_class.to_s][ass_attr]['csv'] ), :include_blank => true %>	</td>
 		<% end%>
 		<tr>
@@ -48,3 +48,31 @@
 	</table>
 	<%= f.submit "speichern" %>
 <% end %>
+
+<br><br>
+
+<div style="width:1000px;overflow:scroll;border:1px solid grey;padding:15px">
+	<h2>Erkannte Daten</h2>
+	<h3>Bitte prüfen Sie auch die ausgewählte Zeichencodierung! Nach dem Import ist diese nicht mehr Änderbar.</h3>
+	<% conv = Iconv.new("UTF-8", @importer.encoding_type) %>
+	<table>
+		<thead>
+			<tr>
+					<th>Zeile</th>
+				<% @importer.analyze_csv.each do |a| %>
+				  <th><%= a[0] %></th>
+				<% end %>
+			</tr>
+		</thead>
+		<tbody>
+			<% @importer.data_rows.each_with_index do |a,index| %>
+			<tr>
+					<td><%= index %></td>
+				<% a.each do |column| %>
+					<td><%= conv.iconv(column) %></td>
+				<% end %>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
