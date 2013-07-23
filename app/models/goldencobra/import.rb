@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # == Schema Information
 #
 # Table name: goldencobra_imports
@@ -61,16 +63,20 @@ module Goldencobra
     def run!
       self.result = []
       count = 0
+      master_data_attribute_assignments = self.assignment[self.target_model].reject{|key,value| value['csv'].blank?}
       CSV.foreach(self.upload.image.path, {:col_sep => self.separator} ) do |row|
-        new_object = self.target_model.constantize.new
-        self.assignment.each do |key,value|
-          next if value.blank?
-          attr_name = key
-          attr_value = row[value.to_i]
-          new_object.send("#{attr_name}=", attr_value)
+        if self.assignment_groups[self.target_model] == "create"
+          master_object = self.target_model.constantize.new
+        else
+          master_object = find_or_create_by_attributes(master_data_attribute_assignments, row)
         end
-        unless new_object.save
-          self.result << "#{count} - #{new_object.errors.messages}"
+        master_data_attribute_assignments.each do |attribute_name,value|
+          data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'])
+          next if data_to_save.blank?
+          master_object.send("#{attribute_name}=", data_to_save)
+        end
+        unless master_object.save
+          self.result << "#{count} - #{master_object.errors.messages}"
         end
         count += 1
       end
@@ -82,6 +88,24 @@ module Goldencobra
       self.assignment ||= {}
     end
 
+    def find_or_create_by_attributes(master_data_attribute_assignments, row)
+      find_master = self.target_model.constantize.scoped
+      master_data_attribute_assignments.each do |attribute_name,value|
+        data_to_search = parse_data_with_method(row[value['csv'].to_i],value['data_function'])
+        find_master = find_master.where("#{attribute_name} = '#{data_to_search}'")
+      end
+      if find_master.length == 0
+        return self.target_model.constantize.new
+      elsif find_master.length == 1
+        return find_master.first
+      else
+        self.result << "Dieses Object exisitiert schon mehrfach, keine eindeutige Zuweisung möglich: Neues Objekt wird erzeugt (#{row})"
+        return self.target_model.constantize.new
+      end
+    end
 
+
+    def parse_data_with_method(data,data_function)
+      return data
   end
 end
