@@ -13,32 +13,33 @@
 		</tr>
 
 	<% f.object.get_model_attributes.each do |model_attr| %>
-		<% @importer.assignment[model_attr] ||= {} %>
+		<% @importer.assignment[@importer.target_model] ||= {} %>
+		<% @importer.assignment[@importer.target_model][model_attr] ||= {} %>
 		<tr>
 			<td><%= model_attr.humanize %></td>
-			<td><%= f.select "assignment[#{model_attr}]['data_function']", options_for_select(["default"], @importer.assignment[model_attr]["data_function"]), :include_blank => false %></td>
-			<td><%= f.select "assignment[#{model_attr}]['csv']", options_for_select(f.object.analyze_csv, @importer.assignment[model_attr]["csv"]), :include_blank => true %></td>
+			<td><%= f.select "assignment[#{@importer.target_model}][#{model_attr}][data_function]", options_for_select(["default"], @importer.assignment[@importer.target_model][model_attr]["data_function"]), :include_blank => false %></td>
+			<td><%= f.select "assignment[#{@importer.target_model}][#{model_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment[@importer.target_model][model_attr]["csv"]), :include_blank => true %></td>
 		</tr>
 	<%end%>
 	<tr>
 		<td colspan="3"><hr></td>
 	</tr>
-	<% f.object.get_association_names.each do |ass_name| %>
-		<% next if f.object.target_model.constantize.new.send(ass_name).nil? %>
-		<% @importer.assignment_groups[ass_name] ||= "create" %>
+	<% f.object.get_association_names.each do |string_ass_name| %>
+		<% next if f.object.target_model.constantize.new.send(string_ass_name).nil? %>
+		<% ass_class = f.object.target_model.constantize.new.send(string_ass_name).new.class %>
+		<% @importer.assignment_groups[ass_class.to_s] ||= "create" %>
 		<tr>
-			<td class="nested_model_header"><%= t(ass_name, :scope => [:activerecord, :models]) %></td>
-			<td><%= f.select "assignment_groups[#{ass_name}]", options_for_select(Goldencobra::Import::DataHandling, @importer.assignment_groups[ass_name]), :include_blank => false %></td>
+			<td class="nested_model_header"><%= t(ass_class.to_s, :scope => [:activerecord, :models]) %></td>
+			<td><%= f.select "assignment_groups[#{ass_class.to_s}]", options_for_select(Goldencobra::Import::DataHandling, @importer.assignment_groups[ass_class.to_s]), :include_blank => false %></td>
 		</tr>
-		<% f.object.target_model.constantize.new.send(ass_name).new.attributes.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }.keys.each do |ass_attr| %>
+		<% ass_class.new.attributes.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }.keys.each do |ass_attr| %>
 			<tr>
-				<td><%= t(ass_attr, :scope => [:activerecord, :attributes, ass_name.to_sym]) %></td>
-				<% @importer.assignment[ass_name] ||= {} %>
-				<% @importer.assignment[ass_name][ass_attr] ||= {} %>
-				<% @importer.assignment[ass_name][ass_attr]["data_function"] ||= "" %>
-				<% current_ass_attr = @importer.assignment[ass_name] ? @importer.assignment[ass_name][ass_attr]['csv'] : "" %>
-				<td><%= f.select "assignment[#{ass_name}][#{ass_attr}]['data_function']", options_for_select(["default"], @importer.assignment[ass_name][ass_attr]["data_function"]), :include_blank => false %></td>
-				<td><%= f.select "assignment[#{ass_name}][#{ass_attr}]['csv']", options_for_select(f.object.analyze_csv, current_ass_attr ), :include_blank => true %>	</td>
+				<td><%= t(ass_attr, :scope => [:activerecord, :attributes, ass_class.to_s.to_sym]) %></td>
+				<% @importer.assignment[ass_class.to_s] ||= {} %>
+				<% @importer.assignment[ass_class.to_s][ass_attr] ||= {} %>
+				<% @importer.assignment[ass_class.to_s][ass_attr]["data_function"] ||= "" %>
+				<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][data_function]", options_for_select(["default"], @importer.assignment[ass_class.to_s][ass_attr]["data_function"]), :include_blank => false %></td>
+				<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment[ass_class.to_s][ass_attr]['csv'] ), :include_blank => true %>	</td>
 		<% end%>
 		<tr>
 			<td colspan="3"><hr></td>

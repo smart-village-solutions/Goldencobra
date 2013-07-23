@@ -51,6 +51,10 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
     end
   end
 
+  action_item :only => [:show, :edit, :assignment] do
+    link_to('Starte Import', run_admin_import_path(resource.id))
+  end
+
   controller do
     def new
       @import = Goldencobra::Import.new(:target_model => params[:target_model])
