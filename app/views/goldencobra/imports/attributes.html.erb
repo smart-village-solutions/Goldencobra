@@ -20,7 +20,9 @@
 			<td><%= f.select "assignment[#{model_attr}]['csv']", options_for_select(f.object.analyze_csv, @importer.assignment[model_attr]["csv"]), :include_blank => true %></td>
 		</tr>
 	<%end%>
-
+	<tr>
+		<td colspan="3"><hr></td>
+	</tr>
 	<% f.object.get_association_names.each do |ass_name| %>
 		<% next if f.object.target_model.constantize.new.send(ass_name).nil? %>
 		<% @importer.assignment_groups[ass_name] ||= "create" %>
@@ -37,28 +39,10 @@
 				<% current_ass_attr = @importer.assignment[ass_name] ? @importer.assignment[ass_name][ass_attr]['csv'] : "" %>
 				<td><%= f.select "assignment[#{ass_name}][#{ass_attr}]['data_function']", options_for_select(["default"], @importer.assignment[ass_name][ass_attr]["data_function"]), :include_blank => false %></td>
 				<td><%= f.select "assignment[#{ass_name}][#{ass_attr}]['csv']", options_for_select(f.object.analyze_csv, current_ass_attr ), :include_blank => true %>	</td>
-			</tr>
-			<% f.object.target_model.constantize.new.send(ass_name).new.class.reflect_on_all_associations.collect { |r| r.name }.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a) }.each do |sub_ass_name| %>
-				<% next if f.object.target_model.constantize.new.send(ass_name).new.send(sub_ass_name).nil? %>
-				<% @importer.assignment_groups[sub_ass_name] ||= "create" %>
-				<tr>
-					<td class="nested_model_header"><%= t(ass_name, :scope => [:activerecord, :models]) %></td>
-					<td><%= f.select "assignment_groups[#{ass_name}][#{sub_ass_name}]", options_for_select(Goldencobra::Import::DataHandling, @importer.assignment_groups[sub_ass_name]), :include_blank => false %></td>
-				</tr>
-				<% next if Goldencobra::Import::BlockedAttributes.include?(sub_ass_name.to_s) %>
-				<% f.object.target_model.constantize.new.send(ass_name).new.send(sub_ass_name).new.attributes.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }.keys.each do |sub_ass_attr| %>
-					<tr>
-						<td><%= t(sub_ass_attr, :scope => [:activerecord, :attributes, ass_name.to_sym, sub_ass_name.to_sym]) %></td>
-						<% @importer.assignment[ass_name][sub_ass_name] ||= {} %>
-						<% @importer.assignment[ass_name][sub_ass_name][sub_ass_attr] ||= {} %>
-						<% @importer.assignment[ass_name][sub_ass_name][sub_ass_attr]["data_function"] ||= "" %>
-						<% current_sub_ass_attr = @importer.assignment[ass_name][sub_ass_name] ? @importer.assignment[ass_name][sub_ass_name][sub_ass_attr]['csv'] : "" %>
-						<td><%= f.select "assignment[#{ass_name}][#{ass_attr}]['data_function']", options_for_select(["default"], @importer.assignment[ass_name][sub_ass_name][sub_ass_attr]["data_function"]), :include_blank => false %></td>
-						<td><%= f.select "assignment[#{ass_name}][#{ass_attr}]['csv']", options_for_select(f.object.analyze_csv, current_sub_ass_attr ), :include_blank => true %>	</td>
-					</tr>
-				<% end %>
-			<% end %>
 		<% end%>
+		<tr>
+			<td colspan="3"><hr></td>
+		</tr>
 	<% end%>
 	</table>
 	<%= f.submit "speichern" %>

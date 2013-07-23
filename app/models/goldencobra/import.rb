@@ -25,8 +25,8 @@ module Goldencobra
     EncodingTypes = ["UTF-8","ISO-8859-1", "US-ASCII", "Big5", "UTF-16BE", "IBM437", "Windows-1252"]
     accepts_nested_attributes_for :upload, :allow_destroy => true, :reject_if => proc { |attributes| attributes['image'].blank? }
     after_initialize :init_nested_attributes
-    BlockedAttributes = ["id", "created_at", "updated_at", "url_name", "slug", "upload_id", "images"]
-    DataHandling = [["Datensatz aktualisieren","update"],["Datensatz neu anlegen", "create"]]
+    BlockedAttributes = ["id", "created_at", "updated_at", "url_name", "slug", "upload_id", "images", "article_images", "article_widgets"]
+    DataHandling = [["Datensatz aktualisieren oder erstellen","update"],["Datensatz immer neu anlegen", "create"]]
     def analyze_csv
       begin
         result = []
