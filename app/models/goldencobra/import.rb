@@ -64,7 +64,8 @@ module Goldencobra
       self.result = []
       count = 0
       master_data_attribute_assignments = self.assignment[self.target_model].reject{|key,value| value['csv'].blank?}
-      CSV.foreach(self.upload.image.path, {:col_sep => self.separator} ) do |row|
+      data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
+      data.each do |row|
         if self.assignment_groups[self.target_model] == "create"
           master_object = self.target_model.constantize.new
         else
@@ -107,5 +108,6 @@ module Goldencobra
 
     def parse_data_with_method(data,data_function)
       return data
+    end
   end
 end
