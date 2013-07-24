@@ -98,8 +98,6 @@ module Goldencobra
               end
               if cass_related_model.class == key.constantize
                 cass_related_model.destroy
-                logger.warn("#"*40)
-                logger.warn("KEY: #{key}")
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
                 if self.assignment_groups[key] == "create"
                   current_object = key.constantize.new
@@ -109,7 +107,12 @@ module Goldencobra
                   logger.warn("Altes object wird gesucht oder neues angelegt")
                 end
                 #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
-                master_object.send(cass) << current_object
+                # wenn es eine has_many beziehung ist:
+                if master_object.send(cass).class == Array
+                  master_object.send(cass) << current_object
+                else
+                  master_object.send(cass) = current_object
+                end
                 break
               end
             end
