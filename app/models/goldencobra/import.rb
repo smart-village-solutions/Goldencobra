@@ -128,7 +128,7 @@ module Goldencobra
                     eval("master_object.#{cass} = current_object")
                   end
                 rescue
-                  #self.result << "Zeile #{count} verursachte fehler beim Speichern des Datensatzes"
+                  self.result << "E:#{count}"
                 end
                 break
               end
