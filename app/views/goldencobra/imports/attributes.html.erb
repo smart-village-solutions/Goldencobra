@@ -34,8 +34,12 @@
 				<td colspan="4"><hr></td>
 			</tr>
 			<% f.object.get_association_names.each do |string_ass_name| %>
-				<% next if f.object.target_model.constantize.new.send(string_ass_name).nil? %>
-				<% ass_class = f.object.target_model.constantize.new.send(string_ass_name).new.class %>
+				<% #next if f.object.target_model.constantize.new.send(string_ass_name).nil? %>
+				<% if f.object.target_model.constantize.new.send(string_ass_name).class == Array  %>
+					<% ass_class = f.object.target_model.constantize.new.send(string_ass_name).new.class %>
+				<% else %>
+					<% ass_class = eval("f.object.target_model.constantize.new.build_#{string_ass_name}.class") %>
+				<% end %>
 				<% @importer.assignment_groups[ass_class.to_s] ||= "create" %>
 				<tr>
 					<td class="nested_model_header"><%= t(ass_class.to_s, :scope => [:activerecord, :models]) %></td>
