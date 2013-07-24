@@ -128,7 +128,7 @@ module Goldencobra
                     eval("master_object.#{cass} = current_object")
                   end
                 rescue
-                  self.result << "Zeile #{count} verursachte fehler beim Speichern des Datensatzes"
+                  #self.result << "Zeile #{count} verursachte fehler beim Speichern des Datensatzes"
                 end
                 break
               end
@@ -152,12 +152,12 @@ module Goldencobra
             import_metadata.importmetatagable = current_object
             import_metadata.save
           else
-            self.result << "#{count} - SubObject: #{current_object.errors.messages}"
+            #self.result << "#{count} - SubObject: #{current_object.errors.messages}"
           end
         end
         #Das Elternelement wird gespeichert
         unless master_object.save
-          self.result << "#{count} - #{master_object.errors.messages}"
+          #self.result << "#{count} - #{master_object.errors.messages}"
         end
         count += 1
       end
