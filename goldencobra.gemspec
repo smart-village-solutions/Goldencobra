@@ -52,7 +52,7 @@ Gem::Specification.new do |s|
   s.add_dependency "cancan"
   s.add_dependency "ancestry"
   s.add_dependency 'meta-tags'
-  s.add_dependency 'paperclip'
+  s.add_dependency 'paperclip', "3.4.2"
   s.add_dependency 'uglifier'
   s.add_dependency 'exception_notification'
   s.add_dependency 'acts-as-taggable-on'
