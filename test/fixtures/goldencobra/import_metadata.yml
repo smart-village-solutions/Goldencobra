@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  database_owner: MyString
+  exported_at: MyString
+  database_admin_first_name: MyString
+  database_admin_last_name: MyString
+  database_admin_phone: MyString
+  database_admin_email: MyString
+  importmetatagable_id: 1
+  importmetatagable_type: MyString
+
+two:
+  database_owner: MyString
+  exported_at: MyString
+  database_admin_first_name: MyString
+  database_admin_last_name: MyString
+  database_admin_phone: MyString
+  database_admin_email: MyString
+  importmetatagable_id: 1
+  importmetatagable_type: MyString

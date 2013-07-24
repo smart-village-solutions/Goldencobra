@@ -14,6 +14,22 @@
 			</tr>
 		</thead>
 		<tbody>
+			<% @importer.assignment["Goldencobra::ImportMetadata"] ||= {} %>
+			<tr>
+				<td class="nested_model_header">Importer Metatags</td>
+			</tr>
+			<% [:database_owner, :database_admin_first_name, :database_admin_last_name,:database_admin_email, :database_admin_phone, :exported_at].each do |import_attr| %>
+			<% @importer.assignment["Goldencobra::ImportMetadata"][import_attr] ||= {} %>
+			<tr>
+				<td><%= import_attr.to_s.humanize %></td>
+				<td><%= f.select "assignment[Goldencobra::ImportMetadata][#{import_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions, @importer.assignment["Goldencobra::ImportMetadata"][import_attr]["data_function"]), :include_blank => false %></td>
+				<td><%= text_field_tag "import[assignment[Goldencobra::ImportMetadata][#{import_attr}][option]]", @importer.assignment["Goldencobra::ImportMetadata"][import_attr]["option"] %></td>
+				<td><%= f.select "assignment[Goldencobra::ImportMetadata][#{import_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment["Goldencobra::ImportMetadata"][import_attr]["csv"]), :include_blank => true %></td>
+			</tr>
+			<% end %>
+
+
+
 			<% @importer.assignment_groups ||= {} %>
 			<% @importer.assignment_groups[@importer.target_model] ||= "create" %>
 			<tr>
