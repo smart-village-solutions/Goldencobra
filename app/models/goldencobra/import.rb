@@ -84,6 +84,7 @@ module Goldencobra
 
       data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
       data.each do |row|
+        next if count == 0
         master_object = nil
         current_object = nil
         #Neues Object anlegen oder bestehendes suchen und aktualisieren
