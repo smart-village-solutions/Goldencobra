@@ -66,7 +66,7 @@ PATH
       omniauth
       omniauth-openid
       paper_trail
-      paperclip
+      paperclip (= 3.4.2)
       pdfkit
       progress_bar
       rails (~> 3.2.11)
