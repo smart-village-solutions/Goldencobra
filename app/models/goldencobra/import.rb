@@ -84,7 +84,10 @@ module Goldencobra
 
       data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
       data.each do |row|
-        next if count == 0
+        if count == 0
+          count = 1
+          next
+        end
         master_object = nil
         current_object = nil
         #Neues Object anlegen oder bestehendes suchen und aktualisieren
@@ -96,6 +99,7 @@ module Goldencobra
 
         #Gehe alle Zugewiesenen Attribute durch und erzeuge die Datensätze
         all_data_attribute_assignments.each do |key,sub_assignments|
+          logger.warn("#E0"*30)
           next if key == "Goldencobra::ImportMetadata"
           if key == self.target_model
             current_object = master_object
@@ -115,10 +119,8 @@ module Goldencobra
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
                 if self.assignment_groups[key] == "create"
                   current_object = key.constantize.new
-                  logger.warn("Neues Object wird erzeugt")
                 else
                   current_object = find_or_create_by_attributes(sub_assignments, row, key)
-                  logger.warn("Altes object wird gesucht oder neues angelegt")
                 end
                 #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
                 # wenn es eine has_many beziehung ist:
@@ -129,6 +131,7 @@ module Goldencobra
                     eval("master_object.#{cass} = current_object")
                   end
                 rescue
+                  logger.warn("#E3"*30)
                   self.result << "E:#{count}"
                 end
                 break
@@ -153,11 +156,13 @@ module Goldencobra
             import_metadata.importmetatagable = current_object
             import_metadata.save
           else
+            logger.warn("#E1"*30)
             #self.result << "#{count} - SubObject: #{current_object.errors.messages}"
           end
         end
         #Das Elternelement wird gespeichert
         unless master_object.save
+          logger.warn("#E2"*30)
           #self.result << "#{count} - #{master_object.errors.messages}"
         end
         count += 1
