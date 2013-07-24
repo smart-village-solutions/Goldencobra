@@ -92,7 +92,7 @@ module Goldencobra
             logger.warn("--- #"*40)
             master_object.class.reflect_on_all_associations.collect { |r| r.name }.each do |cass|
               if master_object.send(cass).class == Array
-                cass_related_model = eval("master_object.#{cass}.build").class
+                cass_related_model = eval("master_object.#{cass}.new").class
               else
                 cass_related_model = master_object.send("build_#{cass}").try(:class)
               end
