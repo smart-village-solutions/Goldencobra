@@ -22,13 +22,15 @@
 			<% @importer.assignment["Goldencobra::ImportMetadata"][import_attr] ||= {} %>
 			<tr>
 				<td><%= import_attr.to_s.humanize %></td>
-				<td><%= f.select "assignment[Goldencobra::ImportMetadata][#{import_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions, @importer.assignment["Goldencobra::ImportMetadata"][import_attr]["data_function"]), :include_blank => false %></td>
+				<td><%= f.select "assignment[Goldencobra::ImportMetadata][#{import_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions + Goldencobra::ImportMetadata::ImportDataFunctions, @importer.assignment["Goldencobra::ImportMetadata"][import_attr]["data_function"]), :include_blank => false %></td>
 				<td><%= text_field_tag "import[assignment[Goldencobra::ImportMetadata][#{import_attr}][option]]", @importer.assignment["Goldencobra::ImportMetadata"][import_attr]["option"] %></td>
 				<td><%= f.select "assignment[Goldencobra::ImportMetadata][#{import_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment["Goldencobra::ImportMetadata"][import_attr]["csv"]), :include_blank => true %></td>
 			</tr>
 			<% end %>
 
-
+			<tr>
+				<td colspan="4"><hr></td>
+			</tr>
 
 			<% @importer.assignment_groups ||= {} %>
 			<% @importer.assignment_groups[@importer.target_model] ||= "create" %>
@@ -39,9 +41,10 @@
 			<% f.object.get_model_attributes.each do |model_attr| %>
 				<% @importer.assignment[@importer.target_model] ||= {} %>
 				<% @importer.assignment[@importer.target_model][model_attr] ||= {} %>
+				<% target_model_data_functions = defined?(@importer.target_model.constantize::ImportDataFunctions) == "constant" ? @importer.target_model.constantize::ImportDataFunctions : [] %>
 				<tr>
 					<td><%= model_attr.humanize %></td>
-					<td><%= f.select "assignment[#{@importer.target_model}][#{model_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions, @importer.assignment[@importer.target_model][model_attr]["data_function"]), :include_blank => false %></td>
+					<td><%= f.select "assignment[#{@importer.target_model}][#{model_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions + target_model_data_functions, @importer.assignment[@importer.target_model][model_attr]["data_function"]), :include_blank => false %></td>
 					<td><%= text_field_tag "import[assignment[#{@importer.target_model}][#{model_attr}][option]]", @importer.assignment[@importer.target_model][model_attr]["option"] %></td>
 					<td><%= f.select "assignment[#{@importer.target_model}][#{model_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment[@importer.target_model][model_attr]["csv"]), :include_blank => true %></td>
 				</tr>
@@ -61,6 +64,7 @@
 					<td class="nested_model_header"><%= t(ass_class.to_s, :scope => [:activerecord, :models]) %></td>
 					<td><%= f.select "assignment_groups[#{ass_class.to_s}]", options_for_select(Goldencobra::Import::DataHandling, @importer.assignment_groups[ass_class.to_s]), :include_blank => false %></td>
 				</tr>
+				<% sub_model_data_functions = defined?(ass_class::ImportDataFunctions) == "constant" ? ass_class::ImportDataFunctions : [] %>
 				<% ass_class.new.attributes.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }.keys.each do |ass_attr| %>
 					<tr>
 						<td><%= t(ass_attr, :scope => [:activerecord, :attributes, ass_class.to_s.to_sym]) %></td>
@@ -68,7 +72,7 @@
 						<% @importer.assignment[ass_class.to_s][ass_attr] ||= {} %>
 						<% @importer.assignment[ass_class.to_s][ass_attr]["data_function"] ||= "" %>
 						<% @importer.assignment[ass_class.to_s][ass_attr]["option"] ||= "" %>
-						<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions, @importer.assignment[ass_class.to_s][ass_attr]["data_function"]), :include_blank => false %></td>
+						<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions + sub_model_data_functions, @importer.assignment[ass_class.to_s][ass_attr]["data_function"]), :include_blank => false %></td>
 						<td><%= text_field_tag "import[assignment[#{ass_class.to_s}][#{ass_attr}][option]]", @importer.assignment[ass_class.to_s][ass_attr]["option"] %></td>
 						<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment[ass_class.to_s][ass_attr]['csv'] ), :include_blank => true %>	</td>
 				<% end%>

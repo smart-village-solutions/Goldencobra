@@ -59,6 +59,7 @@ module Goldencobra
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
     DisplayIndexTypes = [["Einzelseiten", "show"],["Übersichtsseiten", "index"], ["Alle Seiten", "all"]]
     attr_accessor   :hint_label, :manual_article_sort
+    ImportDataFunctions = []
 
     has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
