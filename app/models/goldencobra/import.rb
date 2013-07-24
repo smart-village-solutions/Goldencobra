@@ -27,7 +27,7 @@ module Goldencobra
     EncodingTypes = ["UTF-8","ISO-8859-1", "ISO-8859-2", "ISO-8859-16", "US-ASCII", "Big5", "UTF-16BE", "IBM437", "Windows-1252"]
     accepts_nested_attributes_for :upload, :allow_destroy => true, :reject_if => proc { |attributes| attributes['image'].blank? }
     after_initialize :init_nested_attributes
-    BlockedAttributes = ["id", "created_at", "updated_at", "url_name", "slug", "upload_id", "images", "article_images", "article_widgets"]
+    BlockedAttributes = ["id", "created_at", "updated_at", "url_name", "slug", "upload_id", "images", "article_images", "article_widgets", "permissions", "versions"]
     DataHandling = [["Datensatz aktualisieren oder erstellen","update"],["Datensatz immer neu anlegen", "create"]]
     DataFunctions = ["Default", "Static Value"]
     def analyze_csv
@@ -44,7 +44,11 @@ module Goldencobra
     end
 
     def data_rows
-      CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
+      begin
+        CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
+      rescue
+        [["Error in reading File: Please check encoding type"]]
+      end
     end
 
     def get_model_attributes
@@ -68,37 +72,59 @@ module Goldencobra
     def run!
       self.result = []
       count = 0
-      master_data_attribute_assignments = self.assignment[self.target_model].reject{|key,value| value['csv'].blank?}
+      all_data_attribute_assignments = remove_emty_assignments
+      master_data_attribute_assignments = all_data_attribute_assignments[self.target_model]
       data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
       data.each do |row|
         master_object = nil
+        current_object = nil
+        #Neues Object anlegen oder bestehendes suchen und aktualisieren
         if self.assignment_groups[self.target_model] == "create"
           master_object = self.target_model.constantize.new
         else
-          master_object = find_or_create_by_attributes(master_data_attribute_assignments, row)
+          master_object = find_or_create_by_attributes(master_data_attribute_assignments, row, self.target_model)
         end
 
-        self.assignment.each do |key,sub_assignments|
+        all_data_attribute_assignments.each do |key,sub_assignments|
           if key == self.target_model
             current_object = master_object
           else
+            logger.warn("--- #"*40)
             master_object.class.reflect_on_all_associations.collect { |r| r.name }.each do |cass|
-              if master_object.send(cass).present? && master_object.send(cass).new.class == key.constantize
-                #Hier fehlt noch der check auf self.assignment_groups
-                current_object = master_object.send(cass).new
+              if master_object.send(cass).class == Array
+                cass_related_model = eval("master_object.#{cass}.build").class
+              else
+                cass_related_model = master_object.send("build_#{cass}").try(:class)
+              end
+              if cass_related_model == key.constantize
+                logger.warn("#"*40)
+                logger.warn("KEY: #{key}")
+                #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
+                if self.assignment_groups[key] == "create"
+                  current_object = key.constantize.new
+                  logger.warn("Neues Object wird erzeugt")
+                else
+                  current_object = find_or_create_by_attributes(sub_assignments, row, key)
+                  logger.warn("Altes object wird gesucht oder neues angelegt")
+                end
+                #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
+                master_object.send(cass) << current_object
                 break
               end
             end
           end
+          #die Werte für das Object werden gesetzt
           sub_assignments.each do |attribute_name,value|
-            data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'])
+            data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'])
             next if data_to_save.blank?
             current_object.send("#{attribute_name}=", data_to_save)
           end
+          #Das Object wird gespeichert
           unless current_object.save
-            self.result << "#{count} - SubObject: #{master_object.errors.messages}"
+            self.result << "#{count} - SubObject: #{current_object.errors.messages}"
           end
         end
+        #Das Elternelement wird gespeichert
         unless master_object.save
           self.result << "#{count} - #{master_object.errors.messages}"
         end
@@ -112,31 +138,44 @@ module Goldencobra
       self.assignment ||= {}
     end
 
-    def find_or_create_by_attributes(master_data_attribute_assignments, row)
+    def find_or_create_by_attributes(attribute_assignments, row, model_name)
       find_condition = []
-      master_data_attribute_assignments.each do |attribute_name,value|
-        data_to_search = parse_data_with_method(row[value['csv'].to_i],value['data_function'])
+      attribute_assignments.each do |attribute_name,value|
+        data_to_search = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'])
         next if data_to_search.blank?
         find_condition << "#{attribute_name} = '#{data_to_search}'"
       end
-      find_master = self.target_model.constantize.where(find_condition.join(' AND '))
+      find_master = model_name.constantize.where(find_condition.join(' AND '))
 
       if find_master.count == 0
-        logger.warn("***"*20)
-        logger.warn "#{find_condition}  ->  #{find_master.count}"
-        return self.target_model.constantize.new
+        return model_name.constantize.new
       elsif find_master.count == 1
         return find_master.first
       else
         self.result << "Dieses Object exisitiert schon mehrfach, keine eindeutige Zuweisung möglich: Neues Objekt wird erzeugt (#{row})"
-        return self.target_model.constantize.new
+        return model_name.constantize.new
       end
     end
 
-    def parse_data_with_method(data,data_function)
+    def parse_data_with_method(data,data_function,data_option)
       conv = Iconv.new("UTF-8", self.encoding_type)
       output = conv.iconv(data)
-      return output
+      if data_function == "Default"
+        return output
+      elsif data_function == "Static Value"
+        return data_option
+      end
     end
+
+    def remove_emty_assignments
+      self.assignment.each do |key, values|
+        self.assignment[key].delete_if{|key,value| value['data_function'] == "Default" && value['csv'].blank?}
+        if self.assignment[key].blank?
+          self.assignment.delete(key)
+        end
+      end
+      self.assignment
+    end
+
   end
 end

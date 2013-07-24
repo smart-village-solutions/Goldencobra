@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Import, :as => "Import" do
   menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Import)}
 
@@ -25,7 +27,7 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
       f.inputs "Upload", :class=> "inputs" do
         f.fields_for :upload do |u|
           u.inputs "" do
-            u.input :image, :as => :file, :label => "CSV Datei"
+            u.input :image, :as => :file, :label => "CSV Datei", :hint => "Aktuell ausgewählte Datei: #{u.object.try(:image_file_name)}"
           end
         end
       end
