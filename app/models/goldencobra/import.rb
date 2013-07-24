@@ -80,7 +80,7 @@ module Goldencobra
       all_data_attribute_assignments = remove_emty_assignments
       master_data_attribute_assignments = all_data_attribute_assignments[self.target_model]
       import_data_attribute_assignments = all_data_attribute_assignments["Goldencobra::ImportMetadata"]
-      all_data_attribute_assignments.delete("Goldencobra::ImportMetadata")
+      #all_data_attribute_assignments.delete("Goldencobra::ImportMetadata")
 
       data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
       data.each do |row|
@@ -96,6 +96,7 @@ module Goldencobra
 
         #Gehe alle Zugewiesenen Attribute durch und erzeuge die Datensätze
         all_data_attribute_assignments.each do |key,sub_assignments|
+          next if key == "Goldencobra::ImportMetadata"
           if key == self.target_model
             current_object = master_object
           else
