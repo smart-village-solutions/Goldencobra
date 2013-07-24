@@ -92,11 +92,12 @@ module Goldencobra
             logger.warn("--- #"*40)
             master_object.class.reflect_on_all_associations.collect { |r| r.name }.each do |cass|
               if master_object.send(cass).class == Array
-                cass_related_model = eval("master_object.#{cass}.new").class
+                cass_related_model = eval("master_object.#{cass}.new")
               else
-                cass_related_model = master_object.send("build_#{cass}").try(:class)
+                cass_related_model = master_object.send("build_#{cass}")
               end
-              if cass_related_model == key.constantize
+              if cass_related_model.class == key.constantize
+                cass_related_model.destroy
                 logger.warn("#"*40)
                 logger.warn("KEY: #{key}")
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
