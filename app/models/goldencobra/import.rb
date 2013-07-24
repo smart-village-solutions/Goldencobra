@@ -131,8 +131,7 @@ module Goldencobra
                     eval("master_object.#{cass} = current_object")
                   end
                 rescue
-                  logger.warn("#E3"*30)
-                  self.result << "E:#{count}"
+                  #self.result << "E:#{count}"
                 end
                 break
               end
@@ -156,13 +155,11 @@ module Goldencobra
             import_metadata.importmetatagable = current_object
             import_metadata.save
           else
-            logger.warn("#E1"*30)
             #self.result << "#{count} - SubObject: #{current_object.errors.messages}"
           end
         end
         #Das Elternelement wird gespeichert
         unless master_object.save
-          logger.warn("#E2"*30)
           #self.result << "#{count} - #{master_object.errors.messages}"
         end
         count += 1
