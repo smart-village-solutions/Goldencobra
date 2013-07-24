@@ -111,7 +111,7 @@ module Goldencobra
                 if master_object.send(cass).class == Array
                   master_object.send(cass) << current_object
                 else
-                  master_object.send(cass) = current_object
+                  eval("master_object.#{cass} = current_object")
                 end
                 break
               end
