@@ -28,7 +28,7 @@ module Goldencobra
     accepts_nested_attributes_for :upload, :allow_destroy => true, :reject_if => proc { |attributes| attributes['image'].blank? }
     after_initialize :init_nested_attributes
     BlockedAttributes = ["id", "created_at", "updated_at", "url_name", "slug", "upload_id", "images", "article_images", "article_widgets", "permissions", "versions"]
-    DataHandling = [["Datensatz aktualisieren oder erstellen","update"],["Datensatz immer neu anlegen", "create"]]
+    DataHandling = [["bestehenden Datensatz suchen oder erstellen","update"],["Datensatz immer neu anlegen", "create"]]
     DataFunctions = ["Default", "Static Value"]
     def analyze_csv
       begin
@@ -74,6 +74,9 @@ module Goldencobra
       count = 0
       all_data_attribute_assignments = remove_emty_assignments
       master_data_attribute_assignments = all_data_attribute_assignments[self.target_model]
+      import_data_attribute_assignments = all_data_attribute_assignments["Goldencobra::ImportMetadata"]
+      all_data_attribute_assignments.delete("Goldencobra::ImportMetadata")
+
       data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
       data.each do |row|
         master_object = nil
@@ -124,7 +127,17 @@ module Goldencobra
             current_object.send("#{attribute_name}=", data_to_save)
           end
           #Das Object wird gespeichert
-          unless current_object.save
+          if current_object.save
+            #Create ImportMetadata
+            import_metadata = Goldencobra::ImportMetadata.new
+            import_data_attribute_assignments.each do |attribute_name,value|
+              data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'])
+              next if data_to_save.blank?
+              import_metadata.send("#{attribute_name}=", data_to_save)
+            end
+            import_metadata.importmetatagable = current_object
+            import_metadata.save
+          else
             self.result << "#{count} - SubObject: #{current_object.errors.messages}"
           end
         end
