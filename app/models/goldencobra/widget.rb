@@ -47,6 +47,8 @@ module Goldencobra
     OfflineDays   = ["Mo", 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
     OfflineDaysEN = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su']
 
+    ImportDataFunctions = []
+
     scope :active, where(:active => true).order(:sorter)
     scope :inactive, where(:active => false).order(:sorter)
     scope :default, where(:default => true).order(:sorter)

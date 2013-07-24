@@ -122,7 +122,7 @@ module Goldencobra
           end
           #die Werte für das Object werden gesetzt
           sub_assignments.each do |attribute_name,value|
-            data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'])
+            data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'], current_object.class.to_s)
             next if data_to_save.blank?
             current_object.send("#{attribute_name}=", data_to_save)
           end
@@ -131,7 +131,7 @@ module Goldencobra
             #Create ImportMetadata
             import_metadata = Goldencobra::ImportMetadata.new
             import_data_attribute_assignments.each do |attribute_name,value|
-              data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'])
+              data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'], "Goldencobra::ImportMetadata")
               next if data_to_save.blank?
               import_metadata.send("#{attribute_name}=", data_to_save)
             end
@@ -158,7 +158,7 @@ module Goldencobra
     def find_or_create_by_attributes(attribute_assignments, row, model_name)
       find_condition = []
       attribute_assignments.each do |attribute_name,value|
-        data_to_search = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'])
+        data_to_search = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'], model_name)
         next if data_to_search.blank?
         find_condition << "#{attribute_name} = '#{data_to_search}'"
       end
@@ -174,13 +174,19 @@ module Goldencobra
       end
     end
 
-    def parse_data_with_method(data,data_function,data_option)
+    def parse_data_with_method(data,data_function,data_option, model_name="")
       conv = Iconv.new("UTF-8", self.encoding_type)
       output = conv.iconv(data)
       if data_function == "Default"
         return output
       elsif data_function == "Static Value"
         return data_option
+      elsif model_name.present?
+        if model_name.constantize.respond_to?(data_function.parameterize.underscore)
+          return model_name.constantize.send(data_function.parameterize.underscore, data, data_option )
+        end
+      else
+        return ""
       end
     end
 
