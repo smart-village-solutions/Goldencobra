@@ -16,6 +16,11 @@
 #  updated_at        :datetime         not null
 #
 
+
+# Dynamische Importfunktionen:
+# Jedes Model welches eigene Importfunktionen anbieten will muss lediglich eine liste der verfügbaren funktionen ImportDataFunctions = [] haben
+# und die entsprechenden parameterized.underscored klassenfunktionenen bereithalten
+
 module Goldencobra
   class Import < ActiveRecord::Base
     require 'iconv'
@@ -88,15 +93,19 @@ module Goldencobra
           master_object = find_or_create_by_attributes(master_data_attribute_assignments, row, self.target_model)
         end
 
+        #Gehe alle Zugewiesenen Attribute durch und erzeuge die Datensätze
         all_data_attribute_assignments.each do |key,sub_assignments|
           if key == self.target_model
             current_object = master_object
           else
-            logger.warn("--- #"*40)
+            #Wenn das Aktuelle object nicht das MasterObject ist sindern ein Unterelement
+            # Suche unter allen möglciehn Unterobjecten das passende aus und speichere es in current_object zwischen
             master_object.class.reflect_on_all_associations.collect { |r| r.name }.each do |cass|
               if master_object.send(cass).class == Array
+                #Bei einer has_many beziehung
                 cass_related_model = eval("master_object.#{cass}.new")
               else
+                #bei einer belongs_to Beziehung
                 cass_related_model = master_object.send("build_#{cass}")
               end
               if cass_related_model.class == key.constantize
@@ -111,10 +120,14 @@ module Goldencobra
                 end
                 #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
                 # wenn es eine has_many beziehung ist:
-                if master_object.send(cass).class == Array
-                  master_object.send(cass) << current_object
-                else
-                  eval("master_object.#{cass} = current_object")
+                begin
+                  if master_object.send(cass).class == Array
+                    master_object.send(cass) << current_object
+                  else
+                    eval("master_object.#{cass} = current_object")
+                  end
+                rescue
+                  self.result << "Zeile #{count} verursachte fehler beim Speichern des Datensatzes"
                 end
                 break
               end
