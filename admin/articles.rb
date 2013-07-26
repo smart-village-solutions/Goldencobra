@@ -154,7 +154,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       if article.linked_menues.count > 0
         link_to(I18n.t("list", :scope => [:goldencobra, :menue]), admin_menues_path("q[target_contains]" => article.public_url), :class => "list", :title => "Menüpunkte auflisten")
       else
-        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.title, :target => article.public_url}), :class => "create", :title => "Menüpunkt erzeugen")
+        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.parsed_title, :target => article.public_url}), :class => "create", :title => "Menüpunkt erzeugen")
       end
     end
     column "" do |article|
