@@ -174,6 +174,13 @@ module Goldencobra
     end
 
 
+    #Das ist der Titel, der verwendet wird, wenn daraus ein Menüpunkt erstellt werden soll.
+    #der menue.title hat folgende vorgaben: validates_format_of :title, :with => /^[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+$/
+    def parsed_title
+      self.title.to_s.gsub("/", " ")
+    end
+
+
     #@article.image_standard @article.image_logo @article.image_logo_medium
     def self.init_image_methods
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
