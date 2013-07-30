@@ -200,6 +200,8 @@ module Goldencobra
         return nil
       elsif link[src_type][0 .. 6] == "http://" || link[src_type][0 .. 6] == "https:/"
         return "#{link[src_type]}"
+      elsif link[src_type] && link[src_type][0 .. 1] == "//"
+        return "http://#{link[src_type][/.(.*)/m,1]}"
       elsif link[src_type] && link[src_type][0] == "/"
         return "#{Goldencobra::Setting.absolute_base_url}/#{link[src_type][/.(.*)/m,1]}"
       elsif link[src_type] && !link[src_type].include?("mailto:")
