@@ -196,16 +196,20 @@ module Goldencobra
 
     #helper method for finding links in html document
     def add_link_to_checklist(link, src_type)
-      if link.blank? || link[src_type].blank?
+      begin
+        if link.blank? || link[src_type].blank?
+          return nil
+        elsif link[src_type][0 .. 6] == "http://" || link[src_type][0 .. 6] == "https:/"
+          return "#{link[src_type]}"
+        elsif link[src_type] && link[src_type][0 .. 1] == "//"
+          return "http://#{link[src_type][/.(.*)/m,1]}"
+        elsif link[src_type] && link[src_type][0] == "/"
+          return "#{Goldencobra::Setting.absolute_base_url}/#{link[src_type][/.(.*)/m,1]}"
+        elsif link[src_type] && !link[src_type].include?("mailto:")
+          return "#{self.absolute_public_url}/#{link[src_type]}"
+        end
+      rescue
         return nil
-      elsif link[src_type][0 .. 6] == "http://" || link[src_type][0 .. 6] == "https:/"
-        return "#{link[src_type]}"
-      elsif link[src_type] && link[src_type][0 .. 1] == "//"
-        return "http://#{link[src_type][/.(.*)/m,1]}"
-      elsif link[src_type] && link[src_type][0] == "/"
-        return "#{Goldencobra::Setting.absolute_base_url}/#{link[src_type][/.(.*)/m,1]}"
-      elsif link[src_type] && !link[src_type].include?("mailto:")
-        return "#{self.absolute_public_url}/#{link[src_type]}"
       end
     end
 
