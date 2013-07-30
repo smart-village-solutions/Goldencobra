@@ -34,6 +34,7 @@ gem 'nokogiri', '~> 1.5.3'
 gem 'cancan'
 #gem 'cobweb' #https://github.com/stewartmckee/cobweb
 #gem 'link-checker'
+#gem 'linkchecker', :git => "git://github.com/seb/linkchecker.git"
 
 gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
 gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks run properly

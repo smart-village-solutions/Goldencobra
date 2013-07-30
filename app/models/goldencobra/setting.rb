@@ -32,6 +32,14 @@ module Goldencobra
     scope :with_values, where("value IS NOT NULL")
 
 
+    def self.absolute_base_url
+      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
+        "https://#{Goldencobra::Setting.for_key('goldencobra.url')}"
+      else
+        "http://#{Goldencobra::Setting.for_key('goldencobra.url')}"
+      end
+    end
+
     def self.regenerate_active_admin
       if defined?(ActiveAdmin) and ActiveAdmin.application
         ActiveAdmin.application.unload!
