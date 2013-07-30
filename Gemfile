@@ -32,6 +32,8 @@ gem 'memcache-client'
 gem 'nokogiri', '~> 1.5.3'
 # gem 'cancan', "1.6.7"
 gem 'cancan'
+#gem 'cobweb' #https://github.com/stewartmckee/cobweb
+#gem 'link-checker'
 
 gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
 gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks run properly

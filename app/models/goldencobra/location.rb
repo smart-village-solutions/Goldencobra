@@ -21,7 +21,7 @@
 module Goldencobra
   class Location < ActiveRecord::Base
     geocoded_by :complete_location, :latitude  => :lat, :longitude => :lng
-    after_validation :geocode, :unless => :skip_geocode
+    after_validation :geocode, :unless => :skip_geocoding_once_or_always
     attr_accessor :skip_geocode
     liquid_methods :street, :city, :zip, :region, :country, :title
     belongs_to :locateable, :polymorphic => true
@@ -38,5 +38,8 @@ module Goldencobra
       self.complete_location
     end
 
+    def skip_geocoding_once_or_always
+      self.skip_geocode || self.manual_geocoding
+    end
   end
 end
