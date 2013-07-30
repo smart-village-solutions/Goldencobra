@@ -419,3 +419,17 @@ body.active_admin form input[type="submit"]:hover:not(.disabled) {
     background: -webkit-gradient(linear, left top, left bottom, from(#76B347), to(#5E9E2E));
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 #8DBF67 inset;
 }
+
+li.response_200{
+	color:green;
+	margin: 0 0 5px -10px !important;
+	line-height: 12px;
+	font-size: 10px !important;
+}
+
+li.response_404{
+	color:red;
+	margin: 0 0 5px -10px !important;
+	line-height: 12px;
+	font-size: 10px !important;
+}
