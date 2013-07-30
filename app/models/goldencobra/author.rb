@@ -3,7 +3,7 @@ module Goldencobra
 		has_many :article
 
 		def title
-			self.try(:firstname) + " " + self.try(:lastname)
+			[self.try(:firstname),self.try(:lastname)].join(" ")
 		end
 	end
 end

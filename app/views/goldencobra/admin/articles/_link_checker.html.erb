@@ -1,0 +1,12 @@
+<% if @article.link_checker.present? %>
+	<ul>
+		<% @article.link_checker.each do |key,values| %>
+			<li class="response_<%= values['response_code'] %>">
+				<%= key %><br/>
+				Status: <%= values['response_code'] %> - Time: <%= values['response_time'] %>
+			</li>
+		<% end %>
+	</ul>
+<% end %>
+
+<%= link_to "Run Link-Checker", run_link_checker_admin_article_path(@article.id) %>

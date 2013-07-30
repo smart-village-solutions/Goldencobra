@@ -197,6 +197,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     render "/goldencobra/admin/articles/image_module_sidebar"
   end
 
+  sidebar :link_checker, :only => [:edit] do
+    render "/goldencobra/admin/articles/link_checker", :locals => { :current_article => resource }
+  end
+
   sidebar :menue_options, :only => [:show, :edit] do
     ul do
       if resource.linked_menues.count > 0
@@ -246,6 +250,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     article = Goldencobra::Article.find(params[:id])
     article.update_attributes(:widget_ids => params[:widget_ids])
     redirect_to :action => :edit, :notice => "Widgets added"
+  end
+
+  member_action :run_link_checker do
+    article = Goldencobra::Article.find(params[:id])
+    article.set_link_checker
+    article.save
+    redirect_to :action => :edit, :notice => "LinkChecker completed"
   end
 
   batch_action :reset_cache, :confirm => "Cache leeren: sind Sie sicher?" do |selection|
