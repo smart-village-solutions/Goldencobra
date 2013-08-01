@@ -62,7 +62,7 @@ module Goldencobra
     attr_accessor   :hint_label, :manual_article_sort
     ImportDataFunctions = []
 
-    serialize :link_checker
+    serialize :link_checker, Hash
 
     has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
