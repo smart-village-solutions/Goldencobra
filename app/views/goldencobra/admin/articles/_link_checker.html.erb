@@ -10,7 +10,7 @@
 			<% next if values['response_code'] == "200" %>
 			<li class="response_404">
 				<%= key %><br/>
-				Status: <%= values['response_code'] %> - Time: <%= values['response_time'] %> <%= values['response_error'] %>
+				Status: <%= values['response_code'] %> <%= values['response_error'] %>
 			</li>
 		<% end %>
 	</ul>
@@ -20,7 +20,7 @@
 		<% status200er.each do |key,values| %>
 			<li class="response_200">
 				<%= key %><br/>
-				Status: <%= values['response_code'] %> - Time: <%= values['response_time'] %> <%= values['response_error'] %>
+				Time: <%= values['response_time'] %> <%= values['response_error'] %>
 			</li>
 		<% end %>
 	</ul>
