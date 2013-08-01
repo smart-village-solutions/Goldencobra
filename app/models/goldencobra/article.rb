@@ -49,6 +49,7 @@
 
 #For article rendering to string (:render_html) needed
 include Goldencobra::ApplicationHelper
+require "open-uri"
 
 module Goldencobra
   class Article < ActiveRecord::Base
@@ -60,6 +61,8 @@ module Goldencobra
     DisplayIndexTypes = [["Einzelseiten", "show"],["Übersichtsseiten", "index"], ["Alle Seiten", "all"]]
     attr_accessor   :hint_label, :manual_article_sort
     ImportDataFunctions = []
+
+    serialize :link_checker, Hash
 
     has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
@@ -161,6 +164,55 @@ module Goldencobra
       return html_to_render
     end
 
+
+    #get all links of a page and make a check for response status and time
+    def set_link_checker
+      links_to_check = []
+      status_for_links = {}
+      doc = Nokogiri::HTML(open(self.absolute_public_url))
+      #find all links and stylesheets
+      doc.css('a,link').each do |link|
+        links_to_check << add_link_to_checklist(link, "href")
+      end
+      #find all images and javascripts
+      doc.css('img,script').each do |link|
+        links_to_check << add_link_to_checklist(link,"src")
+      end
+      links_to_check = links_to_check.compact.delete_if{|a| a.blank?}
+      links_to_check.each_with_index do |link|
+        status_for_links[link] = {}
+        begin
+          start = Time.now
+          response = open(link)
+          status_for_links[link]["response_code"] = response.status[0]
+          status_for_links[link]["response_time"] = Time.now - start
+        rescue Exception  => e
+          status_for_links[link]["response_code"] = "404"
+          status_for_links[link]["response_error"] = e
+        end
+      end
+      self.link_checker = status_for_links
+    end
+
+    #helper method for finding links in html document
+    def add_link_to_checklist(link, src_type)
+      begin
+        if link.blank? || link[src_type].blank?
+          return nil
+        elsif link[src_type][0 .. 6] == "http://" || link[src_type][0 .. 6] == "https:/"
+          return "#{link[src_type]}"
+        elsif link[src_type] && link[src_type][0 .. 1] == "//"
+          return "http:/#{link[src_type][/.(.*)/m,1]}"
+        elsif link[src_type] && link[src_type][0] == "/"
+          return "#{Goldencobra::Setting.absolute_base_url}/#{link[src_type][/.(.*)/m,1]}"
+        elsif link[src_type] && !link[src_type].include?("mailto:")
+          return "#{self.absolute_public_url}/#{link[src_type]}"
+        end
+      rescue
+        return nil
+      end
+    end
+
     def comments_of_subarticles
       Goldencobra::Comment.where("article_id in (?)", self.subtree_ids)
     end
@@ -201,7 +253,6 @@ module Goldencobra
     end
 
     Goldencobra::Article.init_image_methods
-
 
     def image(position="standard", size="original")
       any_images = self.article_images.where(position: position)
@@ -369,7 +420,6 @@ module Goldencobra
         "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
       end
     end
-
 
     def for_friendly_name
       if self.url_name.present?
