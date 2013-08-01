@@ -254,9 +254,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   member_action :run_link_checker do
     article = Goldencobra::Article.find(params[:id])
-    article.set_link_checker
-    article.save
-    redirect_to :action => :edit, :notice => "LinkChecker completed"
+    system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake link_checker:article ID=#{article.id} &")
+    redirect_to :action => :edit, :notice => "LinkChecker started. Please wait a minute!"
   end
 
   batch_action :reset_cache, :confirm => "Cache leeren: sind Sie sicher?" do |selection|
@@ -338,6 +337,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   action_item :only => :index do
     link_to("Import", new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
   end
+
 
   action_item :only => :edit do
     if resource.versions.last

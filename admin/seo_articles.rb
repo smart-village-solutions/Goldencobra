@@ -29,6 +29,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
     column "Suchmaschinen gesperrt", :robots_no_index do |article|
       article.robots_no_index ? "Ja" : "Nein"
     end
+    column "Links" do |article|
+      if article.link_checker.present?
+        "#{article.link_checker.count} / E:#{article.link_checker.count - article.link_checker.select{|key,value| value['response_code'] == "200"}.count}"
+      end
+    end
     column :active, :sortable => :active do |article|
       link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article),:confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
@@ -45,5 +50,14 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
   end
 
   actions :index
+
+  collection_action :run_all_link_checker do
+    system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake link_checker:all &")
+    redirect_to :action => :edit, :notice => "All Link will be checked. This could take a while"
+  end
+
+  action_item :only => :index do
+    link_to("Run LinkChecker", run_all_link_checker_admin_seo_articles_path())
+  end
 
 end
