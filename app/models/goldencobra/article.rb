@@ -188,7 +188,7 @@ module Goldencobra
           status_for_links[link]["response_time"] = Time.now - start
         rescue Exception  => e
           status_for_links[link]["response_code"] = "404"
-          status_for_links[link]["response_error"] = e
+          status_for_links[link]["response_error"] = e.to_s
         end
       end
       self.link_checker = status_for_links
