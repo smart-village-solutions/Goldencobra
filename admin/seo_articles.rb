@@ -53,7 +53,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
 
   collection_action :run_all_link_checker do
     system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake link_checker:all &")
-    redirect_to :action => :edit, :notice => "All Link will be checked. This could take a while"
+    flash[:notice] = "All Link will be checked. This could take a while"
+    redirect_to :action => :edit
   end
 
   action_item :only => :index do

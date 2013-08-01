@@ -255,7 +255,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   member_action :run_link_checker do
     article = Goldencobra::Article.find(params[:id])
     system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake link_checker:article ID=#{article.id} &")
-    redirect_to :action => :edit, :notice => "LinkChecker started. Please wait a minute!"
+    flash[:notice] = "LinkChecker started. Please wait a minute!"
+    redirect_to :action => :edit
   end
 
   batch_action :reset_cache, :confirm => "Cache leeren: sind Sie sicher?" do |selection|
