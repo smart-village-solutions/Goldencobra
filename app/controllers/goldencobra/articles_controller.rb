@@ -33,7 +33,7 @@ module Goldencobra
       elsif serve_basic_article?
         initialize_article(@article)
         Goldencobra::Article.load_liquid_methods(location: session[:user_location], article: @article, params: params)
-
+        Goldencobra::Article::LiquidParser["url_params"] = params
         load_associated_model_into_liquid() if can_load_associated_model?
         after_init()
 
@@ -189,7 +189,6 @@ module Goldencobra
 
     def load_associated_model_into_liquid
       Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
-      Goldencobra::Article::LiquidParser["url_params"] = params
     end
 
     # ------------------ /associated models -----------------------------------
