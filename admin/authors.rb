@@ -30,15 +30,5 @@ ActiveAdmin.register Goldencobra::Author, :as => "Author" do
     render partial: '/goldencobra/admin/shared/next_item'
   end
 
-  controller do
-
-    def show
-      flash = ""
-      show! do |format|
-         format.html { redirect_to edit_admin_author_path(@author.id), :flash => flash }
-      end
-    end
-
-  end
 
 end
