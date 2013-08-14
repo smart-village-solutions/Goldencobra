@@ -22,5 +22,4 @@ ActiveAdmin.register Goldencobra::Author, :as => "Author" do
     f.actions
   end
 
-
 end
