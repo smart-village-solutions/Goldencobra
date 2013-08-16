@@ -6,6 +6,9 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
   index do
     column :id
     column :target_model
+    column "Filename" do |import|
+      import.try(:upload).try(:image_file_name)
+    end
     column :successful
     column :created_at
     column :updated_at
