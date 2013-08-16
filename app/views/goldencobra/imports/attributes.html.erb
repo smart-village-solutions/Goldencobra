@@ -52,6 +52,8 @@
 			<tr>
 				<td colspan="4"><hr></td>
 			</tr>
+
+			<%# für alle KinderModels vom Targetmodel %>
 			<% f.object.get_association_names.each do |string_ass_name| %>
 				<% #next if f.object.target_model.constantize.new.send(string_ass_name).nil? %>
 				<% if f.object.target_model.constantize.new.send(string_ass_name).class == Array  %>
@@ -59,14 +61,18 @@
 				<% else %>
 					<% ass_class = eval("f.object.target_model.constantize.new.build_#{string_ass_name}.class") %>
 				<% end %>
+
+				<%# Soll ein neuer Datensatz angelegt werden oder ein update bestehender %>
 				<% @importer.assignment_groups[ass_class.to_s] ||= "create" %>
-				<tr>
-					<td class="nested_model_header"><%= t(ass_class.to_s, :scope => [:activerecord, :models]) %></td>
+				<tr class="head" id="<%= string_ass_name %>">
+					<td class="nested_model_header"><span class="button">Felder anzeigen</span> <%= f.object.target_model %> > <%= t(ass_class.to_s, :scope => [:activerecord, :models]) %></td>
 					<td><%= f.select "assignment_groups[#{ass_class.to_s}]", options_for_select(Goldencobra::Import::DataHandling, @importer.assignment_groups[ass_class.to_s]), :include_blank => false %></td>
 				</tr>
+
+
 				<% sub_model_data_functions = defined?(ass_class::ImportDataFunctions) == "constant" ? ass_class::ImportDataFunctions : [] %>
 				<% ass_class.new.attributes.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }.keys.each do |ass_attr| %>
-					<tr>
+					<tr class="model_group <%= string_ass_name %>">
 						<td><%= t(ass_attr, :scope => [:activerecord, :attributes, ass_class.to_s.to_sym]) %></td>
 						<% @importer.assignment[ass_class.to_s] ||= {} %>
 						<% @importer.assignment[ass_class.to_s][ass_attr] ||= {} %>
@@ -79,6 +85,46 @@
 				<tr>
 					<td colspan="4"><hr></td>
 				</tr>
+
+
+				<%# jetzt folgt das gleiche nochmal für die submodel von den ass_class-Model %>
+
+				<% f.object.get_association_names(ass_class).each do |sub_ass_name| %>
+					<% if ass_class.new.send(sub_ass_name).class == Array %>
+						<% sub_ass_class = ass_class.new.send(sub_ass_name).new.class %>
+					<% else %>
+						<% if ass_class.new.respond_to?("build_#{sub_ass_name}") %>
+							<% sub_ass_class = eval("ass_class.new.build_#{sub_ass_name}.class") %>
+						<% else %>
+							<% next %>
+						<% end %>
+					<% end %>
+
+					<%# Soll ein neuer Datensatz angelegt werden oder ein update bestehender %>
+					<% @importer.assignment_groups["#{ass_class.to_s}##{sub_ass_class.to_s}"] ||= "create" %>
+					<tr class="head" id="<%= string_ass_name %>_<%= sub_ass_name %>">
+						<td class="nested_model_header"><span class="button">Felder anzeigen</span> <%= f.object.target_model %> > <%= t(ass_class.to_s, :scope => [:activerecord, :models]) %> > <%= t(sub_ass_class.to_s, :scope => [:activerecord, :models]) %></td>
+						<td><%= f.select "assignment_groups[#{ass_class.to_s}##{sub_ass_class.to_s}]", options_for_select(Goldencobra::Import::DataHandling, @importer.assignment_groups["#{ass_class.to_s}##{sub_ass_class.to_s}"]), :include_blank => false %></td>
+					</tr>
+
+					<% sub_model_data_functions = defined?(sub_ass_class::ImportDataFunctions) == "constant" ? sub_ass_class::ImportDataFunctions : [] %>
+					<% sub_ass_class.new.attributes.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }.keys.each do |ass_attr| %>
+						<tr class="model_group <%= "#{string_ass_name}_#{sub_ass_name}" %>">
+							<td><%= t(ass_attr, :scope => [:activerecord, :attributes, sub_ass_class.to_s.to_sym]) %></td>
+							<% @importer.assignment[ass_class.to_s] ||= {} %>
+							<% @importer.assignment[ass_class.to_s][sub_ass_class.to_s] ||= {} %>
+							<% @importer.assignment[ass_class.to_s][sub_ass_class.to_s][ass_attr] ||= {} %>
+							<% @importer.assignment[ass_class.to_s][sub_ass_class.to_s][ass_attr]["data_function"] ||= "" %>
+							<% @importer.assignment[ass_class.to_s][sub_ass_class.to_s][ass_attr]["option"] ||= "" %>
+							<td><%= f.select "assignment[#{ass_class.to_s}][#{sub_ass_class.to_s}][#{ass_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions + sub_model_data_functions, @importer.assignment[ass_class.to_s][sub_ass_class.to_s][ass_attr]["data_function"]), :include_blank => false %></td>
+							<td><%= text_field_tag "import[assignment[#{ass_class.to_s}][#{sub_ass_class.to_s}][#{ass_attr}][option]]", @importer.assignment[ass_class.to_s][sub_ass_class.to_s][ass_attr]["option"] %></td>
+							<td><%= f.select "assignment[#{ass_class.to_s}][#{sub_ass_class.to_s}][#{ass_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment[ass_class.to_s][sub_ass_class.to_s][ass_attr]['csv'] ), :include_blank => true %>	</td>
+					<% end%>
+
+					<tr>
+						<td colspan="4"><hr></td>
+					</tr>
+				<% end %>
 			<% end%>
 		</tbody>
 	</table>
