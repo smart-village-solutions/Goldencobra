@@ -99,12 +99,11 @@ module Goldencobra
 
         #Gehe alle Zugewiesenen Attribute durch und erzeuge die Datensätze
         all_data_attribute_assignments.each do |key,sub_assignments|
-          logger.warn("#E0"*30)
           next if key == "Goldencobra::ImportMetadata"
           if key == self.target_model
             current_object = master_object
           else
-            #Wenn das Aktuelle object nicht das MasterObject ist sindern ein Unterelement
+            #Wenn das Aktuelle object nicht das MasterObject ist sondern ein Unterelement
             # Suche unter allen möglciehn Unterobjecten das passende aus und speichere es in current_object zwischen
             master_object.class.reflect_on_all_associations.collect { |r| r.name }.each do |cass|
               if master_object.send(cass).class == Array
@@ -118,8 +117,10 @@ module Goldencobra
                 cass_related_model.destroy
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
                 if self.assignment_groups[key] == "create"
+                  logger.warn("#new"*40)
                   current_object = key.constantize.new
                 else
+                  logger.warn("*update"*40)
                   current_object = find_or_create_by_attributes(sub_assignments, row, key)
                 end
                 #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
@@ -186,8 +187,8 @@ module Goldencobra
       elsif find_master.count == 1
         return find_master.first
       else
-        self.result << "Dieses Object exisitiert schon mehrfach, keine eindeutige Zuweisung möglich: Neues Objekt wird erzeugt (#{row})"
-        return model_name.constantize.new
+        self.result << "Dieses Object exisitiert schon mehrfach, keine eindeutige Zuweisung möglich: Erstes Objekt wird verwendet (#{row})"
+        return find_master.first
       end
     end
 
