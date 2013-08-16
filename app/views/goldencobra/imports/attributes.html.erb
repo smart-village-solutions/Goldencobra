@@ -65,7 +65,11 @@
 				<%# Soll ein neuer Datensatz angelegt werden oder ein update bestehender %>
 				<% @importer.assignment_groups[ass_class.to_s] ||= "create" %>
 				<tr class="head" id="<%= string_ass_name %>">
-					<td class="nested_model_header"><span class="button">Felder anzeigen</span> <%= f.object.target_model %> > <%= t(ass_class.to_s, :scope => [:activerecord, :models]) %></td>
+					<td class="nested_model_header">
+						<span class="button">Felder anzeigen</span>
+						<%= f.object.target_model %> > <%= t(ass_class.to_s, :scope => [:activerecord, :models]) %>
+						(<%= string_ass_name %>)
+					</td>
 					<td><%= f.select "assignment_groups[#{ass_class.to_s}]", options_for_select(Goldencobra::Import::DataHandling, @importer.assignment_groups[ass_class.to_s]), :include_blank => false %></td>
 				</tr>
 
@@ -103,7 +107,11 @@
 					<%# Soll ein neuer Datensatz angelegt werden oder ein update bestehender %>
 					<% @importer.assignment_groups["#{ass_class.to_s}##{sub_ass_class.to_s}"] ||= "create" %>
 					<tr class="head" id="<%= string_ass_name %>_<%= sub_ass_name %>">
-						<td class="nested_model_header"><span class="button">Felder anzeigen</span> <%= f.object.target_model %> > <%= t(ass_class.to_s, :scope => [:activerecord, :models]) %> > <%= t(sub_ass_class.to_s, :scope => [:activerecord, :models]) %></td>
+						<td class="nested_model_header">
+							<span class="button">Felder anzeigen</span>
+							<%= f.object.target_model %> > <%= t(ass_class.to_s, :scope => [:activerecord, :models]) %> > <%= t(sub_ass_class.to_s, :scope => [:activerecord, :models]) %>
+							(<%= string_ass_name %>_<%= sub_ass_name %>)
+						</td>
 						<td><%= f.select "assignment_groups[#{ass_class.to_s}##{sub_ass_class.to_s}]", options_for_select(Goldencobra::Import::DataHandling, @importer.assignment_groups["#{ass_class.to_s}##{sub_ass_class.to_s}"]), :include_blank => false %></td>
 					</tr>
 
