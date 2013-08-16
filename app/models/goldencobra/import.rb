@@ -204,7 +204,7 @@ module Goldencobra
         return data_option
       elsif data_function == "DateTime"
         if output.present? && data_option.present?
-          return DateTime.strptime(output,data_option).strftime("%Y.%d.%m %H:%M")
+          return DateTime.strptime(output,data_option).strftime("%Y-%m-%d %H:%M")
         else
           return output
         end
