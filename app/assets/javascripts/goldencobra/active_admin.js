@@ -3,6 +3,20 @@
 //= require goldencobra/notifications
 
 $(function() {
+
+  //Importer optionen Ein und Ausblendbar machen
+  $('table.importer_assoziations tr.head td.nested_model_header span.button').bind("click", function(){
+    id_to_class = $(this).closest(".head").attr('id');
+    $('tr.model_group.' + id_to_class).toggle();
+    if ($(this).html() == "Felder anzeigen"){
+      $(this).html("Felder ausblenden");
+    }else{
+      $(this).html("Felder anzeigen");
+    }
+
+  });
+
+
 	$('textarea.tinymce').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
   		mode : "textareas",

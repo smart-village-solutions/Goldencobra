@@ -278,8 +278,19 @@ h3.goldencobra_article_article_type{
 	text-align:center;
 }
 
-table.importer_assoziations td.nested_model_header{
-	font-weight:bold;
+table.importer_assoziations {
+	td.nested_model_header{
+		font-weight:bold;
+	}
+	tr.model_group{
+		display:none;
+	}
+	span.button{
+		cursor: pointer;
+		border: 1px solid gray;
+		padding: 5px;
+		background-color: lightgray;
+	}
 }
 
 form li.hidden.input{

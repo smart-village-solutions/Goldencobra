@@ -60,8 +60,12 @@ module Goldencobra
       @get_model_attributes ||= eval("#{self.target_model}.new.attributes").delete_if{|a| BlockedAttributes.include?(a) }.keys
     end
 
-    def get_association_names
-      self.target_model.constantize.reflect_on_all_associations.collect { |r| r.name }.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }
+    def get_association_names(current_target_model=nil)
+      if current_target_model.present?
+        current_target_model.reflect_on_all_associations.collect { |r| r.name }.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }
+      else
+        self.target_model.constantize.reflect_on_all_associations.collect { |r| r.name }.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }
+      end
     end
 
     def method_missing(meth, *args, &block)
