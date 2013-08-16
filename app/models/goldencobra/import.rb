@@ -203,7 +203,11 @@ module Goldencobra
       elsif data_function == "Static Value"
         return data_option
       elsif data_function == "DateTime"
-        return DateTime.strptime(output,data_option).strftime("%Y.%d.%m %H:%M")
+        if output.present? && data_option.present?
+          return DateTime.strptime(output,data_option).strftime("%Y.%d.%m %H:%M")
+        else
+          return output
+        end
       elsif model_name.present?
         if model_name.constantize.respond_to?(data_function.parameterize.underscore)
           return model_name.constantize.send(data_function.parameterize.underscore, data, data_option )
