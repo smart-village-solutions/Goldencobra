@@ -117,10 +117,8 @@ module Goldencobra
                 cass_related_model.destroy
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
                 if self.assignment_groups[key] == "create"
-                  logger.warn("#new"*40)
                   current_object = key.constantize.new
                 else
-                  logger.warn("*update"*40)
                   current_object = find_or_create_by_attributes(sub_assignments, row, key)
                 end
                 #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
@@ -183,10 +181,13 @@ module Goldencobra
       find_master = model_name.constantize.where(find_condition.join(' AND '))
 
       if find_master.count == 0
+        logger.warn("#new"*40)
         return model_name.constantize.new
       elsif find_master.count == 1
+        logger.warn("*update"*40)
         return find_master.first
       else
+        logger.warn("*update!"*40)
         self.result << "Dieses Object exisitiert schon mehrfach, keine eindeutige Zuweisung möglich: Erstes Objekt wird verwendet (#{row})"
         return find_master.first
       end
