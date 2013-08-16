@@ -34,7 +34,7 @@ module Goldencobra
     after_initialize :init_nested_attributes
     BlockedAttributes = ["id", "created_at", "updated_at", "url_name", "slug", "upload_id", "images", "article_images", "article_widgets", "permissions", "versions"]
     DataHandling = [["bestehenden Datensatz suchen oder erstellen","update"],["Datensatz immer neu anlegen", "create"]]
-    DataFunctions = ["Default", "Static Value", "Date", "DateTime"]
+    DataFunctions = ["Default", "Static Value", "DateTime"]
     def analyze_csv
       begin
         result = []
@@ -202,6 +202,8 @@ module Goldencobra
         return output
       elsif data_function == "Static Value"
         return data_option
+      elsif data_function == "DateTime"
+        return DateTime.strptime(output,data_option).strftime("%Y.%d.%m %H:%M")
       elsif model_name.present?
         if model_name.constantize.respond_to?(data_function.parameterize.underscore)
           return model_name.constantize.send(data_function.parameterize.underscore, data, data_option )
