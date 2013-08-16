@@ -34,7 +34,7 @@ module Goldencobra
     after_initialize :init_nested_attributes
     BlockedAttributes = ["id", "created_at", "updated_at", "url_name", "slug", "upload_id", "images", "article_images", "article_widgets", "permissions", "versions"]
     DataHandling = [["bestehenden Datensatz suchen oder erstellen","update"],["Datensatz immer neu anlegen", "create"]]
-    DataFunctions = ["Default", "Static Value"]
+    DataFunctions = ["Default", "Static Value", "Date", "DateTime"]
     def analyze_csv
       begin
         result = []
@@ -192,6 +192,8 @@ module Goldencobra
         return find_master.first
       end
     end
+
+    #SELECT COUNT(*) FROM `providers` WHERE (title = 'Sportgemeinschaft Siemens Berlin e. V.' AND category_id = '3' AND metatag_external_id = '1804' AND metatag_created_at = '06.01.2010')
 
     def parse_data_with_method(data,data_function,data_option, model_name="")
       conv = Iconv.new("UTF-8", self.encoding_type)
