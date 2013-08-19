@@ -94,8 +94,6 @@ class Visitor < ActiveRecord::Base
                            agb: true
                            )
       end
-      logger.error "*"*20
-      logger.error visitor.errors.inspect
     end
     visitor
   end
