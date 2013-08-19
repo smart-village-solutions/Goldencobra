@@ -94,7 +94,7 @@
 				<%# jetzt folgt das gleiche nochmal für die submodel von den ass_class-Model %>
 
 				<% f.object.get_association_names(ass_class).each do |sub_ass_name| %>
-					<% if ass_class.new.send(sub_ass_name).class == Array %>
+					<% if ass_class.new.respond_to?(sub_ass_name) && ass_class.new.send(sub_ass_name).class == Array %>
 						<% sub_ass_class = ass_class.new.send(sub_ass_name).new.class %>
 					<% else %>
 						<% if ass_class.new.respond_to?("build_#{sub_ass_name}") %>
