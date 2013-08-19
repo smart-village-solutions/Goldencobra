@@ -94,6 +94,7 @@
 				<%# jetzt folgt das gleiche nochmal für die submodel von den ass_class-Model %>
 
 				<% f.object.get_association_names(ass_class).each do |sub_ass_name| %>
+					<% next if ass_class.new.reflect_on_association(sub_ass_name.to_sym).options[:polymorphic] == true %>
 					<% if ass_class.new.respond_to?(sub_ass_name) && ass_class.new.send(sub_ass_name).class == Array %>
 						<% sub_ass_class = ass_class.new.send(sub_ass_name).new.class %>
 					<% else %>
