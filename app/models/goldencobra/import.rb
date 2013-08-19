@@ -118,7 +118,11 @@ module Goldencobra
                 cass_related_model = master_object.send("build_#{cass}")
               end
               if cass_related_model.class == key.constantize
-                cass_related_model.destroy
+                begin
+                  cass_related_model.destroy
+                rescue
+                  #nix machen
+                end
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
                 if self.assignment_groups[key] == "create"
                   current_object = key.constantize.new
@@ -142,9 +146,54 @@ module Goldencobra
           end
           #die Werte für das Object werden gesetzt
           sub_assignments.each do |attribute_name,value|
-            data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'], current_object.class.to_s)
-            next if data_to_save.blank?
-            current_object.send("#{attribute_name}=", data_to_save)
+            #Wenn das Aktuell zu speichernde Attribute kein attribute sondern eine Assoziazion zu einem anderen Model ist...
+            sub_assoziations = current_object.class.reflect_on_all_associations.collect { |r| [r.name, r.macro] }.map{|a| a[1].to_s == "has_many" ? [current_object.send(a[0]).new.class.to_s, a[0]] : [current_object.respond_to?("build_#{a[0]}") ? current_object.send("build_#{a[0]}").class.to_s : "", a[0]]}
+            if sub_assoziations.map{|a| a[0]}.include?(attribute_name)
+              self.assignment["#{current_object.class.to_s}"][attribute_name].each do |sub_attribute_name, sub_value|
+                if current_object.send(sub_attribute_name).class == Array
+                  #Bei einer has_many beziehung
+                  cass_related_sub_model = eval("current_object.#{sub_attribute_name}.new")
+                else
+                  #bei einer belongs_to Beziehung
+                  cass_related_sub_model = current_object.send("build_#{sub_attribute_name}")
+                end
+                begin
+                  cass_related_sub_model.destroy
+                rescue
+                  #nix machen
+                end
+                sub_sub_assignments = self.assignment["#{current_object.class.to_s}"][attribute_name][sub_attribute_name]
+                #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
+                if self.assignment_groups["#{current_object.class.to_s}_#{cass_related_sub_model.class.to_s}_#{sub_attribute_name}"] == "create"
+                  current_sub_object = attribute_name.constantize.new
+                else
+                  logger.warn("##--"*40)
+                  current_sub_object = find_or_create_by_attributes(sub_sub_assignments, row, attribute_name)
+                end
+                #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
+                # wenn es eine has_many beziehung ist:
+                begin
+                  if current_object.send(sub_attribute_name).class == Array
+                    current_object.send(sub_attribute_name) << current_sub_object
+                  else
+                    eval("current_object.#{sub_attribute_name} = current_sub_object")
+                  end
+                rescue
+                  #self.result << "E:#{count}"
+                end
+                sub_sub_assignments.each do |sub_ass_item|
+                  sub_data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'], current_sub_object.class.to_s)
+                  next if sub_data_to_save.blank?
+                  current_sub_object.send("#{sub_ass_item}=", sub_data_to_save)
+                end
+                current_sub_object.save
+              end
+            else
+              data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'], current_object.class.to_s)
+              next if data_to_save.blank?
+              #Wenn das Aktuell zu speichernde Attribute wirklich ein Attribute ist, kann es gespeichert werden
+              current_object.send("#{attribute_name}=", data_to_save)
+            end
           end
           #Das Object wird gespeichert
           if current_object.save
@@ -213,7 +262,7 @@ module Goldencobra
           return output
         end
       elsif model_name.present?
-        if model_name.constantize.respond_to?(data_function.parameterize.underscore)
+        if data_function.present? && model_name.constantize.respond_to?(data_function.parameterize.underscore)
           return model_name.constantize.send(data_function.parameterize.underscore, data, data_option )
         end
       else
