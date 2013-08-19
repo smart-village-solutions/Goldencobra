@@ -185,8 +185,8 @@ module Goldencobra
                   #self.result << "E:#{count}"
                 end
                 sub_sub_assignments.each do |sub_ass_item|
-                  logger.warn("#"*40 + " - LINE 188 - assignments values #{sub_ass_item}")
                   sub_data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'], current_sub_object.class.to_s)
+                  logger.warn("#"*40 + " - LINE 188 - assignments values #{sub_ass_item} | Data: #{sub_data_to_save}")
                   next if sub_data_to_save.blank?
                   current_sub_object.send("#{sub_ass_item}=", sub_data_to_save)
                 end
