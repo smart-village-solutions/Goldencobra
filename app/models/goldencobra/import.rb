@@ -103,7 +103,7 @@ module Goldencobra
 
         #Gehe alle Zugewiesenen Attribute durch und erzeuge die Datensätze
         all_data_attribute_assignments.each do |key,sub_assignments|
-          logger "#"*40 + " - LINE 106 - all_data_attribute_assignments"
+          logger.warn("#"*40 + " - LINE 106 - all_data_attribute_assignments")
           next if key == "Goldencobra::ImportMetadata"
           if key == self.target_model
             current_object = master_object
@@ -150,7 +150,7 @@ module Goldencobra
             #Wenn das Aktuell zu speichernde Attribute kein attribute sondern eine Assoziazion zu einem anderen Model ist...
             sub_assoziations = current_object.class.reflect_on_all_associations.collect { |r| [r.name, r.macro] }.map{|a| a[1].to_s == "has_many" ? [current_object.send(a[0]).new.class.to_s, a[0]] : [current_object.respond_to?("build_#{a[0]}") ? current_object.send("build_#{a[0]}").class.to_s : "", a[0]]}
             if sub_assoziations.map{|a| a[0]}.include?(attribute_name)
-              logger "#"*40 + " - LINE 152 - sub_assoziations"
+              logger.warn("#"*40 + " - LINE 152 - sub_assoziations")
               self.assignment["#{current_object.class.to_s}"][attribute_name].each do |sub_attribute_name, sub_value|
                 if current_object.send(sub_attribute_name).class == Array
                   #Bei einer has_many beziehung
@@ -168,9 +168,9 @@ module Goldencobra
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
                 if self.assignment_groups["#{current_object.class.to_s}_#{cass_related_sub_model.class.to_s}_#{sub_attribute_name}"] == "create"
                   current_sub_object = attribute_name.constantize.new
-                  logger "#"*40 + " - LINE 170 - new"
+                  logger.warn("#"*40 + " - LINE 170 - new")
                 else
-                  logger "#"*40 + " - LINE 171 - update"
+                  logger.warn("#"*40 + " - LINE 171 - update")
                   current_sub_object = find_or_create_by_attributes(sub_sub_assignments, row, attribute_name)
                 end
                 #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
