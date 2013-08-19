@@ -50,7 +50,6 @@ module Goldencobra
 
     def unzip_files
       if self.image_file_name.include?(".zip") && File.exists?(self.image.path)
-        logger.info("===============   is a zip")
         require 'zip/zip'
         zipped_files = Zip::ZipFile.open(self.image.path)
         int = 0
