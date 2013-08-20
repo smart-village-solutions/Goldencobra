@@ -20,6 +20,7 @@ test/dummy/log/test.log
 test/dummy/public/system/
 test/dummy/db
 test/dummy/db/*
+test/dummy/config/database.yml
 
 .DS_Store
 db/.DS_Store
@@ -32,3 +33,6 @@ test/dummy/solr/*
 
 # Gem
 *.gem
+
+.rbenv*
+.ruby-version
