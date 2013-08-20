@@ -287,21 +287,13 @@ module Goldencobra
     #Gibt ein Textstring zurück der bei den speziellen Artiekltypen für die Volltextsuche durchsucht werden soll
     def searchable_in_article_type
       @searchable_in_article_type_result ||= begin
-        related_object = self.get_related_object
-        if related_object && related_object.respond_to?(:fulltext_searchable_text)
-          related_object.fulltext_searchable_text
-        else
-          " "
-        end
+        self.get_related_object.fulltext_searchable_text
       end
     end
 
     # Returns a special article_typs customs rss fields as xml
     def article_type_xml_fields
-      related_object = self.get_related_object
-      if related_object && related_object.respond_to?(:custom_rss_fields)
-        related_object.custom_rss_fields
-      end
+      self.get_related_object.custom_rss_fields
     end
 
     def public_url
@@ -313,12 +305,8 @@ module Goldencobra
     end
 
     def date_of_last_modified_child
-      if self.children.length > 0
-        if self.children.order("updated_at DESC").first.updated_at.utc > self.updated_at.utc
-          self.children.order("updated_at DESC").first.updated_at.utc
-        else
-          self.updated_at.utc
-        end
+      if self.children.any? && self.children.order("updated_at DESC").first.updated_at.utc > self.updated_at.utc
+        self.children.order("updated_at DESC").first.updated_at.utc
       else
         self.updated_at.utc
       end
@@ -333,11 +321,7 @@ module Goldencobra
     end
 
     def for_friendly_name
-      if self.url_name.present?
-        self.url_name
-      else
-        self.title
-      end
+      self.url_name || self.title.parameterize
     end
 
     # Gibt Consultant | Subsidiary | etc. zurück je nach Seitentyp
@@ -356,25 +340,15 @@ module Goldencobra
     end
 
     def selected_layout
-      if self.template_file.blank?
-        "application"
-      else
-        self.template_file
-      end
+      self.template_file || "application"
     end
 
     def breadcrumb_name
-      if self.breadcrumb.present?
-        return self.breadcrumb
-      else
-        return self.title
-      end
+      self.breadcrumb || self.title
     end
 
     def public_teaser
-      return self.teaser if self.teaser.present?
-      return self.summary if self.teaser.blank? && self.summary.present?
-      return self.content[0..200] if self.teaser.blank? && self.summary.blank?
+      self.teaser || self.summary || self.content[0...200]
     end
 
     def article_for_index_limit
@@ -407,13 +381,8 @@ module Goldencobra
 
     #Datum für den RSS reader, Datum ist created_at es sei denn ein Articletype hat ein published_at definiert
     def published_at
-      if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.downcase)
-        related_object = self.send(self.article_type_form_file.downcase)
-        if related_object && related_object.respond_to?(:published_at)
-          related_object.published_at
-        else
-          self.created_at
-        end
+      if self.get_related_object.respond_to?(:published_at)
+        self.get_related_object.published_at
       else
         self.created_at
       end
@@ -422,12 +391,6 @@ module Goldencobra
     def linked_menues
       Goldencobra::Menue.where(:target => self.public_url)
     end
-
-    def complete_json
-
-    end
-
-
 
     #Callback Methods
     ###########################
@@ -508,10 +471,6 @@ module Goldencobra
 
     # Class Methods
     #**************************
-
-    def self.active
-      Goldencobra::Article.where("active = 1 AND active_since < '#{Time.now.strftime('%Y-%m-%d %H:%M:%S ')}'")
-    end
 
     def active?
       self.active && self.active_since < Time.now.utc
