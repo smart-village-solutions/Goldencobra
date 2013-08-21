@@ -543,44 +543,11 @@ module Goldencobra
     end
 
     def verify_existence_of_opengraph_image
-      if Goldencobra::Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
-        if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
-          meta_tag = Goldencobra::Metatag.where(article_id: self.id, name: "OpenGraph Image").first
-          meta_tag.value = "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.article_images.first.image.image.url}"
-          meta_tag.save
-        else
-          Goldencobra::Metatag.create(article_id: self.id,
-                                    name: "OpenGraph Image",
-                                    value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
-        end
-      end
-
-
+      Goldencobra::Metatag.verify_existence_of_opengraph_image(self)
     end
 
     def set_default_opengraph_values
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph Title',
-                                    article_id: self.id,
-                                    value: self.title)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph URL',
-                                    article_id: self.id,
-                                    value: self.absolute_public_url)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
-        if self.teaser.present?
-          value = self.teaser
-        else
-          value = self.content.present? ? self.content.truncate(200) : self.title
-        end
-        Goldencobra::Metatag.create(name: 'OpenGraph Description',
-                                    article_id: self.id,
-                                    value: value)
-      end
+      Goldencobra::Metatag.set_default_opengraph_values(self)
     end
 
     def notification_event_create
