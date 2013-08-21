@@ -5,20 +5,41 @@ module Goldencobra
     def initialize(article, current_operator=nil, user_frontend_tags=nil)
       @article = article
       @list_of_articles = []
-      if @article.article_for_index_id.blank?
-        #Index aller Artikel anzeigen
-        @list_of_articles = Goldencobra::ArticleType.for_index(@article)
+
+      #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
+      parent_article = Goldencobra::Article.find_by_id(@article.article_for_index_id)
+      if parent_article
+        @list_of_articles = children_with_same_type(parent_article, @article.article_type)
       else
-        #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
-        parent_article = Goldencobra::Article.find_by_id(@article.article_for_index_id)
-        if parent_article
-          @list_of_articles = children_with_same_type(parent_article, @article.article_type)
-        else
-          @list_of_articles = Goldencobra::ArticleType.for_index(@article)
-        end
+        @list_of_articles = Goldencobra::ArticleType.for_index(@article)
       end
-      #include related models
+
+      include_related_models
+
+      consider_tagging
+
+      filter_with_permissions(current_operator)
+
+      sort_list
+  
+      return @list_of_articles
+    end
+
+    def each(&block)
+      @list_of_articles.each(&block)
+    end
+  
+    def to_s
+      @list_of_articles
+    end
+  
+    private
+
+    def include_related_models
       @list_of_articles = @list_of_articles.includes("#{@article.article_type_form_file.downcase}") if @article.respond_to?(@article.article_type_form_file.downcase)
+    end
+
+    def consider_tagging
       #get articles with tag
       if @article.index_of_articles_tagged_with.present?
         @list_of_articles = @list_of_articles.tagged_with(@article.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags, any: true)
@@ -31,39 +52,26 @@ module Goldencobra
       if user_frontend_tags.present?
         @list_of_articles = @list_of_articles.tagged_with(user_frontend_tags, on: :frontend_tags, any: true)
       end
-      #filter with permissions
-      @list_of_articles = filter_with_permissions(@list_of_articles,current_operator)
+    end
 
-      sort_list
-  
-      return @list_of_articles
+    def current_operator_can_preview_all_articles
+      current_operator && current_operator.respond_to?(:has_role?) &&
+       current_operator.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
     end
-  
 
-    def each(&block)
-      @list_of_articles.each(&block)
-    end
-  
-    def to_s
-      @list_of_articles
-    end
-  
-    private
     # Methode filtert die @list_of_articles.
     # Rückgabewert: Ein Array all der Artikel, die der operator lesen darf.
-    def filter_with_permissions(list, current_operator)
-      if current_operator && current_operator.respond_to?(:has_role?) && current_operator.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
-        return list
-      else
+    def filter_with_permissions(current_operator)
+      unless current_operator_can_preview_all_articles
         a = Ability.new(current_operator)
         new_list = []
-        list.each do |article|
+        @list_of_articles.each do |article|
           if a.can?(:read, article)
             new_list << article.id
           end
         end
+        @list_of_articles =  @list_of_articles.where('goldencobra_articles.id in (?)', new_list)
       end
-      return list.where('goldencobra_articles.id in (?)', new_list)
     end
   
     def children_with_same_type(parent_article, type)
