@@ -132,4 +132,18 @@ describe Goldencobra::Article do
     #                              article_id: @article.id).first.value.should == @article.article_images.first.image.image.url
     # end
   end
+
+  context 'index articles' do
+    before do
+      @article = create :article
+      @list_of_articles = []
+      5.times do
+        @list_of_articles << (create :article, article_for_index_id: @article.id, parent: @article)
+      end
+    end
+
+    it 'should have a parent article' do
+      expect(Goldencobra::Article.last.index_articles).to eq(@list_of_articles)
+    end
+  end
 end
