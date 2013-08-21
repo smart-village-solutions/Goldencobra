@@ -269,9 +269,9 @@ module Goldencobra
         else
           eval("current_object.#{sub_attribute_name} = current_sub_object")
         end
-      rescue
+      rescue  => e
         logger.warn("***"*20)
-        logger.warn("Current Submodel cannot be added to model: #{sub_attribute_name}")
+        logger.warn("Current Submodel cannot be added to model: #{sub_attribute_name} #{e}")
       end
     end
 
