@@ -112,6 +112,7 @@ module Goldencobra
             # Suche unter allen möglichen Unterobjekten das Passende aus
 
             #master_assoziations = current_object.class.reflect_on_all_associations.collect { |r| [r.name, r.macro] }.map{|a| a[1].to_s == "has_many" ? [current_object.send(a[0]).new.class.to_s, a[0]] : [current_object.respond_to?("build_#{a[0]}") ? current_object.send("build_#{a[0]}").class.to_s : "", a[0]]}
+
             # master_object.class.reflect_on_all_associations.collect { |r| r.name }.each do |cass|
             #   if master_object.send(cass).class == Array
             #     #Bei einer has_many beziehung
@@ -263,16 +264,34 @@ module Goldencobra
     end
 
     def add_current_submodel_to_model(current_object, current_sub_object, sub_attribute_name )
-      begin
-        if current_object.send(sub_attribute_name).class == Array
-          current_object.send(sub_attribute_name) << current_sub_object
-        else
-          eval("current_object.#{sub_attribute_name} = current_sub_object")
+      if sub_attribute_name.present? && current_object.present? && current_sub_object.present?
+        begin
+          if current_object.send(sub_attribute_name).class == Array
+            current_object.send(sub_attribute_name) << current_sub_object
+          else
+            eval("current_object.#{sub_attribute_name} = current_sub_object")
+          end
+        rescue  => e
+          logger.warn("***"*20)
+          logger.warn("Current Submodel cannot be added to model: #{sub_attribute_name} #{e}")
         end
-      rescue  => e
-        logger.warn("***"*20)
-        logger.warn("Current Submodel cannot be added to model: #{sub_attribute_name} #{e}")
       end
+    end
+
+
+    def get_associations_for_current_object(current_object)
+      h = {}
+      ass = current_object.class.reflect_on_all_associations.collect { |r| [r.name, r.macro] }
+      ass.each do |a|
+        if a[1].to_s == "has_many"
+          h[current_object.send(a[0]).new.class.to_s] || = []
+          h[current_object.send(a[0]).new.class.to_s] << a[0]
+        elsif current_object.respond_to?("build_#{a[0]}")
+          h[current_object.send("build_#{a[0]}").class.to_s] ||= []
+          h[current_object.send("build_#{a[0]}").class.to_s] << a[0]
+        end
+      end
+      return h
     end
 
   end
