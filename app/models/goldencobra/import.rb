@@ -99,15 +99,22 @@ module Goldencobra
         master_object = create_or_update_target_model(self.target_model,self.target_model,master_data_attribute_assignments, row )
 
         #Gehe alle Zugewiesenen Attribute durch und erzeuge die Datensätze
-        all_data_attribute_assignments.each do |key,sub_assignments|
+        all_data_attribute_assignments.each do |key_string,sub_assignments|
+          key = key_string.split("_")[0]
+          key_relation_name = key_string.split("_")[1]
+
           #Metadaten werden zu jedem Datensatz separat erfasst
           next if key == "Goldencobra::ImportMetadata"
 
           if key == self.target_model
             current_object = master_object
           else
+            unless key_relation_name.present?
+              key_relation_name = get_associations_for_current_object(current_object)[key]
+              key_relation_name = key_relation_name.first if key_relation_name.class == Array
+            end
             current_object = create_or_update_target_model(key,key,sub_assignments, row )
-            add_current_submodel_to_model(master_object, current_object, cass )
+            add_current_submodel_to_model(master_object, current_object, key_relation_name )
             #Wenn das Aktuelle object nicht das MasterObject ist sondern ein Unterelement
             # Suche unter allen möglichen Unterobjekten das Passende aus
 

@@ -78,13 +78,13 @@
 				<% ass_class.new.attributes.delete_if{|a| Goldencobra::Import::BlockedAttributes.include?(a.to_s) }.keys.each do |ass_attr| %>
 					<tr class="model_group <%= string_ass_name %>">
 						<td><%= t(ass_attr, :scope => [:activerecord, :attributes, ass_class.to_s.to_sym]) %></td>
-						<% @importer.assignment[ass_class.to_s] ||= {} %>
-						<% @importer.assignment[ass_class.to_s][ass_attr] ||= {} %>
-						<% @importer.assignment[ass_class.to_s][ass_attr]["data_function"] ||= "" %>
-						<% @importer.assignment[ass_class.to_s][ass_attr]["option"] ||= "" %>
-						<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions + sub_model_data_functions, @importer.assignment[ass_class.to_s][ass_attr]["data_function"]), :include_blank => false %></td>
-						<td><%= text_field_tag "import[assignment[#{ass_class.to_s}][#{ass_attr}][option]]", @importer.assignment[ass_class.to_s][ass_attr]["option"] %></td>
-						<td><%= f.select "assignment[#{ass_class.to_s}][#{ass_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment[ass_class.to_s][ass_attr]['csv'] ), :include_blank => true %>	</td>
+						<% @importer.assignment["#{ass_class.to_s}_#{string_ass_name}"] ||= {} %>
+						<% @importer.assignment["#{ass_class.to_s}_#{string_ass_name}"][ass_attr] ||= {} %>
+						<% @importer.assignment["#{ass_class.to_s}_#{string_ass_name}"][ass_attr]["data_function"] ||= "" %>
+						<% @importer.assignment["#{ass_class.to_s}_#{string_ass_name}"][ass_attr]["option"] ||= "" %>
+						<td><%= f.select "assignment[#{ass_class.to_s}_#{string_ass_name}][#{ass_attr}][data_function]", options_for_select(Goldencobra::Import::DataFunctions + sub_model_data_functions, @importer.assignment["#{ass_class.to_s}_#{string_ass_name}"][ass_attr]["data_function"]), :include_blank => false %></td>
+						<td><%= text_field_tag "import[assignment[#{ass_class.to_s}_#{string_ass_name}][#{ass_attr}][option]]", @importer.assignment["#{ass_class.to_s}_#{string_ass_name}"][ass_attr]["option"] %></td>
+						<td><%= f.select "assignment[#{ass_class.to_s}_#{string_ass_name}][#{ass_attr}][csv]", options_for_select(f.object.analyze_csv, @importer.assignment["#{ass_class.to_s}_#{string_ass_name}"][ass_attr]['csv'] ), :include_blank => true %>	</td>
 				<% end%>
 				<tr>
 					<td colspan="4"><hr></td>
