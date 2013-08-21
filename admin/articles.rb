@@ -9,7 +9,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => "Elternelement")
-  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:goldencobra, :article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
+  filter :article_type, :as => :select, :collection => Goldencobra::ArticleType.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:goldencobra, :article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
   filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter], :default => "Titel")
   filter :frontend_tag_name, :as => :string, :label => I18n.t("frontend_tags", :scope => [:goldencobra, :filter], :default => "Filterkriterium")
   filter :tag_name, :as => :string, :label => I18n.t("tags", :scope => [:goldencobra, :filter], :default => "Interne Tags")
@@ -24,7 +24,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   scope "Online", :active
   scope "Offline", :inactive
 
-  Goldencobra::Article.article_types_for_select.each do |article_type|
+  Goldencobra::ArticleType.article_types_for_select.each do |article_type|
     next if article_type.include?("index")
     scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => article_type.split(' ').first)){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
   end

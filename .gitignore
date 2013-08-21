@@ -21,6 +21,7 @@ test/dummy/public/system/
 test/dummy/db
 test/dummy/db/*
 test/dummy/config/database.yml
+test/dummy/test_import.csv
 
 .DS_Store
 db/.DS_Store

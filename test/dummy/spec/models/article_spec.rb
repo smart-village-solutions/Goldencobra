@@ -132,4 +132,78 @@ describe Goldencobra::Article do
     #                              article_id: @article.id).first.value.should == @article.article_images.first.image.image.url
     # end
   end
+
+  context 'index articles' do
+    before do
+      @article = create :article
+      @list_of_articles = []
+      5.times do
+        @list_of_articles << (create :article, article_for_index_id: @article.id, parent: @article)
+      end
+    end
+
+    it 'should have a parent article' do
+      expect(Goldencobra::Article.last.index_articles).to eq(@list_of_articles)
+    end
+  end
+
+  context 'related object' do
+    it 'should return a proper published_at' do
+      @article = create :article
+      expect(@article.published_at).to eq(@article.created_at)
+    end
+  end
+
+  context 'template file' do
+    it 'returns application if blank' do
+      @article = create :article
+      expect(@article.selected_layout).to eq('application')
+    end
+
+    it 'returns a template file if present' do
+      @article = create :article, template_file: 'my_template_file'
+      expect(@article.selected_layout).to eq('my_template_file')
+    end
+  end
+
+  context 'breadcrumb name' do
+    it 'returns a breadcrumb name if present' do
+      article = create :article, breadcrumb: 'my-breadcrumb', title: 'awesome title'
+      expect(article.breadcrumb_name).to eq('my-breadcrumb')
+    end
+
+    it "returns the article's title if no breadcrumb given" do
+      article = create :article, title: 'awesome title'
+      expect(article.breadcrumb_name).to eq('awesome title')
+    end
+  end
+
+  context 'public teaser' do
+    it 'returns teaser if present' do
+      article = create :article, teaser: 'my-teaser', content: "a"*230, summary: 'my-summary'
+      expect(article.public_teaser).to eq('my-teaser')
+    end
+
+    it 'returns summary if present and teaser blank' do
+      article = create :article, summary: 'my-summary', content: "a"*230
+      expect(article.public_teaser).to eq('my-summary')
+    end
+
+    it 'returns the first 200 chars of content if neither is given' do
+      article = create :article, content: "a"*230
+      expect(article.public_teaser).to eq("a"*200)
+    end
+  end
+
+  context 'for friendly name' do
+    it 'returns the url name if present' do
+      article = create :article, url_name: 'my-url-name'
+      expect(article.for_friendly_name).to eq('my-url-name')
+    end
+
+    it 'returns the title if url name is blank' do
+      article = create :article, url_name: ''
+      expect(article.for_friendly_name).to eq(article.title.parameterize)
+    end
+  end
 end
