@@ -100,7 +100,6 @@ module Goldencobra
 
         #Gehe alle Zugewiesenen Attribute durch und erzeuge die Datensätze
         all_data_attribute_assignments.each do |key,sub_assignments|
-          logger.warn("#"*40 + " - LINE 106 - all_data_attribute_assignments")
           next if key == "Goldencobra::ImportMetadata"
           if key == self.target_model
             current_object = master_object
@@ -134,7 +133,6 @@ module Goldencobra
             #Wenn das Aktuell zu speichernde Attribute kein attribute sondern eine Assoziazion zu einem anderen Model ist...
             sub_assoziations = current_object.class.reflect_on_all_associations.collect { |r| [r.name, r.macro] }.map{|a| a[1].to_s == "has_many" ? [current_object.send(a[0]).new.class.to_s, a[0]] : [current_object.respond_to?("build_#{a[0]}") ? current_object.send("build_#{a[0]}").class.to_s : "", a[0]]}
             if sub_assoziations.map{|a| a[0]}.include?(attribute_name)
-              logger.warn("#"*40 + " - LINE 152 - sub_assoziations")
               self.assignment["#{current_object.class.to_s}"][attribute_name].each do |sub_attribute_name, sub_value|
                 if current_object.send(sub_attribute_name).class == Array
                   #Bei einer has_many beziehung
@@ -154,7 +152,6 @@ module Goldencobra
 
                 sub_sub_assignments.each do |sub_ass_item|
                   sub_data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'], current_sub_object.class.to_s)
-                  logger.warn("#"*40 + " - LINE 188 - assignments values #{sub_ass_item} | Data: #{sub_data_to_save}")
                   next if sub_data_to_save.blank?
                   current_sub_object.send("#{sub_ass_item}=", sub_data_to_save)
                 end
@@ -269,7 +266,7 @@ module Goldencobra
         end
       rescue
         logger.warn("***"*20)
-        logger.warn("Current Submodel cound not be added to model: #{sub_attribute_name}")
+        logger.warn("Current Submodel cannot be added to model: #{sub_attribute_name}")
       end
     end
 
