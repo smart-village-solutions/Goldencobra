@@ -275,7 +275,7 @@ module Goldencobra
 
     def remove_emty_assignments
       self.assignment.each do |key, values|
-        self.assignment[key].delete_if{|key,value| value['data_function'] == "Default" && value['csv'].blank?}
+        self.assignment[key].delete_if{|k,v| v['data_function'] == "Default" && v['csv'].blank?}
         if self.assignment[key].blank?
           self.assignment.delete(key)
         end
