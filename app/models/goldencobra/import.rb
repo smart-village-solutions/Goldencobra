@@ -95,11 +95,8 @@ module Goldencobra
         master_object = nil
         current_object = nil
         #Neues Object anlegen oder bestehendes suchen und aktualisieren
-        if self.assignment_groups[self.target_model] == "create"
-          master_object = self.target_model.constantize.new
-        else
-          master_object = find_or_create_by_attributes(master_data_attribute_assignments, row, self.target_model)
-        end
+        master_object = create_or_update_target_model(self.target_model,self.target_model,master_data_attribute_assignments, row )
+
 
         #Gehe alle Zugewiesenen Attribute durch und erzeuge die Datensätze
         all_data_attribute_assignments.each do |key,sub_assignments|
@@ -111,6 +108,7 @@ module Goldencobra
             #Wenn das Aktuelle object nicht das MasterObject ist sondern ein Unterelement
             # Suche unter allen möglciehn Unterobjecten das passende aus und speichere es in current_object zwischen
             master_object.class.reflect_on_all_associations.collect { |r| r.name }.each do |cass|
+
               if master_object.send(cass).class == Array
                 #Bei einer has_many beziehung
                 cass_related_model = eval("master_object.#{cass}.new")
@@ -125,22 +123,8 @@ module Goldencobra
                   #nix machen
                 end
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
-                if self.assignment_groups[key] == "create"
-                  current_object = key.constantize.new
-                else
-                  current_object = find_or_create_by_attributes(sub_assignments, row, key)
-                end
-                #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
-                # wenn es eine has_many beziehung ist:
-                begin
-                  if master_object.send(cass).class == Array
-                    master_object.send(cass) << current_object
-                  else
-                    eval("master_object.#{cass} = current_object")
-                  end
-                rescue
-                  #self.result << "E:#{count}"
-                end
+                current_object = create_or_update_target_model(key,key,sub_assignments, row )
+                add_current_submodel_to_model(master_object, current_object, cass )
                 break
               end
             end
@@ -159,31 +143,15 @@ module Goldencobra
                   #bei einer belongs_to Beziehung
                   cass_related_sub_model = current_object.send("build_#{sub_attribute_name}")
                 end
-                begin
-                  cass_related_sub_model.destroy
-                rescue
-                  #nix machen
-                end
+
                 sub_sub_assignments = self.assignment["#{current_object.class.to_s}"][attribute_name][sub_attribute_name]
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
-                if self.assignment_groups["#{current_object.class.to_s}_#{cass_related_sub_model.class.to_s}_#{sub_attribute_name}"] == "create"
-                  current_sub_object = attribute_name.constantize.new
-                  logger.warn("#"*40 + " - LINE 170 - new")
-                else
-                  logger.warn("#"*40 + " - LINE 171 - update")
-                  current_sub_object = find_or_create_by_attributes(sub_sub_assignments, row, attribute_name)
-                end
+                current_sub_object = create_or_update_target_model("#{current_object.class.to_s}_#{cass_related_sub_model.class.to_s}_#{sub_attribute_name}",attribute_name,sub_sub_assignments, row )
+
+                add_current_submodel_to_model(current_object, current_sub_object, sub_attribute_name )
                 #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
                 # wenn es eine has_many beziehung ist:
-                begin
-                  if current_object.send(sub_attribute_name).class == Array
-                    current_object.send(sub_attribute_name) << current_sub_object
-                  else
-                    eval("current_object.#{sub_attribute_name} = current_sub_object")
-                  end
-                rescue
-                  #self.result << "E:#{count}"
-                end
+
                 sub_sub_assignments.each do |sub_ass_item|
                   sub_data_to_save = parse_data_with_method(row[value['csv'].to_i],value['data_function'],value['option'], current_sub_object.class.to_s)
                   logger.warn("#"*40 + " - LINE 188 - assignments values #{sub_ass_item} | Data: #{sub_data_to_save}")
@@ -281,6 +249,28 @@ module Goldencobra
         end
       end
       self.assignment
+    end
+
+
+    def create_or_update_target_model(assignment_groups_definition,target_model,master_data_attribute_assignments, data_row )
+      if self.assignment_groups[assignment_groups_definition] == "create"
+        return target_model.constantize.new
+      else
+        return find_or_create_by_attributes(master_data_attribute_assignments, data_row, target_model)
+      end
+    end
+
+    def add_current_submodel_to_model(current_object, current_sub_object, sub_attribute_name )
+      begin
+        if current_object.send(sub_attribute_name).class == Array
+          current_object.send(sub_attribute_name) << current_sub_object
+        else
+          eval("current_object.#{sub_attribute_name} = current_sub_object")
+        end
+      rescue
+        logger.warn("***"*20)
+        logger.warn("Current Submodel cound not be added to model: #{sub_attribute_name}")
+      end
     end
 
   end
