@@ -73,21 +73,12 @@ module Goldencobra
     def sort_list
       if @article.sort_order.present?
         if @article.sort_order.include?(".")
-          @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(@article.sort_order) }
-          @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(@article.sort_order) }
-          @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{@article.sort_order}") }
-          if @unsortable.any?
-            @list_of_articles = @unsortable + @list_of_articles
-            @list_of_articles = @list_of_articles.flatten
-          end
+          sort_by_related_object_attribute
         else
           begin
             @list_of_articles = "Goldencobra::ListSorter::#{@article.sort_order.classify}".constantize.new(@list_of_articles)
           rescue NameError
-            if @article.respond_to?(@article.sort_order)
-              sort_order = @article.sort_order.downcase
-              @list_of_articles = @list_of_articles.flatten.sort_by{|art| art.respond_to?(sort_order) ? art.send(sort_order) : art }
-            end
+            sort_by_article_attribute
           end
         end
         if @article.reverse_sort
@@ -98,6 +89,23 @@ module Goldencobra
       if @article.sorter_limit && @article.sorter_limit > 0
         @list_of_articles = @list_of_articles[0...@article.sorter_limit]
       end
+    end
+  end
+
+  def sort_by_article_attribute
+    if @article.respond_to?(@article.sort_order)
+      sort_order = @article.sort_order.downcase
+      @list_of_articles = @list_of_articles.flatten.sort_by{|art| art.respond_to?(sort_order) ? art.send(sort_order) : art }
+    end
+  end
+
+  def sort_by_related_object_attribute
+    @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(@article.sort_order) }
+    @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(@article.sort_order) }
+    @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{@article.sort_order}") }
+    if @unsortable.any?
+      @list_of_articles = @unsortable + @list_of_articles
+      @list_of_articles = @list_of_articles.flatten
     end
   end
 end
