@@ -284,7 +284,7 @@ module Goldencobra
       ass = current_object.class.reflect_on_all_associations.collect { |r| [r.name, r.macro] }
       ass.each do |a|
         if a[1].to_s == "has_many"
-          h[current_object.send(a[0]).new.class.to_s] || = []
+          h[current_object.send(a[0]).new.class.to_s] ||= []
           h[current_object.send(a[0]).new.class.to_s] << a[0]
         elsif current_object.respond_to?("build_#{a[0]}")
           h[current_object.send("build_#{a[0]}").class.to_s] ||= []
