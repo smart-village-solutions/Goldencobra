@@ -117,4 +117,21 @@ module Goldencobra
       end
     end
   end
+
+  def sort_by_article_attribute
+    if @article.respond_to?(@article.sort_order)
+      sort_order = @article.sort_order.downcase
+      @list_of_articles = @list_of_articles.flatten.sort_by{|art| art.respond_to?(sort_order) ? art.send(sort_order) : art }
+    end
+  end
+
+  def sort_by_related_object_attribute
+    @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(@article.sort_order) }
+    @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(@article.sort_order) }
+    @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{@article.sort_order}") }
+    if @unsortable.any?
+      @list_of_articles = @unsortable + @list_of_articles
+      @list_of_articles = @list_of_articles.flatten
+    end
+  end
 end
