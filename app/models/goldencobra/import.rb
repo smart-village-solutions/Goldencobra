@@ -78,6 +78,7 @@ module Goldencobra
       @status ||="ready to import"
     end
 
+
     def run!
       self.result = []
       count = 0
@@ -97,36 +98,39 @@ module Goldencobra
         #Neues Object anlegen oder bestehendes suchen und aktualisieren
         master_object = create_or_update_target_model(self.target_model,self.target_model,master_data_attribute_assignments, row )
 
-
         #Gehe alle Zugewiesenen Attribute durch und erzeuge die Datensätze
         all_data_attribute_assignments.each do |key,sub_assignments|
+          #Metadaten werden zu jedem Datensatz separat erfasst
           next if key == "Goldencobra::ImportMetadata"
+
           if key == self.target_model
             current_object = master_object
           else
+            current_object = create_or_update_target_model(key,key,sub_assignments, row )
+            add_current_submodel_to_model(master_object, current_object, cass )
             #Wenn das Aktuelle object nicht das MasterObject ist sondern ein Unterelement
-            # Suche unter allen möglciehn Unterobjecten das passende aus und speichere es in current_object zwischen
-            master_object.class.reflect_on_all_associations.collect { |r| r.name }.each do |cass|
+            # Suche unter allen möglichen Unterobjekten das Passende aus
 
-              if master_object.send(cass).class == Array
-                #Bei einer has_many beziehung
-                cass_related_model = eval("master_object.#{cass}.new")
-              else
-                #bei einer belongs_to Beziehung
-                cass_related_model = master_object.send("build_#{cass}")
-              end
-              if cass_related_model.class == key.constantize
-                begin
-                  cass_related_model.destroy
-                rescue
-                  #nix machen
-                end
-                #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
-                current_object = create_or_update_target_model(key,key,sub_assignments, row )
-                add_current_submodel_to_model(master_object, current_object, cass )
-                break
-              end
-            end
+            #master_assoziations = current_object.class.reflect_on_all_associations.collect { |r| [r.name, r.macro] }.map{|a| a[1].to_s == "has_many" ? [current_object.send(a[0]).new.class.to_s, a[0]] : [current_object.respond_to?("build_#{a[0]}") ? current_object.send("build_#{a[0]}").class.to_s : "", a[0]]}
+            # master_object.class.reflect_on_all_associations.collect { |r| r.name }.each do |cass|
+            #   if master_object.send(cass).class == Array
+            #     #Bei einer has_many beziehung
+            #     cass_related_model = eval("master_object.#{cass}.new")
+            #   else
+            #     #bei einer belongs_to Beziehung
+            #     cass_related_model = master_object.send("build_#{cass}")
+            #   end
+            #   if cass_related_model.class == key.constantize
+            #     begin
+            #       cass_related_model.destroy
+            #     rescue
+            #       #nix machen
+            #     end
+            #     #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
+
+            #     break
+            #   end
+            # end
           end
           #die Werte für das Object werden gesetzt
           sub_assignments.each do |attribute_name,value|
@@ -187,6 +191,7 @@ module Goldencobra
       end
       self.save
     end
+
 
     def init_nested_attributes
       self.upload ||= build_upload
