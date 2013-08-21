@@ -1,4 +1,4 @@
-# == Schema Information
+chema Information
 #
 # Table name: goldencobra_metatags
 #
