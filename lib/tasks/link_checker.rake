@@ -8,7 +8,8 @@ namespace :link_checker do
     if article_id.present?
       article = Goldencobra::Article.find(article_id)
       if article
-        article.set_link_checker
+        status = Goldencobra::LinkChecker.get_status_for_article(article)
+        article.link_checker = status
         article.save
       end
     else
@@ -22,7 +23,8 @@ namespace :link_checker do
   task :all => :environment do
     Goldencobra::Article.scoped.each do |article|
       begin
-        article.set_link_checker
+        status = Goldencobra::LinkChecker.get_status_for_article(article)
+        article.link_checker = status
         article.save
       rescue
         puts "Artikel konnte nicht geprüft werden: #{article.id}"
