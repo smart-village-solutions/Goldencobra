@@ -38,7 +38,7 @@ GIT
 PATH
   remote: .
   specs:
-    goldencobra (1.1.8)
+    goldencobra (1.1.9)
       activeadmin
       activeadmin-cancan
       acts-as-taggable-on
