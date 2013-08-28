@@ -89,6 +89,8 @@ module Goldencobra
 
     validates_presence_of :title, :article_type
     validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
+    validates_presence_of :breadcrumb, :on => :create
+    validates_length_of :breadcrumb, :within => 1..70, :on => :create
 
     after_create :set_active_since
     after_create :notification_event_create
@@ -137,8 +139,10 @@ module Goldencobra
     end
 
 
-
+    # **************************
+    # **************************
     # Instance Methods
+    # **************************
     # **************************
 
     #scope for index articles, display show articles, index articless or both articles of an current type
@@ -424,6 +428,8 @@ module Goldencobra
     def for_friendly_name
       if self.url_name.present?
         self.url_name
+      elsif self.breadcrumb.present?
+        self.breadcrumb
       else
         self.title
       end
@@ -521,9 +527,11 @@ module Goldencobra
     end
 
 
-
-    #Callback Methods
-    ###########################
+    # **************************
+    # **************************
+    # Callback Methods
+    # **************************
+    # **************************
 
     #Nachdem ein Artikel gelöscht wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht wurde
     def update_parent_article_etag
@@ -559,18 +567,21 @@ module Goldencobra
     end
 
     def set_default_opengraph_values
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'Title Tag').none?
+        Goldencobra::Metatag.create(name: 'Title Tag',
+                                    article_id: self.id,
+                                    value: self.breadcrumb)
+      end
       if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
         Goldencobra::Metatag.create(name: 'OpenGraph Title',
                                     article_id: self.id,
                                     value: self.title)
       end
-
       if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
         Goldencobra::Metatag.create(name: 'OpenGraph URL',
                                     article_id: self.id,
                                     value: self.absolute_public_url)
       end
-
       if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
         if self.teaser.present?
           value = self.teaser
@@ -593,14 +604,17 @@ module Goldencobra
 
     def set_url_name_if_blank
       if self.url_name.blank?
+        #self.url_name = self.breadcrumb
         self.url_name = self.friendly_id.split("--")[0]
       end
     end
 
 
-
+    # **************************
+    # **************************
     # Class Methods
-    #**************************
+    # **************************
+    # **************************
 
     def self.active
       Goldencobra::Article.where("active = 1 AND active_since < '#{Time.now.strftime('%Y-%m-%d %H:%M:%S ')}'")

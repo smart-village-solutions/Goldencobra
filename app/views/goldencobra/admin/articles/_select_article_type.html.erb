@@ -9,6 +9,7 @@ f.inputs I18n.t(:selection, scope: [:article_types]), :class => "foldable inputs
     f.input :article_type, :as => :select, :collection => article_types, include_blank: true
   end
   f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
+  f.input :breadcrumb, :label => "Kurzer Titel", :hint => "Max 70 Zeichen. Wird in der URL, im TitleTag und im Breadcrumb verwendet"
   f.input :content, :input_html => { :class =>"tinymce"}
   f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
   f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium"
