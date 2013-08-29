@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 1.9.2"
 
   s.add_dependency 'coffee-script-source', "1.4.0"
-  s.add_dependency "capistrano", "2.14.1"
+  s.add_dependency "capistrano", "2.15.5"
   s.add_dependency "rvm-capistrano"
   s.add_dependency 'capistrano-maintenance'
   s.add_dependency "rails", "~> 3.2.11"
