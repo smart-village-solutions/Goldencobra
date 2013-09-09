@@ -1,6 +1,9 @@
 de:
     activerecord:
         models:
+            domain:
+                one: "Domain"
+                other: "Domains"
             analytic:
                 one: "Analytic"
                 other: "Analytics"
