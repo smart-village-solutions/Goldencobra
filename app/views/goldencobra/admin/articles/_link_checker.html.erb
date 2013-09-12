@@ -1,6 +1,6 @@
 
 <% if @article.link_checker.present? && @article.link_checker.class == Hash %>
-	<% status200er =  @article.link_checker.select{|key,value| value['response_code'] == "200"} %>
+	<% status200er =  @article.link_checker.select{|key,value| value.present? && value['response_code'] == "200"} %>
 	<h2><%= @article.link_checker.count - status200er.count %>x Status 404,301... :</h2>
 	<% if (@article.link_checker.count - status200er.count) == 0 %>
 		<h4>Alle Links sind in Ordnung!</h4>
