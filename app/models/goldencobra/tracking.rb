@@ -41,7 +41,7 @@ module Goldencobra
           t.utm_term = request.params["utm_term"]
           t.utm_content = request.params["utm_content"]
           t.utm_campaign = request.params["utm_campaign"]
-          t.url_paremeters = request.params
+          t.url_paremeters = request.params.except(:utf8) if request.params.present?
           t.language = request.env["HTTP_ACCEPT_LANGUAGE"]
           t.user_agent = request.env["HTTP_USER_AGENT"]
           t.session_id = request.session_options[:id]
