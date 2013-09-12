@@ -7,7 +7,7 @@
 	<% end %>
 	<ul>
 		<% @article.link_checker.each do |key,values| %>
-			<% next if values['response_code'] == "200" %>
+			<% next if values.present? && values['response_code'] == "200" %>
 			<li class="response_404">
 				<%= key %><br/>
 				Status: <%= values['response_code'] %> <%= values['response_error'] %>
