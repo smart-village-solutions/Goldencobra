@@ -1,6 +1,11 @@
+<%# zusatz meta tags, die nicht mit display_meta_tags ausgespielt werden %>
+<meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="de" http-equiv="Content-Language">
+<%= display_meta_tags unless options[:exclude] && options[:exclude].include?("metatags") %>
+
 <%= stylesheet_link_tag "goldencobra/application", :media => "all" unless options[:exclude] && options[:exclude].include?("stylesheets") %>
 <%= javascript_include_tag "goldencobra/application" unless options[:exclude] && options[:exclude].include?("javascripts") %>
-<%= display_meta_tags unless options[:exclude] && options[:exclude].include?("metatags") %>
 <%= bugtracker unless options[:exclude] && options[:exclude].include?("bugtracker") %>
 <%= edit_article_link unless options[:exclude] && options[:exclude].include?("article_administration") %>
 <%#= airbrake_javascript_notifier unless options[:exclude] && options[:exclude].include?("airbrake") %> <% # Geht nicht. %>
