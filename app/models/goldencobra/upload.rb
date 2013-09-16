@@ -45,7 +45,7 @@ module Goldencobra
       result = ""
       result << "#{self.image_file_name} " if self.image_file_name.present?
       result << "(#{self.source}, #{self.rights}) " if self.source.present? || self.rights.present?
-      result << "- #{self.created_at}"
+      result << "- #{self.created_at.strftime("%d.%m.%Y - %H:%M Uhr")}"
     end
 
     def unzip_files
