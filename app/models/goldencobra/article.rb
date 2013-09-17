@@ -96,8 +96,8 @@ module Goldencobra
     after_create :notification_event_create
     before_save :parse_image_gallery_tags
     before_save :set_url_name_if_blank
+    after_save :set_default_meta_opengraph_values
     after_save :verify_existence_of_opengraph_image
-    after_save :set_default_opengraph_values
     after_update :notification_event_update
     before_destroy :update_parent_article_etag
 
@@ -550,6 +550,46 @@ module Goldencobra
       end
     end
 
+    def set_default_meta_opengraph_values
+      meta_description = Goldencobra::Setting.for_key('goldencobra.page.default_meta_description_tag')
+      if self.teaser.present?
+        meta_description = self.teaser
+      else
+        meta_description = self.content.present? ? self.content.truncate(200) : self.title
+      end
+
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'Meta Description').none?
+        Goldencobra::Metatag.create(name: 'Meta Description',
+                                    article_id: self.id,
+                                    value: meta_description)
+      end
+
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'Title Tag').none?
+        Goldencobra::Metatag.create(name: 'Title Tag',
+                                    article_id: self.id,
+                                    #value: self.breadcrumb.present? ? self.breadcrumb : self.title)
+                                    value: self.title)
+      end
+
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
+        Goldencobra::Metatag.create(name: 'OpenGraph Description',
+                                    article_id: self.id,
+                                    value: meta_description)
+      end
+
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
+        Goldencobra::Metatag.create(name: 'OpenGraph Title',
+                                    article_id: self.id,
+                                    value: self.title)
+      end
+
+      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
+        Goldencobra::Metatag.create(name: 'OpenGraph URL',
+                                    article_id: self.id,
+                                    value: self.absolute_public_url)
+      end
+    end
+
     def verify_existence_of_opengraph_image
       if Goldencobra::Metatag.where("article_id = ? AND name = 'OpenGraph Image'", self.id).count == 0
         if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
@@ -558,39 +598,9 @@ module Goldencobra
           meta_tag.save
         else
           Goldencobra::Metatag.create(article_id: self.id,
-                                    name: "OpenGraph Image",
-                                    value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
+                                      name: "OpenGraph Image",
+                                      value: Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image"))
         end
-      end
-
-
-    end
-
-    def set_default_opengraph_values
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'Title Tag').none?
-        Goldencobra::Metatag.create(name: 'Title Tag',
-                                    article_id: self.id,
-                                    value: self.breadcrumb)
-      end
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph Title',
-                                    article_id: self.id,
-                                    value: self.title)
-      end
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph URL',
-                                    article_id: self.id,
-                                    value: self.absolute_public_url)
-      end
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
-        if self.teaser.present?
-          value = self.teaser
-        else
-          value = self.content.present? ? self.content.truncate(200) : self.title
-        end
-        Goldencobra::Metatag.create(name: 'OpenGraph Description',
-                                    article_id: self.id,
-                                    value: value)
       end
     end
 
