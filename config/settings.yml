@@ -18,7 +18,7 @@ goldencobra:
     html2pdf_uid: "c5c13af822"
     use_solr: "false"
     page:
-        default_title_tag: "Goldencobra"
+        default_title_tag: "Enter your name to appear in Title-Tag after a pipe, e.g. Goldencobra for: YourTitle | Goldencobra - You found me in Goldencobra Settings"
         default_meta_description_tag: "Goldencobra Default MetaDescription: You found me in Goldencobra Settings"
     article:
         preview:
@@ -32,10 +32,10 @@ goldencobra:
         article_index:
             link_to_article: "weiterlesen"
     use_ssl: "false"
-    url: "www.goldencobra.de"
+    url: "Enter your website url, e.g. www.goldencobra.de - You found me in Goldencobra Settings"
     facebook:
         appid: "123456"
-        opengraph_default_image: "/assets/open-graph.png"
+        opengraph_default_image: "Enter a default image path to your open-graph image if available, e.g. /assets/open-graph.png - You found me in Goldencobra Settings"
     geocode_ip_address: "false"
     remove_old_versions:
         active: "true"
@@ -43,4 +43,4 @@ goldencobra:
     visitors:
         send_confirmation_email: 'false'
     upload:
-        convert_options: '-auto-orient -strip -colorspace sRGB -flatten -normalize'
+        convert_options: '-auto-orient -strip -colorspace sRGB -flatten -normalize -gamma 2.2,2.2,2.2'
