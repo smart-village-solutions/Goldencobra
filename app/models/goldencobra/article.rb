@@ -602,7 +602,7 @@ module Goldencobra
         else
           og_img_val = Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image")
         end
-        Goldencobra::Metatag.create(article_id: self.id, name: "OpenGraph Image", value: og_img_val)
+        Goldencobra::Metatag.create(name: "OpenGraph Image", article_id: self.id, value: og_img_val)
       end
     end
 
