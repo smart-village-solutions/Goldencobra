@@ -553,9 +553,10 @@ module Goldencobra
     def set_default_meta_opengraph_values
       meta_description = Goldencobra::Setting.for_key('goldencobra.page.default_meta_description_tag')
       if self.teaser.present?
-        meta_description = self.teaser
+        meta_description = remove_html_tags(self.teaser)
       else
-        meta_description = self.content.present? ? self.content.truncate(200) : self.title
+        self.teaser = remove_html_tags(self.teaser)
+        meta_description = self.content.present? ? remove_html_tags(self.content).truncate(200) : self.title
       end
 
       if Goldencobra::Metatag.where(article_id: self.id, name: 'Meta Description').none?
@@ -588,6 +589,11 @@ module Goldencobra
                                     article_id: self.id,
                                     value: self.absolute_public_url)
       end
+    end
+
+    # helper um links zu entfernen in text
+    def remove_html_tags(text)
+      text.gsub(/<[^<]+?>/, "")
     end
 
     def verify_existence_of_opengraph_image
