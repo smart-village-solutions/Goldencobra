@@ -17,7 +17,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     f.inputs "Allgemein" do
       f.input :title
       f.input :target
-      f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true
+      f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement ausw&auml;hlen' }
     end
     f.inputs "Optionen", :class => "foldable closed inputs" do
       f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
@@ -32,7 +32,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       end
     end
     f.inputs "Details", :class => "foldable closed inputs" do
-      f.input :image, :as => :select, :collection => Goldencobra::Upload.all.map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswaehlen' }, :label => "Bild ausw&auml;hlen"
+      f.input :image, :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild ausw&auml;hlen' }, :label => "Bild ausw&auml;hlen"
       f.input :description_title
       f.input :description, :input_html => { :rows => 5}
       f.input :call_to_action_name
