@@ -19,7 +19,7 @@ goldencobra:
     use_solr: "false"
     page:
         default_title_tag: "Enter your name to appear in Title-Tag after a pipe, e.g. Goldencobra for: YourTitle | Goldencobra - You found me in Goldencobra Settings"
-        default_meta_description_tag: "Goldencobra Default MetaDescription: You found me in Goldencobra Settings"
+        default_meta_description_tag: "Enter your default MetaDescription: You found me in Goldencobra Settings"
     article:
         preview:
             roles: "Admin"
@@ -27,14 +27,14 @@ goldencobra:
             user: "current_user"
             role: "admin"
         image_positions: "standard"
-        cache_articles: "true"
+        cache_articles: "false"
         max_cache_24h: "false"
         article_index:
             link_to_article: "weiterlesen"
     use_ssl: "false"
     url: "Enter your website url, e.g. www.goldencobra.de - You found me in Goldencobra Settings"
     facebook:
-        appid: "123456"
+        appid: "Enter your facebook app id, e.g. 123456"
         opengraph_default_image: "Enter a default image path to your open-graph image if available, e.g. /assets/open-graph.png - You found me in Goldencobra Settings"
     geocode_ip_address: "false"
     remove_old_versions:
