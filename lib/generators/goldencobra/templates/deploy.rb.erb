@@ -46,7 +46,16 @@ namespace :deploy do
 
   desc "Migrate the Database"
   task :migrate, :roles => :db do
-    run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:migrate"
+    if previous_release.nil?
+      migrations_changed = true # propably first deploy, so no migrations to compare
+    else
+      old_rev = capture("cd #{previous_release} && git log --pretty=format:'%H' -n 1 | cat").strip
+      new_rev = capture("cd #{latest_release} && git log --pretty=format:'%H' -n 1 | cat").strip
+      migrations_changed = capture("cd #{latest_release} && git diff #{old_rev} #{new_rev} --name-only | cat").include?('db/migrate')
+    end
+    if migrations_changed
+      run "cd #{current_release} && RAILS_ENV=production bundle exec rake db:migrate"
+    end
   end
 
   desc "Seed the Database"
