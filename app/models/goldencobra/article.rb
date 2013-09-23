@@ -417,6 +417,14 @@ module Goldencobra
       end
     end
 
+    def absolute_base_url
+      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
+        "https://#{Goldencobra::Setting.for_key('goldencobra.url')}"
+      else
+        "http://#{Goldencobra::Setting.for_key('goldencobra.url')}"
+      end
+    end
+
     def absolute_public_url
       if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
         "https://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
@@ -598,7 +606,7 @@ module Goldencobra
     def verify_existence_of_opengraph_image
       if Goldencobra::Metatag.where(article_id: self.id, name: "OpenGraph Image").none?
         if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
-          og_img_val = "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.article_images.first.image.image.url}"
+          og_img_val = "#{self.absolute_base_url}#{self.article_images.first.image.image.url}"
         else
           og_img_val = Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image")
         end
