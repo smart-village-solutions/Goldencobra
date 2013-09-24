@@ -44,7 +44,11 @@ module Goldencobra
           t.url_paremeters = request.params.except(:utf8) if request.params.present?
           t.language = request.env["HTTP_ACCEPT_LANGUAGE"]
           t.user_agent = request.env["HTTP_USER_AGENT"]
-          t.session_id = request.session_options[:id]
+          if request.session_options[:id].present?
+            t.session_id = request.session_options[:id]
+          else
+            t.session_id = Digest::MD5.hexdigest("#{request.env['REMOTE_ADDR']}#{Time.now.strftime('%Y%m%d%H')}")
+          end
           t.referer = request.referer
           t.url = request.url
           t.ip = request.env['REMOTE_ADDR']
