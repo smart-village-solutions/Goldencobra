@@ -19,6 +19,7 @@ describe Goldencobra::Import do
                               },
                              "Goldencobra::Article"=>{
                                 "article_type" => {"data_function"=>"Static Value", "option"=>"Default Show", "csv"=>""},
+                                "breadcrumb" => {"data_function"=>"Default", "option"=>"", "csv"=>"0"},
                                 "title"=>{"data_function"=>"Default", "option"=>"", "csv"=>"0"},
                                 "content"=>{"data_function"=>"Default", "option"=>"", "csv"=>"38"},
                                 "teaser"=>{"data_function"=>"Default", "option"=>"", "csv"=>"37"},
@@ -30,11 +31,33 @@ describe Goldencobra::Import do
                                 "context_info"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
                                 "canonical_url"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
                                 "robots_no_index"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
-                                "breadcrumb"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
                                 "template_file"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
                                 "article_for_index_id"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
                                 "article_for_index_levels"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
                                 "article_for_index_count"=>{"data_function"=>"Default", "option"=>"", "csv"=>""}
+                              },
+                              "Goldencobra::Widget_widgets"=>{
+                                "title"=>{"data_function"=>"Default", "option"=>"", "csv"=>"8"},
+                                "content"=>{"data_function"=>"Static Value", "option"=>"Test", "csv"=>""},
+                                "css_name"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "active"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "id_name"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "sorter"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "mobile_content"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "teaser"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "default"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "description"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "offline_days"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "offline_time_active"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "alternative_content"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "offline_date_start"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "offline_date_end"=>{"data_function"=>"Default", "option"=>"", "csv"=>""},
+                                "offline_time_week_start_end"=>{"data_function"=>"Default", "option"=>"", "csv"=>""}
+                              },
+                              "Goldencobra::Widget"=>{
+                                  "ActsAsTaggableOn::Tag" => {
+                                    "tags"=>{"name"=>{"data_function"=>"Static Value", "option"=>"test", "csv"=>""}}
+                                  }
                               }
                             }
       importer.assignment_groups = {"Goldencobra::Article"=>"create", "Goldencobra::Metatag"=>"create", "Goldencobra::Metatag_Goldencobra::Article_article"=>"create",
@@ -53,33 +76,15 @@ describe Goldencobra::Import do
       article = Goldencobra::Article.find_by_title("Landessportbund Berlin")
       article.present?.should be_true
       article.should be_valid
-      #a.content.should == "ein text"
-      #a.teaser.should == "ein teaser"
+      article.content.should == "Salewski"
+      article.teaser.should == "Herr"
+      article.widgets.count.should == 1
+      puts ActsAsTaggableOn::Tag.all.inspect
+      article.widgets.first.content.should == "Test"
+      article.widgets.first.tag_list.should == ["test"]
       #importer.result.should == []
     end
   end
-
-  # describe "Upload CSV file with wrong entries" do
-  #   it "should not be successful" do
-  #     CSV.open("test_import.csv", "wb") do |csv|
-  #       csv << ["Titel der Seite", "haupttext", "teaser text"]
-  #       csv << ["erster titel", "ein text", "ein teaser"]
-  #       csv << ["", "ein leerer text", "ein doofer teaser"]
-  #       csv << ["noch erster titel", "ein weiterer text", "ein anderer teaser"]
-  #     end
-  #     csv_file = File.open("test_import.csv", "r")
-  #     new_upload = Goldencobra::Upload.create(:image => csv_file, :description => "CSV Datei")
-  #     importer = Goldencobra::Import.new(:target_model => "Goldencobra::Article", :separator => ",", :upload_id => new_upload.id)
-  #     importer.article_type = "Default Show"
-  #     importer.assignment = {"title" => "0", "content" => "1", "teaser" => "2"}
-  #     importer.save
-  #     importer.run!
-  #     #Goldencobra::Article.find_by_title("erster titel").should be_valid
-  #     #Goldencobra::Article.find_by_title("noch erster titel").should be_valid
-  #     #importer.result.first.should == "2 - {:title=>[\"can't be blank\"]}"
-  #   end
-  # end
-
 
 
 end

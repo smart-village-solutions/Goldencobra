@@ -125,7 +125,6 @@ module Goldencobra
           #die Werte für das Object werden gesetzt
           sub_assignments.each do |attribute_name,value|
             #Wenn das Aktuell zu speichernde Attribute kein attribute sondern eine Assoziazion zu einem anderen Model ist...
-            #sub_assoziations = current_object.class.reflect_on_all_associations.collect { |r| [r.name, r.macro] }.map{|a| a[1].to_s == "has_many" ? [current_object.send(a[0]).new.class.to_s, a[0]] : [current_object.respond_to?("build_#{a[0]}") ? current_object.send("build_#{a[0]}").class.to_s : "", a[0]]}
             sub_assoziations = get_associations_for_current_object(current_object)
             if sub_assoziations.map{|a| a[0]}.include?(attribute_name)
               self.assignment["#{current_object.class.to_s}"][attribute_name].each do |sub_attribute_name, sub_value|
@@ -140,14 +139,16 @@ module Goldencobra
                 sub_sub_assignments = self.assignment["#{current_object.class.to_s}"][attribute_name][sub_attribute_name]
                 #Neues Unter Object anlegen oder bestehendes suchen und aktualisieren
                 current_sub_object = create_or_update_target_model("#{current_object.class.to_s}_#{cass_related_sub_model.class.to_s}_#{sub_attribute_name}",attribute_name,sub_sub_assignments, row )
-
+                puts current_sub_object.inspect
                 #Das aktuelle unterobjeect wird dem Elternelement hinzugefügt
                 # wenn es eine has_many beziehung ist:
 
+                puts sub_sub_assignments.inspect
                 sub_sub_assignments.each do |sub_ass_item|
                   if assignment_exists?(value)
                     sub_data_to_save = parse_data_with_method(value['csv'],value['data_function'],value['option'], current_sub_object.class.to_s, row)
                     current_sub_object.send("#{sub_ass_item}=", sub_data_to_save) if sub_data_to_save.blank?
+                    puts current_sub_object.inspect
                   end
                 end
                 if current_sub_object.save
