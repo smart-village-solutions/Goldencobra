@@ -6,8 +6,8 @@ module Goldencobra
         include InstanceMethods
         extend ClassMethods
         before_filter :determine_client
-        helper_method :current_client
         before_filter :add_view_path_for_client
+        helper_method :current_client
       end
     end
 
@@ -24,7 +24,7 @@ module Goldencobra
 
       def add_view_path_for_client
         if @current_client.present?
-          ActionController::Base.view_paths.unshift("app/views/#{@current_client.client}")
+          @_lookup_context.view_paths.unshift("app/views/#{@current_client.client}")
         end
       end
     end
@@ -33,6 +33,5 @@ module Goldencobra
     end
   end
 end
-
 
 ::ActionController::Base.send :include, Goldencobra::SelectCurrentClient
