@@ -65,7 +65,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'slim'
   s.add_dependency 'whenever'
   s.add_dependency 'inherited_resources'
-  s.add_dependency 'geokit'
+  s.add_dependency 'geokit', "~> 1.6.7"
+  s.add_dependency 'multi_json', "~> 1.3.2"
   s.add_dependency 'i18n-active_record'
   s.add_dependency "pdfkit"
   s.add_dependency 'wkhtmltopdf-binary'
