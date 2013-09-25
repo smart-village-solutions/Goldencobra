@@ -20,6 +20,7 @@ module Goldencobra
 
       def determine_client
         @current_client = Goldencobra::Domain.find_by_hostname(request.host) || Goldencobra::Domain.first
+        Goldencobra::Domain.current = @current_client
       end
 
       def add_view_path_for_client

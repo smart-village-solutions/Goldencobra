@@ -399,9 +399,9 @@ module Goldencobra
 
     def public_url
       if self.startpage
-        return "/"
+        return "#{Goldencobra::Domain.current.try(:url_prefix)}/"
       else
-        "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+        "#{Goldencobra::Domain.current.try(:url_prefix)}/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
       end
     end
 
