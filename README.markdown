@@ -49,6 +49,7 @@ rake db:migrate db:test:prepare
 ```
 
 #If you want to use goldencobra in a subdirectory (http://www.domain.de/subdir/), please modify your config/routes.rb
+#and setup your domains in "Settings > Domains" in the backendinterface
 ```ruby
 Goldencobra::Domain.pluck(:url_prefix).each do |url_prefix|
     scope url_prefix do
