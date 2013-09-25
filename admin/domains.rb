@@ -7,6 +7,7 @@ ActiveAdmin.register Goldencobra::Domain, :as => "Domain" do
     column :title
     column :hostname
     column :client
+    column :url_prefix
     default_actions
   end
 
@@ -16,6 +17,7 @@ ActiveAdmin.register Goldencobra::Domain, :as => "Domain" do
         f.input :title
         f.input :hostname
         f.input :client
+        f.input :url_prefix
       end
     f.actions
   end

@@ -48,6 +48,17 @@ rails generate goldencobra:install
 rake db:migrate db:test:prepare
 ```
 
+#If you want to use goldencobra in a subdirectory (http://www.domain.de/subdir/), please modify your config/routes.rb
+```ruby
+Goldencobra::Domain.pluck(:url_prefix).each do |url_prefix|
+    scope url_prefix do
+        ActiveAdmin.routes(self)
+        devise_for :users, ActiveAdmin::Devise.config
+        mount Goldencobra::Engine => "/"
+    end
+end
+```
+
 #Setup Goldencobra
 
 If you want to use Batch Actions in Goldencobra (set a batch of articles offline), you need to uncomment the line `# config.batch_actions = true` in config/initializers/active_admin.rb

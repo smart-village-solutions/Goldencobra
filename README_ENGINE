@@ -1,9 +1,13 @@
 SETUP Manuel
 
 Please insert in your config/routes.rb
-	ActiveAdmin.routes(self)
-	devise_for :users, ActiveAdmin::Devise.config
-  	mount Goldencobra::Engine => "/"
+	Goldencobra::Domain.pluck(:url_prefix).each do |url_prefix|
+  	scope url_prefix do
+			ActiveAdmin.routes(self)
+			devise_for :users, ActiveAdmin::Devise.config
+  		mount Goldencobra::Engine => "/"
+  	end
+  end
 
 
 in your config/environements/development.rb and ../test.rb insert
