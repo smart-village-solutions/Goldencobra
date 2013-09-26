@@ -96,6 +96,7 @@ module Goldencobra
     after_create :notification_event_create
     before_save :parse_image_gallery_tags
     before_save :set_url_name_if_blank
+    before_save :set_standard_application_template
     after_save :set_default_meta_opengraph_values
     after_save :verify_existence_of_opengraph_image
     after_update :notification_event_update
@@ -629,6 +630,11 @@ module Goldencobra
       end
     end
 
+    def set_standard_application_template
+      if self.template_file.blank?
+        self.template_file = "application"
+      end
+    end
 
     # **************************
     # **************************
