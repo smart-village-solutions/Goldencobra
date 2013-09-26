@@ -33,20 +33,38 @@ module Goldencobra
     def initialize_article(current_article)
       Goldencobra::Article::LiquidParser["current_article"] = current_article
 
-      set_meta_tags :site => s('goldencobra.page.default_title_tag'),
-                    :title => current_article.metatag("Title Tag").present? ? current_article.metatag("Title Tag") : current_article.title,
-                    :reverse => true,
-                    :description => current_article.metatag("Meta Description"),
-                    :keywords => current_article.metatag("Keywords"),
-                    :canonical => current_article.canonical_url,
-                    :noindex => current_article.robots_no_index,
-                    :open_graph => {
-                      :title => current_article.metatag("OpenGraph Title"),
-                      :description => current_article.metatag("OpenGraph Description"),
-                      :type => current_article.metatag("OpenGraph Type"),
-                      :url => current_article.metatag("OpenGraph URL"),
-                      :image => current_article.metatag("OpenGraph Image")
-                    }
+      if current_article.robots_no_index
+        # with :noindex for robots noindex
+        set_meta_tags :site => s('goldencobra.page.default_title_tag'),
+                      :title => current_article.metatag("Title Tag").present? ? current_article.metatag("Title Tag") : current_article.title,
+                      :reverse => true,
+                      :description => current_article.metatag("Meta Description"),
+                      :keywords => current_article.metatag("Keywords"),
+                      :canonical => current_article.canonical_url,
+                      :noindex => current_article.robots_no_index,
+                      :open_graph => {
+                        :title => current_article.metatag("OpenGraph Title"),
+                        :description => current_article.metatag("OpenGraph Description"),
+                        :type => current_article.metatag("OpenGraph Type"),
+                        :url => current_article.metatag("OpenGraph URL"),
+                        :image => current_article.metatag("OpenGraph Image")
+                      }
+      else
+        # without :noindex so there is no robots false
+        set_meta_tags :site => s('goldencobra.page.default_title_tag'),
+                      :title => current_article.metatag("Title Tag").present? ? current_article.metatag("Title Tag") : current_article.title,
+                      :reverse => true,
+                      :description => current_article.metatag("Meta Description"),
+                      :keywords => current_article.metatag("Keywords"),
+                      :canonical => current_article.canonical_url,
+                      :open_graph => {
+                        :title => current_article.metatag("OpenGraph Title"),
+                        :description => current_article.metatag("OpenGraph Description"),
+                        :type => current_article.metatag("OpenGraph Type"),
+                        :url => current_article.metatag("OpenGraph URL"),
+                        :image => current_article.metatag("OpenGraph Image")
+                      }
+      end
     end
 
     private
