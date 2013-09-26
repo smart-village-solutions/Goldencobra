@@ -20,9 +20,10 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :parent_id, :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
     end
     f.inputs "Optionen", :class => "foldable closed inputs" do
-      f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
-      f.input :active
-      f.input :css_class
+      f.input :sorter, :label => "Sortiernummer", :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
+      check_box_tag "hidden", :label => "Sichtbar?", :hint => "Soll dieser Menüpunkt im System sichtbar sein?"
+      f.input :css_class, :label => "CSS Klassen", :hint => "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
+      f.input :active, :label => "Aktiv?", :hint => "Soll dieser Menüpunkt im System aktiv sein?"
     end
     f.inputs "Zugriffsrechte", :class => "foldable closed inputs" do
       f.has_many :permissions do |p|
@@ -131,7 +132,5 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       end
     end
   end
-
-
 
 end
