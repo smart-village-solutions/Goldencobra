@@ -397,11 +397,20 @@ module Goldencobra
       end
     end
 
-    def public_url
+    def public_url(with_prefix=true)
       if self.startpage
-        return "#{Goldencobra::Domain.current.try(:url_prefix)}/"
+        if with_prefix
+          return "#{Goldencobra::Domain.current.try(:url_prefix)}/"
+        else
+          return "/"
+        end
       else
-        "#{Goldencobra::Domain.current.try(:url_prefix)}/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+        a_url = "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+        if with_prefix
+          return "#{Goldencobra::Domain.current.try(:url_prefix)}#{a_url}"
+        else
+          return a_url
+        end
       end
     end
 
@@ -649,7 +658,7 @@ module Goldencobra
       articles = Goldencobra::Article.where(:url_name => url.split("/").last.to_s.split(".").first)
       article_path = "/#{url.split('.').first}"
       if articles.count > 0
-        article = articles.select{|a| a.public_url == article_path}.first
+        article = articles.select{|a| a.public_url(false) == article_path}.first
       end
       return article
     end
