@@ -29,6 +29,11 @@ module Goldencobra
         end
       end
     end
-  end
 
+    def call_for_support
+      Goldencobra::ConfirmationMailer.send_support_mail.deliver
+      render :text => "200"
+    end
+
+  end
 end
