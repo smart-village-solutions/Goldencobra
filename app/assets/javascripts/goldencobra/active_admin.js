@@ -1,6 +1,20 @@
 //= require active_admin/base
 //= require goldencobra/keymaster
 //= require goldencobra/notifications
+//= require goldencobra/togetherjs
+
+
+//Live Support Settings
+var TogetherJSConfig_siteName = "Ikusei GmbH";
+var TogetherJSConfig_toolName = "Ikusei Live Support";
+var TogetherJSConfig_suppressInvite = true;
+TogetherJSConfig_on = {
+  ready: function(){
+    $.ajax("/call_for_support");
+  }
+};
+
+
 
 $(function() {
 
@@ -146,6 +160,11 @@ $(function() {
 	 return false;
   });
 
+  //Short Key for Life support on every Page
+    key('⌘+i, ctrl+i', function(){
+      call_for_help();
+    })
+
   // $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)");
   // key('⌘+z, ctrl+z', function(){
 	// target = $("#title_bar .action_items a[href$='revert']").attr("href");
@@ -181,5 +200,10 @@ $(function() {
   });
   /**** END DOM Manipulation *****/
 });
+
+function call_for_help (argument) {
+  TogetherJS(this);
+  return false;
+}
 
 
