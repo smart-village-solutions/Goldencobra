@@ -8,9 +8,12 @@
 var TogetherJSConfig_siteName = "Ikusei GmbH";
 var TogetherJSConfig_toolName = "Ikusei Live Support";
 var TogetherJSConfig_suppressInvite = true;
-TogetherJSConfig_on = {
+var TogetherJSConfig_on = {
   ready: function(){
-    $.ajax("/call_for_support");
+    $.ajax({
+      url: "/call_for_support",
+      data: "link=" + encodeURIComponent(TogetherJS.shareUrl())
+    });
   }
 };
 
