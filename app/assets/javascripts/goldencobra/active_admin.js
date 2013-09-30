@@ -1,7 +1,7 @@
 //= require active_admin/base
 //= require goldencobra/keymaster
 //= require goldencobra/notifications
-//= require goldencobra/togetherjs
+// require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
 
 
 //Live Support Settings
@@ -164,7 +164,7 @@ $(function() {
   });
 
   //Short Key for Life support on every Page
-    key('⌘+i, ctrl+i', function(){
+    key('⌘+k, ctrl+k', function(){
       call_for_help();
     })
 
