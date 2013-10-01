@@ -27,9 +27,9 @@ en:
       welcome: "Welcome to Active Admin. This is the default dashboard page."
       call_to_action: "To add dashboard sections, checkout 'app/admin/dashboards.rb'"
     dashboard_sections:
-      last_updated_articles: 'Last Updated Articles'
-      last_created_articles: 'Last Created Articles'
-      last_created_widgets: 'Last Created Widgets'
+      last_updated_articles: "Last updated articles"
+      last_created_articles: "Last created articles"
+      last_created_widgets: "Last created widgets"
     view: "View"
     edit: "Edit"
     delete: "Delete"
