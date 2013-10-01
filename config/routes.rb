@@ -10,6 +10,7 @@ Goldencobra::Engine.routes.draw do
   match "frontend_register/:usermodel" => "sessions#register", :as => :frontend_register
   match "manage/render_admin_menue" => "manage#render_admin_menue"
   match "manage/article_visibility/:id" => "manage#article_visibility"
+  match "call_for_support" => "manage#call_for_support"
 
   if RUBY_VERSION.include?("1.9.")
     mount Sidekiq::Web => '/admin/background'

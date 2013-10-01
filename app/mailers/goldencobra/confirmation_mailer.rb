@@ -11,6 +11,12 @@ module Goldencobra
         do_not_deliver!
       end
     end
+
+    def send_support_mail(link)
+      @link = link
+      mail to: Goldencobra::Setting.for_key("goldencobra.live-support.email"), :subject => "Live Support Anfrage von: #{Goldencobra::Setting.for_key("goldencobra.url")}"
+    end
+
   end
 
   # http://stackoverflow.com/questions/6550809/rails-3-how-to-abort-delivery-method-in-actionmailer
