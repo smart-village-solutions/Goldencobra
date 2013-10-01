@@ -14,9 +14,9 @@ de:
       welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
       call_to_action: "Siehe 'app/admin/dashboards.rb', um Übersichts-Bereiche hinzuzufügen."
     dashboard_sections:
-      last_updated_articles: 'Zuletzt bearbeitete Artikel'
-      last_created_articles: 'Zuletzt erstellten Artikel'
-      last_created_widgets: 'Zuletzt erstellte Schnipsel'
+      last_updated_articles: "Zuletzt bearbeitete Artikel"
+      last_created_articles: "Zuletzt erstellte Artikel"
+      last_created_widgets: "Zuletzt erstellte Schnipsel"
     view: "Anzeigen"
     devise:
       login:
