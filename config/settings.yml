@@ -1,4 +1,7 @@
 goldencobra:
+    live-support:
+        active: "false"
+        email: "metz@ikusei.de"
     translations:
         use_db_store: "false"
     analytics:
