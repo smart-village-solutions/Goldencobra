@@ -6,7 +6,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
   scope "Alle", :scoped, :default => true
   scope "online", :active
   scope "offline", :inactive
-  scope "keine Title-Tags", :not_title_tags
+  scope "keine Title-Tags", :no_title_tag
+  scope "keine Meta-Description", :no_meta_description
 
   Goldencobra::Article.article_types_for_select.each do |article_type|
     next if article_type.include?("index")
