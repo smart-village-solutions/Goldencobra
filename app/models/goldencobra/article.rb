@@ -118,6 +118,9 @@ module Goldencobra
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
     scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
 
+    #scope :not_title_tags, includes(:metatags).where("goldencobra_metatags.name = 'Title Tag'").where("goldencobra_metatags.value = ''")
+    scope :not_title_tags, joins('LEFT OUTER JOIN goldencobra_metatags ON goldencobra_articles.id = goldencobra_metatags.article_id').where("goldencobra_metatags.value IS NULL AND goldencobra_metatags.name = 'Title Tag'")
+
     search_methods :frontend_tag_name_contains
     search_methods :tag_name_contains
     search_methods :parent_ids_in
@@ -569,7 +572,9 @@ module Goldencobra
     end
 
     def set_default_meta_opengraph_values
-      meta_description = Goldencobra::Setting.for_key('goldencobra.page.default_meta_description_tag')
+      # Diese Zeile schein Überflüssig geworden zu sein, da nun der teaser, description oder title als defaultwerte genommen werden
+      #meta_description = Goldencobra::Setting.for_key('goldencobra.page.default_meta_description_tag')
+
       if self.teaser.present?
         meta_description = remove_html_tags(self.teaser)
       else
