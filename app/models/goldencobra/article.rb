@@ -117,9 +117,9 @@ module Goldencobra
     scope :for_sitemap, where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0')
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
     scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
+    scope :no_title_tag, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Title Tag").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
+    scope :no_meta_description, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Meta Description").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
 
-    #scope :not_title_tags, includes(:metatags).where("goldencobra_metatags.name = 'Title Tag'").where("goldencobra_metatags.value = ''")
-    scope :not_title_tags, joins('LEFT OUTER JOIN goldencobra_metatags ON goldencobra_articles.id = goldencobra_metatags.article_id').where("goldencobra_metatags.value IS NULL AND goldencobra_metatags.name = 'Title Tag'")
 
     search_methods :frontend_tag_name_contains
     search_methods :tag_name_contains
