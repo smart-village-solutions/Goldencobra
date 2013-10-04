@@ -451,5 +451,12 @@ ul.link_checker_ul{
 	}
 	ul.link_checker_sources{
 		display:none;
+		.link_checker_position{
+			background-color:lightgrey;
+			border-radius:5px;
+			display:inline-block;
+			padding: 2px;
+			margin:2px;
+		}
 	}
 }
