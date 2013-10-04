@@ -6,6 +6,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
   scope "Alle", :scoped, :default => true
   scope "online", :active
   scope "offline", :inactive
+  scope "keine Title-Tags", :not_title_tags
 
   Goldencobra::Article.article_types_for_select.each do |article_type|
     next if article_type.include?("index")
@@ -14,7 +15,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
 
   index do
     selectable_column
-    column I18n.t("name", :scope => [:goldencobra, :menue]), :sortable => :url_name do |article|
+    column "Titel", :sortable => :url_name do |article|
       content_tag("span", link_to(truncate(article.title, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
     column I18n.t("name", :scope => [:goldencobra, :menue]), :sortable => :url_name do |article|
@@ -59,6 +60,12 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
 
   action_item :only => :index do
     link_to("Run LinkChecker", run_all_link_checker_admin_seo_articles_path())
+  end
+
+  controller do
+    def scoped_collection
+      end_of_association_chain
+    end
   end
 
 end
