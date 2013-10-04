@@ -59,13 +59,17 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
     redirect_to :action => :index
   end
 
+  action_item :only => [:index] do
+    link_to('Link-Checker Index', admin_link_checkers_path())
+  end
+
   action_item :only => :index do
     link_to("Run LinkChecker", run_all_link_checker_admin_seo_articles_path())
   end
 
   controller do
     def scoped_collection
-      end_of_association_chain
+      end_of_association_chain.includes(:metatags)
     end
   end
 

@@ -1,6 +1,9 @@
 de:
   activerecord:
     models:
+      "link-checker":
+        one: "Link-Checker"
+        other: "Link-Checker"
       domain:
         one: "Domain"
         other: "Domains"
