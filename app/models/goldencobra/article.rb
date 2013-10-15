@@ -117,6 +117,10 @@ module Goldencobra
     scope :for_sitemap, where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0')
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
     scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
+    if ActiveRecord::Base.connection.table_exists?("goldencobra_metatags")
+      scope :no_title_tag, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Title Tag").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
+      scope :no_meta_description, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Meta Description").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
+    end
 
     search_methods :frontend_tag_name_contains
     search_methods :tag_name_contains
@@ -177,23 +181,27 @@ module Goldencobra
       doc = Nokogiri::HTML(open(self.absolute_public_url))
       #find all links and stylesheets
       doc.css('a,link').each do |link|
-        links_to_check << add_link_to_checklist(link, "href")
+        if add_link_to_checklist(link, "href").present?
+          links_to_check << {"link" => add_link_to_checklist(link, "href"), "pos" => link.path}
+        end
       end
       #find all images and javascripts
       doc.css('img,script').each do |link|
-        links_to_check << add_link_to_checklist(link,"src")
+        if add_link_to_checklist(link,"src").present?
+          links_to_check << {"link" => add_link_to_checklist(link,"src"), "pos" => link.path}
+        end
       end
       links_to_check = links_to_check.compact.delete_if{|a| a.blank?}
-      links_to_check.each_with_index do |link|
-        status_for_links[link] = {}
+      links_to_check.each_with_index do |linkpos|
+        status_for_links[linkpos["link"]] = {"position" => linkpos["pos"]}
         begin
           start = Time.now
-          response = open(link)
-          status_for_links[link]["response_code"] = response.status[0]
-          status_for_links[link]["response_time"] = Time.now - start
+          response = open(linkpos["link"])
+          status_for_links[linkpos["link"]]["response_code"] = response.status[0]
+          status_for_links[linkpos["link"]]["response_time"] = Time.now - start
         rescue Exception  => e
-          status_for_links[link]["response_code"] = "404"
-          status_for_links[link]["response_error"] = e.to_s
+          status_for_links[linkpos["link"]]["response_code"] = "404"
+          status_for_links[linkpos["link"]]["response_error"] = e.to_s
         end
       end
       self.link_checker = status_for_links
@@ -569,7 +577,9 @@ module Goldencobra
     end
 
     def set_default_meta_opengraph_values
-      meta_description = Goldencobra::Setting.for_key('goldencobra.page.default_meta_description_tag')
+      # Diese Zeile schein Überflüssig geworden zu sein, da nun der teaser, description oder title als defaultwerte genommen werden
+      #meta_description = Goldencobra::Setting.for_key('goldencobra.page.default_meta_description_tag')
+
       if self.teaser.present?
         meta_description = remove_html_tags(self.teaser)
       else

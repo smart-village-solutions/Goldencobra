@@ -444,3 +444,19 @@ li.response_404{
 	line-height: 12px;
 	font-size: 10px !important;
 }
+
+ul.link_checker_ul{
+	div.link_checker_label{
+		cursor:pointer;
+	}
+	ul.link_checker_sources{
+		display:none;
+		.link_checker_position{
+			background-color:lightgrey;
+			border-radius:5px;
+			display:inline-block;
+			padding: 2px;
+			margin:2px;
+		}
+	}
+}
