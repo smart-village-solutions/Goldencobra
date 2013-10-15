@@ -11,7 +11,8 @@ xml.rss version: "2.0" do
           xml.title article.title
           xml.description do
             if article.content.present?
-              xml.cdata!(article.content)
+              template = Liquid::Template.parse(article.content)
+              xml.cdata!(raw(template.render(Goldencobra::Article::LiquidParser)))
             else
               ''
             end

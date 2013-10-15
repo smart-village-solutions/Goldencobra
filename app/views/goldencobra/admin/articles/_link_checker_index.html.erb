@@ -1,0 +1,32 @@
+<% bad_links = {} %>
+<% Goldencobra::Article.select("id, link_checker").each do |article| %>
+	<% article.link_checker.select{|key,value| value.present? && value['response_code'] != "200"}.each do |key,values| %>
+		<% bad_links[key] = {:rcode => values['response_code'], :error => values['response_error']} if bad_links[key].blank? %>
+		<% bad_links[key][:source] = [] if bad_links[key][:source].blank? %>
+		<% bad_links[key][:source] << { "article_id" => "#{article.id}", "position" => values["position"]}  %>
+	<% end %>
+<% end %>
+
+
+<h2><%= bad_links.count %> verweiste Links gefunden (<%= Goldencobra::Article.where("link_checker IS NOT NULL").count %> Seiten indiziert)</h2>
+
+<ul class="link_checker_ul">
+	<% bad_links.each do |link, values| %>
+	<li>
+			<div class="link_checker_label">
+				<%= values[:rcode] %> - <%= link %> (<%= values[:source].count %>)
+			</div>
+			<div class="link_checker_error_code"><%= values[:error] %></div>
+			<ul class="link_checker_sources">
+			<% values[:source].each do |source| %>
+				<li>
+					<div class="link_checker_position">
+						<%= source['position'] %>
+					</div>
+					<%= link_to "Artikel #{source['article_id']} bearbeiten", "/admin/articles/#{source['article_id']}/edit" %>
+				</li>
+			<% end %>
+			</ul>
+	</li>
+	<% end %>
+</ul>

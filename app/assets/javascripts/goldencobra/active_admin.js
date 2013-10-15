@@ -209,4 +209,10 @@ function call_for_help (argument) {
   return false;
 }
 
+$(function() {
+  $("ul.link_checker_ul div.link_checker_label").click(function(){
+    $(this).siblings(".link_checker_sources").toggle();
+  });
+
+});
 
