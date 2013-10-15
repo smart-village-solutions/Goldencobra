@@ -69,10 +69,10 @@ module Goldencobra
       def install_gems
         gem('acts-as-taggable-on', :git => 'git://github.com/mbleigh/acts-as-taggable-on')
         gem('meta-tags', :git => 'git://github.com/jazzgumpy/meta-tags.git')
-        gem('compass-960-plugin')
-        gem('progress_bar')
-        gem('compass-rails')
-        gem('mysql2')
+        #gem('compass-960-plugin')
+        #gem('progress_bar')
+        #gem('compass-rails')
+        #gem('mysql2')
         system("bundle install")
       end
 
