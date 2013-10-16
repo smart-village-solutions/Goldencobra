@@ -47,7 +47,7 @@ module Goldencobra
           if request.session_options[:id].present?
             t.session_id = request.session_options[:id]
           else
-            t.session_id = Digest::MD5.hexdigest("#{request.env['REMOTE_ADDR']}#{Time.now.to_f}")
+            t.session_id = "FB" + Digest::MD5.hexdigest("#{request.env['REMOTE_ADDR']}#{Time.now.to_f}")
           end
           t.referer = request.referer
           t.url = request.url
