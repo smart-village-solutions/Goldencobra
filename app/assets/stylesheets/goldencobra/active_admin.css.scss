@@ -12,6 +12,16 @@ body.active_admin #title_bar .action_items a.undo{
 
 }
 
+#main_content{
+	.char_count{
+		position: relative;
+		float: right;
+		margin-top:-23px;
+		margin-right: 40px;
+		color:grey;
+	}
+}
+
 span.startpage{
 	font-weight:bold;
 	color:red;

@@ -1,6 +1,7 @@
 //= require active_admin/base
 //= require goldencobra/keymaster
 //= require goldencobra/notifications
+//= require goldencobra/countable
 // require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
 
 
@@ -70,6 +71,19 @@ $(function() {
 		paste_auto_cleanup_on_paste : true,
 		verify_html : false
 	});
+
+  //TextCounter auf title, subtitle, Teaser, Summary, Breadcrumb, url_name
+  teaser = $('#article_title,#article_subtitle, #article_teaser, #article_breadcrumb, #article_url_name, #article_summary').each(function(index){
+    Countable.live($(this)[0], function(counter) {
+      if (!$(this).siblings('.char_count').length) {
+        $(this).wrap("<div></div>");
+        $(this).after("<div class='char_count'></div>");
+      }
+      $(this).siblings(".char_count").html("Zeichen: " + counter.all);
+      //console.warn(counter);
+    });
+  })
+
 
 
   //Foldable overview in sidebar
