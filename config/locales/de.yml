@@ -7,7 +7,11 @@ de:
       success_redirect: "Anmeldung erfolgreich. Umleitung ..."
   views:
     pagination:
-      last: "Letzte"
+      first: "|‹"
+      previous: "«"
+      next: "»"
+      last: "›|"
+      truncate: "..."
   new_subarticle: "Neuer Unterartikel"
   date:
     abbr_day_names:
