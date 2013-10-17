@@ -72,7 +72,7 @@ $(function() {
 		verify_html : false
 	});
 
-  //TextCounter auf title, subtitle, Teaser, Summary, Breadcrumb, url_name
+  //TextCounter auf title, subtitle, Teaser, Summary, Breadcrumb, url_name...
   teaser = $('#article_title,#article_subtitle, #article_teaser, #article_breadcrumb, #article_url_name, #article_summary').each(function(index){
     Countable.live($(this)[0], function(counter) {
       if (!$(this).siblings('.char_count').length) {
