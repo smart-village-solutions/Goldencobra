@@ -38,7 +38,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :description, :input_html => { :rows => 5 }
       f.input :call_to_action_name
     end
-      f.actions
+    f.actions
   end
 
   index do
