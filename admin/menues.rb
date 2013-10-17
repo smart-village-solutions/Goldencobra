@@ -43,8 +43,9 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
   index do
     selectable_column
-    column "ID", :id
-    column "Titel", :title
+    column "Titel", :title, :sortable => :title do |menue|
+      link_to(menue.title, edit_admin_menue_path(menue), :title => "Menüpunkt bearbeiten")
+    end
     column "Ziel", :target
     column "Aktiv?", :active do |menue|
       if menue
@@ -53,22 +54,22 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
         "Nein"
       end
     end
+    column "Sortiernr", :sorter
     column "Zugriff" do |menue|
       Goldencobra::Permission.restricted?(menue) ? raw("<span class='secured'>beschränkt</span>") : ""
     end
-    column "Sortiernr", :sorter
     column "Artikel" do |menue|
       if menue.mapped_to_article?
         link_to("search", admin_articles_path("q[url_name_contains]" => menue.target.to_s.split('/').last), :class => "list", :title => "Artikel auflisten")
       else
-        link_to("create one", new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.to_s.split('/').last}), :class => "create", :title => "Artikel erzeugen")
+        link_to("create one", new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.to_s.split('/').last}), :class => "create", :title => "Artikel passend zum Menüpunkt erzeugen")
       end
     end
     column "" do |menue|
       result = ""
-      result += link_to("Edit", edit_admin_menue_path(menue), :class => "member_link edit_link edit", :title => "bearbeiten")
-      result += link_to("New Submenu", new_admin_menue_path(:parent => menue), :class => "member_link edit_link", :class => "new_subarticle", :title => "neues Untermenue")
-      result += link_to("Delete", admin_menue_path(menue), :method => :DELETE, :confirm => "Realy want to delete this Menuitem?", :class => "member_link delete_link delete", :title => "loeschen")
+      result += link_to("Edit", edit_admin_menue_path(menue), :class => "member_link edit_link edit", :title => "Menüpunkt bearbeiten")
+      result += link_to("New Submenu", new_admin_menue_path(:parent => menue), :class => "member_link edit_link", :class => "new_subarticle", :title => "Neuen Untermenüpunkt erzeugen")
+      result += link_to("Delete", admin_menue_path(menue), :method => :DELETE, :confirm => "Realy want to delete this Menuitem?", :class => "member_link delete_link delete", :title => "Menüpunkt löschen")
       raw(result)
     end
   end
