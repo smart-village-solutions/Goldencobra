@@ -1,21 +1,20 @@
 <% article_types = {} %>
+
 <% Goldencobra::Article.article_types_for_select.each do |article_type|
   translated_article_type = I18n.t("#{article_type.parameterize.downcase}", scope: [:article_types], default: "#{article_type}")
   article_types[translated_article_type.to_sym] = article_type
 end %>
-<%=
-f.inputs I18n.t(:selection, scope: [:article_types]), :class => "foldable inputs" do
+
+<%= f.inputs I18n.t(:selection, scope: [:article_types]), :class => "foldable inputs" do
   if article_types.count > 0
     f.input :article_type, :as => :select, :collection => article_types, include_blank: true
   end
-  f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
-  f.input :breadcrumb, :label => "Kurzer Titel", :hint => "Max 70 Zeichen. Wird in der URL, im TitleTag und im Breadcrumb verwendet"
-  f.input :content, :input_html => { :class =>"tinymce"}
+  f.input :title, :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
+  f.input :breadcrumb, :label => "Kurzer Titel", :hint => "Wird in der URL, für den Breadcrumb-Pfad und im Meta-Title der Seite verwendet, maximal 70 Zeichen"
+  f.input :content, :hint => "Das Haupt-Textfeld wird für den kompletten Inhalt ihrer Seite verwendet", :input_html => { :class => "tinymce" }
+  f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf &Uuml;bersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 }
   f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
-  f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium"
-  f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt. Er wird für die Beschreibung bei Google & Facebook genutzt.", :input_html=>{ :rows=>5 }
+  f.input :frontend_tag_list, label: "Filterkriterium", hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten"
   f.input :parent_id, :as => :hidden
   f.input :url_name, :as => :hidden
-end
-
-%>
+end %>

@@ -35,13 +35,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     else
       f.actions
       f.inputs "Allgemein", :class => "foldable inputs" do
-        f.input :title, :hint => "Der Titel der Seite, kann Leerzeichen und Sonderzeichen enthalten"
-        f.input :content, :input_html => { :class =>"tinymce"}
-        f.input :teaser, :hint => "Dieser Text wird auf &Uuml;bersichtsseiten angezeigt, um den Artikel zu bewerben", :input_html=>{ :rows=>5 }
+        f.input :title, :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
+        f.input :content, :input_html => { :class => "tinymce" }
+        f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf &Uuml;bersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 }
         f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :wrapper_html => {class: 'expert'}
-        f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroption angeboten.", label: "Filterkriterium", :wrapper_html => {class: 'expert'}
-        f.input :active_since, :hint => "Wenn der Artikel online ist, ab wann ist er Online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%d.%m.%Y %H:%M') if f.object.active_since}" }, :wrapper_html => {class: 'expert'}
-        f.input :active, :hint => "Ist dieser Artikel online zu sehen?", :wrapper_html => {class: 'expert'}
+        f.input :frontend_tag_list, label: "Filterkriterium", hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten.", :wrapper_html => { class: 'expert' }
+        f.input :active_since, :hint => "Wenn der Artikel online ist, ab wann ist er Online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%d.%m.%Y %H:%M') if f.object.active_since}" }, :wrapper_html => { class: 'expert' }
+        f.input :active, :hint => "Ist dieser Artikel online zu sehen?", :wrapper_html => { class: 'expert' }
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_show.html.erb")
@@ -64,8 +64,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
       f.inputs "Weiterer Inhalt", :class => "foldable closed inputs" do
         f.input :subtitle
-        f.input :context_info, :input_html => { :class =>"tinymce"}, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
-        f.input :summary, hint: "Dient der Einleitung in den Text und wird hervorgehoben dargestellt", :input_html=>{ :rows=>5 }
+        f.input :context_info, :input_html => { :class => "tinymce" }, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
+        f.input :summary, hint: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt", :input_html => { :rows => 5 }
       end
       f.inputs "Metadescriptions", :class => "foldable closed inputs expert" do
         # f.input :hint_label, :as => :text, :label => "Metatags fuer Suchmaschinenoptimierung", :input_html => {:disabled => true,
@@ -89,9 +89,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         end
       end
       f.inputs "Einstellungen", :class => "foldable closed inputs expert" do
-        f.input :breadcrumb, :hint => "Kurzer Name fuer die Brotkrumennavigation"
+        f.input :breadcrumb, :label => "Breadcrumb Titel", :hint => "Kurzer Titel f&uuml;r die Breadcrumb-Navigation"
         f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
-        f.input :parent_id, :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
+        f.input :parent_id, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel", :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
         f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
         f.input :enable_social_sharing, :label => t("Display Social Sharing actions"), :hint => "Sollen Besucher die actions angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
         f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
@@ -101,7 +101,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :external_url_redirect
         f.input :redirect_link_title
         f.input :redirection_target_in_new_window
-        f.input :author, :hint => "Wer ist der Verfasser dieses Artikels"
+        f.input :author, :hint => "Wer ist der Verfasser dieses Artikels?"
       end
       f.inputs "Zugriffsrechte", :class => "foldable closed inputs expert" do
         f.has_many :permissions do |p|
@@ -129,19 +129,19 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   index do
     selectable_column
-    column I18n.t("name", :scope => [:goldencobra, :menue]), :sortable => :url_name do |article|
-      content_tag("span", link_to(truncate(article.url_name, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
+    column "Titel", :sortable => :title do |article|
+      content_tag("span", link_to(truncate(article.title, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
-    column :url  do |article|
+    column "URL", :url do |article|
       article.public_url
     end
-    column :active, :sortable => :active do |article|
-      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article),:confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
+    column "Aktiv?", :active, :sortable => :active do |article|
+      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", :confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column "Zugriff" do |article|
       Goldencobra::Permission.restricted?(article) ? raw("<span class='secured'>beschränkt</span>") : ""
     end
-    column :article_type, sortable: :article_type do |article|
+    column "Artikeltyp", :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? "Standard" : article.article_type
     end
     #column :created_at, sortable: :created_at do |article|
@@ -154,15 +154,15 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       if article.linked_menues.count > 0
         link_to(I18n.t("list", :scope => [:goldencobra, :menue]), admin_menues_path("q[target_contains]" => article.public_url), :class => "list", :title => "Menüpunkte auflisten")
       else
-        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.parsed_title, :target => article.public_url}), :class => "create", :title => "Menüpunkt erzeugen")
+        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.parsed_title, :target => article.public_url}), :class => "create", :title => "Menüpunkt zum Artikel erzeugen")
       end
     end
     column "" do |article|
       result = ""
-      result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => "Vorschau")
-      result += link_to(t(:edit), edit_admin_article_path(article.id), :class => "member_link edit_link edit", :title => "bearbeiten")
-      result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => "Neuer Unterartikel")
-      result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
+      result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => "Vorschau des Artikels")
+      result += link_to(t(:edit), edit_admin_article_path(article.id), :class => "member_link edit_link edit", :title => "Artikel bearbeiten")
+      result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => "Neuen Unterartikel erstellen")
+      result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "Artikel löschen")
       raw(result)
     end
   end
