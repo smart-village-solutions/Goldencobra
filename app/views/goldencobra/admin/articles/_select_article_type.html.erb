@@ -7,13 +7,13 @@ end %>
 
 <%= f.inputs I18n.t(:selection, scope: [:article_types]), :class => "foldable inputs" do
   if article_types.count > 0
-    f.input :article_type, :as => :select, :collection => article_types, include_blank: true
+    f.input :article_type, :label => "Artikeltyp", :as => :select, :collection => article_types, include_blank: true
   end
-  f.input :title, :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
+  f.input :title, :label => "Titel", :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
   f.input :breadcrumb, :label => "Kurzer Titel", :hint => "Wird in der URL, für den Breadcrumb-Pfad und im Meta-Title der Seite verwendet, maximal 70 Zeichen"
-  f.input :content, :hint => "Das Haupt-Textfeld wird für den kompletten Inhalt ihrer Seite verwendet", :input_html => { :class => "tinymce" }
+  f.input :content, :label => "Haupt-Textfeld", :hint => "Das Haupt-Textfeld wird für den kompletten Inhalt ihrer Seite verwendet", :input_html => { :class => "tinymce" }
   f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf &Uuml;bersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 }
-  f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
+  f.input :tag_list, :label => "Liste von internen Tags", :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
   f.input :frontend_tag_list, label: "Filterkriterium", hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten"
   f.input :parent_id, :as => :hidden
   f.input :url_name, :as => :hidden

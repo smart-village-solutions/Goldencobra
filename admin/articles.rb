@@ -35,13 +35,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     else
       f.actions
       f.inputs "Allgemein", :class => "foldable inputs" do
-        f.input :title, :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
-        f.input :content, :input_html => { :class => "tinymce" }
+        f.input :title, :label => "Titel", :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
+        f.input :content, :label => "Haupt-Textfeld", :input_html => { :class => "tinymce" }
         f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf &Uuml;bersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 }
-        f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :wrapper_html => {class: 'expert'}
+        f.input :tag_list, :label => "Liste von internen Tags", :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :wrapper_html => { class: 'expert' }
         f.input :frontend_tag_list, label: "Filterkriterium", hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten.", :wrapper_html => { class: 'expert' }
-        f.input :active_since, :hint => "Wenn der Artikel online ist, ab wann ist er Online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%d.%m.%Y %H:%M') if f.object.active_since}" }, :wrapper_html => { class: 'expert' }
-        f.input :active, :hint => "Ist dieser Artikel online zu sehen?", :wrapper_html => { class: 'expert' }
+        f.input :active_since, :label => "Online seit", :hint => "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%d.%m.%Y %H:%M') if f.object.active_since}" }, :wrapper_html => { class: 'expert' }
+        f.input :active, :label => "Aktiv?", :hint => "Ist dieser Artikel online zu sehen?", :wrapper_html => { class: 'expert' }
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_show.html.erb")
@@ -63,9 +63,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         #error
       end
       f.inputs "Weiterer Inhalt", :class => "foldable closed inputs" do
-        f.input :subtitle
-        f.input :context_info, :input_html => { :class => "tinymce" }, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
-        f.input :summary, hint: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt", :input_html => { :rows => 5 }
+        f.input :subtitle, :label => "Untertitel"
+        f.input :context_info, :label => "Weiterer Inhalt", :input_html => { :class => "tinymce" }, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
+        f.input :summary, :label => "Zusammenfassung", hint: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt", :input_html => { :rows => 5 }
       end
       f.inputs "Metadescriptions", :class => "foldable closed inputs expert" do
         # f.input :hint_label, :as => :text, :label => "Metatags fuer Suchmaschinenoptimierung", :input_html => {:disabled => true,
@@ -83,20 +83,20 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
           # <li><strong>OpenGraph Image:</strong> Muss als URL &uuml;bergeben werden (http://www.mein.de/bild.jpg). Erscheint dann bei Facebook als Bild des Artikels.</li>
           # </ul>", :class => "metadescription_hint", :id => "metadescription-tinymce"}
         f.has_many :metatags do |m|
-          m.input :name, :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen."
-          m.input :value, :input_html => { :class => 'metatag_values'}
-          m.input :_destroy, :as => :boolean
+          m.input :name, :label => "Art", :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen"
+          m.input :value, :label => "Wert", :input_html => { :class => 'metatag_values'}
+          m.input :_destroy, :label => "entfernen/zurücksetzen", :hint => "hiermit werden die Werte entfernt bzw. auf ihren Ursprung zurückgesetzt", :as => :boolean
         end
       end
       f.inputs "Einstellungen", :class => "foldable closed inputs expert" do
         f.input :breadcrumb, :label => "Breadcrumb Titel", :hint => "Kurzer Titel f&uuml;r die Breadcrumb-Navigation"
-        f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
-        f.input :parent_id, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel", :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
-        f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
-        f.input :enable_social_sharing, :label => t("Display Social Sharing actions"), :hint => "Sollen Besucher die actions angezeigt bekommen, um diesen Artikel in den Sozialen Netzwerken zu verbreiten?"
-        f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
-        f.input :cacheable, :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
-        f.input :commentable, :as => :boolean, :hint => "Kommentarfunktion für diesen Artikel aktivieren?"
+        f.input :url_name, :label => "URL Name", :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
+        f.input :parent_id, :label => "Übergeordneter Artikel", :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel", :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
+        f.input :canonical_url, :label => "Canonical URL", :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
+        f.input :enable_social_sharing, :label => "'Social Sharing'-Aktionen anzeigen", :hint => "Sollen Besucher Aktionen angezeigt bekommen, um diesen Artikel in den sozialen Netzwerken zu verbreiten?"
+        f.input :robots_no_index, :label => "Artikel nicht indizieren", :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
+        f.input :cacheable, :label => "Artikel cachebar", :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
+        f.input :commentable, :label => "Artikel kommentierbar", :as => :boolean, :hint => "Kommentarfunktion für diesen Artikel aktivieren?"
         f.input :dynamic_redirection, :as => :select, :collection => Goldencobra::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false
         f.input :external_url_redirect
         f.input :redirect_link_title
