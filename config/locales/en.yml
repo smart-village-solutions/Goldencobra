@@ -5,6 +5,13 @@ en:
         no-user-found-with-this-email: "No user found"
         wrong-username-or-password: "Wrong username or password"
       success_redirect: "Login success. Redirecting ..."
+  views:
+    pagination:
+      first: "|‹"
+      previous: "«"
+      next: "»"
+      last: "›|"
+      truncate: "..."
   active_admin:
     resource:
       upload: "Upload"
