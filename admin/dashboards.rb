@@ -7,7 +7,7 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-   section I18n.t('last_created_articles', scope: [:active_admin, :dashboard_sections]), priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
+   section I18n.t('active_admin.dashboard_sections.last_created_articles'), priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
     table do
       tr do
         [t(:title, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:created_at, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:edit, scope: :active_admin)].each do |sa|
@@ -25,7 +25,7 @@ ActiveAdmin::Dashboards.build do
     end
    end
 
-   section I18n.t('last_created_widgets', scope: [:active_admin, :dashboard_sections]), priority: 1, :if => proc{can?(:update, Goldencobra::Widget)} do
+   section I18n.t('active_admin.dashboard_sections.last_created_widgets'), priority: 1, :if => proc{can?(:update, Goldencobra::Widget)} do
     table do
       tr do
         [t(:title, scope: [:activerecord, :attributes, "goldencobra/widget"]), t(:created_at, scope: [:activerecord, :attributes, "goldencobra/widget"]), t(:edit, scope: :active_admin)].each do |sa|
