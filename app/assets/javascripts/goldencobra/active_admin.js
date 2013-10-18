@@ -73,7 +73,7 @@ $(function() {
 	});
 
   //TextCounter auf title, subtitle, Teaser, Summary, Breadcrumb, url_name
-  teaser = $('#article_title,#article_subtitle, #article_teaser, #article_breadcrumb, #article_url_name, #article_summary').each(function(index){
+  teaser = $('#article_title, #article_subtitle, #article_teaser, #article_breadcrumb, #article_url_name, #article_summary, #widget_teaser, #widget_description').each(function(index){
     Countable.live($(this)[0], function(counter) {
       if (!$(this).siblings('.char_count').length) {
         $(this).wrap("<div></div>");

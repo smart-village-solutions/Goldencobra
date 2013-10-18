@@ -9,11 +9,11 @@ de:
     filter:
       filter_titel: "Titel"
       filter_subtitel: "Untertitel"
-      filter_breadcrumb: "Brotkrümel"
-      filter_url: "URL Name"
-      filter_template: "Template Datei"
-      filter_created: "erstellt am"
-      filter_updated: "bearbeitet am"
+      filter_breadcrumb: "Breadcrumb-Titel"
+      filter_url: "Website-Adresse"
+      filter_template: "Layout"
+      filter_created: "Erstellt am"
+      filter_updated: "Bearbeitet am"
       filter_parent: "Elternelement"
       filter_type: "Artikeltyp"
     menue:

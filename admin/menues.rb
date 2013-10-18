@@ -1,6 +1,6 @@
 #encoding: utf-8
-ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
+ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Menue)}
   controller.authorize_resource :class => Goldencobra::Menue
 
@@ -20,7 +20,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :parent_id, :label => "Übergeordneter Menüpunkt", :hint => "Unter welchem Menüpunkt soll der aktuelle Punkt erscheinen?", :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
     end
     f.inputs "Optionen", :class => "foldable closed inputs" do
-      f.input :sorter, :label => "Sortiernummer", :hint => "Nach dieser Nummer wird innerhalb des Menüs sortiert, je h&ouml;her, desto weiter unten in der Reihenfolge"
+      f.input :sorter, :label => "Sortiernummer", :hint => "Nach dieser Nummer wird innerhalb des Menüs sortiert, je höher, desto weiter unten in der Reihenfolge"
       check_box_tag "hidden", :label => "Sichtbar?", :hint => "Soll dieser Menüpunkt auf der Seite sichtbar sein?"
       f.input :css_class, :label => "CSS Klassen", :hint => "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
       f.input :active, :label => "Aktiv?", :hint => "Soll dieser Menüpunkt im System aktiv sein?"
@@ -32,11 +32,11 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
         p.input :_destroy, :as => :boolean
       end
     end
-    f.inputs "Details", :class => "foldable closed inputs" do
-      f.input :image, :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswählen' }, :label => "Bild auswählen"
-      f.input :description_title
-      f.input :description, :input_html => { :rows => 5 }
-      f.input :call_to_action_name
+    f.inputs "Details für ein erweitertes Menü", :class => "foldable closed inputs" do
+      f.input :image, :label => "Bild", :hint => "Bereits hochgeladenes Bild aus der Medienliste wählen", :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswählen' }
+      f.input :description_title, :label => "Titel", :hint => ""
+      f.input :description, :label => "Beschreibung", :hint => "", :input_html => { :rows => 5 }
+      f.input :call_to_action_name, :label => "Call-to-action Text", :hint => ""
     end
     f.actions
   end
@@ -47,12 +47,8 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       link_to(menue.title, edit_admin_menue_path(menue), :title => "Menüpunkt bearbeiten")
     end
     column "Ziel", :target
-    column "Aktiv?", :active do |menue|
-      if menue
-        "Ja"
-      else
-        "Nein"
-      end
+    column "Aktiv?", :active, :sortable => :active do |menue|
+      raw("<span class='#{menue.active ? 'online' : 'offline'}'>#{menue.active ? 'online' : 'offline'}</span>")
     end
     column "Sortiernr", :sorter
     column "Zugriff" do |menue|
