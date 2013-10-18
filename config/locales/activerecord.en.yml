@@ -64,7 +64,7 @@ en:
       formular:
         one: "Formular"
         other: "Formulars"
-  attributes:
+    attributes:
       goldencobra/comment:
         content: "Content"
         active: "active"
