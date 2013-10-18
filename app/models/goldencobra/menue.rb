@@ -24,7 +24,7 @@ module Goldencobra
     attr_accessible :title, :target, :css_class, :active, :ancestry, :parent_id,
                     :sorter, :description, :call_to_action_name, :description_title, :image_attributes, :image_id,
                     :permissions_attributes
-    has_ancestry :orphan_strategy => :rootify
+    has_ancestry :orphan_strategy => :rootify, :cache_depth => true
     belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
 
     validates_presence_of :title
