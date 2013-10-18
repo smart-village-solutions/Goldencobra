@@ -113,7 +113,6 @@ module Goldencobra
       child_link = child_link + content_tag(:a, child.call_to_action_name, :href => child_target_link, :class => "navigtion_link_call_to_action_name") unless options[:show_call_to_action_name] == false
 
       current_depth += 1
-
       child_elements = menue_children(child, subtree_menues)
       visible_child_element_count = 0
       if child_elements.count > 0
@@ -128,7 +127,7 @@ module Goldencobra
           child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{visible_child_element_count}" )
         end
       end
-      return content_tag(:li, raw(child_link),"data-id" => child.id , :class => "#{ visible_child_element_count > 0 ? 'has_children' : ''}  #{child.has_active_child?(request) ? 'has_active_child' : ''}    #{child.is_active?(request) ? 'active' : ''}    #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
+      return content_tag(:li, raw(child_link),"data-id" => child.id , :class => "#{ visible_child_element_count > 0 ? 'has_children' : ''}  #{child.has_active_child?(request, subtree_menues) ? 'has_active_child' : ''}    #{child.is_active?(request) ? 'active' : ''}    #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
     end
 
   end
