@@ -91,7 +91,7 @@ de:
       formular:
         one: "Formular"
         other: "Formulare"
-  attributes:
+    attributes:
       goldencobra/comment:
         content: "Inhalt"
         active: "aktiv"
