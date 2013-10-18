@@ -7,10 +7,10 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-   section I18n.t('active_admin.dashboard_sections.last_created_articles'), priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
+   section "Neueste Artikel", priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
     table do
       tr do
-        [t(:title, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:created_at, scope: [:activerecord, :attributes, "goldencobra/article"]), t(:edit, scope: :active_admin)].each do |sa|
+        ["Titel", "Erstellt am", ""].each do |sa|
           th sa
         end
       end
@@ -19,16 +19,18 @@ ActiveAdmin::Dashboards.build do
         tr do
           td article.title
           td l(article.created_at, format: :short)
-          td link_to(t(:edit), admin_article_path(article))
+          result = link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => "Vorschau des Artikels", :target => "_blank")
+          result += link_to(t(:edit), admin_article_path(article), :class => "member_link edit_link edit", :title => "Artikel bearbeiten")
+          td result
         end
       end
     end
    end
 
-   section I18n.t('active_admin.dashboard_sections.last_created_widgets'), priority: 1, :if => proc{can?(:update, Goldencobra::Widget)} do
+   section "Neueste Schnipsel", priority: 1, :if => proc{can?(:update, Goldencobra::Widget)} do
     table do
       tr do
-        [t(:title, scope: [:activerecord, :attributes, "goldencobra/widget"]), t(:created_at, scope: [:activerecord, :attributes, "goldencobra/widget"]), t(:edit, scope: :active_admin)].each do |sa|
+        ["Titel", "Erstellt am", ""].each do |sa|
           th sa
         end
       end
@@ -37,7 +39,7 @@ ActiveAdmin::Dashboards.build do
         tr do
           td widget.title
           td l(widget.created_at, format: :short)
-          td link_to(t(:edit), admin_widget_path(widget))
+          td link_to(t(:edit), admin_widget_path(widget), :class => "member_link edit_link edit", :title => "Schnipsel bearbeiten")
         end
       end
     end
