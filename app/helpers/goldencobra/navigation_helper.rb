@@ -69,7 +69,7 @@ module Goldencobra
         master_menue.children.active.includes(:image).collect do |child|
           #check if Menuitem is readable by permissions
           if ability.can?(:read, child)
-            content << navigation_menu_helper(child, depth, 1, options)
+            content << navigation_menu_helper(child, depth, 1, options, ability)
           end
         end
         if id_name.present?
@@ -83,13 +83,7 @@ module Goldencobra
 
     private
 
-    def navigation_menu_helper(child, depth, current_depth, options)
-      if params[:frontend_tags] && params[:frontend_tags].class != String && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
-        ability = Ability.new()
-      else
-        operator = current_user || current_visitor
-        ability = Ability.new(operator)
-      end
+    def navigation_menu_helper(child, depth, current_depth, options, ability)
       if @current_client && @current_client.url_prefix.present?
         child_target_link = @current_client.url_prefix + child.target.gsub("\"",'')
       else
@@ -107,7 +101,7 @@ module Goldencobra
         content_level = ""
         child.children.active.each do |subchild|
           if ability.can?(:read, subchild)
-            content_level << navigation_menu_helper(subchild, depth, current_depth, options)
+            content_level << navigation_menu_helper(subchild, depth, current_depth, options, ability)
           end
         end
         if content_level.present?
