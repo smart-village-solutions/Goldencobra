@@ -64,9 +64,13 @@ module Goldencobra
       @is_active_result[request.path.squeeze("/").split("?")[0]] ||= request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
     end
 
-    def has_active_child?(request)
+    def has_active_child?(request, subtree_menues)
       @has_active_child_result ||= {}
-      @has_active_child_result[request.path.squeeze("/").split("?")[0]] ||= self.descendants.map(&:target).include?(request.path.squeeze("/").split("?")[0])
+      @has_active_child_result[request.path.squeeze("/").split("?")[0]] ||= has_active_descendant?(subtree_menues,request)
+    end
+
+    def has_active_descendant?(subtree_menues,request)
+      subtree_menues.select{|a| a.ancestry.to_s.starts_with?("#{self.ancestry}/#{self.id}")}.map(&:target).include?(request.path.squeeze("/").split("?")[0])
     end
 
     def mapped_to_article?
