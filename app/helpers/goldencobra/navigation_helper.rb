@@ -30,7 +30,7 @@ module Goldencobra
     #TODO: offset implementieren
     def navigation_menu(menue_id, options={})
       return "id can't be blank" if menue_id.blank?
-      depth = options[:depth] || 0
+      depth = options[:depth] || 9999
       offset = options[:offset] || 0
       class_name = options[:class] || ""
       id_name = options[:id] || ""
