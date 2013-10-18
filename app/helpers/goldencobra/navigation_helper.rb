@@ -73,8 +73,9 @@ module Goldencobra
         subtree_menues = master_menue.subtree.after_depth(current_depth + offset).to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
         subtree_menues = subtree_menues.to_a.delete_if{|a| !ability.can?(:read, a)}
 
+        current_depth = 1
         menue_roots(subtree_menues).each do |root|
-          content << navigation_menu_helper(root, options, subtree_menues)
+          content << navigation_menu_helper(root, options, subtree_menues, current_depth)
         end
 
         if id_name.present?
@@ -97,7 +98,7 @@ module Goldencobra
       return menue_array.select{|a| a.ancestry.to_s.split("/").last.to_i == menue_element.id }
     end
 
-    def navigation_menu_helper(child, options, subtree_menues)
+    def navigation_menu_helper(child, options, subtree_menues, current_depth)
       if @current_client && @current_client.url_prefix.present?
         child_target_link = @current_client.url_prefix + child.target.gsub("\"",'')
       else
@@ -111,6 +112,8 @@ module Goldencobra
       child_link = child_link + content_tag("div", raw(template.render(Goldencobra::Article::LiquidParser)), :class => "navigtion_link_description") unless options[:show_description] == false
       child_link = child_link + content_tag(:a, child.call_to_action_name, :href => child_target_link, :class => "navigtion_link_call_to_action_name") unless options[:show_call_to_action_name] == false
 
+      current_depth += 1
+
       child_elements = menue_children(child, subtree_menues)
       visible_child_element_count = 0
       if child_elements.count > 0
@@ -119,7 +122,7 @@ module Goldencobra
           if !subchild.css_class.include?("hidden") && !subchild.css_class.include?("not_visible")
             visible_child_element_count += 1
           end
-          content_level << navigation_menu_helper(subchild, options, subtree_menues)
+          content_level << navigation_menu_helper(subchild, options, subtree_menues, current_depth)
         end
         if content_level.present?
           child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{visible_child_element_count}" )
