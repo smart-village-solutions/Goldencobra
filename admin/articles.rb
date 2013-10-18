@@ -89,19 +89,19 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         end
       end
       f.inputs "Einstellungen", :class => "foldable closed inputs expert" do
-        f.input :breadcrumb, :label => "Breadcrumb Titel", :hint => "Kurzer Titel f&uuml;r die Breadcrumb-Navigation"
-        f.input :url_name, :label => "URL Name", :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
+        f.input :breadcrumb, :label => "Breadcrumb-Titel", :hint => "Kurzer Titel f&uuml;r die Breadcrumb-Navigation"
+        f.input :url_name, :label => "Website-Adresse des Artikels", :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
         f.input :parent_id, :label => "Übergeordneter Artikel", :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel", :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
         f.input :canonical_url, :label => "Canonical URL", :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
         f.input :enable_social_sharing, :label => "'Social Sharing'-Aktionen anzeigen", :hint => "Sollen Besucher Aktionen angezeigt bekommen, um diesen Artikel in den sozialen Netzwerken zu verbreiten?"
-        f.input :robots_no_index, :label => "Artikel nicht indizieren", :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
+        f.input :robots_no_index, :label => "Artikel nicht durch Suchmaschinen finden lassen", :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
         f.input :cacheable, :label => "Artikel cachebar", :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
         f.input :commentable, :label => "Artikel kommentierbar", :as => :boolean, :hint => "Kommentarfunktion für diesen Artikel aktivieren?"
-        f.input :dynamic_redirection, :as => :select, :collection => Goldencobra::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false
-        f.input :external_url_redirect
-        f.input :redirect_link_title
-        f.input :redirection_target_in_new_window
-        f.input :author, :hint => "Wer ist der Verfasser dieses Artikels?"
+        f.input :dynamic_redirection, :label => "Automatische Weiterleitung", :as => :select, :collection => Goldencobra::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false
+        f.input :external_url_redirect, :label => "Weiterleitung zu externer URL"
+        f.input :redirect_link_title, :label => "Name des externen Links"
+        f.input :redirection_target_in_new_window, :label => "Weiterleitung in neuem Fenster öffnen?"
+        f.input :author, :label => "Autor", :hint => "Wer ist der Verfasser dieses Artikels?"
       end
       f.inputs "Zugriffsrechte", :class => "foldable closed inputs expert" do
         f.has_many :permissions do |p|
@@ -132,7 +132,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     column "Titel", :sortable => :title do |article|
       content_tag("span", link_to(truncate(article.title, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
-    column "URL", :url do |article|
+    column "Website-Adresse", :url do |article|
       article.public_url
     end
     column "Aktiv?", :active, :sortable => :active do |article|
