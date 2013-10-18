@@ -3,37 +3,49 @@
 ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
   menu :priority => 3, parent: "Content-Management", :if => proc{can?(:read, Goldencobra::Widget)}
 
+  filter :title, :label => "Titel"
+  filter :css_name, :label => "CSS Klasse"
+  filter :id_name, :label => "ID Name"
+  filter :sorter, :label => "Sortiernummer"
+
   scope "Alle", :scoped, :default => true
-  scope "online", :active
-  scope "offline", :inactive
-  scope "defaults", :default
+  scope "Aktiv", :active
+  scope "Nicht aktiv", :inactive
+  scope "Standards", :default
 
   if ActiveRecord::Base.connection.table_exists?("tags")
     Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
-      scope(I18n.t(wtag, :scope => [:goldencobra, :widget_types], :default => wtag)){ |t| t.tagged_with(wtag) }
+      scope(I18n.t(wtag, :scope => [:goldencobra, :widget_types], :default => wtag).capitalize){ |t| t.tagged_with(wtag) }
     end
   end
 
   form html: { enctype: "multipart/form-data" } do |f|
     f.actions
     f.inputs "Allgemein", :class => "foldable inputs" do
-      f.input :title
-      f.input :tag_list, :label => "Position"
-      f.input :active
-      f.input :default, :hint => "Bestimmt ob ein Widget immer und auf jeder Seite angezeigt wird oder nicht."
+      f.input :title, :label => "Titel", :hint => "Name des Schnipsels"
+      f.input :tag_list, :label => "Position", :hint => "Name der Bezeichnung der Position im Seitenlayout"
+      f.input :active, :label => "Aktiv?", :hint => "Soll dieses Schnipsel im System aktiv sein?"
+      f.input :default, :label => "Standard?", :hint => "Bestimmt, ob ein Schnipsel immer und auf jeder Seite angezeigt wird oder nicht"
     end
-    f.inputs "Layout - Default", :class => "foldable inputs" do
-      f.input :content
+    f.inputs "Layout - Website", :class => "foldable inputs" do
+      f.input :content, :label => "Haupt-Textfeld", :hint => "Inhalt des Schnipsels für die Website, auch HTML möglich"
     end
     f.inputs "Layout - Mobil", :class => "foldable inputs closed" do
-      f.input :mobile_content
+      f.input :mobile_content, :label => "Mobil-Textfeld", :hint => "Alternativer Inhalt des Schnipsels für mobile Seiten, auch HTML möglich"
+    end
+    f.inputs "Erweiterte Informationen", :class => "foldable inputs closed"  do
+      f.input :sorter, :label => "Sortiernummer", :hint => "Nach dieser Nummer wird sortiert, je höher, desto weiter unten in der Ansicht"
+      f.input :css_name, :label => "CSS Klassen", :hint => "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
+      f.input :id_name, :label => "ID Name", :hint => "Eindeutige Bezeichnung dieses Elements innerhalb der Website"
+      f.input :teaser
+      f.input :description, :label => "Beschreibung", :hint => "Interne Beschreibung dieses Schnipsels"
     end
     if Goldencobra::Setting.for_key("goldencobra.widgets.time_control") == "true"
       f.inputs "Zeitsteuerung", :class => "foldable inputs closed" do
-        f.input :offline_time_active, hint: 'Soll dieses Widget zeitgesteuert sichtbar sein?'
-        f.input :offline_date_start, :hint => "Ab diesem Datum wird dieses Widget jeden Mo,Di.. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
-        f.input :offline_date_end, :hint => "Bis zu diesem Datum wird dieses Widget jeden Mo,Di.. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
-        f.input :offline_day, as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
+        f.input :offline_time_active, :label => "Zeitgesteuert?", hint: 'Soll dieses Schnipsel zeitgesteuert sichtbar sein?'
+        f.input :offline_date_start, :label => "Startdatum", :hint => "Ab diesem Datum wird das Schnipsel jeden Mo, Di, .. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
+        f.input :offline_date_end, :label => "Enddatum", :hint => "Bis zu diesem Datum wird das Schnipsel jeden Mo, Di, .. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
+        f.input :offline_day, :label => "Tage, an denen alternativer Inhalt angezeigt werden soll", as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
         f.input :offline_time_start_mo, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_start_mo) }
         f.input :offline_time_end_mo, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_end_mo) }
         f.input :offline_time_start_tu, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_start_tu) }
@@ -48,7 +60,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
         f.input :offline_time_end_sa, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_end_sa) }
         f.input :offline_time_start_su, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_start_su) }
         f.input :offline_time_end_su, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_end_su) }
-        f.input :alternative_content, hint: 'Dieser Inhalt wird angezeigt, wenn das Widget offline ist.'
+        f.input :alternative_content, :label => "Alternativer Inhalt", hint: 'Dieser Inhalt wird angezeigt, wenn das Schnipsel offline ist, HTML möglich.'
       end
     end
     f.inputs "Zugriffsrechte", :class => "foldable closed inputs" do
@@ -58,15 +70,8 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
         p.input :_destroy, :as => :boolean
       end
     end
-    f.inputs "Erweiterte Infos", :class => "foldable inputs closed"  do
-      f.input :sorter, :hint => "Nach dieser Nummer wird sortiert: Je h&ouml;her, desto weiter unten in der Ansicht"
-      f.input :id_name
-      f.input :css_name
-      f.input :teaser
-      f.input :description, :hint => "Interne Beschreibung dieses Widgets"
-    end
     f.inputs "Zugewiesene Artikel" do
-      f.input :articles, :as => :select, :collection => Goldencobra::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select'}
+      f.input :articles, :label => "Artikel", :hint => "Auswahl aller Artikel, auf denen das Schnipsel erscheint", :as => :select, :collection => Goldencobra::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select', "data-placeholder" => "Bitte wählen" }
     end
     f.actions
   end
@@ -83,26 +88,26 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
 
   index do
     selectable_column
-    column :title do |widget|
-      link_to(widget.title, edit_admin_widget_path(widget), :title => "bearbeiten")
+    column "Titel", :title, :sortable => :title do |widget|
+      link_to(widget.title, edit_admin_widget_path(widget), :title => "Schnipsel bearbeiten")
     end
-    column :id_name
-    column :css_name
-    column :active, :sortable => :active do |widget|
+    column "Position", :tag_list, :sortable => false
+    column "Aktiv?", :active, :sortable => :active do |widget|
       raw("<span class='#{widget.active ? 'online' : 'offline'}'>#{widget.active ? 'online' : 'offline'}</span>")
     end
+    column "Sortiernr", :sorter
+    column "Standard?", :default, :sortable => :default do |widget|
+      widget.default ? "Ja" : "Nein"
+    end
+    column "CSS Klassen", :css_name
+    column "ID Name", :id_name
     column "Zugriff" do |widget|
       Goldencobra::Permission.restricted?(widget) ? raw("<span class='secured'>beschränkt</span>") : ""
     end
-    column :sorter
-    column :tag_list, :sortable => false
-    column :default, :sortable => :default do |widget|
-      widget.default ? "default" : "no default"
-    end
     column "" do |widget|
       result = ""
-      result += link_to(t(:edit), edit_admin_widget_path(widget), :class => "member_link edit_link edit", :title => "bearbeiten")
-      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "loeschen")
+      result += link_to(t(:edit), edit_admin_widget_path(widget), :class => "member_link edit_link edit", :title => "Schnipsel bearbeiten")
+      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "Schnipsel löschen")
       raw(result)
     end
   end

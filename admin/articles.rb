@@ -1,6 +1,6 @@
 #Encoding: UTF-8
-ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
+ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   menu :priority => 1, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
   unless Rails.env == "test"
@@ -15,10 +15,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   filter :tag_name, :as => :string, :label => I18n.t("tags", :scope => [:goldencobra, :filter], :default => "Interne Tags")
   #filter :subtitle, :label =>  I18n.t("filter_subtitel", :scope => [:goldencobra, :filter], :default => "Unteritel")
   #filter :breadcrumb, :label =>  I18n.t("filter_breadcrumb", :scope => [:goldencobra, :filter], :default => "Brotkruemel")
-  filter :url_name, :label =>  I18n.t("filter_url", :scope => [:goldencobra, :filter], :default => "URL")
+  filter :url_name, :label =>  I18n.t("filter_url", :scope => [:goldencobra, :filter], :default => "Website")
   #filter :template_file, :label =>  I18n.t("filter_template", :scope => [:goldencobra, :filter], :default => "Template Datei")
-  filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => "erstellt")
-  filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => "bearbeitet")
+  filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => "Erstellt")
+  filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => "Bearbeitet")
 
   scope "Alle", :scoped, :default => true
   scope "Online", :active
@@ -37,7 +37,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.inputs "Allgemein", :class => "foldable inputs" do
         f.input :title, :label => "Titel", :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
         f.input :content, :label => "Haupt-Textfeld", :input_html => { :class => "tinymce" }
-        f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf &Uuml;bersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 }
+        f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf Übersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 }
         f.input :tag_list, :label => "Liste von internen Tags", :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :wrapper_html => { class: 'expert' }
         f.input :frontend_tag_list, label: "Filterkriterium", hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten.", :wrapper_html => { class: 'expert' }
         f.input :active_since, :label => "Online seit", :hint => "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%d.%m.%Y %H:%M') if f.object.active_since}" }, :wrapper_html => { class: 'expert' }
@@ -138,11 +138,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     column "Aktiv?", :active, :sortable => :active do |article|
       link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", :confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
-    column "Zugriff" do |article|
-      Goldencobra::Permission.restricted?(article) ? raw("<span class='secured'>beschränkt</span>") : ""
-    end
     column "Artikeltyp", :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? "Standard" : article.article_type
+    end
+    column "Zugriff" do |article|
+      Goldencobra::Permission.restricted?(article) ? raw("<span class='secured'>beschränkt</span>") : ""
     end
     #column :created_at, sortable: :created_at do |article|
     #  l(article.created_at)

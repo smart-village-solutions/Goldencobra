@@ -21,13 +21,14 @@ ActiveAdmin::Dashboards.build do
           td l(article.created_at, format: :short)
           result = link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => "Vorschau des Artikels", :target => "_blank")
           result += link_to(t(:edit), admin_article_path(article), :class => "member_link edit_link edit", :title => "Artikel bearbeiten")
+          result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => "Neuen Unterartikel erstellen")
           td result
         end
       end
     end
    end
 
-   section "Neueste Schnipsel", priority: 1, :if => proc{can?(:update, Goldencobra::Widget)} do
+   section "Neueste Schnipsel", priority: 2, :if => proc{can?(:update, Goldencobra::Widget)} do
     table do
       tr do
         ["Titel", "Erstellt am", ""].each do |sa|
