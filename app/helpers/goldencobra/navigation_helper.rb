@@ -118,7 +118,7 @@ module Goldencobra
       if child_elements.count > 0
         content_level = ""
         child_elements.each do |subchild|
-          if !subchild.css_class.include?("hidden") && !subchild.css_class.include?("not_visible")
+          if subchild.css_class != "hidden" && subchild.css_class != "not_visible"
             visible_child_element_count += 1
           end
           content_level << navigation_menu_helper(subchild, options, subtree_menues, current_depth)
