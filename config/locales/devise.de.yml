@@ -8,7 +8,6 @@ de:
       not_saved:
         one: "Konnte %{resource} nicht speichern: ein Fehler."
         other: "Konnte %{resource} nicht speichern: %{count} Fehler."
-
   devise:
     failure:
       already_authenticated: 'Du bist bereits angemeldet.'
