@@ -9,7 +9,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => "Elternelement")
-  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:goldencobra, :article_types], default: "#{s}"),s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
+  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t("#{s.parameterize.downcase}", scope: [:goldencobra, :article_types], default: "#{s}"), s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
   filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter], :default => "Titel")
   filter :frontend_tag_name, :as => :string, :label => I18n.t("frontend_tags", :scope => [:goldencobra, :filter], :default => "Filterkriterium")
   filter :tag_name, :as => :string, :label => I18n.t("tags", :scope => [:goldencobra, :filter], :default => "Interne Tags")
@@ -139,7 +139,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", :confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column "Artikeltyp", :article_type, sortable: :article_type do |article|
-      article.article_type.blank? ? "Standard" : article.article_type
+      article.article_type.blank? ? "Standard" : I18n.t(article.article_type.parameterize.downcase, scope: [:goldencobra, :article_types])
     end
     column "Zugriff" do |article|
       Goldencobra::Permission.restricted?(article) ? raw("<span class='secured'>beschränkt</span>") : ""
