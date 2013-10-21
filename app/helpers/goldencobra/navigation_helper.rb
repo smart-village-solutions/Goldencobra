@@ -39,12 +39,12 @@ module Goldencobra
 
       if menue_id.class == String
         if current_article.present? && current_article.public_url.present?
-          current_menue = Goldencobra::Menue.active.where(:target => current_article.public_url(false)).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
-          if current_menue
-            master_menue = Goldencobra::Menue.find_by_id(current_menue.path_ids[offset])
-          else
-            return ""
-          end
+          master_menue = Goldencobra::Menue.active.where(:target => current_article.public_url(false)).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
+          # if current_menue
+          #   master_menue = Goldencobra::Menue.find_by_id(current_menue.path_ids[offset])
+          # else
+          #   return ""
+          # end
         elsif submenue_of_article.present? && submenue_of_article.public_url.present?
           master_menue = Goldencobra::Menue.active.where(:target => submenue_of_article.public_url).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
         else
@@ -70,11 +70,7 @@ module Goldencobra
       end
       if master_menue.present?
         content = ""
-        if current_article.present?
-          subtree_menues = master_menue.subtree.to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
-        else
-          subtree_menues = master_menue.subtree.after_depth(current_depth + offset).to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
-        end
+        subtree_menues = master_menue.subtree.after_depth(current_depth + offset).to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
         subtree_menues = subtree_menues.to_a.delete_if{|a| !ability.can?(:read, a)}
 
         current_depth = 1
