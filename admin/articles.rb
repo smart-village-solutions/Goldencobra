@@ -10,7 +10,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   #Alle Filteroptionen in der rechten Seitenleiste
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => "Elternelement")
-  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t(s.parameterize.downcase, scope: [:goldencobra, :article_types]), s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
+  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t(s.parameterize.downcase, scope: [:goldencobra, :article_types], default: "#{s}"), s]}.sort, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
   filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter], :default => "Titel")
   filter :frontend_tag_name, :as => :string, :label => I18n.t("frontend_tags", :scope => [:goldencobra, :filter], :default => "Filterkriterium")
   filter :tag_name, :as => :string, :label => I18n.t("tags", :scope => [:goldencobra, :filter], :default => "Interne Tags")
@@ -51,14 +51,14 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
           end
         end
       elsif f.object.kind_of_article_type.downcase == "index"
-          render :partial => "goldencobra/admin/articles/articles_index", :locals => {:f => f}
-          if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_index.html.erb")
-            render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_index", :locals => {:f => f}
-          else
-            f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/edit_index" do
-            end
+        render :partial => "goldencobra/admin/articles/articles_index", :locals => {:f => f}
+        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_index.html.erb")
+          render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_index", :locals => {:f => f}
+        else
+          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/edit_index" do
           end
-          #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
+        end
+        #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
       else
         #error
       end
