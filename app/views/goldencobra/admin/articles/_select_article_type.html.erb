@@ -1,13 +1,13 @@
 <% article_types = {} %>
 
 <% Goldencobra::Article.article_types_for_select.each do |article_type|
-  translated_article_type = I18n.t("#{article_type.parameterize.downcase}", scope: [:article_types], default: "#{article_type}")
+  translated_article_type = I18n.t(article_type.parameterize.downcase, scope: [:article_types], default: article_type)
   article_types[translated_article_type.to_sym] = article_type
 end %>
 
 <%= f.inputs I18n.t(:selection, scope: [:article_types]), :class => "foldable inputs" do
   if article_types.count > 0
-    f.input :article_type, :label => "Artikeltyp", :as => :select, :collection => article_types, include_blank: true
+    f.input :article_type, :label => "Artikeltyp", :as => :select, :collection => article_types.sort, include_blank: true
   end
   f.input :title, :label => "Titel", :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
   f.input :breadcrumb, :label => "Kurzer Titel", :hint => "Wird in der URL, für den Breadcrumb-Pfad und im Meta-Title der Seite verwendet, maximal 70 Zeichen"
