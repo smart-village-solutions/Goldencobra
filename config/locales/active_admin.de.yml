@@ -2,18 +2,18 @@ de:
   goldencobra:
     flash_notice:
       name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
-      action_Startpage: "Artikel als Startseite machen"
+      action_Startpage: "Diesen Artikel als Startseite einrichten"
       startpage: "Dieser Artikel ist nun der Startartikel"
       online: "Sichtbarkeit dieses Artikels ändern?"
       delete_article: "Artikel wirklich löschen?"
     filter:
       filter_titel: "Titel"
       filter_subtitel: "Untertitel"
-      filter_breadcrumb: "Brotkrümel"
-      filter_url: "URL Name"
-      filter_template: "Template Datei"
-      filter_created: "erstellt am"
-      filter_updated: "bearbeitet am"
+      filter_breadcrumb: "Breadcrumb-Titel"
+      filter_url: "Website-Adresse"
+      filter_template: "Layout"
+      filter_created: "Erstellt am"
+      filter_updated: "Bearbeitet am"
       filter_parent: "Elternelement"
       filter_type: "Artikeltyp"
     menue:
@@ -26,8 +26,6 @@ de:
     dashboard_welcome:
       welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
       call_to_action: "Siehe 'app/admin/dashboards.rb', um Übersichts-Bereiche hinzuzufügen."
-    dashboard_sections:
-      last_updated_articles: 'Zuletzt bearbeitete Artikel'
     view: "Anzeigen"
     devise:
       login:
@@ -71,6 +69,8 @@ de:
       image_module: "Bildergalerie"
       image_formates: "Bildgrößen"
       overview: "Überblick"
+      menue_options: "Menü-Optionen"
+      link_checker: "Links überprüfen"
     per_page: "Einträge pro Seite"
     pagination:
       empty: "Keine %{model} gefunden"
