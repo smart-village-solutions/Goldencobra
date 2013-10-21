@@ -40,8 +40,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf Übersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 }
         f.input :tag_list, :label => "Liste von internen Tags", :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :wrapper_html => { class: 'expert' }
         f.input :frontend_tag_list, label: "Filterkriterium", hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten.", :wrapper_html => { class: 'expert' }
-        f.input :active_since, :label => "Online seit", :hint => "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%d.%m.%Y %H:%M') if f.object.active_since}" }, :wrapper_html => { class: 'expert' }
-        f.input :active, :label => "Aktiv?", :hint => "Ist dieser Artikel online zu sehen?", :wrapper_html => { class: 'expert' }
+        f.input :active, :label => "Aktiv?", :hint => "Soll dieser Artikel im System aktiv und online sichtbar sein?", :wrapper_html => { class: 'expert' }
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_show.html.erb")
@@ -93,6 +92,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :url_name, :label => "Website-Adresse des Artikels", :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false
         f.input :parent_id, :label => "Übergeordneter Artikel", :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel", :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
         f.input :canonical_url, :label => "Canonical URL", :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
+        f.input :active_since, :label => "Online seit", :hint => "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20", value: "#{f.object.active_since.strftime('%d.%m.%Y %H:%M') if f.object.active_since}" }, :wrapper_html => { class: 'expert' }
         f.input :enable_social_sharing, :label => "'Social Sharing'-Aktionen anzeigen", :hint => "Sollen Besucher Aktionen angezeigt bekommen, um diesen Artikel in den sozialen Netzwerken zu verbreiten?"
         f.input :robots_no_index, :label => "Artikel nicht durch Suchmaschinen finden lassen", :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
         f.input :cacheable, :label => "Artikel cachebar", :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen"
@@ -129,8 +129,8 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   index do
     selectable_column
-    column "Titel", :sortable => :title do |article|
-      content_tag("span", link_to(truncate(article.title, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
+    column "Website-Titel", :sortable => :url_name do |article|
+      content_tag("span", link_to(truncate(article.url_name, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
     column "Website-Adresse", :url do |article|
       article.public_url
@@ -171,7 +171,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     link_to('SEO-Ansicht', admin_seo_articles_path())
   end
 
-  sidebar :overview, label: "Ueberblick", only: [:index] do
+  sidebar :overview, only: [:index] do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.order(:url_name).roots, :locals => {:link_name => "url_name", :url_path => "article", :order_by => "url_name" }
   end
 
@@ -180,18 +180,16 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   sidebar :startpage_options, :only => [:show, :edit] do
-      if resource.startpage
-        t("startpage", :scope => [:goldencobra, :flash_notice])
-      else
-        link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(resource.id), :confirm => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
-      end
+    if resource.startpage
+      t("startpage", :scope => [:goldencobra, :flash_notice])
+    else
+      link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(resource.id), :confirm => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
+    end
   end
-
 
   sidebar :layout, only: [:edit] do
     render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => resource }
   end
-
 
   sidebar :image_module, :only => [:edit] do
     render "/goldencobra/admin/articles/image_module_sidebar"
@@ -202,20 +200,23 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   sidebar :menue_options, :only => [:show, :edit] do
-    ul do
-      if resource.linked_menues.count > 0
-        li link_to("Es existieren bereits passende Menüpunkte, Sie können diese hier auflisten", admin_menues_path("q[target_contains]" => resource.public_url))
-        li link_to("Einen weiteren Menüpunkt erstellen?", new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
-      else
-        li link_to("Es existiert noch kein Menüpunkt! Wollen Sie diesen erstellen?", new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
-      end
+    if resource.linked_menues.count > 0
+      h5 "Es existieren bereits passende Menüpunkte zu diesem Artikel"
+      div link_to("Sie können diese hier auflisten", admin_menues_path("q[target_contains]" => resource.public_url))
+      div "oder"
+      div link_to("einen weiteren Menüpunkt erstellen", new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
+    else
+      h5 "Es existiert noch kein Menüpunkt zu diesem Artikel"
+      div link_to("Einen passenden Menüpunkt erstellen", new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
     end
+
     articles = Goldencobra::Article.active.where(:url_name => resource.url_name)
     if articles.count > 1
       results = articles.select{|a| a.public_url == resource.public_url}.flatten.compact.uniq
     end
+
     if results && results.count > 1
-      h4 "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , "anderen Artikel", "andere Artikel")  } mit dieser URL:", :class => "warning"
+      h5 "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , "anderen Artikel", "andere Artikel")  } mit dieser URL:", :class => "warning"
       ul do
         results.each do |r|
           next if r == resource
@@ -255,7 +256,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   member_action :run_link_checker do
     article = Goldencobra::Article.find(params[:id])
     system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake link_checker:article ID=#{article.id} &")
-    flash[:notice] = "LinkChecker started. Please wait a minute!"
+    flash[:notice] = "Die Links dieses Artikels werden überprüft. Bitte warten Sie, dies kann wenige Minuten in Anspruch nehmen."
     redirect_to :action => :edit
   end
 

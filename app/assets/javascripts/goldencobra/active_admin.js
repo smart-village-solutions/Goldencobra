@@ -140,7 +140,7 @@ $(function() {
 		$(this).closest(".sidebar_section").find(".foldable_icon").toggleClass("open");
 		$(this).closest(".sidebar_section").find('.panel_contents').slideToggle();
 	});
-	$('div#sidebar div.sidebar_section:not(#overview_sidebar_section) h3').trigger("click");
+	$('div#sidebar div.sidebar_section:not(#overview_sidebar_section, #layout_positions_sidebar_section) h3').trigger("click");
   $('div#sidebar div.sidebar_section .warning').closest("div.sidebar_section").addClass("warning").find("h3").trigger("click");
 
 	$(".chzn-select").chosen();

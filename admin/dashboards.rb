@@ -26,6 +26,12 @@ ActiveAdmin::Dashboards.build do
         end
       end
     end
+    
+    table do
+      tr do
+        td link_to("Neuen Artikel erstellen", admin_article_path("new"))
+      end
+    end
    end
 
    section "Neueste Schnipsel", priority: 2, :if => proc{can?(:update, Goldencobra::Widget)} do
