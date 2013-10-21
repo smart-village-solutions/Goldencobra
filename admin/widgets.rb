@@ -24,7 +24,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     f.inputs "Allgemein", :class => "foldable inputs" do
       f.input :title, :label => "Titel", :hint => "Name des Schnipsels"
       f.input :tag_list, :label => "Position", :hint => "Name der Bezeichnung der Position im Seitenlayout"
-      f.input :active, :label => "Aktiv?", :hint => "Soll dieses Schnipsel im System aktiv sein?"
+      f.input :active, :label => "Aktiv?", :hint => "Soll dieses Schnipsel im System aktiv und online sichtbar sein?"
       f.input :default, :label => "Standard?", :hint => "Bestimmt, ob ein Schnipsel immer und auf jeder Seite angezeigt wird oder nicht"
     end
     f.inputs "Layout - Website", :class => "foldable inputs" do

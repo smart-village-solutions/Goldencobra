@@ -23,7 +23,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :sorter, :label => "Sortiernummer", :hint => "Nach dieser Nummer wird innerhalb des Menüs sortiert, je höher, desto weiter unten in der Reihenfolge"
       check_box_tag "hidden", :label => "Sichtbar?", :hint => "Soll dieser Menüpunkt auf der Seite sichtbar sein?"
       f.input :css_class, :label => "CSS Klassen", :hint => "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
-      f.input :active, :label => "Aktiv?", :hint => "Soll dieser Menüpunkt im System aktiv sein?"
+      f.input :active, :label => "Aktiv?", :hint => "Soll dieser Menüpunkt im System aktiv und online sichtbar sein?"
     end
     f.inputs "Zugriffsrechte", :class => "foldable closed inputs" do
       f.has_many :permissions do |p|

@@ -1,3 +1,4 @@
+<h5>Hier haben Sie die Möglichkeit alle Links dieses Artikels auf Funktionalität zu überprüfen.</h5>
 
 <% if @article.link_checker.present? && @article.link_checker.class == Hash %>
 	<% status200er =  @article.link_checker.select{|key,value| value.present? && value['response_code'] == "200"} %>
@@ -28,4 +29,4 @@
 	</ul>
 <% end %>
 
-<%= link_to "Run Link-Checker", run_link_checker_admin_article_path(@article.id) %>
+<%= link_to "Links jetzt überprüfen", run_link_checker_admin_article_path(@article.id) %>

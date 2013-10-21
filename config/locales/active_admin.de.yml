@@ -2,7 +2,7 @@ de:
   goldencobra:
     flash_notice:
       name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
-      action_Startpage: "Artikel als Startseite machen"
+      action_Startpage: "Diesen Artikel als Startseite einrichten"
       startpage: "Dieser Artikel ist nun der Startartikel"
       online: "Sichtbarkeit dieses Artikels ändern?"
       delete_article: "Artikel wirklich löschen?"
@@ -69,6 +69,8 @@ de:
       image_module: "Bildergalerie"
       image_formates: "Bildgrößen"
       overview: "Überblick"
+      menue_options: "Menü-Optionen"
+      link_checker: "Links überprüfen"
     per_page: "Einträge pro Seite"
     pagination:
       empty: "Keine %{model} gefunden"
