@@ -30,7 +30,7 @@ module Goldencobra
     #TODO: offset implementieren
     def navigation_menu(menue_id, options={})
       return "id can't be blank" if menue_id.blank?
-      depth = options[:depth] || 0
+      depth = options[:depth] || 9999
       offset = options[:offset] || 0
       class_name = options[:class] || ""
       id_name = options[:id] || ""
@@ -53,6 +53,10 @@ module Goldencobra
       else
         master_menue = Goldencobra::Menue.active.find_by_id(menue_id)
       end
+
+      return "" if master_menue.blank?
+
+      current_depth = master_menue.ancestry_depth
       #Check for Permission
       if params[:frontend_tags] && params[:frontend_tags].class != String && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
         #Wenn format email, dann gibt es keinen realen webseit besucher
@@ -66,12 +70,14 @@ module Goldencobra
       end
       if master_menue.present?
         content = ""
-        master_menue.children.active.includes(:image).collect do |child|
-          #check if Menuitem is readable by permissions
-          if ability.can?(:read, child)
-            content << navigation_menu_helper(child, depth, 1, options)
-          end
+        subtree_menues = master_menue.subtree.after_depth(current_depth + offset).to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
+        subtree_menues = subtree_menues.to_a.delete_if{|a| !ability.can?(:read, a)}
+
+        current_depth = 1
+        menue_roots(subtree_menues).each do |root|
+          content << navigation_menu_helper(root, options, subtree_menues, current_depth)
         end
+
         if id_name.present?
           result = content_tag(:ul, raw(content),:id => "#{id_name}", :class => "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
         else
@@ -83,13 +89,16 @@ module Goldencobra
 
     private
 
-    def navigation_menu_helper(child, depth, current_depth, options)
-      if params[:frontend_tags] && params[:frontend_tags].class != String && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
-        ability = Ability.new()
-      else
-        operator = current_user || current_visitor
-        ability = Ability.new(operator)
-      end
+    def menue_roots(menue_array)
+      min_of_layers = menue_array.map{|a| a.ancestry.split("/").count }.min
+      return menue_array.select{|a| a.ancestry.to_s.split("/").count == min_of_layers }
+    end
+
+    def menue_children(menue_element, menue_array)
+      return menue_array.select{|a| a.ancestry.to_s.split("/").last.to_i == menue_element.id }
+    end
+
+    def navigation_menu_helper(child, options, subtree_menues, current_depth)
       if @current_client && @current_client.url_prefix.present?
         child_target_link = @current_client.url_prefix + child.target.gsub("\"",'')
       else
@@ -102,19 +111,23 @@ module Goldencobra
       template = Liquid::Template.parse(child.description)
       child_link = child_link + content_tag("div", raw(template.render(Goldencobra::Article::LiquidParser)), :class => "navigtion_link_description") unless options[:show_description] == false
       child_link = child_link + content_tag(:a, child.call_to_action_name, :href => child_target_link, :class => "navigtion_link_call_to_action_name") unless options[:show_call_to_action_name] == false
-      current_depth = current_depth + 1
-      if child.children && (depth == 0 || current_depth <= depth)
+
+      current_depth += 1
+      child_elements = menue_children(child, subtree_menues)
+      visible_child_element_count = 0
+      if child_elements.count > 0
         content_level = ""
-        child.children.active.each do |subchild|
-          if ability.can?(:read, subchild)
-            content_level << navigation_menu_helper(subchild, depth, current_depth, options)
+        child_elements.each do |subchild|
+          if subchild.css_class != "hidden" && subchild.css_class != "not_visible"
+            visible_child_element_count += 1
           end
+          content_level << navigation_menu_helper(subchild, options, subtree_menues, current_depth)
         end
         if content_level.present?
-          child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{child.children.active.visible.count}" )
+          child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{visible_child_element_count}" )
         end
       end
-      return content_tag(:li, raw(child_link),"data-id" => child.id , :class => "#{ child.children.active.visible.count > 0 ? 'has_children' : ''} #{child.has_active_child?(request) ? 'has_active_child' : ''} #{child.is_active?(request) ? 'active' : ''} #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
+      return content_tag(:li, raw(child_link),"data-id" => child.id , :class => "#{ visible_child_element_count > 0 ? 'has_children' : ''}  #{child.has_active_child?(request, subtree_menues) ? 'has_active_child' : ''}    #{child.is_active?(request) ? 'active' : ''}    #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
     end
 
   end
