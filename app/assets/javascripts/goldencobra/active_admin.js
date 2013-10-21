@@ -18,10 +18,7 @@ var TogetherJSConfig_on = {
   }
 };
 
-
-
 $(function() {
-
   //Importer optionen Ein und Ausblendbar machen
   $('table.importer_assoziations tr.head td.nested_model_header span.button').bind("click", function(){
     id_to_class = $(this).closest(".head").attr('id');
@@ -31,9 +28,7 @@ $(function() {
     }else{
       $(this).html("Felder anzeigen");
     }
-
   });
-
 
 	$('textarea.tinymce').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
@@ -82,9 +77,7 @@ $(function() {
       $(this).siblings(".char_count").html("Zeichen: " + counter.all);
       //console.warn(counter);
     });
-  })
-
-
+  });
 
   //Foldable overview in sidebar
   $("div.overview-sidebar div.folder").bind("click", function(){
@@ -227,6 +220,5 @@ $(function() {
   $("ul.link_checker_ul div.link_checker_label").click(function(){
     $(this).siblings(".link_checker_sources").toggle();
   });
-
 });
 
