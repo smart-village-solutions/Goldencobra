@@ -8,6 +8,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     I18n.default_locale = :de
   end
 
+  #Alle Filteroptionen in der rechten Seitenleiste
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => "Elternelement")
   filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t(s.parameterize.downcase, scope: [:goldencobra, :article_types]), s]}, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
   filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter], :default => "Titel")
