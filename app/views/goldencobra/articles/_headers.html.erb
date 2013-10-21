@@ -1,10 +1,16 @@
 <%# zusatz meta tags, die nicht mit display_meta_tags ausgespielt werden %>
 <meta charset="utf-8">
 <meta http-equiv="Content-Language" content="de">
+
 <%= display_meta_tags unless options[:exclude] && options[:exclude].include?("metatags") %>
 
 <%= stylesheet_link_tag "goldencobra/application", :media => "all" unless options[:exclude] && options[:exclude].include?("stylesheets") %>
+
+<%# TODO: javascripts einzeln excluden koennen, nicht nur gemeinsam in application.js %>
 <%= javascript_include_tag "goldencobra/application" unless options[:exclude] && options[:exclude].include?("javascripts") %>
+
 <%= bugtracker unless options[:exclude] && options[:exclude].include?("bugtracker") %>
+
 <%= edit_article_link unless options[:exclude] && options[:exclude].include?("article_administration") %>
+
 <%#= airbrake_javascript_notifier unless options[:exclude] && options[:exclude].include?("airbrake") %> <% # Geht nicht. %>

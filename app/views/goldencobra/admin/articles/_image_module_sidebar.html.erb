@@ -18,14 +18,12 @@
 <br/><br/>
  -->
 
-<h4>Bildergallery einfügen</h4>
+<h5>Bildergallery einfügen</h5>
 <p>Alle Bilder, die mit folgenden Tags versehen sind, sollen angezeigt werden</p>
 
 <%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_article_image_gallery_tags"} do |f| %>
 	<ul>
-    <%= select_tag 'article[image_gallery_tags][]', options_for_select(Goldencobra::Upload.scoped.tag_counts_on(:tags).map{|tag| tag.name},
-                                                                       @article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : []),
-                                                   :multiple => true, :class => "chzn-select" %>
+    <%= select_tag 'article[image_gallery_tags][]', options_for_select(Goldencobra::Upload.scoped.tag_counts_on(:tags).map{|tag| tag.name}, @article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : []), :multiple => true, :class => "chzn-select", 'data-placeholder' => 'Tags auswählen' %>
   </ul>
 
 	<% if @article.image_gallery_tags.present? %>

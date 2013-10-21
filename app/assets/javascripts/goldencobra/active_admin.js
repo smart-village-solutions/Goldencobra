@@ -18,10 +18,7 @@ var TogetherJSConfig_on = {
   }
 };
 
-
-
 $(function() {
-
   //Importer optionen Ein und Ausblendbar machen
   $('table.importer_assoziations tr.head td.nested_model_header span.button').bind("click", function(){
     id_to_class = $(this).closest(".head").attr('id');
@@ -31,9 +28,7 @@ $(function() {
     }else{
       $(this).html("Felder anzeigen");
     }
-
   });
-
 
 	$('textarea.tinymce').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
@@ -72,8 +67,8 @@ $(function() {
 		verify_html : false
 	});
 
-  //TextCounter auf title, subtitle, Teaser, Summary, Breadcrumb, url_name...
-  teaser = $('#article_title,#article_subtitle, #article_teaser, #article_breadcrumb, #article_url_name, #article_summary').each(function(index){
+  //TextCounter auf title, subtitle, Teaser, Summary, Breadcrumb, url_name
+  teaser = $('#article_title, #article_subtitle, #article_teaser, #article_breadcrumb, #article_url_name, #article_summary, #widget_teaser, #widget_description').each(function(index){
     Countable.live($(this)[0], function(counter) {
       if (!$(this).siblings('.char_count').length) {
         $(this).wrap("<div></div>");
@@ -82,9 +77,7 @@ $(function() {
       $(this).siblings(".char_count").html("Zeichen: " + counter.all);
       //console.warn(counter);
     });
-  })
-
-
+  });
 
   //Foldable overview in sidebar
   $("div.overview-sidebar div.folder").bind("click", function(){
@@ -147,7 +140,7 @@ $(function() {
 		$(this).closest(".sidebar_section").find(".foldable_icon").toggleClass("open");
 		$(this).closest(".sidebar_section").find('.panel_contents').slideToggle();
 	});
-	$('div#sidebar div.sidebar_section:not(#overview_sidebar_section) h3').trigger("click");
+	$('div#sidebar div.sidebar_section:not(#overview_sidebar_section, #layout_positions_sidebar_section) h3').trigger("click");
   $('div#sidebar div.sidebar_section .warning').closest("div.sidebar_section").addClass("warning").find("h3").trigger("click");
 
 	$(".chzn-select").chosen();
@@ -227,6 +220,5 @@ $(function() {
   $("ul.link_checker_ul div.link_checker_label").click(function(){
     $(this).siblings(".link_checker_sources").toggle();
   });
-
 });
 
