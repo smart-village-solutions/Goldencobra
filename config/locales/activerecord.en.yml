@@ -1,6 +1,9 @@
 en:
   activerecord:
     models:
+      link-checker:
+        one: "Link-Checker"
+        other: "Link-Checker"
       comment:
         one: "Comment"
         other: "Comments"
@@ -111,8 +114,8 @@ en:
         enable_social_sharing: "show social media buttons"
         cacheable: "cacheable"
         external_url_redirect: "redirect to external url"
-        created_at: "created_at"
-        updated_at: "updated_at"
+        created_at: "created at"
+        updated_at: "updated at"
       goldencobra/upload:
         source: "source"
         created_at: "created at"

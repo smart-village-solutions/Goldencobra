@@ -1,7 +1,7 @@
 de:
   activerecord:
     models:
-      "link-checker":
+      link-checker:
         one: "Link-Checker"
         other: "Link-Checker"
       domain:

@@ -1,14 +1,15 @@
 <div class="widget-sidebar">
-  <h5>Folgende Widgets werden zusätzlich zu den Standardwidgets angezeigt</h5>
+  <h5>Folgende Schnipsel werden zusätzlich zu den Standard-Schnipseln angezeigt</h5>
   <%= form_tag update_widgets_admin_article_path(@article.id) do %>
     <ul>
     <% Goldencobra::Widget.tag_counts_on(:tags).each do |widget_tag| %>
-      <li><b><%= widget_tag.name.capitalize %> Widgets:</b></li>
+      <li><b>Position: <%= widget_tag.name.capitalize %></b></li>
       <% Goldencobra::Widget.active.not_default.tagged_with(widget_tag).each do |w| %>
         <li><%= check_box_tag("widget_ids[]", "#{w.id}", @article.widget_ids.include?(w.id), :id => "widget_#{w.id}" ) %>&nbsp;<%= w.title %></li>
       <% end %>
     <% end %>
     </ul>
+    <br/>
     <%= submit_tag t("submit_widget", :scope => [:active_admin, :sidebars]), id: "submit_widgets_partial" %>
   <% end %>
 </div>
