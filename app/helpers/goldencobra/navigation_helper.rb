@@ -71,7 +71,7 @@ module Goldencobra
       if master_menue.present?
         content = ""
         if current_article.present?
-          subtree_menues = master_menue.subtree.to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
+          subtree_menues = master_menue.subtree.after_depth(current_depth).to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
         else
           subtree_menues = master_menue.subtree.after_depth(current_depth + offset).to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
         end
