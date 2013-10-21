@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = "This is the Basic Module of Goldencobra. It Offers Devise, ActiveAdmin, an Article-Module, a Menu-Module, and global Settings for an CMS"
   s.licenses    = "Lizenz CC BY-NC-SA 3.0"
   s.files = Dir["{app,config,db,lib}/**/*"] + ["CC-LICENSE", "Rakefile", "README.markdown"]
-  s.test_files = Dir["test/**/*"]
+  #s.test_files = Dir["test/**/*"]
 
   if File.exists?('UPGRADING')
     s.post_install_message = File.read("UPGRADING")
