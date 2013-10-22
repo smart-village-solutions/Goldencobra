@@ -39,7 +39,7 @@ module Goldencobra
     end
 
     def skip_geocoding_once_or_always
-      self.skip_geocode || self.manual_geocoding
+      (Goldencobra::Setting.for_key("goldencobra.locations.geocoding") == "false" ) || self.skip_geocode || self.manual_geocoding
     end
   end
 end
