@@ -113,7 +113,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
       f.inputs "Medien", :class => "foldable closed inputs" do
         f.has_many :article_images do |ai|
-          ai.input :image, :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select'}, :label => "Bild ausw&auml;hlen"
+          ai.input :image, :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select', :style => 'width: 70%;', 'data-placeholder' => 'Medium auswählen' }, :label => "Medium wählen"
           ai.input :position, :as => :select, :collection => Goldencobra::Setting.for_key("goldencobra.article.image_positions").split(",").map(&:strip), :include_blank => false
           ai.input :_destroy, :as => :boolean
         end
@@ -126,7 +126,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
     f.actions
   end
-
 
   index do
     selectable_column
