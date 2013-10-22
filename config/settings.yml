@@ -1,4 +1,6 @@
 goldencobra:
+    locations:
+        geocoding: "true"
     live-support:
         active: "false"
         email: "metz@ikusei.de"
