@@ -133,22 +133,21 @@ $(function() {
 	});
 	$('div#main_content > form > fieldset.foldable.closed legend').trigger("click");
 
-
-	//die sidebar_section bekommen einen button zum auf und zu klappen
-	$('div#sidebar div.sidebar_section h3').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
-	$('div#sidebar div.sidebar_section h3').bind("click", function(){
-		$(this).closest(".sidebar_section").find(".foldable_icon").toggleClass("open");
-		$(this).closest(".sidebar_section").find('.panel_contents').slideToggle();
+  //die sidebar_section bekommen einen button zum auf und zu klappen
+  $('div#sidebar div.sidebar_section h3').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
+  $('div#sidebar div.sidebar_section h3').bind("click", function(){
+    $(this).closest(".sidebar_section").find(".foldable_icon").toggleClass("open");
+    $(this).closest(".sidebar_section").find('.panel_contents').slideToggle();
 	});
 	$('div#sidebar div.sidebar_section:not(#overview_sidebar_section, #layout_positions_sidebar_section) h3').trigger("click");
   $('div#sidebar div.sidebar_section .warning').closest("div.sidebar_section").addClass("warning").find("h3").trigger("click");
 
-	$(".chzn-select").chosen();
-  $(".chzn-select-deselect").chosen({allow_single_deselect:true});
-  $('a.button').live("click", function(){
+  $(".chzn-select").chosen();
+  $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
+  $("a.button").live("click", function(){
     $(".chzn-select").chosen();
-    $(".chzn-select-deselect").chosen({allow_single_deselect:true});
-  })
+    $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
+  });
 
   //Menuepunkte bekommen eine funktion zum auf und zu klappen
   $('div#overview_sidebar div.title a').bind("click", function(){
