@@ -3,7 +3,7 @@ if RUBY_VERSION =~ /1.9/
   Encoding.default_internal = Encoding::UTF_8
 end
 
-source "http://rubygems.org"
+source "https://rubygems.org"
 gemspec
 
 # jquery-rails is used by the dummy application
