@@ -94,7 +94,7 @@ module Goldencobra
     private
 
     def menue_roots(menue_array)
-      min_of_layers = menue_array.map{|a| a.ancestry.split("/").count }.min
+      min_of_layers = menue_array.map{|a| a.ancestry.to_s.split("/").count }.min
       return menue_array.select{|a| a.ancestry.to_s.split("/").count == min_of_layers }
     end
 
