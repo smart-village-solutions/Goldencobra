@@ -1,5 +1,6 @@
 <% bad_links = {} %>
 <% Goldencobra::Article.select("id, link_checker").each do |article| %>
+	<% next if !article.link_checker.class == Hash %>
 	<% article.link_checker.select{|key,value| value.present? && value['response_code'] != "200"}.each do |key,values| %>
 		<% bad_links[key] = {:rcode => values['response_code'], :error => values['response_error']} if bad_links[key].blank? %>
 		<% bad_links[key][:source] = [] if bad_links[key][:source].blank? %>
