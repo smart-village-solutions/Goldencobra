@@ -77,6 +77,7 @@ module Goldencobra
 
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     accepts_nested_attributes_for :article_images, :allow_destroy => true
+    accepts_nested_attributes_for :images, :allow_destroy => true
     accepts_nested_attributes_for :permissions, :allow_destroy => true
     accepts_nested_attributes_for :author, :allow_destroy => true
 
@@ -266,7 +267,6 @@ module Goldencobra
     end
 
     Goldencobra::Article.init_image_methods
-
     def image(position="standard", size="original")
       any_images = self.article_images.where(position: position)
       if any_images.any? && any_images.first.image && any_images.first.image.image
@@ -275,6 +275,7 @@ module Goldencobra
         return ""
       end
     end
+
 
     def respond_to_all?(method_name)
       begin
