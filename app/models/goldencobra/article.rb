@@ -694,7 +694,7 @@ module Goldencobra
       else
         Goldencobra::Article.active.each do |article|
           article.updated_at = Time.now
-          article.save
+          article.without_versioning :save
         end
       end
     end
