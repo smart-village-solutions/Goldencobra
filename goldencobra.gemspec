@@ -31,8 +31,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise', "~> 2.2.4"
   s.add_dependency 'activeadmin-cancan'
   s.add_dependency "activeadmin"
-  s.add_dependency 'sunspot_rails'
-  s.add_dependency 'sunspot_solr'
+  s.add_dependency 'sunspot_rails', "2.0.0"
+  s.add_dependency 'sunspot_solr', "2.0.0"
   s.add_dependency 'sprockets'
   s.add_dependency "sass"
   s.add_dependency "sass-rails"
