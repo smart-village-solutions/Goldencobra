@@ -79,8 +79,8 @@ PATH
       sinatra
       slim
       sprockets
-      sunspot_rails
-      sunspot_solr
+      sunspot_rails (= 2.0.0)
+      sunspot_solr (= 2.0.0)
       therubyracer
       uglifier
       whenever
