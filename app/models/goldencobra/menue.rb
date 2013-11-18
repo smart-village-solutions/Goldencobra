@@ -66,7 +66,7 @@ module Goldencobra
 
     def has_active_child?(request, subtree_menues)
       @has_active_child_result ||= {}
-      @has_active_child_result[request.path.squeeze("/").split("?")[0]] ||= has_active_descendant?(subtree_menues,request)
+      @has_active_child_result[request.path.squeeze("/").split("?")[0]] ||= has_active_descendant?(subtree_menues, request)
     end
 
     def has_active_descendant?(subtree_menues,request)
