@@ -58,16 +58,22 @@ module Goldencobra
 
       current_depth = master_menue.ancestry_depth
       #Check for Permission
-      if params[:frontend_tags] && params[:frontend_tags].class != String && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
-        #Wenn format email, dann gibt es keinen realen webseit besucher
+      begin
+        if params.present? && params[:frontend_tags].present? && params[:frontend_tags].class != String && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
+          #Wenn format email, dann gibt es keinen realen webseit besucher
+          ability = Ability.new()
+        else current_user.present? || current_visitor.present?
+          operator = current_user || current_visitor
+          ability = Ability.new(operator)
+        end
+      rescue
         ability = Ability.new()
-      else
-        operator = current_user || current_visitor
-        ability = Ability.new(operator)
       end
+
       if !ability.can?(:read, master_menue)
         return ""
       end
+
       if master_menue.present?
         content = ""
         if current_article.present?
@@ -131,7 +137,19 @@ module Goldencobra
           child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{visible_child_element_count}" )
         end
       end
-      return content_tag(:li, raw(child_link),"data-id" => child.id , :class => "#{ visible_child_element_count > 0 ? 'has_children' : ''}  #{child.has_active_child?(request, subtree_menues) ? 'has_active_child' : ''}    #{child.is_active?(request) ? 'active' : ''}    #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
+
+      # to have path from context, when liquid witohut request
+      # logger.info("-------------")
+      # logger.info(options[:liquid_url_path].present?)
+      # logger.info(options[:liquid_url_path])
+      # logger.info(request.blank?)
+      # logger.info("-------------")
+      # if options[:liquid_url_path].present? && request.blank?
+      #   path_obj = Struct.new(:path)
+      #   request = path_obj.new(options[:liquid_url_path])
+      # end
+
+      return content_tag(:li, raw(child_link), "data-id" => child.id, :class => "#{ visible_child_element_count > 0 ? 'has_children' : ''}  #{child.has_active_child?(request, subtree_menues) ? 'has_active_child' : ''}    #{child.is_active?(request) ? 'active' : ''}    #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
     end
 
   end

@@ -7,7 +7,7 @@ class PartialRenderer < Liquid::Tag
   end
 
   def render(context)
-    ActionController::Base.new.render_to_string(:partial => @message.strip, :layout => false, :locals => {:context => context})
+    ActionController::Base.new.render_to_string(:partial => @message.strip, :layout => false, :locals => { :context => context })
   end
 end
 
@@ -21,16 +21,16 @@ class NavigationRenderer < Liquid::Tag
 
   def initialize(tag_name, message, tokens)
     super
-    @menue_id = message.split("|")[0].to_s.strip
+    @menue_title = message.split("|")[0].to_s.strip
     if message.split('|')[1].present? && message.split('|')[1].include?(":")
-    	@options = message.split('|')[1].split(', ').map{|h| h1,h2 = h.split(":"); {h1.strip => h2.strip}}.reduce(:merge)
+    	@options = message.split('|')[1].split(', ').map{ |h| h1, h2 = h.split(":"); { h1.strip => h2.strip } }.reduce(:merge)
     else
     	@options = {}
     end
   end
 
   def render(context)
-    ActionController::Base.new.render_to_string(:partial => "/goldencobra/articles/navigation_menue", :layout => false, :locals => {:context => context, :menue_id => @menue_id, :options => @options })
+    ActionController::Base.new.render_to_string(:partial => "/goldencobra/articles/navigation_menue", :layout => false, :locals => { :context => context, :menue_title => @menue_title, :options => @options })
   end
 end
 
