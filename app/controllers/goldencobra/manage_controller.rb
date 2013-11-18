@@ -31,8 +31,12 @@ module Goldencobra
     end
 
     def call_for_support
-      Goldencobra::ConfirmationMailer.send_support_mail(params[:link]).deliver
-      render :text => "200"
+      if current_user || current_visitor
+        Goldencobra::ConfirmationMailer.send_support_mail(params[:link]).deliver
+        render :text => "200"
+      else
+        render :text => "401"
+      end
     end
 
   end
