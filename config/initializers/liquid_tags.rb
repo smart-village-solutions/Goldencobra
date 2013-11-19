@@ -3,11 +3,17 @@ class PartialRenderer < Liquid::Tag
 
   def initialize(tag_name, message, tokens)
     super
-    @message = message
+    @partial_name = message.split("|")[0].to_s.strip
+    if message.split('|')[1].present? && message.split('|')[1].include?(":")
+      @options = message.split('|')[1].split(', ').map{ |h| h1, h2 = h.split(":"); { h1.strip.to_sym => h2.strip } }.reduce(:merge)
+    else
+      @options = {}
+    end
   end
 
   def render(context)
-    ActionController::Base.new.render_to_string(:partial => @message.strip, :layout => false, :locals => { :context => context })
+    @options = @options.merge(:context => context)
+    ActionController::Base.new.render_to_string(:partial => @partial_name, :layout => false, :locals => @options )
   end
 end
 
