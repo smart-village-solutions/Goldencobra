@@ -20,7 +20,6 @@ module Goldencobra
       end
     end
 
-    #
     # navigation_menu("Hauptmenue", :depth => 1, :class => "top", :id => "menue1", :offset => 1 )
     # depth: 0 = unlimited, 1 = self, 2 = self and children 1. grades, 3 = self and up to children 2.grades
     # offset: number of levels to skip, 0 = none
@@ -149,7 +148,7 @@ module Goldencobra
       #   request = path_obj.new(options[:liquid_url_path])
       # end
 
-      return content_tag(:li, raw(child_link), "data-id" => child.id, :class => "#{ visible_child_element_count > 0 ? 'has_children' : ''}  #{child.has_active_child?(request, subtree_menues) ? 'has_active_child' : ''}    #{child.is_active?(request) ? 'active' : ''}    #{child.css_class.gsub(/\W/,' ')}".squeeze(' ').strip)
+      return content_tag(:li, raw(child_link), "data-id" => child.id, :class => "#{ visible_child_element_count > 0 ? 'has_children' : '' } #{ (child.has_active_child?(request, subtree_menues) ? 'has_active_child' : '') if request.present? } #{ (child.is_active?(request) ? 'active' : '') if request.present? } #{ child.css_class.gsub(/\W/,' ') }".squeeze(' ').strip)
     end
 
   end
