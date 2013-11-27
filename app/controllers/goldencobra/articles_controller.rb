@@ -12,13 +12,14 @@ module Goldencobra
     end
 
     def show_cache_path
+      current_client_id = @current_client.try(:id).to_s
       geo_cache = Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true" && session[:user_location].present? && session[:user_location].city.present? ? session[:user_location].city.parameterize.underscore : "no_geo"
       date_cache = Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true" ? Date.today.strftime("%Y%m%d") : "no_date"
       art_cache = @article ? @article.cache_key : "no_art"
       user_cache = current_user.present? ? current_user.id : "no_user"
       flash_message = session.present? && session['flash'].present? ? Time.now.to_i : ""
       auth_code = params[:auth_token].present? ? 'with_auth' : ''
-      "g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}_#{auth_code}"
+      "c-#{current_client_id}/g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}_#{auth_code}"
     end
 
 
