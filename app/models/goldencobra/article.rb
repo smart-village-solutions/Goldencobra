@@ -86,7 +86,7 @@ module Goldencobra
     friendly_id     :for_friendly_name, use: [:slugged] #, :history
     web_url         :external_url_redirect
     has_paper_trail
-    liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id
+    liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
 
     validates_presence_of :title, :article_type
     validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
