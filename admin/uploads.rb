@@ -12,6 +12,18 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     end
   end
 
+  filter :id
+  filter :source
+  filter :rights
+  filter :description
+  filter :image_file_name
+  filter :image_file_type
+  filter :image_file_size
+  filter :updated_at
+  filter :created_at
+  filter :alt_text
+  filter :sorter_number
+
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
     f.inputs "File" do
@@ -35,6 +47,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
 
   index do
     selectable_column
+    column :id
     column "url" do |upload|
       result = ""
       result << upload.image.url
