@@ -113,7 +113,7 @@ module Goldencobra
       else
         child_target_link = child.target.gsub("\"",'')
       end
-      child_link = content_tag(:a, child.title, :href => child_target_link)
+      child_link = content_tag(:a, child.title, :href => child_target_link, "data-remote" => child.remote)
       image_link = child.image.present? ? image_tag(child.image.image(:original)) : ""
       child_link = child_link + content_tag(:a, image_link, :href => child_target_link, :class => "navigtion_link_imgage_wrapper", "data-remote" => child.remote) unless options[:show_image] == false
       child_link = child_link + content_tag(:a, child.description_title, :href => child_target_link, :class => "navigtion_link_description_title", "data-remote" => child.remote) unless options[:show_description_title] == false
