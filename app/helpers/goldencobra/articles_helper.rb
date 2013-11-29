@@ -19,6 +19,26 @@ module Goldencobra
     end
 
 
+    #Parse text for a single Word and make a link to an Article to this Word as a Subarticle of a given Article
+    def parse_glossar_entries(content,tag_name, parent_article_id=nil)
+      glossar_parent = nil
+      if parent_article_id
+        glossar_parent = Goldencobra::Article.find_by_id(parent_article_id)
+        glossar_article = glossar_parent.children.where(:breadcrumb => tag_name).first
+      else
+        glossar_article = Goldencobra::Article.where(:breadcrumb => tag_name).first
+      end
+      unless glossar_article
+        glossar_article = Goldencobra::Article.create(:title => tag_name, :breadcrumb => tag_name, :article_type => "Default Show", :parent => glossar_parent)
+      end
+
+      if glossar_article.present?
+        replace_with = "<a href='#{glossar_article.public_url}' class='glossar'>#{tag_name}</a>"
+        content = content.gsub(/\b(?<!\/)#{tag_name}(?!<)\b/, "#{replace_with}")
+      end
+    end
+
+
     def render_article_image_gallery
       if @article
         result = ""
