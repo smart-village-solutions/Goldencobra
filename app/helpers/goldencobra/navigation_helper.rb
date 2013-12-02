@@ -113,13 +113,18 @@ module Goldencobra
       else
         child_target_link = child.target.gsub("\"",'')
       end
-      child_link = content_tag(:a, child.title, :href => child_target_link, "data-remote" => child.remote)
+      if child.remote
+        link_options = {"data-remote" => "true",:href => child_target_link}
+      else
+        link_options = {:href => child_target_link}
+      end
+      child_link = content_tag(:a, child.title, link_options )
       image_link = child.image.present? ? image_tag(child.image.image(:original)) : ""
-      child_link = child_link + content_tag(:a, image_link, :href => child_target_link, :class => "navigtion_link_imgage_wrapper", "data-remote" => child.remote) unless options[:show_image] == false
-      child_link = child_link + content_tag(:a, child.description_title, :href => child_target_link, :class => "navigtion_link_description_title", "data-remote" => child.remote) unless options[:show_description_title] == false
+      child_link = child_link + content_tag(:a, image_link, link_options.merge(:class => "navigtion_link_imgage_wrapper")) unless options[:show_image] == false
+      child_link = child_link + content_tag(:a, child.description_title, link_options.merge(:class => "navigtion_link_description_title")) unless options[:show_description_title] == false
       template = Liquid::Template.parse(child.description)
       child_link = child_link + content_tag("div", raw(template.render(Goldencobra::Article::LiquidParser)), :class => "navigtion_link_description") unless options[:show_description] == false
-      child_link = child_link + content_tag(:a, child.call_to_action_name, :href => child_target_link, :class => "navigtion_link_call_to_action_name", "data-remote" => child.remote) unless options[:show_call_to_action_name] == false
+      child_link = child_link + content_tag(:a, child.call_to_action_name, link_options.merge(:class => "navigtion_link_call_to_action_name")) unless options[:show_call_to_action_name] == false
 
       current_depth += 1
       child_elements = menue_children(child, subtree_menues)
