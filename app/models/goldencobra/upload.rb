@@ -50,8 +50,8 @@ module Goldencobra
 
     def unzip_files
       if self.image_file_name.include?(".zip") && File.exists?(self.image.path)
-        #require 'zip/zip'
-        zipped_files = Zip::ZipFile.open(self.image.path)
+        require 'zip'
+        zipped_files = Zip::File.open(self.image.path)
         int = 0
         zipped_files.each do |zipped_file|
           int = int + 1
