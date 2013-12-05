@@ -75,6 +75,10 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Menue.order(:title).roots, :locals => {:link_name => "title", :url_path => "menue", :order_by => "title" }
   end
 
+  sidebar :help, only: [:edit, :show] do
+    render "/goldencobra/admin/shared/help"
+  end
+
   #batch_action :destroy, false
 
   batch_action :set_menue_offline, :confirm => "Menüpunkt offline stellen: sind Sie sicher?" do |selection|
