@@ -86,6 +86,10 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
   end
 
+  sidebar :help, only: [:edit, :show] do
+    render "/goldencobra/admin/shared/help"
+  end
+
   index do
     selectable_column
     column "Titel", :title, :sortable => :title do |widget|

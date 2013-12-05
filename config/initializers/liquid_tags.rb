@@ -1,5 +1,12 @@
 class PartialRenderer < Liquid::Tag
   #include ActionController::RequestForgeryProtection
+  def self.description
+    "Darstellung eines beliebigen Partials"
+  end
+
+  def self.usage
+    "{% render_partial name_of_partial | option1: wert, option2: wert2 %}"
+  end
 
   def initialize(tag_name, message, tokens)
     super
@@ -24,6 +31,13 @@ Liquid::Template.register_tag('render_partial', PartialRenderer)
 # {% navigation_menue 3 | id: css_id_name, class_name: test %}
 class NavigationRenderer < Liquid::Tag
   #include ActionController::RequestForgeryProtection
+  def self.description
+    "Einbindung eines Menues"
+  end
+
+  def self.usage
+    "{% navigation_menue 3 | id: css_id_name, class_name: test %}"
+  end
 
   def initialize(tag_name, message, tokens)
     super

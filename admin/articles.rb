@@ -226,6 +226,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
   end
 
+  sidebar :help, only: [:edit, :show] do
+    render "/goldencobra/admin/shared/help"
+  end
+
   member_action :mark_as_startpage do
     article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
