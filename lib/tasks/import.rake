@@ -30,7 +30,7 @@ namespace :db do
         if local_config['password'].present?
           local_db_password = "-p#{local_config['password']}"
         end
-        system("ssh -C #{ssh_user}@#{ssh_server} less backup.sql |mysql -u#{local_config['username']} #{local_db_password} #{local_config['database']}")
+        system("ssh -C #{ssh_user}@#{ssh_server} less #{deploy_to}/current/backup.sql |mysql -u#{local_config['username']} #{local_db_password} #{local_config['database']}")
         puts "Dumpfile copied and transfered to local DB: #{local_config['username']}@#{local_config['database']}"
       else
         remote_db = ENV['REMOTE']
