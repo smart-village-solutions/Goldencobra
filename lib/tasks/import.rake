@@ -13,16 +13,21 @@ namespace :db do
   task :import => :environment do
     local_config = ActiveRecord::Base.configurations["development"]
     if defined?(Capistrano) == "constant"
-      puts "Accassing remote configuration?"
+      puts "Loading remote configuration..."
       config = Capistrano::Configuration.new
       config.load("Capfile")
       config.logger.level = 1
       ssh_user = config[:user]
       ssh_server = config[:ip_address]
+      deploy_to = config[:deploy_to]
       puts "Connecting to #{ssh_user}@#{ssh_server}"
-      system("cap invoke COMMAND='bundle exec rake db:dump'")
+      system("cap invoke COMMAND='cd #{deploy_to}/current && RAILS_ENV=production bundle exec rake db:dump'")
       puts "MysqlDump created on server: backup.sql"
-      system("ssh -C #{ssh_user}@#{ssh_server} less backup.sql |mysql -u#{local_config['username']} -p#{local_config['password']} #{local_config['database']}")
+      local_db_password = ""
+      if local_config['password'].present?
+        local_db_password = "-p#{local_config['password']}"
+      end
+      system("ssh -C #{ssh_user}@#{ssh_server} less backup.sql |mysql -u#{local_config['username']} #{local_db_password} #{local_config['database']}")
       puts "Dumpfile copied and transfered to local DB: #{local_config['database']}"
     else
       remote_db = ENV['REMOTE']
