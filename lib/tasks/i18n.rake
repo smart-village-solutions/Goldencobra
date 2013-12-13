@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 namespace :i18n do
   desc "Find and create db translation"
   task :missing_keys => :environment do

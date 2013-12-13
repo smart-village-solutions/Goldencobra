@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Goldencobra
 	class Author < ActiveRecord::Base
 		has_many :article

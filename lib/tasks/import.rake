@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 namespace :db do
   desc 'Dump DB to backup.sql'
   task :dump => :environment do
