@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Goldencobra
   class ApplicationController < ::ApplicationController
     before_filter :set_locale
@@ -53,9 +55,14 @@ module Goldencobra
         meta_tags[:noindex] = current_article.robots_no_index
       end
 
-      if !current_article.canonical_url.blank?
+      if current_article.canonical_url.present?
         # with an canonical_url for rel="canonical"
         meta_tags[:canonical] = current_article.canonical_url
+      else
+        d = Goldencobra::Domain.main
+        if d.present? && @current_client.present? && @current_client.id != d.id
+          meta_tags[:canonical] = "http://#{d.hostname}#{current_article.public_url}"
+        end
       end
 
       set_meta_tags meta_tags
