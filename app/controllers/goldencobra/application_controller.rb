@@ -61,7 +61,7 @@ module Goldencobra
       else
         d = Goldencobra::Domain.main
         if d.present? && @current_client.present? && @current_client.id != d.id
-          meta_tags[:canonical] = "http://#{d.hostname}#{current_article.public_url}"
+          meta_tags[:canonical] = "http://#{d.hostname}#{d.url_prefix}#{current_article.public_url}"
         end
       end
 
