@@ -9,6 +9,20 @@ module Goldencobra
     validates_presence_of :hostname
   	validates_uniqueness_of :hostname
 
+    before_save :mark_as_main
+
+    def self.main
+      Goldencobra::Domain.where(:main => true).first
+    end
+
+    def mark_as_main
+      if self.main == true
+        Goldencobra::Domain.where("id <> #{self.id.to_i}").each do |a|
+          a.main = false
+          a.save
+        end
+      end
+    end
 
   	def self.current
   		Thread.current[:current_client]
