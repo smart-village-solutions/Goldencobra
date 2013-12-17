@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
     layout "application"
