@@ -2,6 +2,19 @@
   <h5>
   	Artikel-Seitentyp: <%= I18n.t(@article.article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => @article.article_type.split(' ').first) %>
   </h5>
+  <% article_types = {} %>
+
+  <% Goldencobra::Article.article_types_for_select.each do |article_type| %>
+    <% translated_article_type = I18n.t(article_type.parameterize.downcase, scope: [:article_types], default: article_type) %>
+    <% article_types[translated_article_type.to_sym] = article_type %>
+  <% end %>
+  <%= form_tag change_articletype_admin_article_path(@article.id) do %>
+
+      <%= select_tag :new_article_type, options_for_select(article_types.sort), :include_blank => false %>
+      <br/><br/>
+      <%= submit_tag t("submit_article_type", :scope => [:active_admin, :sidebars]), id: "submit_widgets_partial" %>
+  <% end %>
+
 	<%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_events_article_event_modul"} do |f| %>
 		<ul>
 			<%= f.input :template_file, :as => :select, :collection => Goldencobra::Article.templates_for_select, :include_blank => false %>
