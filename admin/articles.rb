@@ -230,6 +230,25 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     render "/goldencobra/admin/shared/help"
   end
 
+  member_action :change_articletype, :method => :post do
+    article = Goldencobra::Article.find(params[:id])
+    article.article_type = params[:new_article_type]
+    if article.article_type.include?("Show")
+      unless article.article_type.include?("Default")
+        article_model = article.article_type_form_file.constantize
+        related_article_object = article_model.where(:article_id => article.id).first
+        if related_article_object
+          article.send("#{article.article_type_form_file.downcase}=", related_article_object)
+        else
+          article.send("#{article.article_type_form_file.downcase}=", article_model.new(:article_id => article.id))
+        end
+        article.save
+      end
+    end
+    article.save
+    redirect_to :action => :edit
+  end
+
   member_action :mark_as_startpage do
     article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
