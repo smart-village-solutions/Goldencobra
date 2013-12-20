@@ -10,9 +10,9 @@
   <% end %>
   <%= form_tag change_articletype_admin_article_path(@article.id) do %>
 
-      <%= select_tag :new_article_type, options_for_select(article_types.sort), :include_blank => false %>
+      <%= select_tag :new_article_type, options_for_select(article_types.sort, @article.article_type), :include_blank => false %>
       <br/><br/>
-      <%= submit_tag t("submit_article_type", :scope => [:active_admin, :sidebars]), id: "submit_widgets_partial" %>
+      <%= submit_tag "Artikeltyp zuweisen", id: "submit_widgets_partial" %>
   <% end %>
 
 	<%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_events_article_event_modul"} do |f| %>
