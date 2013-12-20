@@ -30,6 +30,10 @@ $(function() {
     }
   });
 
+  if (typeof tinyMCESetting_theme_advanced_blockformats === 'undefined') {
+    var tinyMCESetting_theme_advanced_blockformats = "p,h1,h2,h3,div"
+  }
+
 	$('textarea.tinymce').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
   		mode : "textareas",
@@ -42,7 +46,7 @@ $(function() {
   		theme_advanced_resizing : false,
 		relative_urls : true,
     convert_urls : false,
-		theme_advanced_blockformats : "p,h1,h2,h3,div",
+		theme_advanced_blockformats : tinyMCESetting_theme_advanced_blockformats,
 		plugins : "fullscreen,autolink,paste",
 		dialog_type : "modal",
 		paste_auto_cleanup_on_paste : true
@@ -60,7 +64,7 @@ $(function() {
   		theme_advanced_resizing : false,
 		relative_urls : true,
     	convert_urls : false,
-		theme_advanced_blockformats : "p,h1,h2,h3,div",
+		theme_advanced_blockformats : tinyMCESetting_theme_advanced_blockformats,
 		plugins : "fullscreen,autolink,paste,table",
 		dialog_type : "modal",
 		paste_auto_cleanup_on_paste : true,
