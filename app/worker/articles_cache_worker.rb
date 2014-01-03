@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class ArticlesCacheWorker
   include Sidekiq::Worker
   sidekiq_options queue: "default"
