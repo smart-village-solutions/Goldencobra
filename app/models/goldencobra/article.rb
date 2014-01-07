@@ -462,7 +462,9 @@ module Goldencobra
 
     # Gibt Consultant | Subsidiary | etc. zurück je nach Seitentyp
     def article_type_form_file
-      self.article_type.split(" ").first if self.article_type.present?
+      if self.article_type.present?
+        self.article_type.split(" ")[0..-2].join(" ")
+      end
     end
 
     # Gibt Index oder Show zurück, je nach Seitentyp
@@ -473,7 +475,7 @@ module Goldencobra
     # Liefert Kategorienenamen für sie Suche unabhängig ob Die Seite eine show oder indexseite ist
     def article_type_for_search
       if self.article_type.present?
-        self.article_type.split(" ").first
+        self.article_type.split(" ")[0..-2].join(" ")
       else
         "Article"
       end
