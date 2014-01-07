@@ -44,10 +44,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :active, :label => "Aktiv?", :hint => "Soll dieser Artikel im System aktiv und online sichtbar sein?", :wrapper_html => { class: 'expert' }
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
-        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/_edit_show.html.erb")
-          render :partial => "articletypes/#{f.object.article_type_form_file.downcase}/edit_show", :locals => {:f => f}
+        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.parameterize.underscore.downcase}/_edit_show.html.erb")
+          render :partial => "articletypes/#{f.object.article_type_form_file.parameterize.underscore.downcase}/edit_show", :locals => {:f => f}
         else
-          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.downcase}/edit_show" do
+          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.parameterize.underscore.downcase}/edit_show" do
           end
         end
       elsif f.object.kind_of_article_type.downcase == "index"
