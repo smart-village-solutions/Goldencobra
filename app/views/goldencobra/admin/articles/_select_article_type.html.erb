@@ -1,7 +1,7 @@
 <% article_types = {} %>
 
 <% Goldencobra::Article.article_types_for_select.each do |article_type|
-  translated_article_type = I18n.t(article_type.parameterize.downcase, scope: [:article_types], default: article_type)
+  translated_article_type = I18n.t(article_type.underscore.parameterize.downcase, scope: [:article_types], default: article_type)
   article_types[translated_article_type.to_sym] = article_type
 end %>
 

@@ -44,18 +44,18 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :active, :label => "Aktiv?", :hint => "Soll dieser Artikel im System aktiv und online sichtbar sein?", :wrapper_html => { class: 'expert' }
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
-        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.downcase}/_edit_show.html.erb")
-          render :partial => "articletypes/#{f.object.article_type_form_file.underscore.downcase}/edit_show", :locals => {:f => f}
+        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_show.html.erb")
+          render :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show", :locals => {:f => f}
         else
-          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.downcase}/edit_show" do
+          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show" do
           end
         end
       elsif f.object.kind_of_article_type.downcase == "index"
         render :partial => "goldencobra/admin/articles/articles_index", :locals => {:f => f}
-        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.downcase}/_edit_index.html.erb")
-          render :partial => "articletypes/#{f.object.article_type_form_file.underscore.downcase}/edit_index", :locals => {:f => f}
+        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_index.html.erb")
+          render :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index", :locals => {:f => f}
         else
-          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.downcase}/edit_index" do
+          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index" do
           end
         end
         #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
