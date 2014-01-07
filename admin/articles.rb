@@ -10,7 +10,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   #Alle Filteroptionen in der rechten Seitenleiste
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => "Elternelement")
-  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t(s.parameterize.downcase, scope: [:goldencobra, :article_types], default: "#{s}"), s]}.sort, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
+  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|s| [I18n.t(s.underscore.downcase, scope: [:goldencobra, :article_types], default: "#{s}"), s]}.sort, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
   filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter], :default => "Titel")
   filter :frontend_tag_name, :as => :string, :label => I18n.t("frontend_tags", :scope => [:goldencobra, :filter], :default => "Filterkriterium")
   filter :tag_name, :as => :string, :label => I18n.t("tags", :scope => [:goldencobra, :filter], :default => "Interne Tags")
@@ -44,18 +44,18 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         f.input :active, :label => "Aktiv?", :hint => "Soll dieser Artikel im System aktiv und online sichtbar sein?", :wrapper_html => { class: 'expert' }
       end
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
-        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.parameterize.underscore.downcase}/_edit_show.html.erb")
-          render :partial => "articletypes/#{f.object.article_type_form_file.parameterize.underscore.downcase}/edit_show", :locals => {:f => f}
+        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.downcase}/_edit_show.html.erb")
+          render :partial => "articletypes/#{f.object.article_type_form_file.underscore.downcase}/edit_show", :locals => {:f => f}
         else
-          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.parameterize.underscore.downcase}/edit_show" do
+          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.downcase}/edit_show" do
           end
         end
       elsif f.object.kind_of_article_type.downcase == "index"
         render :partial => "goldencobra/admin/articles/articles_index", :locals => {:f => f}
-        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.parameterize.underscore.downcase}/_edit_index.html.erb")
-          render :partial => "articletypes/#{f.object.article_type_form_file.parameterize.underscore.downcase}/edit_index", :locals => {:f => f}
+        if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.downcase}/_edit_index.html.erb")
+          render :partial => "articletypes/#{f.object.article_type_form_file.underscore.downcase}/edit_index", :locals => {:f => f}
         else
-          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.parameterize.underscore.downcase}/edit_index" do
+          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.downcase}/edit_index" do
           end
         end
         #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
@@ -139,7 +139,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", :confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column "Artikeltyp", :article_type, sortable: :article_type do |article|
-      article.article_type.blank? ? "Standard" : I18n.t(article.article_type.parameterize.downcase, scope: [:goldencobra, :article_types])
+      article.article_type.blank? ? "Standard" : I18n.t(article.article_type.underscore.downcase, scope: [:goldencobra, :article_types])
     end
     column "Zugriff" do |article|
       Goldencobra::Permission.restricted?(article) ? raw("<span class='secured'>beschränkt</span>") : ""

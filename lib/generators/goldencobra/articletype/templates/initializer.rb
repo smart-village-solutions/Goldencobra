@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Rails.application.config.to_prepare do
   Goldencobra::Article.class_eval do
     has_one :<%= name.underscore %>, :dependent => :destroy
