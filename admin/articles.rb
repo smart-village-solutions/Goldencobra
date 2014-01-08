@@ -238,9 +238,9 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         article_model = article.article_type_form_file.constantize
         related_article_object = article_model.where(:article_id => article.id).first
         if related_article_object
-          article.send("#{article.article_type_form_file.downcase}=", related_article_object)
+          article.send("#{article.article_type_form_file.underscore.parameterize.downcase}=", related_article_object)
         else
-          article.send("#{article.article_type_form_file.downcase}=", article_model.new(:article_id => article.id))
+          article.send("#{article.article_type_form_file.underscore.parameterize.downcase}=", article_model.new(:article_id => article.id))
         end
         article.save
       end

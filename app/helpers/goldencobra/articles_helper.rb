@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Goldencobra
   module ArticlesHelper
 
@@ -71,7 +73,7 @@ module Goldencobra
 
     def render_article_type_content(options={})
       if @article && @article.article_type.present? && @article.kind_of_article_type.present?
-        render :partial => "articletypes/#{@article.article_type_form_file.downcase}/#{@article.kind_of_article_type.downcase}"
+        render :partial => "articletypes/#{@article.article_type_form_file.underscore.parameterize.downcase}/#{@article.kind_of_article_type.downcase}"
       else
         render :partial => "articletypes/default/show"
       end
