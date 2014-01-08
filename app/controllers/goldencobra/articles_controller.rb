@@ -172,7 +172,7 @@ module Goldencobra
     end
 
     def load_associated_model_into_liquid
-      Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.downcase}"] = @article_type
+      Goldencobra::Article::LiquidParser["#{@article.article_type_form_file.underscore.parameterize.downcase}"] = @article_type
     end
 
     # ------------------ /associated models -----------------------------------

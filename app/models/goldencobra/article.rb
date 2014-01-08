@@ -287,8 +287,8 @@ module Goldencobra
 
     # Gets the related object by article_type
     def get_related_object
-      if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.downcase)
-        return self.send(self.article_type_form_file.downcase)
+      if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+        return self.send(self.article_type_form_file.underscore.parameterize.downcase)
       else
         return nil
       end
@@ -321,7 +321,7 @@ module Goldencobra
         end
       end
       #include related models
-      @list_of_articles = @list_of_articles.includes("#{self.article_type_form_file.downcase}") if self.respond_to?(self.article_type_form_file.downcase)
+      @list_of_articles = @list_of_articles.includes("#{self.article_type_form_file.underscore.parameterize.downcase}") if self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
       #get articles with tag
       if self.index_of_articles_tagged_with.present?
         @list_of_articles = @list_of_articles.tagged_with(self.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags, any: true)
@@ -533,8 +533,8 @@ module Goldencobra
 
     #Datum für den RSS reader, Datum ist created_at es sei denn ein Articletype hat ein published_at definiert
     def published_at
-      if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.downcase)
-        related_object = self.send(self.article_type_form_file.downcase)
+      if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+        related_object = self.send(self.article_type_form_file.underscore.parameterize.downcase)
         if related_object && related_object.respond_to?(:published_at)
           related_object.published_at
         else
