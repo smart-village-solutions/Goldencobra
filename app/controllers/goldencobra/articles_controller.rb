@@ -168,7 +168,7 @@ module Goldencobra
 
     # ------------------ associated models ------------------------------------
     def can_load_associated_model?
-      @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.downcase.to_sym)
+      @article.article_type.present? && @article.article_type_form_file != "Default" && @article_type = @article.send(@article.article_type_form_file.underscore.parameterize.downcase.to_sym)
     end
 
     def load_associated_model_into_liquid
