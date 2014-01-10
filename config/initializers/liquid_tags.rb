@@ -44,7 +44,6 @@ class DomainUrl < Liquid::Tag
   end
 
   def render(context)
-    @options = @options.merge(:context => context)
     ActionController::Base.new.render_to_string(:partial => "/goldencobra/articles/domain", :layout => false, :locals => {:context => context} )
   end
 end
