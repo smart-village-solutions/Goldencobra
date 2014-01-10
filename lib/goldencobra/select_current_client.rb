@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # Selects the client by hostname
 module Goldencobra
   module SelectCurrentClient
