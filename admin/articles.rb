@@ -139,7 +139,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", :confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column "Artikeltyp", :article_type, sortable: :article_type do |article|
-      article.article_type.blank? ? "Standard" : I18n.t(article.article_type.underscore.downcase, scope: [:goldencobra, :article_types])
+      article.article_type.blank? ? "Standard" : I18n.t(article.article_type.underscore.parameterize.downcase, scope: [:goldencobra, :article_types])
     end
     column "Zugriff" do |article|
       Goldencobra::Permission.restricted?(article) ? raw("<span class='secured'>beschränkt</span>") : ""
