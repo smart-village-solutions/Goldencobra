@@ -9,4 +9,4 @@ Geocoder::Configuration.use_https = false
 Geocoder::Configuration.language = :de
 #Geocoder::Configuration.cache = Redis.new
 
-Geokit::Geocoders::google = ""
+#Geokit::Geocoders::google = ""

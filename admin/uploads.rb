@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
 
   menu :priority => 4, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Upload)}
