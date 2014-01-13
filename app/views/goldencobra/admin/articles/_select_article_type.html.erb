@@ -5,7 +5,7 @@
   article_types[translated_article_type.to_sym] = article_type
 end %>
 
-<%= f.inputs I18n.t(:selection, scope: [:article_types]), :class => "foldable inputs" do
+<%= f.inputs I18n.t(:selection, scope: [:articles]), :class => "foldable inputs" do
   if article_types.count > 0
     f.input :article_type, :label => "Artikeltyp", :as => :select, :collection => article_types.sort, include_blank: true
   end

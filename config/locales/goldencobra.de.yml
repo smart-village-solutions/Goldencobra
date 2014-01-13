@@ -1,9 +1,9 @@
 de:
   articles:
     read_on: 'weiterlesen'
+    selection: "Artikel"
   goldencobra:
     article_types:
-      selection: "Artikel"
       Chairman: "Vorstand"
       Subsidiary: "Niederlassungen"
       Consultant: "Berater"
