@@ -7,10 +7,12 @@ module Goldencobra
       argument :model_attributes, type: :array, default: [], banner: "model:attributes"
 
       def create_articletype_files
+        #TODO: Check if class name already exists and abort if true
         generate("model", "#{name} #{model_attributes.join(' ')} article_id:integer")
       end
 
       def create_partials
+        #TODO: Check if class name already exists and abort if true
         copy_file 'index.html.erb', "app/views/articletypes/#{name.underscore}/_index.html.erb"
         copy_file 'show.html.erb', "app/views/articletypes/#{name.underscore}/_show.html.erb"
         template 'edit_show.html.erb', "app/views/articletypes/#{name.underscore}/_edit_show.html.erb"
