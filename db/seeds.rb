@@ -2,7 +2,7 @@ User.delete_all
 Goldencobra::Role.delete_all
 admin = Goldencobra::Role.find_or_create_by_name("admin")
 guest = Goldencobra::Role.find_or_create_by_name("guest")
-user = User.create!(:email => "admin@goldencobra.de", :password => "12345", :password_confirmation => "12345", :firstname => "Admin", :lastname => "Goldencobra")
+user = User.create!(:email => "admin@goldencobra.de", :password => "password", :password_confirmation => "password", :firstname => "Admin", :lastname => "Goldencobra")
 user.roles << admin
 
 Goldencobra::Help.delete_all
@@ -64,7 +64,7 @@ puts "footer menu created."
 ### START AND 404 PAGE ###
 puts "create start page article..."
 start = Goldencobra::Article.find_by_title("Willkommen")
-start = Goldencobra::Article.create!(title: "Willkommen", article_type: "Default Show", ancestry: nil, active: true, url_name: "willkommen", template_file: "application") if start.blank?
+start = Goldencobra::Article.create!(title: "Willkommen",breadcrumb:"Willkommen", article_type: "Default Show", ancestry: nil, active: true, url_name: "willkommen", template_file: "application") if start.blank?
 start.mark_as_startpage!
 
 ### CONTENT PAGES ###
@@ -93,7 +93,7 @@ newsblogContent = "<article>
     </div>
     <hr>
   </article>"
-newsblog = Goldencobra::Article.create!(title: "News", article_type: "Default Show", ancestry: nil, active: true, content: newsblogContent, url_name: "news", template_file: "application") if newsblog.blank?
+newsblog = Goldencobra::Article.create!(title: "News",breadcrumb:"News", article_type: "Default Show", ancestry: nil, active: true, content: newsblogContent, url_name: "news", template_file: "application") if newsblog.blank?
 
 datestable = Goldencobra::Article.find_by_title("Termine")
 datestableContent = "<table border='0'>
@@ -120,7 +120,7 @@ datestableContent = "<table border='0'>
       </tr>
     </tbody>
   </table>"
-datestable = Goldencobra::Article.create!(title: "Termine", article_type: "Default Show", ancestry: nil, active: true, content: datestableContent, url_name: "termine", template_file: "application") if datestable.blank?
+datestable = Goldencobra::Article.create!(title: "Termine",breadcrumb:"Termine", article_type: "Default Show", ancestry: nil, active: true, content: datestableContent, url_name: "termine", template_file: "application") if datestable.blank?
 
 moreform = Goldencobra::Article.find_by_title("Weiteres")
 moreformContent = "<form method='post' data-remote='true' action='/' accept-charset='UTF-8'>
@@ -153,7 +153,7 @@ moreformContent = "<form method='post' data-remote='true' action='/' accept-char
     <input type='submit' value='Eintragen' name='commit'>
     <div class='clear'></div>
   </form>"
-moreform = Goldencobra::Article.create!(title: "Weiteres", article_type: "Default Show", ancestry: nil, active: true, content: moreformContent, url_name: "weiteres", template_file: "application") if moreform.blank?
+moreform = Goldencobra::Article.create!(title: "Weiteres",breadcrumb:"Weiteres", article_type: "Default Show", ancestry: nil, active: true, content: moreformContent, url_name: "weiteres", template_file: "application") if moreform.blank?
 
 puts "content page articles created."
 
