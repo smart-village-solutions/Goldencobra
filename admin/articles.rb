@@ -187,7 +187,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
   end
 
-  sidebar :layout, only: [:edit] do
+  sidebar "layout", only: [:edit] do
     render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => resource }
   end
 
