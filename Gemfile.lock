@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/ikusei/active_admin.git
+  remote: http://github.com/ikusei/active_admin.git
   revision: ed1a5e3055bcb3097125fb48784c4a3284743bcb
   specs:
     activeadmin (0.4.4)
@@ -15,21 +15,23 @@ GIT
       sass (>= 3.1.0)
 
 GIT
-  remote: git://github.com/jazzgumpy/meta-tags.git
+  remote: http://github.com/jazzgumpy/meta-tags.git
   revision: dc0189de0c07df28cf36baf2d401a45505fabd31
   specs:
     meta-tags (1.2.6)
       actionpack
 
 GIT
-  remote: git://github.com/mbleigh/acts-as-taggable-on.git
-  revision: 9b3f87dd281151f44f685c302b520de3fd5ad6fb
+  remote: http://github.com/mbleigh/acts-as-taggable-on.git
+  revision: a33622edcc809d35c89ca3db1f72d5220d450ba2
   specs:
-    acts-as-taggable-on (3.0.0)
-      rails (>= 3, < 5)
+    acts-as-taggable-on (3.0.1)
+      actionpack (>= 3, < 5)
+      activerecord (>= 3, < 5)
+      activesupport (>= 3, < 5)
 
 GIT
-  remote: git://github.com/svenfuchs/i18n-active_record.git
+  remote: http://github.com/svenfuchs/i18n-active_record.git
   revision: 55507cf59f8f2173d38e07e18df0e90d25b1f0f6
   specs:
     i18n-active_record (0.0.2)
@@ -281,13 +283,13 @@ GEM
     json (1.8.1)
     jwt (0.1.6)
       multi_json (>= 1.0)
-    kaminari (0.15.0)
+    kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     libv8 (3.16.14.3)
-    liquid (2.6.0)
+    liquid (2.6.1)
     listen (2.4.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)

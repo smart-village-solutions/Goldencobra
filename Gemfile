@@ -10,10 +10,10 @@ gemspec
 gem "jquery-rails"
 
 gem 'multi_json', "~> 1.3"
-gem 'devise', "~> 2.2.4"#, :git => "git://github.com/plataformatec/devise.git"
-gem 'activeadmin', :git => "git://github.com/ikusei/active_admin.git", :require => "activeadmin"
-gem 'acts-as-taggable-on', :git => 'git://github.com/mbleigh/acts-as-taggable-on.git'
-gem 'i18n-active_record', :git => 'git://github.com/svenfuchs/i18n-active_record.git', :require => 'i18n/active_record'
+gem 'devise', "~> 2.2.4"#, :git => "http://github.com/plataformatec/devise.git"
+gem 'activeadmin', :git => "http://github.com/ikusei/active_admin.git", :require => "activeadmin"
+gem 'acts-as-taggable-on', :git => 'http://github.com/mbleigh/acts-as-taggable-on.git'
+gem 'i18n-active_record', :git => 'http://github.com/svenfuchs/i18n-active_record.git', :require => 'i18n/active_record'
 gem 'execjs'
 gem 'therubyracer' #, '~> 0.10.2'
 gem "friendly_id"
@@ -23,7 +23,7 @@ gem 'oa-oauth', :require => 'omniauth/oauth'
 gem 'oa-openid', :require => 'omniauth/openid'
 gem 'coffee-rails', '~> 3.2.0'
 gem 'uglifier', '>= 1.0.3'
-gem 'meta-tags', :require => 'meta_tags', :git => "git://github.com/jazzgumpy/meta-tags.git"
+gem 'meta-tags', :require => 'meta_tags', :git => "http://github.com/jazzgumpy/meta-tags.git"
 # gem "cocaine", "= 0.3.2"
 gem "paperclip"#, "= 3.0.4"
 gem 'sass-rails'
@@ -34,7 +34,7 @@ gem 'nokogiri', '~> 1.5.3'
 gem 'cancan'
 #gem 'cobweb' #https://github.com/stewartmckee/cobweb
 #gem 'link-checker'
-#gem 'linkchecker', :git => "git://github.com/seb/linkchecker.git"
+#gem 'linkchecker', :git => "http://github.com/seb/linkchecker.git"
 
 gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
 gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks run properly
