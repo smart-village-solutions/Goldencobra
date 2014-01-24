@@ -1,5 +1,7 @@
+# encoding: utf-8
+
 ActiveAdmin.register User, :as => "User" do
-  menu :parent => "Einstellungen", :if => proc{can?(:update, User)}
+  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :if => proc{can?(:update, User)}
   controller.authorize_resource :class => User
 
   filter :firstname

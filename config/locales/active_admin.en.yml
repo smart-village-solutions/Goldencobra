@@ -22,6 +22,8 @@ en:
       list: "list"
       create: "create"
   active_admin:
+    menue:
+      settings: "Settings"
     dashboard: Dashboard
     dashboard_welcome:
       welcome: "Welcome to Active Admin. This is the default dashboard page."

@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order => :sorter_id do
-    menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Permission)}
+    menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :if => proc{can?(:update, Goldencobra::Permission)}
     controller.authorize_resource :class => Goldencobra::Permission
 
     scope "Alle", :scoped, :default => true

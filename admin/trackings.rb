@@ -1,5 +1,7 @@
+# encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Tracking, :as => "Analytic" do
-  menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Tracking)}
+  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :if => proc{can?(:update, Goldencobra::Tracking)}
   controller.authorize_resource :class => Goldencobra::Tracking
 
   filter :ip

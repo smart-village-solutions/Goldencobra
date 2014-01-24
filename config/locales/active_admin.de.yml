@@ -22,6 +22,8 @@ de:
       list: "auflisten"
       create: "erstellen"
   active_admin:
+    menue:
+      settings: "Einstellungen"
     dashboard: Übersicht
     dashboard_welcome:
       welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
