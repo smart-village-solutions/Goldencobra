@@ -14,11 +14,13 @@
     <%= submit_tag "Artikeltyp zuweisen", id: "submit_widgets_partial" %>
   <% end %>
   <br/>
+  <hr>
+  <br/>
 
   <%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_events_article_event_modul"} do |f| %>
     <h5>
       <%= I18n.t(@article.article_type.split(' ').first.to_s.strip, :scope => [:activerecord, :models, "goldencobra/article"], :default => "Layout der Seite") %>
-    </h5> 
+    </h5>
     <%= f.select :template_file, Goldencobra::Article.templates_for_select, :include_blank => false %>
     <br/><br/>
     <%= f.submit t("submit_layout", :scope => [:active_admin, :sidebars]) %>

@@ -34,6 +34,25 @@ $(function() {
     var tinyMCESetting_theme_advanced_blockformats = "p,h1,h2,h3,div"
   }
 
+  $('textarea.tinymce-no-buttons').tinymce({
+    script_url: "/assets/goldencobra/tiny_mce.js",
+      mode : "textareas",
+      theme : "advanced",
+      theme_advanced_buttons1 : "",
+      theme_advanced_buttons2 : "",
+      theme_advanced_buttons3 : "",
+      theme_advanced_toolbar_location : "top",
+      theme_advanced_toolbar_align : "center",
+      theme_advanced_resizing : false,
+    relative_urls : true,
+    convert_urls : false,
+    theme_advanced_blockformats : tinyMCESetting_theme_advanced_blockformats,
+    plugins : "autolink,paste",
+    dialog_type : "modal",
+    paste_auto_cleanup_on_paste : true
+  });
+
+
 	$('textarea.tinymce').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
   		mode : "textareas",
