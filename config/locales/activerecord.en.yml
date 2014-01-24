@@ -10,6 +10,12 @@ en:
       goldencobra/comment:
         one: "Comment"
         other: "Comments"
+      author:
+        one: "Author"
+        other: "Authors"
+      goldencobra/author:
+        one: "Author"
+        other: "Authors"
       import:
         one: "Import"
         other: "Imports"
