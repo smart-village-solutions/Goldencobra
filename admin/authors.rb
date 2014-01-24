@@ -1,5 +1,7 @@
+# encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Author, :as => "Author" do
-  menu :parent => "Einstellungen", :label => "Autoren"
+  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"])
 
   index do
   	selectable_column

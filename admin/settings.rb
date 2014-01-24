@@ -1,6 +1,8 @@
+# encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
 
-  menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Setting)}
+  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :if => proc{can?(:update, Goldencobra::Setting)}
   controller.authorize_resource :class => Goldencobra::Setting
   scope "Alle Settings", :with_values, :default => true
   if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.count > 0

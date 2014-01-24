@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Domain, :as => "Domain" do
-  menu :parent => "Einstellungen", :label => "Domains", :if => proc{can?(:update, Goldencobra::Domain)}
+  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => "Domains", :if => proc{can?(:update, Goldencobra::Domain)}
 
   index do
   	selectable_column

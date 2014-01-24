@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Import, :as => "Import" do
-  menu :parent => "Einstellungen", :if => proc{can?(:update, Goldencobra::Import)}
+  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :if => proc{can?(:update, Goldencobra::Import)}
 
   index do
     column :id
