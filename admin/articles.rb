@@ -37,7 +37,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.actions
       f.inputs "Allgemein", :class => "foldable inputs" do
         f.input :title, :label => "Titel", :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
-        f.input :content, :label => "Haupt-Textfeld", :input_html => { :class => "tinymce-no-buttons" }
+        f.input :content, :label => "Haupt-Textfeld", :input_html => { :class => "tinymce" }
         f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf Übersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 }
         f.input :tag_list, :label => "Liste von internen Tags", :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :wrapper_html => { class: 'expert' }
         f.input :frontend_tag_list, label: "Filterkriterium", hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten.", :wrapper_html => { class: 'expert' }
