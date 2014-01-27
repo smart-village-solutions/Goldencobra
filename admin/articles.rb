@@ -50,6 +50,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
           f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show" do
           end
         end
+        Rails::Application::Railties.engines.select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
+          if File.exists?("#{engine.root}/app/views/layouts/#{engine.engine_name}/_edit_show.html.erb")
+            render :partial => "layouts/#{engine.engine_name}/edit_show", :locals => {:f => f, :engine => engine}
+          end
+        end
       elsif f.object.kind_of_article_type.downcase == "index"
         render :partial => "goldencobra/admin/articles/articles_index", :locals => {:f => f}
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_index.html.erb")
@@ -58,10 +63,16 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
           f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index" do
           end
         end
+        Rails::Application::Railties.engines.select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
+          if File.exists?("#{engine.root}/app/views/layouts/#{engine.engine_name}/_edit_index.html.erb")
+            render :partial => "layouts/#{engine.engine_name}/edit_index", :locals => {:f => f, :engine => engine}
+          end
+        end
         #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
       else
         #error
       end
+
       f.inputs "Weiterer Inhalt", :class => "foldable closed inputs" do
         f.input :subtitle, :label => "Untertitel"
         f.input :context_info, :label => "Weiterer Inhalt", :input_html => { :class => "tinymce" }, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht"
