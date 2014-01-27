@@ -1,6 +1,9 @@
 de:
   activerecord:
     models:
+      articletype:
+        one: "Artikeltyp"
+        other: "Artikeltypen"
       link-checker:
         one: "Link-Checker"
         other: "Link-Checker"

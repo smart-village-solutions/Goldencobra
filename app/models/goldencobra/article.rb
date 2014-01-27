@@ -72,6 +72,7 @@ module Goldencobra
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
     has_many :comments, :class_name => Goldencobra::Comment
     has_many :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Article"}
+    belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
 
     belongs_to :author
 
@@ -483,7 +484,11 @@ module Goldencobra
 
     def selected_layout
       if self.template_file.blank?
-        "application"
+        if self.articletype.present? && self.articletype.default_template_file.present?
+          self.articletype.default_template_file
+        else
+          "application"
+        end
       else
         self.template_file
       end
@@ -652,7 +657,11 @@ module Goldencobra
 
     def set_standard_application_template
       if self.template_file.blank?
-        self.template_file = "application"
+        if self.articletype.present? && self.articletype.default_template_file.present?
+          self.template_file = self.articletype.default_template_file
+        else
+          self.template_file = "application"
+        end
       end
     end
 
