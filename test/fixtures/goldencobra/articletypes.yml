@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  default_template_file: MyString
+
+two:
+  name: MyString
+  default_template_file: MyString
