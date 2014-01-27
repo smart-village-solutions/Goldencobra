@@ -16,7 +16,7 @@ module Goldencobra
         copy_file 'index.html.erb', "app/views/articletypes/#{name.underscore}/_index.html.erb"
         copy_file 'show.html.erb', "app/views/articletypes/#{name.underscore}/_show.html.erb"
         template 'edit_show.html.erb', "app/views/articletypes/#{name.underscore}/_edit_show.html.erb"
-        template 'edit_articletype.html.erb', "app/views/articletypes/#{name.underscore}/_edit_articletype.html.erb"
+        copy_file 'edit_articletype.html.erb', "app/views/articletypes/#{name.underscore}/_edit_articletype.html.erb"
         copy_file 'edit_index.html.erb', "app/views/articletypes/#{name.underscore}/_edit_index.html.erb"
         template 'initializer.rb', "config/initializers/goldencobra_#{name.underscore}.rb"
       end
