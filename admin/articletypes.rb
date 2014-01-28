@@ -23,9 +23,11 @@ ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
         fg.input :closed, :hint => "Ist der Bereich beim laden geöffnet oder geschlossen"
         fg.input :expert, :hint => "Ist der Bereich nur im Expertenmodus sichtbar"
         fg.input :sorter, :hint => "Sortiernummer/Position"
+        fg.input :_destroy, :as => :boolean
         fg.has_many :fields do |fo|
           fo.input :fieldname, :as => :select, :collection => Goldencobra::Articletype::ArticleFieldOptions.keys
           fo.input :sorter
+          fo.input :_destroy, :as => :boolean
         end
       end
     end
