@@ -152,6 +152,10 @@ module Goldencobra
     # **************************
     # **************************
 
+    def parent_path
+      self.path.map(&:title).join(" / ")
+    end
+
     #scope for index articles, display show articles, index articless or both articles of an current type
     def self.articletype_for_index(current_article)
       if current_article.display_index_types == "show"
