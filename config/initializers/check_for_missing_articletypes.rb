@@ -11,16 +11,16 @@ Rails.application.config.to_prepare do
 			if !at.fieldgroups.any?
 				a1 = at.fieldgroups.create(:title => "Allgemein", :position => "first_block", :foldable => false, :closed => false, :expert => false, :sorter => 1)
 				a1.fields.create(:fieldname => "title", :sorter => 1)
-				a1.fields.create(:fieldname => "content", :sorter => 1)
-				a1.fields.create(:fieldname => "teaser", :sorter => 1)
-				a1.fields.create(:fieldname => "tag_list", :sorter => 1)
-				a1.fields.create(:fieldname => "frontend_tag_list", :sorter => 1)
-				a1.fields.create(:fieldname => "active", :sorter => 1)
+				a1.fields.create(:fieldname => "content", :sorter => 2)
+				a1.fields.create(:fieldname => "teaser", :sorter => 3)
+				a1.fields.create(:fieldname => "tag_list", :sorter => 4)
+				a1.fields.create(:fieldname => "frontend_tag_list", :sorter => 5)
+				a1.fields.create(:fieldname => "active", :sorter => 6)
 
 				a2 = at.fieldgroups.create(:title => "Weiterer Inhalt", :position => "last_block", :foldable => true, :closed => true, :expert => false, :sorter => 2)
 				a2.fields.create(:fieldname => "subtitle", :sorter => 1)
-				a2.fields.create(:fieldname => "context_info", :sorter => 1)
-				a2.fields.create(:fieldname => "summary", :sorter => 1)
+				a2.fields.create(:fieldname => "context_info", :sorter => 2)
+				a2.fields.create(:fieldname => "summary", :sorter => 3)
 
 				a3 = at.fieldgroups.create(:title => "Metadescriptions", :position => "last_block", :foldable => true, :closed => true, :expert => true, :sorter => 3)
 				a3.fields.create(:fieldname => "metatags", :sorter => 1)
