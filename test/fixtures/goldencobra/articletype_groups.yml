@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  expert: false
+  foldable: false
+  closed: false
+  sorter: 1
+
+two:
+  title: MyString
+  expert: false
+  foldable: false
+  closed: false
+  sorter: 1
