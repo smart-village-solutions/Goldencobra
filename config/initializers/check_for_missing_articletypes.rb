@@ -7,7 +7,7 @@ Rails.application.config.to_prepare do
 				puts "Default Articletype created for #{at}"
 			end
 		end
-		if ActiveRecord::Base.connection.table_exists?("goldencobra_shop.goldencobra_articletype_groups")
+		if ActiveRecord::Base.connection.table_exists?("goldencobra_articletype_groups")
 			Goldencobra::Articletype.scoped.each do |at|
 				#install Basik set of Fieldgroups and Fields if no one is set up
 				if !at.fieldgroups.any?
