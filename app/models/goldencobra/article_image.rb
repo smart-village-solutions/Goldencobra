@@ -17,5 +17,7 @@ module Goldencobra
     belongs_to :article
     belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
 
+    accepts_nested_attributes_for :image, :allow_destroy => true
+
   end
 end

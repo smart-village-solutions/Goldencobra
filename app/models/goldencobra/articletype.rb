@@ -10,7 +10,7 @@ module Goldencobra
     accepts_nested_attributes_for :fieldgroups, :allow_destroy => true
 
     ArticleFieldOptions = {
-    	:title => %{<% f.input :title, :label => "Titel", :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden" %>},
+        :title => %{<% f.input :title, :label => "Titel", :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden" %>},
         :subtitle => %{<% f.input :subtitle, :label => "Untertitel" %>},
         :content => %{<% f.input :content, :label => "Haupt-Textfeld", :input_html => { :class => "tinymce" } %>},
         :teaser => %{<% f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf Übersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 } %>},

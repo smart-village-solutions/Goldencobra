@@ -4,6 +4,7 @@ Rails.application.config.to_prepare do
 		Goldencobra::Article.scoped.pluck(:article_type).uniq.each do |at|
 			if Goldencobra::Articletype.find_by_name(at).blank?
 				Goldencobra::Articletype.create(:name => at, :default_template_file => "application")
+				puts "Default Articletype created for #{at}"
 			end
 		end
 		if ActiveRecord::Base.connection.table_exists?("goldencobra_shop.goldencobra_articletype_groups")
