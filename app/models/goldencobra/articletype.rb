@@ -6,7 +6,7 @@ module Goldencobra
     has_many :articles, :class_name => Goldencobra::Article, :foreign_key => :article_type, :primary_key => :name
     validates_uniqueness_of :name
 
-    has_many :fieldgroups, :class_name => Goldencobra::ArticletypeGroup, :dependent => :destroy_all
+    has_many :fieldgroups, :class_name => Goldencobra::ArticletypeGroup, :dependent => :destroy
     accepts_nested_attributes_for :fieldgroups, :allow_destroy => true
 
     ArticleFieldOptions = {
