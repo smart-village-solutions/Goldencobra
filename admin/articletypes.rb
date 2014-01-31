@@ -3,6 +3,7 @@
 ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
   menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
+  config.clear_action_items!
 
   index do
     selectable_column
