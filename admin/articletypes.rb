@@ -31,7 +31,7 @@ ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
         end
       end
     end
-    if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.name.underscore.parameterize.downcase}/_edit_articletype.html.erb")
+    if f.object.present? && !f.object.new_record? && File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.name.underscore.parameterize.downcase}/_edit_articletype.html.erb")
       render :partial => "articletypes/#{f.object.name.underscore.parameterize.downcase}/edit_articletype", :locals => {:f => f}
     end
 	  Rails::Application::Railties.engines.select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
