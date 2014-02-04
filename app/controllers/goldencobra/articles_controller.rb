@@ -254,7 +254,7 @@ module Goldencobra
         @article = Goldencobra::Article.search_by_url(params[:article_id])
       else
         article = Goldencobra::Article.active.search_by_url(params[:article_id])
-        if article
+        if article.present?
           operator = current_user || current_visitor
           a = Ability.new(operator)
           if a.can?(:read, article)
@@ -262,13 +262,13 @@ module Goldencobra
           else
             @unauthorized = true
           end
-        elsif current_visitor.present?
-          ap = Goldencobra::Permission.where(:subject_class => "Goldencobra::Article", :operator_id => current_visitor.id, :action => "read").pluck(:subject_id)
-          if ap.any?
-            @article = Goldencobra::Article.where("id in (?)", ap).search_by_url(params[:article_id])
-          else
-            @unauthorized = true
-          end
+        # elsif current_visitor.present?
+        #   ap = Goldencobra::Permission.where(:subject_class => "Goldencobra::Article", :operator_id => current_visitor.id, :action => "read").pluck(:subject_id)
+        #   if ap.any?
+        #     @article = Goldencobra::Article.where("id in (?)", ap).search_by_url(params[:article_id])
+        #   else
+        #     @unauthorized = true
+        #   end
         end
       end
     end
