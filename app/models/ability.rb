@@ -61,6 +61,18 @@ class Ability
       end
     end
 
+    # Rechte die einen bestimmten Nutzer betreffen
+    if operator
+      Goldencobra::Permission.where("subject_id IS NOT NULL").where("action IS NOT NULL").where("operator_id = ?", operator.id).each do |permission|
+        if permission.action.include?("not_")
+          cannot permission.action.gsub("not_", "").to_sym, permission.subject_class.constantize, :id => permission.subject_id.to_i
+        else
+          can permission.action.to_sym, permission.subject_class.constantize, :id => permission.subject_id.to_i
+        end
+      end
+    end
+
+
   end
 
   def set_child_permissions(able,action_name, model_name,id_name)
