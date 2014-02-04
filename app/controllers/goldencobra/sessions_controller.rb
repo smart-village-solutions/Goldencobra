@@ -37,7 +37,11 @@ module Goldencobra
         sign_out
         reset_session
       end
-      render :js => "window.location.href = '/';"
+      if request.format == "html"
+        redirect_to "/"
+      else
+        render :js => "window.location.href = '/';"
+      end
     end
 
 
