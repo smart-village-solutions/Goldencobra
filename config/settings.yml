@@ -48,4 +48,4 @@ goldencobra:
     visitors:
         send_confirmation_email: 'false'
     upload:
-        convert_options: '-auto-orient -strip -colorspace sRGB -flatten -normalize -gamma 2.2,2.2,2.2'
+        convert_options: '-strip -colorspace sRGB -flatten'
