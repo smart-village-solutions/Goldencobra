@@ -20,6 +20,7 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
       column :subject_class
       column :subject_id
       column :sorter_id
+      column :operator_id
       column "" do |permission|
         result = ""
         result += link_to(t(:edit), edit_admin_permission_path(permission.id), :class => "member_link edit_link edit", :title => "bearbeiten")
@@ -35,6 +36,7 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
         f.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
         f.input :subject_class, as: :select, collection: [":all"] + ActiveRecord::Base.descendants.map(&:name), include_blank: false
         f.input :subject_id
+        f.input :operator_id
         f.input :sorter_id
       end
       f.actions
