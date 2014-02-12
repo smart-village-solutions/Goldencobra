@@ -80,4 +80,5 @@ group :test do
   gem 'launchy'
   gem 'faker'
   gem 'shoulda-matchers'
+  gem 'debugger'
 end
