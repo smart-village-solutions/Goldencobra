@@ -23,7 +23,7 @@ Goldencobra::Engine.routes.draw do
     end
 
     namespace "v2" do
-      get '/articles/search' => 'articles_controller#search'
+      get '/articles/search' => 'articles#search'
     end
   end
 
