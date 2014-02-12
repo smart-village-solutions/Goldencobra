@@ -8,6 +8,7 @@ FactoryGirl.define do
     startpage false
     active true
     article_type "Default Show"
+    breadcrumb "Article's breadcrumb title"
   end
 
   factory :visitor do

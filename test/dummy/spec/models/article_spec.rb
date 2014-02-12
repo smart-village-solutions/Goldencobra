@@ -4,7 +4,7 @@ describe Goldencobra::Article do
 
   describe 'creating an article' do
     before(:each) do
-      @attr = { :title  => "Testartikel", :url_name  => "testartikel", :article_type => "Default Show" }
+      @attr = { :title  => "Testartikel", :url_name  => "testartikel", :article_type => "Default Show", :breadcrumb => 'bc_testarticle' }
     end
 
     it "should have a valid redirect url by inserting an url without http" do
@@ -59,11 +59,9 @@ describe Goldencobra::Article do
     end
 
     it "should return a list of 5 last modified articles" do
-      Goldencobra::Article.create(title: "Blah", :article_type => "Default Show")
-      Goldencobra::Article.create(title: "Blah2", :article_type => "Default Show")
-      Goldencobra::Article.create(title: "Blah3", :article_type => "Default Show")
-      Goldencobra::Article.create(title: "Blah4", :article_type => "Default Show")
-      Goldencobra::Article.create(title: "Blah5", :article_type => "Default Show")
+      1.upto(5) { |i|
+        Goldencobra::Article.create!(@attr)
+      }
       Goldencobra::Article.recent(5).collect.count.should == 5
     end
   end
