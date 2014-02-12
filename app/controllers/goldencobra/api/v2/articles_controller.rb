@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Goldencobra
   module Api
     module V2
@@ -16,7 +18,7 @@ module Goldencobra
           end
 
           # 1. Do the search and return the search result array.
-          render status: 200, json: Article.simple_search(
+          render status: 200, json: Goldencobra::Article.simple_search(
               ActionController::Base.helpers.sanitize(params[:q])
           ).to_json
 
