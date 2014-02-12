@@ -32,3 +32,7 @@ test/dummy/solr/*
 
 # Gem
 *.gem
+
+# IDE directory from RubyMine
+.idea
+
