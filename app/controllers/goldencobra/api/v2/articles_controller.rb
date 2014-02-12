@@ -3,31 +3,9 @@ module Goldencobra
     module V2
       class ArticlesController < ActionController::Base
 
-        include Goldencobra::Api::V2::ArticlesHelper
         respond_to :json
 
         # /api/v2/articles/search[.json]
-        # ---------------------------------------------------------------------------------------
-        #
-        # Format:
-        #
-        # [
-        #  {
-        #    'id': ...,
-        #    'absolute_public_url': ...,
-        #    'title': ...,
-        #    'teaser': ...,
-        #    'article_type': ...,
-        #    'updated_at': ...,
-        #    'parent_title': ...,
-        #    'ancestry': ...
-        #  },
-        #  {
-        #    ...
-        #  },
-        #    ...
-        # ]
-        #
         # ---------------------------------------------------------------------------------------
         def search
 
@@ -38,9 +16,9 @@ module Goldencobra
           end
 
           # 1. Do the search and return the search result array.
-          render status: 200, json: do_search(
+          render status: 200, json: Article.simple_search(
               ActionController::Base.helpers.sanitize(params[:q])
-          )
+          ).to_json
 
         end
 
