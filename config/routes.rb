@@ -21,6 +21,10 @@ Goldencobra::Engine.routes.draw do
     namespace "v1" do
       resources :tokens, only: [:create]
     end
+
+    namespace "v2" do
+      get '/articles/search' => 'articles#search'
+    end
   end
 
   get 'sitemap', :to => 'articles#sitemap', :defaults => {:format => "xml"}
