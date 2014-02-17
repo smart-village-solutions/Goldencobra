@@ -9,7 +9,7 @@ module Goldencobra
     def read_on(article)
       target_window = article.redirection_target_in_new_window ? "_blank" : "_top"
       if article.redirect_link_title.present?
-        link_to article.redirect_link_title, article.external_url_redirect, :class => "more", :target => target_window, :title => article.title
+        link_to article.redirect_link_title, article.external_url_redirect, :class => "more", :target => target_window
       else
         link_to t(:read_on, scope: [:articles]), article.public_url, :class => "more", :target => target_window, :title => article.title
       end
