@@ -10,4 +10,4 @@ Feature: Manage uploads
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     When I go to the admin list of uploads
-    Then I should see "There are no Uploads yet. Create one"
+    Then I should see "Es gibt noch keine Medien. Erstellen"
