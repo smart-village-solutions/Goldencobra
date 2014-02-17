@@ -229,7 +229,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   member_action :mark_as_startpage do
     article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
-    flash[:notice] = I18n.t(:startpage, scope: [:flash_notice, :goldencobra]) #"Dieser Artikel ist nun der Startartikel"
+    flash[:notice] = I18n.t(:startpage, scope: [:goldencobra, :flash_notice]) #"Dieser Artikel ist nun der Startartikel"
     redirect_to :action => :show
   end
 

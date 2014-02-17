@@ -70,7 +70,8 @@ group :test do
   gem "factory_girl_rails"
   gem 'database_cleaner'
   gem 'capybara'
-  #gem 'capybara-webkit', "0.14.2"
+  gem 'capybara-webkit'#, "0.14.2"
+  gem 'selenium-webdriver'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
