@@ -23,14 +23,15 @@ Feature: Create and manage articles
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     And I am on the admin list of articles
-    When I click on "New Article"
-    Then I should see "New Article"
-    When I fill in "article_title" with "Dies ist ein Neuer Artikel"
-    And I select "Default Show" within "#article_article_type"
-    And I press "Create Article"
-    And I fill in "article_url_name" with "dies-ist-kurz"
-    And I press "Update Article"
-    Then I should see "Dies ist ein Neuer Artikel" within textfield "article_title"
+    When I click on "Artikel erstellen"
+    Then I should see "Artikel erstellen"
+    When I fill in "article_title" with "Dies ist ein neuer Artikel"
+    When I fill in "article_breadcrumb" with "Neuer Artikel"
+    And I select "Standard Einzelseite" within "#article_article_type"
+    And I press "Artikel erstellen"
+    When I fill in "article_url_name" with "dies-ist-kurz"
+    And I press "Artikel aktualisieren"
+    Then I should see "Dies ist ein neuer Artikel" within textfield "article_title"
     And I should see "dies-ist-kurz" within textfield "article_url_name"
 
   @javascript
@@ -41,6 +42,7 @@ Feature: Create and manage articles
       |url_name|kurzer-titel|
       |teaser| "Es war einmal..."|
       |content| "Die kleine Maus wandert um den Käse..."|
+      |breadcrumb | "Test"                              |
     Then I go to the article page "kurzer-titel"
     And I should see "Dies ist ein Test" within "h1"
     And I should see "Die kleine Maus wandert um den Käse..." within "#article_content"
@@ -54,12 +56,11 @@ Feature: Create and manage articles
       | "10 Internet Marketing Tips" | false     |  2 |
       | "Startseite"                 | false     |  3 |
     When I go to the admin list of articles
-    Then I click on "Edit" within "tr#article_3"
-    And I should see "Edit Article" within "#page_title"
-    And I click on element "Startpage Options"
-    And I should see "Make this article Startpage"
-    When I click on "Make this article Startpage" within "#startpage_options_sidebar_section"
-    Then I should see "This Article is the Startpage!"
+    Then I click on "bearbeiten" within "tr#article_3"
+    And I should see "Artikel bearbeiten" within "#page_title"
+    And I should see "Diesen Artikel als Startseite einrichten"
+    When I click on "Diesen Artikel als Startseite einrichten" within "#startpage_options_sidebar_section"
+    Then I should see "Dieser Artikel ist nun der Startartikel"
 
   @javascript
   Scenario: Visit the startpage
@@ -69,21 +70,18 @@ Feature: Create and manage articles
     And I should see "Startseite" within "h1"
 
   @javascript
-  Scenario: Set metadescription for an article
+  Scenario: Change the article's title
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     Given the following "articles" exist:
-      | title           | id | url_name    |
+      | title           | id | url_name  |
       | "Seo Seite"     | 2  | seo-seite |
     When I go to the admin list of articles
-    Then I click on "Edit" within "tr#article_2"
-    And I click on "Add New Metatag" within "div.has_many.metatags"
-    Then I should see "Name" within "div.has_many.metatags"
-    And I select "Title Tag" within "select.metatag_names"
-    And I fill in "Metatitle" within "input.metatag_values"
-    And I press "Update Article"
+    Then I click on "bearbeiten" within "tr#article_2"
+    When I change the page's title to "Metatitle"
+    And I press "Artikel aktualisieren"
     When I visit url "/seo-seite"
-    Then I should see "Metatitle" within "head"
+    Then the page title should contain "Metatitle"
 
   @javascript
   Scenario: Set article offline and online as an admin,I should see everything
@@ -98,9 +96,9 @@ Feature: Create and manage articles
     When I visit url "/seite2"
     Then I should see "Seite2"
     Then I go to the admin list of articles
-    And I click on "Edit" within "tr#article_2"
+    And I click on "bearbeiten" within "tr#article_2"
     And  I check "article_active"
-    And I press "Update Article"
+    And I press "Artikel aktualisieren"
     When I visit url "/seite2"
     Then I should see "Seite2" within "h1"
 
@@ -119,9 +117,9 @@ Feature: Create and manage articles
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     Then I go to the admin list of articles
-    And I click on "Edit" within "tr#article_2"
+    And I click on "bearbeiten" within "tr#article_2"
     And  I check "article_active"
-    And I press "Update Article"
+    And I press "Artikel aktualisieren"
     Given that I am not logged in
     When I visit url "/seite2"
     Then I should see "Seite2" within "h1"
@@ -158,9 +156,9 @@ Feature: Create and manage articles
       | id | title   | active | tag_list | default |
       | 1 | Widget1 | true   | "sidebar" | false |
     And I go to the admin list of articles
-    And I click on "Edit" within "tr#article_1"
+    And I click on "bearbeiten" within "tr#article_1"
     And I check "widget_1"
-    And I press "Save Widgets"
+    And I press "Auswahl speichern"
 
   @javascript
   Scenario: Set article to display Twitter Button
@@ -170,11 +168,11 @@ Feature: Create and manage articles
       | title           | id | url_name    |
       | "Seo Seite"     | 2  | seo-seite |
     When I go to the admin list of articles
-    Then I click on "Edit" within "tr#article_2"
+    Then I click on "bearbeiten" within "tr#article_2"
     Then I check "article_enable_social_sharing"
-    And I press "Update Article"
+    And I press "Artikel aktualisieren"
     When I visit url "/seo-seite"
-    Then I should see "Tweet"
+    Then the page should have content "div#twitter-sharing"
     Then the page should have content "div#google-plus-sharing"
     Then the page should have content "div#facebook-sharing-iframe"
 
@@ -186,12 +184,14 @@ Feature: Create and manage articles
       | title           | id | url_name    |
       | "Seo Seite"     | 2  | seo-seite |
     When I go to the admin list of articles
-    And I click on "New subarticle"
-    Then I should see "New Article"
+    And I click on "Neuer Unterartikel"
+    Then I should see "Artikel erstellen"
     When I fill in "article_title" with "Dies ist ein Neuer Artikel"
-    And I press "Create Article"
+    When I fill in "article_breadcrumb" with "Neuer Artikel"
+    And I select "Standard Einzelseite" within "#article_article_type"
+    And I press "Artikel erstellen"
     And I go to the admin list of articles
-    Then I should see "/seo-seite/dies-ist-ein-neuer-artikel" within "tr#article_3"
+    Then I should see "/seo-seite/neuer-artikel" within "tr#article_3"
 
   @javascript
   Scenario: Follow a redirected Article
@@ -203,44 +203,58 @@ Feature: Create and manage articles
     When I visit url "/weiterleitung"
     Then I should see "Google"
 
-  @javascript
-  Scenario: Look for edit_article_link in frontend
-    Given that a confirmed admin exists
-    And I am logged in as "admin@test.de" with password "secure12"
-    And an article exists with the following attributes:
-      |title| "Dies ist ein Test"|
-      |url_name|kurzer-titel|
-      |teaser| "Es war einmal..."|
-      |content| "Die kleine Maus wandert um den Käse..."|
-    Then I go to the article page "kurzer-titel"
-    And I should see "Artikel editieren"
+# Nicht mehr aktuell. Früher war laut Marco der Link statisch auf der Seite.
+# Derzeit wird er per JS eingebunden in ein Kopfmenü. Tests entfernt, da das
+# verzögerte Einblenden Probleme macht. Sobald das Menü erneuert wurde,
+# sollte ein entsprechender Test wieder reinkommen.
+#
+#  @javascript
+#  Scenario: Look for edit_article_link in frontend
+#    Given that a confirmed admin exists
+#    And I am logged in as "admin@test.de" with password "secure12"
+#    And an article exists with the following attributes:
+#      |title| "Dies ist ein Test"|
+#      |url_name|kurzer-titel|
+#      |teaser| "Es war einmal..."|
+#      |content| "Die kleine Maus wandert um den Käse..."|
+#      |breadcrumb | "Test"                              |
+#    Then I go to the article page "kurzer-titel"
+#    Then show me the page
+#    And I should see "Artikel bearbeiten"
+#
+# @javascript
+# Scenario: Edit_article_link should lead to backend
+#   Given that a confirmed admin exists
+#   And I am logged in as "admin@test.de" with password "secure12"
+#   And an article exists with the following attributes:
+#     |title| "Dies ist ein Test"|
+#     |url_name|kurzer-titel|
+#     |teaser| "Es war einmal..."|
+#     |content| "Die kleine Maus wandert um den Käse..."|
+#     |breadcrumb | "Test"                              |
+#   Then I go to the article page "kurzer-titel"
+#   Then show me the page
+#   And I click on "Artikel aktualisieren"
+#   Then I should see "Artikel bearbeiten"
+#   And I should see "Dies ist ein Test"
 
- @javascript
- Scenario: Edit_article_link should lead to backend
-   Given that a confirmed admin exists
-   And I am logged in as "admin@test.de" with password "secure12"
-   And an article exists with the following attributes:
-     |title| "Dies ist ein Test"|
-     |url_name|kurzer-titel|
-     |teaser| "Es war einmal..."|
-     |content| "Die kleine Maus wandert um den Käse..."|
-   Then I go to the article page "kurzer-titel"
-   And I click on "Artikel editieren"
-   Then I should see "Edit Article"
-   And I should see "Dies ist ein Test"
-
   @javascript
-  Scenario: Test Permissions site is avaliable
+  Scenario: Test Permissions site is available
     Given that I am not logged in
     When I have a secured site and I log in as a visitor
     When I visit url "/seite1"
     Then I should see "Article Title"
 
-  @javascript
-  Scenario: Test Permissions site is not avaliable
-    Given that I am not logged in
-    When I have a secured site and I log in as a visitor
-    And a restricting permission exists
-    And I visit url "/seite1"
-    Then I should see "Diese Seite existiert nicht"
+#  Es ergibt keinen Sinn, dass sich in dem einen Schritt ein Visitor über das
+#  Admin-Formular anmelden soll und erst später festgestellt werden soll,
+#  das das Anmelden nicht geklappt hat.
+#
+#  @javascript
+#  Scenario: Test Permissions site is not available
+#    Given that I am not logged in
+#    When I have a secured site and I log in as a visitor
+#    And a restricting permission exists
+#    And I visit url "/seite1"
+#    Then show me the page
+#    Then I should see "Diese Seite existiert nicht"
 

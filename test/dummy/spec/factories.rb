@@ -85,6 +85,7 @@ FactoryGirl.define do
     u.url_name "root"
     u.active true
     article_type "Default Show"
+    breadcrumb "Article's breadcrumb title"
   end
 
   factory :role, :class => Goldencobra::Role do |r|

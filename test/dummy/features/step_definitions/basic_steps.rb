@@ -3,7 +3,7 @@ Given /^that I am not logged in$/ do
 end
 
 When /^I click on "([^\"]*)"$/ do |arg1|
-  first(:link,arg1).click
+  click_link(arg1, :match => :first)
 end
 
 Then /^I click on element "([^"]*)" within "([^"]*)"$/ do |arg1, arg2|
@@ -111,3 +111,5 @@ end
 Given /^that basic Settings exists$/ do
   Goldencobra::Setting.import_default_settings(::Rails.root + "../../config/settings.yml")
 end
+
+

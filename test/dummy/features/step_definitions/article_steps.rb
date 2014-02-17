@@ -33,3 +33,27 @@ When /^a restricting permission exists$/ do
   Goldencobra::Permission.create(:action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id, :role_id => @guest_role.id)
 end
 
+When /^I change the page's title to "([^"]*)"$/ do |arg1|
+
+  # Find the select box with the title tag.
+  page.all(:css, 'select.metatag_names').instance_variable_get("@elements").each do |element|
+    if element.value == 'Title Tag'
+
+      # element[:name] should be this format: "article[metatags_attributes][1][name]"
+      # Extract the id.
+      element_id = element[:name].scan(/article\[(.*)\]\[(.*)\]\[(.*)\]/)[0][1]
+
+      # Overwrite the current value in the title tag's value field.
+      fill_in('article[metatags_attributes][' + element_id + '][value]', :with => arg1)
+
+      break
+    end
+  end
+
+end
+
+Then /^the page title should contain "([^"]*)"$/ do |arg1|
+  page.title.include?(arg1).should == true
+end
+
+

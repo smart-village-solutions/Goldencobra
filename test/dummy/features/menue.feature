@@ -23,12 +23,12 @@ Feature: Create and manage menuitems and navigationbars
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     And I am on the admin list of menues
-    When I click on "New Menue"
-    Then I should see "New Menue"
+    When I click on "Menü erstellen"
+    Then I should see "Menü erstellen"
     When I fill in "menue_title" with "Newspapers"
     And I fill in "menue_target" with "www.newspapers.de"
     And I fill in "menue_css_class" with "news"
-    And I press "Create Menue"
+    And I press "Menü erstellen"
     Then I should see "Newspapers" within textfield "menue_title"
     And I should see "www.newspapers.de" within textfield "menue_target"
 
@@ -41,11 +41,11 @@ Feature: Create and manage menuitems and navigationbars
       | News | 2 | 1 |
       | Bottom Navigation | 3 | 1 |
     And I am on the admin list of menues
-    Then I should see "Menues" within "h2"
+    Then I should see "Menüpunkte" within "h2"
     When I click on "New Submenu" within "tr#menue_1"
     Then I should see "Top Navigation" within "#menue_parent_id"
     When I fill in "menue_title" with "Sub of Top"
-    And I press "Create Menue"
+    And I press "Menü erstellen"
     Then I should see "Sub of Top" within textfield "menue_title"
     And I should see "Top Navigation" within "#menue_parent_id"
 
