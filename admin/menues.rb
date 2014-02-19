@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
-  menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Menue)}
+  menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Menue)}
   controller.authorize_resource :class => Goldencobra::Menue
 
   filter :title, :label => "Titel"

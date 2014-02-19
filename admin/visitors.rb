@@ -1,4 +1,7 @@
+# encoding: utf-8
+
 ActiveAdmin.register Visitor do
+  menu :priority => 1, :if => proc{can?(:update, Visitor)}
   #controller.authorize_resource :class => Visitor
 
   filter :firstname

@@ -2,6 +2,7 @@
 
 ActiveAdmin.register User, :as => "User" do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :if => proc{can?(:update, User)}
+
   controller.authorize_resource :class => User
 
   filter :firstname

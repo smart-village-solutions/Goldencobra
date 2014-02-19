@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
-  menu :priority => 3, parent: "Content-Management", :if => proc{can?(:read, Goldencobra::Widget)}
+  menu :priority => 3, parent: "Content-Management", :if => proc{can?(:update, Goldencobra::Widget)}
 
   filter :title, :label => "Titel"
   filter :css_name, :label => "CSS Klasse"
