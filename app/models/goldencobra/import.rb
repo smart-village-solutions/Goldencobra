@@ -82,7 +82,7 @@ module Goldencobra
     def run!
       self.result = []
       count = 0
-      all_data_attribute_assignments = remove_emty_assignments
+      all_data_attribute_assignments = remove_empty_assignments
       master_data_attribute_assignments = all_data_attribute_assignments[self.target_model]
       import_data_attribute_assignments = all_data_attribute_assignments["Goldencobra::ImportMetadata"]
       #all_data_attribute_assignments.delete("Goldencobra::ImportMetadata")
@@ -247,7 +247,7 @@ module Goldencobra
       end
     end
 
-    def remove_emty_assignments
+    def remove_empty_assignments
       self.assignment.each do |key, values|
         self.assignment[key].delete_if{|k,v| v['data_function'] == "Default" && v['csv'].blank?} if self.assignment[key].present? && self.assignment[key].class == Array
         if self.assignment[key].blank?
