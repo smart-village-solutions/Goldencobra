@@ -11,7 +11,7 @@ Installation of Goldencobra into a fresh Ruby on Rails project:
 
 #Requirements
 * Ruby 1.9.2-p180+ (recommended 1.9.3-p286)
-* Rails 3.2.8
+* Rails 3.2.16
 * Mysql 5.5.x (tested with e.g. 5.5.19)
 
 
