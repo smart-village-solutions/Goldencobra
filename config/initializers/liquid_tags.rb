@@ -36,7 +36,7 @@ class DomainUrl < Liquid::Tag
   end
 
   def self.usage
-    "{% domain %} => www.xyz.de/url_prefix"
+    "{%domain%} => www.xyz.de/url_prefix"
   end
 
   def initialize(tag_name, message, tokens)
