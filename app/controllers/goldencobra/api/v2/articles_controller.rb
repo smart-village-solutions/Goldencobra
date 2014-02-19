@@ -14,14 +14,10 @@ module Goldencobra
           # Check if the query string contains something.
           if params[:q].length == 0
             render status: 200, json: {}
-            return
+          else
+            # 1. Do the search and return the search result array.
+            render status: 200, json: Goldencobra::Article.simple_search( ActionController::Base.helpers.sanitize(params[:q]) ).to_json
           end
-
-          # 1. Do the search and return the search result array.
-          render status: 200, json: Goldencobra::Article.simple_search(
-              ActionController::Base.helpers.sanitize(params[:q])
-          ).to_json
-
         end
 
       end

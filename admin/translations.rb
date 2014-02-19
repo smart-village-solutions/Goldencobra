@@ -2,6 +2,7 @@
 
 ActiveAdmin.register Translation do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :if => proc{can?(:update, Translation)}
+
   controller.authorize_resource :class => Translation
 
   scope "Alle", :scoped
