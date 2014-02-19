@@ -37,13 +37,15 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.actions
 
       #Render alle Feldgruppen und Felder mit Position "first"
-      f.object.articletype.fieldgroups.where(:position => "first_block").each do |atg|
-        f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
-          atg.fields.each do |atgf|
-            render(:inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f })
-          end
-          f.input :id, :as => :hidden
-        end
+      if f.object.articletype
+       f.object.articletype.fieldgroups.where(:position => "first_block").each do |atg|
+         f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
+           atg.fields.each do |atgf|
+             render(:inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f })
+           end
+           f.input :id, :as => :hidden
+         end
+       end
       end
 
       #render Show Options if articletype == Show
@@ -82,15 +84,18 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
 
       #Render alle Feldgruppen und Felder mit Position "last"
-      f.object.articletype.fieldgroups.where(:position => "last_block").each do |atg|
-        f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
-          atg.fields.each do |atgf|
-            render(:inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f })
-          end
-          f.input :id, :as => :hidden
-        end
+      if f.object.articletype
+       f.object.articletype.fieldgroups.where(:position => "last_block").each do |atg|
+         f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
+           atg.fields.each do |atgf|
+             render(:inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f })
+           end
+           f.input :id, :as => :hidden
+         end
+       end
       end
     end
+
     f.inputs "JS-Scripts", :style => "display:none"  do
       if current_user && current_user.enable_expert_mode == true
         render partial: '/goldencobra/admin/articles/toggle_expert_mode'
@@ -224,7 +229,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   member_action :mark_as_startpage do
     article = Goldencobra::Article.find(params[:id])
     article.mark_as_startpage!
-    flash[:notice] = I18n.t(:startpage, scope: [:flash_notice, :goldencobra]) #"Dieser Artikel ist nun der Startartikel"
+    flash[:notice] = I18n.t(:startpage, scope: [:goldencobra, :flash_notice]) #"Dieser Artikel ist nun der Startartikel"
     redirect_to :action => :show
   end
 

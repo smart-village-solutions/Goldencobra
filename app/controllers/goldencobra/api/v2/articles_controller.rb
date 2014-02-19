@@ -11,6 +11,12 @@ module Goldencobra
         # ---------------------------------------------------------------------------------------
         def search
 
+          # Check if we have an argument.
+          unless params[:q]
+            render status: 200, json: {}
+            return
+          end
+
           # Check if the query string contains something.
           if params[:q].length == 0
             render status: 200, json: {}
