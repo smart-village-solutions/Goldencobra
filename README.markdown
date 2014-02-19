@@ -2,7 +2,8 @@
 
 [![Build Status](https://secure.travis-ci.org/ikusei/Goldencobra.png)](http://travis-ci.org/ikusei/Goldencobra)
 
-This Project is still under development
+This Project is still under development.
+This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis-modul/browse and now always up to date!
 
 #Powered by
 - ActiveAdmin
