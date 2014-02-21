@@ -3,6 +3,7 @@
 module Goldencobra
   class ApplicationController < ::ApplicationController
     before_filter :set_locale
+    protect_from_forgery
 
     def set_locale
       unless Rails.env == "test"
