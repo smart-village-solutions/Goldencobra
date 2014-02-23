@@ -32,7 +32,10 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       f.input :image, :as => :file, hint: "Upload a new picture for this ressource, if the file name is the same!"
     end
     f.inputs "Preview" do
-      image_tag(f.object.image(:medium)) if f.object && f.object.image.present?
+      image_tag(f.object.image(:large), :id => "image_crop") if f.object && f.object.image.present?
+    end
+    f.inputs "Bild beschneiden" do
+      f.input :crop_image, :as => :boolean, :hint => "Make a selection in the preview image above bofore saving"
     end
     f.inputs "Dateiname" do
       f.object.image_file_name
@@ -44,6 +47,13 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       f.input :description, :input_html => { :class =>"tinymce", :rows => 3}
       f.input :alt_text
       f.input :sorter_number
+      f.input :crop_x, :as => :hidden
+      f.input :crop_y, :as => :hidden
+      f.input :crop_w, :as => :hidden
+      f.input :crop_h, :as => :hidden
+    end
+    f.inputs "JS-Scripts", :style => "display:none"  do
+      render partial: '/goldencobra/admin/uploads/jcrop'
     end
   end
 

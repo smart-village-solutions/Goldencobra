@@ -73,6 +73,7 @@ PATH
       pdfkit
       progress_bar
       rails (~> 3.2.11)
+      rmagick
       rubyzip
       rvm-capistrano
       sass
@@ -243,7 +244,6 @@ GEM
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     fastercsv (1.5.5)
-    fattr (2.2.1)
     ffi (1.9.3)
     formatador (0.2.4)
     formtastic (2.2.1)
@@ -360,8 +360,7 @@ GEM
     omniauth-openid (1.0.1)
       omniauth (~> 1.0)
       rack-openid (~> 1.3.1)
-    options (2.3.0)
-      fattr
+    options (2.3.1)
     orm_adapter (0.5.0)
     paper_trail (3.0.0)
       activerecord (>= 3.0, < 5.0)
@@ -427,6 +426,7 @@ GEM
     ref (1.0.5)
     responders (1.0.0)
       railties (>= 3.2, < 5)
+    rmagick (2.13.2)
     rsolr (1.0.9)
       builder (>= 2.1.2)
     rspec (2.14.1)
@@ -575,6 +575,7 @@ DEPENDENCIES
   pry
   pry-nav
   rb-fsevent (~> 0.9.1)
+  rmagick
   rspec-rails
   sass-rails
   selenium-webdriver

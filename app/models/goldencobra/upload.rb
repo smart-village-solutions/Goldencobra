@@ -21,6 +21,9 @@
 
 module Goldencobra
   class Upload < ActiveRecord::Base
+
+    attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_image
+
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads") &&
       ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       has_attached_file :image,
@@ -36,6 +39,39 @@ module Goldencobra
     has_many :articles, :through => :article_images
     has_many :imports, :class_name => Goldencobra::Import
     belongs_to :attachable, polymorphic: true
+
+    before_save :crop_image_with_coords
+    def crop_image_with_coords
+
+      # Should we crop?
+      if self.crop_image.present? && self.crop_image == "1" && self.crop_x.present? && self.crop_y.present? && self.crop_w.present? && self.crop_h.present?
+        logger.warn("*"*40)
+        scaled_img = Magick::ImageList.new(self.image.path)
+        logger.warn(scaled_img.inspect)
+        orig_img = Magick::ImageList.new(self.image.path(:original))
+        scale = orig_img.columns.to_f / scaled_img.columns
+
+        args = [ self.crop_x.to_i, self.crop_y.to_i, self.crop_w.to_i, self.crop_h.to_i ]
+        args = args.collect { |a| a.to_i * scale }
+
+        orig_img.crop!(*args)
+        orig_img.write(self.image.path(:original))
+        self.crop_image = false
+        self.image.reprocess!
+      end
+    end
+
+    #
+
+    # def crop_image_with_coords
+    #   if self.crop_image.present? && self.crop_image == "1" && self.crop_x.present? && self.crop_y.present? && self.crop_w.present? && self.crop_h.present? && self.crop_image.present?
+    #     orig_img = Magick::ImageList.new(self.image.path(:original))
+    #     orig_img.crop(self.crop_x.to_i, self.crop_y.to_i, self.crop_w.to_i, self.crop_h.to_i)
+    #     orig_img.write(self.image.path(:original))
+    #     #self.image = File.open("tmp/cropped_image")
+    #     #self.image.reprocess!
+    #   end
+    # end
 
     def title
       "#{self.image_file_name} (#{self.image_content_type})"
