@@ -1,0 +1,23 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    jQuery(function($) {
+      function setCoords(c)
+        {
+          // variables can be accessed here as
+          // c.x, c.y, c.x2, c.y2, c.w, c.h
+          $('#upload_crop_x').attr('value',c.x);
+          $('#upload_crop_y').attr('value',c.y);
+          $('#upload_crop_w').attr('value',c.w);
+          $('#upload_crop_h').attr('value',c.h);
+        };
+
+      $('#image_crop').Jcrop({
+        onSelect: setCoords,
+        onChange: setCoords,
+        bgColor:     'black',
+        bgOpacity:   .4
+        //aspectRatio: 16 / 9
+      });
+    });
+  });
+</script>

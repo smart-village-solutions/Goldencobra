@@ -3,6 +3,8 @@
 //= require goldencobra/notifications
 //= require goldencobra/countable
 // require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
+//= require goldencobra/jquery.color
+//= require goldencobra/jquery.Jcrop.min
 
 
 //Live Support Settings
