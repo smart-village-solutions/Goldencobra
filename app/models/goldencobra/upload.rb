@@ -42,7 +42,7 @@ module Goldencobra
 
     before_save :crop_image_with_coords
     def crop_image_with_coords
-
+      require 'RMagick'
       # Should we crop?
       if self.crop_image.present? && self.crop_image == "1" && self.crop_x.present? && self.crop_y.present? && self.crop_w.present? && self.crop_h.present?
         logger.warn("*"*40)
