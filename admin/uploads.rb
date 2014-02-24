@@ -35,7 +35,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       image_tag(f.object.image(:large), :id => "image_crop") if f.object && f.object.image.present?
     end
     f.inputs "Bild beschneiden" do
-      f.input :crop_image, :as => :boolean, :hint => "Make a selection in the preview image above bofore saving"
+      f.input :crop_image, :as => :boolean, :hint => "Make a selection in the preview image above before saving"
     end
     f.inputs "Dateiname" do
       f.object.image_file_name

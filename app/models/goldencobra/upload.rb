@@ -45,9 +45,7 @@ module Goldencobra
       require 'RMagick'
       # Should we crop?
       if self.crop_image.present? && self.crop_image == "1" && self.crop_x.present? && self.crop_y.present? && self.crop_w.present? && self.crop_h.present?
-        logger.warn("*"*40)
-        scaled_img = Magick::ImageList.new(self.image.path)
-        logger.warn(scaled_img.inspect)
+        scaled_img = Magick::ImageList.new(self.image.path(:large))
         orig_img = Magick::ImageList.new(self.image.path(:original))
         scale = orig_img.columns.to_f / scaled_img.columns
 
