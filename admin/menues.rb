@@ -119,6 +119,14 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     redirect_to :back, :notice => "Undid #{@version.event}"
   end
 
+  batch_action :clone, :confirm => "Do you want to clone this menue" do |selection|
+    Goldencobra::Menue.find(selection).each do |menue|
+      cloned_parent = Goldencobra::Menue.create(:title => "clone of: #{menue.title}", :target => menue.target, :css_class => menue.css_class, :active => menue.active, :parent_id => menue.parent_id, :sorter => menue.sorter, :description => menue.description, :call_to_action_name => menue.call_to_action_name, :description_title => menue.description_title, :image_id => menue.image_id)
+    end
+    flash[:notice] = "Menue has been cloned"
+    redirect_to :action => :index
+  end
+
   action_item only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/prev_item'
   end
