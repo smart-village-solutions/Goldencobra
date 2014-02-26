@@ -9,9 +9,9 @@ module Goldencobra
 
     def article_path
       if @article.is_startpage?
-        remove_trailing_double_slashes("#{prefix + '/'}")
+        remove_trailing_double_slashes("#{prefix}/")
       else
-        prefix + ancestry_path
+        "#{prefix}#{ancestry_path}"
       end
     end
 
@@ -36,7 +36,7 @@ module Goldencobra
     def ancestry_path
       @article.path.select([:ancestry, :url_name, :startpage]).inject(String.new) do |string, article|
         unless article.startpage
-          string.to_s + article.url_name.to_s + '/'
+          "#{string}#{article.url_name}/"
         end
       end
     end
