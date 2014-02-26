@@ -637,9 +637,6 @@ module Goldencobra
       article = nil
       articles = Goldencobra::Article.where(:url_name => url.split("/").last.to_s.split(".").first)
       article_path = "/#{url.split('.').first}"
-      logger.warn("*"*40)
-      logger.warn(article_path)
-      logger.warn(articles.map{|a| a.public_url(false)})
       if articles.count > 0
         article = articles.select{|a| a.public_url(false) == article_path}.first
       end
