@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Goldencobra
   class UrlBuilder
     def initialize(article, with_prefix=false)
@@ -34,7 +36,7 @@ module Goldencobra
     def ancestry_path
       @article.path.select([:ancestry, :url_name, :startpage]).inject(String.new) do |string, article|
         unless article.startpage
-          string + article.url_name + '/'
+          string.to_s + article.url_name.to_s + '/'
         end
       end
     end
