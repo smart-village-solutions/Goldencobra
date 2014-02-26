@@ -358,20 +358,7 @@ module Goldencobra
     end
 
     def public_url(with_prefix=true)
-      if self.startpage
-        if with_prefix
-          return "#{Goldencobra::Domain.current.try(:url_prefix)}/"
-        else
-          return "/"
-        end
-      else
-        a_url = "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
-        if with_prefix
-          return "#{Goldencobra::Domain.current.try(:url_prefix)}#{a_url}"
-        else
-          return a_url
-        end
-      end
+      Goldencobra::UrlBuilder.new(self, with_prefix).article_path
     end
 
     def date_of_last_modified_child
@@ -387,19 +374,11 @@ module Goldencobra
     end
 
     def absolute_base_url
-      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
-        "https://#{Goldencobra::Setting.for_key('goldencobra.url')}"
-      else
-        "http://#{Goldencobra::Setting.for_key('goldencobra.url')}"
-      end
+      Goldencobra::UrlBuilder.new(self).absolute_base_url
     end
 
     def absolute_public_url
-      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
-        "https://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
-      else
-        "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
-      end
+      Goldencobra::UrlBuilder.new(self).absolute_public_url
     end
 
     def for_friendly_name
