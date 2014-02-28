@@ -35,7 +35,7 @@ module Goldencobra
         end
       elsif serve_basic_article?
         initialize_article(@article)
-        params[:session_id] = request.session_options[:id]
+        params[:session] = session
         Goldencobra::Article.load_liquid_methods(location: session[:user_location], article: @article, params: params)
         Goldencobra::Article::LiquidParser["url_params"] = params
         load_associated_model_into_liquid() if can_load_associated_model?
