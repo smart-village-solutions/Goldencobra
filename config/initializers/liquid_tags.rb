@@ -22,7 +22,7 @@ class PartialRenderer < Liquid::Tag
 
   def render(context)
     @options = @options.merge(:context => context)
-    ActionController::Base.new.render_to_string(:partial => @partial_name, :layout => false, :locals => @options )
+    ActionController::Base.new.render_to_string(:partial => @partial_name, :layout => false, :locals => @options)
   end
 end
 

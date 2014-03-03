@@ -20,6 +20,7 @@ module Goldencobra
           @usermodel.sign_in_count = @usermodel.sign_in_count.to_i + 1
           @usermodel.last_sign_in_at = Time.now
           @usermodel.save
+          flash[:notice] = I18n.translate("signed_in", :scope => ["devise", "sessions"])
           @redirect_to = @usermodel.roles.try(:first).try(:redirect_after_login)
         else
           @usermodel.failed_attempts = @usermodel.failed_attempts.to_i + 1
@@ -35,6 +36,7 @@ module Goldencobra
     def logout
       if params[:usermodel] && params[:usermodel].constantize && params[:usermodel].constantize.present? && params[:usermodel].constantize.attribute_method?(:email)
         sign_out
+        flash[:notice] = I18n.translate("signed_out", :scope => ["devise", "sessions"])
         reset_session
       end
       if request.format == "html"
