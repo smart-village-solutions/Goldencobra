@@ -63,6 +63,7 @@ group :development do
   gem 'brakeman'
   gem 'hirb'
   gem "powder"
+  gem 'debugger'
 end
 
 group :test do

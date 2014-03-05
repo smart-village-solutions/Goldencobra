@@ -74,8 +74,12 @@ module Goldencobra
     end
 
     def switch_language
-      I18n.locale = params[:locale] || session[:locale]
-      session[:locale] = I18n.locale
+      if params[:locale].present?
+        I18n.locale = params[:locale]
+        session[:locale] = I18n.locale.to_s
+      else
+        I18n.locale = session[:locale]
+      end
       if params[:redirect_to].present?
         redirect_to params[:redirect_to]
       else
@@ -109,7 +113,7 @@ module Goldencobra
 
     def get_article
       if is_startpage?
-        I18n.locale = :de
+        I18n.locale = I18n.default_locale
         @article = Goldencobra::Article.active.startpage.first
       else
         begin
@@ -293,11 +297,9 @@ module Goldencobra
           if session[:user_location].blank?
             #Geokit::Geocoders::MultiGeocoder.geocode("194.39.218.11") schlägt fehl (Completed 500 Internal Server Error) daher...
             begin
-                @ip_result = Geokit::Geocoders::MultiGeocoder.geocode(request.remote_ip)
-                session[:user_location] = @ip_result
+              @ip_result = Geokit::Geocoders::MultiGeocoder.geocode(request.remote_ip)
+              session[:user_location] = @ip_result
             rescue Exception => e
-              logger.error("***********")
-              logger.error(e)
               @ip_result = nil
             end
             if @ip_result.present? && @ip_result.city.present?
