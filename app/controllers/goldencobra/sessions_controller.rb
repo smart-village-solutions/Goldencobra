@@ -40,7 +40,7 @@ module Goldencobra
         flash[:notice] = I18n.translate("signed_out", :scope => ["devise", "sessions"])
       end
       if request.format == "html"
-        redirect_to "/"
+        redirect_to :back
       else
         render :js => "window.location.href = '/';"
       end
