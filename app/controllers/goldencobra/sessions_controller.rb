@@ -4,6 +4,12 @@ module Goldencobra
   class SessionsController < Goldencobra::ApplicationController
     layout "application"
 
+    after_filter :flash_discard
+
+    def flash_discard
+      flash.discard
+    end
+
     def login
       @errors = []
       if params[:usermodel] && params[:usermodel].constantize && params[:usermodel].constantize.present? && params[:usermodel].constantize.attribute_method?(:email)
