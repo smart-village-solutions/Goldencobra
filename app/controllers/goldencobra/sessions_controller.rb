@@ -36,8 +36,8 @@ module Goldencobra
     def logout
       if params[:usermodel] && params[:usermodel].constantize && params[:usermodel].constantize.present? && params[:usermodel].constantize.attribute_method?(:email)
         sign_out
-        flash[:notice] = I18n.translate("signed_out", :scope => ["devise", "sessions"])
         reset_session
+        flash[:notice] = I18n.translate("signed_out", :scope => ["devise", "sessions"])
       end
       if request.format == "html"
         redirect_to "/"
