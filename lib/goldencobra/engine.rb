@@ -31,17 +31,14 @@ module Goldencobra
     isolate_namespace Goldencobra
     initializer "goldencobra.load_app_instance_data" do |app|
       #app.class.configure do
-      #  #Pull in all the migrations from goldencobra to the application
-      #  config.paths['db/migrate'] += Goldencobra::Engine.paths['db/migrate'].existent
+        #call some action
       #end
     end
 
     initializer("goldencobra.locales") do |app|
-      #tracking_logger = Logger.new(app.root.join('log', "my_engine_log.log"), 10, 30*1024*1024)
       Goldencobra::Engine.config.i18n.load_path += Dir[root.join('config', 'locales', '*.{rb,yml}').to_s]
-      Goldencobra::Engine.config.i18n.default_locale = :de
-      Goldencobra::Engine.config.i18n.fallbacks = [:en]
-      #tracking_logger.debug "MyEngine::Engine specific locale settings are set. Def locale == :ru\n\n"
+      #Goldencobra::Engine.config.i18n.default_locale = :de
+      #Goldencobra::Engine.config.i18n.fallbacks = [:en]
     end
 
     config.to_prepare do
