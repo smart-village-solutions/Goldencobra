@@ -35,6 +35,7 @@ Goldencobra::Engine.routes.draw do
   end
 
   #match "/*article_id.pdf", :to => "articles#convert_to_pdf"
+  match "integrated-urban-governance", :to => "articles#show", :article_id => "integrated-urban-governance"
   match "/*article_id", :to => "articles#show"
 
   # The priority is based upon order of creation:
