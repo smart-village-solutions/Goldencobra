@@ -70,8 +70,8 @@ module Dummy
         I18n.reload!
         self.reload_routes!
       end
+        Rails.logger.warn("==== Locale #{I18n.locale}")
     end
-
   end
 end
 

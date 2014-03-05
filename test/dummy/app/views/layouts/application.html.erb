@@ -16,7 +16,10 @@
 
 
 
-  <%= I18n.locale %>
+  Default Locale: <%= I18n.default_locale %>
+  Locale: <%= I18n.locale %>
+  Session: <%= session[:locale] %>
+  <br>
   <%= link_to "Deutsch", switch_language_path("de") %>
   <%= link_to "Englisch", switch_language_path("en") %>
 
