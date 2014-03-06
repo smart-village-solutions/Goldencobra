@@ -27,7 +27,6 @@ module Goldencobra
 
 
     def show
-      #flash[:confirmation] = "test"
       ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)  #Possible Callbacks on start
       before_init() #Possible Callbacks on start
       if serve_iframe?
@@ -48,9 +47,9 @@ module Goldencobra
           after_index()
         end
 
-        if serve_fresh_page?
-          set_expires_in()
-          ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
+        #if serve_fresh_page?
+        #  set_expires_in()
+        #  ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
           before_render()
           respond_to do |format|
             format.html { render layout: choose_layout() }
@@ -60,7 +59,7 @@ module Goldencobra
               render json: @article.to_json
             end
           end
-        end
+        #end
       elsif should_statically_redirect?
         redirect_to @article.external_url_redirect
       elsif should_dynamically_redirect?
