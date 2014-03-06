@@ -8,7 +8,7 @@ module Goldencobra
     before_filter :verify_token, :only => [:show]
     before_filter :geocode_ip_address, only: [:show]
     after_filter :analytics, :only => [:show]
-    before_filter :discard_flash_messages, :only => [:show]
+    after_filter :discard_flash_messages, :only => [:show]
 
     if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true"
       caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
@@ -336,7 +336,7 @@ module Goldencobra
     end
 
     def discard_flash_messages
-      flash.discard
+      session.delete("flash")
     end
 
   end
