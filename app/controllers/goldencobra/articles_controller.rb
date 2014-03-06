@@ -47,9 +47,9 @@ module Goldencobra
           after_index()
         end
 
-        #if serve_fresh_page?
-        #  set_expires_in()
-        #  ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
+        if serve_fresh_page?
+         set_expires_in()
+         ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
           before_render()
           respond_to do |format|
             format.html { render layout: choose_layout() }
@@ -59,7 +59,7 @@ module Goldencobra
               render json: @article.to_json
             end
           end
-        #end
+        end
       elsif should_statically_redirect?
         redirect_to @article.external_url_redirect
       elsif should_dynamically_redirect?
@@ -336,7 +336,7 @@ module Goldencobra
     end
 
     def discard_flash_messages
-      flash.discard
+      flash[:notice] = ""
     end
 
   end
