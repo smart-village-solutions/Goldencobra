@@ -27,6 +27,7 @@ module Goldencobra
 
 
     def show
+      flash[:notice] = ""
       ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)  #Possible Callbacks on start
       before_init() #Possible Callbacks on start
       if serve_iframe?
