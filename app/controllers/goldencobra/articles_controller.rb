@@ -8,22 +8,21 @@ module Goldencobra
     before_filter :verify_token, :only => [:show]
     before_filter :geocode_ip_address, only: [:show]
     after_filter :analytics, :only => [:show]
-    after_filter :discard_flash_messages, :only => [:show]
 
-    if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true"
-      caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
-    end
+    # if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true"
+    #   caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
+    # end
 
-    def show_cache_path
-      current_client_id = @current_client.try(:id).to_s
-      geo_cache = Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true" && session[:user_location].present? && session[:user_location].city.present? ? session[:user_location].city.parameterize.underscore : "no_geo"
-      date_cache = Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true" ? Date.today.strftime("%Y%m%d") : "no_date"
-      art_cache = @article ? @article.cache_key : "no_art"
-      user_cache = current_user.present? ? current_user.id : "no_user"
-      flash_message = session.present? && session['flash'].present? ? Time.now.to_i : ""
-      auth_code = params[:auth_token].present? ? 'with_auth' : ''
-      "c-#{current_client_id}/g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}_#{auth_code}"
-    end
+    # def show_cache_path
+    #   current_client_id = @current_client.try(:id).to_s
+    #   geo_cache = Goldencobra::Setting.for_key("goldencobra.geocode_ip_address") == "true" && session[:user_location].present? && session[:user_location].city.present? ? session[:user_location].city.parameterize.underscore : "no_geo"
+    #   date_cache = Goldencobra::Setting.for_key("goldencobra.article.max_cache_24h") == "true" ? Date.today.strftime("%Y%m%d") : "no_date"
+    #   art_cache = @article ? @article.cache_key : "no_art"
+    #   user_cache = current_user.present? ? current_user.id : "no_user"
+    #   flash_message = session.present? && session['flash'].present? ? Time.now.to_i : ""
+    #   auth_code = params[:auth_token].present? ? 'with_auth' : ''
+    #   "c-#{current_client_id}/g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}_#{auth_code}"
+    # end
 
 
     def show
@@ -333,10 +332,6 @@ module Goldencobra
 
     def analytics
       Goldencobra::Tracking.analytics(request, session[:user_location])
-    end
-
-    def discard_flash_messages
-      session.delete("flash")
     end
 
   end
