@@ -65,8 +65,6 @@ en:
       unlock_instructions:
         subject: 'Unlock Instructions'
   activerecord:
-    errors:
-      <<: *errors
     models:
       articletype:
         one: "articletype"
