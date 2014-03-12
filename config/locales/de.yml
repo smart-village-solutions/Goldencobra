@@ -1,4 +1,447 @@
 de:
+  formtastic:
+    yes: 'Ja'
+    no: 'Nein'
+    create: '%{model} erstellen'
+    update: '%{model} aktualisieren'
+    submit: '%{model} speichern'
+    cancel: '%{model} abbrechen'
+    reset: '%{model} zurücksetzen'
+    required: 'Pflichtfeld'
+  articles:
+    read_on: 'weiterlesen'
+    selection: "Artikel"
+  goldencobra:
+    flash_notice:
+      name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
+      action_Startpage: "Diesen Artikel als Startseite einrichten"
+      startpage: "Dieser Artikel ist nun der Startartikel"
+      online: "Sichtbarkeit dieses Artikels ändern?"
+      delete_article: "Artikel wirklich löschen?"
+    filter:
+      filter_titel: "Titel"
+      filter_subtitel: "Untertitel"
+      filter_breadcrumb: "Breadcrumb-Titel"
+      filter_url: "Website-Adresse"
+      filter_template: "Layout"
+      filter_created: "Erstellt am"
+      filter_updated: "Bearbeitet am"
+      filter_parent: "Elternelement"
+      filter_type: "Artikeltyp"
+    menue:
+      menue: "Menü"
+      name: "Name"
+      list: "auflisten"
+      create: "erstellen"
+    article_types:
+      Chairman: "Vorstand"
+      Subsidiary: "Niederlassungen"
+      Consultant: "Berater"
+      Event: "Veranstaltungen"
+      Report: "Nachrichten"
+      Article: "Artikel"
+      Pressreferent: "Pressereferenten"
+      Personelreferent: "Personalreferenten"
+      Faq: "Häufige Fragen"
+      Pressrelease: "Pressemitteilung"
+      Default: "Standard"
+      Partner: "Partner"
+      consultant_index: "Berater Übersicht"
+      consultant_show: "Berater Einzelseite"
+      report_index: "Nachrichten Übersicht"
+      report_show: "Nachrichten Einzelseite"
+      subsidiary_index: "Niederlassung Übersicht"
+      subsidiary_show: "Niederlassung Einzelseite"
+      event_index: "Veranstaltungen Übersicht"
+      event_show: "Veranstaltungen Einzelseite"
+      default_index: "Standard Übersicht"
+      default_show: "Standard Einzelseite"
+      pressreferent_index: "Pressereferenten Übersicht"
+      pressreferent_show: "Pressereferenten Einzelseite"
+      personelreferent_index: "Personalreferenten Übersicht"
+      personelreferent_show: "Personalreferenten Einzelseite"
+      chairman_index: "Vorstand Übersicht"
+      chairman_show: "Vorstand Einzelseite"
+      pressrelease_index: "Pressemitteilung Übersicht"
+      pressrelease_show: "Pressemitteilung Einzelseite"
+      faq_index: "FAQ Übersicht"
+      faq_show: "FAQ Einzelseite"
+      partner_index: "Partner Übersicht"
+      partner_show: "Partner Einzelseite"
+  active_admin:
+    articles:
+      now_offline: "Dieser Artikel ist nun offline"
+      now_online: "Dieser Artikel ist nun online"
+      tag-select-placeholder: "Tag wählen"
+    menue:
+      settings: "Einstellungen"
+    dashboard: Übersicht
+    dashboard_welcome:
+      welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
+      call_to_action: "Siehe 'app/admin/dashboards.rb', um Übersichts-Bereiche hinzuzufügen."
+    view: "Anzeigen"
+    devise:
+      login:
+        title: " -- Administration"
+        remember_me: "Anmeldung merken"
+      links:
+        sign_up: "Registrieren"
+        forgot_your_password: "Passwort vergessen?"
+        resend_unlock_instructions: "E-Mail zum Entsperren neu zuschicken"
+    edit: "Bearbeiten"
+    delete: "Löschen"
+    delete_confirmation: "Wollen Sie dieses Element wirklich löschen?"
+    new_model: "%{model} erstellen"
+    create_model: "%{model} erstellen"
+    edit_model: "%{model} bearbeiten"
+    delete_model: "%{model} löschen"
+    update_model: "%{model} bearbeiten"
+    details: "%{model} Details"
+    cancel: "Abbrechen"
+    empty: "Leer"
+    previous: "Zurück"
+    next: "Weiter"
+    download: "Herunterladen:"
+    has_many_new: "%{model} hinzufügen"
+    has_many_delete: "Löschen"
+    filter: "Filtern"
+    clear_filters: "Filter entfernen"
+    search_field: "Durchsuche %{field}"
+    equal_to: "Gleich"
+    greater_than: "Größer als"
+    less_than: "Kleiner als"
+    main_content: "Bitte implementieren Sie %{model}#main_content, um Inhalte anzuzeigen."
+    logout: "Abmelden"
+    sidebars:
+      submit_widget: "Auswahl speichern"
+      submit_layout: "Layout zuweisen"
+      widgets_options: "Schnipsel-Optionen"
+      startpage_options: "Startseiten-Optionen"
+      filters: "Filter"
+      layout: "Artikeltyp & Layout"
+      image_module: "Bildergalerie"
+      image_formates: "Bildgrößen"
+      overview: "Überblick"
+      menue_options: "Menü-Optionen"
+      link_checker: "Links überprüfen"
+    per_page: "Einträge pro Seite"
+    pagination:
+      empty: "Keine %{model} gefunden"
+      one: "Zeige <b>1</b> %{model}"
+      one_page: "Zeige <b>alle %{n}</b> %{model}"
+      multiple: "Zeige %{model} <b>%{from}&nbsp;–&nbsp;%{to}</b> von <b>%{total}</b>"
+      entry:
+        one: "Eintrag"
+        other: "Einträge"
+    any: "Alle"
+    blank_slate:
+      content: "Es gibt noch keine %{resource_name}."
+      link: "Erstellen"
+    batch_actions:
+      labels:
+        set_article_online: "Artikel online stellen"
+        set_article_offline: "Artikel offline stellen"
+        set_menue_offline: "Menü online stellen"
+        set_menue_online: "Menü offline stellen"
+        reset_cache: "Cache leeren"
+        send_default_conf_mails: "Sende Bestätigungsmails"
+        destroy: "Löschen"
+      button_label: "Batch Verarbeitung"
+      delete_confirmation: "Sind Sie sicher, Sie wollen all diese %{plural_model} löschen? Widerruf ist nicht möglich."
+      succesfully_destroyed:
+        one: "1 %{model} wurde erfolgreich gelöscht"
+        other: "%{count} %{plural_model} wurden erfolgreich gelöscht"
+      selection_toggle_explanation: "(Auswahl umkehren)"
+      link: "Erstelle eins"
+    comments:
+      body: "Inhalt"
+      author: "Autor"
+      title: "Kommentar"
+      resource: "Resource"
+      add: "Kommentar hinzufügen"
+      no_comments_yet: "Es gibt noch keine Kommentare."
+      title_content: "Kommentare (%{count})"
+      errors:
+        empty_text: "Der Kommentar wurde nicht gespeichert, da der Text fehlt."
+  errors:
+    messages:
+      expired: "ist abgelaufen, bitte neu anfordern"
+      not_found: "nicht gefunden"
+      already_confirmed: "wurde bereits bestätigt"
+      not_locked: "ist nicht gesperrt"
+      not_saved:
+        one: "Konnte %{resource} nicht speichern: ein Fehler."
+        other: "Konnte %{resource} nicht speichern: %{count} Fehler."
+  devise:
+    failure:
+      already_authenticated: 'Du bist bereits angemeldet.'
+      unauthenticated: 'Du musst Dich anmelden oder registrieren, bevor Du fortfahren kannst.'
+      unconfirmed: 'Du musst Deinen Account bestätigen, bevor Du fortfahren kannst.'
+      locked: 'Dein Account ist gesperrt.'
+      invalid: 'Ungültige Anmeldedaten.'
+      invalid_token: 'Der Anmelde-Token ist ungültig.'
+      timeout: 'Deine Sitzung ist abgelaufen, bitte melde Dich erneut an.'
+      inactive: 'Dein Account ist nicht aktiv.'
+    sessions:
+      signed_in: 'Erfolgreich angemeldet.'
+      signed_out: 'Erfolgreich abgemeldet.'
+    passwords:
+      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
+      updated: 'Dein Passwort wurde geändert. Du bist jetzt angemeldet.'
+      updated_not_active: 'Dein Passwort wurde geändert.'
+      send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert erhältst Du in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Dein Passwort zurücksetzen können."
+    confirmations:
+      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail, mit der Du Deine Registrierung bestätigen kannst.'
+      send_paranoid_instructions: 'Falls Deine E-Mail-Adresse in unserer Datenbank existiert erhältst Du in wenigen Minuten eine E-Mail mit der Du Deine Registrierung bestätigen kannst.'
+      confirmed: 'Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet.'
+    registrations:
+      signed_up: 'Du hast dich erfolgreich registriert.'
+      signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit der Anleitung, wie Du Deinen Account freischalten kannst.'
+      signed_up_but_inactive: 'Du hast dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account inaktiv ist.'
+      signed_up_but_locked: 'Du hast dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account gesperrt ist.'
+      updated: 'Deine Daten wurden aktualisiert.'
+      update_needs_confirmation: "Deine Daten wurden aktualisiert, aber Du musst Deine neue E-Mail-Adresse bestätigen. Du erhälsts in wenigen Minuten eine E-Mail, mit der Du die Änderung Deiner E-Mail-Adresse abschließen kannst."
+      destroyed: 'Dein Account wurde gelöscht.'
+    unlocks:
+      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren können.'
+      unlocked: 'Dein Account wurde entsperrt. Du bist jetzt angemeldet.'
+      send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert erhältst Du in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren kannst."
+    omniauth_callbacks:
+      success: 'Du hast Dich erfolgreich mit Deinem %{kind}-Account angemeldet.'
+      failure: 'Du konntest nicht Deinem %{kind}-Account angemeldet werden, weil "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'Anleitung zur Bestätigung Deines Accounts'
+      reset_password_instructions:
+        subject: 'Anleitung um Dein Passwort zurückzusetzen'
+      unlock_instructions:
+        subject: 'Anleitung um Deinen Account freizuschalten'
+  activerecord:
+    models:
+      articletype:
+        one: "Artikeltyp"
+        other: "Artikeltypen"
+      link-checker:
+        one: "Link-Checker"
+        other: "Link-Checker"
+      domain:
+        one: "Domain"
+        other: "Domains"
+      analytic:
+        one: "Analytic"
+        other: "Analytics"
+      article_comment:
+        one: "Kommentar"
+        other: "Kommentare"
+      author:
+        one: "Autor"
+        other: "Autoren"
+      goldencobra/author:
+        one: "Autor"
+        other: "Autoren"
+      goldencobra/comment:
+        one: "Kommentar"
+        other: "Kommentare"
+      import:
+        one: "Import"
+        other: "Imports"
+      location:
+        one: "Adresse"
+        other: "Adressen"
+      goldencobra/location:
+        one: "Adresse"
+        other: "Adressen"
+      seo-article:
+        one: "SEO-Artikel"
+        other: "SEO-Artikel"
+      article:
+        one: "Artikel"
+        other: "Artikel"
+      goldencobra/article:
+        one: "Artikel"
+        other: "Artikel"
+      setting:
+        one: "Einstellung"
+        other: "Einstellungen"
+      goldencobra/setting:
+        one: "Einstellung"
+        other: "Einstellungen"
+      menue:
+        one: "Menü"
+        other: "Menüpunkte"
+      goldencobra/menue:
+        one: "Menü"
+        other: "Menüpunkte"
+      metag:
+        one: "Metatag"
+        other: "Metatags"
+      goldencobra/metag:
+        one: "Metatag"
+        other: "Metatags"
+      widget:
+        one: "Schnipsel"
+        other: "Schnipsel"
+      goldencobra/widget:
+        one: "Schnipsel"
+        other: "Schnipsel"
+      upload:
+        one: "Medium"
+        other: "Medien"
+      goldencobra/upload:
+        one: "Medium"
+        other: "Medien"
+      user:
+        one: "Benutzer"
+        other: "Benutzer"
+      permission:
+        one: "Zugriffsrecht"
+        other: "Zugriffsrechte"
+      goldencobra/permission:
+        one: "Zugriffsrecht"
+        other: "Zugriffsrechte"
+      role:
+        one: "Benutzerrolle"
+        other: "Benutzerrollen"
+      goldencobra/role:
+        one: "Benutzerrolle"
+        other: "Benutzerrollen"
+      visitor:
+        one: "Besucher"
+        other: "Besucher"
+      formular:
+        one: "Formular"
+        other: "Formulare"
+    attributes:
+      goldencobra/comment:
+        content: "Inhalt"
+        active: "aktiv"
+        approved: "kontrolliert"
+        reported: "gemeldet"
+      goldencobra/setting:
+        title: "Titel"
+        value: "Wert"
+        ancestry: "Pfad"
+        created_at: "erstellt am"
+        updated_at: "bearbeitet am"
+      goldencobra/location:
+        lat: "Latitude"
+        lng: "Longitude"
+        street: "Straße"
+        street_number: "Hausnummer"
+        city: "Stadt"
+        zip: "PLZ"
+        region: "Bezirk"
+        country: "Land"
+        created_at: "erstellt am"
+        updated_at: "bearbeitet am"
+      goldencobra/role:
+        description: "Beschreibung"
+        created_at: "Erstellt am"
+        updated_at: "Bearbeitet am"
+      user:
+        firstname: "Vorname"
+        lastname: "Nachname"
+        password: "Passwort"
+        password_confirmation: "Passwort bestätigen"
+        roles: "Nutzerrollen"
+        function: "Funktion"
+        phone: "Telefon"
+        complete_name: "Name"
+        email: "E-Mail"
+        enable_expert_mode: 'Expertenmodus aktivieren?'
+        created_at: "erstellt am"
+        updated_at: "bearbeitet am"
+      goldencobra/article:
+        article_type: "Artikeltyp"
+        title: "Titel"
+        url: "Webseite"
+        sorter_limit: "Zahl von Artikeln"
+        sort_order: "Sortierkriterium"
+        reverse_sort: "Sortierung absteigend?"
+        author: "Autor"
+        url_name: "Website-Adresse des Artikels"
+        slug: "URL-Kurzform"
+        content: "Haupt-Textfeld"
+        teaser: "Teaser"
+        ancestry: "Abstammung"
+        startpage: "Startseite"
+        active: "online"
+        subtitle: "Untertitel"
+        summary: "Zusammenfassung"
+        context_info: "Zusätzlicher Inhalt"
+        canonical_url: "URL für Suchmaschinen"
+        robots_no_index: "Nicht durch Suchmaschinen finden lassen"
+        breadcrumb: "Brotkrumenname"
+        template_file: "Layout der Seite"
+        enable_social_sharing: "Social Media Buttons"
+        cacheable: "Cachebar"
+        article_type: "Artikeltyp"
+        external_url_redirect: "Weiterleitung zu externer URL"
+        index_of_articles_tagged_with: "Übersicht von Artikeln mit TAG"
+        sort_order: "Sortierung"
+        not_tagged_with: "Übersicht von Artikeln OHNE TAG"
+        use_frontend_tags: "Filter-Tags"
+        dynamic_redirection: "Automatische Weiterleitung zu"
+        redirection_target_in_new_window: "In neuem Fenster öffnen"
+        commentable: "Kommentierbar"
+        active_since: "Online seit"
+        redirect_link_title: "Name des externen Links"
+        tag_list: "Liste von internen Tags"
+        created_at: "Erstellt am"
+        updated_at: "Bearbeitet am"
+      goldencobra/permission:
+        role: "Rolle"
+        action: "Aktion"
+      goldencobra/upload:
+        source: "Quellenverweis"
+        created_at: "Erstellt am"
+        updated_at: "Bearbeitet am"
+        image_file_name: "Dateiname"
+        image_content_type: "Dateityp"
+        image_file_size: "Dateigröße"
+        rights: "Rechteinhaber"
+        description: "Beschreibung"
+        image: "Datei"
+      goldencobra/widget:
+        title: "Name"
+        content: "Standard Inhalt"
+        mobile_content: "Inhalt für mobile Geräte"
+        id_name: "ID Wert für css"
+        css_name: "Class Wert für css"
+        sorter: "Sortiernummer"
+        tag_list: "Tag Liste"
+        articles: "Artikel"
+        active: "Online sichtbar?"
+        created_at: "Erstellt am"
+        updated_at: "Bearbeitet am"
+        teaser: "Teaser"
+        offline_day: "Tage an denen alternativer Inhalt angezeigt wird"
+        offline_time_start: "Startzeit"
+        offline_time_start_hint: "Start um HH:MM z.B. 16:00"
+        offline_time_end: "Endzeit"
+        offline_time_end_hint: "Ende um HH:MM z.B. 17:35"
+        offline_time_active: "Inhalt zeitgesteuert anzeigen?"
+        offline_time_active_hint: "Möchten Sie alternativen Offline Inhalt nutzen?"
+        alternative_content: "Offline-Inhalt"
+        alternative_content_hint: "Dieser Inhalt wird gezeigt, wenn das Widget offline ist."
+      visitor:
+        first_name: "Vorname"
+        last_name: "Nachname"
+        provider: "Anbieter"
+        uid: "Einzigartige ID"
+        newsletter: "Newsletter-Abo"
+        username: "Benutzername"
+        email: "E-Mail"
+        agb: "AGB akz."
+        last_sign_in_at: "Zuletzt eingeloggt"
+        created_at: "Erstellt am"
+        updated_at: "Bearbeitet am"
+        sign_in_count: "Wie oft eingeloggt"
+      goldencobra/author:
+        firstname: "Vorname"
+        lastname: "Nachname"
+        email: "E-Mail"
+        googleplus: "Google Plus URL"
   login:
     messages:
       errors:
@@ -209,9 +652,6 @@ de:
       short: ! '%d. %B, %H:%M Uhr'
     pm: nachmittags
   activemodel:
-    errors:
-      <<: *errors
-  activerecord:
     errors:
       <<: *errors
   title: "Titel"
