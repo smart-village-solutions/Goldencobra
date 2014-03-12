@@ -273,6 +273,9 @@ en:
       tag-select-placeholder: "Select tag"
       now_offline: "This article is now offline"
       now_online: "This article is now online"
+    resource:
+      upload: "Upload"
+      article: "Article"
     menue:
       settings: "Settings"
     dashboard: Dashboard
@@ -365,10 +368,6 @@ en:
       next: "»"
       last: "›|"
       truncate: "..."
-  active_admin:
-    resource:
-      upload: "Upload"
-      article: "Article"
   title: "Title"
   url: "URL"
   created_at: "created at"
