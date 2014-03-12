@@ -113,7 +113,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       article.public_url
     end
     column "Aktiv?", :active, :sortable => :active do |article|
-      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", :confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
+      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", :confirm => I18n.t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column "Artikeltyp", :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? "Standard" : I18n.t(article.article_type.parameterize.underscore.downcase, scope: [:goldencobra, :article_types])
@@ -237,10 +237,10 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     article = Goldencobra::Article.find(params[:id])
     if article.active
       article.active = false
-      flash[:notice] = "Dieser Artikel ist nun online"
+      flash[:notice] = t("now_offline", :scope => ["active_admin", "articles"])
     else
       article.active = true
-      flash[:notice] = "Dieser Artikel ist nun offline"
+      flash[:notice] = t("now_online", :scope => ["active_admin", "articles"])
     end
     article.save
 
@@ -274,7 +274,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       article.active = true
       article.save
     end
-    flash[:notice] = "Artikel wurden online gestellt"
+    flash[:notice] = I18n.t("now_online", :scope => ["active_admin", "articles"])
     redirect_to :action => :index
   end
 
@@ -283,7 +283,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       article.active = false
       article.save
     end
-    flash[:notice] = "Artikel wurden offline gestellt"
+    flash[:notice] = I18n.t("now_offline", :scope => ["active_admin", "articles"])
     redirect_to :action => :index
   end
 

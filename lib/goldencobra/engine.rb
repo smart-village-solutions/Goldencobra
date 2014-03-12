@@ -37,8 +37,6 @@ module Goldencobra
 
     initializer("goldencobra.locales") do |app|
       Goldencobra::Engine.config.i18n.load_path += Dir[root.join('config', 'locales', '*.{rb,yml}').to_s]
-      #Goldencobra::Engine.config.i18n.default_locale = :de
-      #Goldencobra::Engine.config.i18n.fallbacks = [:en]
     end
 
     config.to_prepare do
