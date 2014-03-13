@@ -610,11 +610,13 @@ module Goldencobra
     end
 
     def set_standard_application_template
-      if self.template_file.blank?
-        if self.articletype.present? && self.articletype.default_template_file.present?
-          self.template_file = self.articletype.default_template_file
-        else
-          self.template_file = "application"
+      if ActiveRecord::Base.connection.table_exists?("goldencobra_articles") && ActiveRecord::Base.connection.table_exists?("goldencobra_articletypes")
+        if self.template_file.blank?
+          if self.articletype.present? && self.articletype.default_template_file.present?
+            self.template_file = self.articletype.default_template_file
+          else
+            self.template_file = "application"
+          end
         end
       end
     end
