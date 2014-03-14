@@ -471,3 +471,17 @@ ul.link_checker_ul{
 		}
 	}
 }
+
+
+
+form > fieldset > ol > .has_many{
+  background-color:grey;
+}
+
+form > fieldset > ol > .has_many > h3{
+  color:white;
+}
+
+body.active_admin form > fieldset{
+  padding:0px;
+}
