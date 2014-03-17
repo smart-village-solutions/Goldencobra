@@ -1,27 +1,40 @@
-<h1>
-  <%= yield(:article_title) %>
-</h1>
-<% if yield(:article_summary).present? %>
-  <div class="summary">
-    <%= yield(:article_summary) %>
-  </div>
-<% end %>
-<%= yield(:article_content) %>
+<article class="standard">
+  <h1><%= yield(:article_title) %></h1>
 
+  <% if yield(:article_subtitle).present? %>
+    <h2 class="subtitle"><%= yield(:article_subtitle) %></h2>
+  <% end %>
+
+  <% if @article.present? && @article.article_images.where(position: "standard").any? && @article.article_images.where(position: "standard").first.image.present? %>
+    <div class="main-image">
+      <%= image_tag(@article.article_images.where(position: "standard").first.image.image.url(:large), :alt => @article.article_images.where(position: "standard").first.image.alt_text, :title => @article.article_images.where(position: "standard").first.image.alt_text) %>
+    </div>
+  <% end %>
+
+  <% if yield(:article_summary).present? %>
+    <div class="summary">
+      <%= yield(:article_summary) %>
+    </div>
+  <% end %>
+
+  <div class="content">
+    <%= yield(:article_content) %>
+  </div>
+</article>
 
 <% if @list_of_articles %>
-  <% @list_of_articles.each do |article| %>
-    <article class="index-article">
-        <h2><%= link_to article.title, article.public_url %></h2>
+  <% @list_of_articles.each_with_index do |article, i| %>
+    <div class="index-article">
+      <h2><%= link_to article.title, article.public_url, title: article.title %></h2>
       <% if article.teaser.present? %>
         <div class="event-description">
           <%= raw(article.teaser) %>
+          <%= link_to t("helpers.more"), article.public_url, title: t("helpers.more") %>
         </div>
-        <p><%= read_on(article) %></p>
-          <% if @list_of_articles.count > 1 %>
-            <hr class="line" />
-          <% end %>
+        <% if i < @list_of_articles.count - 1 %>
+          <hr class="line" />
         <% end %>
-    </article>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
