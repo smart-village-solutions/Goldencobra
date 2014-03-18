@@ -1,16 +1,23 @@
-<h1>
-  <%= yield(:article_title) %>
-</h1>
-<% if yield(:article_summary).present? %>
-  <div class="summary">
-    <%= yield(:article_summary) %>
+<article class="standard">
+  <h1><%= yield(:article_title) %></h1>
+
+  <% if yield(:article_subtitle).present? %>
+    <h2 class="subtitle"><%= yield(:article_subtitle) %></h2>
+  <% end %>
+
+  <% if @article.present? && @article.article_images.where(position: "standard").any? && @article.article_images.where(position: "standard").first.image.present? %>
+    <div class="main-image">
+      <%= image_tag(@article.article_images.where(position: "standard").first.image.image.url(:large), :alt => @article.article_images.where(position: "standard").first.image.alt_text, :title => @article.article_images.where(position: "standard").first.image.alt_text) %>
+    </div>
+  <% end %>
+
+  <% if yield(:article_summary).present? %>
+    <div class="summary">
+      <%= yield(:article_summary) %>
+    </div>
+  <% end %>
+
+  <div class="content">
+    <%= yield(:article_content) %>
   </div>
-<% end %>
-<% if @article.images.count > 0 %>
-  <div class="news-image">
-    <%= image_tag(@article.images.first.image.url(:medium), width: "301", :alt => @article.images.first.alt_text || @article.images.first.image_file_name ) %>
-  </div>
-<% end %>
-<div class="article_content">
-  <%= yield(:article_content) %>
-</div>
+</article>
