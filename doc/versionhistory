@@ -5,6 +5,7 @@ V1.4.0
   - Alle Artikelfelder sin einer Artikelfeldgruppe zuweisbar
   - Beim Start einer Application werden die Standardwerte fuer Feldgruppen und Felder wiederhergestellt wenn ein Artikeltyp KEINE Artikelfeldgruppen besitzt.
   - Artikelfeldgruppen haben Optionen wie z.b.: Sortiernummer, Expertenmodus, ausklappbar ...
+  - Verschachtelte Formulare haben nun eine bessere Darstellungen
 
 V1.3.4
   - Bugfixes
