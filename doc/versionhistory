@@ -1,0 +1,27 @@
+V1.4.0
+  - Artikeltypen sind nun Models mit optionalen Defaultparametern für alle neuen Artikel und bietet die Möglichkeit Settings festzulegen für alle Artkeltypen hinweg GC-9
+  - Das Default Layout kann angegeben werden
+  - Alle Artikelfelder sind in Gruppen anlegbar und sortierbar
+  - Alle Artikelfelder sin einer Artikelfeldgruppe zuweisbar
+  - Beim Start einer Application werden die Standardwerte für Feldgruppen und Felder wiederhergestellt wenn ein Artikeltyp KEINE Artikelfeldgruppen besitzt.
+  - Artikelfeldgruppen haben Optionen wie z.b.: Sortiernummer, Expertenmodus, ausklappbar ...
+
+V1.3.4
+  - Bugfixes
+
+V1.3.3
+  - Fixed a bug where ArticleTypeName with a Space not redering edit Page 57a9011 07a46ca
+
+V1.3.2
+  - GeoKit fixed to version 1.7.1 8d60685
+
+V1.3.1
+  - Artikeltyp ist nachträglich änderbar 821b29f
+  - sitemap xml Projektweise erweiterbar c81f23d
+  - Hauptdomain in Domain Einstellungen ist für canonical-url relevant e0f4c86 3ebaeb1
+
+V1.2.6
+  - rake db:import ermöglicht Datenbankimport vom Produktions-Server auf den Lokalen Rechner da250b6
+
+V1.2.5
+  - Hilfen für Liquid Methoden in der Seitenleiste bei einem Artikel und in den Widgets ce5d0db
