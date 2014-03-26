@@ -66,6 +66,9 @@ en:
         subject: 'Unlock Instructions'
   activerecord:
     models:
+      domain:
+        one: "Domain"
+        other: "Domains"
       articletype:
         one: "Articletype"
         other: "Articletypes"
