@@ -14,10 +14,10 @@ module Goldencobra
         :subtitle => %{<% f.input :subtitle %>},
         :content => %{<% f.input :content, :input_html => { :class => "tinymce" } %>},
         :teaser => %{<% f.input :teaser, :hint => I18n.t("goldencobra.article_field_hints.teaser"), :input_html => { :rows => 5 } %>},
-        :summary => %{<% f.input :summary, hint: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt", :input_html => { :rows => 5 } %>},
+        :summary => %{<% f.input :summary, :hint => I18n.t("goldencobra.article_field_hints.summary"), :input_html => { :rows => 5 } %>},
         :tag_list => %{<% f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :wrapper_html => { class: 'expert' } %>},
         :frontend_tag_list => %{<% f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten.", :wrapper_html => { class: 'expert' } %>},
-        :active => %{<% f.input :active, :hint => "Soll dieser Artikel im System aktiv und online sichtbar sein?", :wrapper_html => { class: 'expert' } %>},
+        :active => %{<% f.input :active, :hint => I18n.t("goldencobra.article_field_hints.active"), :wrapper_html => { class: 'expert' } %>},
         :active_since => %{<% f.input :active_since, :hint => "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20" }, :wrapper_html => { class: 'expert' } %>},
         :context_info => %{<% f.input :context_info, :input_html => { :class => "tinymce" }, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht" %>},
         :metatags => %{<% f.has_many :metatags do |m|

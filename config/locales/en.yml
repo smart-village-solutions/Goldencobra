@@ -235,6 +235,8 @@ en:
     article_field_hints:
       title: "Title/Headline of an article."
       teaser: "Short description of this article. Also used in Goolge and Facebook"
+      summary: ""
+      active: "Is this article online visible?"
     article_types:
       Chairman: "Vorstand"
       Subsidiary: "Niederlassungen"
