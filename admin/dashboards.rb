@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ActiveAdmin::Dashboards.build do
 
   # Define your dashboard sections here. Each block will be
@@ -7,10 +9,10 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-   section "Neueste Artikel", priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
+   section I18n.t("active_admin.dashboard_latest_articles"), priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
     table do
       tr do
-        ["Titel", "Erstellt am", ""].each do |sa|
+        [I18n.t("activerecord.attributes.goldencobra/article.title"), I18n.t("activerecord.attributes.goldencobra/article.created_at"), ""].each do |sa|
           th sa
         end
       end
@@ -26,18 +28,18 @@ ActiveAdmin::Dashboards.build do
         end
       end
     end
-    
+
     table do
       tr do
-        td link_to("Neuen Artikel erstellen", admin_article_path("new"))
+        td link_to(I18n.t("active_admin.dashboard_new_article"), admin_article_path("new"))
       end
     end
    end
 
-   section "Neueste Schnipsel", priority: 2, :if => proc{can?(:update, Goldencobra::Widget)} do
+   section I18n.t("active_admin.dashboard_latest_widgets"), priority: 2, :if => proc{can?(:update, Goldencobra::Widget)} do
     table do
       tr do
-        ["Titel", "Erstellt am", ""].each do |sa|
+        [I18n.t("activerecord.attributes.goldencobra/widget.title"), I18n.t("activerecord.attributes.goldencobra/widget.created_at"), ""].each do |sa|
           th sa
         end
       end
