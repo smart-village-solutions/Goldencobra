@@ -207,6 +207,8 @@ en:
         description: "description"
         image: "image"
       goldencobra/widget:
+        title: "Title"
+        created_at: "created at"
         active: "Online?"
         offline_day: "Days which show alternative content"
         offline_time_start: "Start time"
