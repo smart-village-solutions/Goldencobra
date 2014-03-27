@@ -12,6 +12,9 @@ de:
     read_on: 'weiterlesen'
     selection: "Artikel"
   goldencobra:
+    article_field_hints:
+      title: "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
+      teaser: "Dieser Text beschreibt den Artikel auf Übersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt"
     flash_notice:
       name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
       action_Startpage: "Diesen Artikel als Startseite einrichten"
@@ -315,6 +318,9 @@ de:
         one: "Formular"
         other: "Formulare"
     attributes:
+      goldencobra/metatag:
+        name: "Art"
+        value: "Wert"
       goldencobra/comment:
         content: "Inhalt"
         active: "aktiv"
@@ -355,6 +361,7 @@ de:
         created_at: "erstellt am"
         updated_at: "bearbeitet am"
       goldencobra/article:
+        parent_id: "Übergeordneter Artikel"
         article_type: "Artikeltyp"
         title: "Titel"
         url: "Webseite"
@@ -368,13 +375,13 @@ de:
         teaser: "Teaser"
         ancestry: "Abstammung"
         startpage: "Startseite"
-        active: "online"
+        active: "Aktiv?"
         subtitle: "Untertitel"
         summary: "Zusammenfassung"
-        context_info: "Zusätzlicher Inhalt"
+        context_info: "Weiterer Inhalt"
         canonical_url: "URL für Suchmaschinen"
         robots_no_index: "Nicht durch Suchmaschinen finden lassen"
-        breadcrumb: "Brotkrumenname"
+        breadcrumb: "Breadcrumb-Titel"
         template_file: "Layout der Seite"
         enable_social_sharing: "Social Media Buttons"
         cacheable: "Cachebar"
@@ -390,6 +397,7 @@ de:
         active_since: "Online seit"
         redirect_link_title: "Name des externen Links"
         tag_list: "Liste von internen Tags"
+        frontend_tag_list: "Filterkriterium"
         created_at: "Erstellt am"
         updated_at: "Bearbeitet am"
       goldencobra/permission:
