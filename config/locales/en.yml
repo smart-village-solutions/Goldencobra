@@ -148,6 +148,9 @@ en:
         one: "Formular"
         other: "Formulars"
     attributes:
+      goldencobra/metatag:
+        name: "Name"
+        value: "Value"
       goldencobra/comment:
         content: "Content"
         active: "active"
@@ -170,6 +173,7 @@ en:
         created_at: "created at"
         updated_at: "updated at"
       goldencobra/article:
+        parent_id: "Parent article"
         article_type: "article type"
         title: "title"
         url: "url"
@@ -177,25 +181,28 @@ en:
         sort_order: "sort order"
         reverse_sort: "descending order?"
         author: "author"
-        url_name: "name of url"
+        url_name: "name of url of article"
         slug: "url shortform"
         content: "main content"
         teaser: "teaser"
         ancestry: "ancestry"
         startpage: "startpage"
         active: "online"
+        active_since: "active since"
         subtitle: "subtitle"
         summary: "summary"
         context_info: "sidebare content"
         canonical_url: "url for search engines"
         robots_no_index: "do not list in search engines"
-        breadcrumb: "breadcrumb"
+        breadcrumb: "breadcrumb title"
         template_file: "layout file"
         enable_social_sharing: "show social media buttons"
         cacheable: "cacheable"
         external_url_redirect: "redirect to external url"
         created_at: "created at"
         updated_at: "updated at"
+        tag_list: "List of tags"
+        frontend_tag_list: "Filters"
       goldencobra/upload:
         source: "source"
         created_at: "created at"
@@ -220,6 +227,9 @@ en:
         alternative_content: "Content for offline widget"
         alternative_content_hint: "This content will be shown, when widget is offline"
   goldencobra:
+    article_field_hints:
+      title: "Title/Headline of an article."
+      teaser: "Short description of this article. Also used in Goolge and Facebook"
     article_types:
       Chairman: "Vorstand"
       Subsidiary: "Niederlassungen"
