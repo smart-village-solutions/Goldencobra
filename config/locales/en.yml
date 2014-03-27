@@ -275,6 +275,9 @@ en:
       list: "list"
       create: "create"
   active_admin:
+    dashboard_latest_articles: "Latest articles"
+    dashboard_new_article: "Create new article"
+    dashboard_latest_widgets: "Latest widgets"
     articles:
       tag-select-placeholder: "Select tag"
       now_offline: "This article is now offline"
@@ -284,7 +287,7 @@ en:
       article: "Article"
     menue:
       settings: "Settings"
-    dashboard: Dashboard
+    dashboard: "Dashboard"
     dashboard_welcome:
       welcome: "Welcome to Active Admin. This is the default dashboard page."
       call_to_action: "To add dashboard sections, checkout 'app/admin/dashboards.rb'"
