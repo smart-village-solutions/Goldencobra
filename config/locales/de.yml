@@ -15,6 +15,8 @@ de:
     article_field_hints:
       title: "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
       teaser: "Dieser Text beschreibt den Artikel auf Übersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt"
+      summary: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt"
+      active: "Soll dieser Artikel im System aktiv und online sichtbar sein?"
     flash_notice:
       name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
       action_Startpage: "Diesen Artikel als Startseite einrichten"
