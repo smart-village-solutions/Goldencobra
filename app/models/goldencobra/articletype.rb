@@ -15,29 +15,29 @@ module Goldencobra
         :content => %{<% f.input :content, :input_html => { :class => "tinymce" } %>},
         :teaser => %{<% f.input :teaser, :hint => I18n.t("goldencobra.article_field_hints.teaser"), :input_html => { :rows => 5 } %>},
         :summary => %{<% f.input :summary, :hint => I18n.t("goldencobra.article_field_hints.summary"), :input_html => { :rows => 5 } %>},
-        :tag_list => %{<% f.input :tag_list, :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst", :wrapper_html => { class: 'expert' } %>},
-        :frontend_tag_list => %{<% f.input :frontend_tag_list, hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten.", :wrapper_html => { class: 'expert' } %>},
+        :tag_list => %{<% f.input :tag_list, :hint => I18n.t("goldencobra.article_field_hints.tag_list"), :wrapper_html => { class: 'expert' } %>},
+        :frontend_tag_list => %{<% f.input :frontend_tag_list, hint: I18n.t("goldencobra.article_field_hints.frontend_tag_list"), :wrapper_html => { class: 'expert' } %>},
         :active => %{<% f.input :active, :hint => I18n.t("goldencobra.article_field_hints.active"), :wrapper_html => { class: 'expert' } %>},
-        :active_since => %{<% f.input :active_since, :hint => "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35", as: :string, :input_html => { class: "", :size => "20" }, :wrapper_html => { class: 'expert' } %>},
-        :context_info => %{<% f.input :context_info, :input_html => { :class => "tinymce" }, :hint => "Dieser Text ist f&uuml;r eine Sidebar gedacht" %>},
+        :active_since => %{<% f.input :active_since, :hint => I18n.t("goldencobra.article_field_hints.active_since"), as: :string, :input_html => { class: "", :size => "20" }, :wrapper_html => { class: 'expert' } %>},
+        :context_info => %{<% f.input :context_info, :input_html => { :class => "tinymce" }, :hint => I18n.t("goldencobra.article_field_hints.context_info") %>},
         :metatags => %{<% f.has_many :metatags do |m|
-          m.input :name, :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen"
+          m.input :name, :as => :select, :collection => Goldencobra::Article::MetatagNames, :input_html => { :class => 'metatag_names'}, :hint => I18n.t("goldencobra.article_field_hints.metatags_name")
           m.input :value, :input_html => { :class => 'metatag_values'}
-          m.input :_destroy, :label => "entfernen/zurücksetzen", :hint => "hiermit werden die Werte entfernt bzw. auf ihren Ursprung zurückgesetzt", :as => :boolean
+          m.input :_destroy, :label => "entfernen/zurücksetzen", :hint => I18n.t("goldencobra.article_field_hints.metatags_destroy"), :as => :boolean
         end %>},
-        :breadcrumb => %{<% f.input :breadcrumb, :hint => "Kurzer Titel f&uuml;r die Breadcrumb-Navigation" %>},
-        :url_name => %{<% f.input :url_name, :hint => "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein.", required: false %>},
-        :parent_id => %{<% f.input :parent_id, :hint => "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel", :as => :select, :collection => Goldencobra::Article.all.map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' } %>},
-        :canonical_url => %{<% f.input :canonical_url, :hint => "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden" %>},
-        :enable_social_sharing => %{<% f.input :enable_social_sharing, :hint => "Sollen Besucher Aktionen angezeigt bekommen, um diesen Artikel in den sozialen Netzwerken zu verbreiten?" %>},
-        :robots_no_index => %{<% f.input :robots_no_index, :hint => "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren" %>},
-        :cacheable => %{<% f.input :cacheable, :as => :boolean, :hint => "Dieser Artikel darf im Cache liegen" %>},
-        :commentable => %{<% f.input :commentable, :as => :boolean, :hint => "Kommentarfunktion für diesen Artikel aktivieren?" %>},
+        :breadcrumb => %{<% f.input :breadcrumb, :hint => I18n.t("goldencobra.article_field_hints.breadcrumb") %>},
+        :url_name => %{<% f.input :url_name, :hint => I18n.t("goldencobra.article_field_hints.url_name"), required: false %>},
+        :parent_id => %{<% f.input :parent_id, :hint => I18n.t("goldencobra.article_field_hints.parent_id"), :as => :select, :collection => Goldencobra::Article.all.map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' } %>},
+        :canonical_url => %{<% f.input :canonical_url, :hint => I18n.t("goldencobra.article_field_hints.canonical_url") %>},
+        :enable_social_sharing => %{<% f.input :enable_social_sharing, :hint => I18n.t("goldencobra.article_field_hints.enable_social_sharing") %>},
+        :robots_no_index => %{<% f.input :robots_no_index, :hint => I18n.t("goldencobra.article_field_hints.robots_no_index") %>},
+        :cacheable => %{<% f.input :cacheable, :as => :boolean, :hint => I18n.t("goldencobra.article_field_hints.cacheable") %>},
+        :commentable => %{<% f.input :commentable, :as => :boolean, :hint => I18n.t("goldencobra.article_field_hints.commentable") %>},
         :dynamic_redirection => %{<% f.input :dynamic_redirection, :as => :select, :collection => Goldencobra::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, :include_blank => false %>},
         :external_url_redirect => %{<% f.input :external_url_redirect %>},
         :redirect_link_title => %{<% f.input :redirect_link_title %>},
         :redirection_target_in_new_window => %{<% f.input :redirection_target_in_new_window %>},
-        :author => %{<% f.input :author, :hint => "Wer ist der Verfasser dieses Artikels?" %>},
+        :author => %{<% f.input :author, :hint => I18n.t("goldencobra.article_field_hints.author") %>},
         :permissions => %{<% f.has_many :permissions do |p|
           p.input :role, :include_blank => "Alle"
           p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
