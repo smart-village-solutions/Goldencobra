@@ -34,6 +34,7 @@ de:
       filter_parent: "Elternelement"
       filter_type: "Artikeltyp"
     menue:
+      preview_article: 'Vorschau zu diesem Artikel anzeigen'
       menue: "Menü"
       name: "Name"
       list: "auflisten"

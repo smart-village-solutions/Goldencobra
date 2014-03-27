@@ -106,11 +106,11 @@ en:
         one: "Setting"
         other: "Settings"
       menue:
-        one: "Menue"
-        other: "Menues"
+        one: "Menu"
+        other: "Menus"
       goldencobra/menue:
-        one: "Menue"
-        other: "Menues"
+        one: "Menu"
+        other: "Menus"
       metag:
         one: "Metatag"
         other: "Metatags"
@@ -289,6 +289,7 @@ en:
       filter_parent: "parent"
       filter_type: "article type"
     menue:
+      preview_article: 'Preview'
       menue: "Menue"
       name: "name"
       list: "list"
