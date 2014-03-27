@@ -329,7 +329,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   action_item :only => :edit do
-    link_to('Vorschau zu diesem Artikel anzeigen', resource.public_url, :target => "_blank")
+    link_to(I18n.t("goldencobra.menue.preview_article"), resource.public_url, :target => "_blank")
   end
 
   action_item :only => :edit, :inner_html => {:class => "expert"} do
