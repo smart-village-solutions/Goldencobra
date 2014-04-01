@@ -7,7 +7,7 @@ module Goldencobra
 
         respond_to :text
 
-        # /api/v3/locale_string
+        # /api/v2/locale_string
         # ---------------------------------------------------------------------------------------
         def get_string
           # check if we have the argument
