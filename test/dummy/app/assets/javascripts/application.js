@@ -15,7 +15,7 @@ $(function() {
   $('#get-locale').click(function(e) {
     e.preventDefault();
     $.ajax({
-      type      : 'POST',
+      type      : 'GET',
       url       : '/api/v2/locale_string',
       data      : {'locale_key': 'test.ajax'},
       success   : function(data) {

@@ -26,7 +26,7 @@ Goldencobra::Engine.routes.draw do
 
     namespace "v2" do
       get '/articles/search' => 'articles#search'
-      post '/locale_string' => 'locales#get_string'
+      get '/locale_string' => 'locales#get_string'
     end
   end
 
