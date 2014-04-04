@@ -10,3 +10,20 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+
+$(function() {
+  $('#get-locale').click(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type      : 'GET',
+      url       : '/api/v2/locale_string',
+      data      : {'locale_key': 'test.ajax'},
+      success   : function(data) {
+        // output return in div
+        $('#locale-container').text(data);
+        // call origin link href after ajax
+        //window.location.href = linkTo;
+      }
+    });
+  });
+});
