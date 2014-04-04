@@ -181,7 +181,7 @@ $(function() {
 
   $('div#overview_sidebar div.title a').trigger("click");
 
-  $("#main_content form input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
+  $("#main_content form:not(.without_short_key) input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
   key('⌘+s, ctrl+s', function() {
   	$("#main_content form input:submit").trigger("click");
   	return false;
