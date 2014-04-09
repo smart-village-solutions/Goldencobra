@@ -143,7 +143,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
   end
 
   member_action :revert do
-    @version = Version.find(params[:id])
+    @version = PaperTrail::Version.find(params[:id])
     if @version.reify
       @version.reify.save!
     else
