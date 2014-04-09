@@ -111,7 +111,7 @@ $(function() {
   $("div.overview-sidebar div.folder").trigger("click");
 
   //Add Button Background Jobs zu Settings
-	$('#einstellungen ul').append("<li><a href='/admin/background'>Background Jobs</a></li>")
+	//$('#einstellungen ul').append("<li><a href='/admin/background'>Background Jobs</a></li>")
 
 	$('.metadescription_hint').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
