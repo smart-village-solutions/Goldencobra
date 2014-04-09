@@ -1,5 +1,5 @@
 V1.4.1
-  - ArticleWorkerCache deaktiviert, recreate chache funktioniert wieder, wenn nun auch nicht mehr asynchron
+  - ArticleWorkerCache funktioniert wieder, recreate chache funktioniert wieder, Cleanup alter versionen funktioniert wieder
 
 V1.4.0
   - Artikeltypen sind nun Models mit optionalen Defaultparametern fuer alle neuen Artikel und bietet die Moeglichkeit Settings festzulegen fuer alle Artkeltypen hinweg GC-9
