@@ -37,7 +37,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       f.actions
 
       #Render alle Feldgruppen und Felder mit Position "first"
-      if f.object.articletype
+      if f.object.articletype.present?
        f.object.articletype.fieldgroups.where(:position => "first_block").each do |atg|
          f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
            atg.fields.each do |atgf|
@@ -84,7 +84,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       end
 
       #Render alle Feldgruppen und Felder mit Position "last"
-      if f.object.articletype
+      if f.object.articletype.present?
        f.object.articletype.fieldgroups.where(:position => "last_block").each do |atg|
          f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
            atg.fields.each do |atgf|

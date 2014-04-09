@@ -654,12 +654,14 @@ module Goldencobra
     end
 
     def self.recreate_cache
-      if RUBY_VERSION.include?("1.9.")
-        ArticlesCacheWorker.perform_async()
-      else
-        Goldencobra::Article.active.each do |article|
-          article.updated_at = Time.now
-          article.without_versioning :save
+      Goldencobra::Article.active.each do |article|
+        article.updated_at = Time.now
+        article.without_versioning :save
+      end
+      if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+        if Goldencobra::Setting.for_key("goldencobra.remove_old_versions.active") == "true"
+          weekcount = Goldencobra::Setting.for_key("goldencobra.remove_old_versions.weeks").to_i
+          Version.delete_all ["created_at < ?", weekcount.weeks.ago]
         end
       end
     end
