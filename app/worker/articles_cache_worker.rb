@@ -14,7 +14,7 @@ class ArticlesCacheWorker
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.remove_old_versions.active") == "true"
         weekcount = Goldencobra::Setting.for_key("goldencobra.remove_old_versions.weeks").to_i
-        Version.delete_all ["created_at < ?", weekcount.weeks.ago]
+        PaperTrail::Version.delete_all ["created_at < ?", weekcount.weeks.ago]
       end
     end
   end
