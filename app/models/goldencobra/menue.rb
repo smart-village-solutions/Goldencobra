@@ -61,7 +61,7 @@ module Goldencobra
 
     def is_active?(request)
       @is_active_result ||= {}
-      @is_active_result[request.path.squeeze("/").split("?")[0]] ||= request.path.squeeze("/").split("?")[0] == self.target.gsub("\"",'')
+      @is_active_result[request.path.squeeze("/").split("?")[0]] ||= request.path.squeeze("/").chomp("/").split("?")[0] == self.target.gsub("\"",'')
     end
 
     def has_active_child?(request, subtree_menues)
