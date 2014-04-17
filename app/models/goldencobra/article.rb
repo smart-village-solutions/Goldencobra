@@ -173,7 +173,9 @@ module Goldencobra
       av.request["format"] = "text/html"
       av.controller = Goldencobra::ArticlesController.new
       av.controller.request = av.request
-      av.params.merge!(localparams[:params])
+      if localparams.present? && localparams[:params].present?
+        av.params.merge!(localparams[:params])
+      end
       av.assign({:article => self})
       html_to_render = av.render(template: "/goldencobra/articles/show.html.erb", :layout => "layouts/#{layoutfile}", :locals => localparams, :content_type => "text/html" )
       return html_to_render
