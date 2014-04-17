@@ -90,8 +90,12 @@ module Goldencobra
         #Wenn format email, dann gibt es keinen realen webseit besucher
         ability = Ability.new()
       else
-        operator = current_user || current_visitor
-        ability = Ability.new(operator)
+        if !defined?(current_user).nil? || !defined?(current_visitor).nil?
+          operator = current_user || current_visitor
+          ability = Ability.new(operator)
+        else
+          ability = Ability.new()
+        end
       end
       if @article
         widgets = @article.widgets.active
