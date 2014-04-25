@@ -1,9 +1,8 @@
 #Encoding: UTF-8
-
-ActiveAdmin.register Goldencobra::Article, :as => "Article" do
-  menu :priority => 1, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Article)}
+ActiveAdmin.register Goldencobra::Article, :as => "Article" do 
+  menu :priority => 1, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Article)} 
   controller.authorize_resource :class => Goldencobra::Article
-  unless Rails.env == "test"
+  unless Rails.env == "test" 
     I18n.locale = :de
     I18n.default_locale = :de
   end
@@ -21,6 +20,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => "Erstellt")
   filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => "Bearbeitet")
 
+
   scope "Alle", :scoped, :default => true
   scope "Online", :active
   scope "Offline", :inactive
@@ -35,7 +35,6 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
       render :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f}
     else
       f.actions
-
       #Render alle Feldgruppen und Felder mit Position "first"
       if f.object.articletype.present?
        f.object.articletype.fieldgroups.where(:position => "first_block").each do |atg|
@@ -55,7 +54,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_show.html.erb")
           render :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show", :locals => {:f => f}
         else
-          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show" do
+          f.inputs I18n.t('active_admin.articles.error.partial_missing') do
           end
         end
 
@@ -72,7 +71,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_index.html.erb")
           render :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index", :locals => {:f => f}
         else
-          f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index" do
+          f.inputs I18n.t('active_admin.articles.error.partial_missing2') do
           end
         end
         Rails::Application::Railties.engines.select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
@@ -145,7 +144,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   action_item :only => [:index] do
-    link_to('SEO-Ansicht', admin_seo_articles_path())
+    link_to(I18n.t('active_admin.articles.sidebar.seo_link'), admin_seo_articles_path())
   end
 
   sidebar :overview, only: [:index] do
@@ -178,13 +177,13 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
 
   sidebar :menue_options, :only => [:show, :edit] do
     if resource.linked_menues.count > 0
-      h5 "Es existieren bereits passende Menüpunkte zu diesem Artikel"
-      div link_to("Sie können diese hier auflisten", admin_menues_path("q[target_contains]" => resource.public_url))
+      h5 I18n.t('active_admin.articles.sidebar.h5')
+      div link_to(I18n.t('active_admin.articles.sidebar.div_link'), admin_menues_path("q[target_contains]" => resource.public_url))
       div "oder"
-      div link_to("einen weiteren Menüpunkt erstellen", new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
+      div link_to(I18n.t('active_admin.articles.sidebar.div_link1'), new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
     else
-      h5 "Es existiert noch kein Menüpunkt zu diesem Artikel"
-      div link_to("Einen passenden Menüpunkt erstellen", new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
+      h5 'active_admin.articles.sidebar.h5'
+      div link_to(I18n.t('active_admin.articles.sidebar.div_link2'), new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
     end
 
     articles = Goldencobra::Article.active.where(:url_name => resource.url_name)
@@ -193,7 +192,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     end
 
     if results && results.count > 1
-      h5 "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , "anderen Artikel", "andere Artikel")  } mit dieser URL:", :class => "warning"
+      h5 I18n.t('active_admin.articles.sidebar.h5_achtung'), :class => "warning"
       ul do
         results.each do |r|
           next if r == resource
@@ -250,26 +249,26 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   member_action :update_widgets, :method => :post do
     article = Goldencobra::Article.find(params[:id])
     article.update_attributes(:widget_ids => params[:widget_ids])
-    redirect_to :action => :edit, :notice => "Widgets added"
+    redirect_to :action => :edit, :notice => I18n.t('active_admin.articles.member_action.flash.widgets')
   end
 
   member_action :run_link_checker do
     article = Goldencobra::Article.find(params[:id])
     system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake link_checker:article ID=#{article.id} &")
-    flash[:notice] = "Die Links dieses Artikels werden überprüft. Bitte warten Sie, dies kann wenige Minuten in Anspruch nehmen."
+    flash[:notice] = I18n.t('active_admin.articles.member_action.flash.link_checker')
     redirect_to :action => :edit
   end
 
-  batch_action :reset_cache, :confirm => "Cache leeren: sind Sie sicher?" do |selection|
+  batch_action :reset_cache, :confirm => I18n.t('active_admin.articles.batch_action.cache') do |selection|
     Goldencobra::Article.find(selection).each do |article|
       article.updated_at = Time.now
       article.without_versioning :save
     end
-    flash[:notice] = "Cache wurde erneuert"
+    flash[:notice] = I18n.t('active_admin.articles.batch_action.flash.cache')
     redirect_to :action => :index
   end
 
-  batch_action :set_article_online, :confirm => "Artikel online stellen: sind Sie sicher?" do |selection|
+  batch_action :set_article_online, :confirm => I18n.t('active_admin.articles.batch_action.confirm_online') do |selection|
     Goldencobra::Article.find(selection).each do |article|
       article.active = true
       article.save
@@ -278,7 +277,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     redirect_to :action => :index
   end
 
-  batch_action :set_article_offline, :confirm => "Artikel offline stellen: sind Sie sicher?" do |selection|
+  batch_action :set_article_offline, :confirm => I18n.t('active_admin.articles.batch_action.confirm_offline')  do |selection|
     Goldencobra::Article.find(selection).each do |article|
       article.active = false
       article.save
@@ -320,7 +319,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
     else
       @version.item.destroy
     end
-    redirect_to :back, :notice => "Undid #{@version.event}"
+    redirect_to :back, :notice => I18n.t('active_admin.settings.notice.undid_event')
   end
 
 
@@ -333,17 +332,17 @@ ActiveAdmin.register Goldencobra::Article, :as => "Article" do
   end
 
   action_item :only => :edit, :inner_html => {:class => "expert"} do
-    link_to("Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}", toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
+    link_to(I18n.t('active_admin.articles.action_item.link_to.expert_modus'), toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
   end
 
   action_item :only => :index do
-    link_to("Import", new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
+    link_to(I18n.t('active_admin.articles.action_item.link_to.import'), new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
   end
 
 
   action_item :only => :edit do
     if resource.versions.last
-      link_to("Undo", revert_admin_article_path(:id => resource.versions.last), :class => "undo")
+      link_to(I18n.t('active_admin.articles.action_item.link_to.undo'), revert_admin_article_path(:id => resource.versions.last), :class => "undo")
     end
   end
 
