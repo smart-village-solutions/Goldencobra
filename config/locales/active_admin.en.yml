@@ -1,0 +1,250 @@
+en:
+  goldencobra:
+    flash_notice:
+      name_of_flashnotice: "Do you REALLY want make this Article as Startpage?"
+      action_Startpage: "Make this article Startpage"
+      startpage: "This Article is the Startpage!"
+      online: "Change the visibility of the article?"
+      delete_article: "Realy want to delete this Article?"
+    filter:
+      filter_titel: "title"
+      filter_subtitel: "subtitle"
+      filter_breadcrumb: "breadcrumb"
+      filter_url: "url"
+      filter_template: "template file"
+      filter_created: "creted at"
+      filter_updated: "updated at"
+      filter_parent: "parent"
+      filter_type: "article type"
+    menue:
+      menue: "Menue"
+      name: "name"
+      list: "list"
+      create: "create"
+  active_admin:
+    dashboard: Dashboard
+    dashboard_welcome:
+      welcome: "Welcome to Active Admin. This is the default dashboard page."
+      call_to_action: "To add dashboard sections, checkout 'app/admin/dashboards.rb'"
+    view: "View"
+    edit: "Edit"
+    delete: "Delete"
+    delete_confirmation: "Are you sure you want to delete this?"
+    new_model: "New %{model}"
+    create_model: "New %{model}"
+    edit_model: "Edit %{model}"
+    update_model: "Edit %{model}"
+    delete_model: "Delete %{model}"
+    details: "%{model} Details"
+    cancel: "Cancel"
+    empty: "Empty"
+    previous: "Previous"
+    next: "Next"
+    download: "Download:"
+    has_many_new: "Add New %{model}"
+    has_many_delete: "Delete"
+    filter: "Filter"
+    clear_filters: "Clear Filters"
+    search_field: "Search %{field}"
+    equal_to: "Equal To"
+    greater_than: "Greater Than"
+    less_than: "Less Than"
+    main_content: "Please implement %{model}#main_content to display content."
+    logout: "Logout"
+    sidebars:
+      submit_widget: "Save Widgets"
+      submit_layout: "allocate Layout"
+      widgets_options: "Widget Options"
+      overview: "Overview"
+      startpage_options: "Startpage Options"
+      layout: "Layout"
+      image_formates: "Image Formates"
+      image_module: "Image Module"
+      filters: "Filters"
+    per_page: "Items per page"
+    pagination:
+      empty: "No %{model} found"
+      one: "Displaying <b>1</b> %{model}"
+      one_page: "Displaying <b>all %{n}</b> %{model}"
+      multiple: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{total}</b> in total"
+      entry:
+        one: "entry"
+        other: "entries"
+    any: "Any"
+    blank_slate:
+      content: "There are no %{resource_name} yet."
+      link: "Create one"
+    batch_actions:
+      button_label: "Batch Actions"
+      delete_confirmation: "Are you sure you want to delete these %{plural_model}? You won't be able to undo this."
+      succesfully_destroyed:
+        one: "Successfully destroyed 1 %{model}"
+        other: "Successfully destroyed %{count} %{plural_model}"
+      selection_toggle_explanation: "(Toggle Selection)"
+      link: "Create one"
+      action_label: "%{title} Selected"
+      labels:
+        set_article_online: "Artikel online stellen"
+        set_article_offline: "Artikel offline stellen"
+        reset_cache: "reset cache"
+        send_default_conf_mails: "Send confirmation mails"
+        destroy: "Delete"
+    comments:
+      body: "Body"
+      author: "Author"
+      title: "Comment"
+      add: "Add Comment"
+      resource: "Resource"
+      no_comments_yet: "No comments yet."
+      title_content: "Comments (%{count})"
+      errors:
+        empty_text: "Comment wasn't saved, text was empty."
+    articles:
+      tag-select-placeholder: "Select tag"
+#-------------- Nina
+    settings:
+      form:
+        general: "Allgemein"
+      notice:
+        undid_event: " Undid %{@version.event}"
+    articles:
+      form:
+        general: "Allgemein"
+        title_label: "Titel"
+        label_hint: "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
+        content_label: "Haupt-Textfeld"
+        teaser_hint: "Dieser Text beschreibt den Artikel auf Übersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt"
+        tag_list_label: "Liste von internen Tags"
+        tag_list_hint: "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
+        frontent_tag_list_label:  "Filterkriterium"
+        frontent_tag_list_hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten."
+        active_label: "Aktiv?"
+        active_hint: "Soll dieser Artikel im System aktiv und online sichtbar sein?"
+        weiterer_inhalt: "Weiterer Inhalt"
+        subtitle_label: "Untertitel"
+        context_info_hint: "Dieser Text ist f&uuml;r eine Sidebar gedacht"
+        summary_label: "Zusammenfassung"
+        summary_hint: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt"
+        metadescriptions: "Metadescriptions"
+        name_label: "Art"
+        name_hint: "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen"
+        value_label: "Wert"
+        destroy_label: "Entfernen/Zurücksetzen"
+        destroy_hint: "Hiermit werden die Werte entfernt bzw. auf ihren Ursprung zurückgesetzt"
+        settings: "Einstellungen"
+        breadcrump_label: "Breadcrumb-Titel"
+        breadcrump_hint: "Kurzer Titel f&uuml;r die Breadcrumb-Navigation"
+        url_name_label: "Website-Adresse des Artikels"
+        url_name_hint: "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein."
+        parent_id_label: "Übergeordneter Artikel"
+        parent_id_hint: "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
+        canonical_url_label: "Canonical URL"
+        canonical_url_hint: "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
+        active_since_label: "Online seit"
+        active_since_hint: "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35"
+        enable_social_sharing_label: "'Social Sharing'-Aktionen anzeigen"
+        enable_social_sharing_hint: "Sollen Besucher Aktionen angezeigt bekommen, um diesen Artikel in den sozialen Netzwerken zu verbreiten?"
+        robots_no_index_label: "Artikel nicht durch Suchmaschinen finden lassen"
+        robots_no_index_hint: "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
+        cacheable_label: "Artikel cachebar"
+        cacheable_hint: "Dieser Artikel darf im Cache liegen"
+        commentable_label: "Artikel kommentierbar"
+        commentable_hint: "Kommentarfunktion für diesen Artikel aktivieren?"
+        dynamic_redirection_label: "Automatische Weiterleitung"
+        external_url_redirect_label: "Weiterleitung zu externer URL"
+        redirect_link_title_label: "Name des externen Links"
+        redirection_target_in_new_window_label: "Weiterleitung in neuem Fenster öffnen?"
+        author_label: "Autor"
+        author_hint: "Wer ist der Verfasser dieses Artikels?"
+        access_rights: "Zugriffsrechte"
+        role: "Alle"
+        media: "Medien"
+        JS_scripts: "JS-Scripts"
+      sidebar:
+        h5: "Es existieren bereits passende Menüpunkte zu diesem Artikel"
+        seo_link: 'SEO-Ansicht'
+        div_link: "Sie können diese hier auflisten"
+        div_link1: "einen weiteren Menüpunkt erstellen"
+        h5_1: "Es existiert noch kein Menüpunkt zu diesem Artikel"
+        div_link2: "Einen passenden Menüpunkt erstellen"
+        h5_achtung: "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , 'anderen Artikel', 'andere Artikel')  } mit dieser URL:"
+      member_action: 
+        flash:
+          article_online: "Dieser Artikel ist nun online"
+          article_offline: "Dieser Artikel ist nun offline"
+          widgets: "Widgets added"
+          link_checker: "Die Links dieses Artikels werden überprüft. Bitte warten Sie, dies kann wenige Minuten in Anspruch nehmen."
+      batch_action:
+        cache: "Cache leeren: sind Sie sicher?"
+        flash:
+          cache: "Cache wurde erneuert"
+          set_article_online: "Artikel wurden online gestellt"
+          set_article_offline: "Artikel wurden offline gestellt"
+        confirm_online: "Artikel online stellen: sind Sie sicher?"
+        confirm_offline: "Artikel offline stellen: sind Sie sicher?"
+      action_item:
+        link_to:
+          article_preview: 'Vorschau zu diesem Artikel anzeigen'
+          expert_modus: "Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}"
+          import: "Import"
+          undo: "Undo"
+      error:
+        partial_missing: "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show"
+        partial_missing2: "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index"
+    comments:
+        title: "bearbeiten"
+        title0: "loeschen"
+    dashboards:
+        article_section: "Neueste Artikel"
+        title1: "Vorschau des Artikels"
+        title2: "Artikel bearbeiten"
+        title3: "Neuen Unterartikel erstellen"
+        widget_section: "Neueste Schnipsel"
+        title4: "Schnipsel bearbeiten"
+        table:
+          link: "Neuen Artikel erstellen"
+    domains:
+      form:
+        hint: "Diese Domain wird als Hauptdomain eingerichtet, alle Canonical URLS haben diesen Prefix"
+    imports:
+      link_to:
+        start_import: "Starte Import"
+        edit: "Bearbeiten"
+        delete: "Loeschen"
+        allocation: "Zuweisungen"
+        edit_import: "Import Bearbeiten"
+      title:
+        start_import: "Starte Import"
+        edit: "Bearbeiten"
+        delete: "Loeschen"
+      form:
+        select_file: "Select File for #{f.object.target_model}"
+        upload: "Upload"
+        hint: "Aktuell ausgewählte Datei: #{u.object.try(:image_file_name)}"
+      flash:
+        member_action:
+          run: "Dieser Import wurde gestartet" 
+    linkcheck_articles:
+      link_to:
+        run: "Run LinkChecker"
+    menues:
+
+    permissions:
+
+    roles:
+
+    seo_articles:
+
+    supports:
+
+    trackings:
+
+    translations:
+
+    uploads:
+
+    users:
+
+    visitors:
+
+    widgets:
