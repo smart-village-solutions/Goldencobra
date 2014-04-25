@@ -9,7 +9,7 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-   section "Latest Articles", priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
+   section I18n.t('active_admin.dashboard.section'), priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
     table do
       tr do
         [I18n.t("activerecord.attributes.goldencobra/article.title"), I18n.t("activerecord.attributes.goldencobra/article.created_at"), ""].each do |sa|
@@ -21,9 +21,9 @@ ActiveAdmin::Dashboards.build do
         tr do
           td article.title
           td l(article.created_at, format: :short)
-          result = link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => "Vorschau des Artikels", :target => "_blank")
-          result += link_to(t(:edit), admin_article_path(article), :class => "member_link edit_link edit", :title => "Artikel bearbeiten")
-          result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => "Neuen Unterartikel erstellen")
+          result = link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => I18n.t('active_admin.dashboard.title1'), :target => "_blank")
+          result += link_to(t(:edit), admin_article_path(article), :class => "member_link edit_link edit", :title => I18n.t('active_admin.dashboard.title2'))
+          result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.dashboard.title3'))
           td result
         end
       end
@@ -31,12 +31,12 @@ ActiveAdmin::Dashboards.build do
 
     table do
       tr do
-        td link_to(I18n.t("active_admin.dashboard_new_article"), admin_article_path("new"))
+        td link_to(I18n.t('active_admin.dashboard.table.link'), admin_article_path("new"))
       end
     end
    end
 
-   section "Latest Widgets", priority: 2, :if => proc{can?(:update, Goldencobra::Widget)} do
+   section I18n.t('active_admin.dashboard.widget_section'), priority: 2, :if => proc{can?(:update, Goldencobra::Widget)} do
     table do
       tr do
         [I18n.t("activerecord.attributes.goldencobra/widget.title"), I18n.t("activerecord.attributes.goldencobra/widget.created_at"), ""].each do |sa|
@@ -48,7 +48,7 @@ ActiveAdmin::Dashboards.build do
         tr do
           td widget.title
           td l(widget.created_at, format: :short)
-          td link_to(t(:edit), admin_widget_path(widget), :class => "member_link edit_link edit", :title => "Schnipsel bearbeiten")
+          td link_to(t(:edit), admin_widget_path(widget), :class => "member_link edit_link edit", :title => I18n.t('active_admin.dashboard.title4'))
         end
       end
     end

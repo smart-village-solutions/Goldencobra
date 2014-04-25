@@ -31,8 +31,8 @@ ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
     end
     column "" do |comment|
       result = ""
-      result += link_to(t(:edit), "/admin/article_comments/#{comment.id}/edit", :class => "member_link edit_link edit", :title => "bearbeiten")
-      result += link_to(t(:delete), admin_comment_path(comment.id), :method => :DELETE, :confirm => "Kommentar löschen?", :class => "member_link delete_link delete", :title => "loeschen")
+      result += link_to(t(:edit), "/admin/article_comments/#{comment.id}/edit", :class => "member_link edit_link edit", :title => I18n.t('active_admin.comments.title'))
+      result += link_to(t(:delete), admin_comment_path(comment.id), :method => :DELETE, :confirm => "Kommentar löschen?", :class => "member_link delete_link delete", :title => I18n.t('active_admin.comments.title0'))
       raw(result)
     end
   end

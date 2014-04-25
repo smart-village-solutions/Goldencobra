@@ -12,7 +12,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
-    f.inputs "Allgemein" do
+    f.inputs I18n.t('active_admin.settings.form.general')  do
       f.input :title, :input_html => {:disabled => "disabled"}
       f.input :value
       f.input :data_type, :as => :select, :collection => Goldencobra::Setting::SettingsDataTypes, :include_blank => false
@@ -49,7 +49,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     else
       @version.item.destroy
     end
-    redirect_to :back, :notice => "Undid #{@version.event}"
+    redirect_to :back, :notice => I18n.t('active_admin.settings.notice.undid_event')
   end
 
   action_item :only => :edit do
