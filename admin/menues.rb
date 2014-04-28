@@ -19,14 +19,14 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :target, :label => I18n.t('active_admin.menues.form.generals.target'), :hint => I18n.t('active_admin.menues.form.generals.target_hint')
       f.input :parent_id, :label => I18n.t('active_admin.menues.form.generals.parent_id'), :hint => I18n.t('active_admin.menues.form.generals.parent_id_hint'), :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
     end
-    f.inputs "Optionen", :class => "foldable closed inputs" do
-      f.input :sorter, :label => "Sortiernummer", :hint => "Nach dieser Nummer wird innerhalb des Menüs sortiert, je höher, desto weiter unten in der Reihenfolge"
-      check_box_tag "hidden", :label => "Sichtbar?", :hint => "Soll dieser Menüpunkt auf der Seite sichtbar sein?"
-      f.input :css_class, :label => "CSS Klassen", :hint => "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
-      f.input :active, :label => "Aktiv?", :hint => "Soll dieser Menüpunkt im System aktiv und online sichtbar sein?"
-      f.input :remote, :label => "Remote?", :hint => "Soll dieser Menüpunkt per Ajax abgesendet werden?"
+    f.inputs I18n.t('active_admin.menues.form.options.option'), :class => "foldable closed inputs" do
+      f.input :sorter, :label => I18n.t('active_admin.menues.form.options.sorter_label'), :hint => I18n.t('active_admin.menues.form.options.sorter_hint')
+      check_box_tag "hidden", :label => I18n.t('active_admin.menues.form.options.checkbox_label'), :hint => I18n.t('active_admin.menues.form.options.checkbox_hint')
+      f.input :css_class, :label => I18n.t('active_admin.menues.form.options.css_class_label'), :hint => I18n.t('active_admin.menues.form.options.css_class_hint')
+      f.input :active, :label => I18n.t('active_admin.menues.form.options.active_label'), :hint => I18n.t('active_admin.menues.form.options.aktiv_hint')
+      f.input :remote, :label => I18n.t('active_admin.menues.form.options.remote_label'), :hint => I18n.t('active_admin.menues.form.options.remote_hint')
     end
-    f.inputs "Zugriffsrechte", :class => "foldable closed inputs" do
+    f.inputs I18n.t('active_admin.menues.form.access_rights'), :class => "foldable closed inputs" do
       f.has_many :permissions do |p|
         p.input :role, :include_blank => "Alle"
         p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
