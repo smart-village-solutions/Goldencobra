@@ -239,6 +239,38 @@ de:
       link_to:
         run: "Run LinkChecker"
     menues:
+      labels:
+        title: "Titel"
+        target: "Ziel"
+        css_class: "CSS Klasses"
+        sorter: "Sortiernummer"
+      form:
+        generals:
+          general: "Allgemein"
+          title: "Titel"
+          title_hint: "Titel des Menüpunktes, der auf der Seite erscheint"
+          target: "Ziel"
+          target_hint: "Wohin soll der Menüpunkt führen? Wenn der Punkt zu 'http://meine-seite.de/mein-artikel' führen soll, tragen Sie hier 'mein-artikel' ein. Sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten"
+          parent_id: "Übergeordneter Menüpunkt"
+          parent_id_hint: "Unter welchem Menüpunkt soll der aktuelle Punkt erscheinen?"
+        options:
+          option: "Optionen"
+          sorter_label: "Sortiernummer"
+          sorter_hint: "Nach dieser Nummer wird innerhalb des Menüs sortiert, je höher, desto weiter unten in der Reihenfolge"
+          checkbox_label: "Sichtbar?"
+          checkbox_hint: "Soll dieser Menüpunkt auf der Seite sichtbar sein?"
+          css_class_label: "CSS Klassen"
+          css_class_hint: "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
+          active_label:
+          active_hint:
+          remote_label:
+          remote_hint:
+
+
+        access_rights:
+
+        details:
+
 
     permissions:
 
@@ -262,7 +294,7 @@ de:
 
 
 
-                #I18n.t('active_admin.linkcheck_articles.link_to.run')
+    #I18n.t('active_admin.menues.form')
 
          
 
