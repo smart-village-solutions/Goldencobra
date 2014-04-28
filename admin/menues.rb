@@ -4,20 +4,20 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Menue)}
   controller.authorize_resource :class => Goldencobra::Menue
 
-  filter :title, :label => "Titel"
-  filter :target, :label => "Ziel"
-  filter :css_class, :label => "CSS Klassen"
-  filter :sorter, :label => "Sortiernummer"
+  filter :title, :label => I18n.t('active_admin.menues.labels.title')
+  filter :target, :label => I18n.t('active_admin.menues.labels.target')
+  filter :css_class, :label => I18n.t('active_admin.menues.labels.css_class')
+  filter :sorter, :label => I18n.t('active_admin.menues.labels.sorter')
 
   scope "Aktiv", :active
   scope "Nicht aktiv", :inactive
 
   form do |f|
     f.actions
-    f.inputs "Allgemein" do
-      f.input :title, :label => "Titel", :hint => "Titel des Menüpunktes, der auf der Seite erscheint"
-      f.input :target, :label => "Ziel", :hint => "Wohin soll der Menüpunkt führen? Wenn der Punkt zu 'http://meine-seite.de/mein-artikel' führen soll, tragen Sie hier 'mein-artikel' ein. Sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten"
-      f.input :parent_id, :label => "Übergeordneter Menüpunkt", :hint => "Unter welchem Menüpunkt soll der aktuelle Punkt erscheinen?", :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
+    f.inputs I18n.t('active_admin.menues.form.generals.general') do
+      f.input :title, :label => I18n.t('active_admin.menues.form.generals.title'), :hint => I18n.t('active_admin.menues.form.generals.title_hint')
+      f.input :target, :label => I18n.t('active_admin.menues.form.generals.target'), :hint => I18n.t('active_admin.menues.form.generals.target_hint')
+      f.input :parent_id, :label => I18n.t('active_admin.menues.form.generals.parent_id'), :hint => I18n.t('active_admin.menues.form.generals.parent_id_hint'), :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
     end
     f.inputs "Optionen", :class => "foldable closed inputs" do
       f.input :sorter, :label => "Sortiernummer", :hint => "Nach dieser Nummer wird innerhalb des Menüs sortiert, je höher, desto weiter unten in der Reihenfolge"
