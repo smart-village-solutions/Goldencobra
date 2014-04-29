@@ -246,3 +246,11 @@ $(function() {
   });
 });
 
+/**
+ * optimize header menu bar
+ *
+ */
+$(function() {
+  $('#utility_nav').after('<div style="clear: both;"></div>');
+  $('#wrapper > #header').css('height', 'auto').css('min-width', '890px');
+});
