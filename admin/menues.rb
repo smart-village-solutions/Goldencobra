@@ -1,7 +1,8 @@
 #encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
-  menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Menue)}
+  menu :priority => 2, :parent => I18n.t('active_admin.menues.parent'), :label => I18n.t('active_admin.menues.menue'), :if => proc{can?(:update, Goldencobra::Menue)}
+
   controller.authorize_resource :class => Goldencobra::Menue
 
   filter :title, :label => I18n.t('active_admin.menues.labels.title')
@@ -28,45 +29,46 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     end
     f.inputs I18n.t('active_admin.menues.form.access_rights'), :class => "foldable closed inputs" do
       f.has_many :permissions do |p|
-        p.input :role, :include_blank => "Alle"
+        p.input :role, :include_blank => I18n.t('active_admin.menues.form.access.include_blank')
         p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
         p.input :_destroy, :as => :boolean
       end
     end
-    f.inputs "Details für ein erweitertes Menü", :class => "foldable closed inputs" do
-      f.input :image, :label => "Bild", :hint => "Bereits hochgeladenes Bild aus der Medienliste wählen", :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswählen' }
-      f.input :description_title, :label => "Titel", :hint => ""
-      f.input :description, :label => "Beschreibung", :hint => "", :input_html => { :rows => 5 }
-      f.input :call_to_action_name, :label => "Call-to-action Text", :hint => ""
+
+    f.inputs I18n.t('active_admin.menues.form.details'), :class => "foldable closed inputs" do
+      f.input :image, :label => I18n.t('active_admin.menues.form.image_label'), :hint => I18n.t('active_admin.menues.form.image_hint'), :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Bild auswählen' }
+      f.input :description_title, :label => I18n.t('active_admin.menues.form.details_description_title'), :hint => ""
+      f.input :description, :label => I18n.t('active_admin.menues.form.details_description_label'), :hint => "", :input_html => { :rows => 5 }
+      f.input :call_to_action_name, :label => I18n.t('active_admin.menues.form.details_description_call_to_action'), :hint => ""
     end
     f.actions
   end
 
   index do
     selectable_column
-    column "Titel", :title, :sortable => :title do |menue|
-      link_to(menue.title, edit_admin_menue_path(menue), :title => "Menüpunkt bearbeiten")
+    column I18n.t('active_admin.menues.form.index.column'), :title, :sortable => :title do |menue|
+      link_to(menue.title, edit_admin_menue_path(menue), :title => I18n.t('active_admin.menues.form.index.title'))
     end
-    column "Ziel", :target
-    column "Aktiv?", :active, :sortable => :active do |menue|
+    column I18n.t('active_admin.menues.form.index.column1'), :target
+    column I18n.t('active_admin.menues.form.index.column2'), :active, :sortable => :active do |menue|
       raw("<span class='#{menue.active ? 'online' : 'offline'}'>#{menue.active ? 'online' : 'offline'}</span>")
     end
-    column "Sortiernr", :sorter
-    column "Zugriff" do |menue|
+    column I18n.t('active_admin.menues.form.index.column3'), :sorter
+    column I18n.t('active_admin.menues.form.index.column4') do |menue|
       Goldencobra::Permission.restricted?(menue) ? raw("<span class='secured'>beschränkt</span>") : ""
     end
-    column "Artikel" do |menue|
+    column I18n.t('active_admin.menues.form.index.column5') do |menue|
       if menue.mapped_to_article?
-        link_to("search", admin_articles_path("q[url_name_contains]" => menue.target.to_s.split('/').last), :class => "list", :title => "Artikel auflisten")
+        link_to(I18n.t('active_admin.menues.form.index.search_link'), admin_articles_path("q[url_name_contains]" => menue.target.to_s.split('/').last), :class => "list", :title => I18n.t('active_admin.menues.form.index.search_title'))
       else
-        link_to("create one", new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.to_s.split('/').last}), :class => "create", :title => "Artikel passend zum Menüpunkt erzeugen")
+        link_to(I18n.t('active_admin.menues.form.index.search_link1'), new_admin_article_path(:article => {:title => menue.title, :url_name => menue.target.to_s.split('/').last}), :class => "create", :title => I18n.t('active_admin.menues.form.index.search_title1'))
       end
     end
     column "" do |menue|
       result = ""
-      result += link_to("Edit", edit_admin_menue_path(menue), :class => "member_link edit_link edit", :title => "Menüpunkt bearbeiten")
-      result += link_to("New Submenu", new_admin_menue_path(:parent => menue), :class => "member_link edit_link", :class => "new_subarticle", :title => "Neuen Untermenüpunkt erzeugen")
-      result += link_to("Delete", admin_menue_path(menue), :method => :DELETE, :confirm => "Realy want to delete this Menuitem?", :class => "member_link delete_link delete", :title => "Menüpunkt löschen")
+      result += link_to(I18n.t('active_admin.menues.form.column.edit'), edit_admin_menue_path(menue), :class => "member_link edit_link edit", :title => I18n.t('active_admin.menues.form.column.edit_title'))
+      result += link_to(I18n.t('active_admin.menues.form.column.submenu'), new_admin_menue_path(:parent => menue), :class => "member_link edit_link", :class => "new_subarticle", :title => I18n.t('active_admin.menues.form.column.submenu_title'))
+      result += link_to(I18n.t('active_admin.menues.form.column.delete'), admin_menue_path(menue), :method => :DELETE, :confirm => I18n.t('active_admin.menues.form.column.delete_confirm'), :class => "member_link delete_link delete", :title => I18n.t('active_admin.menues.form.column.delete_title'))
       raw(result)
     end
   end
@@ -81,21 +83,21 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
   #batch_action :destroy, false
 
-  batch_action :set_menue_offline, :confirm => "Menüpunkt offline stellen: sind Sie sicher?" do |selection|
+  batch_action :set_menue_offline, :confirm => I18n.t('active_admin.menues.form.column.batch_action.confirm') do |selection|
     Goldencobra::Menue.find(selection).each do |menue|
       menue.active = false
       menue.save
     end
-    flash[:notice] = "Menüpunkte wurden offline gestellt"
+    flash[:notice] = I18n.t('active_admin.menues.form.column.batch_action.flash')
     redirect_to :action => :index
   end
 
-  batch_action :set_menue_online, :confirm => "Menüpunkt offline stellen: sind Sie sicher?" do |selection|
+  batch_action :set_menue_online, :confirm => I18n.t('active_admin.menues.form.column.batch_action.confirm1') do |selection|
     Goldencobra::Menue.find(selection).each do |menue|
       menue.active = true
       menue.save
     end
-    flash[:notice] = "Menüpunkte wurden online gestellt"
+    flash[:notice] = I18n.t('active_admin.menues.form.column.batch_action.flash1')
     redirect_to :action => :index
   end
 
@@ -119,11 +121,11 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     redirect_to :back, :notice => "Undid #{@version.event}"
   end
 
-  batch_action :clone, :confirm => "Do you want to clone this menue" do |selection|
+  batch_action :clone, :confirm => I18n.t('active_admin.menues.form.batch_action.confirm_clone') do |selection|
     Goldencobra::Menue.find(selection).each do |menue|
       cloned_parent = Goldencobra::Menue.create(:title => "clone of: #{menue.title}", :target => menue.target, :css_class => menue.css_class, :active => menue.active, :parent_id => menue.parent_id, :sorter => menue.sorter, :description => menue.description, :call_to_action_name => menue.call_to_action_name, :description_title => menue.description_title, :image_id => menue.image_id)
     end
-    flash[:notice] = "Menue has been cloned"
+    flash[:notice] = I18n.t('active_admin.menues.form.batch_action.flash_clone')
     redirect_to :action => :index
   end
 
@@ -133,7 +135,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
 
   action_item :only => :edit do
     if resource.versions.last
-      link_to("Undo", revert_admin_menue_path(:id => resource.versions.last), :class => "undo")
+      link_to(I18n.t('active_admin.menues.form.action_item.link_to'), revert_admin_menue_path(:id => resource.versions.last), :class => "undo")
     end
   end
 
