@@ -114,11 +114,21 @@ de:
       tag-select-placeholder: "Tag wählen"
     #-------------- Nina
     settings:
+      as: "Setting"
+      scope: "Alle Settings"
+      action_item:
+        link: "Undo"
+        class: "undo"
       form:
         general: "Allgemein"
       notice:
-        undid_event: " Undid %{@version.event}"
+        undid_event: "Undid %{@version.event}"
     articles:
+      as: "Article"
+      parent: "Content-Management"
+      scope1: "Alle"
+      scope2: "Online"
+      scope3: "Offline"
       form:
         general: "Allgemein"
         title_label: "Titel"
@@ -199,21 +209,17 @@ de:
           expert_modus: "Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}"
           import: "Import"
           undo: "Undo"
-      error:
-        partial_missing: "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show"
-        partial_missing2: "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index"
     comments:
-        title: "bearbeiten"
-        title0: "loeschen"
+      title: "bearbeiten"
+      title0: "loeschen"
     dashboards:
-        article_section: "Neueste Artikel"
-        title1: "Vorschau des Artikels"
-        title2: "Artikel bearbeiten"
-        title3: "Neuen Unterartikel erstellen"
-        widget_section: "Neueste Schnipsel"
-        title4: "Schnipsel bearbeiten"
-        table:
-          link: "Neuen Artikel erstellen"
+      article_section: "Neueste Artikel"
+      title1: "Vorschau des Artikels"
+      title2: "Artikel bearbeiten"
+      title3: "Neuen Unterartikel erstellen"
+      widget_section: "Neueste Schnipsel"
+      title4: "Schnipsel bearbeiten"
+      new_link: "Neuen Artikel erstellen"
     domains:
       form:
         hint: "Diese Domain wird als Hauptdomain eingerichtet, alle Canonical URLS haben diesen Prefix"
@@ -239,6 +245,8 @@ de:
       link_to:
         run: "Run LinkChecker"
     menues:
+      menue: "Menus"
+      parent: "Content-Management"
       labels:
         title: "Titel"
         target: "Ziel"
@@ -254,6 +262,7 @@ de:
           parent_id: "Übergeordneter Menüpunkt"
           parent_id_hint: "Unter welchem Menüpunkt soll der aktuelle Punkt erscheinen?"
         options:
+          class: "foldable closed inputs"
           option: "Optionen"
           sorter_label: "Sortiernummer"
           sorter_hint: "Nach dieser Nummer wird innerhalb des Menüs sortiert, je höher, desto weiter unten in der Reihenfolge"
@@ -261,23 +270,109 @@ de:
           checkbox_hint: "Soll dieser Menüpunkt auf der Seite sichtbar sein?"
           css_class_label: "CSS Klassen"
           css_class_hint: "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
-          active_label:
-          active_hint:
-          remote_label:
-          remote_hint:
-
-
-        access_rights:
-
-        details:
-
-
+          active_label: "Aktiv?"
+          active_hint: "Soll dieser Menüpunkt im System aktiv und online sichtbar sein?"
+          remote_label: "Remote?"
+          remote_hint: "Soll dieser Menüpunkt per Ajax abgesendet werden?"
+        access:
+          access_rights: "Zugriffsrechte"
+          access_class: "foldable closed inputs"
+          include_blank: "Alle"
+        details: "Details für ein erweitertes Menü"
+        details_class: "foldable closed inputs"
+        image_label: "Bild"
+        image_hint: "Bereits hochgeladenes Bild aus der Medienliste wählen"
+        details_description_title: "Titel"
+        details_decription_label: "Beschreibung"
+        details_description_call_to_action: "Call-to-action Text"
+        index:
+          column: "Titel"
+          title: "Menüpunkt bearbeiten"
+          column1: "Ziel"
+          column2: "Aktiv?"
+          column3: "Sortieren"
+          column4: "Zugriff"
+          column5: "Artikel"
+          search_link: "search"
+          search_class: "list"
+          search_title: "Artikel auflisten"
+          search_link1: "create one"
+          search_class1: "create"
+          search_title1: "Artikel passend zum Menüpunkt erzeugen"
+        column:
+          edit: "Edit"
+          edit_class: "member_link edit_link edit"
+          edit_title: "Menüpunkt bearbeiten"
+          submenu: "New Submenu"
+          submenu_class: "member_link edit_link"
+          submenu_class1: "new_subarticle"
+          submenu_title: "Neuen Untermenüpunkt erzeugen"
+          delete: "Delete"
+          delete_confirm: "Realy want to delete this Menuitem?"
+          delete_class: "member_link delete_link delete"
+          delete_title: "Menüpunkt löschen"
+        sidebar:
+          link_name: "title"
+          url_path: "menue"
+          order_by: "title"
+        batch_action:
+          confirm: "Menüpunkt offline stellen: sind Sie sicher?"
+          flash: "Menüpunkte wurden offline gestellt"
+          confirm1: "Menüpunkt online stellen: sind Sie sicher?"
+          flash1: "Menüpunkte wurden online gestellt"
+          confirm_clone: "Do you want to clone this menue"
+          title_clone: "clone of: #{menue.title}"
+          flash_clone: "Menue has been cloned"
+        member_action:
+          notice: "Undid #{@version.event}"
+        action_item:
+          link_to: "Undo"
+          class: "undo"
     permissions:
-
-    roles:
-
+      as: "Permission"
+      scope: "Alle"
+      index:
+        column: "Role"
+        class: "member_link edit_link edit"
+        title_edit: "bearbeiten"
+        confirm: "Kommentar löschen?"
+        class: "member_link delete_link delete"
+        title_delete: "löschen"
+      form:
+        include_blank: 'Alle'
+      sidebar:
+        sidebar: "Sortierung / Gewichtung"
+        sidebar_info: "je Höher die Zahl desto wichtiger ist das Zugriffsrecht: <b>10 ist wichtiger als 1</b>. <br/> Ist zu einer Rolle ein Model nicht definiert, so beitzt diese Rolle standardmäßig alle Rechte an diesem Model"
+    roles: 
+      as: "Role"
     seo_articles:
+      as: "SEO-Article"
+      scope1: "Alle"
+      scope2: "online"
+      scope3: "offline"
+      scope4: "keine Title-Tags"
+      scope5: "keine Meta-Description"
+      index:
+        title_column: "Titel"
+        tag_column: "Title-Tag"
+        meta_column: "Meta Description"
+        search_column: "Suchmaschinen gesperrt"
+        search_column_yes: "Ja"
+        search_column_no: "Nein"
+        links_column: "Links"
+        active_online: "online"
+        active_offline: "offline"
+      column: 
+        title1: "Vorschau"
+        title2: "bearbeiten"
+        title3: "Neuer Unterartikel"
+        title4: "löschen"
+      collection_flash: "All Link will be checked. This could take a while"
+      action_link: "Link-Checker Index"
+      action_link1: "Run LinkChecker"
 
+
+#left to be internationalised:
     supports:
 
     trackings:
@@ -291,10 +386,3 @@ de:
     visitors:
 
     widgets:
-
-
-
-    #I18n.t('active_admin.menues.form')
-
-         
-
