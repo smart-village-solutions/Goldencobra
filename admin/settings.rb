@@ -1,10 +1,10 @@
 # encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
-  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :if => proc{can?(:update, Goldencobra::Setting)}
+  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.settings.as'), :if => proc{can?(:update, Goldencobra::Setting)}
 
   controller.authorize_resource :class => Goldencobra::Setting
-  scope "Alle Settings", :with_values, :default => true
+  scope I18n.t('active_admin.settings.scope'), :with_values, :default => true
   if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.count > 0
     Goldencobra::Setting.roots.each do |rs|
       scope(rs.title){ |t| t.parent_ids_in(rs.id).with_values }
@@ -54,7 +54,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
 
   action_item :only => :edit do
     if resource.versions.last
-      link_to("Undo", revert_admin_setting_path(:id => resource.versions.last), :class => "undo")
+      link_to(I18n.t('active_admin.settings.action_item.link'), revert_admin_setting_path(:id => resource.versions.last), :class => "undo")
     end
   end
   action_item only: [:edit, :show] do
