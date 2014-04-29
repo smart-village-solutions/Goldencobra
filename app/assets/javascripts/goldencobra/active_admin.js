@@ -252,5 +252,5 @@ $(function() {
  */
 $(function() {
   $('#utility_nav').after('<div style="clear: both;"></div>');
-  $('#wrapper > #header').css('height', 'auto').css('min-width', '890px');
+  $('#wrapper > #header').css('height', 'auto').css('min-width', '890px').css('filter', 'none');
 });
