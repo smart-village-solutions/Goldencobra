@@ -10,17 +10,17 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   #Alle Filteroptionen in der rechten Seitenleiste
-  filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => "Elternelement")
-  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|at| [I18n.t(at.parameterize.underscore.downcase, scope: [:goldencobra, :article_types], default: at), at]}.sort, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => "Artikeltyp")
-  filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter], :default => "Titel")
-  filter :frontend_tag_name, :as => :string, :label => I18n.t("frontend_tags", :scope => [:goldencobra, :filter], :default => "Filterkriterium")
-  filter :tag_name, :as => :string, :label => I18n.t("tags", :scope => [:goldencobra, :filter], :default => "Interne Tags")
+  filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default1'))
+  filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|at| [I18n.t(at.parameterize.underscore.downcase, scope: [:goldencobra, :article_types], default: at), at]}.sort, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default2'))
+  filter :title, :label => I18n.t("filter_titel", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default3'))
+  filter :frontend_tag_name, :as => :string, :label => I18n.t("frontend_tags", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default4'))
+  filter :tag_name, :as => :string, :label => I18n.t("tags", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default5'))
   #filter :subtitle, :label =>  I18n.t("filter_subtitel", :scope => [:goldencobra, :filter], :default => "Unteritel")
   #filter :breadcrumb, :label =>  I18n.t("filter_breadcrumb", :scope => [:goldencobra, :filter], :default => "Brotkruemel")
-  filter :url_name, :label =>  I18n.t("filter_url", :scope => [:goldencobra, :filter], :default => "Website")
+  filter :url_name, :label =>  I18n.t("filter_url", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default6'))
   #filter :template_file, :label =>  I18n.t("filter_template", :scope => [:goldencobra, :filter], :default => "Template Datei")
-  filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => "Erstellt")
-  filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => "Bearbeitet")
+  filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default7'))
+  filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default8'))
 
   scope I18n.t('active_admin.articles.scope1'), :scoped, :default => true
   scope I18n.t('active_admin.articles.scope2'), :active
@@ -114,20 +114,20 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   index do
     selectable_column
-    column "Website-Titel", :sortable => :url_name do |article|
+    column I18n.t('active_admin.articles.index.website_title'), :sortable => :url_name do |article|
       content_tag("span", link_to(truncate(article.url_name, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
-    column "Website-Adresse", :url do |article|
+    column I18n.t('active_admin.articles.index.website_url'), :url do |article|
       article.public_url
     end
-    column "Aktiv?", :active, :sortable => :active do |article|
+    column I18n.t('active_admin.articles.index.active'), :active, :sortable => :active do |article|
       link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", :confirm => I18n.t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
-    column "Artikeltyp", :article_type, sortable: :article_type do |article|
-      article.article_type.blank? ? "Standard" : I18n.t(article.article_type.parameterize.underscore.downcase, scope: [:goldencobra, :article_types])
+    column I18n.t('active_admin.articles.index.article_type'), :article_type, sortable: :article_type do |article|
+      article.article_type.blank? ? I18n.t('active_admin.articles.index.default') : I18n.t(article.article_type.parameterize.underscore.downcase, scope: [:goldencobra, :article_types])
     end
-    column "Zugriff" do |article|
-      Goldencobra::Permission.restricted?(article) ? raw("<span class='secured'>beschränkt</span>") : ""
+    column I18n.t('active_admin.articles.index.permission') do |article|
+      Goldencobra::Permission.restricted?(article) ? raw(I18n.t('active_admin.articles.index.restricted')) : ""
     end
     #column :created_at, sortable: :created_at do |article|
     #  l(article.created_at)
@@ -137,17 +137,17 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     #end
     column I18n.t("menue", :scope => [:goldencobra, :menue]) do |article|
       if article.linked_menues.count > 0
-        link_to(I18n.t("list", :scope => [:goldencobra, :menue]), admin_menues_path("q[target_contains]" => article.public_url), :class => "list", :title => "Menüpunkte auflisten")
+        link_to(I18n.t("list", :scope => [:goldencobra, :menue]), admin_menues_path("q[target_contains]" => article.public_url), :class => "list", :title => I18n.t('active_admin.articles.index.list_menu'))
       else
-        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.parsed_title, :target => article.public_url}), :class => "create", :title => "Menüpunkt zum Artikel erzeugen")
+        link_to(I18n.t("create", :scope => [:goldencobra, :menue]), new_admin_menue_path(:menue => {:title => article.parsed_title, :target => article.public_url}), :class => "create", :title => I18n.t('active_admin.articles.index.create_menu'))
       end
     end
     column "" do |article|
       result = ""
-      result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => "Vorschau des Artikels")
-      result += link_to(t(:edit), edit_admin_article_path(article.id), :class => "member_link edit_link edit", :title => "Artikel bearbeiten")
-      result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => "Neuen Unterartikel erstellen")
-      result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "Artikel löschen")
+      result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => I18n.t('active_admin.articles.index.article_preview'))
+      result += link_to(t(:edit), edit_admin_article_path(article.id), :class => "member_link edit_link edit", :title => I18n.t('active_admin.articles.index.article_edit'))
+      result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.articles.index.create_subarticle'))
+      result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.articles.index.delete_article'))
       raw(result)
     end
   end
