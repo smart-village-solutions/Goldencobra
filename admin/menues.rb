@@ -118,12 +118,12 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     else
       @version.item.destroy
     end
-    redirect_to :back, :notice => "Undid #{@version.event}"
+    redirect_to :back, :notice => "#{I18n.t('active_admin.menues.form.member_action.notice')} #{@version.event}"
   end
 
   batch_action :clone, :confirm => I18n.t('active_admin.menues.form.batch_action.confirm_clone') do |selection|
     Goldencobra::Menue.find(selection).each do |menue|
-      cloned_parent = Goldencobra::Menue.create(:title => "clone of: #{menue.title}", :target => menue.target, :css_class => menue.css_class, :active => menue.active, :parent_id => menue.parent_id, :sorter => menue.sorter, :description => menue.description, :call_to_action_name => menue.call_to_action_name, :description_title => menue.description_title, :image_id => menue.image_id)
+      cloned_parent = Goldencobra::Menue.create(:title => "#{I18n.t('active_admin.menues.form.batch_action.title_clone')} #{menue.title}", :target => menue.target, :css_class => menue.css_class, :active => menue.active, :parent_id => menue.parent_id, :sorter => menue.sorter, :description => menue.description, :call_to_action_name => menue.call_to_action_name, :description_title => menue.description_title, :image_id => menue.image_id)
     end
     flash[:notice] = I18n.t('active_admin.menues.form.batch_action.flash_clone')
     redirect_to :action => :index
