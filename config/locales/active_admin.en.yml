@@ -114,7 +114,7 @@ en:
       tag-select-placeholder: "Tag wählen"
     #-------------- Nina
     settings:
-      as: "Setting"
+      as: "Settings"
       scope: "Alle Settings"
       action_item:
         link: "Undo"
@@ -126,6 +126,15 @@ en:
     articles:
       as: "Article"
       parent: "Content-Management"
+      filter:
+        default1: "Elternelement"
+        default2: "Artikeltyp"
+        default3: "Titel"
+        default4: "Filterkriterium"
+        default5: "Interne Tags"
+        default6: "Website"
+        default7: "Erstellt"
+        default8: "Bearbeitet"
       scope1: "Alle"
       scope2: "Online"
       scope3: "Offline"
@@ -181,6 +190,20 @@ en:
         role: "Alle"
         media: "Medien"
         JS_scripts: "JS-Scripts"
+      index:
+        website_title: "Website-Titel"
+        website_url: "Website-Adresse"
+        active: "Aktiv?"
+        article_type: "Artikeltyp"
+        permission: "Zugriff"
+        default: "Standard"
+        restricted: "<span class='secured'>beschränkt</span>"
+        list_menu: "Menüpunkte auflisten"
+        create_menu: "Menüpunkt zum Artikel erzeugen"
+        article_preview: "Vorschau des Artikels"
+        article_edit: "Artikel bearbeiten"
+        create_subarticle: "Neuen Unterartikel erstellen"
+        delete_article: "Artikel löschen"
       sidebar:
         h5: "Es existieren bereits passende Menüpunkte zu diesem Artikel"
         seo_link: 'SEO-Ansicht'
@@ -210,8 +233,8 @@ en:
           import: "Import"
           undo: "Undo"
     comments:
-      title: "bearbeiten"
-      title0: "loeschen"
+      title: "Bearbeiten"
+      title0: "Löschen"
     dashboards:
       article_section: "Neueste Artikel"
       title1: "Vorschau des Artikels"
@@ -227,13 +250,13 @@ en:
       link_to:
         start_import: "Starte Import"
         edit: "Bearbeiten"
-        delete: "Loeschen"
+        delete: "Löschen"
         allocation: "Zuweisungen"
         edit_import: "Import Bearbeiten"
       title:
         start_import: "Starte Import"
         edit: "Bearbeiten"
-        delete: "Loeschen"
+        delete: "Löschen"
       form:
         select_file: "Select File for #{f.object.target_model}"
         upload: "Upload"
@@ -337,7 +360,7 @@ en:
         title_edit: "bearbeiten"
         confirm: "Kommentar löschen?"
         class: "member_link delete_link delete"
-        title_delete: "loeschen"
+        title_delete: "löschen"
       form:
         include_blank: 'Alle'
       sidebar:
