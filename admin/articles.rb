@@ -201,7 +201,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
 
     if results && results.count > 1
-      h5 I18n.t('active_admin.articles.sidebar.h5_achtung'), :class => "warning"
+      h5 "#{I18n.t('active_admin.articles.sidebar.h5_achtung')} #{pluralize(results.count - 1 , I18n.t('active_admin.articles.sidebar.h5_achtung2'), I18n.t('active_admin.articles.sidebar.h5_achtung3'))  } #{I18n.t('active_admin.articles.sidebar.h5_achtung4')}", :class => "warning"
       ul do
         results.each do |r|
           next if r == resource
@@ -339,7 +339,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   action_item :only => :edit, :inner_html => {:class => "expert"} do
-    link_to(I18n.t('active_admin.articles.action_item.link_to.expert_modus'), toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
+    link_to("#{I18n.t('active_admin.articles.action_item.link_to.expert_modus')} #{current_user.enable_expert_mode ? I18n.t('active_admin.articles.action_item.link_to.deactivate') : I18n.t('active_admin.articles.action_item.link_to.activate')}", toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
   end
 
   action_item :only => :index do
