@@ -211,7 +211,10 @@ en:
         div_link1: "einen weiteren Menüpunkt erstellen"
         h5_1: "Es existiert noch kein Menüpunkt zu diesem Artikel"
         div_link2: "Einen passenden Menüpunkt erstellen"
-        h5_achtung: "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , 'anderen Artikel', 'andere Artikel')  } mit dieser URL:"
+        h5_achtung: "ACHTUNG!!! Es gibt"
+        h5_achtung2: "anderen Artikel"
+        h5_achtung3: "andere Artikel"
+        h5_achtung4: "mit dieser URL:"
       member_action: 
         flash:
           article_online: "Dieser Artikel ist nun online"
@@ -228,8 +231,10 @@ en:
         confirm_offline: "Artikel offline stellen: sind Sie sicher?"
       action_item:
         link_to:
-          article_preview: 'Vorschau zu diesem Artikel anzeigen'
-          expert_modus: "Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}"
+          article_preview: "Vorschau zu diesem Artikel anzeigen"
+          expert_modus: "Expert-Modus"
+          deactivate: "deaktivieren"
+          activate: "aktivieren"
           import: "Import"
           undo: "Undo"
     comments:
@@ -258,9 +263,10 @@ en:
         edit: "Bearbeiten"
         delete: "Löschen"
       form:
-        select_file: "Select File for #{f.object.target_model}"
+        select_file: "Select File for"
         upload: "Upload"
-        hint: "Aktuell ausgewählte Datei: #{u.object.try(:image_file_name)}"
+        csv_file: "CSV Datei"
+        hint: "Aktuell ausgewählte Datei:"
       flash:
         member_action:
           run: "Dieser Import wurde gestartet" 
@@ -344,10 +350,10 @@ en:
           confirm1: "Menüpunkt online stellen: sind Sie sicher?"
           flash1: "Menüpunkte wurden online gestellt"
           confirm_clone: "Do you want to clone this menue"
-          title_clone: "clone of: #{menue.title}"
+          title_clone: "clone of:"
           flash_clone: "Menue has been cloned"
         member_action:
-          notice: "Undid #{@version.event}"
+          notice: "Undid"
         action_item:
           link_to: "Undo"
           class: "undo"
