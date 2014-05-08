@@ -123,7 +123,7 @@ de:
         undid_event: "Rückgängig:"
     articles:
       as: "Artikel"
-      parent: "Content Management"
+      parent: "Content-Management"
       filter:
         default1: "Elternelement"
         default2: "Artikeltyp"
@@ -273,7 +273,7 @@ de:
         run: "Link Checker ausführen"
     menues:
       menue: "Menus"
-      parent: "Content Management"
+      parent: "Content-Management"
       labels:
         title: "Titel"
         target: "Ziel"
