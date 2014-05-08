@@ -327,7 +327,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     else
       @version.item.destroy
     end
-    redirect_to :back, :notice => I18n.t('active_admin.settings.notice.undid_event')
+    redirect_to :back, :notice => "#{I18n.t('active_admin.settings.notice.undid_event')} #{@version.event}"
   end
 
   action_item only: [:edit, :show] do
