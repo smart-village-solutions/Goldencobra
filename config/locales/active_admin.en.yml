@@ -104,7 +104,7 @@ en:
       body: "Inhalt"
       author: "Autor"
       title: "Kommentar"
-      resource: "Resource"
+      resource: "Ressource"
       add: "Kommentar hinzufügen"
       no_comments_yet: "Es gibt noch keine Kommentare."
       title_content: "Kommentare (%{count})"
@@ -112,20 +112,18 @@ en:
         empty_text: "Der Kommentar wurde nicht gespeichert, da der Text fehlt."
     articles:
       tag-select-placeholder: "Tag wählen"
-    #-------------- Nina
     settings:
       as: "Settings"
       scope: "Alle Settings"
       action_item:
         link: "Undo"
-        class: "undo"
       form:
         general: "Allgemein"
       notice:
-        undid_event: "Undid %{@version.event}"
+        undid_event: "Rückgängig:"
     articles:
-      as: "Article"
-      parent: "Content-Management"
+      as: "Artikel"
+      parent: "Content Management"
       filter:
         default1: "Elternelement"
         default2: "Artikeltyp"
@@ -147,29 +145,29 @@ en:
         tag_list_label: "Liste von internen Tags"
         tag_list_hint: "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
         frontent_tag_list_label:  "Filterkriterium"
-        frontent_tag_list_hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten."
+        frontent_tag_list_hint: "Hier eingetragene Begriffe werden auf Übersichtsseiten als Filteroptionen angeboten."
         active_label: "Aktiv?"
         active_hint: "Soll dieser Artikel im System aktiv und online sichtbar sein?"
         weiterer_inhalt: "Weiterer Inhalt"
         subtitle_label: "Untertitel"
-        context_info_hint: "Dieser Text ist f&uuml;r eine Sidebar gedacht"
+        context_info_hint: "Dieser Text ist für eine Sidebar gedacht"
         summary_label: "Zusammenfassung"
         summary_hint: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt"
         metadescriptions: "Metadescriptions"
         name_label: "Art"
-        name_hint: "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen"
+        name_hint: "Hier können Sie die verschiedenen Metatags definieren, sowie alle Einstellungen für den OpenGraph vonehmen"
         value_label: "Wert"
         destroy_label: "Entfernen/Zurücksetzen"
         destroy_hint: "Hiermit werden die Werte entfernt bzw. auf ihren Ursprung zurückgesetzt"
         settings: "Einstellungen"
         breadcrump_label: "Breadcrumb-Titel"
-        breadcrump_hint: "Kurzer Titel f&uuml;r die Breadcrumb-Navigation"
+        breadcrump_hint: "Kurzer Titel für die Breadcrumb-Navigation"
         url_name_label: "Website-Adresse des Artikels"
         url_name_hint: "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein."
         parent_id_label: "Übergeordneter Artikel"
         parent_id_hint: "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
         canonical_url_label: "Canonical URL"
-        canonical_url_hint: "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
+        canonical_url_hint: "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht für doppelten Inhalt abgestraft zu werden"
         active_since_label: "Online seit"
         active_since_hint: "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35"
         enable_social_sharing_label: "'Social Sharing'-Aktionen anzeigen"
@@ -206,7 +204,7 @@ en:
         delete_article: "Artikel löschen"
       sidebar:
         h5: "Es existieren bereits passende Menüpunkte zu diesem Artikel"
-        seo_link: 'SEO-Ansicht'
+        seo_link: "SEO-Ansicht"
         div_link: "Sie können diese hier auflisten"
         div_link1: "einen weiteren Menüpunkt erstellen"
         h5_1: "Es existiert noch kein Menüpunkt zu diesem Artikel"
@@ -236,7 +234,7 @@ en:
           deactivate: "deaktivieren"
           activate: "aktivieren"
           import: "Import"
-          undo: "Undo"
+          undo: "rückgängig"
     comments:
       title: "Bearbeiten"
       title0: "Löschen"
@@ -257,14 +255,14 @@ en:
         edit: "Bearbeiten"
         delete: "Löschen"
         allocation: "Zuweisungen"
-        edit_import: "Import Bearbeiten"
+        edit_import: "Import bearbeiten"
       title:
         start_import: "Starte Import"
         edit: "Bearbeiten"
         delete: "Löschen"
       form:
-        select_file: "Select File for"
-        upload: "Upload"
+        select_file: "Datei auswählen"
+        upload: "Hochladen"
         csv_file: "CSV Datei"
         hint: "Aktuell ausgewählte Datei:"
       flash:
@@ -272,14 +270,14 @@ en:
           run: "Dieser Import wurde gestartet" 
     linkcheck_articles:
       link_to:
-        run: "Run LinkChecker"
+        run: "Link Checker ausführen"
     menues:
       menue: "Menus"
-      parent: "Content-Management"
+      parent: "Content Management"
       labels:
         title: "Titel"
         target: "Ziel"
-        css_class: "CSS Klasses"
+        css_class: "CSS-Klassen"
         sorter: "Sortiernummer"
       form:
         generals:
@@ -297,7 +295,7 @@ en:
           sorter_hint: "Nach dieser Nummer wird innerhalb des Menüs sortiert, je höher, desto weiter unten in der Reihenfolge"
           checkbox_label: "Sichtbar?"
           checkbox_hint: "Soll dieser Menüpunkt auf der Seite sichtbar sein?"
-          css_class_label: "CSS Klassen"
+          css_class_label: "CSS-Klassen"
           css_class_hint: "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
           active_label: "Aktiv?"
           active_hint: "Soll dieser Menüpunkt im System aktiv und online sichtbar sein?"
@@ -305,10 +303,8 @@ en:
           remote_hint: "Soll dieser Menüpunkt per Ajax abgesendet werden?"
         access:
           access_rights: "Zugriffsrechte"
-          access_class: "foldable closed inputs"
           include_blank: "Alle"
         details: "Details für ein erweitertes Menü"
-        details_class: "foldable closed inputs"
         image_label: "Bild"
         image_hint: "Bereits hochgeladenes Bild aus der Medienliste wählen"
         details_description_title: "Titel"
@@ -330,15 +326,12 @@ en:
           search_title1: "Artikel passend zum Menüpunkt erzeugen"
         column:
           edit: "Edit"
-          edit_class: "member_link edit_link edit"
           edit_title: "Menüpunkt bearbeiten"
           submenu: "New Submenu"
-          submenu_class: "member_link edit_link"
           submenu_class1: "new_subarticle"
           submenu_title: "Neuen Untermenüpunkt erzeugen"
           delete: "Delete"
-          delete_confirm: "Realy want to delete this Menuitem?"
-          delete_class: "member_link delete_link delete"
+          delete_confirm: "Menüpunkt wirklich löschen?"
           delete_title: "Menüpunkt löschen"
         sidebar:
           link_name: "title"
@@ -349,26 +342,23 @@ en:
           flash: "Menüpunkte wurden offline gestellt"
           confirm1: "Menüpunkt online stellen: sind Sie sicher?"
           flash1: "Menüpunkte wurden online gestellt"
-          confirm_clone: "Do you want to clone this menue"
-          title_clone: "clone of:"
-          flash_clone: "Menue has been cloned"
+          confirm_clone: "Dieses Menü klonen?"
+          title_clone: "Klon von:"
+          flash_clone: "Menü wurde geklont"
         member_action:
-          notice: "Undid"
+          notice: "Rückgängig:"
         action_item:
-          link_to: "Undo"
-          class: "undo"
+          link_to: "rückgängig"
     permissions:
       as: "Permission"
       scope: "Alle"
       index:
         column: "Role"
-        class: "member_link edit_link edit"
         title_edit: "bearbeiten"
         confirm: "Kommentar löschen?"
-        class: "member_link delete_link delete"
         title_delete: "löschen"
       form:
-        include_blank: 'Alle'
+        include_blank: "Alle"
       sidebar:
         sidebar: "Sortierung / Gewichtung"
         sidebar_info: "je Höher die Zahl desto wichtiger ist das Zugriffsrecht: <b>10 ist wichtiger als 1</b>. <br/> Ist zu einer Rolle ein Model nicht definiert, so beitzt diese Rolle standardmäßig alle Rechte an diesem Model"
@@ -383,7 +373,7 @@ en:
       scope5: "keine Meta-Description"
       index:
         title_column: "Titel"
-        tag_column: "Title-Tag"
+        tag_column: "Title Tag"
         meta_column: "Meta Description"
         search_column: "Suchmaschinen gesperrt"
         search_column_yes: "Ja"
@@ -396,9 +386,9 @@ en:
         title2: "bearbeiten"
         title3: "Neuer Unterartikel"
         title4: "löschen"
-      collection_flash: "All Link will be checked. This could take a while"
-      action_link: "Link-Checker Index"
-      action_link1: "Run LinkChecker"
+      collection_flash: "Alle Links werden gecheckt. Dies kann meherere Minuten dauern."
+      action_link: "Link Checker index"
+      action_link1: "Link Checker ausführen"
 
 
 #left to be internationalised:
