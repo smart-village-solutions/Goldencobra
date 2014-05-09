@@ -389,18 +389,3 @@ en:
       collection_flash: "Alle Links werden gecheckt. Dies kann meherere Minuten dauern."
       action_link: "Link Checker index"
       action_link1: "Link Checker ausführen"
-
-#left to be internationalised:
-    supports:
-
-    trackings:
-
-    translations:
-
-    uploads:
-
-    users:
-
-    visitors:
-
-    widgets:
