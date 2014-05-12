@@ -63,22 +63,17 @@ module Goldencobra
           # Input validation
           return nil unless article_param
           return nil unless params[:article]
+          return nil unless current_user
 
           # Create a new article
-          new_article = Goldencobra::Article.new(
-              :title => params[:article][:title],
-              :breadcrumb => params[:article][:breadcrumb],
-              :author_id => current_user.id
-          )
+          new_article = Goldencobra::Article.new(params[:article])
+          new_article.creator_id = current_user.id
 
           if params[:article][:article_type]
             new_article.article_type = params[:article][:article_type]
           else
             new_article.article_type = 'Default Show'
           end
-
-          # If there is a parent article, we need to do the same things again.
-          new_article.ancestry = create_article(params[:article][:ancestry]) if params[:article][:ancestry]
 
           # Try to save the article
           new_article.save ? new_article : nil
