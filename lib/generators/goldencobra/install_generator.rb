@@ -91,6 +91,7 @@ module Goldencobra
         directory "../templates/views", "app/views"
         template '../templates/extend_goldencobra_articles_controller.rb', 'app/controllers/extend_goldencobra_articles_controller.rb'
         remove_file "public/index.html"
+        copy_file '../templates/robots.txt', 'public/robots.txt'
       end
 
       def setup_routes
