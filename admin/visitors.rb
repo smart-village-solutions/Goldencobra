@@ -45,6 +45,7 @@ ActiveAdmin.register Visitor do
       if current_user.has_role?('admin')
         f.input :roles, :as => :check_boxes, :collection => Goldencobra::Role.all
       end
+      f.input :id, :as => :hidden
     end
     f.actions
   end
