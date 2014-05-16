@@ -36,6 +36,7 @@ module Goldencobra
           git :push => "origin master"
         end
         if yes?("Would you like to configure your server and deploy to it?")
+          @app_name = Rails.application.class.parent_name.parameterize.underscore
           copy_file '../templates/create_database.mysql.erb', 'config/templates/create_database.mysql.erb'
           copy_file '../templates/database.yml.erb', 'config/templates/database.yml.erb'
           template '../templates/apache.tmpl.erb', "config/templates/#{@app_name}"
