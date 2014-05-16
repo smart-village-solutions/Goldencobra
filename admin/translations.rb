@@ -18,7 +18,7 @@ ActiveAdmin.register Translation do
 
   form do |f|
     f.actions
-    f.inputs "Allgemein" do
+    f.inputs I18n.t('active_admin.translations.general') do
       f.input :locale
       f.input :key
       f.input :value
