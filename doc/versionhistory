@@ -1,3 +1,8 @@
+V1.4.2
+  - Server install script als rails generator
+  - Ausbau der API zum Erstellen von Artikeln
+  - Kleine Fehlerbehebungen und Verbesserungen
+
 V1.4.1
   - ArticleWorkerCache funktioniert wieder, recreate chache funktioniert wieder, Cleanup alter versionen funktioniert wieder
 
