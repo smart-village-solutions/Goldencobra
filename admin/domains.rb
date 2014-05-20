@@ -23,7 +23,7 @@ ActiveAdmin.register Goldencobra::Domain, :as => "Domain" do
         f.input :hostname
         f.input :client
         f.input :url_prefix
-        f.input :main, :hint => "Diese Domain wird als Hauptdomain eingerichtet, alle Canonical URLS haben diesen Prefix", :label => "Main Domain?"
+        f.input :main, :hint => I18n.t('active_admin.domains.form.hint'), :label => "Main Domain?"
       end
     f.actions
   end
