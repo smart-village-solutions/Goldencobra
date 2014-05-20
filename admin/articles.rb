@@ -1,8 +1,8 @@
 #Encoding: UTF-8
 
-ActiveAdmin.register Goldencobra::Article, as: "Article" do 
+ActiveAdmin.register Goldencobra::Article, as: "Article" do
   menu :priority => 1, :parent => I18n.t('active_admin.articles.parent'), :label => I18n.t('active_admin.articles.as'), :if => proc{can?(:update, Goldencobra::Article)}
-  
+
   controller.authorize_resource :class => Goldencobra::Article
   unless Rails.env == "test"
     I18n.locale = :de
@@ -51,7 +51,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
       #render Show Options if articletype == Show
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
-        
+
         #render Article_type Options
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_show.html.erb")
           render :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show", :locals => {:f => f}
@@ -69,7 +69,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
       #render Index Options if articletype == Index
       elsif f.object.kind_of_article_type.downcase == "index"
-        
+
         render :partial => "goldencobra/admin/articles/articles_index", :locals => {:f => f}
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_index.html.erb")
           render :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index", :locals => {:f => f}
@@ -84,9 +84,9 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
           end
         end
         #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
-      
+
       else
-        
+
         #error
 
       end
@@ -191,7 +191,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       div "oder"
       div link_to(I18n.t('active_admin.articles.sidebar.div_link1'), new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
     else
-      h5 'active_admin.articles.sidebar.h5'
+      h5 I18n.t('active_admin.articles.sidebar.h5_1')
       div link_to(I18n.t('active_admin.articles.sidebar.div_link2'), new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
     end
 
