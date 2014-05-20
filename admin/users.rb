@@ -14,7 +14,7 @@ ActiveAdmin.register User, :as => "User" do
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
-    f.inputs "Allgemein" do
+    f.inputs I18n.t('active_admin.users.general') do
       f.input :title
       f.input :firstname
       f.input :lastname
@@ -22,8 +22,8 @@ ActiveAdmin.register User, :as => "User" do
       if current_user.has_role?('admin')
         f.input :roles, :as => :check_boxes, :collection => Goldencobra::Role.all
       end
-      f.input :password, hint: "Freilassen, wenn das Passwort nicht geaendert werden soll."
-      f.input :password_confirmation, hint: "Passwort bei Aenderung hier erneut eingeben"
+      f.input :password, hint: I18n.t('active_admin.users.hint1')
+      f.input :password_confirmation, hint: I18n.t('active_admin.users.hint2')
       f.input :enable_expert_mode
       f.input :function
       f.input :phone
@@ -34,11 +34,11 @@ ActiveAdmin.register User, :as => "User" do
       f.input :xing
       f.input :googleplus
     end
-    f.inputs "Historie" do
+    f.inputs I18n.t('active_admin.users.history') do
       f.has_many :vita_steps do |step|
         if step.object.new_record?
-          step.input :description, as: :string, label: "Eintrag"
-          step.input :title, label: "Bearbeiter", hint: "Tragen Sie hier Ihren Namen ein, damit die Aktion zugeordnet werden kann"
+          step.input :description, as: :string, label: I18n.t('active_admin.users.label1')
+          step.input :title, label: I18n.t('active_admin.users.label2'), hint: I18n.t('active_admin.users.hint3')
         else
           render :partial => "/goldencobra/admin/users/vita_steps", :locals => {:step => step}
         end
@@ -61,7 +61,7 @@ ActiveAdmin.register User, :as => "User" do
   end
 
   show :title => :lastname do
-    panel "User" do
+    panel I18n.t('active_admin.users.user') do
       attributes_table_for user do
         [:firstname, :lastname, :title, :email, :gender, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :created_at, :updated_at].each do |aa|
           row aa

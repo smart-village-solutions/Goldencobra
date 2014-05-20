@@ -7,7 +7,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   scope I18n.t('active_admin.settings.scope'), :with_values, :default => true
   if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.count > 0
     Goldencobra::Setting.roots.each do |rs|
-      scope(rs.title){ |t| t.parent_ids_in(rs.id).with_values }
+      #scope(rs.title){ |t| t.parent_ids_in(rs.id).with_values }
     end
   end
 
