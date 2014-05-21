@@ -285,11 +285,11 @@ de:
         one: "Artikel"
         other: "Artikel"
       setting:
-        one: "Einstellung"
-        other: "Einstellungen"
+        one: "Webseiten-Einstellung"
+        other: "Webseiten-Einstellungen"
       goldencobra/setting:
-        one: "Einstellung"
-        other: "Einstellungen"
+        one: "Webseiten-Einstellung"
+        other: "Webseiten-Einstellungen"
       menue:
         one: "Menü"
         other: "Menüpunkte"

@@ -110,11 +110,9 @@ de:
       title_content: "Kommentare (%{count})"
       errors:
         empty_text: "Der Kommentar wurde nicht gespeichert, da der Text fehlt."
-    articles:
-      tag-select-placeholder: "Tag wählen"
     settings:
-      as: "Settings"
-      scope: "Alle Settings"
+      as: "Webseiten-Einstellungen"
+      scope: "Alle Webseiten-Einstellungen"
       action_item:
         link: "Undo"
       form:
@@ -124,6 +122,7 @@ de:
     articles:
       as: "Artikel"
       parent: "Content-Management"
+      tag-select-placeholder: "Tag wählen"
       filter:
         default1: "Elternelement"
         default2: "Artikeltyp"
@@ -272,7 +271,7 @@ de:
       link_to:
         run: "Link Checker ausführen"
     menues:
-      menue: "Menus"
+      menue: "Menüpunkte"
       parent: "Content-Management"
       labels:
         title: "Titel"
@@ -350,7 +349,7 @@ de:
         action_item:
           link_to: "rückgängig"
     permissions:
-      as: "Permission"
+      as: "Zugriffsrechte"
       scope: "Alle"
       index:
         column: "Role"
@@ -363,7 +362,7 @@ de:
         sidebar: "Sortierung / Gewichtung"
         sidebar_info: "je Höher die Zahl desto wichtiger ist das Zugriffsrecht: <b>10 ist wichtiger als 1</b>. <br/> Ist zu einer Rolle ein Model nicht definiert, so beitzt diese Rolle standardmäßig alle Rechte an diesem Model"
     roles:
-      as: "Role"
+      as: "Benutzerrollen"
     seo_articles:
       as: "SEO-Article"
       scope1: "Alle"
@@ -510,5 +509,5 @@ de:
       title_widget_delete: "Schnipsel löschen"
       widget: "Widget"
       articles: "Articles"
-      revert_notice: "Undid #{@version.event}"
-      undo: "Undo"
+      revert_notice: "Rückgängig:"
+      undo: "Rückgängig"

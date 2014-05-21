@@ -100,11 +100,11 @@ en:
         one: "Article"
         other: "Articles"
       setting:
-        one: "Setting"
-        other: "Settings"
+        one: "Website setting"
+        other: "Website settings"
       goldencobra/setting:
-        one: "Setting"
-        other: "Settings"
+        one: "Website setting"
+        other: "Website settings"
       menue:
         one: "Menu"
         other: "Menus"
