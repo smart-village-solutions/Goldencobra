@@ -144,9 +144,6 @@ en:
       goldencobra/role:
         one: "Role"
         other: "Roles"
-      formular:
-        one: "Formular"
-        other: "Formulars"
     attributes:
       goldencobra/metatag:
         name: "Name"

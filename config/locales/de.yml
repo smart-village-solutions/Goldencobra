@@ -332,9 +332,6 @@ de:
       visitor:
         one: "Besucher"
         other: "Besucher"
-      formular:
-        one: "Formular"
-        other: "Formulare"
     attributes:
       goldencobra/metatag:
         name: "Art"
