@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ActiveAdmin.register_page "GoldencobraInfos" do
 
   menu :priority => 20, :label => "Golden Cobra Infos"
