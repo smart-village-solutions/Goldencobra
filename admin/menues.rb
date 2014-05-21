@@ -10,8 +10,8 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   filter :css_class, :label => I18n.t('active_admin.menues.labels.css_class')
   filter :sorter, :label => I18n.t('active_admin.menues.labels.sorter')
 
-  scope "Aktiv", :active
-  scope "Nicht aktiv", :inactive
+  scope I18n.t('active_admin.menues.active'), :active
+  scope I18n.t('active_admin.menues.inactive'), :inactive
 
   form do |f|
     f.actions

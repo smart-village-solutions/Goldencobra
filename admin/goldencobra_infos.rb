@@ -1,18 +1,18 @@
 ActiveAdmin.register_page "GoldencobraInfos" do
 
-  menu :priority => 20, :label => "Goldencobra Infos"
+  menu :priority => 20, :label => "Golden Cobra Infos"
 
   content do
-    panel "Ueber Goldencobra" do
+    panel "Über Golden Cobra" do
       div do
 
       end
     end
     panel "Installation" do
     	div do
-        h3 "Installation von Goldencobra"
+        h3 "Installation von Golden Cobra"
 
-        para "Um mit Goldencobra ein neues Projekt zu erstellen, sind folgende Schritte notwenig:"
+        para "Um mit Golden Cobra ein neues Projekt zu erstellen, sind folgende Schritte notwenig:"
         para "Im Gemfile: gem 'goldencobra', :git => 'git://github.com/ikusei/Goldencobra.git'"
         para "Wurde das Gem ins Gemfile geschrieben, fuehren Sie fuer die Installation folgenden Befehl aus: 'rails generate goldencobra:install'"
         para "Nun wurden alle Notwendigen Datein und Defaultwerte installiert."
@@ -28,10 +28,10 @@ ActiveAdmin.register_page "GoldencobraInfos" do
     end
     panel "Backend Verwaltung" do
       div do
-        h2 "Verwendung des Backends von Goldencobra"
+        h2 "Verwendung des Backends von Golden Cobra"
 
         h3 "Menue erstellen:"
-        para "Unter Navigationspunkt 'Content-Management' den Punkt 'Menuepunkte' oeffnen. Rechts oben den Button 'Menue erstellen' anklicken. Nach dem korrekten ausfuellen des Formularen auf den grauen Button 'Menue erstellen' klicken. Wenn alles richtig eingegeben wurde, wurde das Menue erstellt und ist nun auf der Uebersichtsseite sichtbar."
+        para "Unter Navigationspunkt 'Content-Management' den Punkt 'Menüpunkte' oeffnen. Rechts oben den Button 'Menü erstellen' anklicken. Nach dem korrekten ausfuellen des Formularen auf den grauen Button 'Menue erstellen' klicken. Wenn alles richtig eingegeben wurde, wurde das Menue erstellt und ist nun auf der Uebersichtsseite sichtbar."
 
         h3 "Artikel erstellen:"
         para "Unter Navigationspunkt 'Content-Management' den Punkt  'Artikel' oeffnen. Rechts oben den Button 'Artikel erstellen' anklicken."

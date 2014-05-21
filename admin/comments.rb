@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
-  menu :parent => "Content-Management", :label => "#{I18n.locale} -- #{I18n.t('active_admin.comments.as')}", :if => proc{can?(:read, Goldencobra::Comment)}
+  menu :parent => "Content-Management", :label => I18n.t('active_admin.comments.as'), :if => proc{can?(:read, Goldencobra::Comment)}
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
@@ -24,7 +24,7 @@ ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
     column :approved
     column :reported
     column :article do |comment|
-      link_to 'Anzeigen', comment.article.public_url if comment.article.present?
+      link_to I18n.t('active_admin.comments.show'), comment.article.public_url if comment.article.present?
     end
     column :created_at do |comment|
       comment.created_at.strftime('%d.%m.%Y %H:%M Uhr')
@@ -32,7 +32,7 @@ ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
     column "" do |comment|
       result = ""
       result += link_to(t(:edit), "/admin/article_comments/#{comment.id}/edit", :class => "member_link edit_link edit", :title => I18n.t('active_admin.comments.title'))
-      result += link_to(t(:delete), admin_comment_path(comment.id), :method => :DELETE, :confirm => "Kommentar löschen?", :class => "member_link delete_link delete", :title => I18n.t('active_admin.comments.title0'))
+      result += link_to(t(:delete), admin_comment_path(comment.id), :method => :DELETE, :confirm => I18n.t('active_admin.comments.delete_comment'), :class => "member_link delete_link delete", :title => I18n.t('active_admin.comments.title0'))
       raw(result)
     end
   end

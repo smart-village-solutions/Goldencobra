@@ -101,6 +101,11 @@ en:
       selection_toggle_explanation: "(reverse selection)"
       link: "Create one"
     comments:
+      as: "Comments"
+      title: "Edit"
+      title0: "Delete"
+      show: "Show"
+      delete_comment: "Delete comment?"
       body: "Content"
       author: "Author"
       title: "Comment"
@@ -234,10 +239,6 @@ en:
           activate: "activate"
           import: "Import"
           undo: "Undo"
-    comments:
-      as: "Comments"
-      title: "Edit"
-      title0: "Delete"
     dashboards:
       article_section: "Newest article"
       title1: "Preview article"
@@ -274,6 +275,8 @@ en:
     menues:
       as: "Menus"
       parent: "Content-Management"
+      active: "Active"
+      inactive: "Inactive"
       labels:
         title: "Target"
         target: "Target"
@@ -398,6 +401,7 @@ en:
       para2: "This service is supported by https://togetherjs.com"
     translations:
       as: "Translations"
+      all: "All"
       general: "General"
     uploads:
       as: "Uploads"
@@ -518,5 +522,12 @@ en:
       undo: "Undo"
     articletypes:
       as: "Article types"
+      general: "General"
+      article_fields: "Article fields"
+      position_hint: "Field options of article type between first and last block"
+      foldable_hint: "Is this part foldable?"
+      closed_hint: "Is this part closed on load?"
+      expert_hint: "Is this part only visible in expert mode?"
+      sorter_hint: "Sort number/position"
     authors:
       as: "Authors"

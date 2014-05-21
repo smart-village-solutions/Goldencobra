@@ -5,9 +5,9 @@ module Goldencobra
     before_filter :set_locale
 
     def set_locale
-      # unless Rails.env == "test"
-      #   I18n.locale = params[:locale] || session[:locale]
-      # end
+      unless Rails.env == "test"
+        I18n.locale = params[:locale] || session[:locale]
+      end
     end
 
     def after_sign_out_path_for(resource_or_scope)

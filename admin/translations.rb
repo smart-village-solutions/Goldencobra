@@ -5,7 +5,7 @@ ActiveAdmin.register Translation do
 
   controller.authorize_resource :class => Translation
 
-  scope "Alle", :scoped
+  scope I18n.t('active_admin.translations.all'), :scoped
   scope :with_values
   scope :missing_values
 
