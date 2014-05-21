@@ -446,7 +446,7 @@ de:
       hint1: "Freilassen, wenn das Passwort nicht geaendert werden soll."
       hint2: "Passwort bei Aenderung hier erneut eingeben"
       status2: "gesperrt"
-      flash: "Dieser Account wurde #{status}"
+      flash: "Dieser Account wurde"
     widget:
       title: "Titel"
       css_class: "CSS Klasse"
