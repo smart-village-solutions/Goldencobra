@@ -4,10 +4,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   menu :priority => 1, :parent => I18n.t('active_admin.articles.parent'), :label => I18n.t('active_admin.articles.as'), :if => proc{can?(:update, Goldencobra::Article)}
 
   controller.authorize_resource :class => Goldencobra::Article
-  unless Rails.env == "test"
-    I18n.locale = :de
-    I18n.default_locale = :de
-  end
+  # unless Rails.env == "test"
+  #   I18n.locale = :de
+  #   I18n.default_locale = :de
+  # end
 
   #Alle Filteroptionen in der rechten Seitenleiste
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default1'))
