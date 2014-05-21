@@ -69,7 +69,7 @@ ActiveAdmin.register Visitor do
       status = I18n.t('active_admin.visitors.status2')
     end
     visitor.save
-    flash[:notice] = I18n.t('active_admin.visitors.flash')
+    flash[:notice] = "#{I18n.t('active_admin.visitors.flash')} #{status}"
     redirect_to :action => :edit
   end
 
