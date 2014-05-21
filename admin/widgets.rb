@@ -149,7 +149,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     else
       @version.item.destroy
     end
-    redirect_to :back, :notice => I18n.t('active_admin.widget.revert_notice')
+    redirect_to :back, :notice => "#{I18n.t('active_admin.widget.revert_notice')} #{@version.event}"
   end
 
   batch_action :destroy, false

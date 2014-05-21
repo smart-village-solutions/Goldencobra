@@ -110,11 +110,9 @@ en:
       title_content: "Comments (%{count})"
       errors:
         empty_text: "Comment was not saved. Missing Text"
-    articles:
-      tag-select-placeholder: "Select a Tag"
     settings:
-      as: "Settings"
-      scope: "All Settings"
+      as: "Website settings"
+      scope: "All website settings"
       action_item:
         link: "Undo"
       form:
@@ -124,6 +122,7 @@ en:
     articles:
       as: "Article"
       parent: "Content-Management"
+      tag-select-placeholder: "Select a Tag"
       filter:
         default1: "Parent Element"
         default2: "Article Type"
@@ -352,7 +351,7 @@ en:
         action_item:
           link_to: "undo"
     permissions:
-      as: "Permission"
+      as: "Permissions"
       scope: "All"
       index:
         column: "Role"
@@ -365,7 +364,7 @@ en:
         sidebar: "Sorting / Weighting"
         sidebar_info: "higher the number, the more important is the access right: <b>10 is more important than 1</b>. <br/> If not defined, the Role gets by default all the rights in this Model"
     roles:
-      as: "Role"
+      as: "Roles"
     seo_articles:
       as: "SEO-Article"
       scope1: "All"
@@ -510,5 +509,5 @@ en:
       title_widget_delete: "Delete widget"
       widget: "Widget"
       articles: "Articles"
-      revert_notice: "Undid #{@version.event}"
+      revert_notice: "Undid"
       undo: "Undo"
