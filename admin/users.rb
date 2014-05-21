@@ -21,6 +21,8 @@ ActiveAdmin.register User, :as => "User" do
       f.input :email
       if current_user.has_role?('admin')
         f.input :roles, :as => :check_boxes, :collection => Goldencobra::Role.all
+      else
+        f.input :id, :as => :hidden
       end
       f.input :password, hint: "Freilassen, wenn das Passwort nicht geaendert werden soll."
       f.input :password_confirmation, hint: "Passwort bei Aenderung hier erneut eingeben"
