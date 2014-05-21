@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
-  menu :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Comment)}
+  menu :parent => "Content-Management", :label => I18n.t('active_admin.comments.as'), :if => proc{can?(:read, Goldencobra::Comment)}
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions

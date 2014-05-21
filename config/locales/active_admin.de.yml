@@ -235,6 +235,7 @@ de:
           import: "Import"
           undo: "rückgängig"
     comments:
+      as: "Kommentare"
       title: "Bearbeiten"
       title0: "Löschen"
     dashboards:
@@ -271,7 +272,7 @@ de:
       link_to:
         run: "Link Checker ausführen"
     menues:
-      menue: "Menüpunkte"
+      as: "Menüpunkte"
       parent: "Content-Management"
       labels:
         title: "Titel"
@@ -396,16 +397,18 @@ de:
       para_raw: Hilfe Anfordern!
       para2: "Dieser Service wird unterstüzt von https://togetherjs.com"
     translations:
+      as: "Übersetzungen"
       general: "Allgemein"
     uploads:
+      as: "Uploads"
       file: "File"
-      file_hint: "Upload a new picture for this ressource, if the file name is the same!"
-      preview: "Preview"
+      file_hint: "Neues Bild hochladen für diese Ressource mit gleichem Dateinamen"
+      preview: "Vorschau"
       photo: "Bild beschneiden"
-      photo_hint: "Make a selection in the preview image above before saving"
+      photo_hint: "Ausschnitt in der Vorschau selektieren vor dem Speichern"
       data: "Dateiname"
       general: "Allgemein"
-      general_hint: "Tags sind komma-getrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst"
+      general_hint: "Tags sind kommagetrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst"
       general_label: "Liste von Tags"
       js: "JS-Scripts"
       url: "url"
@@ -429,6 +432,7 @@ de:
       format_mini: "mini => 50x50>"
       unzip_notice: "File unzipped"
     users:
+      as: "Benutzer"
       general: "Allgemein"
       hint1: "Freilassen, wenn das Passwort nicht geaendert werden soll."
       hint2: "Passwort bei Aenderung hier erneut eingeben"
@@ -448,6 +452,7 @@ de:
       status2: "gesperrt"
       flash: "Dieser Account wurde"
     widget:
+      as: "Schnipsel"
       title: "Titel"
       css_class: "CSS Klasse"
       id: "ID Name"
@@ -511,3 +516,7 @@ de:
       articles: "Articles"
       revert_notice: "Rückgängig:"
       undo: "Rückgängig"
+    articletypes:
+      as: "Artikeltypen"
+    authors:
+      as: "Autoren"

@@ -235,6 +235,7 @@ en:
           import: "Import"
           undo: "Undo"
     comments:
+      as: "Comments"
       title: "Edit"
       title0: "Delete"
     dashboards:
@@ -271,7 +272,7 @@ en:
       link_to:
         run: "Run link checker"
     menues:
-      menue: "Menus"
+      as: "Menus"
       parent: "Content-Management"
       labels:
         title: "Target"
@@ -396,8 +397,10 @@ en:
       para_raw: "Request help!"
       para2: "This service is supported by https://togetherjs.com"
     translations:
+      as: "Translations"
       general: "General"
     uploads:
+      as: "Uploads"
       file: "File"
       file_hint: "Upload a new picture for this resource, if the file name is the same!"
       preview: "Preview"
@@ -429,6 +432,7 @@ en:
       format_mini: "mini => 50x50>"
       unzip_notice: "File unzipped"
     users:
+      as: "Users"
       general: "General"
       hint1: "Leave empty if password will not be changed."
       hint2: "If Password has been changed, type it again."
@@ -448,6 +452,7 @@ en:
       status2: "closed"
       flash: "This account has been"
     widget:
+      as: "Widgets"
       title: "Title"
       css_class: "Css class"
       id: "ID Name"
@@ -511,3 +516,7 @@ en:
       articles: "Articles"
       revert_notice: "Undid"
       undo: "Undo"
+    articletypes:
+      as: "Article types"
+    authors:
+      as: "Authors"

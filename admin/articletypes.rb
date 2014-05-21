@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
-  menu :priority => 2, :parent => "Content-Management", :if => proc{can?(:update, Goldencobra::Article)}
+  menu :priority => 2, :parent => "Content-Management", :label => I18n.t('active_admin.articletypes.as'), :if => proc{can?(:update, Goldencobra::Article)}
   controller.authorize_resource :class => Goldencobra::Article
   config.clear_action_items!
 
