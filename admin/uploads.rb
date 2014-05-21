@@ -1,8 +1,7 @@
 # encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
-
-  menu :priority => 4, :parent => "Content-Management", :if => proc{can?(:read, Goldencobra::Upload)}
+  menu :parent => "Content-Management", :label => I18n.t('active_admin.uploads.as'), :if => proc{can?(:read, Goldencobra::Upload)}
 
   controller.authorize_resource :class => Goldencobra::Upload
 
