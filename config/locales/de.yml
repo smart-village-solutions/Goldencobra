@@ -90,9 +90,6 @@ de:
       partner_index: "Partner Übersicht"
       partner_show: "Partner Einzelseite"
   active_admin:
-    dashboard_latest_articles: "Neueste Artikel"
-    dashboard_new_article: "Neuen Artikel erstellen"
-    dashboard_latest_widgets: "Neueste Schnipsel"
     articles:
       now_offline: "Dieser Artikel ist nun offline"
       now_online: "Dieser Artikel ist nun online"
