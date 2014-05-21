@@ -234,9 +234,6 @@ en:
           activate: "activate"
           import: "Import"
           undo: "Undo"
-      error:
-        partial_missing: "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show"
-        partial_missing2: "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index"
     comments:
       title: "Edit"
       title0: "Delete"
@@ -295,6 +292,7 @@ en:
           option: "Options"
           sorter_label: "Sorting number"
           sorter_hint: "Menues will be sorted after this number - the higher, the further down the view"
+          checkbox_label: "Shown?"
           checkbox_hint: "Should this menu item be visible on the page?"
           css_class_label: "Css classes"
           css_class_hint:  "Style classes for the menu item separated by spaces - special feature: 'hidden' makes the menu item invisible"
@@ -397,6 +395,8 @@ en:
       para1: "Here is how you require help: ..."
       para_raw: "Request help!"
       para2: "This service is supported by https://togetherjs.com"
+    translations:
+      general: "General"
     uploads:
       file: "File"
       file_hint: "Upload a new picture for this resource, if the file name is the same!"
