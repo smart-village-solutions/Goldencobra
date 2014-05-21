@@ -1,59 +1,254 @@
 de:
-  formtastic:
-    yes: 'Ja'
-    no: 'Nein'
-    create: '%{model} erstellen'
-    update: '%{model} aktualisieren'
-    submit: '%{model} speichern'
-    cancel: '%{model} abbrechen'
-    reset: '%{model} zurücksetzen'
-    required: 'Pflichtfeld'
   articles:
-    read_on: 'weiterlesen'
-    selection: "Artikel"
+    read_on: 'read on'
+  formtastic:
+    yes: 'yes'
+    no: 'no'
+    create: 'Create %{model}'
+    update: 'Update %{model}'
+    submit: 'Save %{model}'
+    cancel: 'Cancel %{model}'
+    reset: 'Reset %{model}'
+    required: 'required'
+  errors:
+    messages:
+      expired: "has expired, please request a new one"
+      not_found: "not found"
+      already_confirmed: "was already confirmed, please try signing in"
+      not_locked: "was not locked"
+      not_saved:
+        one: "1 error prohibited this %{resource} from being saved:"
+        other: "%{count} errors prohibited this %{resource} from being saved:"
+  devise:
+    failure:
+      already_authenticated: 'You are already signed in.'
+      unauthenticated: 'You need to sign in or sign up before continuing.'
+      unconfirmed: 'You have to confirm your account before continuing.'
+      locked: 'Your account is locked.'
+      invalid: 'Invalid email or password.'
+      invalid_token: 'Invalid authentication token.'
+      timeout: 'Your session expired, please sign in again to continue.'
+      inactive: 'Your account was not activated yet.'
+    sessions:
+      signed_in: 'Signed in successfully.'
+      signed_out: 'Signed out successfully.'
+    passwords:
+      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
+      updated: 'Your password was changed successfully. You are now signed in.'
+      updated_not_active: 'Your password was changed successfully.'
+      send_paranoid_instructions: "If your e-mail exists on our database, you will receive a password recovery link on your e-mail"
+    confirmations:
+      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
+      send_paranoid_instructions: 'If your e-mail exists on our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
+      confirmed: 'Your account was successfully confirmed. You are now signed in.'
+    registrations:
+      signed_up: 'Welcome! You have signed up successfully.'
+      inactive_signed_up_but_REASON: 'You have signed up successfully. However, we could not sign you in because your account is %{reason}.'
+      updated: 'You updated your account successfully.'
+      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+      signed_up_but_REASON:
+        inactive: 'inactive'
+        unconfirmed: 'unconfirmed'
+        locked: 'locked'
+    unlocks:
+      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
+      unlocked: 'Your account was successfully unlocked. You are now signed in.'
+      send_paranoid_instructions: 'If your account exists, you will receive an email with instructions about how to unlock it in a few minutes.'
+    omniauth_callbacks:
+      success: 'Successfully authorized from %{kind} account.'
+      failure: 'Could not authorize you from %{kind} because "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'Confirmation instructions'
+      reset_password_instructions:
+        subject: 'Reset password instructions'
+      unlock_instructions:
+        subject: 'Unlock Instructions'
+  activerecord:
+    models:
+      domain:
+        one: "Domain"
+        other: "Domains"
+      goldencobra/domain:
+        one: "Domain"
+        other: "Domains"
+      articletype:
+        one: "Articletype"
+        other: "Articletypes"
+      link-checker:
+        one: "Link-Checker"
+        other: "Link-Checker"
+      comment:
+        one: "Comment"
+        other: "Comments"
+      goldencobra/comment:
+        one: "Comment"
+        other: "Comments"
+      author:
+        one: "Author"
+        other: "Authors"
+      goldencobra/author:
+        one: "Author"
+        other: "Authors"
+      import:
+        one: "Import"
+        other: "Imports"
+      article:
+        one: "Article"
+        other: "Articles"
+      goldencobra/article:
+        one: "Article"
+        other: "Articles"
+      setting:
+        one: "Website setting"
+        other: "Website settings"
+      goldencobra/setting:
+        one: "Website setting"
+        other: "Website settings"
+      menue:
+        one: "Menu"
+        other: "Menus"
+      goldencobra/menue:
+        one: "Menu"
+        other: "Menus"
+      metag:
+        one: "Metatag"
+        other: "Metatags"
+      goldencobra/metag:
+        one: "Metatag"
+        other: "Metatags"
+      widget:
+        one: "Widget"
+        other: "Widgets"
+      goldencobra/widget:
+        one: "Widget"
+        other: "Widgets"
+      upload:
+        one: "Upload"
+        other: "Uploads"
+      goldencobra/upload:
+        one: "Medium"
+        other: "Medien"
+      user:
+        one: "User"
+        other: "Users"
+      permission:
+        one: "Permission"
+        other: "Permissions"
+      goldencobra/permission:
+        one: "Permission"
+        other: "Permissions"
+      role:
+        one: "Role"
+        other: "Roles"
+      goldencobra/role:
+        one: "Role"
+        other: "Roles"
+    attributes:
+      goldencobra/metatag:
+        name: "Name"
+        value: "Value"
+      goldencobra/comment:
+        content: "Content"
+        active: "active"
+        approved: "approved"
+        reported: "reported"
+      goldencobra/role:
+        description: "Description"
+        created_at: "created at"
+        updated_at: "updated at"
+      user:
+        firstname: "firstname"
+        lastname: "lastname"
+        password: "password"
+        password_confirmation: "password confirmation"
+        roles: "roles"
+        function: "function"
+        phone: "phone"
+        complete_name: "name"
+        email: "email"
+        created_at: "created at"
+        updated_at: "updated at"
+      goldencobra/article:
+        redirection_target_in_new_window: "Redirect in new Window"
+        redirect_link_title: "Name of external link"
+        dynamic_redirection: "Automatic redirection"
+        commentable: "Article is commentable"
+        enable_social_sharing: "display 'Social Sharing'-Actions"
+        parent_id: "Parent article"
+        article_type: "Article type"
+        title: "Title"
+        url: "Url"
+        sorter_limit: "Number of sorted articles"
+        sort_order: "Sort order"
+        reverse_sort: "Descending order?"
+        author: "Author"
+        url_name: "Name of url of article"
+        slug: "Url shortform"
+        content: "Main content"
+        teaser: "Teaser"
+        ancestry: "Ancestry"
+        startpage: "Startpage"
+        active: "Online"
+        active_since: "Active since"
+        subtitle: "Subtitle"
+        summary: "Summary"
+        context_info: "Sidebare content"
+        canonical_url: "Url for search engines"
+        robots_no_index: "do not list in search engines"
+        breadcrumb: "Breadcrumb title"
+        template_file: "Layout file"
+        enable_social_sharing: "show social media buttons"
+        cacheable: "Article cacheable"
+        external_url_redirect: "redirect to external url"
+        created_at: "created at"
+        updated_at: "updated at"
+        tag_list: "List of tags"
+        frontend_tag_list: "Filters"
+      goldencobra/upload:
+        source: "source"
+        created_at: "created at"
+        updated_at: "updated at"
+        image_file_name: "image file name"
+        image_content_type: "image content type"
+        image_file_size: "image file size"
+        rights: "rights"
+        description: "description"
+        image: "image"
+      goldencobra/widget:
+        title: "Title"
+        created_at: "created at"
+        active: "Online?"
+        offline_day: "Days which show alternative content"
+        offline_time_start: "Start time"
+        offline_time_start_hint: "Time as HH:MM(24h): e.g. 16:00"
+        offline_time_end: "End time"
+        offline_time_end_hint: "Time as HH:MM(24h): e.g. 17:35"
+        offline_time_active: "Use alternative offline content?"
+        offline_time_active_hint: "Tick if you want this widget to be offline at specific times."
+        alternative_content: "Content for offline widget"
+        alternative_content_hint: "This content will be shown, when widget is offline"
   goldencobra:
     article_field_hints:
-      title: "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
-      teaser: "Dieser Text beschreibt den Artikel auf Übersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt"
-      summary: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt"
-      active: "Soll dieser Artikel im System aktiv und online sichtbar sein?"
-      tag_list: "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
-      frontend_tag_list: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten."
-      active_since: "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35"
-      context_info: "Dieser Text ist f&uuml;r eine Sidebar gedacht"
-      metatags_name: "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen"
-      metatags_destroy: "hiermit werden die Werte entfernt bzw. auf ihren Ursprung zurückgesetzt"
-      breadcrumb: "Kurzer Titel f&uuml;r die Breadcrumb-Navigation"
-      url_name: "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein."
-      parent_id: "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
-      canonical_url: "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
-      enable_social_sharing: "Sollen Besucher Aktionen angezeigt bekommen, um diesen Artikel in den sozialen Netzwerken zu verbreiten?"
-      robots_no_index: "Um bei Google nicht in Konkurrenz zu anderen wichtigen Einzelseiten der eigenen Webseite zu treten, kann hier Google mitgeteilt werden, diese Seite nicht zu indizieren"
-      cacheable: "Dieser Artikel darf im Cache liegen"
-      commentable: "Kommentarfunktion für diesen Artikel aktivieren?"
-      author: "Wer ist der Verfasser dieses Artikels?"
-    flash_notice:
-      name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
-      action_Startpage: "Diesen Artikel als Startseite einrichten"
-      startpage: "Dieser Artikel ist nun der Startartikel"
-      online: "Sichtbarkeit dieses Artikels ändern?"
-      delete_article: "Artikel wirklich löschen?"
-    filter:
-      filter_titel: "Titel"
-      filter_subtitel: "Untertitel"
-      filter_breadcrumb: "Breadcrumb-Titel"
-      filter_url: "Website-Adresse"
-      filter_template: "Layout"
-      filter_created: "Erstellt am"
-      filter_updated: "Bearbeitet am"
-      filter_parent: "Elternelement"
-      filter_type: "Artikeltyp"
-    menue:
-      preview_article: 'Vorschau zu diesem Artikel anzeigen'
-      menue: "Menü"
-      name: "Name"
-      list: "auflisten"
-      create: "erstellen"
+      title: "Title/Headline of an article."
+      teaser: "Short description of this article. Also used in Goolge and Facebook"
+      summary: ""
+      active: "Is this article online visible?"
+      tag_list: "Tags are comma separated values to organise und group your articles"
+      frontend_tag_list: "These Values are offered as filter options on index-articles"
+      active_since: ""
+      context_info: "This text could appear in a sidebar"
+      metatags_name: ""
+      metatags_destroy: "reset to defaults"
+      breadcrumb: "short title for a breadcrumb navigation"
+      url_name: "max 64 chars"
+      parent_id: "Parrent article"
+      canonical_url: ""
+      enable_social_sharing: ""
+      robots_no_index: ""
+      cacheable: ""
+      commentable: ""
+      author: ""
     article_types:
       Chairman: "Vorstand"
       Subsidiary: "Niederlassungen"
@@ -75,8 +270,8 @@ de:
       subsidiary_show: "Niederlassung Einzelseite"
       event_index: "Veranstaltungen Übersicht"
       event_show: "Veranstaltungen Einzelseite"
-      default_index: "Standard Übersicht"
-      default_show: "Standard Einzelseite"
+      default_index: "Default index"
+      default_show: "Default show"
       pressreferent_index: "Pressereferenten Übersicht"
       pressreferent_show: "Pressereferenten Einzelseite"
       personelreferent_index: "Personalreferenten Übersicht"
@@ -89,389 +284,121 @@ de:
       faq_show: "FAQ Einzelseite"
       partner_index: "Partner Übersicht"
       partner_show: "Partner Einzelseite"
+    flash_notice:
+      name_of_flashnotice: "Do you REALLY want make this Article as Startpage?"
+      action_Startpage: "Make this article Startpage"
+      startpage: "This Article is the Startpage!"
+      online: "Change the visibility of the article?"
+      delete_article: "Realy want to delete this Article?"
+    filter:
+      filter_titel: "title"
+      filter_subtitel: "subtitle"
+      filter_breadcrumb: "breadcrumb"
+      filter_url: "url"
+      filter_template: "template file"
+      filter_created: "creted at"
+      filter_updated: "updated at"
+      filter_parent: "parent"
+      filter_type: "article type"
+    menue:
+      preview_article: 'Preview'
+      menue: "Menue"
+      name: "name"
+      list: "list"
+      create: "create"
   active_admin:
     articles:
-      now_offline: "Dieser Artikel ist nun offline"
-      now_online: "Dieser Artikel ist nun online"
-      tag-select-placeholder: "Tag wählen"
+      tag-select-placeholder: "Select tag"
+      now_offline: "This article is now offline"
+      now_online: "This article is now online"
+    resource:
+      upload: "Upload"
+      article: "Article"
     menue:
-      settings: "Einstellungen"
-    dashboard: Übersicht
+      settings: "Settings"
+    dashboard: "Dashboard"
     dashboard_welcome:
-      welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
-      call_to_action: "Siehe 'app/admin/dashboards.rb', um Übersichts-Bereiche hinzuzufügen."
-    view: "Anzeigen"
-    devise:
-      login:
-        title: " -- Administration"
-        remember_me: "Anmeldung merken"
-      links:
-        sign_up: "Registrieren"
-        forgot_your_password: "Passwort vergessen?"
-        resend_unlock_instructions: "E-Mail zum Entsperren neu zuschicken"
-    edit: "Bearbeiten"
-    delete: "Löschen"
-    delete_confirmation: "Wollen Sie dieses Element wirklich löschen?"
-    new_model: "%{model} erstellen"
-    create_model: "%{model} erstellen"
-    edit_model: "%{model} bearbeiten"
-    delete_model: "%{model} löschen"
-    update_model: "%{model} bearbeiten"
+      welcome: "Welcome to Active Admin. This is the default dashboard page."
+      call_to_action: "To add dashboard sections, checkout 'app/admin/dashboards.rb'"
+    view: "View"
+    edit: "Edit"
+    delete: "Delete"
+    delete_confirmation: "Are you sure you want to delete this?"
+    new_model: "New %{model}"
+    create_model: "New %{model}"
+    edit_model: "Edit %{model}"
+    update_model: "Edit %{model}"
+    delete_model: "Delete %{model}"
     details: "%{model} Details"
-    cancel: "Abbrechen"
-    empty: "Leer"
-    previous: "Zurück"
-    next: "Weiter"
-    download: "Herunterladen:"
-    has_many_new: "%{model} hinzufügen"
-    has_many_delete: "Löschen"
-    filter: "Filtern"
-    clear_filters: "Filter entfernen"
-    search_field: "Durchsuche %{field}"
-    equal_to: "Gleich"
-    greater_than: "Größer als"
-    less_than: "Kleiner als"
-    main_content: "Bitte implementieren Sie %{model}#main_content, um Inhalte anzuzeigen."
-    logout: "Abmelden"
+    cancel: "Cancel"
+    empty: "Empty"
+    previous: "Previous"
+    next: "Next"
+    download: "Download:"
+    has_many_new: "Add New %{model}"
+    has_many_delete: "Delete"
+    filter: "Filter"
+    clear_filters: "Clear Filters"
+    search_field: "Search %{field}"
+    equal_to: "Equal To"
+    greater_than: "Greater Than"
+    less_than: "Less Than"
+    main_content: "Please implement %{model}#main_content to display content."
+    logout: "Logout"
     sidebars:
-      submit_widget: "Auswahl speichern"
-      submit_layout: "Layout zuweisen"
-      widgets_options: "Schnipsel-Optionen"
-      startpage_options: "Startseiten-Optionen"
-      filters: "Filter"
-      layout: "Artikeltyp & Layout"
-      image_module: "Bildergalerie"
-      image_formates: "Bildgrößen"
-      overview: "Überblick"
-      menue_options: "Menü-Optionen"
-      link_checker: "Links überprüfen"
-    per_page: "Einträge pro Seite"
+      submit_widget: "Save Widgets"
+      submit_layout: "allocate Layout"
+      widgets_options: "Widget Options"
+      overview: "Overview"
+      startpage_options: "Startpage Options"
+      layout: "Layout"
+      image_formates: "Image Formates"
+      image_module: "Image Module"
+      filters: "Filters"
+    per_page: "Items per page"
     pagination:
-      empty: "Keine %{model} gefunden"
-      one: "Zeige <b>1</b> %{model}"
-      one_page: "Zeige <b>alle %{n}</b> %{model}"
-      multiple: "Zeige %{model} <b>%{from}&nbsp;–&nbsp;%{to}</b> von <b>%{total}</b>"
+      empty: "No %{model} found"
+      one: "Displaying <b>1</b> %{model}"
+      one_page: "Displaying <b>all %{n}</b> %{model}"
+      multiple: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{total}</b> in total"
       entry:
-        one: "Eintrag"
-        other: "Einträge"
-    any: "Alle"
+        one: "entry"
+        other: "entries"
+    any: "Any"
     blank_slate:
-      content: "Es gibt noch keine %{resource_name}."
-      link: "Erstellen"
+      content: "There are no %{resource_name} yet."
+      link: "Create one"
     batch_actions:
+      button_label: "Batch Actions"
+      delete_confirmation: "Are you sure you want to delete these %{plural_model}? You won't be able to undo this."
+      succesfully_destroyed:
+        one: "Successfully destroyed 1 %{model}"
+        other: "Successfully destroyed %{count} %{plural_model}"
+      selection_toggle_explanation: "(Toggle Selection)"
+      link: "Create one"
+      action_label: "%{title} Selected"
       labels:
         set_article_online: "Artikel online stellen"
         set_article_offline: "Artikel offline stellen"
-        set_menue_offline: "Menü online stellen"
-        set_menue_online: "Menü offline stellen"
-        reset_cache: "Cache leeren"
-        send_default_conf_mails: "Sende Bestätigungsmails"
-        destroy: "Löschen"
-      button_label: "Batch Verarbeitung"
-      delete_confirmation: "Sind Sie sicher, Sie wollen all diese %{plural_model} löschen? Widerruf ist nicht möglich."
-      succesfully_destroyed:
-        one: "1 %{model} wurde erfolgreich gelöscht"
-        other: "%{count} %{plural_model} wurden erfolgreich gelöscht"
-      selection_toggle_explanation: "(Auswahl umkehren)"
-      link: "Erstelle eins"
+        reset_cache: "reset cache"
+        send_default_conf_mails: "Send confirmation mails"
+        destroy: "Delete"
     comments:
-      body: "Inhalt"
-      author: "Autor"
-      title: "Kommentar"
+      body: "Body"
+      author: "Author"
+      title: "Comment"
+      add: "Add Comment"
       resource: "Resource"
-      add: "Kommentar hinzufügen"
-      no_comments_yet: "Es gibt noch keine Kommentare."
-      title_content: "Kommentare (%{count})"
+      no_comments_yet: "No comments yet."
+      title_content: "Comments (%{count})"
       errors:
-        empty_text: "Der Kommentar wurde nicht gespeichert, da der Text fehlt."
-  errors:
-    messages:
-      expired: "ist abgelaufen, bitte neu anfordern"
-      not_found: "nicht gefunden"
-      already_confirmed: "wurde bereits bestätigt"
-      not_locked: "ist nicht gesperrt"
-      not_saved:
-        one: "Konnte %{resource} nicht speichern: ein Fehler."
-        other: "Konnte %{resource} nicht speichern: %{count} Fehler."
-  devise:
-    failure:
-      already_authenticated: 'Du bist bereits angemeldet.'
-      unauthenticated: 'Du musst Dich anmelden oder registrieren, bevor Du fortfahren kannst.'
-      unconfirmed: 'Du musst Deinen Account bestätigen, bevor Du fortfahren kannst.'
-      locked: 'Dein Account ist gesperrt.'
-      invalid: 'Ungültige Anmeldedaten.'
-      invalid_token: 'Der Anmelde-Token ist ungültig.'
-      timeout: 'Deine Sitzung ist abgelaufen, bitte melde Dich erneut an.'
-      inactive: 'Dein Account ist nicht aktiv.'
-    sessions:
-      signed_in: 'Erfolgreich angemeldet.'
-      signed_out: 'Erfolgreich abgemeldet.'
-    passwords:
-      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Dein Passwort zurücksetzen kannst.'
-      updated: 'Dein Passwort wurde geändert. Du bist jetzt angemeldet.'
-      updated_not_active: 'Dein Passwort wurde geändert.'
-      send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert erhältst Du in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Dein Passwort zurücksetzen können."
-    confirmations:
-      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail, mit der Du Deine Registrierung bestätigen kannst.'
-      send_paranoid_instructions: 'Falls Deine E-Mail-Adresse in unserer Datenbank existiert erhältst Du in wenigen Minuten eine E-Mail mit der Du Deine Registrierung bestätigen kannst.'
-      confirmed: 'Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet.'
-    registrations:
-      signed_up: 'Du hast dich erfolgreich registriert.'
-      signed_up_but_unconfirmed: 'Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit der Anleitung, wie Du Deinen Account freischalten kannst.'
-      signed_up_but_inactive: 'Du hast dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account inaktiv ist.'
-      signed_up_but_locked: 'Du hast dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account gesperrt ist.'
-      updated: 'Deine Daten wurden aktualisiert.'
-      update_needs_confirmation: "Deine Daten wurden aktualisiert, aber Du musst Deine neue E-Mail-Adresse bestätigen. Du erhälsts in wenigen Minuten eine E-Mail, mit der Du die Änderung Deiner E-Mail-Adresse abschließen kannst."
-      destroyed: 'Dein Account wurde gelöscht.'
-    unlocks:
-      send_instructions: 'Du erhältst in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren können.'
-      unlocked: 'Dein Account wurde entsperrt. Du bist jetzt angemeldet.'
-      send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert erhältst Du in wenigen Minuten eine E-Mail mit der Anleitung, wie Du Deinen Account entsperren kannst."
-    omniauth_callbacks:
-      success: 'Du hast Dich erfolgreich mit Deinem %{kind}-Account angemeldet.'
-      failure: 'Du konntest nicht Deinem %{kind}-Account angemeldet werden, weil "%{reason}".'
-    mailer:
-      confirmation_instructions:
-        subject: 'Anleitung zur Bestätigung Deines Accounts'
-      reset_password_instructions:
-        subject: 'Anleitung um Dein Passwort zurückzusetzen'
-      unlock_instructions:
-        subject: 'Anleitung um Deinen Account freizuschalten'
-  activerecord:
-    models:
-      articletype:
-        one: "Artikeltyp"
-        other: "Artikeltypen"
-      link-checker:
-        one: "Link-Checker"
-        other: "Link-Checker"
-      domain:
-        one: "Domain"
-        other: "Domains"
-      analytic:
-        one: "Analytic"
-        other: "Analytics"
-      article_comment:
-        one: "Kommentar"
-        other: "Kommentare"
-      author:
-        one: "Autor"
-        other: "Autoren"
-      goldencobra/author:
-        one: "Autor"
-        other: "Autoren"
-      goldencobra/comment:
-        one: "Kommentar"
-        other: "Kommentare"
-      import:
-        one: "Import"
-        other: "Imports"
-      location:
-        one: "Adresse"
-        other: "Adressen"
-      goldencobra/location:
-        one: "Adresse"
-        other: "Adressen"
-      seo-article:
-        one: "SEO-Artikel"
-        other: "SEO-Artikel"
-      article:
-        one: "Artikel"
-        other: "Artikel"
-      goldencobra/article:
-        one: "Artikel"
-        other: "Artikel"
-      setting:
-        one: "Webseiten-Einstellung"
-        other: "Webseiten-Einstellungen"
-      goldencobra/setting:
-        one: "Webseiten-Einstellung"
-        other: "Webseiten-Einstellungen"
-      menue:
-        one: "Menü"
-        other: "Menüpunkte"
-      goldencobra/menue:
-        one: "Menü"
-        other: "Menüpunkte"
-      metag:
-        one: "Metatag"
-        other: "Metatags"
-      goldencobra/metag:
-        one: "Metatag"
-        other: "Metatags"
-      widget:
-        one: "Schnipsel"
-        other: "Schnipsel"
-      goldencobra/widget:
-        one: "Schnipsel"
-        other: "Schnipsel"
-      upload:
-        one: "Medium"
-        other: "Medien"
-      goldencobra/upload:
-        one: "Medium"
-        other: "Medien"
-      user:
-        one: "Benutzer"
-        other: "Benutzer"
-      permission:
-        one: "Zugriffsrecht"
-        other: "Zugriffsrechte"
-      goldencobra/permission:
-        one: "Zugriffsrecht"
-        other: "Zugriffsrechte"
-      role:
-        one: "Benutzerrolle"
-        other: "Benutzerrollen"
-      goldencobra/role:
-        one: "Benutzerrolle"
-        other: "Benutzerrollen"
-      visitor:
-        one: "Besucher"
-        other: "Besucher"
-    attributes:
-      goldencobra/metatag:
-        name: "Art"
-        value: "Wert"
-      goldencobra/comment:
-        content: "Inhalt"
-        active: "aktiv"
-        approved: "kontrolliert"
-        reported: "gemeldet"
-      goldencobra/setting:
-        title: "Titel"
-        value: "Wert"
-        ancestry: "Pfad"
-        created_at: "erstellt am"
-        updated_at: "bearbeitet am"
-      goldencobra/location:
-        lat: "Latitude"
-        lng: "Longitude"
-        street: "Straße"
-        street_number: "Hausnummer"
-        city: "Stadt"
-        zip: "PLZ"
-        region: "Bezirk"
-        country: "Land"
-        created_at: "erstellt am"
-        updated_at: "bearbeitet am"
-      goldencobra/role:
-        description: "Beschreibung"
-        created_at: "Erstellt am"
-        updated_at: "Bearbeitet am"
-      user:
-        firstname: "Vorname"
-        lastname: "Nachname"
-        password: "Passwort"
-        password_confirmation: "Passwort bestätigen"
-        roles: "Nutzerrollen"
-        function: "Funktion"
-        phone: "Telefon"
-        complete_name: "Name"
-        email: "E-Mail"
-        enable_expert_mode: 'Expertenmodus aktivieren?'
-        created_at: "erstellt am"
-        updated_at: "bearbeitet am"
-      goldencobra/article:
-        enable_social_sharing: "'Social Sharing'-Aktionen anzeigen"
-        parent_id: "Übergeordneter Artikel"
-        article_type: "Artikeltyp"
-        title: "Titel"
-        url: "Webseite"
-        sorter_limit: "Zahl von Artikeln"
-        sort_order: "Sortierkriterium"
-        reverse_sort: "Sortierung absteigend?"
-        author: "Autor"
-        url_name: "Website-Adresse des Artikels"
-        slug: "URL-Kurzform"
-        content: "Haupt-Textfeld"
-        teaser: "Teaser"
-        ancestry: "Abstammung"
-        startpage: "Startseite"
-        active: "Aktiv?"
-        subtitle: "Untertitel"
-        summary: "Zusammenfassung"
-        context_info: "Weiterer Inhalt"
-        canonical_url: "Canonical URL"
-        robots_no_index: "Artikel nicht durch Suchmaschinen finden lassen"
-        breadcrumb: "Breadcrumb-Titel"
-        template_file: "Layout der Seite"
-        enable_social_sharing: "Social Media Buttons"
-        cacheable: "Artikel cachebar"
-        article_type: "Artikeltyp"
-        external_url_redirect: "Weiterleitung zu externer URL"
-        index_of_articles_tagged_with: "Übersicht von Artikeln mit TAG"
-        sort_order: "Sortierung"
-        not_tagged_with: "Übersicht von Artikeln OHNE TAG"
-        use_frontend_tags: "Filter-Tags"
-        dynamic_redirection: "Automatische Weiterleitung"
-        redirection_target_in_new_window: "Weiterleitung in neuem Fenster öffnen?"
-        commentable: "Artikel kommentierbar"
-        active_since: "Online seit"
-        redirect_link_title: "Name des externen Links"
-        tag_list: "Liste von internen Tags"
-        frontend_tag_list: "Filterkriterium"
-        created_at: "Erstellt am"
-        updated_at: "Bearbeitet am"
-      goldencobra/permission:
-        role: "Rolle"
-        action: "Aktion"
-      goldencobra/upload:
-        source: "Quellenverweis"
-        created_at: "Erstellt am"
-        updated_at: "Bearbeitet am"
-        image_file_name: "Dateiname"
-        image_content_type: "Dateityp"
-        image_file_size: "Dateigröße"
-        rights: "Rechteinhaber"
-        description: "Beschreibung"
-        image: "Datei"
-      goldencobra/widget:
-        title: "Name"
-        content: "Standard Inhalt"
-        mobile_content: "Inhalt für mobile Geräte"
-        id_name: "ID Wert für css"
-        css_name: "Class Wert für css"
-        sorter: "Sortiernummer"
-        tag_list: "Tag Liste"
-        articles: "Artikel"
-        active: "Online sichtbar?"
-        created_at: "Erstellt am"
-        updated_at: "Bearbeitet am"
-        teaser: "Teaser"
-        offline_day: "Tage an denen alternativer Inhalt angezeigt wird"
-        offline_time_start: "Startzeit"
-        offline_time_start_hint: "Start um HH:MM z.B. 16:00"
-        offline_time_end: "Endzeit"
-        offline_time_end_hint: "Ende um HH:MM z.B. 17:35"
-        offline_time_active: "Inhalt zeitgesteuert anzeigen?"
-        offline_time_active_hint: "Möchten Sie alternativen Offline Inhalt nutzen?"
-        alternative_content: "Offline-Inhalt"
-        alternative_content_hint: "Dieser Inhalt wird gezeigt, wenn das Widget offline ist."
-      visitor:
-        first_name: "Vorname"
-        last_name: "Nachname"
-        provider: "Anbieter"
-        uid: "Einzigartige ID"
-        newsletter: "Newsletter-Abo"
-        username: "Benutzername"
-        email: "E-Mail"
-        agb: "AGB akz."
-        last_sign_in_at: "Zuletzt eingeloggt"
-        created_at: "Erstellt am"
-        updated_at: "Bearbeitet am"
-        sign_in_count: "Wie oft eingeloggt"
-      goldencobra/author:
-        firstname: "Vorname"
-        lastname: "Nachname"
-        email: "E-Mail"
-        googleplus: "Google Plus URL"
+        empty_text: "Comment wasn't saved, text was empty."
   login:
     messages:
       errors:
-        no-user-found-with-this-email: "Unbekannter Nutzer"
-        wrong-username-or-password: "Benutzername oder Passwort falsch"
-      success_redirect: "Anmeldung erfolgreich. Umleitung ..."
+        no-user-found-with-this-email: "No user found"
+        wrong-username-or-password: "Wrong username or password"
+      success_redirect: "Login success. Redirecting ..."
   views:
     pagination:
       first: "|‹"
@@ -479,172 +406,178 @@ de:
       next: "»"
       last: "›|"
       truncate: "..."
-  new_subarticle: "Neuer Unterartikel"
+  title: "Title"
+  url: "URL"
+  created_at: "created at"
+  updated_at: "updated at"
+  new_subarticle: "New subarticle"
   date:
     abbr_day_names:
-    - So
-    - Mo
-    - Di
-    - Mi
-    - Do
-    - Fr
-    - Sa
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
     abbr_month_names:
     -
     - Jan
     - Feb
-    - Mär
+    - Mar
     - Apr
-    - Mai
+    - May
     - Jun
     - Jul
     - Aug
     - Sep
-    - Okt
+    - Oct
     - Nov
-    - Dez
+    - Dec
     day_names:
-    - Sonntag
-    - Montag
-    - Dienstag
-    - Mittwoch
-    - Donnerstag
-    - Freitag
-    - Samstag
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
     formats:
-      default: ! '%d.%m.%Y'
-      long: ! '%e. %B %Y'
-      short: ! '%e. %b'
+      default: ! '%Y-%m-%d'
+      long: ! '%B %d, %Y'
+      short: ! '%b %d'
     month_names:
     -
-    - Januar
-    - Februar
-    - März
+    - January
+    - February
+    - March
     - April
-    - Mai
-    - Juni
-    - Juli
+    - May
+    - June
+    - July
     - August
     - September
-    - Oktober
+    - October
     - November
-    - Dezember
+    - December
     order:
-    - :day
-    - :month
     - :year
+    - :month
+    - :day
   datetime:
     distance_in_words:
       about_x_hours:
-        one: etwa eine Stunde
-        other: etwa %{count} Stunden
+        one: about 1 hour
+        other: about %{count} hours
       about_x_months:
-        one: etwa ein Monat
-        other: etwa %{count} Monate
+        one: about 1 month
+        other: about %{count} months
       about_x_years:
-        one: etwa ein Jahr
-        other: etwa %{count} Jahre
+        one: about 1 year
+        other: about %{count} years
       almost_x_years:
-        one: fast ein Jahr
-        other: fast %{count} Jahre
-      half_a_minute: eine halbe Minute
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
       less_than_x_minutes:
-        one: weniger als eine Minute
-        other: weniger als %{count} Minuten
+        one: less than a minute
+        other: less than %{count} minutes
       less_than_x_seconds:
-        one: weniger als eine Sekunde
-        other: weniger als %{count} Sekunden
+        one: less than 1 second
+        other: less than %{count} seconds
       over_x_years:
-        one: mehr als ein Jahr
-        other: mehr als %{count} Jahre
+        one: over 1 year
+        other: over %{count} years
       x_days:
-        one: ein Tag
-        other: ! '%{count} Tage'
+        one: 1 day
+        other: ! '%{count} days'
       x_minutes:
-        one: eine Minute
-        other: ! '%{count} Minuten'
+        one: 1 minute
+        other: ! '%{count} minutes'
       x_months:
-        one: ein Monat
-        other: ! '%{count} Monate'
+        one: 1 month
+        other: ! '%{count} months'
       x_seconds:
-        one: eine Sekunde
-        other: ! '%{count} Sekunden'
+        one: 1 second
+        other: ! '%{count} seconds'
     prompts:
-      day: Tag
-      hour: Stunden
-      minute: Minuten
-      month: Monat
-      second: Sekunden
-      year: Jahr
+      day: Day
+      hour: Hour
+      minute: Minute
+      month: Month
+      second: Seconds
+      year: Year
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:
-      accepted: muss akzeptiert werden
-      blank: muss ausgefüllt werden
-      confirmation: stimmt nicht mit der Bestätigung überein
-      empty: muss ausgefüllt werden
-      equal_to: muss genau %{count} sein
-      even: muss gerade sein
-      exclusion: ist nicht verfügbar
-      greater_than: muss größer als %{count} sein
-      greater_than_or_equal_to: muss größer oder gleich %{count} sein
-      inclusion: ist kein gültiger Wert
-      invalid: ist nicht gültig
-      less_than: muss kleiner als %{count} sein
-      less_than_or_equal_to: muss kleiner oder gleich %{count} sein
-      not_a_number: ist keine Zahl
-      not_an_integer: muss ganzzahlig sein
-      odd: muss ungerade sein
-      record_invalid: ! 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
-      taken: ist bereits vergeben
-      too_long: ist zu lang (nicht mehr als %{count} Zeichen)
-      too_short: ist zu kurz (nicht weniger als %{count} Zeichen)
-      wrong_length: hat die falsche Länge (muss genau %{count} Zeichen haben)
+      accepted: must be accepted
+      blank: can't be blank
+      confirmation: doesn't match confirmation
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      record_invalid: ! 'Validation failed: %{errors}'
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
     template:
-      body: ! 'Bitte überprüfen Sie die folgenden Felder:'
+      body: ! 'There were problems with the following fields:'
       header:
-        one: ! 'Konnte %{model} nicht speichern: ein Fehler.'
-        other: ! 'Konnte %{model} nicht speichern: %{count} Fehler.'
+        one: 1 error prohibited this %{model} from being saved
+        other: ! '%{count} errors prohibited this %{model} from being saved'
   helpers:
     select:
-      prompt: Bitte wählen
+      prompt: Please select
     submit:
-      create: ! '%{model} erstellen'
-      submit: ! '%{model} speichern'
-      update: ! '%{model} aktualisieren'
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
   number:
     currency:
       format:
-        delimiter: .
-        format: ! '%n %u'
+        delimiter: ! ','
+        format: ! '%u%n'
         precision: 2
-        separator: ! ','
+        separator: .
         significant: false
         strip_insignificant_zeros: false
-        unit: €
+        unit: $
     format:
-      delimiter: .
-      precision: 2
-      separator: ! ','
+      delimiter: ! ','
+      precision: 3
+      separator: .
       significant: false
       strip_insignificant_zeros: false
     human:
       decimal_units:
         format: ! '%n %u'
         units:
-          billion:
-            one: Milliarde
-            other: Milliarden
-          million: Millionen
-          quadrillion:
-            one: Billiarde
-            other: Billiarden
-          thousand: Tausend
-          trillion: Billionen
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
           unit: ''
       format:
         delimiter: ''
-        precision: 1
+        precision: 3
         significant: true
         strip_insignificant_zeros: true
       storage_units:
@@ -665,23 +598,16 @@ de:
         delimiter: ''
   support:
     array:
-      last_word_connector: ! ' und '
-      two_words_connector: ! ' und '
+      last_word_connector: ! ', and '
+      two_words_connector: ! ' and '
       words_connector: ! ', '
   time:
-    am: vormittags
+    am: am
     formats:
-      default: ! '%A, %d. %B %Y, %H:%M Uhr'
-      long: ! '%A, %d. %B %Y, %H:%M Uhr'
-      short: ! '%d. %B, %H:%M Uhr'
-    pm: nachmittags
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+    pm: pm
   activemodel:
     errors:
       <<: *errors
-  title: "Titel"
-  url: "Website"
-  created_at: "Erstellt am"
-  updated_at: "Bearbeitet am"
-  edit: "bearbeiten"
-  delete: "löschen"
-  new_subarticle: 'Neuer Unterartikel'
