@@ -1,6 +1,7 @@
 en:
   articles:
     read_on: 'read on'
+    selection: "Article"
   formtastic:
     yes: 'yes'
     no: 'no'
