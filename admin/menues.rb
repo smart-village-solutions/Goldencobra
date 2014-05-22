@@ -27,7 +27,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :active, :label => I18n.t('active_admin.menues.form.options.active_label'), :hint => I18n.t('active_admin.menues.form.options.aktiv_hint')
       f.input :remote, :label => I18n.t('active_admin.menues.form.options.remote_label'), :hint => I18n.t('active_admin.menues.form.options.remote_hint')
     end
-    f.inputs I18n.t('active_admin.menues.form.access_rights'), :class => "foldable closed inputs" do
+    f.inputs I18n.t('active_admin.menues.form.access.access_rights'), :class => "foldable closed inputs" do
       f.has_many :permissions do |p|
         p.input :role, :include_blank => I18n.t('active_admin.menues.form.access.include_blank')
         p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
