@@ -268,12 +268,12 @@ en:
         article_edit: "Edit article"
         create_subarticle: "Create new sub article"
         delete_article: "Delete article"
-      views:
-        inputs: "Overview Options"
-        label1: "Index of articles in the directory"
-        hint1: "All Articles beneath this Article are listed, except for this Article."
-        label2: "Pages"
-        hint2: "Which Pages should be displayed in the Overview?"
+        views:
+          inputs: "Overview Options"
+          label1: "Index of articles in the directory"
+          hint1: "All Articles beneath this Article are listed, except for this Article."
+          label2: "Pages"
+          hint2: "Which Pages should be displayed in the Overview?"
       sidebar:
         h5: "Menu items for this article already exist."
         seo_link: "SEO view"
