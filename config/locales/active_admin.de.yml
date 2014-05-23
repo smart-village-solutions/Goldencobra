@@ -233,7 +233,8 @@ de:
           status: "Status: 
           link: "Links jetzt überprüfen"
         link_checker_index:
-          link: "Artikel #{source['article_id']} bearbeiten", "/admin/articles/#{source['article_id']}/edit"
+          link1: "Artikel"
+          link2: "bearbeiten"
         select_article_type:
           label_type: "Artikeltyp"
           label_title: "Titel"
