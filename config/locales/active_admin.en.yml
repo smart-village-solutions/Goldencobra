@@ -21,6 +21,27 @@ en:
       name: "Name"
       list: "list"
       create: "create"
+    manage:
+      admin_article_management_content:
+        link1: "#{@operator.email} logout"
+        link1_text: "Article edit in Backend"
+        link2: "Set Article offline" 
+        confirm2: "Set Page offline?"
+        link3: "Set Article offline" 
+        confirm3: "Set page online?"
+    sessions:
+      login:
+        link1: "logout"
+        label_email: "E-Mail Address"
+        label_password: "Password"
+        submit: "Login"
+    register:
+      label_email: "E-Mail Address *"
+      label_username: 'Username *'
+      label_password: 'Password *'
+      label_pass_confirmation: 'Password confirmation *'
+      div: "I accept AGB & Privacy Policy *"
+      submit: "Sign-up"
   active_admin:
     dashboard: "Dashboard"
     dashboard_welcome:
@@ -192,6 +213,46 @@ en:
         role: "All"
         media: "Media"
         JS_scripts: "JS-Scripts"
+        views:
+          article_type: 
+            input: "test"
+          image_module_sidebar: 
+            h5: "Insert Photo Gallery"
+            p: "All images that are provided with the following tags should be displayed"
+            tag1: "Photo"
+            tag2: "Photos"
+            submit: "Choose a Photo"
+          layout_sidebar: 
+            h5: "Article-Pagetype:"
+            submit: "Assign an Article Type"
+          link_checker: 
+            h5: "Here you can check the functionality of all the links in this article."
+            h4: "All the links are ok!"
+            status: "Status: "
+            link: "Check links now"
+          link_checker_index:
+            link: "Edit article #{source['article_id']}", "/admin/articles/#{source['article_id']}/edit"
+          select_article_type:
+            label_type: "Article Type"
+            label_title: "Title"
+            hint_title: "Title/Headline of the Article/Page can contain spaces and /or special characters"
+            label_short: "Shorter Title"
+            hint_short: "In URL for Breadcrump trail and for Meta title of the page only 70 characters are allowed"
+            label_text: "Main-Textfield"
+            hint_text: "The main text box will be used for the content of the entire page"
+            hint_teaser: "Text offers short describtion of the Article. The description can also be used for Google & Facebook."
+            label_tags: "List of internal Tags"
+            hint_tags: "Tags are values, separated by a comma, with which Article is groupped internally"
+            label_filter: "Filter criteria"
+            hint_filter: "Here registered terms are offered on overview pages as filter options"
+          sort_articles_index: 
+            inputs: "Manually Sorting Index"
+          toggle_expert_mode: 
+            text1: 'Expert-Modus deaktivieren'
+            text2: 'Expert-Modus aktivieren'
+          widgets_sidebar:
+            h5: "The following widgets are displayed in addition to the standard widgets"
+            position: "Position: "
       index:
         website_title: "Website title"
         website_url: "Website address"
@@ -206,6 +267,12 @@ en:
         article_edit: "Edit article"
         create_subarticle: "Create new sub article"
         delete_article: "Delete article"
+      views:
+        inputs: "Overview Options"
+        label1: "Index of articles in the directory"
+        hint1: "All Articles beneath this Article are listed, except for this Article."
+        label2: "Pages"
+        hint2: "Which Pages should be displayed in the Overview?"
       sidebar:
         h5: "Menu items for this article already exist."
         seo_link: "SEO view"
@@ -531,3 +598,10 @@ en:
       sorter_hint: "Sort number/position"
     authors:
       as: "Authors"
+    shared:
+      views:
+        item:
+          link1: "edit"
+          title1: "Edit"
+          link2: "new"
+          title2: "New"

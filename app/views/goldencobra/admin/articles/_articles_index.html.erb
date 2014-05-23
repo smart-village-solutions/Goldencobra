@@ -1,4 +1,4 @@
-<% f.inputs "Übersichtsoptionen", :class => "foldable inputs" do %>
-  <% f.input :article_for_index_id, label: "Übersicht von Artikeln im Verzeichnis", :hint => "Alle Artikel unterhalb dieses Artikels werden aufgelistet, exklusive diesem selbst", :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => "/", id: "article_event_articleindex_id", :input_html => { :class => 'chzn-select', :style => 'width: 70%;' } %>
-  <% f.input :display_index_types, :label => "Seiten", :hint => "Welche Seiten sollen auf der Übersicht angezeigt werden?", :as => :select, :collection => Goldencobra::Article::DisplayIndexTypes, :include_blank => false %>
+<% f.inputs I18n.t('active_admin.articles.index.views.inputs'), :class => "foldable inputs" do %>
+  <% f.input :article_for_index_id, label: I18n.t('active_admin.articles.index.views.label1'), :hint => I18n.t('active_admin.articles.index.views.hint1'), :as => :select, :collection => Goldencobra::Article.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => "/", id: "article_event_articleindex_id", :input_html => { :class => 'chzn-select', :style => 'width: 70%;' } %>
+  <% f.input :display_index_types, :label => I18n.t('active_admin.articles.index.views.label2'), :hint => I18n.t('active_admin.articles.index.views.hint2'), :as => :select, :collection => Goldencobra::Article::DisplayIndexTypes, :include_blank => false %>
 <% end %>
