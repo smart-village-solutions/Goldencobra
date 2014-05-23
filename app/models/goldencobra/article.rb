@@ -102,6 +102,7 @@ module Goldencobra
     after_save :set_default_meta_opengraph_values
     after_save :verify_existence_of_opengraph_image
     after_update :notification_event_update
+    after_update :update_parent_article_etag
     before_destroy :update_parent_article_etag
 
     attr_protected :startpage
@@ -521,7 +522,7 @@ module Goldencobra
     # **************************
     # **************************
 
-    #Nachdem ein Artikel gelöscht wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht wurde
+    #Nachdem ein Artikel gelöscht oder aktualsisiert wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht oder bearbeitet wurde
     def update_parent_article_etag
       if self.parent.present?
         self.parent.update_attributes(:updated_at => Time.now)
