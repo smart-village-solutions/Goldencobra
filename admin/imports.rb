@@ -25,12 +25,12 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
 
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.actions
-    f.inputs I18n.t('active_admin.imports.form.select_file') do
+    f.inputs "#{I18n.t('active_admin.imports.form.select_file')} #{f.object.target_model}" do
       f.input :target_model, as: :select, collection: ActiveRecord::Base.descendants.map(&:name), include_blank: false
       f.inputs I18n.t('active_admin.imports.form.upload'), :class=> "inputs" do
         f.fields_for :upload do |u|
           u.inputs "" do
-            u.input :image, :as => :file, :label => "CSV Datei", :hint => I18n.t('active_admin.imports.form.upload')
+            u.input :image, :as => :file, :label => I18n.t('active_admin.imports.form.csv_file'), :hint => "#{I18n.t('active_admin.imports.form.hint')} #{u.object.try(:image_file_name)}"
           end
         end
       end

@@ -1,17 +1,17 @@
 #encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
-  menu :priority => 3, parent: "Content-Management", :if => proc{can?(:update, Goldencobra::Widget)}
+  menu priority: 4, parent: "Content-Management", :label => I18n.t('active_admin.widget.as'), :if => proc{can?(:update, Goldencobra::Widget)}
 
-  filter :title, :label => "Titel"
-  filter :css_name, :label => "CSS Klasse"
-  filter :id_name, :label => "ID Name"
-  filter :sorter, :label => "Sortiernummer"
+  filter :title, :label => I18n.t('active_admin.widget.title')
+  filter :css_name, :label => I18n.t('active_admin.widget.css_class')
+  filter :id_name, :label => I18n.t('active_admin.widget.id')
+  filter :sorter, :label => I18n.t('active_admin.widget.sorter')
 
-  scope "Alle", :scoped, :default => true
-  scope "Aktiv", :active
-  scope "Nicht aktiv", :inactive
-  scope "Standards", :default
+  scope I18n.t('active_admin.widget.scope1'), :scoped, :default => true
+  scope I18n.t('active_admin.widget.scope2'), :active
+  scope I18n.t('active_admin.widget.scope3'), :inactive
+  scope I18n.t('active_admin.widget.scope4'), :default
 
   if ActiveRecord::Base.connection.table_exists?("tags")
     Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
@@ -21,31 +21,31 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
 
   form html: { enctype: "multipart/form-data" } do |f|
     f.actions
-    f.inputs "Allgemein", :class => "foldable inputs" do
-      f.input :title, :label => "Titel", :hint => "Name des Schnipsels"
-      f.input :tag_list, :label => "Position", :hint => "Name der Bezeichnung der Position im Seitenlayout"
-      f.input :active, :label => "Aktiv?", :hint => "Soll dieses Schnipsel im System aktiv und online sichtbar sein?"
-      f.input :default, :label => "Standard?", :hint => "Bestimmt, ob ein Schnipsel immer und auf jeder Seite angezeigt wird oder nicht"
+    f.inputs I18n.t('active_admin.widget.general'), :class => "foldable inputs" do
+      f.input :title, :label => I18n.t('active_admin.widget.label1'), :hint => I18n.t('active_admin.widget.hint1')
+      f.input :tag_list, :label => I18n.t('active_admin.widget.label2'), :hint => I18n.t('active_admin.widget.hint2')
+      f.input :active, :label => I18n.t('active_admin.widget.label3'), :hint => I18n.t('active_admin.widget.hint3')
+      f.input :default, :label => I18n.t('active_admin.widget.label4'), :hint => I18n.t('active_admin.widget.hint4')
     end
-    f.inputs "Layout - Website", :class => "foldable inputs" do
-      f.input :content, :label => "Haupt-Textfeld", :hint => "Inhalt des Schnipsels für die Website, auch HTML möglich"
+    f.inputs I18n.t('active_admin.widget.layout_web'), :class => "foldable inputs" do
+      f.input :content, :label => I18n.t('active_admin.widget.label_web'), :hint => I18n.t('active_admin.widget.hint_web')
     end
-    f.inputs "Layout - Mobil", :class => "foldable inputs closed" do
-      f.input :mobile_content, :label => "Mobil-Textfeld", :hint => "Alternativer Inhalt des Schnipsels für mobile Seiten, auch HTML möglich"
+    f.inputs I18n.t('active_admin.widget.layout_mobile'), :class => "foldable inputs closed" do
+      f.input :mobile_content, :label => I18n.t('active_admin.widget.label_mobile'), :hint => I18n.t('active_admin.widget.hint_mobile')
     end
-    f.inputs "Erweiterte Informationen", :class => "foldable inputs closed"  do
-      f.input :sorter, :label => "Sortiernummer", :hint => "Nach dieser Nummer wird sortiert, je höher, desto weiter unten in der Ansicht"
-      f.input :css_name, :label => "CSS Klassen", :hint => "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
-      f.input :id_name, :label => "ID Name", :hint => "Eindeutige Bezeichnung dieses Elements innerhalb der Website"
+    f.inputs I18n.t('active_admin.widget.info'), :class => "foldable inputs closed"  do
+      f.input :sorter, :label => I18n.t('active_admin.widget.label_info1'), :hint => I18n.t('active_admin.widget.label_hint1')
+      f.input :css_name, :label => I18n.t('active_admin.widget.label_info2'), :hint => I18n.t('active_admin.widget.label_hint2')
+      f.input :id_name, :label => I18n.t('active_admin.widget.label_info3'), :hint => I18n.t('active_admin.widget.label_hint3')
       f.input :teaser
-      f.input :description, :label => "Beschreibung", :hint => "Interne Beschreibung dieses Schnipsels"
+      f.input :description, :label => I18n.t('active_admin.widget.label_info4'), :hint => I18n.t('active_admin.widget.label_hint4')
     end
     if Goldencobra::Setting.for_key("goldencobra.widgets.time_control") == "true"
-      f.inputs "Zeitsteuerung", :class => "foldable inputs closed" do
-        f.input :offline_time_active, :label => "Zeitgesteuert?", hint: 'Soll dieses Schnipsel zeitgesteuert sichtbar sein?'
-        f.input :offline_date_start, :label => "Startdatum", :hint => "Ab diesem Datum wird das Schnipsel jeden Mo, Di, .. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
-        f.input :offline_date_end, :label => "Enddatum", :hint => "Bis zu diesem Datum wird das Schnipsel jeden Mo, Di, .. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
-        f.input :offline_day, :label => "Tage, an denen alternativer Inhalt angezeigt werden soll", as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
+      f.inputs I18n.t('active_admin.widget.time'), :class => "foldable inputs closed" do
+        f.input :offline_time_active, :label => I18n.t('active_admin.widget.time_label1'), hint: I18n.t('active_admin.widget.time_hint1')
+        f.input :offline_date_start, :label => I18n.t('active_admin.widget.time_label2'), :hint => I18n.t('active_admin.widget.time_hint2')
+        f.input :offline_date_end, :label => I18n.t('active_admin.widget.time_label3'), :hint => I18n.t('active_admin.widget.time_hint3')
+        f.input :offline_day, :label => I18n.t('active_admin.widget.time_label4'), as: :check_boxes, collection: Goldencobra::Widget::OfflineDays
         f.input :offline_time_start_mo, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_start_mo) }
         f.input :offline_time_end_mo, as: :string, placeholder:  I18n.t(:offline_time_end_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_end_mo) }
         f.input :offline_time_start_tu, as: :string, placeholder: I18n.t(:offline_time_start_hint, scope: [:activerecord, :attributes, 'goldencobra/widget']), input_html: { value: (f.object.get_offline_time_start_tu) }
@@ -63,15 +63,15 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
         f.input :alternative_content, :label => "Alternativer Inhalt", hint: 'Dieser Inhalt wird angezeigt, wenn das Schnipsel offline ist, HTML möglich.'
       end
     end
-    f.inputs "Zugriffsrechte", :class => "foldable closed inputs" do
+    f.inputs I18n.t('active_admin.widget.access_rights'), :class => "foldable closed inputs" do
       f.has_many :permissions do |p|
         p.input :role, :include_blank => "Alle"
         p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
         p.input :_destroy, :as => :boolean
       end
     end
-    f.inputs "Zugewiesene Artikel" do
-      f.input :articles, :label => "Artikel", :hint => "Auswahl aller Artikel, auf denen das Schnipsel erscheint", :as => :select, :collection => Goldencobra::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select', "data-placeholder" => "Bitte wählen" }
+    f.inputs I18n.t('active_admin.widget.article') do
+      f.input :articles, :label => I18n.t('active_admin.widget.article_label'), :hint => I18n.t('active_admin.widget.article_hint'), :as => :select, :collection => Goldencobra::Article.find(:all, :order => "title ASC"), :input_html => { :class => 'chzn-select', "data-placeholder" => I18n.t('active_admin.widget.article_placeholder') }
     end
     f.actions
   end
@@ -92,39 +92,39 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
 
   index do
     selectable_column
-    column "Titel", :title, :sortable => :title do |widget|
-      link_to(widget.title, edit_admin_widget_path(widget), :title => "Schnipsel bearbeiten")
+    column I18n.t('active_admin.widget.title'), :title, :sortable => :title do |widget|
+      link_to(widget.title, edit_admin_widget_path(widget), :title => I18n.t('active_admin.widget.title1'))
     end
-    column "Position", :tag_list, :sortable => false
-    column "Aktiv?", :active, :sortable => :active do |widget|
-      raw("<span class='#{widget.active ? 'online' : 'offline'}'>#{widget.active ? 'online' : 'offline'}</span>")
+    column I18n.t('active_admin.widget.position'), :tag_list, :sortable => false
+    column I18n.t('active_admin.widget.active'), :active, :sortable => :active do |widget|
+      raw("<span class='#{widget.active ? I18n.t('active_admin.widget.online') : I18n.t('active_admin.widget.offline')}'>#{widget.active ? I18n.t('active_admin.widget.online') : I18n.t('active_admin.widget.offline')}</span>")
     end
-    column "Sortiernr", :sorter
-    column "Standard?", :default, :sortable => :default do |widget|
+    column I18n.t('active_admin.widget.sorternr'), :sorter
+    column I18n.t('active_admin.widget.standard'), :default, :sortable => :default do |widget|
       widget.default ? "Ja" : "Nein"
     end
-    column "CSS Klassen", :css_name
-    column "ID Name", :id_name
-    column "Zugriff" do |widget|
+    column I18n.t('active_admin.widget.css_classes'), :css_name
+    column I18n.t('active_admin.widget.id'), :id_name
+    column I18n.t('active_admin.widget.access') do |widget|
       Goldencobra::Permission.restricted?(widget) ? raw("<span class='secured'>beschränkt</span>") : ""
     end
     column "" do |widget|
       result = ""
-      result += link_to(t(:edit), edit_admin_widget_path(widget), :class => "member_link edit_link edit", :title => "Schnipsel bearbeiten")
-      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => "Schnipsel löschen")
+      result += link_to(t(:edit), edit_admin_widget_path(widget), :class => "member_link edit_link edit", :title => I18n.t('active_admin.widget.title_widget_edit'))
+      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.widget.title_widget_delete'))
       raw(result)
     end
   end
 
   show :title => :title do
-    panel "Widget" do
+    panel I18n.t('active_admin.widget.widget') do
       attributes_table_for widget do
         [:title, :content, :css_name, :active].each do |a|
           row a
         end
       end
     end
-    panel "Articles" do
+    panel I18n.t('active_admin.widget.articles') do
       table do
         tr do
           ["Title", "url_name"].each do |ta|
@@ -149,14 +149,14 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     else
       @version.item.destroy
     end
-    redirect_to :back, :notice => "Undid #{@version.event}"
+    redirect_to :back, :notice => "#{I18n.t('active_admin.widget.revert_notice')} #{@version.event}"
   end
 
   batch_action :destroy, false
 
   action_item :only => :edit do
     if resource.versions.last
-      link_to("Undo", revert_admin_widget_path(:id => resource.versions.last), :class => "undo")
+      link_to(I18n.t('active_admin.widget.undo'), revert_admin_widget_path(:id => resource.versions.last), :class => "undo")
     end
   end
 
