@@ -228,7 +228,7 @@ de:
         link_checker: 
           h5: "Hier haben Sie die Möglichkeit alle Links dieses Artikels auf Funktionalität zu überprüfen."
           h4: "Alle Links sind in Ordnung!"
-          status: "Status: 
+          status: "Status: "
           link: "Links jetzt überprüfen"
         link_checker_index:
           link1: "Artikel"
