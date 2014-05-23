@@ -225,7 +225,7 @@ de:
           tag2: "Bilder"
           submit: "Bilder auswählen"
         layout_sidebar: 
-        h5: "Artikel-Seitentyp:"
+          h5: "Artikel-Seitentyp:"
           submit: "Artikeltyp zuweisen"
         link_checker: 
           h5: "Hier haben Sie die Möglichkeit alle Links dieses Artikels auf Funktionalität zu überprüfen."
