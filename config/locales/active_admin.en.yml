@@ -213,47 +213,47 @@ en:
         role: "All"
         media: "Media"
         JS_scripts: "JS-Scripts"
-        views:
-          article_type: 
-            input: "test"
-          image_module_sidebar: 
-            h5: "Insert Photo Gallery"
-            p: "All images that are provided with the following tags should be displayed"
-            tag1: "Photo"
-            tag2: "Photos"
-            submit: "Choose a Photo"
-          layout_sidebar: 
-            h5: "Article-Pagetype:"
-            submit: "Assign an Article Type"
-          link_checker: 
-            h5: "Here you can check the functionality of all the links in this article."
-            h4: "All the links are ok!"
-            status: "Status: "
-            link: "Check links now"
-          link_checker_index:
-            link1: "Edit"
-            link2: "now"
-          select_article_type:
-            label_type: "Article Type"
-            label_title: "Title"
-            hint_title: "Title/Headline of the Article/Page can contain spaces and /or special characters"
-            label_short: "Shorter Title"
-            hint_short: "In URL for Breadcrump trail and for Meta title of the page only 70 characters are allowed"
-            label_text: "Main-Textfield"
-            hint_text: "The main text box will be used for the content of the entire page"
-            hint_teaser: "Text offers short describtion of the Article. The description can also be used for Google & Facebook."
-            label_tags: "List of internal Tags"
-            hint_tags: "Tags are values, separated by a comma, with which Article is groupped internally"
-            label_filter: "Filter criteria"
-            hint_filter: "Here registered terms are offered on overview pages as filter options"
-          sort_articles_index: 
-            inputs: "Manually Sorting Index"
-          toggle_expert_mode: 
-            text1: 'Expert-Modus deaktivieren'
-            text2: 'Expert-Modus aktivieren'
-          widgets_sidebar:
-            h5: "The following widgets are displayed in addition to the standard widgets"
-            position: "Position: "
+      views:
+        article_type: 
+          input: "test"
+        image_module_sidebar: 
+          h5: "Insert Photo Gallery"
+          p: "All images that are provided with the following tags should be displayed"
+          tag1: "Photo"
+          tag2: "Photos"
+          submit: "Choose a Photo"
+        layout_sidebar: 
+          h5: "Article-Pagetype:"
+          submit: "Assign an Article Type"
+        link_checker: 
+          h5: "Here you can check the functionality of all the links in this article."
+          h4: "All the links are ok!"
+          status: "Status: "
+          link: "Check links now"
+        link_checker_index:
+          link1: "Edit"
+          link2: "now"
+        select_article_type:
+          label_type: "Article Type"
+          label_title: "Title"
+          hint_title: "Title/Headline of the Article/Page can contain spaces and /or special characters"
+          label_short: "Shorter Title"
+          hint_short: "In URL for Breadcrump trail and for Meta title of the page only 70 characters are allowed"
+          label_text: "Main-Textfield"
+          hint_text: "The main text box will be used for the content of the entire page"
+          hint_teaser: "Text offers short describtion of the Article. The description can also be used for Google & Facebook."
+          label_tags: "List of internal Tags"
+          hint_tags: "Tags are values, separated by a comma, with which Article is groupped internally"
+          label_filter: "Filter criteria"
+          hint_filter: "Here registered terms are offered on overview pages as filter options"
+        sort_articles_index: 
+          inputs: "Manually Sorting Index"
+        toggle_expert_mode: 
+          text1: 'Expert-Modus deaktivieren'
+          text2: 'Expert-Modus aktivieren'
+        widgets_sidebar:
+          h5: "The following widgets are displayed in addition to the standard widgets"
+          position: "Position: "
       index:
         website_title: "Website title"
         website_url: "Website address"
