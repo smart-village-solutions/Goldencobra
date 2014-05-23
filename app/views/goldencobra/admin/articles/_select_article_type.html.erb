@@ -7,14 +7,14 @@ end %>
 
 <%= f.inputs I18n.t(:selection, scope: [:articles]), :class => "inputs" do
   if article_types.count > 0
-    f.input :article_type, :label => "Artikeltyp", :as => :select, :collection => article_types.sort, include_blank: true
+    f.input :article_type, :label => I18n.t('active_admin.articles.views.select_article_type.label_type'), :as => :select, :collection => article_types.sort, include_blank: true
   end
-  f.input :title, :label => "Titel", :hint => "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
-  f.input :breadcrumb, :label => "Kurzer Titel", :hint => "Wird in der URL, für den Breadcrumb-Pfad und im Meta-Title der Seite verwendet, maximal 70 Zeichen"
-  f.input :content, :label => "Haupt-Textfeld", :hint => "Das Haupt-Textfeld wird für den kompletten Inhalt ihrer Seite verwendet", :input_html => { :class => "tinymce" }
-  f.input :teaser, :hint => "Dieser Text beschreibt den Artikel auf &Uuml;bersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt", :input_html => { :rows => 5 }
-  f.input :tag_list, :label => "Liste von internen Tags", :hint => "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
-  f.input :frontend_tag_list, label: "Filterkriterium", hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten"
+  f.input :title, :label => I18n.t('active_admin.articles.views.select_article_type.label_title'), :hint => I18n.t('active_admin.articles.views.select_article_type.hint_title')
+  f.input :breadcrumb, :label => I18n.t('active_admin.articles.views.select_article_type.label_short'), :hint => I18n.t('active_admin.articles.views.select_article_type.hint_short')
+  f.input :content, :label => I18n.t('active_admin.articles.views.select_article_type.label_text'), :hint => I18n.t('active_admin.articles.views.select_article_type.hint_text'), :input_html => { :class => "tinymce" }
+  f.input :teaser, :hint => I18n.t('active_admin.articles.views.select_article_type.hint_teaser'), :input_html => { :rows => 5 }
+  f.input :tag_list, :label => I18n.t('active_admin.articles.views.select_article_type.label_tags'), :hint => I18n.t('active_admin.articles.views.select_article_type.hint_tags')
+  f.input :frontend_tag_list, label: I18n.t('active_admin.articles.views.select_article_type.label_filter'), hint: I18n.t('active_admin.articles.views.select_article_type.hint_filter')
   f.input :parent_id, :as => :hidden
   f.input :url_name, :as => :hidden
 end %>

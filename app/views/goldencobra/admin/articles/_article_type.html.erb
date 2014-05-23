@@ -1,4 +1,4 @@
-<% f.inputs "test", :class => "" do %>
+<% f.inputs I18n.t('active_admin.articles.views.article_type.input'), :class => "" do %>
   <h3 class="goldencobra_article_article_type">
     <% if f.object.article_type.present? %>
       <%= I18n.t("#{f.object.article_type.parameterize}", scope: [:article_types]) %><%= " : #{f.object.public_url}" if f.object.title.present? %>

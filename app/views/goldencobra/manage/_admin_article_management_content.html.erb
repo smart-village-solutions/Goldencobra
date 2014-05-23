@@ -5,11 +5,11 @@
   <%= link_to Goldencobra::Setting.for_key('goldencobra.page.default_title_tag'), "/admin", :target => "_blank" %>
 </div>
 <div class="right">
-  <%= link_to "#{@operator.email} abmelden", "/admin/logout" %>
-  <a href='/admin/articles/<%= @article.id %>/edit' target="_blank" >Artikel im Backend bearbeiten</a>
+  <%= link_to I18n.t('goldencobra.manage.admin_article_management_content.link1'), "/admin/logout" %>
+  <a href='/admin/articles/<%= @article.id %>/edit' target="_blank" >I18n.t('goldencobra.manage.admin_article_management_content.link1_text')</a>
   <% if @article.active? %>
-    <%= link_to "Artikel offline stellen", "manage/article_visibility/#{@article.id}", :remote => true, :confirm => "Seite offline schalten?" %>
+    <%= link_to I18n.t('goldencobra.manage.admin_article_management_content.link2'), "manage/article_visibility/#{@article.id}", :remote => true, :confirm => I18n.t('goldencobra.manage.admin_article_management_content.confirm2') %>
   <% else %>
-    <%= link_to "Artikel online stellen", "manage/article_visibility/#{@article.id}", :remote => true, :confirm => "Seite online schalten?" %>
+    <%= link_to I18n.t('goldencobra.manage.admin_article_management_content.link3'), "manage/article_visibility/#{@article.id}", :remote => true, :confirm => I18n.t('goldencobra.manage.admin_article_management_content.confirm3') %>
   <% end %>
 </div>
