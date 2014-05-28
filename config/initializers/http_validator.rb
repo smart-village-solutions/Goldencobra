@@ -9,8 +9,11 @@ module HttpValidator
   module InstanceMethods
     def rewrite_web_url
       self.url_attribute_names_to_check.each do |attr_name|
-        if self.respond_to?(attr_name) && self.send(attr_name).present? && self.send(attr_name)[0..6] != "http://"
-          self.send("#{attr_name.to_s}=", "http://#{self.send(attr_name)}")
+        if self.respond_to?(attr_name) && self.send(attr_name).present? && self.send(attr_name)[0..7] == "https://" 
+          self.send("#{attr_name.to_s}=", "#{self.send(attr_name)}")
+        elsif self.respond_to?(attr_name) && self.send(attr_name).present? && self.send(attr_name)[0..6] == "http://"
+          self.send("#{attr_name.to_s}=", "#{self.send(attr_name)}")
+        else self.send("#{attr_name.to_s}=", "http://#{self.send(attr_name)}")
         end
       end
     end
@@ -19,4 +22,3 @@ module HttpValidator
 end
 
 ActiveRecord::Base.extend HttpValidator
-
