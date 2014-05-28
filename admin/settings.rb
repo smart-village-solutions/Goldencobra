@@ -6,9 +6,9 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   controller.authorize_resource :class => Goldencobra::Setting
   scope "Alle Settings", :with_values, :default => true
   if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.count > 0
-    Goldencobra::Setting.roots.each do |rs|
-      scope(rs.title){ |t| t.parent_ids_in(rs.id).with_values }
-    end
+    # Goldencobra::Setting.roots.each do |rs|
+    #   scope(rs.title){ |t| t.parent_ids_in(rs.id).with_values }
+    # end
   end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
