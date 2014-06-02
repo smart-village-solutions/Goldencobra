@@ -1,26 +1,26 @@
 <div class="login_form">
   <% if eval("current_#{usermodel.to_s.downcase}.present?") %>
     Angemeldet als <%= eval("current_#{usermodel.to_s.downcase}.firstname") %> <%= eval("current_#{usermodel.to_s.downcase}.lastname") %>
-    <%= link_to "abmelden", "/frontend_logout/#{usermodel}", :class => "logout", :remote => true %>
+    <%= link_to I18n.t('goldencobra.sessions.login.link1'), "/frontend_logout/#{usermodel}", :class => "logout", :remote => true %>
   <% else %>
     <%= form_for(usermodel.new, :as => "loginmodel", :url => "/frontend_login/#{usermodel}", :remote => true) do |f| %>
       <p class="errors"></p>
       <div class="clearfix">
-        <%= f.label :email, 'E-Mail Adresse' %>
+        <%= f.label :email, I18n.t('goldencobra.sessions.login.label_email') %>
         <div class="input">
           <%= f.email_field :email %>
         </div>
       </div>
 
       <div class="clearfix">
-        <%= f.label :password, 'Passwort' %>
+        <%= f.label :password, I18n.t('goldencobra.sessions.login.label_password') %>
         <div class="input">
           <%= f.password_field :password %>
         </div>
       </div>
 
       <div class="actions">
-        <%= f.submit "Login", :class=> "button" %>
+        <%= f.submit I18n.t('goldencobra.sessions.login.submit'), :class=> "button" %>
         <%#= link_to "Sign in with Facebook", "/visitors/auth/facebook", :class => "button" %>
         <%#= link_to "Passwort vergessen?", new_password_path("visitor"), :class => 'block' %>
         <%#= link_to "Sign in with Google", "/visitors/auth/google", :class => "button" %>

@@ -24,7 +24,7 @@
 					<div class="link_checker_position">
 						<%= source['position'] %>
 					</div>
-					<%= link_to "Artikel #{source['article_id']} bearbeiten", "/admin/articles/#{source['article_id']}/edit" %>
+					<%= link_to "#{I18n.t('active_admin.articles.views.link_checker_index.link1')} #{source['article_id']} #{I18n.t('active_admin.articles.views.link_checker_index.link2')}", "/admin/articles/#{source['article_id']}/edit %>
 				</li>
 			<% end %>
 			</ul>

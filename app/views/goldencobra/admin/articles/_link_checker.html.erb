@@ -1,10 +1,10 @@
-<h5>Hier haben Sie die Möglichkeit alle Links dieses Artikels auf Funktionalität zu überprüfen.</h5>
+<h5>I18n.t('active_admin.articles.views.link_checker.h5')</h5>
 
 <% if @article.link_checker.present? && @article.link_checker.class == Hash %>
 	<% status200er =  @article.link_checker.select{|key,value| value.present? && value['response_code'] == "200"} %>
 	<h2><%= @article.link_checker.count - status200er.count %>x Status 404,301... :</h2>
 	<% if (@article.link_checker.count - status200er.count) == 0 %>
-		<h4>Alle Links sind in Ordnung!</h4>
+		<h4>I18n.t('active_admin.articles.views.link_checker.h4')</h4>
 	<% end %>
 	<ul>
 		<% @article.link_checker.each do |key,values| %>
@@ -12,7 +12,7 @@
 			<% next if values['response_code'] == "200" %>
 			<li class="response_404">
 				<%= key %><br/>
-				Status: <%= values['response_code'] %> <%= values['response_error'] %>
+				I18n.t('active_admin.articles.views.link_checker.status') <%= values['response_code'] %> <%= values['response_error'] %>
 			</li>
 		<% end %>
 	</ul>
@@ -29,4 +29,4 @@
 	</ul>
 <% end %>
 
-<%= link_to "Links jetzt überprüfen", run_link_checker_admin_article_path(@article.id) %>
+<%= link_to I18n.t('active_admin.articles.views.link_checker.link'), run_link_checker_admin_article_path(@article.id) %>
