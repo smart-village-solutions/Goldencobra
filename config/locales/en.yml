@@ -1,6 +1,7 @@
 en:
   articles:
     read_on: 'read on'
+    selection: "Article"
   formtastic:
     yes: 'yes'
     no: 'no'
@@ -100,11 +101,11 @@ en:
         one: "Article"
         other: "Articles"
       setting:
-        one: "Setting"
-        other: "Settings"
+        one: "Website setting"
+        other: "Website settings"
       goldencobra/setting:
-        one: "Setting"
-        other: "Settings"
+        one: "Website setting"
+        other: "Website settings"
       menue:
         one: "Menu"
         other: "Menus"
@@ -144,9 +145,6 @@ en:
       goldencobra/role:
         one: "Role"
         other: "Roles"
-      formular:
-        one: "Formular"
-        other: "Formulars"
     attributes:
       goldencobra/metatag:
         name: "Name"
@@ -310,9 +308,6 @@ en:
       list: "list"
       create: "create"
   active_admin:
-    dashboard_latest_articles: "Latest articles"
-    dashboard_new_article: "Create new article"
-    dashboard_latest_widgets: "Latest widgets"
     articles:
       tag-select-placeholder: "Select tag"
       now_offline: "This article is now offline"
@@ -614,9 +609,6 @@ en:
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
     pm: pm
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
     errors:
       <<: *errors
-
-

@@ -1,4 +1,4 @@
-<% f.inputs "Manuell Index Sorting", :class => "foldable inputs" do %>
+<% f.inputs I18n.t('active_admin.articles.views.sort_articles_index.inputs'), :class => "foldable inputs" do %>
   <% f.object.index_articles.each do |indexart| %>
     <%= f.input :manual_article_sort, :as => :number, :label => indexart.title %>
   <% end %>

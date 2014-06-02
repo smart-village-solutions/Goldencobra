@@ -15,22 +15,22 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
     column :status
     column "" do |import|
       links = []
-      links << link_to("Starte Import", run_admin_import_path(import), :class => "import", :title => "Starte Import" )
-      links << link_to("Bearbeiten", edit_admin_import_path(import), :class => "edit", :title => "bearbeiten")
-      links << link_to("Loeschen", admin_import_path(import),:method => :delete, :confirm => "Destroy Import?", :class => "delete", :title => "loeschen")
-      links << link_to("Zuweisungen", assignment_admin_import_path(import))
+      links << link_to(I18n.t('active_admin.imports.link_to.start_import'), run_admin_import_path(import), :class => "import", :title => I18n.t('active_admin.imports.title.start_import'))
+      links << link_to(I18n.t('active_admin.imports.link_to.edit'), edit_admin_import_path(import), :class => "edit", :title => I18n.t('active_admin.imports.title.edit'))
+      links << link_to(I18n.t('active_admin.imports.link_to.delete'), admin_import_path(import),:method => :delete, :confirm => "Destroy Import?", :class => "delete", :title => I18n.t('active_admin.imports.title.delete'))
+      links << link_to(I18n.t('active_admin.imports.link_to.allocation'), assignment_admin_import_path(import))
       raw(links.join(" "))
     end
   end
 
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.actions
-    f.inputs "Select File for #{f.object.target_model}" do
+    f.inputs "#{I18n.t('active_admin.imports.form.select_file')} #{f.object.target_model}" do
       f.input :target_model, as: :select, collection: ActiveRecord::Base.descendants.map(&:name), include_blank: false
-      f.inputs "Upload", :class=> "inputs" do
+      f.inputs I18n.t('active_admin.imports.form.upload'), :class=> "inputs" do
         f.fields_for :upload do |u|
           u.inputs "" do
-            u.input :image, :as => :file, :label => "CSV Datei", :hint => "Aktuell ausgewählte Datei: #{u.object.try(:image_file_name)}"
+            u.input :image, :as => :file, :label => I18n.t('active_admin.imports.form.csv_file'), :hint => "#{I18n.t('active_admin.imports.form.hint')} #{u.object.try(:image_file_name)}"
           end
         end
       end
@@ -43,7 +43,7 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
   member_action "run" do
     import = Goldencobra::Import.find(params[:id])
     import.run!
-    flash[:notice] = "Dieser Import wurde gestartet"
+    flash[:notice] = I18n.t('active_admin.imports.flash.member_action.run')
     redirect_to :action => :index
   end
 
@@ -57,11 +57,11 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
   end
 
   action_item :only => [:show, :edit, :assignment] do
-    link_to('Starte Import', run_admin_import_path(resource.id))
+    link_to(I18n.t('active_admin.imports.link_to.start_import'), run_admin_import_path(resource.id))
   end
 
   action_item :only => [:assignment] do
-    link_to("Import Bearbeiten", edit_admin_import_path(resource.id))
+    link_to(I18n.t('active_admin.imports.link_to.edit_import'), edit_admin_import_path(resource.id))
   end
 
   controller do
@@ -80,5 +80,5 @@ ActiveAdmin.register Goldencobra::Import, :as => "Import" do
       @import.analyze_csv
     end
   end
-
 end
+
