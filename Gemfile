@@ -48,6 +48,7 @@ gem 'sidekiq'
 gem 'sinatra', :require => false
 gem 'slim'
 gem 'geokit'
+gem 'exifr'
 
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
