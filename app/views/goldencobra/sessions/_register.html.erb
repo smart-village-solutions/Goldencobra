@@ -2,28 +2,28 @@
   <%= form_for(Visitor.new, :as => "visitor", :url => "/frontend_register/#{usermodel}?associated_model=#{associated_model}", :html => {:id => "new_registration_visitor"},:remote => true) do |f| %>
     <p class="errors"></p>
     <div class="clearfix">
-      <%= f.label :email, 'E-Mail Adresse *' %>
+      <%= f.label :email, f.submit I18n.t('goldencobra.register.label_email') %>
     <div class="input">
         <%= f.email_field :email, required: true %>
       </div>
     </div>
 
     <div class="clearfix">
-      <%= f.label :username, 'Benutzername *' %>
+      <%= f.label :username, I18n.t('goldencobra.register.label_username') %>
     <div class="input">
         <%= f.text_field :username, required: true %>
       </div>
     </div>
 
     <div class="clearfix">
-      <%= f.label :password, 'Passwort *' %>
+      <%= f.label :password, I18n.t('goldencobra.register.label_password') %>
     <div class="input">
         <%= f.password_field :password, required: true %>
       </div>
     </div>
 
     <div class="clearfix">
-      <%= f.label :password_confirmation, 'Passwort bestätigen *' %>
+      <%= f.label :password_confirmation, I18n.t('goldencobra.register.label_pass_confirmation') %>
     <div class="input">
         <%= f.password_field :password_confirmation, required: true %>
       </div>
@@ -33,7 +33,7 @@
       <div class="input">
           <%= f.check_box :agb, required: true %>
       </div>
-      Ich akzeptiere die AGB & Datenschutzbestimmungen *
+      I18n.t('goldencobra.register.div') *
     </div>
     <!-- <div class="clearfix agb">
       <div class="input">
@@ -42,7 +42,7 @@
       Ich möchte mich für den Newsletter anmelden
     </div> -->
     <div class="actions">
-    <%= f.submit "Registrieren", :class => "button" %>
+    <%= f.submit I18n.t('goldencobra.register.submit'), :class => "button" %>
     <%#= render :partial => "devise/shared/links" %>
     </div>
   <% end %>

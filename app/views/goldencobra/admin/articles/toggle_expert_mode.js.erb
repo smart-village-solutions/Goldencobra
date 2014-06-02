@@ -1,7 +1,7 @@
 <% if enabled %>
-  $('#expert-mode').text('Expert-Modus deaktivieren');
+  $('#expert-mode').text(I18n.t('active_admin.articles.views.toggle_expert_mode.text1'));
 <% else %>
-  $('#expert-mode').text('Expert-Modus aktivieren');
+  $('#expert-mode').text(I18n.t('active_admin.articles.views.toggle_expert_mode.text2'));
 <% end %>
 
 $('.expert').toggle();

@@ -21,6 +21,27 @@ de:
       name: "Name"
       list: "auflisten"
       create: "erstellen"
+    manage:
+      admin_article_management_content:
+        link1: "abmelden"
+        link1_text: "Artikel im Backend bearbeiten"
+        link2: "Artikel offline stellen" 
+        confirm2: "Seite offline schalten?"
+        link3: "Artikel online stellen"
+        confirm3: "Seite online schalten?"
+    sessions:
+      login:
+        link1: "abmelden"
+        label_email: "E-Mail Adresse"
+        label_password: "Passwort"
+        submit: "Login"
+    register:
+      label_email: "E-Mail Adresse *"
+      label_username: 'Benutzername *'
+      label_password: 'Passwort *'
+      label_pass_confirmation: 'Passwort bestätigen *'
+      div: "Ich akzeptiere die AGB & Datenschutzbestimmungen *"
+      submit: "Registrieren"
   active_admin:
     dashboard: Übersicht
     dashboard_welcome:
@@ -101,24 +122,45 @@ de:
       selection_toggle_explanation: "(Auswahl umkehren)"
       link: "Erstelle eins"
     comments:
+      as: "Kommentare"
+      title: "Bearbeiten"
+      title0: "Löschen"
+      show: "Anzeigen"
+      delete_comment: "Kommentar löschen?"
       body: "Inhalt"
       author: "Autor"
       title: "Kommentar"
-      resource: "Resource"
+      resource: "Ressource"
       add: "Kommentar hinzufügen"
       no_comments_yet: "Es gibt noch keine Kommentare."
       title_content: "Kommentare (%{count})"
       errors:
         empty_text: "Der Kommentar wurde nicht gespeichert, da der Text fehlt."
-    articles:
-      tag-select-placeholder: "Tag wählen"
-    #-------------- Nina
     settings:
+      as: "Webseiten-Einstellungen"
+      scope: "Alle Webseiten-Einstellungen"
+      action_item:
+        link: "Undo"
       form:
         general: "Allgemein"
       notice:
-        undid_event: " Undid %{@version.event}"
+        undid_event: "Rückgängig:"
     articles:
+      as: "Artikel"
+      parent: "Content-Management"
+      tag-select-placeholder: "Tag wählen"
+      filter:
+        default1: "Elternelement"
+        default2: "Artikeltyp"
+        default3: "Titel"
+        default4: "Filterkriterium"
+        default5: "Interne Tags"
+        default6: "Website"
+        default7: "Erstellt"
+        default8: "Bearbeitet"
+      scope1: "Alle"
+      scope2: "Online"
+      scope3: "Offline"
       form:
         general: "Allgemein"
         title_label: "Titel"
@@ -128,29 +170,29 @@ de:
         tag_list_label: "Liste von internen Tags"
         tag_list_hint: "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
         frontent_tag_list_label:  "Filterkriterium"
-        frontent_tag_list_hint: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten."
+        frontent_tag_list_hint: "Hier eingetragene Begriffe werden auf Übersichtsseiten als Filteroptionen angeboten."
         active_label: "Aktiv?"
         active_hint: "Soll dieser Artikel im System aktiv und online sichtbar sein?"
         weiterer_inhalt: "Weiterer Inhalt"
         subtitle_label: "Untertitel"
-        context_info_hint: "Dieser Text ist f&uuml;r eine Sidebar gedacht"
+        context_info_hint: "Dieser Text ist für eine Sidebar gedacht"
         summary_label: "Zusammenfassung"
         summary_hint: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt"
         metadescriptions: "Metadescriptions"
         name_label: "Art"
-        name_hint: "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen"
+        name_hint: "Hier können Sie die verschiedenen Metatags definieren, sowie alle Einstellungen für den OpenGraph vonehmen"
         value_label: "Wert"
         destroy_label: "Entfernen/Zurücksetzen"
         destroy_hint: "Hiermit werden die Werte entfernt bzw. auf ihren Ursprung zurückgesetzt"
         settings: "Einstellungen"
         breadcrump_label: "Breadcrumb-Titel"
-        breadcrump_hint: "Kurzer Titel f&uuml;r die Breadcrumb-Navigation"
+        breadcrump_hint: "Kurzer Titel für die Breadcrumb-Navigation"
         url_name_label: "Website-Adresse des Artikels"
         url_name_hint: "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein."
         parent_id_label: "Übergeordneter Artikel"
         parent_id_hint: "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
         canonical_url_label: "Canonical URL"
-        canonical_url_hint: "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
+        canonical_url_hint: "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht für doppelten Inhalt abgestraft zu werden"
         active_since_label: "Online seit"
         active_since_hint: "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35"
         enable_social_sharing_label: "'Social Sharing'-Aktionen anzeigen"
@@ -171,15 +213,79 @@ de:
         role: "Alle"
         media: "Medien"
         JS_scripts: "JS-Scripts"
+      views:
+        article_type: 
+          input: "test"
+        image_module_sidebar: 
+          h5: "Bildergallery einfügen"
+          p: "Alle Bilder, die mit folgenden Tags versehen sind, sollen angezeigt werden"
+          tag1: "Bild"
+          tag2: "Bilder"
+          submit: "Bilder auswählen"
+        layout_sidebar: 
+          h5: "Artikel-Seitentyp:"
+          submit: "Artikeltyp zuweisen"
+        link_checker: 
+          h5: "Hier haben Sie die Möglichkeit alle Links dieses Artikels auf Funktionalität zu überprüfen."
+          h4: "Alle Links sind in Ordnung!"
+          status: "Status: "
+          link: "Links jetzt überprüfen"
+        link_checker_index:
+          link1: "Artikel"
+          link2: "bearbeiten"
+        select_article_type:
+          label_type: "Artikeltyp"
+          label_title: "Titel"
+          hint_title: "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
+          label_short: "Kurzer Titel"
+          hint_short: "Wird in der URL, für den Breadcrumb-Pfad und im Meta-Title der Seite verwendet, maximal 70 Zeichen"
+          label_text: "Haupt-Textfeld"
+          hint_text: "Das Haupt-Textfeld wird für den kompletten Inhalt ihrer Seite verwendet"
+          hint_teaser: "Dieser Text beschreibt den Artikel auf &Uuml;bersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt"
+          label_tags: "Liste von internen Tags"
+          hint_tags: "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
+          label_filter: "Filterkriterium"
+          hint_filter: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten"
+        sort_articles_index: 
+          inputs: "Manuell Index Sorting"
+        toggle_expert_mode: 
+          text1: "Deactivate Expert-Modus"
+          text2: "Activate Expert-Modus"
+        widgets_sidebar:
+          h5: "Folgende Schnipsel werden zusätzlich zu den Standard-Schnipseln angezeigt"
+          position: "Position: "
+      index:
+        website_title: "Website-Titel"
+        website_url: "Website-Adresse"
+        active: "Aktiv?"
+        article_type: "Artikeltyp"
+        permission: "Zugriff"
+        default: "Standard"
+        restricted: "<span class='secured'>beschränkt</span>"
+        list_menu: "Menüpunkte auflisten"
+        create_menu: "Menüpunkt zum Artikel erzeugen"
+        article_preview: "Vorschau des Artikels"
+        article_edit: "Artikel bearbeiten"
+        create_subarticle: "Neuen Unterartikel erstellen"
+        delete_article: "Artikel löschen"
+        views:
+          inputs: "Übersichtsoptionen"
+          label1: "Übersicht von Artikeln im Verzeichnis"
+          hint1: "Alle Artikel unterhalb dieses Artikels werden aufgelistet, exklusive diesem selbst"
+          label2: "Seiten"
+          hint2: "Welche Seiten sollen auf der Übersicht angezeigt werden?"
       sidebar:
         h5: "Es existieren bereits passende Menüpunkte zu diesem Artikel"
-        seo_link: 'SEO-Ansicht'
+        seo_link: "SEO-Ansicht"
         div_link: "Sie können diese hier auflisten"
         div_link1: "einen weiteren Menüpunkt erstellen"
         h5_1: "Es existiert noch kein Menüpunkt zu diesem Artikel"
         div_link2: "Einen passenden Menüpunkt erstellen"
-        h5_achtung: "ACHTUNG!!! Es gibt #{pluralize(results.count - 1 , 'anderen Artikel', 'andere Artikel')  } mit dieser URL:"
-      member_action: 
+        h5_achtung: "ACHTUNG!!! Es gibt"
+        h5_achtung2: "anderen Artikel"
+        h5_achtung3: "andere Artikel"
+        h5_achtung4: "mit dieser URL:"
+      member_action:
         flash:
           article_online: "Dieser Artikel ist nun online"
           article_offline: "Dieser Artikel ist nun offline"
@@ -195,25 +301,20 @@ de:
         confirm_offline: "Artikel offline stellen: sind Sie sicher?"
       action_item:
         link_to:
-          article_preview: 'Vorschau zu diesem Artikel anzeigen'
-          expert_modus: "Expert-Modus #{current_user.enable_expert_mode ? 'deaktivieren' : 'aktivieren'}"
+          article_preview: "Vorschau zu diesem Artikel anzeigen"
+          expert_modus: "Expert-Modus"
+          deactivate: "deaktivieren"
+          activate: "aktivieren"
           import: "Import"
-          undo: "Undo"
-      error:
-        partial_missing: "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show"
-        partial_missing2: "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index"
-    comments:
-        title: "bearbeiten"
-        title0: "loeschen"
+          undo: "rückgängig"
     dashboards:
-        article_section: "Neueste Artikel"
-        title1: "Vorschau des Artikels"
-        title2: "Artikel bearbeiten"
-        title3: "Neuen Unterartikel erstellen"
-        widget_section: "Neueste Schnipsel"
-        title4: "Schnipsel bearbeiten"
-        table:
-          link: "Neuen Artikel erstellen"
+      article_section: "Neueste Artikel"
+      title1: "Vorschau des Artikels"
+      title2: "Artikel bearbeiten"
+      title3: "Neuen Unterartikel erstellen"
+      widget_section: "Neueste Schnipsel"
+      title4: "Schnipsel bearbeiten"
+      new_link: "Neuen Artikel erstellen"
     domains:
       form:
         hint: "Diese Domain wird als Hauptdomain eingerichtet, alle Canonical URLS haben diesen Prefix"
@@ -221,48 +322,288 @@ de:
       link_to:
         start_import: "Starte Import"
         edit: "Bearbeiten"
-        delete: "Loeschen"
+        delete: "Löschen"
         allocation: "Zuweisungen"
-        edit_import: "Import Bearbeiten"
+        edit_import: "Import bearbeiten"
       title:
         start_import: "Starte Import"
         edit: "Bearbeiten"
-        delete: "Loeschen"
+        delete: "Löschen"
       form:
-        select_file: "Select File for #{f.object.target_model}"
-        upload: "Upload"
-        hint: "Aktuell ausgewählte Datei: #{u.object.try(:image_file_name)}"
+        select_file: "Datei auswählen"
+        upload: "Hochladen"
+        csv_file: "CSV Datei"
+        hint: "Aktuell ausgewählte Datei:"
       flash:
         member_action:
-          run: "Dieser Import wurde gestartet" 
+          run: "Dieser Import wurde gestartet"
     linkcheck_articles:
       link_to:
-        run: "Run LinkChecker"
+        run: "Link Checker ausführen"
     menues:
-
+      as: "Menüpunkte"
+      parent: "Content-Management"
+      active: "Aktiv"
+      inactive: "Nicht aktiv"
+      labels:
+        title: "Titel"
+        target: "Ziel"
+        css_class: "CSS-Klassen"
+        sorter: "Sortiernummer"
+      form:
+        generals:
+          general: "Allgemein"
+          title: "Titel"
+          title_hint: "Titel des Menüpunktes, der auf der Seite erscheint"
+          target: "Ziel"
+          target_hint: "Wohin soll der Menüpunkt führen? Wenn der Punkt zu 'http://meine-seite.de/mein-artikel' führen soll, tragen Sie hier 'mein-artikel' ein. Sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten"
+          parent_id: "Übergeordneter Menüpunkt"
+          parent_id_hint: "Unter welchem Menüpunkt soll der aktuelle Punkt erscheinen?"
+        options:
+          class: "foldable closed inputs"
+          option: "Optionen"
+          sorter_label: "Sortiernummer"
+          sorter_hint: "Nach dieser Nummer wird innerhalb des Menüs sortiert, je höher, desto weiter unten in der Reihenfolge"
+          checkbox_label: "Sichtbar?"
+          checkbox_hint: "Soll dieser Menüpunkt auf der Seite sichtbar sein?"
+          css_class_label: "CSS-Klassen"
+          css_class_hint: "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
+          active_label: "Aktiv?"
+          active_hint: "Soll dieser Menüpunkt im System aktiv und online sichtbar sein?"
+          remote_label: "Remote?"
+          remote_hint: "Soll dieser Menüpunkt per Ajax abgesendet werden?"
+        access:
+          access_rights: "Zugriffsrechte"
+          include_blank: "Alle"
+        details: "Details für ein erweitertes Menü"
+        image_label: "Bild"
+        image_hint: "Bereits hochgeladenes Bild aus der Medienliste wählen"
+        details_description_title: "Titel"
+        details_decription_label: "Beschreibung"
+        details_description_call_to_action: "Call-to-action Text"
+        index:
+          column: "Titel"
+          title: "Menüpunkt bearbeiten"
+          column1: "Ziel"
+          column2: "Aktiv?"
+          column3: "Sortieren"
+          column4: "Zugriff"
+          column5: "Artikel"
+          search_link: "search"
+          search_class: "list"
+          search_title: "Artikel auflisten"
+          search_link1: "create one"
+          search_class1: "create"
+          search_title1: "Artikel passend zum Menüpunkt erzeugen"
+        column:
+          edit: "Edit"
+          edit_title: "Menüpunkt bearbeiten"
+          submenu: "New Submenu"
+          submenu_class1: "new_subarticle"
+          submenu_title: "Neuen Untermenüpunkt erzeugen"
+          delete: "Delete"
+          delete_confirm: "Menüpunkt wirklich löschen?"
+          delete_title: "Menüpunkt löschen"
+        sidebar:
+          link_name: "title"
+          url_path: "menue"
+          order_by: "title"
+        batch_action:
+          confirm: "Menüpunkt offline stellen: sind Sie sicher?"
+          flash: "Menüpunkte wurden offline gestellt"
+          confirm1: "Menüpunkt online stellen: sind Sie sicher?"
+          flash1: "Menüpunkte wurden online gestellt"
+          confirm_clone: "Dieses Menü klonen?"
+          title_clone: "Klon von:"
+          flash_clone: "Menü wurde geklont"
+        member_action:
+          notice: "Rückgängig:"
+        action_item:
+          link_to: "rückgängig"
     permissions:
-
+      as: "Zugriffsrechte"
+      scope: "Alle"
+      index:
+        column: "Role"
+        title_edit: "bearbeiten"
+        confirm: "Kommentar löschen?"
+        title_delete: "löschen"
+      form:
+        include_blank: "Alle"
+      sidebar:
+        sidebar: "Sortierung / Gewichtung"
+        sidebar_info: "je Höher die Zahl desto wichtiger ist das Zugriffsrecht: <b>10 ist wichtiger als 1</b>. <br/> Ist zu einer Rolle ein Model nicht definiert, so beitzt diese Rolle standardmäßig alle Rechte an diesem Model"
     roles:
-
+      as: "Benutzerrollen"
     seo_articles:
-
+      as: "SEO-Article"
+      scope1: "Alle"
+      scope2: "online"
+      scope3: "offline"
+      scope4: "keine Title-Tags"
+      scope5: "keine Meta-Description"
+      index:
+        title_column: "Titel"
+        tag_column: "Title Tag"
+        meta_column: "Meta Description"
+        search_column: "Suchmaschinen gesperrt"
+        search_column_yes: "Ja"
+        search_column_no: "Nein"
+        links_column: "Links"
+        active_online: "online"
+        active_offline: "offline"
+      column:
+        title1: "Vorschau"
+        title2: "bearbeiten"
+        title3: "Neuer Unterartikel"
+        title4: "löschen"
+      collection_flash: "Alle Links werden gecheckt. Dies kann meherere Minuten dauern."
+      action_link: "Link Checker index"
+      action_link1: "Link Checker ausführen"
     supports:
-
-    trackings:
-
+      label: "Live Support"
+      panel: "Support Anfrage"
+      h3: "Anleitung"
+      para1: "So fordern Sie Hilfe an: ..."
+      para_raw: Hilfe Anfordern!
+      para2: "Dieser Service wird unterstüzt von https://togetherjs.com"
     translations:
-
+      as: "Übersetzungen"
+      all: "Alle"
+      general: "Allgemein"
     uploads:
-
+      as: "Uploads"
+      file: "File"
+      file_hint: "Neues Bild hochladen für diese Ressource mit gleichem Dateinamen"
+      preview: "Vorschau"
+      photo: "Bild beschneiden"
+      photo_hint: "Ausschnitt in der Vorschau selektieren vor dem Speichern"
+      data: "Dateiname"
+      general: "Allgemein"
+      general_hint: "Tags sind kommagetrennte Werte, mit denen sich ein Artikel verschlagworten l&auml;sst"
+      general_label: "Liste von Tags"
+      js: "JS-Scripts"
+      url: "url"
+      preview1: "preview"
+      tags: "Tags"
+      zip: "zip"
+      pack: "entpacken"
+      title1: "Vorschau"
+      title2: "bearbeiten"
+      title3: "loeschen"
+      preview_row: "Vorschau"
+      original_row: "original"
+      format_original: "original => AxB>"
+      format_large: "large => 900x900>"
+      format_big: "big => 600x600>"
+      format_medium: "medium => 300x300>"
+      format_px250: "px250 => 250x250>"
+      format_px200: "px200 => 200x200>"
+      format_px150: "px150 => 150x150>"
+      format_thumb: "thumb => 100x100>"
+      format_mini: "mini => 50x50>"
+      unzip_notice: "File unzipped"
     users:
-
+      as: "Benutzer"
+      general: "Allgemein"
+      hint1: "Freilassen, wenn das Passwort nicht geaendert werden soll."
+      hint2: "Passwort bei Aenderung hier erneut eingeben"
+      history: "Historie"
+      label1: "Eintrag"
+      label2: "Bearbeiter"
+      hint3: "Tragen Sie hier Ihren Namen ein, damit die Aktion zugeordnet werden kann"
+      user: "User"
     visitors:
-
-    widgets:
-
-
-
-                #I18n.t('active_admin.linkcheck_articles.link_to.run')
-
-         
+      yes: "Ja"
+      no: "Nein"
+      status: "status"
+      status1: "entsperrt"
+      general: "Allgemein"
+      hint1: "Freilassen, wenn das Passwort nicht geaendert werden soll."
+      hint2: "Passwort bei Aenderung hier erneut eingeben"
+      status2: "gesperrt"
+      flash: "Dieser Account wurde"
+    widget:
+      as: "Schnipsel"
+      title: "Titel"
+      css_class: "CSS Klasse"
+      id: "ID Name"
+      sorter: "Sortiernummer"
+      scope1: "Alle"
+      scope2: "Aktiv"
+      scope3: "Nicht aktiv"
+      scope4: "Standards"
+      general: "Allgemein"
+      label1: "Titel"
+      label2: "Position"
+      label3: "Aktiv?"
+      label4: "Standard?"
+      hint1: "Name des Schnipsels"
+      hint2: "Name der Bezeichnung der Position im Seitenlayout"
+      hint3: "Soll dieses Schnipsel im System aktiv und online sichtbar sein?"
+      hint4: "Bestimmt, ob ein Schnipsel immer und auf jeder Seite angezeigt wird oder nicht"
+      layout_web: "Layout - Website"
+      label_web: "Haupt-Textfeld"
+      hint_web: "Inhalt des Schnipsels für die Website, auch HTML möglich"
+      layout_mobile: "Layout - Mobil"
+      label_mobile: "Mobil-Textfeld"
+      hint_mobile: "Alternativer Inhalt des Schnipsels für mobile Seiten, auch HTML möglich"
+      info: "Erweiterte Informationen"
+      label_info1: "Sortiernummer"
+      label_hint1: "Nach dieser Nummer wird sortiert, je höher, desto weiter unten in der Ansicht"
+      label_info2: "CSS Klassen"
+      label_hint2: "Styleklassen für den Menüpunkt per Leerzeichen getrennt - Besonderheit: 'hidden' macht den Menüpunkt unsichtbar"
+      label_info3: "ID Name"
+      label_hint3: "Eindeutige Bezeichnung dieses Elements innerhalb der Website"
+      label_info4: "Beschreibung"
+      label_hint4: "Interne Beschreibung dieses Schnipsels"
+      time: "Zeitsteuerung"
+      time_label1: "Zeitgesteuert?"
+      time_label2: "Startdatum"
+      time_label3: "Enddatum"
+      time_label4: "Tage, an denen alternativer Inhalt angezeigt werden soll"
+      time_hint1: 'Soll dieses Schnipsel zeitgesteuert sichtbar sein?'
+      time_hint2: "Ab diesem Datum wird das Schnipsel jeden Mo, Di, .. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
+      time_hint3: "Bis zu diesem Datum wird das Schnipsel jeden Mo, Di, .. im Zeitraum von xx:xx Uhr bis xx:xx Uhr angezeigt. Wenn kein Datum angegeben ist, gilt die Zeitsteuerung an allen ausgewählten Tagen"
+      access_rights: "Zugriffsrechte"
+      article: "Zugewiesene Artikel"
+      article_label: "Artikel"
+      article_hint: "Auswahl aller Artikel, auf denen das Schnipsel erscheint"
+      article_placeholder: "Bitte wählen"
+      title: "Titel"
+      title1: "Schnipsel bearbeiten"
+      position: "Position"
+      active: "Aktiv?"
+      online: "online"
+      offline: "offline"
+      sorternr: "Sortiernr"
+      standard: "Standard?"
+      css_classes: "CSS-Klassen"
+      yes: "Ja"
+      no: "Nein"
+      access: "Zugriff"
+      title_widget_edit: "Schnipsel bearbeiten"
+      title_widget_delete: "Schnipsel löschen"
+      widget: "Widget"
+      articles: "Articles"
+      revert_notice: "Rückgängig:"
+      undo: "Rückgängig"
+    articletypes:
+      as: "Artikeltypen"
+      general: "Allgemein"
+      article_fields: "Artikelfelder"
+      position_hint: "Zwischen dem ersten und dem letzten Block kommen die speziellen Feldoptionen eines Artikeltypen"
+      foldable_hint: "Kann man den Bereich auf und zu klappen?"
+      closed_hint: "Ist der Bereich beim Laden geschlossen?"
+      expert_hint: "Ist der Bereich nur im Expertenmodus sichtbar?"
+      sorter_hint: "Sortiernummer/Position"
+    authors:
+      as: "Autoren"
+    shared:
+      views:
+        item:
+          link1: "bearbeiten"
+          title1: "Bearbeiten"
+          link2: "neu"
+          title2: "Neu"
 

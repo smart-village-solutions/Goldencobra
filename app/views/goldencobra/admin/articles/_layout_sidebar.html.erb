@@ -1,6 +1,6 @@
-<div class="layout-sidebar">
+l<div class="layout-sidebar">
   <h5>
-    Artikel-Seitentyp: <%= I18n.t(@article.article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => @article.article_type.split(' ').first) %>
+    I18n.t('active_admin.articles.views.layout_sidebar.h5') <%= I18n.t(@article.article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => @article.article_type.split(' ').first) %>
   </h5>
   <% article_types = {} %>
   <% Goldencobra::Article.article_types_for_select.each do |article_type| %>
@@ -11,7 +11,7 @@
   <%= form_tag change_articletype_admin_article_path(@article.id) do %>
     <%= select_tag :new_article_type, options_for_select(article_types.sort, @article.article_type), :include_blank => false %>
     <br/><br/>
-    <%= submit_tag "Artikeltyp zuweisen", id: "submit_widgets_partial" %>
+    <%= submit_tag I18n.t('active_admin.articles.views.layout_sidebar.submit'), id: "submit_widgets_partial" %>
   <% end %>
   <br/>
   <hr>

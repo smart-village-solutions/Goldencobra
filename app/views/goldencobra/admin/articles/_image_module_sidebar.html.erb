@@ -18,8 +18,8 @@
 <br/><br/>
  -->
 
-<h5>Bildergallery einfügen</h5>
-<p>Alle Bilder, die mit folgenden Tags versehen sind, sollen angezeigt werden</p>
+<h5>I18n.t('active_admin.articles.views.image_module_sidebar.h5')</h5>
+<p>I18n.t('active_admin.articles.views.image_module_sidebar.p')</p>
 
 <%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_article_image_gallery_tags"} do |f| %>
 	<ul>
@@ -27,9 +27,9 @@
   </ul>
 
 	<% if @article.image_gallery_tags.present? %>
-		<p><%= pluralize(Goldencobra::Upload.tagged_with(@article.image_gallery_tags).count, "Bild", "Bilder") %> ausgewählt</p>
+		<p><%= pluralize(Goldencobra::Upload.tagged_with(@article.image_gallery_tags).count, I18n.t('active_admin.articles.views.image_module_sidebar.tag1'), I18n.t('active_admin.articles.views.image_module_sidebar.tag2')) %> ausgewählt</p>
 	<% end %>
 
-	<p><br/><%= f.submit "Bilder auswählen" %></p>
+	<p><br/><%= f.submit I18n.t('active_admin.articles.views.image_module_sidebar.submit') %></p>
 <% end %>
 
