@@ -67,6 +67,9 @@ en:
         subject: 'Unlock Instructions'
   activerecord:
     models:
+      analytic:
+        one: "Analytic"
+        other: "Analytics"
       domain:
         one: "Domain"
         other: "Domains"
@@ -74,11 +77,11 @@ en:
         one: "Domain"
         other: "Domains"
       articletype:
-        one: "Articletype"
-        other: "Articletypes"
+        one: "Article type"
+        other: "Article types"
       link-checker:
-        one: "Link-Checker"
-        other: "Link-Checker"
+        one: "Link checker"
+        other: "Link checker"
       comment:
         one: "Comment"
         other: "Comments"
@@ -113,11 +116,11 @@ en:
         one: "Menu"
         other: "Menus"
       metag:
-        one: "Metatag"
-        other: "Metatags"
+        one: "Meta tag"
+        other: "Meta tags"
       goldencobra/metag:
-        one: "Metatag"
-        other: "Metatags"
+        one: "Meta tag"
+        other: "Meta tags"
       widget:
         one: "Widget"
         other: "Widgets"
@@ -129,7 +132,7 @@ en:
         other: "Uploads"
       goldencobra/upload:
         one: "Medium"
-        other: "Medien"
+        other: "Media"
       user:
         one: "User"
         other: "Users"
