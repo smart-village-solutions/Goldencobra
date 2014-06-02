@@ -112,7 +112,14 @@ module Goldencobra
     #
     # Returns true for image or pdf files and false for everything else
     def image_file?
-      !(self.image_content_type =~ /^image.*/).nil? || !(self.image_content_type =~ /pdf/).nil?
+      #debugger
+      if !(self.image_content_type =~ /^image.*/).nil?
+        return true
+      elsif !(self.image_content_type =~ /pdf/).nil?
+        return true
+      else
+        return false
+      end
     end
 
   end

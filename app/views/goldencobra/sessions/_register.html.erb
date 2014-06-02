@@ -2,7 +2,7 @@
   <%= form_for(Visitor.new, :as => "visitor", :url => "/frontend_register/#{usermodel}?associated_model=#{associated_model}", :html => {:id => "new_registration_visitor"},:remote => true) do |f| %>
     <p class="errors"></p>
     <div class="clearfix">
-      <%= f.label :email, f.submit I18n.t('goldencobra.register.label_email') %>
+      <%= f.label :email, I18n.t('goldencobra.register.label_email') %>
     <div class="input">
         <%= f.email_field :email, required: true %>
       </div>

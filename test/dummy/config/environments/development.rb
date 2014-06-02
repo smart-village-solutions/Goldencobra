@@ -40,4 +40,6 @@ Dummy::Application.configure do
   config.i18n.default_locale = :en
   config.i18n.locale = :en
   config.time_zone = 'Berlin'
+
+  Paperclip.options[:command_path] = "/usr/local/bin/"
 end
