@@ -11,8 +11,8 @@
 		<% end %>
 		<div class="title"><%= link_to item.send(link_name), eval("admin_#{url_path.pluralize}_path(:q => {:parent_ids_in => item.id})"), :title => "Pfad anzeigen" %></div>
 		<div class="options">
-			<%= link_to "edit", eval("edit_admin_#{url_path}_path(item)"), :class => "edit_link", :title => "Bearbeiten" %>
-			<%= link_to "new", eval("new_admin_#{url_path}_path(:parent => item)"), :class => "new_link", :title => "Neu" %>
+			<%= link_to I18n.t('active_admin.shared.views.item.link1'), eval("edit_admin_#{url_path}_path(item)"), :class => "edit_link", :title => I18n.t('active_admin.shared.views.item.title1') %>
+			<%= link_to I18n.t('active_admin.shared.views.item.link2'), eval("new_admin_#{url_path}_path(:parent => item)"), :class => "new_link", :title => I18n.t('active_admin.shared.views.item.title2') %>
 		</div>
 	</div>
 	<% if item.children %>
