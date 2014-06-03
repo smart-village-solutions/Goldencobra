@@ -59,7 +59,7 @@ ActionController::Base.allow_rescue = false
 begin
   require 'database_cleaner'
   require 'database_cleaner/cucumber'
-  DatabaseCleaner.strategy = :transaction
+  DatabaseCleaner.strategy = :truncation
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end
@@ -93,5 +93,11 @@ World FactoryGirl::Syntax::Methods
 #at_exit do
 #  Sunspot::Rails::Server.new.stop
 #end
+
+Before do |scenario|
+  Goldencobra::Setting.import_default_settings(Goldencobra::Engine.root + "config/settings.yml")
+  #load Rails.root.join('db/seeds.rb')
+end
+
 
 

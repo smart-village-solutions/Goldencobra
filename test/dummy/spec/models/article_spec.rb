@@ -21,6 +21,14 @@ describe Goldencobra::Article do
       Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "http://www.google.de"
     end
 
+    it "should have a valid redirect url by inserting an url with https" do
+      a = Goldencobra::Article.create!(@attr)
+      a.external_url_redirect = "https://www.google.de"
+      a.save
+      Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "https://www.google.de"
+    end
+
+
     it "should create a new article given valid attributes" do
       Goldencobra::Article.create!(@attr)
     end

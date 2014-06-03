@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Then /^I go to the startpage$/ do
   visit("/")
 end

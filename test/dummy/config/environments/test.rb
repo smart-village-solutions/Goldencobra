@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Dummy::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -13,8 +15,8 @@ Dummy::Application.configure do
 
   # Log error messages when you accidentally call methods on nil
   config.whiny_nils = true
-  config.i18n.default_locale = :en
-  config.i18n.locale = :en
+  config.i18n.default_locale = :de
+  config.i18n.locale = :de
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
