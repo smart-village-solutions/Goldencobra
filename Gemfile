@@ -67,7 +67,6 @@ group :development do
 end
 
 group :test do
-  #gem 'rspec_junit_formatter'  #https://github.com/alienfast/bamboozled-ruby-plugin
   gem 'mysql2'
   gem 'cucumber'
   gem 'cucumber-rails'
@@ -77,6 +76,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
+  gem 'rspec-core', "2.14.0"
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
