@@ -39,4 +39,5 @@ test/dummy/solr/*
 
 .rbenv*
 .ruby-version
-
+/test-reports
+rspec.xml

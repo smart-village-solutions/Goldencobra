@@ -23,7 +23,7 @@ Feature: Create and manage articles
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     And I am on the admin list of articles
-    When I click on "Artikel erstellen"
+    When I click on "Erstellen"
     Then I should see "Artikel erstellen"
     When I fill in "article_title" with "Dies ist ein neuer Artikel"
     When I fill in "article_breadcrumb" with "Neuer Artikel"

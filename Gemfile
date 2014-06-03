@@ -57,7 +57,6 @@ gem "better_errors", :group => "development"
 gem "binding_of_caller", :group => "development"
 
 group :development do
-  gem 'thin'
   gem 'guard-annotate'
   gem 'pry'
   gem 'pry-nav'
@@ -68,6 +67,7 @@ group :development do
 end
 
 group :test do
+  #gem 'rspec_junit_formatter'  #https://github.com/alienfast/bamboozled-ruby-plugin
   gem 'mysql2'
   gem 'cucumber'
   gem 'cucumber-rails'
