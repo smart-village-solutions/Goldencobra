@@ -1,7 +1,16 @@
+# encoding: utf-8
+
 require 'factory_girl'
 require 'faker'
 
 FactoryGirl.define do
+  factory :domain, :class => Goldencobra::Domain do
+    title "Localhost"
+    hostname "localhost"
+    client "test"
+    main true
+  end
+
   factory :article, :class => Goldencobra::Article do
     title "Article Title"
     url_name "short-title"

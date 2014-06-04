@@ -192,7 +192,7 @@ module Goldencobra
     end
 
     def serve_basic_article?
-      @article && @article.external_url_redirect.blank? && @article.dynamic_redirection == "false"
+      @article.present? && @article.external_url_redirect.blank? && @article.dynamic_redirection == "false"
     end
 
     def serve_fresh_page?
@@ -261,7 +261,9 @@ module Goldencobra
         article = Goldencobra::Article.active.search_by_url(params[:article_id])
         if article.present?
           operator = current_user || current_visitor
-          a = Ability.new(operator)
+          a = Ability.new(operator,@current_client)
+          logger.warn("###"*40)
+          logger.warn(a.can?(:read, article))
           if a.can?(:read, article)
             @article = article
           else

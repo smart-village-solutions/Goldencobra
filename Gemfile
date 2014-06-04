@@ -76,7 +76,8 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
-  gem 'rspec-core', "2.14.0"
+  gem 'rspec-core'
+  gem 'rspec-rails'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
