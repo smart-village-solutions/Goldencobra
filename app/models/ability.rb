@@ -3,36 +3,37 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(operator=nil)
+  def initialize(operator=nil,current_domain=nil)
     can :read, Goldencobra::Article
     can :read, Goldencobra::Menue
     can :read, Goldencobra::Widget
 
     #Rechte die alle betreffen
     Goldencobra::Permission.where("action IS NOT NULL").where("role_id IS NULL OR role_id = ''").each do |permission|
-      set_permission(permission)
+      set_permission(permission,current_domain)
     end
 
     #Rechte, die nur bestimmte nutzerrollen betreffen
     if operator && operator.respond_to?(:roles)
       operator.roles.each do |role|
         role.permissions.each do |permission|
-
-          if permission.subject_class == ":all"
-            if permission.action.include?("not_")
-              cannot permission.action.gsub("not_", "").to_sym, :all
+          if check_for_domain_restrictions(permission,current_domain)
+            if permission.subject_class == ":all"
+                if permission.action.include?("not_")
+                  cannot permission.action.gsub("not_", "").to_sym, :all
+                else
+                  can permission.action.to_sym, :all
+                end
             else
-              can permission.action.to_sym, :all
+              set_permission(permission,current_domain)
             end
-          else
-            set_permission(permission)
           end
         end
       end
     end
   end
 
-  def set_permission(permission)
+  def set_permission(permission,current_domain)
     able = 'can'
     action_name = permission.action.to_sym
     model_name = permission.subject_class.constantize
@@ -42,11 +43,13 @@ class Ability
       able = 'cannot'
     end
 
-    if permission.subject_id.present?
-      set_ability(able, action_name, model_name, permission.subject_id.to_i)
-      set_child_permissions(able, action_name, model_name, permission.subject_id.to_i)
-    else
-      set_ability(able, action_name, model_name)
+    if check_for_domain_restrictions(permission,current_domain)
+      if permission.subject_id.present?
+        set_ability(able, action_name, model_name, permission.subject_id.to_i)
+        set_child_permissions(able, action_name, model_name, permission.subject_id.to_i)
+      else
+        set_ability(able, action_name, model_name)
+      end
     end
   end
 
@@ -64,5 +67,9 @@ class Ability
         set_ability(able, action_name, model_name, child_id)
       end
     end
+  end
+
+  def check_for_domain_restrictions(permission,domain)
+    permission.domain.blank? || (domain.present? && permission.domain.present? && permission.domain == domain)
   end
 end

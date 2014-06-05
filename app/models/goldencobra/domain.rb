@@ -3,6 +3,8 @@
 module Goldencobra
   class Domain < ActiveRecord::Base
 
+    has_many :permissions, :class_name => Goldencobra::Permission
+
     validates_presence_of :client
     validates_format_of :client, :with => /^[\w]+$/
     validates_presence_of :title

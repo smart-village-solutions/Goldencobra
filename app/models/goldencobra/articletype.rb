@@ -39,6 +39,7 @@ module Goldencobra
         :redirection_target_in_new_window => %{<% f.input :redirection_target_in_new_window %>},
         :author => %{<% f.input :author, :hint => I18n.t("goldencobra.article_field_hints.author") %>},
         :permissions => %{<% f.has_many :permissions do |p|
+          p.input :domain, :include_blank => "Alle"
           p.input :role, :include_blank => "Alle"
           p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
           p.input :_destroy, :as => :boolean
