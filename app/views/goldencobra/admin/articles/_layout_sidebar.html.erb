@@ -1,6 +1,6 @@
-l<div class="layout-sidebar">
+<div class="layout-sidebar">
   <h5>
-    I18n.t('active_admin.articles.views.layout_sidebar.h5') <%= I18n.t(@article.article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => @article.article_type.split(' ').first) %>
+    <%= I18n.t('active_admin.articles.views.layout_sidebar.h5')%> <%= I18n.t(@article.article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => @article.article_type.split(' ').first) %>
   </h5>
   <% article_types = {} %>
   <% Goldencobra::Article.article_types_for_select.each do |article_type| %>

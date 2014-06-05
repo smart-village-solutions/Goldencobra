@@ -1,8 +1,10 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe Goldencobra::Api::V1::TokensController do
   before(:each) { @routes = Goldencobra::Engine.routes }
-  describe '#create' do
+  describe '#create', :type => :controller do
     it 'should require an email and password' do
       post :create, format: :json
       response.response_code.should == 400

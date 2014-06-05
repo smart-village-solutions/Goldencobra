@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe Goldencobra::Article do
@@ -26,6 +28,13 @@ describe Goldencobra::Article do
       a.external_url_redirect = "https://www.google.de"
       a.save
       Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "https://www.google.de"
+    end
+
+    it "should have no redirection if redirect url is empty" do
+      a = Goldencobra::Article.create!(@attr)
+      a.external_url_redirect = ""
+      a.save
+      Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == ""
     end
 
 
