@@ -308,6 +308,20 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         @article.parent_id = @parent.id
       end
     end
+
+    def update
+      update! do |format|
+        if @article.errors.present? && @article.errors.messages.any?
+          flash[:error] = "<h3>Fehler beim Speichern</h3><ul>"
+          @article.errors.messages.each do |key, value|
+            flash[:error] += "<li><span>#{t(key, :scope => [:activerecord, :attributes, :profile])}</span>: #{value.join(', ')}</li>"
+          end
+          flash[:error] += "</ul>"
+        end
+         format.html { redirect_to edit_admin_article_path(@article.id) }
+      end
+    end
+
   end
 
   member_action :toggle_expert_mode do
