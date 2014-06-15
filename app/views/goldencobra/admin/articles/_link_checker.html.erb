@@ -1,4 +1,4 @@
-<h5>I18n.t('active_admin.articles.views.link_checker.h5')</h5>
+<h5><%= I18n.t('active_admin.articles.views.link_checker.h5') %></h5>
 
 <% if @article.link_checker.present? && @article.link_checker.class == Hash %>
 	<% status200er =  @article.link_checker.select{|key,value| value.present? && value['response_code'] == "200"} %>
