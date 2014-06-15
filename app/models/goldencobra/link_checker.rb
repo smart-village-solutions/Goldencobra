@@ -36,7 +36,11 @@ module Goldencobra
           status_for_links[linkpos["link"]]["response_error"] = e.to_s
         end
       end
-      @article.link_checker = status_for_links
+      begin
+        @article.link_checker = status_for_links
+      rescue
+        @article.link_checker = nil
+      end
     end
 
 
