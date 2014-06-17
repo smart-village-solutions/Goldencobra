@@ -25,7 +25,7 @@ de:
       admin_article_management_content:
         link1: "abmelden"
         link1_text: "Artikel im Backend bearbeiten"
-        link2: "Artikel offline stellen" 
+        link2: "Artikel offline stellen"
         confirm2: "Seite offline schalten?"
         link3: "Artikel online stellen"
         confirm3: "Seite online schalten?"
@@ -214,18 +214,18 @@ de:
         media: "Medien"
         JS_scripts: "JS-Scripts"
       views:
-        article_type: 
+        article_type:
           input: "test"
-        image_module_sidebar: 
+        image_module_sidebar:
           h5: "Bildergallery einfügen"
           p: "Alle Bilder, die mit folgenden Tags versehen sind, sollen angezeigt werden"
           tag1: "Bild"
           tag2: "Bilder"
           submit: "Bilder auswählen"
-        layout_sidebar: 
+        layout_sidebar:
           h5: "Artikel-Seitentyp:"
           submit: "Artikeltyp zuweisen"
-        link_checker: 
+        link_checker:
           h5: "Hier haben Sie die Möglichkeit alle Links dieses Artikels auf Funktionalität zu überprüfen."
           h4: "Alle Links sind in Ordnung!"
           status: "Status: "
@@ -246,9 +246,9 @@ de:
           hint_tags: "Tags sind komma-getrennte Werte, mit denen sich ein Artikel intern gruppiern l&auml;sst"
           label_filter: "Filterkriterium"
           hint_filter: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten"
-        sort_articles_index: 
+        sort_articles_index:
           inputs: "Manuell Index Sorting"
-        toggle_expert_mode: 
+        toggle_expert_mode:
           text1: "Deactivate Expert-Modus"
           text2: "Activate Expert-Modus"
         widgets_sidebar:
@@ -277,6 +277,7 @@ de:
       sidebar:
         h5: "Es existieren bereits passende Menüpunkte zu diesem Artikel"
         seo_link: "SEO-Ansicht"
+        new_sub_article: "Unterartikel erstellen"
         div_link: "Sie können diese hier auflisten"
         div_link1: "einen weiteren Menüpunkt erstellen"
         h5_1: "Es existiert noch kein Menüpunkt zu diesem Artikel"

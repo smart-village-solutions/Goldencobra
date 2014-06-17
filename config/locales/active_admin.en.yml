@@ -25,9 +25,9 @@ en:
       admin_article_management_content:
         link1: "logout"
         link1_text: "Article edit in Backend"
-        link2: "Set Article offline" 
+        link2: "Set Article offline"
         confirm2: "Set Page offline?"
-        link3: "Set Article offline" 
+        link3: "Set Article offline"
         confirm3: "Set page online?"
     sessions:
       login:
@@ -214,18 +214,18 @@ en:
         media: "Media"
         JS_scripts: "JS-Scripts"
       views:
-        article_type: 
+        article_type:
           input: "test"
-        image_module_sidebar: 
+        image_module_sidebar:
           h5: "Insert Photo Gallery"
           p: "All images that are provided with the following tags should be displayed"
           tag1: "Photo"
           tag2: "Photos"
           submit: "Choose a Photo"
-        layout_sidebar: 
+        layout_sidebar:
           h5: "Article-Pagetype:"
           submit: "Assign an Article Type"
-        link_checker: 
+        link_checker:
           h5: "Here you can check the functionality of all the links in this article."
           h4: "All the links are ok!"
           status: "Status: "
@@ -246,9 +246,9 @@ en:
           hint_tags: "Tags are values, separated by a comma, with which article is groupped internally"
           label_filter: "Filter criteria"
           hint_filter: "Here registered terms are offered on overview pages as filter options"
-        sort_articles_index: 
+        sort_articles_index:
           inputs: "Manually sorting index"
-        toggle_expert_mode: 
+        toggle_expert_mode:
           text1: "Expert-Modus deaktivieren"
           text2: "Expert-Modus aktivieren"
         widgets_sidebar:
@@ -277,6 +277,7 @@ en:
       sidebar:
         h5: "Menu items for this article already exist."
         seo_link: "SEO view"
+        new_sub_article: "create subarticle"
         div_link: "You can list them here"
         div_link1: "create additional menu item"
         h5_1: "Menu items for this article don't exist yet."

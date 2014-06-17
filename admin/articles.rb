@@ -152,6 +152,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     link_to(I18n.t('active_admin.articles.sidebar.seo_link'), admin_seo_articles_path())
   end
 
+  action_item :only => [:edit] do
+    link_to I18n.t('active_admin.articles.sidebar.new_sub_article'), new_admin_articles_path(:parent => item), :class => "new_link"
+  end
+
   sidebar :overview, only: [:index] do
     render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.order(:url_name).roots, :locals => {:link_name => "url_name", :url_path => "article", :order_by => "url_name" }
   end
