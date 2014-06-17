@@ -153,7 +153,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   action_item :only => [:edit] do
-    link_to I18n.t('active_admin.articles.sidebar.new_sub_article'), new_admin_articles_path(:parent => resource), :class => "new_link"
+    link_to I18n.t('active_admin.articles.sidebar.new_sub_article'), new_admin_article_path(:parent => resource), :class => "new_link"
   end
 
   sidebar :overview, only: [:index] do
