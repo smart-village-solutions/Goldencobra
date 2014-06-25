@@ -73,6 +73,7 @@ module Goldencobra
     has_many :comments, :class_name => Goldencobra::Comment
     has_many :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Article"}
     belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
+    belongs_to :creator, :class_name => User, :foreign_key => "creator_id"
 
     belongs_to :author
 
