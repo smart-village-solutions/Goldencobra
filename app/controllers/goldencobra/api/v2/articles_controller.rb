@@ -75,6 +75,11 @@ module Goldencobra
             new_article.article_type = 'Default Show'
           end
 
+          if params[:author].present? && params[:author][:lastname].present?
+            author = Goldencobra::Author.find_or_create_by_lastname(params[:author][:lastname])
+            new_article.author = author
+          end
+
           # Try to save the article
           new_article.save ? new_article : nil
 
