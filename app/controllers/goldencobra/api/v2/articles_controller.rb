@@ -45,8 +45,9 @@ module Goldencobra
           end
 
           # Try to save the article
-          if resposne = create_article(params[:article])
-            render status: 200, json: { :status => 200, :id => resposne.id }
+          response = create_article(params[:article])
+          if response.id.present?
+            render status: 200, json: { :status => 200, :id => response.id }
           else
             render status: 500, json: { :status => 500, :error => response.errors }
           end
@@ -82,7 +83,6 @@ module Goldencobra
 
           # Try to save the article
           new_article.save
-
           return new_article
         end
 
