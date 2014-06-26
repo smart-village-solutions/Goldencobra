@@ -81,7 +81,7 @@ module Goldencobra
           end
 
           # Try to save the article
-          new_article.save ? new_article : nil
+          new_article.save
 
         end
 
