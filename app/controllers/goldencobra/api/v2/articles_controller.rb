@@ -52,7 +52,7 @@ module Goldencobra
 
           #check if Article already exists by comparing external referee and current user of caller
           if Goldencobra::Article.where(:creator_id => current_user.id, :external_referee_id => params[:referee_id]).any?
-            render status: 400, json: { :status => 400, :error => "article already exists"  }
+            render status: 423, json: { :status => 423, :error => "article already exists"  }
             return
           end
 
