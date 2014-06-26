@@ -48,7 +48,7 @@ module Goldencobra
           if resposne = create_article(params[:article])
             render status: 200, json: { :status => 200, :id => resposne.id }
           else
-            render status: 500, json: { :status => 500 }
+            render status: 500, json: { :status => 500, :error => response.errors }
           end
 
         end
