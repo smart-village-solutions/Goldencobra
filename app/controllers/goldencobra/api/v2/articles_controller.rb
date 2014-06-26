@@ -40,7 +40,19 @@ module Goldencobra
 
           # Check if we do have an article passed by the parameters.
           unless params[:article]
-            render status: 400, json: { :status => 400 }
+            render status: 400, json: { :status => 400, :error => "article data missing" }
+            return
+          end
+
+          #check if an external referee is passed by the parameters
+          unless params[:referee_id]
+            render status: 400, json: { :status => 400, :error => "referee_id missing"  }
+            return
+          end
+
+          #check if Article already exists by comparing external referee and current user of caller
+          if Goldencobra::Article.where(:creator_id => current_user.id, :external_referee_id => params[:referee_id]).any?
+            render status: 400, json: { :status => 400, :error => "article already exists"  }
             return
           end
 
@@ -65,6 +77,7 @@ module Goldencobra
           return nil unless article_param
           return nil unless params[:article]
           return nil unless current_user
+          return nil unless params[:referee_id]
 
           # Create a new article
           new_article = Goldencobra::Article.new(params[:article])
@@ -80,6 +93,10 @@ module Goldencobra
             author = Goldencobra::Author.find_or_create_by_lastname(params[:author][:lastname])
             new_article.author = author
           end
+
+          #Set externel Referee
+          new_article.external_referee_id = params[:referee_id]
+          new_article.external_referee_ip = request.env['REMOTE_ADDR']
 
           # Try to save the article
           new_article.save
