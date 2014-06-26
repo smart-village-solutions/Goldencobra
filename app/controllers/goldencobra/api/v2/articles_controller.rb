@@ -49,7 +49,7 @@ module Goldencobra
           if response.id.present?
             render status: 200, json: { :status => 200, :id => response.id }
           else
-            render status: 500, json: { :status => 500, :error => response.errors }
+            render status: 500, json: { :status => 500, :error => response.errors, :id => nil }
           end
 
         end
