@@ -83,6 +83,7 @@ module Goldencobra
           # Try to save the article
           new_article.save
 
+          return new_article
         end
 
 
