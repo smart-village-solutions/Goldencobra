@@ -545,7 +545,7 @@ module Goldencobra
       #meta_description = Goldencobra::Setting.for_key('goldencobra.page.default_meta_description_tag')
 
       if self.teaser.present?
-        meta_description = remove_html_tags(self.teaser)
+        meta_description = remove_html_tags(self.teaser.truncate(200))
       else
         meta_description = self.content.present? ? remove_html_tags(self.content).truncate(200) : self.title
       end
