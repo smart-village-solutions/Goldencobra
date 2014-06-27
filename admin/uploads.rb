@@ -29,6 +29,10 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     f.actions
     f.inputs I18n.t('active_admin.uploads.file') do
       f.input :image, :as => :file, hint: I18n.t('active_admin.uploads.file_hint')
+      if f.object && f.object.image_content_type.present?
+        f.input :image_content_type, hint: I18n.t('active_admin.uploads.content_type_hint')
+      end
+      f.input :id, :as => :hidden
     end
     f.inputs I18n.t('active_admin.uploads.preview') do
       image_tag(f.object.image(:large), :id => "image_crop") if f.object && f.object.image.present?

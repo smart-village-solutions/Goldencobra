@@ -476,6 +476,7 @@ de:
       as: "Uploads"
       file: "File"
       file_hint: "Neues Bild hochladen für diese Ressource mit gleichem Dateinamen"
+      content_type_hint: "z.B.: image/png, image/jpg, image/jpeg, application/pdf, application/octet-stream, ..."
       preview: "Vorschau"
       photo: "Bild beschneiden"
       photo_hint: "Ausschnitt in der Vorschau selektieren vor dem Speichern"
