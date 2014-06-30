@@ -74,7 +74,8 @@ module Goldencobra
     end
 
     def mapped_to_article?
-      @mapped_to_article_result ||= Goldencobra::Article.select([:url_name, :startpage, :ancestry, :id]).map{|a| a.public_url}.uniq.include?(self.target)
+      #@mapped_to_article_result ||= Goldencobra::Article.select([:url_name, :startpage, :ancestry, :id]).map{|a| a.public_url}.uniq.include?(self.target)
+      false
     end
 
   end
