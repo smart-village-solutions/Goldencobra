@@ -74,6 +74,7 @@ module Goldencobra
     end
 
     def mapped_to_article?
+      #TODO Anfrage dauert zu lange bei 2000 Artikeln
       #@mapped_to_article_result ||= Goldencobra::Article.select([:url_name, :startpage, :ancestry, :id]).map{|a| a.public_url}.uniq.include?(self.target)
       false
     end
