@@ -476,6 +476,7 @@ en:
       as: "Uploads"
       file: "File"
       file_hint: "Upload a new picture for this resource, if the file name is the same!"
+      file_url_hint: "or a url to download an image"
       content_type_hint: "e.g.: image/png, image/jpg, image/jpeg, application/pdf, application/octet-stream, ..."
       preview: "Preview"
       photo: "Photo Cut"

@@ -22,7 +22,7 @@
 module Goldencobra
   class Upload < ActiveRecord::Base
 
-    attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_image
+    attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_image, :image_url
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads") &&
       ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
@@ -39,6 +39,8 @@ module Goldencobra
     has_many :articles, :through => :article_images
     has_many :imports, :class_name => Goldencobra::Import
     belongs_to :attachable, polymorphic: true
+
+    before_save :download_remote_image, :if => :image_url_provided?
 
     before_save :crop_image_with_coords
     def crop_image_with_coords
@@ -120,6 +122,22 @@ module Goldencobra
       else
         return false
       end
+    end
+
+
+    private
+
+    def image_url_provided?
+      self.image_url.present?
+    end
+
+    def download_remote_image
+      require 'open-uri'
+      io = open(URI.parse(self.image_url))
+      self.image = io
+      self.image_file_name = io.base_uri.path.split('/').last
+      self.image_remote_url = self.image_url
+    rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
     end
 
   end

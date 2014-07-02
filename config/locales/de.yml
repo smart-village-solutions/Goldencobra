@@ -417,6 +417,7 @@ de:
         role: "Rolle"
         action: "Aktion"
       goldencobra/upload:
+        image_remote_url: "Download URL"
         source: "Quellenverweis"
         created_at: "Erstellt am"
         updated_at: "Bearbeitet am"
