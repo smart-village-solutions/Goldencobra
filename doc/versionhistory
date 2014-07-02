@@ -1,3 +1,7 @@
+V1.4.3
+  - Medien können beim erstellen nun auch über eine URL direkt hochgeladen werden
+  - API zur Erstellung und Aktualisierung von Artikeln ausgebaut
+
 V1.4.2
   - Server install script als rails generator
   - Ausbau der API zum Erstellen von Artikeln

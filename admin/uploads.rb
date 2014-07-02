@@ -29,6 +29,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     f.actions
     f.inputs I18n.t('active_admin.uploads.file') do
       f.input :image, :as => :file, hint: I18n.t('active_admin.uploads.file_hint')
+      f.input :image_url, :hint => I18n.t('active_admin.uploads.file_url_hint')
       if f.object && f.object.image_content_type.present?
         f.input :image_content_type, hint: I18n.t('active_admin.uploads.content_type_hint')
       end
@@ -155,5 +156,22 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
 
   action_item only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/next_item'
+  end
+
+  controller do
+
+    def create
+      create! do |format|
+        if @upload.errors.present? && @upload.errors.messages.any?
+          flash[:error] = "<h3>Fehler beim Speichern</h3><ul>"
+          @upload.errors.messages.each do |key, value|
+            flash[:error] += "<li><span>#{t(key, :scope => [:activerecord, :attributes, :profile])}</span>: #{value.join(', ')}</li>"
+          end
+          flash[:error] += "</ul>"
+        end
+         format.html { redirect_to admin_upload_path(@upload.id) }
+      end
+    end
+
   end
 end

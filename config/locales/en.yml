@@ -210,6 +210,7 @@ en:
         tag_list: "List of tags"
         frontend_tag_list: "Filters"
       goldencobra/upload:
+        image_remote_url: "Download URL"
         source: "source"
         created_at: "created at"
         updated_at: "updated at"
