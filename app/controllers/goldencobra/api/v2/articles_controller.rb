@@ -131,6 +131,14 @@ module Goldencobra
             new_article.author = author
           end
 
+          if params[:images].present?
+            params[:images].each do |image|
+              img = Goldencobra::Upload.create(image)
+              article.images << img
+            end
+          end
+
+
           #Set externel Referee
           new_article.external_referee_id = params[:referee_id]
           new_article.external_referee_ip = request.env['REMOTE_ADDR']
@@ -155,6 +163,13 @@ module Goldencobra
             author = Goldencobra::Author.find_or_create_by_lastname(params[:author][:lastname])
             article.author = author
             article.save
+          end
+
+          if params[:images].present?
+            params[:images].each do |image|
+              img = Goldencobra::Upload.create(image)
+              article.images << img
+            end
           end
 
           # Update existing article
