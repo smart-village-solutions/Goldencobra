@@ -132,8 +132,8 @@ module Goldencobra
           end
 
           if params[:images].present?
-            params[:images].each do |image|
-              img = Goldencobra::Upload.create(image)
+            params[:images].each do |i|
+              img = Goldencobra::Upload.create(i[:image])
               article.images << img
             end
           end
@@ -166,8 +166,8 @@ module Goldencobra
           end
 
           if params[:images].present?
-            params[:images].each do |image|
-              img = Goldencobra::Upload.create(image)
+            params[:images].each do |i|
+              img = Goldencobra::Upload.create(i[:image])
               article.images << img
             end
           end
