@@ -27,6 +27,7 @@ Goldencobra::Engine.routes.draw do
     namespace "v2" do
       get '/articles/search' => 'articles#search'
       match '/articles/create' => 'articles#create'
+      match '/articles/update' => 'articles#update'
       get '/locale_string' => 'locales#get_string'
     end
   end
