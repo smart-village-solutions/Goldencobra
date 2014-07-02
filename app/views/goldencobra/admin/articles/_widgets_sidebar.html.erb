@@ -1,9 +1,9 @@
 <div class="widget-sidebar">
-  <h5>I18n.t('active_admin.articles.views.widgets_sidebar.h5')</h5>
+  <h5><%= I18n.t('active_admin.articles.views.widgets_sidebar.h5') %></h5>
   <%= form_tag update_widgets_admin_article_path(@article.id) do %>
     <ul>
     <% Goldencobra::Widget.tag_counts_on(:tags).each do |widget_tag| %>
-      <li><b>I18n.t('active_admin.articles.views.widgets_sidebar.position') <%= widget_tag.name.capitalize %></b></li>
+      <li><b><%= I18n.t('active_admin.articles.views.widgets_sidebar.position') %> <%= widget_tag.name.capitalize %></b></li>
       <% Goldencobra::Widget.active.not_default.tagged_with(widget_tag).each do |w| %>
         <li><%= check_box_tag("widget_ids[]", "#{w.id}", @article.widget_ids.include?(w.id), :id => "widget_#{w.id}" ) %>&nbsp;<%= w.title %></li>
       <% end %>
