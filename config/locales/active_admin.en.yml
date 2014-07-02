@@ -217,14 +217,16 @@ en:
         article_type:
           input: "test"
         image_module_sidebar:
-          h5: "Insert Photo Gallery"
+          h5: "Insert photo gallery"
           p: "All images that are provided with the following tags should be displayed"
+          placeholder: "Choose tags"
+          type_p: "Choose display style on website"
           tag1: "Photo"
           tag2: "Photos"
-          submit: "Choose a Photo"
+          submit: "Choose photos"
         layout_sidebar:
           h5: "Article-Pagetype:"
-          submit: "Assign an Article Type"
+          submit: "Assign an article type"
         link_checker:
           h5: "Here you can check the functionality of all the links in this article."
           h4: "All the links are ok!"
