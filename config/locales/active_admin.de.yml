@@ -217,8 +217,10 @@ de:
         article_type:
           input: "test"
         image_module_sidebar:
-          h5: "Bildergallery einfügen"
+          h5: "Bildergalerie einfügen"
           p: "Alle Bilder, die mit folgenden Tags versehen sind, sollen angezeigt werden"
+          placeholder: "Tags auswählen"
+          type_p: "Darstellung auf der Webseite wählen"
           tag1: "Bild"
           tag2: "Bilder"
           submit: "Bilder auswählen"
