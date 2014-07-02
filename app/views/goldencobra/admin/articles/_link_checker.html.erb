@@ -4,7 +4,7 @@
 	<% status200er =  @article.link_checker.select{|key,value| value.present? && value['response_code'] == "200"} %>
 	<h2><%= @article.link_checker.count - status200er.count %>x Status 404,301... :</h2>
 	<% if (@article.link_checker.count - status200er.count) == 0 %>
-		<h4>I18n.t('active_admin.articles.views.link_checker.h4')</h4>
+		<h4><%= I18n.t('active_admin.articles.views.link_checker.h4') %></h4>
 	<% end %>
 	<ul>
 		<% @article.link_checker.each do |key,values| %>

@@ -18,18 +18,29 @@
 <br/><br/>
  -->
 
-<h5>I18n.t('active_admin.articles.views.image_module_sidebar.h5')</h5>
-<p>I18n.t('active_admin.articles.views.image_module_sidebar.p')</p>
+<h5><%= I18n.t('active_admin.articles.views.image_module_sidebar.h5') %></h5>
+<p><%= I18n.t('active_admin.articles.views.image_module_sidebar.p') %></p>
 
 <%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_article_image_gallery_tags"} do |f| %>
-	<ul>
-    <%= select_tag 'article[image_gallery_tags][]', options_for_select(Goldencobra::Upload.scoped.tag_counts_on(:tags).map{|tag| tag.name}, @article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : []), :multiple => true, :class => "chzn-select", 'data-placeholder' => 'Tags auswählen' %>
-  </ul>
+  <%= select_tag 'article[image_gallery_tags][]', options_for_select(Goldencobra::Upload.scoped.tag_counts_on(:tags).map{|tag| tag.name}, @article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : []), :multiple => true, :class => "chzn-select", "data-placeholder" => I18n.t('active_admin.articles.views.image_module_sidebar.placeholder') %>
 
 	<% if @article.image_gallery_tags.present? %>
-		<p><%= pluralize(Goldencobra::Upload.tagged_with(@article.image_gallery_tags).count, I18n.t('active_admin.articles.views.image_module_sidebar.tag1'), I18n.t('active_admin.articles.views.image_module_sidebar.tag2')) %> ausgewählt</p>
+		<p>
+			<%= pluralize(Goldencobra::Upload.tagged_with(@article.image_gallery_tags).count, I18n.t('active_admin.articles.views.image_module_sidebar.tag1'), I18n.t('active_admin.articles.views.image_module_sidebar.tag2')) %> ausgewählt
+		</p>
 	<% end %>
+	<br/>
 
-	<p><br/><%= f.submit I18n.t('active_admin.articles.views.image_module_sidebar.submit') %></p>
+	<p>
+		<br/>
+		<%= I18n.t('active_admin.articles.views.image_module_sidebar.type_p') %>
+	</p>
+	<br/>
+	<%= select_tag 'article[image_gallery_type]', options_for_select(["lightbox", "slider"], @article.image_gallery_type), :include_blank => false %>
+
+	<p>
+		<br/>
+		<%= f.submit I18n.t('active_admin.articles.views.image_module_sidebar.submit') %>
+	</p>
 <% end %>
 
