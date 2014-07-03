@@ -173,9 +173,8 @@ module Goldencobra
               else
                 img = existing_images.first
               end
-                image_position = Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).first
-                article.article_images.create(:image => img, :position => image_position)
-              end
+              image_position = Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).first
+              article.article_images.create(:image => img, :position => image_position)
             end
           end
 
