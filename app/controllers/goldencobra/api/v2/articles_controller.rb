@@ -167,8 +167,9 @@ module Goldencobra
 
           if params[:images].present?
             params[:images].each do |key,value|
+              image_position = Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).first
               img = Goldencobra::Upload.create(value[:image])
-              article.images << img
+              article.article_images.create(:image => img, :position => image_position)
             end
           end
 
