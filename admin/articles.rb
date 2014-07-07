@@ -245,10 +245,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     article = Goldencobra::Article.find(params[:id])
     if article.active
       article.active = false
-      flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_online')
+      flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_offline')
     else
       article.active = true
-      flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_offline')
+      flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_online')
     end
     article.save
 
