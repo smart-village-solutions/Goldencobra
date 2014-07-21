@@ -475,7 +475,7 @@ en:
       all: "All"
       general: "General"
     uploads:
-      as: "Uploads"
+      as: "Uploads/Media"
       file: "File"
       file_hint: "Upload a new picture for this resource, if the file name is the same!"
       file_url_hint: "or a url to download an image"
