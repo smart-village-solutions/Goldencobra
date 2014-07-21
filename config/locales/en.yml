@@ -128,8 +128,8 @@ en:
         one: "Widget"
         other: "Widgets"
       upload:
-        one: "Upload"
-        other: "Uploads"
+        one: "Medium"
+        other: "Media"
       goldencobra/upload:
         one: "Medium"
         other: "Media"

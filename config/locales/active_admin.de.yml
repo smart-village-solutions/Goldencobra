@@ -475,7 +475,7 @@ de:
       all: "Alle"
       general: "Allgemein"
     uploads:
-      as: "Uploads"
+      as: "Uploads/Medien"
       file: "File"
       file_hint: "Neues Bild hochladen für diese Ressource mit gleichem Dateinamen"
       file_url_hint: "oder eine URL angeben, von der das Bild geladen werden soll"
