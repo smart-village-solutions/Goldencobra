@@ -3,3 +3,4 @@ $('#overview-sidebar_list').append("<%= escape_javascript( render :partial => '/
                                                                   :object => object_to_render,
                                                                   :locals => {:link_name => link_name, :url_path => url_path, :order_by => order_by }
                                                           ) %>");
+$('#temp_list_item_<%= object_id %>').remove();
