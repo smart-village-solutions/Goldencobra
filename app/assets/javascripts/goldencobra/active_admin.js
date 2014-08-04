@@ -105,7 +105,7 @@ $(function() {
   });
 
   //Foldable overview in sidebar
-  $("div.overview-sidebar div.folder").bind("click", function(){
+  $("div.overview-sidebar div.folder").live("click", function(){
     $(this).closest('li').find("ul:first").slideToggle();
   });
   $("div.overview-sidebar div.folder").trigger("click");

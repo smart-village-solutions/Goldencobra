@@ -37,6 +37,7 @@ gem 'cancan'
 #gem 'cobweb' #https://github.com/stewartmckee/cobweb
 #gem 'link-checker'
 #gem 'linkchecker', :git => "http://github.com/seb/linkchecker.git"
+
 gem 'rmagick'
 
 gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
