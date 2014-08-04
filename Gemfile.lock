@@ -571,7 +571,6 @@ DEPENDENCIES
   pry
   pry-nav
   rb-fsevent (~> 0.9.1)
-  rmagick
   rspec-core
   rspec-rails
   sass-rails
