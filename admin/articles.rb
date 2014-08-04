@@ -366,9 +366,9 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     link_to("#{I18n.t('active_admin.articles.action_item.link_to.expert_modus')} #{current_user.enable_expert_mode ? I18n.t('active_admin.articles.action_item.link_to.deactivate') : I18n.t('active_admin.articles.action_item.link_to.activate')}", toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
   end
 
-  action_item :only => :index do
-    link_to(I18n.t('active_admin.articles.action_item.link_to.import'), new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
-  end
+  #action_item :only => :index do
+    #link_to(I18n.t('active_admin.articles.action_item.link_to.import'), new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
+  #end
 
   action_item :only => :edit do
     if resource.versions.last
