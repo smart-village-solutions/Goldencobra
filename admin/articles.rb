@@ -297,6 +297,16 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   batch_action :destroy, false
 
+  collection_action :load_overviewtree do
+    render "/goldencobra/admin/shared/load_overviewtree",
+      locals: { :object_id => params[:object_id],
+                :object_class => params[:object_class],
+                :link_name => params[:link_name],
+                :url_path => params[:url_path],
+                :order_by => params[:order_by]  },
+      :layout => false
+  end
+
   controller do
 
     def show
