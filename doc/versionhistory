@@ -1,4 +1,6 @@
 V1.4.3
+  - Übersichtsbäume in der Seitenleiste werden nun dynamisch nachgeladen
+V1.4.3
   - Medien können beim erstellen nun auch über eine URL direkt hochgeladen werden
   - API zur Erstellung und Aktualisierung von Artikeln ausgebaut
 
