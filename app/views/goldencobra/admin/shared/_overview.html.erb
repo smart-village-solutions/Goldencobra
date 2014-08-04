@@ -4,5 +4,15 @@
 <% end %>
 <div class="overview-sidebar">
   <ul id="overview-sidebar_list">
+    <% overview.order(order_by.to_sym).each do |root| %>
+      <li id="temp_list_item_<%= root.id %>">
+        <div class="item">
+          <div class="last_folder"></div>
+          <div class="title">
+            loading <%= root.send(link_name) %> ...
+          </div>
+        </div>
+      </li>
+    <% end %>
 	</ul>
 </div>
