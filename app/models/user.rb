@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
       else
         r = "Sehr geehrte Frau"
       end
-      r << " #{self.title}" if self.title.present?
+      #r << " #{self.title}" if self.title.present?
       r << " #{self.lastname}"
     end
     return r
