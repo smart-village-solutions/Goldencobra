@@ -1,6 +1,9 @@
 V1.4.5
   - xml sitemap erweitert um erstes Bild des Artikels
   - Sidekiq fixed auf Version 3.2.1 da 3.2.2 Ruby Version 1.9.x nicht mehr unterstüzt
+  - Compass fixed auf Version 0.12.7 da 1.0 fehlerhaft ist
+  - Menüpunkt Goldencobra Info entfernt
+  - "bundle update" durchgeführt und diverse gems aktualisiert
 
 V1.4.4
   - Übersichtsbäume in der Seitenleiste werden nun dynamisch nachgeladen
