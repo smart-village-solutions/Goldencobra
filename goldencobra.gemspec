@@ -36,9 +36,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'sunspot_rails', "2.0.0"
   s.add_dependency 'sunspot_solr', "2.0.0"
   s.add_dependency 'sprockets'
-  s.add_dependency "sass"
   s.add_dependency "sass-rails"
+  s.add_dependency "sass"
   s.add_dependency "coffee-rails"
+  s.add_dependency "compass", "0.12.7"
   s.add_dependency "compass-rails"
   s.add_dependency 'compass-960-plugin'
   s.add_dependency 'progress_bar'
