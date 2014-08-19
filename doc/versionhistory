@@ -4,6 +4,7 @@ V1.4.5
   - Compass fixed auf Version 0.12.7 da 1.0 fehlerhaft ist
   - Menüpunkt Goldencobra Info entfernt
   - "bundle update" durchgeführt und diverse gems aktualisiert
+  - url_path für public_url wird in der DB gespeichert (bsp: sitemap.xml bei 2000 Artikeln nun statt 11Sek jetzt 2,5Sek)
 
 V1.4.4
   - Übersichtsbäume in der Seitenleiste werden nun dynamisch nachgeladen
