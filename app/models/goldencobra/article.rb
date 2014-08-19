@@ -376,6 +376,7 @@ module Goldencobra
           a_url = self.url_path
         else
           a_url = "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+          self.save
         end
 
         if with_prefix
