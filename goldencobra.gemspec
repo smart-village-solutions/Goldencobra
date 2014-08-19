@@ -60,7 +60,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rubyzip'
   s.add_dependency 'geocoder'
   s.add_dependency 'paper_trail'
-  s.add_dependency 'sidekiq'
+  s.add_dependency 'sidekiq', "3.2.1"
   s.add_dependency 'sinatra'
   s.add_dependency 'slim'
   s.add_dependency 'whenever'

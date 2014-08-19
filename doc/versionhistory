@@ -1,5 +1,10 @@
+V1.4.5
+  - xml sitemap erweitert um erstes Bild des Artikels
+  - Sidekiq fixed auf Version 3.2.1 da 3.2.2 Ruby Version 1.9.x nicht mehr unterstüzt
+
 V1.4.4
   - Übersichtsbäume in der Seitenleiste werden nun dynamisch nachgeladen
+
 V1.4.3
   - Medien können beim erstellen nun auch über eine URL direkt hochgeladen werden
   - API zur Erstellung und Aktualisierung von Artikeln ausgebaut
