@@ -100,12 +100,12 @@ module Goldencobra
     before_save :parse_image_gallery_tags
     before_save :set_url_name_if_blank
     before_save :set_standard_application_template
-    before_save :set_url_path
     after_save :set_default_meta_opengraph_values
     after_save :verify_existence_of_opengraph_image
     after_update :notification_event_update
     after_update :update_parent_article_etag
     before_destroy :update_parent_article_etag
+    before_save :set_url_path
 
     attr_protected :startpage
 
@@ -375,8 +375,7 @@ module Goldencobra
         if self.url_path.present?
           a_url = self.url_path
         else
-          a_url = "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
-          self.save
+          a_url = self.get_url_from_path
         end
 
         if with_prefix
@@ -533,7 +532,13 @@ module Goldencobra
     # **************************
 
     def set_url_path
-      self.url_path = "/#{self.path.select([:ancestry, :url_name, :startpage]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
+      if url_path.blank? || self.ancestry_changed?
+        self.url_path = self.get_url_from_path
+      end
+    end
+
+    def get_url_from_path
+      "/#{self.path.select([:ancestry, :url_name, :startpage, :id]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
     end
 
     #Nachdem ein Artikel gelöscht oder aktualsisiert wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht oder bearbeitet wurde
