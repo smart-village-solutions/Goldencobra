@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module ExtendGoldencobraArticlesController
 
   def before_init
