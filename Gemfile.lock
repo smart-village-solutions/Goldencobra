@@ -555,6 +555,7 @@ DEPENDENCIES
   i18n-active_record!
   jquery-rails
   launchy
+  listen (~> 2.0)
   memcache-client
   meta-tags!
   multi_json (~> 1.3)

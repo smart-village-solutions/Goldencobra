@@ -4,6 +4,55 @@ require 'spec_helper'
 
 describe Goldencobra::Article do
 
+  describe 'moving article in articles-tree' do
+    before(:each) do
+      @attr = { :title  => "Testartikel", :article_type => "Default Show", :breadcrumb => 'bc_testarticle' }
+    end
+
+    it "should have a valid public_url before saving" do
+      a = Goldencobra::Article.new(@attr)
+      a.breadcrumb = "article1"
+      expect(a.public_url).to eql("/")
+      a.save
+    end
+
+    it "should have a valid public_url after saving" do
+      a = Goldencobra::Article.new(@attr)
+      a.breadcrumb = "article1"
+      a.save
+      expect(a.public_url).to eql("/article1")
+    end
+
+    it "should have a valid public_url after saving and reloading from db" do
+      a = Goldencobra::Article.new(@attr)
+      a.breadcrumb = "article1"
+      a.save
+      expect(Goldencobra::Article.find_by_id(a.id).public_url).to eql("/article1")
+    end
+
+    it "should have a valid url_path before saving" do
+      a = Goldencobra::Article.new(@attr)
+      a.breadcrumb = "article1"
+      expect(a.url_path).to eql(nil)
+      a.save
+    end
+
+    it "should have a valid url_path after saving" do
+      a = Goldencobra::Article.new(@attr)
+      a.url_name = "article1"
+      a.save
+      expect(a.url_path).to eql("/article1")
+    end
+
+    it "should have a valid url_path after saving and reloading from db" do
+      a = Goldencobra::Article.new(@attr)
+      a.url_name = "article1"
+      a.save
+      expect(Goldencobra::Article.find_by_id(a.id).url_path).to eql("/article1")
+    end
+
+  end
+
   describe 'creating an article' do
     before(:each) do
       @attr = { :title  => "Testartikel", :url_name  => "testartikel", :article_type => "Default Show", :breadcrumb => 'bc_testarticle' }

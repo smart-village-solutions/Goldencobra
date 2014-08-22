@@ -65,6 +65,7 @@ group :development do
   gem 'hirb'
   gem "powder"
   gem 'debugger'
+  gem 'listen', '~> 2.0'
 end
 
 group :test do

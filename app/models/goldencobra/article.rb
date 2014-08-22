@@ -97,6 +97,7 @@ module Goldencobra
 
     after_create :set_active_since
     after_create :notification_event_create
+    after_save :set_url_path
     before_save :parse_image_gallery_tags
     before_save :set_url_name_if_blank
     before_save :set_standard_application_template
@@ -105,7 +106,6 @@ module Goldencobra
     after_update :notification_event_update
     after_update :update_parent_article_etag
     before_destroy :update_parent_article_etag
-    before_save :set_url_path
 
     attr_protected :startpage
 
@@ -372,10 +372,10 @@ module Goldencobra
       else
 
         #url_path in der Datenbank als string speichern und beim update von ancestry neu berechnen... ansosnten den urlpafh aus dem string holen statt jedesmal über alle eltern iterierne
-        if self.url_path.present?
-          a_url = self.url_path
-        else
+        if self.url_path.blank? || self.url_path_changed? || self.url_name_changed? || self.ancestry_changed?
           a_url = self.get_url_from_path
+        else
+          a_url = self.url_path
         end
 
         if with_prefix
@@ -532,9 +532,7 @@ module Goldencobra
     # **************************
 
     def set_url_path
-      if url_path.blank? || self.ancestry_changed?
-        self.url_path = self.get_url_from_path
-      end
+        self.update_column(:url_path, self.get_url_from_path)
     end
 
     def get_url_from_path

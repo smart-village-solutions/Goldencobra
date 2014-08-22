@@ -1,7 +1,9 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe Goldencobra::Location do
-  
+
   it "should have a latitude and longitude" do
     location = Goldencobra::Location.create(:street => "Zossener Str. 55", :city => "Berlin", :zip => "10961")
     location.lat.should_not == nil
@@ -22,5 +24,5 @@ describe Goldencobra::Location do
     location.lng.should == nil
   end
 
-  
+
 end
