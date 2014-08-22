@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Given /^that I am not logged in$/ do
   visit "/admin/logout"
 end
@@ -41,10 +43,13 @@ Then /^I should see "([^\"]*)"$/ do |arg1|
   page.should have_content(arg1)
 end
 
-Then /^I should see "([^\"]*)" within "([^\"]*)"$/ do |arg1, content_position|
+# Then /^I should see "([^\"]*)" within "([^\"]*)"$/ do |arg1, content_position|
+#   first(content_position).should have_content(arg1)
+# end
+
+Then(/^I should see "(.*?)" \# within "(.*?)"$/) do |arg1, content_position|
   first(content_position).should have_content(arg1)
 end
-
 
 Then /^I should not see "([^\"]*)"$/ do |arg1|
   page.should have_no_content(arg1)

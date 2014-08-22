@@ -44,7 +44,7 @@ Feature: Create and manage articles
       |content| "Die kleine Maus wandert um den Käse..."|
       |breadcrumb | "Test"                              |
     Then I go to the article page "kurzer-titel"
-    And I should see "Dies ist ein Test" within "h1"
+    And I should see "Dies ist ein Test" # within "h1"
     And I should see "Die kleine Maus wandert um den Käse..." within "#article_content"
 
   @javascript

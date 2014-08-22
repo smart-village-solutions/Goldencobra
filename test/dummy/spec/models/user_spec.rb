@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 # has_many :role_users, :as => :operator

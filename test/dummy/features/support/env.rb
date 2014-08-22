@@ -24,7 +24,7 @@ require 'faker'
 #end
 
 #FactoryGirl.find_definitions
-
+Faker::Config.locale = :de
 
 
 Capybara.javascript_driver = :webkit
