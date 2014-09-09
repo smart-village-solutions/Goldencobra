@@ -15,9 +15,9 @@ module Goldencobra
         :content => %{<% f.input :content, :input_html => { :class => "tinymce" } %>},
         :teaser => %{<% f.input :teaser, :hint => I18n.t("goldencobra.article_field_hints.teaser"), :input_html => { :rows => 5 } %>},
         :summary => %{<% f.input :summary, :hint => I18n.t("goldencobra.article_field_hints.summary"), :input_html => { :rows => 5 } %>},
-        :tag_list => %{<% f.input :tag_list, :hint => I18n.t("goldencobra.article_field_hints.tag_list"), :wrapper_html => { class: 'expert' } %>},
-        :frontend_tag_list => %{<% f.input :frontend_tag_list, hint: I18n.t("goldencobra.article_field_hints.frontend_tag_list"), :wrapper_html => { class: 'expert' } %>},
-        :active => %{<% f.input :active, :hint => I18n.t("goldencobra.article_field_hints.active"), :wrapper_html => { class: 'expert' } %>},
+        :tag_list => %{<% f.input :tag_list, :hint => I18n.t("goldencobra.article_field_hints.tag_list"), :wrapper_html => { class: '' } %>},
+        :frontend_tag_list => %{<% f.input :frontend_tag_list, hint: I18n.t("goldencobra.article_field_hints.frontend_tag_list"), :wrapper_html => { class: '' } %>},
+        :active => %{<% f.input :active, :hint => I18n.t("goldencobra.article_field_hints.active"), :wrapper_html => { class: '' } %>},
         :active_since => %{<% f.input :active_since, :hint => I18n.t("goldencobra.article_field_hints.active_since"), as: :string, :input_html => { class: "", :size => "20" }, :wrapper_html => { class: 'expert' } %>},
         :context_info => %{<% f.input :context_info, :input_html => { :class => "tinymce" }, :hint => I18n.t("goldencobra.article_field_hints.context_info") %>},
         :metatags => %{<% f.has_many :metatags do |m|
