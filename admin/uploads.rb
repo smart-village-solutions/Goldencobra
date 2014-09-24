@@ -59,6 +59,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     f.inputs I18n.t('active_admin.uploads.js'), :style => "display:none"  do
       render partial: '/goldencobra/admin/uploads/jcrop'
     end
+    f.actions
   end
 
   index do
