@@ -7,7 +7,7 @@ namespace :db do
     remote_db = server_config["database"]
     user_name = server_config["username"]
     password = server_config["password"]
-    system("mysqldump --opt --add-drop-table -hlocalhost -u#{user_name} -p#{password} #{remote_db} > backup.sql")
+    system("nice -n15 mysqldump --opt --add-drop-table -hlocalhost -u#{user_name} -p#{password} #{remote_db} > backup.sql")
   end
 
 
