@@ -21,8 +21,8 @@ module Goldencobra
       user_cache = current_user.present? ? current_user.id : "no_user"
       flash_message = session.present? && session['flash'].present? ? Time.now.to_i : ""
       auth_code = params[:auth_token].present? ? 'with_auth' : ''
-      offset = params[:start].present? "offset_#{params[:start].to_i}" : ""
-      limit = params[:limit].present? "limit_#{params[:limit].to_i}" : ""
+      offset = params[:start].present? ? "offset_#{params[:start].to_i}" : ""
+      limit = params[:limit].present? ? "limit_#{params[:limit].to_i}" : ""
       "c-#{current_client_id}/g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}_#{auth_code}#{offset}#{limit}"
     end
 
