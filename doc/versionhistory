@@ -1,3 +1,6 @@
+V1.4.6
+  - mysql update für UTF8 auf Tables
+  - params :start und :limit um rss feeds ein offset und ein Limit mitzugeben
 V1.4.5
   - xml sitemap erweitert um erstes Bild des Artikels
   - Sidekiq fixed auf Version 3.2.1 da 3.2.2 Ruby Version 1.9.x nicht mehr unterstüzt
