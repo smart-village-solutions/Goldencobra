@@ -15,6 +15,10 @@
 
 module Goldencobra
   class Setting < ActiveRecord::Base
+
+    # TODO cache invalidate über touch /temp/settings_updated.txt
+
+
     @@key_value = {}
     attr_accessible :title, :value, :ancestry, :parent_id, :data_type
     SettingsDataTypes = ["string","date","datetime","boolean","array"]
@@ -50,14 +54,17 @@ module Goldencobra
       end
     end
 
-
+    # Goldencobra::Setting.for_key("test.foo.bar")
     def self.for_key(name, cacheable=true)
-      if cacheable
+      mtime = self.cache_mod_time
+      if cacheable && @@mtime_setting[name].present? && @@mtime_setting[name] >= mtime
         @@key_value ||= {}
         @@key_value[name] ||= for_key_helper(name)
       else
+        @@mtime_setting[name] = mtime
         for_key_helper(name)
       end
+
     end
 
     def self.for_key_helper(name)
@@ -162,7 +169,13 @@ module Goldencobra
     end
 
     def update_cache
-      @@key_value = nil
+      @@key_value[self.name] = nil
+      FileUtils.mkdir_p("tmp/settings")
+      FileUtils.touch("tmp/settings/updated_#{self.name}.txt")
+    end
+
+    def cache_mod_time
+      File.mtime("tmp/settings/updated_#{self.name}.txt")
     end
 
   end
