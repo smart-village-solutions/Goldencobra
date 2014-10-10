@@ -174,7 +174,7 @@ module Goldencobra
       FileUtils.touch("tmp/settings/updated_#{self.name}.txt")
     end
 
-    def self.get_cache_modification_time()
+    def self.get_cache_modification_time(name)
       if File.exists?("tmp/settings/updated_#{name}.txt")
         File.mtime("tmp/settings/updated_#{name}.txt")
       end
