@@ -56,7 +56,9 @@ module Goldencobra
 
     # Goldencobra::Setting.for_key("test.foo.bar")
     def self.for_key(name, cacheable=true)
+      @@mtime_setting ||= {}
       mtime = get_cache_modification_time(name)
+
       if cacheable && @@mtime_setting[name].present? && @@mtime_setting[name] >= mtime
         @@key_value ||= {}
         @@key_value[name] ||= for_key_helper(name)
