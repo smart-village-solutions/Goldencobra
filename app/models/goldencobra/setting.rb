@@ -123,6 +123,10 @@ module Goldencobra
       self.ancestors.map(&:title).join(".")
     end
 
+    def path_name
+      self.path.map(&:title).join(".")
+    end
+
 
     private
     def self.generate_default_setting(key, yml_data, parent_id=nil)
@@ -171,9 +175,9 @@ module Goldencobra
     end
 
     def update_cache
-      @@key_value[self.name] = nil
+      @@key_value[self.path_name] = nil
       FileUtils.mkdir_p("tmp/settings")
-      FileUtils.touch("tmp/settings/updated_#{self.name}.txt")
+      FileUtils.touch("tmp/settings/updated_#{self.path_name}.txt")
     end
 
     def self.get_cache_modification_time(name)
