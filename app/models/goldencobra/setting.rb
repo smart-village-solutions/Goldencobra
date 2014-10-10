@@ -184,7 +184,6 @@ module Goldencobra
       if File.exists?("tmp/settings/updated_#{name}.txt")
         File.mtime("tmp/settings/updated_#{name}.txt")
       else
-        @@key_value ||= {}
         FileUtils.mkdir_p("tmp/settings")
         FileUtils.touch("tmp/settings/updated_#{name}.txt")
         return Time.now
