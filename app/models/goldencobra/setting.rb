@@ -185,7 +185,8 @@ module Goldencobra
         File.mtime("tmp/settings/updated_#{name}.txt")
       else
         @@key_value ||= {}
-        update_cache
+        FileUtils.mkdir_p("tmp/settings")
+        FileUtils.touch("tmp/settings/updated_#{name}.txt")
         return Time.now
       end
     end
