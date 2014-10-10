@@ -183,6 +183,10 @@ module Goldencobra
     def self.get_cache_modification_time(name)
       if File.exists?("tmp/settings/updated_#{name}.txt")
         File.mtime("tmp/settings/updated_#{name}.txt")
+      else
+        @@key_value ||= {}
+        update_cache
+        return Time.now
       end
     end
 
