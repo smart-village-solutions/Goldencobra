@@ -56,7 +56,7 @@ module Goldencobra
 
     # Goldencobra::Setting.for_key("test.foo.bar")
     def self.for_key(name, cacheable=true)
-      mtime = get_cache_modification_time
+      mtime = get_cache_modification_time(name)
       if cacheable && @@mtime_setting[name].present? && @@mtime_setting[name] >= mtime
         @@key_value ||= {}
         @@key_value[name] ||= for_key_helper(name)
@@ -174,8 +174,10 @@ module Goldencobra
       FileUtils.touch("tmp/settings/updated_#{self.name}.txt")
     end
 
-    def get_cache_modification_time
-      File.mtime("tmp/settings/updated_#{self.name}.txt")
+    def self.get_cache_modification_time()
+      if File.exists?("tmp/settings/updated_#{name}.txt")
+        File.mtime("tmp/settings/updated_#{name}.txt")
+      end
     end
 
   end
