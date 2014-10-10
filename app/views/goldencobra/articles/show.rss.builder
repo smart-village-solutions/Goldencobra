@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
@@ -6,6 +8,9 @@ xml.rss version: "2.0" do
     xml.link @article.absolute_public_url
 
     if @list_of_articles
+      if params[:start].present? && params[:limit].present?
+        @list_of_articles = @list_of_articles.offset(params[:start].to_i).limit(params[:limit].to_i)
+      end
       @list_of_articles.each do |article|
         xml.item do
           xml.title article.title
