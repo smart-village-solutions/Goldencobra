@@ -175,6 +175,7 @@ module Goldencobra
     end
 
     def update_cache
+      @@key_value ||= {}
       @@key_value[self.path_name] = nil
       FileUtils.mkdir_p("tmp/settings")
       FileUtils.touch("tmp/settings/updated_#{self.path_name}.txt")
