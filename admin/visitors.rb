@@ -17,13 +17,13 @@ ActiveAdmin.register Visitor do
     column :last_sign_in_at
     column :sign_in_count
     column :agb, sortable: :agb do |v|
-      v.agb ? I18n.t('active_admin.visitors.yes') : I18n.t('active_admin.visitors.no')
+      v.agb ? I18n.t('active_admin.visitors.yes_check') : I18n.t('active_admin.visitors.no_check')
     end
     column I18n.t('active_admin.visitors.status') do |visitor|
       I18n.t('active_admin.visitors.status2') if visitor.locked_at?
     end
     column :newsletter, sortable: :newsletter do |v|
-      v.newsletter ? I18n.t('active_admin.visitors.yes') : I18n.t('active_admin.visitors.no')
+      v.newsletter ? I18n.t('active_admin.visitors.yes_check') : I18n.t('active_admin.visitors.no_check')
     end
     default_actions
   end
