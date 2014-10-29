@@ -15,13 +15,12 @@ ActiveAdmin.register Visitor do
     column :username
     column :email
     column :last_sign_in_at
-    column :created_at
     column :sign_in_count
     column :agb, sortable: :agb do |v|
       v.agb ? I18n.t('active_admin.visitors.yes') : I18n.t('active_admin.visitors.no')
     end
     column I18n.t('active_admin.visitors.status') do |visitor|
-      I18n.t('active_admin.visitors.status1') if visitor.locked_at?
+      I18n.t('active_admin.visitors.status2') if visitor.locked_at?
     end
     column :newsletter, sortable: :newsletter do |v|
       v.newsletter ? I18n.t('active_admin.visitors.yes') : I18n.t('active_admin.visitors.no')
@@ -39,7 +38,7 @@ ActiveAdmin.register Visitor do
       f.input :password, hint: I18n.t('active_admin.visitors.hint1')
       f.input :password_confirmation, hint: I18n.t('active_admin.visitors.hint2')
       f.input :provider
-      f.input :uid
+      f.input :uid, hint: I18n.t('active_admin.users.hint2')
       f.input :agb
       f.input :newsletter
       if current_user.has_role?('admin')
