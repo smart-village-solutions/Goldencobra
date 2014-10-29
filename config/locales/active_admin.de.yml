@@ -513,7 +513,6 @@ de:
       general: "Allgemein"
       hint1: "Freilassen, wenn das Passwort nicht geändert werden soll."
       hint2: "Passwort bei Änderung hier erneut eingeben"
-      hint3: "Artikel ID des Läufers/Bloggers"
       history: "Historie"
       label1: "Eintrag"
       label2: "Bearbeiter"
