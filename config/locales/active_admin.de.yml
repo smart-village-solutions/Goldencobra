@@ -520,8 +520,6 @@ de:
       hint3: "Tragen Sie hier Ihren Namen ein, damit die Aktion zugeordnet werden kann"
       user: "User"
     visitors:
-      yes: "Ja"
-      no: "Nein"
       status: "Status"
       status1: "entsperrt"
       general: "Allgemein"
@@ -529,6 +527,8 @@ de:
       hint2: "Passwort bei Änderung hier erneut eingeben"
       status2: "gesperrt"
       flash: "Dieser Account wurde"
+      yes_check: "Ja"
+      no_check: "Nein"
     widget:
       as: "Schnipsel"
       title: "Titel"

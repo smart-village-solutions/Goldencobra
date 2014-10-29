@@ -519,15 +519,15 @@ en:
       hint3: "Enter your name here, so that the action can be assigned."
       user: "User"
     visitors:
-      yes: "Yes"
-      no: "No"
-      status: "status"
+      status: "Status"
       status1: "unlocked"
       general: "General"
       hint1: "Leave empty if password will not be changed."
       hint2: "If password has been changed, type it again."
       status2: "closed"
       flash: "This account has been"
+      yes_check: "yes"
+      no_check: "no"
     widget:
       as: "Widgets"
       title: "Title"
