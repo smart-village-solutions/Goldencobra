@@ -513,7 +513,6 @@ en:
       general: "General"
       hint1: "Leave empty if password will not be changed."
       hint2: "If Password has been changed, type it again."
-      hint3: "Article id of runner/blogger"
       history: "History"
       label1: "Entry"
       label2: "Editor"
