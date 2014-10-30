@@ -515,3 +515,7 @@ body.active_admin form > fieldset{
 body.active_admin form fieldset > ol > li.boolean {
   height: 2.2em;
 }
+
+body.active_admin form fieldset > ol > li p.inline-errors {
+  text-transform: none;
+}
