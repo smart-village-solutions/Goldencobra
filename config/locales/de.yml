@@ -239,6 +239,9 @@ de:
         subject: 'Anleitung um Deinen Account freizuschalten'
   activerecord:
     models:
+      redirector:
+        one: "Weiterleitung"
+        other: "Weiterleitungen"
       articletype:
         one: "Artikeltyp"
         other: "Artikeltypen"

@@ -67,6 +67,9 @@ en:
         subject: 'Unlock Instructions'
   activerecord:
     models:
+      redirector:
+        one: "Redirection"
+        other: "Redirections"
       analytic:
         one: "Analytic"
         other: "Analytics"

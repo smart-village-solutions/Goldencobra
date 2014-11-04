@@ -43,6 +43,8 @@ en:
       div: "I accept AGB & Privacy Policy *"
       submit: "Sign-up"
   active_admin:
+    redirector:
+      as: "Redirections"
     dashboard: "Dashboard"
     dashboard_welcome:
       welcome: "Welcome to Active Admin. This is the standard dashboard page."
