@@ -41,8 +41,7 @@ gem 'cancan'
 
 gem 'rmagick'
 
-gem "rspec-rails", :group => [:test, :development] # rspec in dev so the rake tasks run properly
-gem "faker", :group => [:test, :development] # rspec in dev so the rake tasks run properly
+
 gem "paper_trail"
 gem 'sunspot_rails'
 gem 'sunspot_solr'
@@ -55,17 +54,21 @@ gem 'exifr'
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
 
-gem "better_errors", :group => "development"
-gem "binding_of_caller", :group => "development"
+group :development,:test do
+  gem 'debugger'
+  gem "rspec-rails" # rspec in dev so the rake tasks run properly
+  gem "faker" # rspec in dev so the rake tasks run properly
+end
 
 group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
   gem 'guard-annotate'
   gem 'pry'
   gem 'pry-nav'
   gem 'brakeman'
   gem 'hirb'
   gem "powder"
-  gem 'debugger'
   gem 'listen', '~> 2.0'
 end
 
@@ -90,5 +93,4 @@ group :test do
   gem 'launchy'
   gem 'faker'
   gem 'shoulda-matchers'
-  gem 'debugger'
 end
