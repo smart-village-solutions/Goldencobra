@@ -43,6 +43,8 @@ de:
       div: "Ich akzeptiere die AGB & Datenschutzbestimmungen *"
       submit: "Registrieren"
   active_admin:
+    redirector:
+      as: "Weiterleitungen"
     dashboard: Übersicht
     dashboard_welcome:
       welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."

@@ -4,6 +4,7 @@ module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
     layout "application"
     before_filter :check_format
+    before_filter :get_redirectors, :only => [:show]
     before_filter :get_article, :only => [:show, :convert_to_pdf]
     before_filter :verify_token, :only => [:show]
     before_filter :geocode_ip_address, only: [:show]
@@ -129,7 +130,18 @@ module Goldencobra
     end
 
 
+
     # ------------------ Redirection ------------------------------------------
+    def get_redirectors
+      #check if Goldencobra::Redirector has any redirections, with match before rendering this article
+      #request.original_url
+      #base_request_url = request.original_url.to_s.split("?")[0]  # nimmt nur den teil ohne urlparameter
+      redirect = Goldencobra::Redirector.get_by_request(request.original_url)
+      if redirect.present?
+        redirect_to redirect.target_url, :status => redirect.redirection_code
+      end
+    end
+
     def redirect_dynamically
       target_article = @article.find_related_subarticle
       if target_article.present?
