@@ -1,3 +1,5 @@
+V1.4.10
+  - Redirector für alle Artikel, ist ähnlich configurierbar wie .htaccess rewrites
 V1.4.6
   - mysql update für UTF8 auf Tables
   - params :start und :limit um rss feeds ein offset und ein Limit mitzugeben

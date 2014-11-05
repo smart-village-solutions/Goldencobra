@@ -91,7 +91,7 @@ module Goldencobra
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
 
     validates_presence_of :title, :article_type
-    validates_format_of :url_name, :with => /\A[\w\d-]+\Z/, allow_blank: true
+    validates_format_of :url_name, :with => /\A[\w\-]+\Z/, allow_blank: true
     validates_presence_of :breadcrumb, :on => :create
     validates_length_of :breadcrumb, :within => 1..70, :on => :create
 
