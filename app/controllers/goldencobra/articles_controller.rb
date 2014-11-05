@@ -136,9 +136,9 @@ module Goldencobra
       #check if Goldencobra::Redirector has any redirections, with match before rendering this article
       #request.original_url
       #base_request_url = request.original_url.to_s.split("?")[0]  # nimmt nur den teil ohne urlparameter
-      redirect = Goldencobra::Redirector.get_by_request(request.original_url)
-      if redirect.present?
-        redirect_to redirect.target_url, :status => redirect.redirection_code
+      redirect_url, redirect_code = Goldencobra::Redirector.get_by_request(request.original_url)
+      if redirect_url.present? && redirect_code.present?
+        redirect_to redirect_url, :status => redirect_code
       end
     end
 

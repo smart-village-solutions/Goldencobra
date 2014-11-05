@@ -7,7 +7,6 @@ class CreateGoldencobraRedirectors < ActiveRecord::Migration
       t.text :target_url
       t.integer :redirection_code, :default => 301
       t.boolean :active, :default => true
-      t.boolean :include_subdirs, :default => false
       t.boolean :ignore_url_params, :default => true
 
       t.timestamps
