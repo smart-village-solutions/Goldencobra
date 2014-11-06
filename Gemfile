@@ -70,6 +70,7 @@ group :development do
   gem 'hirb'
   gem "powder"
   gem 'listen', '~> 2.0'
+  gem 'pre-commit'
 end
 
 group :test do
