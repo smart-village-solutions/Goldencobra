@@ -78,6 +78,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'
   s.add_development_dependency 'pry'
-  s.add_development_dependency 'better_errors'
+  s.add_development_dependency 'better_errors', "1.1.0"
   s.add_development_dependency 'binding_of_caller'
 end
