@@ -185,15 +185,22 @@ describe Goldencobra::Article do
       Goldencobra::Metatag.where(name: 'OpenGraph Description',
                                  article_id: article.id).first.value.should == article.title
     end
-
-    # it "should use the articles image as OpenGraph Image" do
-    #   @article = create :article
-    #   upload = Goldencobra::Upload.create(image: File.new(fixture_file("50x50.png"), "rb"))
-    #   ai = Goldencobra::ArticleImage.create(article_id: @article.id, image_id: upload.id)
-    #   @article.save
-    #   puts "...#{@article.article_images}.."
-    #   Goldencobra::Metatag.where(name: 'OpenGraph Image',
-    #                              article_id: @article.id).first.value.should == @article.article_images.first.image.image.url
-    # end
   end
+
+
+  describe 'updateing an article' do
+
+    it "should have a new url_path" do
+      article = create :article, :url_name => "seite1"
+      sub_article = create :article, :url_name => "sub_seite", :parent => article
+      article.public_url.include?("seite1").should == true
+      sub_article.public_url.include?("seite1/sub_seite").should == true
+      article.url_name = "seite2"
+      article.save
+      article.public_url.include?("seite2").should == true
+      sub_article.public_url.include?("seite2/sub_seite").should == true
+    end
+
+  end
+
 end
