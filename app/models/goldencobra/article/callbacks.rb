@@ -37,6 +37,7 @@ module Goldencobra
     def set_redirection_step_2
       if self.create_redirection
         #Suche Redirector nur mit source und vervollständige ihn
+        Goldencobra::Redirector.where(:source_url => self.absolute_public_url).destroy_all
         r = Goldencobra::Redirector.find_by_id(self.create_redirection)
         r.target_url = self.absolute_public_url
         r.active = true
