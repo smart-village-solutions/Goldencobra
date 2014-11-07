@@ -42,5 +42,4 @@ RSpec.configure do |config|
   # Add this line if you use Devise for authentication:
   config.include Devise::TestHelpers, :type => :controller
   config.include Capybara::DSL
-
 end

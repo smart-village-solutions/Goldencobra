@@ -5,7 +5,9 @@ module Goldencobra
     attr_accessible :active, :redirection_code, :source_url, :target_url, :ignore_url_params, :include_subdirs
 
     validates_presence_of :source_url
-    validates_presence_of :target_url
+    validates_presence_of :target_url, :if => proc { |obj| obj.active == true }
+
+    validates_uniqueness_of :source_url
 
     web_url :source_url, :target_url
 

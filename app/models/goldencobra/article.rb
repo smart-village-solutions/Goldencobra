@@ -53,13 +53,17 @@ require "open-uri"
 
 module Goldencobra
   class Article < ActiveRecord::Base
+    require "#{Goldencobra::Engine.root.to_s}/app/models/goldencobra/article/url_path.rb"
+    require "#{Goldencobra::Engine.root.to_s}/app/models/goldencobra/article/index_list.rb"
+    require "#{Goldencobra::Engine.root.to_s}/app/models/goldencobra/article/callbacks.rb"
+
     extend FriendlyId
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Description", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     LiquidParser = {}
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
     DisplayIndexTypes = [["Einzelseiten", "show"],["Übersichtsseiten", "index"], ["Alle Seiten", "all"]]
-    attr_accessor   :hint_label, :manual_article_sort
+    attr_accessor   :hint_label, :manual_article_sort, :create_redirection
     ImportDataFunctions = []
 
     serialize :link_checker#, Hash
@@ -94,18 +98,6 @@ module Goldencobra
     validates_format_of :url_name, :with => /\A[\w\-]+\Z/, allow_blank: true
     validates_presence_of :breadcrumb, :on => :create
     validates_length_of :breadcrumb, :within => 1..70, :on => :create
-
-    after_create :set_active_since
-    after_create :notification_event_create
-    after_save :set_url_path
-    before_save :parse_image_gallery_tags
-    before_save :set_url_name_if_blank
-    before_save :set_standard_application_template
-    after_save :set_default_meta_opengraph_values
-    after_save :verify_existence_of_opengraph_image
-    after_update :notification_event_update
-    after_update :update_parent_article_etag
-    before_destroy :update_parent_article_etag
 
     attr_protected :startpage
 
@@ -154,47 +146,6 @@ module Goldencobra
     # Instance Methods
     # **************************
     # **************************
-
-    def parent_path
-      self.path.map(&:title).join(" / ")
-    end
-
-    #scope for index articles, display show articles, index articless or both articles of an current type
-    def self.articletype_for_index(current_article)
-      if current_article.display_index_types == "show"
-        articletype("#{current_article.article_type_form_file} Show")
-      elsif current_article.display_index_types == "index"
-        articletype("#{current_article.article_type_form_file} Index")
-      else
-        where("article_type = '#{current_article.article_type_form_file} Show' OR article_type = '#{current_article.article_type_form_file} Index'")
-      end
-    end
-
-    def render_html(layoutfile="application", localparams={})
-      av = ActionView::Base.new(ActionController::Base.view_paths + ["#{::Goldencobra::Engine.root}/app/views/goldencobra/articles/"])
-      av.request = ActionDispatch::Request.new(Rack::MockRequest.env_for(self.public_url))
-      av.request["format"] = "text/html"
-      av.controller = Goldencobra::ArticlesController.new
-      av.controller.request = av.request
-      if localparams.present? && localparams[:params].present?
-        av.params.merge!(localparams[:params])
-      end
-      av.assign({:article => self})
-      html_to_render = av.render(template: "/goldencobra/articles/show.html.erb", :layout => "layouts/#{layoutfile}", :locals => localparams, :content_type => "text/html" )
-      return html_to_render
-    end
-
-    def comments_of_subarticles
-      Goldencobra::Comment.where("article_id in (?)", self.subtree_ids)
-    end
-
-    def find_related_subarticle
-      if self.dynamic_redirection == "latest"
-        self.descendants.order("id DESC").first
-      else
-        self.descendants.order("id ASC").first
-      end
-    end
 
 
     #Das ist der Titel, der verwendet wird, wenn daraus ein Menüpunkt erstellt werden soll.
@@ -264,66 +215,6 @@ module Goldencobra
       end
     end
 
-    def index_articles(current_operator=nil, user_frontend_tags=nil)
-      if self.article_for_index_id.blank?
-        #Index aller Artikel anzeigen
-        @list_of_articles = Goldencobra::Article.active.articletype_for_index(self)
-      else
-        #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
-        parent_article = Goldencobra::Article.find_by_id(self.article_for_index_id)
-        if parent_article
-          @list_of_articles = parent_article.descendants.active.articletype_for_index(self)
-        else
-          @list_of_articles = Goldencobra::Article.active.articletype_for_index(self)
-        end
-      end
-      #include related models
-      @list_of_articles = @list_of_articles.includes("#{self.article_type_form_file.underscore.parameterize.downcase}") if self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
-      #get articles with tag
-      if self.index_of_articles_tagged_with.present?
-        @list_of_articles = @list_of_articles.tagged_with(self.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags, any: true)
-      end
-      #get articles without tag
-      if self.not_tagged_with.present?
-        @list_of_articles = @list_of_articles.tagged_with(self.not_tagged_with.split(",").map{|t| t.strip}, :exclude => true, on: :tags)
-      end
-      #get_articles_by_frontend_tags
-      if user_frontend_tags.present?
-        @list_of_articles = @list_of_articles.tagged_with(user_frontend_tags, on: :frontend_tags, any: true)
-      end
-      #filter with permissions
-      @list_of_articles = filter_with_permissions(@list_of_articles,current_operator)
-
-      #sort list of articles
-      if self.sort_order.present?
-        if self.sort_order == "Random"
-          @list_of_articles = @list_of_articles.flatten.shuffle
-        elsif self.sort_order == "Alphabetical"
-          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.title }
-        elsif self.respond_to?(self.sort_order.downcase)
-          sort_order = self.sort_order.downcase
-          @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
-        elsif self.sort_order.include?(".")
-          sort_order = self.sort_order.downcase.split(".")
-          @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(self.sort_order) }
-          @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(self.sort_order) }
-          @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{self.sort_order}") }
-          if @unsortable.count > 0
-            @list_of_articles = @unsortable + @list_of_articles
-            @list_of_articles = @list_of_articles.flatten
-          end
-        end
-        if self.reverse_sort
-          @list_of_articles = @list_of_articles.reverse
-        end
-      end
-      if self.sorter_limit && self.sorter_limit > 0
-        @list_of_articles = @list_of_articles[0..self.sorter_limit-1]
-      end
-
-      return @list_of_articles
-    end
-
 
     # Methode filtert die @list_of_articles.
     # Rückgabewert: Ein Array all der Artikel, die der operator lesen darf.
@@ -362,30 +253,6 @@ module Goldencobra
       end
     end
 
-    def public_url(with_prefix=true)
-      if self.startpage
-        if with_prefix
-          return "#{Goldencobra::Domain.current.try(:url_prefix)}/"
-        else
-          return "/"
-        end
-      else
-
-        #url_path in der Datenbank als string speichern und beim update von ancestry neu berechnen... ansosnten den urlpafh aus dem string holen statt jedesmal über alle eltern iterierne
-        if self.url_path.blank? || self.url_path_changed? || self.url_name_changed? || self.ancestry_changed?
-          a_url = self.get_url_from_path
-        else
-          a_url = self.url_path
-        end
-
-        if with_prefix
-          return "#{Goldencobra::Domain.current.try(:url_prefix)}#{a_url}"
-        else
-          return a_url
-        end
-      end
-      #Goldencobra::UrlBuilder.new(self, with_prefix).article_path
-    end
 
     def date_of_last_modified_child
       if self.children.length > 0
@@ -399,33 +266,6 @@ module Goldencobra
       end
     end
 
-    def absolute_base_url
-      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
-        "https://#{Goldencobra::Setting.for_key('goldencobra.url')}"
-      else
-        "http://#{Goldencobra::Setting.for_key('goldencobra.url')}"
-      end
-      #Goldencobra::UrlBuilder.new(self).absolute_base_url
-    end
-
-    def absolute_public_url
-      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
-        "https://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
-      else
-        "http://#{Goldencobra::Setting.for_key('goldencobra.url')}#{self.public_url}"
-      end
-      #Goldencobra::UrlBuilder.new(self).absolute_public_url
-    end
-
-    def for_friendly_name
-      if self.url_name.present?
-        self.url_name
-      elsif self.breadcrumb.present?
-        self.breadcrumb
-      else
-        self.title
-      end
-    end
 
     # Gibt Consultant | Subsidiary | etc. zurück je nach Seitentyp
     def article_type_form_file
@@ -531,115 +371,8 @@ module Goldencobra
     # **************************
     # **************************
 
-    def set_url_path
-        self.update_column(:url_path, self.get_url_from_path)
-    end
+    # models/goldencobra/article/callbacks.rb
 
-    def get_url_from_path
-      "/#{self.path.select([:ancestry, :url_name, :startpage, :id]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
-    end
-
-    #Nachdem ein Artikel gelöscht oder aktualsisiert wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht oder bearbeitet wurde
-    def update_parent_article_etag
-      if self.parent.present?
-        self.parent.update_attributes(:updated_at => Time.now)
-      end
-    end
-
-    def set_active_since
-      self.active_since = self.created_at
-    end
-
-    def parse_image_gallery_tags
-      if self.respond_to?(:image_gallery_tags)
-        self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags.class == Array
-      end
-    end
-
-    def set_default_meta_opengraph_values
-      # Diese Zeile schein Überflüssig geworden zu sein, da nun der teaser, description oder title als defaultwerte genommen werden
-      #meta_description = Goldencobra::Setting.for_key('goldencobra.page.default_meta_description_tag')
-
-      if self.teaser.present?
-        meta_description = remove_html_tags(self.teaser.truncate(200))
-      else
-        meta_description = self.content.present? ? remove_html_tags(self.content).truncate(200) : self.title
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'Meta Description').none?
-        Goldencobra::Metatag.create(name: 'Meta Description',
-                                    article_id: self.id,
-                                    value: meta_description)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'Title Tag').none?
-        Goldencobra::Metatag.create(name: 'Title Tag',
-                                    article_id: self.id,
-                                    #value: self.breadcrumb.present? ? self.breadcrumb : self.title)
-                                    value: self.title)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph Description',
-                                    article_id: self.id,
-                                    value: meta_description)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph Title',
-                                    article_id: self.id,
-                                    value: self.title)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph URL',
-                                    article_id: self.id,
-                                    value: self.absolute_public_url)
-      end
-    end
-
-    # helper um links zu entfernen in text
-    def remove_html_tags(text)
-      text.gsub(/<[^<]+?>/, "")
-    end
-
-    def verify_existence_of_opengraph_image
-      if Goldencobra::Metatag.where(article_id: self.id, name: "OpenGraph Image").none?
-        if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
-          og_img_val = "#{self.absolute_base_url}#{self.article_images.first.image.image.url}"
-        else
-          og_img_val = Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image")
-        end
-        Goldencobra::Metatag.create(name: "OpenGraph Image", article_id: self.id, value: og_img_val)
-      end
-    end
-
-    def notification_event_create
-      ActiveSupport::Notifications.instrument("goldencobra.article.created", :article_id => self.id)
-    end
-
-    def notification_event_update
-      ActiveSupport::Notifications.instrument("goldencobra.article.updated", :article_id => self.id)
-    end
-
-    def set_url_name_if_blank
-      if self.url_name.blank?
-        #self.url_name = self.breadcrumb
-        self.url_name = self.friendly_id.split("--")[0]
-      end
-    end
-
-    def set_standard_application_template
-      if ActiveRecord::Base.connection.table_exists?("goldencobra_articles") && ActiveRecord::Base.connection.table_exists?("goldencobra_articletypes")
-        if self.template_file.blank?
-          if self.articletype.present? && self.articletype.default_template_file.present?
-            self.template_file = self.articletype.default_template_file
-          else
-            self.template_file = "application"
-          end
-        end
-      end
-    end
 
     # **************************
     # **************************
@@ -655,15 +388,7 @@ module Goldencobra
       self.active && self.active_since < Time.now.utc
     end
 
-    def self.search_by_url(url)
-      article = nil
-      articles = Goldencobra::Article.where(:url_name => url.split("/").last.to_s.split(".").first)
-      article_path = "/#{url.split('.').first}"
-      if articles.count > 0
-        article = articles.select{|a| a.public_url(false) == article_path}.first
-      end
-      return article
-    end
+
 
     def self.load_liquid_methods(options={})
 
