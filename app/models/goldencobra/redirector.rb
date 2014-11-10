@@ -14,27 +14,35 @@ module Goldencobra
     scope :active, where(:active => true)
 
     def self.get_by_request(request_original_url)
-      uri = URI.parse(request_original_url)
-      uri_params = CGI::parse(uri.query.to_s)
-      request_path = "#{uri.scheme}://#{uri.host}#{uri.path}%"
-      redirects = Goldencobra::Redirector.active.where("source_url LIKE ?", request_path)
-      if redirects.any?
-        #if multiple redirectors found, select the first
-        redirect = redirects.first
-        redirecter_source_uri = URI.parse(redirect.source_url)
-        if redirecter_source_uri.path == uri.path
-          #Wenn die url parameter egal sind
-          if redirect.ignore_url_params
-            return [redirect.rewrite_target_url(uri.query), redirect.redirection_code]
-          else
-            #wenn die urlparameter nicht egal sind und identisch sind
-            source_params = CGI::parse(redirecter_source_uri.query.to_s)
-            if !source_params.map{|k,v| uri_params[k] == v}.include?(false)
+      begin
+        uri = URI.parse(request_original_url)
+      rescue
+        uri = nil
+      end
+      if uri.present?
+        uri_params = CGI::parse(uri.query.to_s)
+        request_path = "#{uri.scheme}://#{uri.host}#{uri.path}%"
+        redirects = Goldencobra::Redirector.active.where("source_url LIKE ?", request_path)
+        if redirects.any?
+          #if multiple redirectors found, select the first
+          redirect = redirects.first
+          redirecter_source_uri = URI.parse(redirect.source_url)
+          if redirecter_source_uri.path == uri.path
+            #Wenn die url parameter egal sind
+            if redirect.ignore_url_params
               return [redirect.rewrite_target_url(uri.query), redirect.redirection_code]
             else
-              return nil
+              #wenn die urlparameter nicht egal sind und identisch sind
+              source_params = CGI::parse(redirecter_source_uri.query.to_s)
+              if !source_params.map{|k,v| uri_params[k] == v}.include?(false)
+                return [redirect.rewrite_target_url(uri.query), redirect.redirection_code]
+              else
+                return nil
+              end
             end
           end
+        else
+          return nil
         end
       else
         return nil
