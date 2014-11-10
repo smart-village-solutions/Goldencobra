@@ -50,12 +50,12 @@
 #For article rendering to string (:render_html) needed
 include Goldencobra::ApplicationHelper
 require "open-uri"
+require "#{Goldencobra::Engine.root.to_s}/app/models/goldencobra/article/url_path.rb"
+require "#{Goldencobra::Engine.root.to_s}/app/models/goldencobra/article/index_list.rb"
+require "#{Goldencobra::Engine.root.to_s}/app/models/goldencobra/article/callbacks.rb"
 
 module Goldencobra
   class Article < ActiveRecord::Base
-    require "#{Goldencobra::Engine.root.to_s}/app/models/goldencobra/article/url_path.rb"
-    require "#{Goldencobra::Engine.root.to_s}/app/models/goldencobra/article/index_list.rb"
-    require "#{Goldencobra::Engine.root.to_s}/app/models/goldencobra/article/callbacks.rb"
 
     extend FriendlyId
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Description", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
