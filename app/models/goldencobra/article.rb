@@ -495,9 +495,15 @@ module Goldencobra
 
     #bevor ein Artikle gespeichert wird , wird ein redirector unvollständig erstellt
     def set_redirection_step_1
-      if !self.new_record? && (self.url_name_changed? || self.ancestry_changed?)
+      #Wenn der Artikle vor mehr als 24 Stunden erstellt wurde und sich an der URL etwas verändert hat, dann eine Weiterleitung anlegen.
+      modified_hours_since = ((Time.now - self.created_at) / 1.hour).round
+      if !self.new_record? && (self.url_path_changed? || self.url_name_changed? || self.ancestry_changed?) && modified_hours_since > 24
         #Erstelle Redirector nur mit source
-        old_url = "#{self.absolute_base_url}#{Goldencobra::Domain.current.try(:url_prefix)}#{self.url_path}"
+        if self.url_path_changed?
+          old_url = "#{self.absolute_base_url}#{Goldencobra::Domain.current.try(:url_prefix)}#{self.url_path_change[0]}"
+        else
+          old_url = "#{self.absolute_base_url}#{Goldencobra::Domain.current.try(:url_prefix)}#{self.url_path}"
+        end
         r = Goldencobra::Redirector.find_or_create_by_source_url(old_url)
         r.active = false
         r.save
@@ -506,13 +512,25 @@ module Goldencobra
     end
 
     def set_redirection_step_2
-      if self.create_redirection
+      if self.create_redirection.present? && self.create_redirection.to_i > 0
         #Suche Redirector nur mit source und vervollständige ihn
         Goldencobra::Redirector.where(:source_url => self.absolute_public_url).destroy_all
         r = Goldencobra::Redirector.find_by_id(self.create_redirection)
         r.target_url = self.absolute_public_url
         r.active = true
         r.save
+
+        #update all descendants
+        if self.descendants.count < 30
+          # wenn es nur wenige Kinderartikel gibt, dann gleich direkt machen
+          self.children.each do |d|
+            d.url_path = d.get_url_from_path
+            d.save
+          end
+        else
+          #Ansosnten einen Raketask damit starten
+          system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake article_cache:recreate ID=#{self.id} &")
+        end
       end
     end
 
