@@ -13,6 +13,7 @@ de:
     selection: "Artikel"
   goldencobra:
     article_field_hints:
+      global_sorting_id: "Diese Zahl wird als globale Sortiernummer verwendet"
       title: "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
       teaser: "Dieser Text beschreibt den Artikel auf Übersichtsseiten kurz, außerdem wird er für die Beschreibung bei Google & Facebook genutzt"
       summary: "Dient einer zusammenfassenden Einleitung in den Haupttext und wird hervorgehoben dargestellt"
