@@ -460,7 +460,7 @@ module Goldencobra
         elsif self.sort_order == "Alphabetical"
           @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.title }
         elsif self.sort_order == "GlobalSortID"
-          @list_of_articles = @list_of_articles.flatten.sort_by{|a,b| a.global_sorting_id <=> b.global_sorting_id }
+          @list_of_articles = @list_of_articles.flatten.sort_by{|a,b| a.try(:global_sorting_id) <=> b.try(:global_sorting_id) }
         elsif self.respond_to?(self.sort_order.downcase)
           sort_order = self.sort_order.downcase
           @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
