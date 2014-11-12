@@ -1,15 +1,17 @@
 <% exclude_list = ["tablerow", "assign", "break", "capture", "case", "comment", "continue", "cycle", "decrement", "for", "if", "ifchanged", "include", "increment", "raw", "unless"] %>
 <p>Folgende Funktionen können sie in Textfeldern verwenden um zusätzlichen Inhalt darzustellen</p>
 <ul>
-	<% Liquid::Template.tags.each do |key,value| %>
-		<% next if exclude_list.include?(key) %>
-		<li><b><%= key %></b><br/>
-			<% if value.respond_to?(:description) %>
-				<%= value.description %><br/>
-			<% end %>
-			<% if value.respond_to?(:usage) %>
-				Verwendung:<br/><%= value.usage  %>
-			<% end %>
-		</li>
+	<% if false %>
+		<% Liquid::Template.tags.each do |key,value| %>
+			<% next if exclude_list.include?(key) %>
+			<li><b><%= key %></b><br/>
+				<% if value.respond_to?(:description) %>
+					<%= value.description %><br/>
+				<% end %>
+				<% if value.respond_to?(:usage) %>
+					Verwendung:<br/><%= value.usage  %>
+				<% end %>
+			</li>
+		<% end %>
 	<% end %>
 </ul>
