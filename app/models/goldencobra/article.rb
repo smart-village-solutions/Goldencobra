@@ -57,7 +57,7 @@ module Goldencobra
     extend FriendlyId
     MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Description", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     LiquidParser = {}
-    SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically"]
+    SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically", "GlobalSortID"]
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
     DisplayIndexTypes = [["Einzelseiten", "show"],["Übersichtsseiten", "index"], ["Alle Seiten", "all"]]
     attr_accessor   :hint_label, :manual_article_sort, :create_redirection
@@ -459,6 +459,8 @@ module Goldencobra
           @list_of_articles = @list_of_articles.flatten.shuffle
         elsif self.sort_order == "Alphabetical"
           @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.title }
+        elsif self.sort_order == "GlobalSortID"
+          @list_of_articles = @list_of_articles.flatten.sort_by{|a,b| a.global_sorting_id <=> b.global_sorting_id }
         elsif self.respond_to?(self.sort_order.downcase)
           sort_order = self.sort_order.downcase
           @list_of_articles = @list_of_articles.flatten.sort_by{|article| article.respond_to?(sort_order) ? article.send(sort_order) : article }

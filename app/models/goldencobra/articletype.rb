@@ -10,6 +10,7 @@ module Goldencobra
     accepts_nested_attributes_for :fieldgroups, :allow_destroy => true
 
     ArticleFieldOptions = {
+        :global_sorting_id => %{<% f.input :global_sorting_id, :hint => I18n.t("goldencobra.article_field_hints.global_sorting_id") %>},
         :title => %{<% f.input :title, :hint => I18n.t("goldencobra.article_field_hints.title") %>},
         :subtitle => %{<% f.input :subtitle %>},
         :content => %{<% f.input :content, :input_html => { :class => "tinymce" } %>},
