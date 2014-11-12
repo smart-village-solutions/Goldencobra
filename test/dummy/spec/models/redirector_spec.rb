@@ -4,13 +4,6 @@ require 'spec_helper'
 
 describe Goldencobra::Redirector do
 
-  # it "should have a latitude and longitude" do
-  #   location = Goldencobra::Location.create(:street => "Zossener Str. 55", :city => "Berlin", :zip => "10961")
-  #   location.lat.should_not == nil
-  #   location.lng.should_not == nil
-  #   Goldencobra::Location.find_by_zip("10961").street.should == "Zossener Str. 55"
-  # end
-
   #source_url
   #target_url
   it "should do nothing if no redirection is set" do
@@ -174,9 +167,10 @@ describe Goldencobra::Redirector do
       Goldencobra::Setting.set_value_for_key("www.goldencobra.de", "goldencobra.url")
       @root = Goldencobra::Article.create(url_name: "startseite", breadcrumb: "Startseite", title: "Startseite", article_type: "Default Show")
       @root.mark_as_startpage!
-      @seite1 = Goldencobra::Article.create(url_name: "seite1", breadcrumb: "Seite1", title: "Seite1", article_type: "Default Show", :parent => @root)
-      @seite2 = Goldencobra::Article.create(url_name: "seite2", breadcrumb: "Seite2", title: "Seite2", article_type: "Default Show", :parent => @seite1)
-      @seite3 = Goldencobra::Article.create(url_name: "seite3", breadcrumb: "Seite3", title: "Seite3", article_type: "Default Show", :parent => @seite1)
+      @seite1 = Goldencobra::Article.create(url_name: "seite1", breadcrumb: "Seite1", title: "Seite1", article_type: "Default Show", :parent => @root, :created_at => (Time.now - 25.hours) )
+      @seite2 = Goldencobra::Article.create(url_name: "seite2", breadcrumb: "Seite2", title: "Seite2", article_type: "Default Show", :parent => @seite1, :created_at => (Time.now - 25.hours))
+      @seite3 = Goldencobra::Article.create(url_name: "seite3", breadcrumb: "Seite3", title: "Seite3", article_type: "Default Show", :parent => @seite1, :created_at => (Time.now - 25.hours))
+      @seite4 = Goldencobra::Article.create(url_name: "seite4", breadcrumb: "Seite4", title: "Seite4", article_type: "Default Show", :parent => @seite3, :created_at => (Time.now - 25.hours))
     end
 
     it "not on normal article editing" do
@@ -198,7 +192,6 @@ describe Goldencobra::Redirector do
       @seite3.parent = @seite2
       @seite3.save
       @seite3.absolute_public_url.should == "http://www.goldencobra.de/seite1/seite2/seite3"
-      puts Goldencobra::Redirector.all.inspect
       Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1/seite3", :target_url => "http://www.goldencobra.de/seite1/seite2/seite3", :active => true).count.should == 1
     end
 
@@ -207,9 +200,11 @@ describe Goldencobra::Redirector do
       @seite1.url_name = "neue_seite1"
       @seite1.save
       @seite1.absolute_public_url.should == "http://www.goldencobra.de/neue_seite1"
-      @seite3.absolute_public_url.should == "http://www.goldencobra.de/neue_seite1/seite3"
       Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1", :target_url => "http://www.goldencobra.de/neue_seite1", :active => true).count.should == 1
       Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1/seite3", :target_url => "http://www.goldencobra.de/neue_seite1/seite3", :active => true).count.should == 1
+      Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1/seite3/seite4", :target_url => "http://www.goldencobra.de/neue_seite1/seite3/seite4", :active => true).count.should == 1
+      Goldencobra::Article.find_by_id(@seite3.id).absolute_public_url.should == "http://www.goldencobra.de/neue_seite1/seite3"
+      Goldencobra::Article.find_by_id(@seite4.id).absolute_public_url.should == "http://www.goldencobra.de/neue_seite1/seite3/seite4"
     end
 
     it "not if new article is created on existing redirection source_url" do
