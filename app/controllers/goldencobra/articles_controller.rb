@@ -31,16 +31,16 @@ module Goldencobra
     def show
       ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)  #Possible Callbacks on start
       before_init() #Possible Callbacks on start
+      params[:session] = session.except(:user_location)
+      Goldencobra::Article::LiquidParser["url_params"] = params
       if serve_iframe?
         respond_to do |format|
           format.html { render layout: "/goldencobra/bare_layout" }
         end
       elsif serve_basic_article?
         initialize_article(@article)
-        # TODO fix session_params like url_params mit liquid method ####### <<<<<<< #######
-        params[:session] = session.except(:user_location)
+        # TODO fix session_params like url_params mit liquid method
         Goldencobra::Article.load_liquid_methods(location: session[:user_location], article: @article, params: params)
-        Goldencobra::Article::LiquidParser["url_params"] = params
         load_associated_model_into_liquid() if can_load_associated_model?
         after_init()
 
