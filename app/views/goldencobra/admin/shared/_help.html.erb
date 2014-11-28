@@ -1,7 +1,7 @@
 <% exclude_list = ["tablerow", "assign", "break", "capture", "case", "comment", "continue", "cycle", "decrement", "for", "if", "ifchanged", "include", "increment", "raw", "unless"] %>
 <p>Folgende Funktionen können sie in Textfeldern verwenden um zusätzlichen Inhalt darzustellen</p>
 <ul>
-	<% if defined?(Liquid::Template) == "constant" && defined?(Liquid::Template.tags) == "method" %>
+	<% if false #defined?(Liquid::Template) == "constant" && defined?(Liquid::Template.tags) == "method" %>
 		<% Liquid::Template.tags.each do |key,value| %>
 			<% next if exclude_list.include?(key) %>
 			<li><b><%= key %></b><br/>

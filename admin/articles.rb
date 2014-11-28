@@ -212,9 +212,9 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
   end
 
-  sidebar :help, only: [:edit, :show] do
-    render "/goldencobra/admin/shared/help"
-  end
+  #sidebar :help, only: [:edit, :show] do
+  #  render "/goldencobra/admin/shared/help"
+  #end
 
   member_action :change_articletype, :method => :post do
     article = Goldencobra::Article.find(params[:id])
