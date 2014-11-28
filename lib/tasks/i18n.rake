@@ -3,7 +3,7 @@
 namespace :i18n do
   desc "Find and create db translation"
   task :missing_keys => :environment do
-
+     
     def collect_keys(scope, translations)
       full_keys = []
       translations.to_a.each do |key, translations|

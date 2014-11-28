@@ -15,6 +15,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   #filter :breadcrumb, :label =>  I18n.t("filter_breadcrumb", :scope => [:goldencobra, :filter], :default => "Brotkruemel")
   filter :url_name, :label =>  I18n.t("filter_url", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default6'))
   #filter :template_file, :label =>  I18n.t("filter_template", :scope => [:goldencobra, :filter], :default => "Template Datei")
+  filter :fulltext, :as => :string
   filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default7'))
   filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default8'))
 
