@@ -131,11 +131,13 @@ module Goldencobra
       scope :no_title_tag, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Title Tag").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
       scope :no_meta_description, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Meta Description").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
     end
+    scope :fulltext_contains, lambda{ |name| where("content LIKE '%#{name}%' OR teaser LIKE '%#{name}%' OR url_name LIKE '%#{name}%' OR subtitle LIKE '%#{name}%' OR summary LIKE '%#{name}%' OR context_info LIKE '%#{name}%' OR breadcrumb LIKE '%#{name}%'")}
 
     search_methods :frontend_tag_name_contains
     search_methods :tag_name_contains
     search_methods :parent_ids_in
     search_methods :parent_ids_in_eq
+    search_methods :fulltext_contains
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.use_solr") == "true"
