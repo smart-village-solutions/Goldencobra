@@ -459,7 +459,7 @@ module Goldencobra
       if self.sort_order.present?
         if self.sort_order == "Random"
           @list_of_articles = @list_of_articles.flatten.shuffle
-        elsif self.sort_order == "Alphabetical"
+        elsif self.sort_order == "Alphabetically"
           @list_of_articles = @list_of_articles.flatten.sort_by{ |article| article.title }
         elsif self.sort_order == "GlobalSortID"
           @list_of_articles = @list_of_articles.flatten.sort_by{ |article| article.try(:global_sorting_id) }
