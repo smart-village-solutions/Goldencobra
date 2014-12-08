@@ -49,4 +49,4 @@ goldencobra:
     send_confirmation_email: "false"
   upload:
     convert_options: "-strip -colorspace sRGB -flatten"
-  random_logo_url: "/assets/goldencobra/cobra.png"
+  random_logo_url: ""
