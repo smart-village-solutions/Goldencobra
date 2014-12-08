@@ -2,53 +2,61 @@
 @import "/compass/css3";
 
 
-$light_color:#EFC;
-$dark_color:#800080;
+$light_color: #EFC;
+$dark_color: #800080;
 
-#header{
+#header {
 	text-shadow: $dark_color 0 1px 0;
-	@include background( linear-gradient($light_color,$dark_color ) );
-	h1{
-		color:$dark_color;
+	@include background(linear-gradient($light_color, $dark_color));
+	
+	h1 {
+		color: $dark_color;
 	}
+
 	ul#tabs > li a {
-		color:darken($dark_color,15%);
+		color: darken($dark_color, 15%);
 	}
+
 	ul#tabs > li.current a {
-		background-color:$dark_color;
-		color:$light_color;
+		background-color: $dark_color;
+		color: $light_color;
 	}
+
 	ul#tabs > li:hover a {
-		background-color:$dark_color;
-		color:$light_color;
+		background-color: $dark_color;
+		color: $light_color;
 	}
 	
 	ul#tabs > li.has_nested:hover a {
-		background-color:$dark_color;
-		color:$light_color;
+		background-color: $dark_color;
+		color: $light_color;
 		border-bottom: 5px solid $dark_color;
 	}
 	
-	p#utility_nav{
-		color:darken($dark_color,15%);
+	p#utility_nav {
+		color: darken($dark_color, 15%);
 	}
-	a,a:link{
-		color:$light_color;
+
+	a, a:link {
+		color: $light_color;
+		display: block;
 	}
-	ul#tabs > li ul{
-		background-color:$dark_color;
+
+	ul#tabs > li ul {
+		background-color: $dark_color;
 	}
 }
 
-#title_bar{
-	@include background( linear-gradient(lighten($light_color,50%), $light_color) );
+#title_bar {
+	@include background(linear-gradient(lighten($light_color, 50%), $light_color));
+	
 	h2 {
-		color:$dark_color;
+		color: $dark_color;
 	}
 }
 
 .breadcrumb a, .breadcrumb a:link {
-	color:lighten($dark_color,25%);
+	color: lighten($dark_color, 25%);
 }
 
 div#title_bar.title_bar div#titlebar_left span.breadcrumb{
@@ -57,7 +65,8 @@ div#title_bar.title_bar div#titlebar_left span.breadcrumb{
 
 table.dashboard .dashboard_section{
 	background-color:$light_color;
-	h3{
-		@include background( linear-gradient($light_color, lighten($dark_color,20%)) );	
+	
+	h3 
+		@include background(linear-gradient($light_color, lighten($dark_color,20%)));	
 	}
 }

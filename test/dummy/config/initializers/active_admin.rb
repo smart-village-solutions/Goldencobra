@@ -17,14 +17,14 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "GoldenCobra"
+  config.site_title = "Golden Cobra"
 
   config.before_filter :current_ability
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  # config.site_title_link = "/"
+  config.site_title_link = "/"
 
   # == Default Namespace
   #
@@ -113,13 +113,13 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-    config.register_stylesheet 'goldencobra/active_admin'
-    config.register_stylesheet 'goldencobra/chosen.css'
+    config.register_stylesheet "goldencobra/active_admin"
+    config.register_stylesheet "goldencobra/chosen.css"
 
   # To load a javascript file:
-    config.register_javascript 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'
-    config.register_javascript 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js'
-    config.register_javascript 'goldencobra/active_admin.js'
-    config.register_javascript 'goldencobra/jquery.tinymce.js'
-    config.register_javascript 'goldencobra/chosen.jquery.min.js'
+    config.register_javascript "https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+    config.register_javascript "https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"
+    config.register_javascript "goldencobra/active_admin.js"
+    config.register_javascript "goldencobra/jquery.tinymce.js"
+    config.register_javascript "goldencobra/chosen.jquery.min.js"
 end

@@ -15,10 +15,10 @@ $(function() {
   $('#get-locale').click(function(e) {
     e.preventDefault();
     $.ajax({
-      type      : 'GET',
-      url       : '/api/v2/locale_string',
-      data      : {'locale_key': 'test.ajax'},
-      success   : function(data) {
+      type   : 'GET',
+      url    : '/api/v2/locale_string',
+      data   : {'locale_key': 'test.ajax'},
+      success: function(data) {
         // output return in div
         $('#locale-container').text(data);
         // call origin link href after ajax
