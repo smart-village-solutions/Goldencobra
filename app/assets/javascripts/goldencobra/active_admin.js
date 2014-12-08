@@ -33,63 +33,63 @@ $(function() {
   });
 
   if (typeof tinyMCESetting_theme_advanced_blockformats === 'undefined') {
-    var tinyMCESetting_theme_advanced_blockformats = "p,h1,h2,h3,div"
+    var tinyMCESetting_theme_advanced_blockformats = "p,h1,h2,h3,div";
   }
 
   $('textarea.tinymce-no-buttons').tinymce({
     script_url: "/assets/goldencobra/tiny_mce.js",
-      mode : "textareas",
-      theme : "advanced",
-      theme_advanced_buttons1 : "",
-      theme_advanced_buttons2 : "",
-      theme_advanced_buttons3 : "",
-      theme_advanced_toolbar_location : "top",
-      theme_advanced_toolbar_align : "center",
-      theme_advanced_resizing : false,
-    relative_urls : true,
-    convert_urls : false,
-    theme_advanced_blockformats : tinyMCESetting_theme_advanced_blockformats,
-    plugins : "autolink,paste",
-    dialog_type : "modal",
-    paste_auto_cleanup_on_paste : true
+    mode: "textareas",
+    theme: "advanced",
+    theme_advanced_buttons1: "",
+    theme_advanced_buttons2: "",
+    theme_advanced_buttons3: "",
+    theme_advanced_toolbar_location: "top",
+    theme_advanced_toolbar_align: "center",
+    theme_advanced_resizing: false,
+    relative_urls: true,
+    convert_urls: false,
+    theme_advanced_blockformats: tinyMCESetting_theme_advanced_blockformats,
+    plugins: "autolink,paste",
+    dialog_type: "modal",
+    paste_auto_cleanup_on_paste: true
   });
 
 
 	$('textarea.tinymce').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
-  		mode : "textareas",
-  		theme : "advanced",
-  		theme_advanced_buttons1 : "formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen",
-  		theme_advanced_buttons2 : "",
-  		theme_advanced_buttons3 : "",
-  		theme_advanced_toolbar_location : "top",
-  		theme_advanced_toolbar_align : "center",
-  		theme_advanced_resizing : false,
-		relative_urls : true,
-    convert_urls : false,
-		theme_advanced_blockformats : tinyMCESetting_theme_advanced_blockformats,
-		plugins : "fullscreen,autolink,paste",
-		dialog_type : "modal",
-		paste_auto_cleanup_on_paste : true
+    mode: "textareas",
+    theme: "advanced",
+    theme_advanced_buttons1: "formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen",
+    theme_advanced_buttons2: "",
+    theme_advanced_buttons3: "",
+    theme_advanced_toolbar_location: "top",
+    theme_advanced_toolbar_align: "center",
+    theme_advanced_resizing: false,
+		relative_urls: true,
+    convert_urls: false,
+    theme_advanced_blockformats: tinyMCESetting_theme_advanced_blockformats,
+		plugins: "fullscreen,autolink,paste",
+		dialog_type: "modal",
+		paste_auto_cleanup_on_paste: true
 	});
 
 	$('textarea.tinymce_extended').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
-  		mode : "textareas",
-  		theme : "advanced",
-  		theme_advanced_buttons1 : "formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen",
-  		theme_advanced_buttons2 : "removeformat, fontsizeselect, forecolor, backcolor, forecolorpicker, backcolorpicker",
-  		theme_advanced_buttons3 : "tablecontrols",
-  		theme_advanced_toolbar_location : "top",
-  		theme_advanced_toolbar_align : "left",
-  		theme_advanced_resizing : false,
-		relative_urls : true,
-    	convert_urls : false,
-		theme_advanced_blockformats : tinyMCESetting_theme_advanced_blockformats,
-		plugins : "fullscreen,autolink,paste,table",
-		dialog_type : "modal",
-		paste_auto_cleanup_on_paste : true,
-		verify_html : false
+    mode: "textareas",
+    theme: "advanced",
+    theme_advanced_buttons1: "formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen",
+    theme_advanced_buttons2: "removeformat, fontsizeselect, forecolor, backcolor, forecolorpicker, backcolorpicker",
+    theme_advanced_buttons3: "tablecontrols",
+    theme_advanced_toolbar_location: "top",
+    theme_advanced_toolbar_align: "left",
+    theme_advanced_resizing: false,
+		relative_urls: true,
+    convert_urls: false,
+    theme_advanced_blockformats: tinyMCESetting_theme_advanced_blockformats,
+		plugins: "fullscreen,autolink,paste,table",
+		dialog_type: "modal",
+		paste_auto_cleanup_on_paste: true,
+		verify_html: false
 	});
 
   //TextCounter auf title, subtitle, Teaser, Summary, Breadcrumb, url_name
@@ -115,18 +115,18 @@ $(function() {
 
 	$('.metadescription_hint').tinymce({
 		script_url: "/assets/goldencobra/tiny_mce.js",
-  		mode : "textareas",
-  		theme : "advanced",
+      mode: "textareas",
+      theme: "advanced",
       readonly: 1,
-      theme_advanced_default_background_color : "#f4f4f4",
-  		theme_advanced_buttons1 : "",
-  		theme_advanced_buttons2 : "",
-  		theme_advanced_buttons3 : "",
-  		theme_advanced_toolbar_location : "bottom",
-  		theme_advanced_toolbar_align : "center",
-  		theme_advanced_resizing : false,
-      body_id : "metadescription-tinymce-body",
-      content_css : "/assets/goldencobra/active_admin.css"
+      theme_advanced_default_background_color: "#f4f4f4",
+      theme_advanced_buttons1: "",
+      theme_advanced_buttons2: "",
+      theme_advanced_buttons3: "",
+      theme_advanced_toolbar_location: "bottom",
+      theme_advanced_toolbar_align: "center",
+      theme_advanced_resizing: false,
+      body_id: "metadescription-tinymce-body",
+      content_css: "/assets/goldencobra/active_admin.css"
   });
 
   function postInitWork() {
@@ -148,10 +148,10 @@ $(function() {
 		$("#goldencobra_image_maganger").fadeOut();
 	});
 
-	$('#footer').html("<p>Goldencobra</p>")
+	$('#footer').html("<p>Goldencobra</p>");
 
 	//die fieldsets bekommen einen button zum auf und zu klappen
-	$('div#main_content > form > fieldset.foldable > legend').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
+	$('div#main_content > form > fieldset.foldable > legend').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>");
 	$('div#main_content > form > fieldset.foldable > legend').bind("click", function(){
 		$(this).closest("fieldset").find(".foldable_icon").toggleClass("open");
 		$(this).closest("fieldset").find('ol').slideToggle();
@@ -159,7 +159,7 @@ $(function() {
 	$('div#main_content > form > fieldset.foldable.closed legend').trigger("click");
 
   //die sidebar_section bekommen einen button zum auf und zu klappen
-  $('div#sidebar div.sidebar_section h3').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>")
+  $('div#sidebar div.sidebar_section h3').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>");
   $('div#sidebar div.sidebar_section h3').bind("click", function(){
     $(this).closest(".sidebar_section").find(".foldable_icon").toggleClass("open");
     $(this).closest(".sidebar_section").find('.panel_contents').slideToggle();
@@ -176,28 +176,29 @@ $(function() {
 
   //Menuepunkte bekommen eine funktion zum auf und zu klappen
   $('div#overview_sidebar div.title a').bind("click", function(){
-  	$(this).children("ul").hide();
+    $(this).children("ul").hide();
   });
 
   $('div#overview_sidebar div.title a').trigger("click");
 
   $("#main_content form:not(.without_short_key) input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
+  
   key('⌘+s, ctrl+s', function() {
-  	$("#main_content form input:submit").trigger("click");
-  	return false;
+    $("#main_content form input:submit").trigger("click");
+    return false;
   });
 
   $("body.show #title_bar .action_items a[href$='edit']").append(" (⌘-E)");
     key('⌘+e, ctrl+e', function(){
-	 target = $("#title_bar .action_items a[href$='edit']").attr("href");
-	 window.location = target;
-	 return false;
+    target = $("#title_bar .action_items a[href$='edit']").attr("href");
+    window.location = target;
+    return false;
   });
 
   //Short Key for Life support on every Page
-    key('⌘+k, ctrl+k', function(){
-      call_for_help();
-    })
+  key('⌘+k, ctrl+k', function(){
+    call_for_help();
+  });
 
   // $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)");
   // key('⌘+z, ctrl+z', function(){
@@ -219,13 +220,13 @@ $(function() {
   // für jede checkbox die dazugehörigen input felder holen und anhängen
   checkBoxesDays.each(function(i, el) {
     // checkbox muss neue css styles erhalten
-    var addCssBox = {"float" : "left", "width" : "50px", "margin-top" : "8px"};
+    var addCssBox = {"float": "left", "width": "50px", "margin-top": "8px"};
     $(el).height(50).find("label").css(addCssBox);
     // selektoren für start und end inputs eines tages
     var startInput = $("#widget_offline_time_start_" + engDaysShort[i] + "_input");
     var endInput = $("#widget_offline_time_end_" + engDaysShort[i] + "_input");
     // label der inputs entfernen und benötigten css style ergänzen
-    var addCssInput = {"float" : "left", "width" : "180px"};
+    var addCssInput = {"float": "left", "width": "180px"};
     $(startInput).css(addCssInput).find("label").remove();
     $(endInput).css(addCssInput).find("label").remove();
     // inputs zur checkbox gruppieren
@@ -233,24 +234,43 @@ $(function() {
     $(endInput).appendTo(el);
   });
   /**** END DOM Manipulation *****/
+
+  $("ul.link_checker_ul div.link_checker_label").click(function(){
+    $(this).siblings(".link_checker_sources").toggle();
+  });
+  
+  // optimize header menu bar
+  $('#utility_nav').after('<div style="clear: both;"></div>');
+  $('#wrapper > #header').css('height', 'auto').css('min-width', '890px').css('filter', 'none');
+
+  // own logo per app from settings url
+  changeLogoFromSetting();
 });
 
-function call_for_help (argument) {
+function call_for_help(argument) {
   TogetherJS(this);
   return false;
 }
 
-$(function() {
-  $("ul.link_checker_ul div.link_checker_label").click(function(){
-    $(this).siblings(".link_checker_sources").toggle();
-  });
-});
 
 /**
- * optimize header menu bar
+ *
+ * get ajax logo url for chanigng admin backend logo picture
  *
  */
-$(function() {
-  $('#utility_nav').after('<div style="clear: both;"></div>');
-  $('#wrapper > #header').css('height', 'auto').css('min-width', '890px').css('filter', 'none');
-});
+function changeLogoFromSetting() {
+  $.ajax({
+    type   : 'GET',
+    url    : '/api/v2/setting_string',
+    data   : { 'setting_key': 'goldencobra.random_logo_url' },
+    success: function (data) {
+      if (data && data.indexOf('translation missing') == -1) {
+        // change background image of header logo
+        $('#header h1').css('background', 'url("' + data + '") no-repeat scroll 0 0 / 100px auto rgba(0, 0, 0, 0)');
+      } else {
+        // set standard url of header logo for fallback
+        $('#header h1').css('background', 'url("/assets/goldencobra/cobra.png") no-repeat scroll 0 0 / 100px auto rgba(0, 0, 0, 0)');
+      }
+    }
+  });
+}

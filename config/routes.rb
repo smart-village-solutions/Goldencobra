@@ -29,6 +29,7 @@ Goldencobra::Engine.routes.draw do
       match '/articles/create' => 'articles#create'
       match '/articles/update' => 'articles#update'
       get '/locale_string' => 'locales#get_string'
+      get '/setting_string' => 'settings#get_string'
     end
   end
 

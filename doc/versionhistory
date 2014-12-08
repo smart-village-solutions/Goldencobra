@@ -1,3 +1,6 @@
+V1.4.16
+  - possibility for an own app logo in golden cobra backend admin inteface per setting pointing to the logo
+
 V1.4.15
   - sort option "Alphabetical" changed to "Alphabetically", because "Alphabetically" is saved on index article settings
 
