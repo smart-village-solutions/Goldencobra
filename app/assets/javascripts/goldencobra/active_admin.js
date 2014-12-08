@@ -269,7 +269,7 @@ function changeLogoFromSetting() {
         $('#header h1').css('background', 'url("' + data + '") no-repeat scroll center top / 100px auto rgba(0, 0, 0, 0)');
       } else {
         // set standard url of header logo for fallback
-        $('#header h1').css('background', 'url("/assets/goldencobra/cobra.png") no-repeat scroll 0 0 / auto auto rgba(0, 0, 0, 0)');
+        $('#header h1').css('background', 'url("/assets/goldencobra/cobra.png") no-repeat scroll center top / auto auto rgba(0, 0, 0, 0)');
       }
     }
   });
