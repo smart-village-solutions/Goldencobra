@@ -19,13 +19,13 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default7'))
   filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default8'))
 
-  scope I18n.t('active_admin.articles.scope1'), :scoped, :default => true
-  scope I18n.t('active_admin.articles.scope2'), :active
-  scope I18n.t('active_admin.articles.scope3'), :inactive
+  scope I18n.t('active_admin.articles.scope1'), :scoped, :default => true, :show_count => false
+  scope I18n.t('active_admin.articles.scope2'), :active, :show_count => false
+  scope I18n.t('active_admin.articles.scope3'), :inactive, :show_count => false
 
   Goldencobra::Article.article_types_for_select.each do |article_type|
     next if article_type.include?("index")
-    scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => article_type.split(' ').first)){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
+    scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => article_type.split(' ').first), :show_count => false){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
   end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
