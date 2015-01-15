@@ -76,13 +76,13 @@ module Goldencobra
     belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
     belongs_to :creator, :class_name => User, :foreign_key => "creator_id"
 
-    belongs_to :author, :class_name => Goldencobra::Author
+    has_many :article_authors
+    has_many :authors, :through => :article_authors
 
     accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     accepts_nested_attributes_for :article_images, :allow_destroy => true
     accepts_nested_attributes_for :images, :allow_destroy => true
     accepts_nested_attributes_for :permissions, :allow_destroy => true
-    accepts_nested_attributes_for :author, :allow_destroy => true
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     has_ancestry    :orphan_strategy => :restrict
@@ -112,7 +112,6 @@ module Goldencobra
     after_update :update_parent_article_etag
     before_destroy :update_parent_article_etag
     after_update :set_redirection_step_2
-
 
     scope :robots_index, where(:robots_no_index => false)
     scope :robots_no_index, where(:robots_no_index => true)
@@ -379,6 +378,9 @@ module Goldencobra
 
     end
 
+    def author
+      self.try(:authors).try(:first)
+    end
 
     # **************************
     # **************************
