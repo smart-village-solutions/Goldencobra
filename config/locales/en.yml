@@ -189,7 +189,7 @@ en:
         sorter_limit: "Number of sorted articles"
         sort_order: "Sort order"
         reverse_sort: "Descending order?"
-        author: "Author"
+        article_authors: "Author"
         url_name: "Name of url of article"
         slug: "Url shortform"
         content: "Main content"
@@ -237,6 +237,8 @@ en:
         alternative_content: "Content for offline widget"
         alternative_content_hint: "This content will be shown, when widget is offline"
   goldencobra:
+    article_field_placeholder:
+      author: "Choose authors"
     article_field_hints:
       global_sorting_id: "Global sorting number for relations on article index pages"
       title: "Title/Headline of an article."
