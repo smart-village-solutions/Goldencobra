@@ -12,6 +12,8 @@ de:
     read_on: 'weiterlesen'
     selection: "Artikel"
   goldencobra:
+    article_field_placeholder:
+      author: "Autoren wählen"
     article_field_hints:
       global_sorting_id: "Diese Zahl wird als globale Sortiernummer auf Artikelübersichtsseiten verwendet"
       title: "Der Titel/die Überschrift des Artikels/der Seite, hier können Leerzeichen und Sonderzeichen verwendet werden"
@@ -385,7 +387,7 @@ de:
         sorter_limit: "Zahl von Artikeln"
         sort_order: "Sortierkriterium"
         reverse_sort: "Sortierung absteigend?"
-        author: "Autor"
+        article_authors: "Autor"
         url_name: "Website-Adresse des Artikels"
         slug: "URL-Kurzform"
         content: "Haupt-Textfeld"
