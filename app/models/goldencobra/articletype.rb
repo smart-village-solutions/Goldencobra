@@ -38,7 +38,7 @@ module Goldencobra
         :external_url_redirect => %{<% f.input :external_url_redirect %>},
         :redirect_link_title => %{<% f.input :redirect_link_title %>},
         :redirection_target_in_new_window => %{<% f.input :redirection_target_in_new_window %>},
-        :author => %{<% f.input :authors, :as => :select, :collection => Goldencobra::Author.order("lastname DESC").map{ |a| [a.lastname.to_s + " " + a.firstname.to_s, a.id] }, :input_html => { :class => "chzn-select", :style => "width: 70%;", "data-placeholder" => I18n.t("goldencobra.article_field_placeholder.author") }, :hint => I18n.t("goldencobra.article_field_hints.author") %>},
+        :author => %{<% f.input :authors, :as => :select, :collection => Goldencobra::Author.order("lastname ASC").map{ |a| [a.lastname.to_s + ", " + a.firstname.to_s, a.id] }, :input_html => { :class => "chzn-select", :style => "width: 70%;", "data-placeholder" => I18n.t("goldencobra.article_field_placeholder.author") }, :hint => I18n.t("goldencobra.article_field_hints.author") %>},
         :permissions => %{<% f.has_many :permissions do |p|
           p.input :domain, :include_blank => "Alle"
           p.input :role, :include_blank => "Alle"
