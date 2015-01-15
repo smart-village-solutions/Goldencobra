@@ -387,7 +387,7 @@ de:
         sorter_limit: "Zahl von Artikeln"
         sort_order: "Sortierkriterium"
         reverse_sort: "Sortierung absteigend?"
-        article_authors: "Autor"
+        authors: "Autoren"
         url_name: "Website-Adresse des Artikels"
         slug: "URL-Kurzform"
         content: "Haupt-Textfeld"

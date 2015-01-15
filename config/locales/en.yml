@@ -189,7 +189,7 @@ en:
         sorter_limit: "Number of sorted articles"
         sort_order: "Sort order"
         reverse_sort: "Descending order?"
-        article_authors: "Author"
+        authors: "Authors"
         url_name: "Name of url of article"
         slug: "Url shortform"
         content: "Main content"
