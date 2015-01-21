@@ -195,7 +195,37 @@ describe Goldencobra::Redirector do
       Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1/seite3", :target_url => "http://www.goldencobra.de/seite1/seite2/seite3", :active => true).count.should == 1
     end
 
-    it "if parent/ancestry changed for childrens" do
+    it "if parent/ancestry changed for self and url_name changed" do
+      @seite3.absolute_public_url.should == "http://www.goldencobra.de/seite1/seite3"
+      @seite3.url_name = "neue_seite3"
+      @seite3.parent = @seite2
+      @seite3.save
+      @seite3.absolute_public_url.should == "http://www.goldencobra.de/seite1/seite2/neue_seite3"
+      Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1/seite3", :target_url => "http://www.goldencobra.de/seite1/seite2/neue_seite3", :active => true).count.should == 1
+    end
+
+    it "if parent/ancestry changed and url_name for childrens" do
+      @seite3.absolute_public_url.should == "http://www.goldencobra.de/seite1/seite3"
+      @seite3.parent = @seite2
+      @seite3.url_name = "neue_seite3"
+      @seite3.save
+      @seite3.absolute_public_url.should == "http://www.goldencobra.de/seite1/seite2/neue_seite3"
+
+      Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1/seite3", :target_url => "http://www.goldencobra.de/seite1/seite2/neue_seite3", :active => true).count.should == 1
+      
+      #folgendes wäre ideal:
+      #Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1/seite3/seite4", :target_url => "http://www.goldencobra.de/seite1/seite2/neue_seite3/seite4", :active => true).count.should == 1
+      
+      #Geht auch ist aber nicht ganz so schön:
+      Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1/seite3/seite4", :target_url => "http://www.goldencobra.de/seite1/seite2/seite3/seite4", :active => true).count.should == 1
+      Goldencobra::Redirector.where(:source_url => "http://www.goldencobra.de/seite1/seite2/seite3/seite4", :target_url => "http://www.goldencobra.de/seite1/seite2/neue_seite3/seite4", :active => true).count.should == 1
+      
+      Goldencobra::Article.find_by_id(@seite3.id).absolute_public_url.should == "http://www.goldencobra.de/seite1/seite2/neue_seite3"
+      Goldencobra::Article.find_by_id(@seite4.id).absolute_public_url.should == "http://www.goldencobra.de/seite1/seite2/neue_seite3/seite4"
+    end
+
+
+    it "if parent changed for childrens" do
       @seite1.absolute_public_url.should == "http://www.goldencobra.de/seite1"
       @seite1.url_name = "neue_seite1"
       @seite1.save

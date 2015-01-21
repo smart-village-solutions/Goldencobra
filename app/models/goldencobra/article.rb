@@ -102,7 +102,6 @@ module Goldencobra
     after_create :set_active_since
     after_create :notification_event_create
     after_create :cleanup_redirections
-    after_save :set_url_path
     before_save :parse_image_gallery_tags
     before_save :set_url_name_if_blank
     before_save :set_standard_application_template
@@ -110,6 +109,7 @@ module Goldencobra
     after_save :verify_existence_of_opengraph_image
     after_update :notification_event_update
     after_update :update_parent_article_etag
+    after_save :set_url_path
     before_destroy :update_parent_article_etag
     after_update :set_redirection_step_2
 
@@ -522,26 +522,30 @@ module Goldencobra
         #Suche Redirector nur mit source und vervollständige ihn
         Goldencobra::Redirector.where(:source_url => self.absolute_public_url).destroy_all
         r = Goldencobra::Redirector.find_by_id(self.create_redirection)
-        r.target_url = self.absolute_public_url
-        r.active = true
-        r.save
-
-        #update all descendants
-        if self.descendants.count < 30
-          # wenn es nur wenige Kinderartikel gibt, dann gleich direkt machen
-          self.children.each do |d|
-            d.url_path = d.get_url_from_path
-            d.save
+        if r.present?
+          r.target_url = self.absolute_public_url
+          r.active = true
+          r.save
+          custom_children = Goldencobra::Article.find_all_by_ancestry("#{self.ancestry}/#{self.id}")
+          if custom_children.any?
+            if custom_children.count < 30
+              # wenn es nur wenige Kinderartikel gibt, dann gleich direkt machen
+              custom_children.each do |d|
+                d.updated_at = Time.now
+                d.url_path = d.get_url_from_path
+                d.save
+              end
+            else
+              #Ansosnten einen Raketask damit starten
+              system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake article_cache:recreate ID=#{self.id} &")
+            end
           end
-        else
-          #Ansosnten einen Raketask damit starten
-          system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake article_cache:recreate ID=#{self.id} &")
         end
       end
     end
 
     def set_url_path
-        self.update_column(:url_path, self.get_url_from_path)
+      self.update_column(:url_path, self.get_url_from_path)
     end
 
     def get_url_from_path
