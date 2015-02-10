@@ -61,11 +61,6 @@ group :development,:test do
 end
 
 group :development do
-  gem 'better_errors', "1.1.0"
-  gem "binding_of_caller"
-  gem 'guard-annotate'
-  gem 'pry'
-  gem 'pry-nav'
   gem 'brakeman'
   gem 'hirb'
   gem "powder"
