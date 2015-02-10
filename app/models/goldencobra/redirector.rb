@@ -12,7 +12,12 @@ module Goldencobra
     web_url :source_url, :target_url
 
     scope :active, where(:active => true)
-
+    
+    # 
+    # Returns a target url where to redirect of a given url
+    # @param request_original_url [String] SourceURl of Request
+    # 
+    # @return [Array] target url to rewrite to | status code for redirection
     def self.get_by_request(request_original_url)
       begin
         uri = URI.parse(request_original_url)
@@ -20,7 +25,7 @@ module Goldencobra
         uri = nil
       end
       if uri.present?
-        uri_params = CGI::parse(uri.query.to_s)
+        uri_params = Rack::Utils.parse_nested_query(uri.query.to_s)
         request_path = "#{uri.scheme}://#{uri.host}#{uri.path}%"
         redirects = Goldencobra::Redirector.active.where("source_url LIKE ?", request_path)
         if redirects.any?
@@ -33,7 +38,7 @@ module Goldencobra
               return [redirect.rewrite_target_url(uri.query), redirect.redirection_code]
             else
               #wenn die urlparameter nicht egal sind und identisch sind
-              source_params = CGI::parse(redirecter_source_uri.query.to_s)
+              source_params = Rack::Utils.parse_nested_query(redirecter_source_uri.query.to_s)
               if !source_params.map{|k,v| uri_params[k] == v}.include?(false)
                 return [redirect.rewrite_target_url(uri.query), redirect.redirection_code]
               else
@@ -50,10 +55,18 @@ module Goldencobra
     end
 
 
+    # 
+    # Helper Method for rewriting urls
+    # @param uri_params [String] foo=bar&test=12
+    # 
+    # @return [String] TargetURl of given Redirector merged with source params
     def rewrite_target_url(uri_params)
       target_uri = URI.parse(self.target_url)
-      if uri_params.present?
-        return "#{target_uri.scheme}://#{target_uri.host}#{target_uri.path}?#{uri_params}"
+      target_params = Rack::Utils.parse_nested_query(target_uri.query.to_s)
+      request_params = Rack::Utils.parse_nested_query(uri_params)
+      merged_params = target_params.merge(request_params)
+      if merged_params.present?
+        return "#{target_uri.scheme}://#{target_uri.host}#{target_uri.path}?#{merged_params.to_param}"
       else
         return "#{target_uri.scheme}://#{target_uri.host}#{target_uri.path}"
       end

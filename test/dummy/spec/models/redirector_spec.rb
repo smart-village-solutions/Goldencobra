@@ -44,8 +44,29 @@ describe Goldencobra::Redirector do
     end
   end
 
+  describe 'if ignore_url_params is true with url params on target' do
+    before(:each) do
+      Goldencobra::Redirector.create(:source_url => "www.yourdomain.de/weiterleitung", :target_url => "www.yourdomain.de/weiterleitung?test=123", :ignore_url_params => true, :active => true)
+    end
 
-  describe 'if ignore_url_params is true with url params' do
+    it "should redirect on same url with url params" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung")
+      redirector.should == ["http://www.yourdomain.de/weiterleitung?test=123", 301]
+    end
+
+    it "should redirect on same url with url params" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?foo=bar")
+      redirector.should == ["http://www.yourdomain.de/weiterleitung?foo=bar&test=123", 301]
+    end
+
+    it "should redirect on same url with url params" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1234")
+      redirector.should == ["http://www.yourdomain.de/weiterleitung?test=1234", 301]
+    end
+
+  end
+
+  describe 'if ignore_url_params is true with url params on source' do
     before(:each) do
       Goldencobra::Redirector.create(:source_url => "www.yourdomain.de/weiterleitung?test=1", :target_url => "www.google.de", :ignore_url_params => true, :active => true)
     end
@@ -78,7 +99,7 @@ describe Goldencobra::Redirector do
 
     it "should redirect on same url with url params" do
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1&foo=bar")
-      redirector.should == ["http://www.google.de?test=1&foo=bar", 301]
+      redirector.should == ["http://www.google.de?foo=bar&test=1", 301]
     end
   end
 
@@ -119,7 +140,7 @@ describe Goldencobra::Redirector do
     it "should redirect on same url with url params" do
       Goldencobra::Redirector.create(:source_url => "www.yourdomain.de/weiterleitung?test=1", :target_url => "www.google.de", :ignore_url_params => true, :active => true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1&foo=bar")
-      redirector.should == ["http://www.google.de?test=1&foo=bar", 301]
+      redirector.should == ["http://www.google.de?foo=bar&test=1", 301]
     end
 
 
@@ -145,7 +166,7 @@ describe Goldencobra::Redirector do
     it "should redirect on same url with url params" do
       Goldencobra::Redirector.create(:source_url => "www.yourdomain.de/weiterleitung?test=1", :target_url => "www.google.de", :ignore_url_params => false, :active => true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1&foo=bar")
-      redirector.should == ["http://www.google.de?test=1&foo=bar", 301]
+      redirector.should == ["http://www.google.de?foo=bar&test=1", 301]
     end
 
     it "should redirect on same url with url params" do
