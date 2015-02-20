@@ -8,8 +8,10 @@ Rails.application.config.to_prepare do
     after_create :init_default_<%= name.underscore %>
 
     def init_default_<%= name.underscore %>
-      self.<%= name.underscore %> = <%= name %>.new(:article_id => self.id) if (self.<%= name.underscore %>.blank? && self.article_type == "<%= name %> Show")
-      self.save
+      if (self.<%= name.underscore %>.blank? && self.article_type == "<%= name %> Show")
+        self.<%= name.underscore %> = <%= name %>.new(:article_id => self.id) 
+        self.save
+      end
     end
 
   end
