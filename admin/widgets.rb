@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
-  menu priority: 4, parent: "Content-Management", :label => I18n.t('active_admin.widget.as'), :if => proc{can?(:update, Goldencobra::Widget)}
+  menu priority: 4, parent: I18n.t('active_admin.widget.parent'), :label => I18n.t('active_admin.widget.as'), :if => proc{can?(:update, Goldencobra::Widget)}
 
   filter :title, :label => I18n.t('active_admin.widget.title')
   filter :css_name, :label => I18n.t('active_admin.widget.css_class')

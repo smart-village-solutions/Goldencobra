@@ -533,6 +533,7 @@ en:
       no_check: "no"
     widget:
       as: "Widgets"
+      parent: "Content-Management"
       title: "Title"
       css_class: "Css class"
       id: "ID Name"

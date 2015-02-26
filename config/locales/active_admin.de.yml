@@ -533,6 +533,7 @@ de:
       no_check: "Nein"
     widget:
       as: "Schnipsel"
+      parent: "Content-Management"
       title: "Titel"
       css_class: "CSS Klasse"
       id: "ID Name"
