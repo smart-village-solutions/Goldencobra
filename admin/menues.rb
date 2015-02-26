@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
-  menu :priority => 4, :parent => I18n.t('active_admin.menues.parent'), :label => I18n.t('active_admin.menues.as'), :if => proc{can?(:update, Goldencobra::Menue)}
+  menu :parent => I18n.t('active_admin.menues.parent'), :label => I18n.t('active_admin.menues.as'), :if => proc{can?(:update, Goldencobra::Menue)}
 
   controller.authorize_resource :class => Goldencobra::Menue
 

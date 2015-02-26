@@ -1,5 +1,5 @@
 ActiveAdmin.register Goldencobra::Article, as: "Article" do
-  menu :priority => 2, :parent => I18n.t("active_admin.articles.parent"), :label => I18n.t("active_admin.articles.as"), :if => proc{can?(:update, Goldencobra::Article)}
+  menu :parent => I18n.t("active_admin.articles.parent"), :label => I18n.t("active_admin.articles.as"), :if => proc{can?(:update, Goldencobra::Article)}
 
   controller.authorize_resource :class => Goldencobra::Article
 
