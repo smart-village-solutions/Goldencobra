@@ -1,5 +1,5 @@
 ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
-  menu :priority => 8, :parent => I18n.t('active_admin.articles.parent'), :label => I18n.t('active_admin.uploads.as'), :if => proc{can?(:read, Goldencobra::Upload)}
+  menu :parent => I18n.t('active_admin.articles.parent'), :label => I18n.t('active_admin.uploads.as'), :if => proc{can?(:read, Goldencobra::Upload)}
 
   controller.authorize_resource :class => Goldencobra::Upload
 
