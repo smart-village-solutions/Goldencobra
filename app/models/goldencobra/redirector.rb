@@ -55,13 +55,21 @@ module Goldencobra
     end
 
 
-    # 
     # Helper Method for rewriting urls
     # @param uri_params [String] foo=bar&test=12
     # 
     # @return [String] TargetURl of given Redirector merged with source params
     def rewrite_target_url(uri_params)
-      target_uri = URI.parse(self.target_url)
+      Goldencobra::Redirector.add_param_to_url(self.target_url, uri_params)
+    end
+
+    # Add a url-params tu an url
+    # @param url [string] "http://www.test.de" || "http://www.test.de?test=a"
+    # @param uri_params [string] "foo=bar"
+    # 
+    # @return [string] "http://www.test.de?test=a&foo=bar"
+    def self.add_param_to_url(url, uri_params)
+      target_uri = URI.parse(url)
       target_params = Rack::Utils.parse_nested_query(target_uri.query.to_s)
       request_params = Rack::Utils.parse_nested_query(uri_params)
       merged_params = target_params.merge(request_params)
