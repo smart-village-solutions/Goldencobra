@@ -24,20 +24,21 @@ $(function() {
 
   //Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
   // hole alle Goldencobra:Article :id,:title, :ancestry
-  if ( $(".get_goldencobra_articles_per_remote").length ){
+  var $select_parent_articles = $(".get_goldencobra_articles_per_remote");
+  if ( $select_parent_articles.length ){
     $.ajax({
       url: "/api/v2/articles.json"
     }).done(function(data){
-      var selected_parent_id = $(".get_goldencobra_articles_per_remote").find("option:selected").val();
-      $(".get_goldencobra_articles_per_remote").html("<option value=''></option>");
+      var selected_parent_id = $select_parent_articles.find("option:selected").val();
+      $select_parent_articles.html("<option value=''></option>");
       $.each( data, function(index,value){
         var selected_option = "";
         if (value.id == selected_parent_id){
           selected_option = " selected='selected' ";
         } 
-        $(".get_goldencobra_articles_per_remote").append("<option value='" + value.id + "' " + selected_option + ">" + value.parent_path + "</option>")  ;
+        $select_parent_articles.append("<option value='" + value.id + "' " + selected_option + ">" + value.parent_path + "</option>")  ;
       });
-      $(".get_goldencobra_articles_per_remote").trigger("chosen:updated");
+      $select_parent_articles.trigger("chosen:updated");
       return false;
     });
   }
