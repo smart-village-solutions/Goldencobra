@@ -29,8 +29,7 @@ $(function() {
       url: "/api/v2/articles.json"
     }).done(function(data){
       var selected_parent_id = $(".get_goldencobra_articles_per_remote").find("option:selected").val();
-      $(".get_goldencobra_articles_per_remote").html("");
-      $(".get_goldencobra_articles_per_remote").append("<option value=''></option>")  ;
+      $(".get_goldencobra_articles_per_remote").html("<option value=''></option>");
       $.each( data, function(index,value){
         var selected_option = "";
         if (value.id == selected_parent_id){
