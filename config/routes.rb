@@ -25,6 +25,7 @@ Goldencobra::Engine.routes.draw do
     end
 
     namespace "v2" do
+      get '/articles' => 'articles#index'
       get '/articles/search' => 'articles#search'
       match '/articles/create' => 'articles#create'
       match '/articles/update' => 'articles#update'
