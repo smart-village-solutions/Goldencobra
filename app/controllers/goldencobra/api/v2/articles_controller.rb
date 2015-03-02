@@ -30,6 +30,19 @@ module Goldencobra
         end
 
 
+        # /api/v2/articles[.json]
+        # 
+        # @return [json] Liefert Alle Artikel :id,:title, :ancestry
+        # map{|c| [c.parent_path, c.id]}
+        def index
+          render status: 200, json: Goldencobra::Article.select([:id,:title, :ancestry]).sort{ |a, b| 
+              a[0] <=> b[0]
+            }.map{ |a| 
+              a.as_json(:only => [:id, :title], :methods => [:parent_path])
+            }
+        end
+
+
         # /api/v2/articles/create[.json]
         # ---------------------------------------------------------------------------------------
         def create

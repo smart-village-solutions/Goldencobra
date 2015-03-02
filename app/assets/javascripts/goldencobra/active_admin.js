@@ -21,10 +21,32 @@ var TogetherJSConfig_on = {
 };
 
 $(function() {
+
+  //Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
+  // hole alle Goldencobra:Article :id,:title, :ancestry
+  var $select_parent_articles = $(".get_goldencobra_articles_per_remote");
+  if ( $select_parent_articles.length ){
+    $.ajax({
+      url: "/api/v2/articles.json"
+    }).done(function(data){
+      var selected_parent_id = $select_parent_articles.find("option:selected").val();
+      $select_parent_articles.html("<option value=''></option>");
+      $.each( data, function(index,value){
+        var selected_option = "";
+        if (value.id == selected_parent_id){
+          selected_option = " selected='selected' ";
+        } 
+        $select_parent_articles.append("<option value='" + value.id + "' " + selected_option + ">" + value.parent_path + "</option>")  ;
+      });
+      $select_parent_articles.trigger("chosen:updated");
+      return false;
+    });
+  }
+
   //Importer optionen Ein und Ausblendbar machen
-  $('table.importer_assoziations tr.head td.nested_model_header span.button').bind("click", function(){
-    id_to_class = $(this).closest(".head").attr('id');
-    $('tr.model_group.' + id_to_class).toggle();
+  $("table.importer_assoziations tr.head td.nested_model_header span.button").bind("click", function(){
+    var id_to_class = $(this).closest(".head").attr("id");
+    $("tr.model_group." + id_to_class).toggle();
     if ($(this).html() == "Felder anzeigen"){
       $(this).html("Felder ausblenden");
     }else{
@@ -32,11 +54,11 @@ $(function() {
     }
   });
 
-  if (typeof tinyMCESetting_theme_advanced_blockformats === 'undefined') {
+  if (typeof tinyMCESetting_theme_advanced_blockformats === "undefined") {
     var tinyMCESetting_theme_advanced_blockformats = "p,h1,h2,h3,div";
   }
 
-  $('textarea.tinymce-no-buttons').tinymce({
+  $("textarea.tinymce-no-buttons").tinymce({
     script_url: "/assets/goldencobra/tiny_mce.js",
     mode: "textareas",
     theme: "advanced",
