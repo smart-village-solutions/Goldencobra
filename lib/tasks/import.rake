@@ -59,17 +59,19 @@ namespace :db do
       raise "PATH=db/migrations missing" if migrations_path.blank? 
 
       file_list = []
-      Dir.foreach(migrations_path) do |file|
-        # only files matching "20091231235959_some_name.rb" pattern
-        if match_data = /(\d{14})_(.+)\.rb/.match(file)
-          file_list << [ match_data[1], match_data[2], file ]
+      migrations_path.split(",").each do |mp|
+        Dir.foreach(mp) do |file|
+          # only files matching "20091231235959_some_name.rb" pattern
+          if match_data = /(\d{14})_(.+)\.rb/.match(file)
+            file_list << match_data[1]
+          end
         end
       end
 
       class SchemaMigration < ActiveRecord::Base; self.primary_key = :version; attr_accessible :version; end
       SchemaMigration.destroy_all  
-      file_list.each do |fl|
-        SchemaMigration.create(:version => fl[0])
+      file_list.sort.each do |fl|
+        SchemaMigration.create(:version => fl)
       end
     end
 
