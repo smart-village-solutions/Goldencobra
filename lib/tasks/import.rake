@@ -53,7 +53,7 @@ namespace :db do
 
   namespace :schema do
   
-    desc 'Regenerates data in table schema_migrations from local files in /db/migrate. Usage rake db... PATH=db/migrate'
+    desc 'Regenerates data in table schema_migrations from local files in multiple folders like db/migrate. Usage rake db... PATH=db/migrate,foo/baar,test/dummy/db/migrate'
     task :regnerate => :environment do
       migrations_path = ENV["PATH"] || ""
       raise "PATH=db/migrations missing" if migrations_path.blank? 
@@ -68,6 +68,7 @@ namespace :db do
         end
       end
 
+      #Temporäre classe SchemaMigration um die Dtaen bequemer in die DB zu bekommen
       class SchemaMigration < ActiveRecord::Base; self.primary_key = :version; attr_accessible :version; end
       SchemaMigration.destroy_all  
       file_list.sort.each do |fl|
