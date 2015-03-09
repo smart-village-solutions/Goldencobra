@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 namespace :db do
-  desc 'Dump DB to backup.sql'
+  desc 'Dump production DB to backup.sql'
   task :dump => :environment do
     server_config = ActiveRecord::Base.configurations["production"]
     remote_db = server_config["database"]
@@ -11,7 +11,7 @@ namespace :db do
   end
 
 
-  desc 'Import Production Database to local Database'
+  desc 'Import remote production database to local database'
   task :import => :environment do
     puts "Your lokal database will be overwritten by server db! Are you sure? (yes)"
     input = STDIN.gets.strip
@@ -49,6 +49,15 @@ namespace :db do
     else
       puts "Import-Task aborted"
     end
+  end
+
+  namespace :schema do
+    
+    desc 'Regenerates data in table schema_migrations from local files in /db/migrate'
+    task :regnerate => :environment do
+    end
 
   end
+
+
 end
