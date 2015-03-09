@@ -69,7 +69,7 @@ group :development do
 end
 
 group :test do
-  gem 'mysql2'
+  #gem 'mysql2'
   gem 'cucumber'
   gem 'cucumber-rails'
   gem 'factory_girl'
@@ -79,7 +79,6 @@ group :test do
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
   gem 'rspec-core'
-  gem 'rspec-rails'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
@@ -87,6 +86,5 @@ group :test do
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'growl'
   gem 'launchy'
-  gem 'faker'
   gem 'shoulda-matchers'
 end
