@@ -73,6 +73,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'wkhtmltopdf-binary'
   s.add_dependency 'rmagick'
   s.add_dependency 'iconv'
+  s.add_dependency 'cocaine', '0.5.5'
   # s.add_dependency "wicked_pdf"
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
