@@ -52,9 +52,25 @@ namespace :db do
   end
 
   namespace :schema do
-    
-    desc 'Regenerates data in table schema_migrations from local files in /db/migrate'
+  
+    desc 'Regenerates data in table schema_migrations from local files in /db/migrate. Usage rake db... PATH=db/migrate'
     task :regnerate => :environment do
+      migrations_path = ENV["PATH"] || ""
+      raise "PATH=db/migrations missing" if migrations_path.blank? 
+
+      file_list = []
+      Dir.foreach(migrations_path) do |file|
+        # only files matching "20091231235959_some_name.rb" pattern
+        if match_data = /(\d{14})_(.+)\.rb/.match(file)
+          file_list << [ match_data[1], match_data[2], file ]
+        end
+      end
+
+      class SchemaMigration < ActiveRecord::Base; self.primary_key = :version; attr_accessible :version; end
+      SchemaMigration.destroy_all  
+      file_list.each do |fl|
+        SchemaMigration.create(:version => fl[0])
+      end
     end
 
   end
