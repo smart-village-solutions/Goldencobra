@@ -160,6 +160,22 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
   end
 
+  member_action :duplicate do
+    original_widget = Goldencobra::Widget.find(params[:id])
+    new_widget_id = original_widget.duplicate!
+    if Goldencobra::Widget.find(new_widget_id)
+      redirect_to admin_widget_path(id: new_widget_id),
+                  notice: "#{I18n.t('active_admin.widget.success_duplicating_notice')}"
+    else
+      redirect_to :back, notice: "#{I18n.t('active_admin.widget.error_duplicating_notice')}"
+    end
+  end
+
+  action_item only: :edit do
+    link_to(I18n.t('active_admin.widget.duplicate'),
+            duplicate_admin_widget_path(id: resource), class: "duplicate")
+  end
+
   controller do
     def show
       show! do |format|
