@@ -176,5 +176,15 @@ module Goldencobra
         end
       end
     end
+
+    def duplicate!
+      attrs = self.attributes
+                .delete_if{ |key| %w(id created_at updated_at).include?(key) }
+      attrs["title"] = "#{attrs["title"]} (Kopie)"
+      attrs["id_name"] = attrs["id_name"].present? ? "#{attrs["id_name"]}-kopie" : nil
+      attrs["active"] = false
+      new_widget = Goldencobra::Widget.create!(attrs)
+      new_widget ? new_widget.id : nil
+    end
   end
 end

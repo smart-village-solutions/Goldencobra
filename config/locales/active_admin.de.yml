@@ -597,6 +597,9 @@ de:
       articles: "Articles"
       revert_notice: "Rückgängig:"
       undo: "Rückgängig"
+      duplicate: "Kopie erstellen"
+      success_duplicating_notice: "Schnipsel erfolgreich dupliziert"
+      error_duplicating_notice: "Entschuldigung, das Duplizieren des Schnipsels hat nicht funktioniert."
     articletypes:
       as: "Artikeltypen"
       general: "Allgemein"
