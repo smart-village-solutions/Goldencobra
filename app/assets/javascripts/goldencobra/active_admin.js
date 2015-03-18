@@ -189,6 +189,15 @@ $(function() {
 	$('div#sidebar div.sidebar_section:not(#layout_positions_sidebar_section) h3').trigger("click");
   $('div#sidebar div.sidebar_section .warning').closest("div.sidebar_section").addClass("warning").find("h3").trigger("click");
 
+
+//die Settings sub groups bekommen ein button zum aufklappen
+  $('div#goldencobra_settings_wrapper .foldable').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>");
+  $('div#goldencobra_settings_wrapper .foldable').bind("click", function(){
+    $(this).closest(".settings_group_title").find(".foldable_icon").toggleClass("open");
+    $(this).closest(".settings_level").children('.settings_sub_group').slideToggle();
+  });
+
+
   $(".chzn-select").chosen();
   $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
   $("a.button").live("click", function(){
