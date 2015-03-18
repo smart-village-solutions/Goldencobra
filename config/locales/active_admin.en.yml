@@ -597,6 +597,9 @@ en:
       articles: "Articles"
       revert_notice: "Undid"
       undo: "Undo"
+      duplicate: "Create duplicate"
+      success_duplicating_notice: "Widget successfully duplicated"
+      error_duplicating_notice: "Sorry. There was an error while duplicating. Couldn't duplicate widget."
     articletypes:
       as: "Article types"
       general: "General"
