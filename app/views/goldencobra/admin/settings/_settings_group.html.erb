@@ -4,7 +4,7 @@
   <% else %>
     <div class="settings_level" style="padding-left: <%= child.depth * 10%>px;">
       <div class="settings_group_title foldable">
-        <%= child.title.humanize %> 
+        <%= child.title.humanize %>
       </div>
       <div class="settings_sub_group">
         <%= render :partial => "/goldencobra/admin/settings/settings_group", :locals => {:settings => child.children} %>

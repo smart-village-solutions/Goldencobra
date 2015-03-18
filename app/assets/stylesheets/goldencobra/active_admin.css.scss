@@ -545,11 +545,13 @@ body.active_admin form fieldset > ol > li p.inline-errors {
 #goldencobra_settings_wrapper{
 
   .settings_category{
-    padding-left: 20px;
-    padding-top: 20px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
     border: 1px solid grey;
     border-radius: 5px 5px 5px 5px;
-    width:400px;
+    background-color: rgb(244, 244, 244);
+    width:50%;
     float:left;
 
     .settings_level{
@@ -569,11 +571,14 @@ body.active_admin form fieldset > ol > li p.inline-errors {
 
       .setting_key_value{
         color: rgb(50, 53, 55);
-        background-color: lightgrey;
         overflow:hidden;
         margin-left:15px;
+        margin-right:10px;
         clear:both;
-
+        padding:2px;
+        &:hover{
+          @include background(linear-gradient(left, rgb(244, 244, 244) 0%, #E6E6E6 50%));
+        }
         .setting_title{
           float:left;
           width:60%;
@@ -581,7 +586,7 @@ body.active_admin form fieldset > ol > li p.inline-errors {
 
         .setting_value{
           width:40%;
-          float:left;
+          float:left;          
         }
       }
     }
