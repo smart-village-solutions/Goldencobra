@@ -1,0 +1,12 @@
+<div class="setting_key_value">
+  <div class="setting_title">
+    <%= key_value.title.humanize %>
+  </div>
+  <div class="setting_value">
+    <% if key_value.value.blank? %>
+      <%= link_to "- nicht definiert -", edit_admin_setting_path(key_value) %>
+    <% else %>
+      <%= link_to key_value.value, edit_admin_setting_path(key_value), :title => "Test" %>
+    <% end %>
+  </div>
+</div>

@@ -2,14 +2,9 @@
 
 ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.settings.as'), :if => proc{can?(:update, Goldencobra::Setting)}
-
   controller.authorize_resource :class => Goldencobra::Setting
   scope I18n.t('active_admin.settings.scope'), :with_values, :default => true, :show_count => false
-  if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.count > 0
-    # Goldencobra::Setting.roots.each do |rs|
-    #   scope(rs.title){ |t| t.parent_ids_in(rs.id).with_values }
-    # end
-  end
+  config.paginate = false
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.inputs I18n.t('active_admin.settings.form.general')  do
@@ -21,18 +16,24 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     f.actions
   end
 
-  index do
-    selectable_column
-    column :id
-    column :title do |setting|
-      link_to "#{setting.parent_names}.#{setting.title}", edit_admin_setting_path(setting)
-    end
-    column :value
-    column :data_type
-    column "" do |setting|
-      result = ""
-      result += link_to(t(:edit), edit_admin_setting_path(setting), :class => "member_link edit_link edit", :title => "bearbeiten")
-      raw(result)
+  # index do
+  #   selectable_column
+  #   column :id
+  #   column :title do |setting|
+  #     link_to "#{setting.parent_names}.#{setting.title}", edit_admin_setting_path(setting)
+  #   end
+  #   column :value
+  #   column :data_type
+  #   column "" do |setting|
+  #     result = ""
+  #     result += link_to(t(:edit), edit_admin_setting_path(setting), :class => "member_link edit_link edit", :title => "bearbeiten")
+  #     raw(result)
+  #   end
+  # end
+
+  index download_links: false, pagination_total: false do
+    div do
+      render :partial => "/goldencobra/admin/settings/index"
     end
   end
 

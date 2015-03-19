@@ -1,0 +1,14 @@
+<div id="goldencobra_settings_wrapper">
+  <% Goldencobra::Setting.roots.each do |root| %>
+    <div class="settings_category">
+      <div class="settings_level">
+        <div class="settings_group_title">
+          <%= root.title.humanize %> 
+        </div>
+        <div class="">
+          <%= render :partial => "/goldencobra/admin/settings/settings_group", :locals => {:settings => root.children} %>        
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
