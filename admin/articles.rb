@@ -303,7 +303,8 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
                 :link_name => params[:link_name],
                 :url_path => params[:url_path],
                 :order_by => params[:order_by]  },
-      :layout => false
+      :layout => false,
+      :formats => [:js]
   end
 
   controller do
