@@ -24,7 +24,8 @@ module Goldencobra
       auth_code = params[:auth_token].present? ? 'with_auth' : ''
       offset = params[:start].present? ? "offset_#{params[:start].to_i}" : ""
       limit = params[:limit].present? ? "limit_#{params[:limit].to_i}" : ""
-      "c-#{current_client_id}/g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}_#{auth_code}#{offset}#{limit}"
+      generated_cache_key = "c-#{current_client_id}/g/#{I18n.locale.to_s}/#{geo_cache}/#{user_cache}/#{date_cache}/#{params[:article_id]}/#{art_cache}_#{params[:pdf]}_#{params[:frontend_tags]}__#{params[:iframe]}#{flash_message}_#{auth_code}#{offset}#{limit}"
+      return Zlib.crc32(generated_cache_key).to_s
     end
 
 
