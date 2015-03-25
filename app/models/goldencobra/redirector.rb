@@ -2,16 +2,63 @@
 
 module Goldencobra
   class Redirector < ActiveRecord::Base
-    attr_accessible :active, :redirection_code, :source_url, :target_url, :ignore_url_params, :include_subdirs
+    attr_accessible :active, :redirection_code, :source_url, :target_url, :ignore_url_params, :include_subdirs, :import_csv_data
 
-    validates_presence_of :source_url
-    validates_presence_of :target_url, :if => proc { |obj| obj.active == true }
+    attr_accessor :import_csv_data
+
+    validates_presence_of :source_url, :if => proc { |obj| obj.import_csv_data.blank? }
+    validates_presence_of :target_url, :if => proc { |obj| obj.active == true && obj.import_csv_data.blank? }
 
     validates_uniqueness_of :source_url
 
     web_url :source_url, :target_url
 
     scope :active, where(:active => true)
+
+    validate :check_csv_data
+    after_create :create_multiples_from_csv_data
+
+    # Creates multiple new Redirections based on 'import_csv_data'
+    # and deletes this single, new, invalid record afterwards  
+    # 
+    # @return [Goldencobra::Redirector] 
+    def create_multiples_from_csv_data
+      if import_csv_data.present?
+          data = CSV.parse(import_csv_data, { :col_sep => "," })
+          Goldencobra::Redirector.transaction do
+            data.each do |row|
+              Goldencobra::Redirector.create(source_url: row[0].strip, target_url: row[1].strip, redirection_code: redirection_code, active: active, ignore_url_params: ignore_url_params )
+            end
+          end
+          self.destroy
+      end
+    end
+
+    # Validator wenn es csv Daten zum importierne gibt
+    # 
+    # @return [Boolean]
+    def check_csv_data
+      if import_csv_data.present?
+        begin
+          all_source_urls = Goldencobra::Redirector.where(:active => true).pluck(:source_url)
+          data = CSV.parse(import_csv_data, { :col_sep => "," })
+          source_urls_from_data = data.map{|a| a[0].strip}
+          if source_urls_from_data.length != source_urls_from_data.uniq.length
+            errors.add(:import_csv_data, "Die CSV Daten enthalten mehrere Zeilen mit gleichen Source URLs<br>" )
+          end
+          data.each_with_index do |row, index|
+            if row.length != 2
+              errors.add(:import_csv_data, "Format der CSV Datei hat nicht 2 Spalten in Zeile #{index + 1}<br>" )
+            end
+            if all_source_urls.include?(row[0].strip)
+              errors.add(:import_csv_data, "Source URL in Zeile #{index + 1} existiert bereits<br>" )
+            end
+          end
+        rescue 
+          errors.add(:import_csv_data, "Die CSV Daten sind leider ungültig")
+        end
+      end
+    end
     
     # 
     # Returns a target url where to redirect of a given url
