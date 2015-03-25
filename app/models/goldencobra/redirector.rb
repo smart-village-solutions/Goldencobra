@@ -18,7 +18,6 @@ module Goldencobra
     validate :check_csv_data
     after_create :create_multiples_from_csv_data
 
-
     # Creates multiple new Redirections based on 'import_csv_data'
     # and deletes this single, new, invalid record afterwards  
     # 
@@ -35,6 +34,9 @@ module Goldencobra
       end
     end
 
+    # Validator wenn es csv Daten zum importierne gibt
+    # 
+    # @return [Boolean]
     def check_csv_data
       if import_csv_data.present?
         begin
