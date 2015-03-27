@@ -1,6 +1,11 @@
 <% object_to_render = object_class.constantize.find_by_id(object_id) %>
-$('#overview-sidebar_list').append("<%= escape_javascript( render :partial => '/goldencobra/admin/shared/item',
+var htmlString = "<%= escape_javascript( render :partial => '/goldencobra/admin/shared/item',
                                                                   :object => object_to_render,
                                                                   :locals => {:link_name => link_name, :url_path => url_path, :order_by => order_by }
-                                                          ) %>");
-$('#temp_list_item_<%= object_id %>').remove();
+                                                          ) %>"
+var sidebarList = document.getElementById('overview-sidebar_list');
+var presentHTML = sidebarList.innerHTML;
+
+sidebarList.innerHTML = presentHTML + htmlString;
+var d_nested = document.getElementById('temp_list_item_<%= object_id %>');
+var throwawayNode = sidebarList.removeChild(d_nested);

@@ -1,18 +1,132 @@
 <% order_by ||= "id" %>
-<% overview.order(order_by.to_sym).each do |root| %>
-  <script src="/admin/articles/load_overviewtree?order_by=<%= order_by %>&url_path=<%= url_path %>&link_name=<%= link_name %>&object_id=<%= root.id %>&object_class=<%= root.class.to_s %>" type="text/javascript" charset="utf-8" async defer></script>
-<% end %>
-<div class="overview-sidebar">
-  <ul id="overview-sidebar_list">
-    <% overview.order(order_by.to_sym).each do |root| %>
-      <li id="temp_list_item_<%= root.id %>">
-        <div class="item">
-          <div class="last_folder"></div>
-          <div class="title">
-            loading <%= root.send(link_name) %> ...
+<%# overview.order(order_by.to_sym).each_slice(10) do |array_of_roots| %>
+  <%# array_of_roots.each do |root| %>
+    <!--<script src="/admin/articles/load_overviewtree?order_by=<%#= order_by %>&url_path=<%#= url_path %>&link_name=<%#= link_name %>&object_id=<%#= root.id %>&object_class=<%#= root.class.to_s %>" type="text/javascript" charset="utf-8" async defer></script>-->
+  <%# end %>
+<%# end %>
+<script type="text/jsx">
+  // Your code here
+  var ListOfArticlesBox = React.createClass({
+    loadArticlesFromServer: function() {
+      $.ajax({
+        url: this.props.url,
+        dataType: 'json',
+        success: function(data) {
+          console.log('success!!!!!!');
+          this.setState({data: data});
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    getInitialState: function() {
+      return {data: []};
+    },
+    componentDidMount: function() {
+      this.loadArticlesFromServer();
+    },
+    render: function() {
+      return (
+          <div className="overview-sidebar">
+            <ItemList data={this.state.data} />
           </div>
-        </div>
-      </li>
-    <% end %>
-	</ul>
-</div>
+      );
+    }
+  });
+
+  var ItemList = React.createClass({
+    render: function() {
+      var articleNodes = this.props.data.map(function (article) {
+        return (
+          <ListItem title={article.title} id={article.id} key={article.id} url_path={article.url_path} has_children={article.has_children} >
+          </ListItem>
+        );
+      });
+      return (
+        <ul className="overview-sidebar_list">
+          {articleNodes}
+        </ul>
+      );
+    }
+  });
+
+  var ChildrenList = React.createClass({
+    render: function() {
+      var childNodes = this.props.data.map(function (article) {
+        return (
+          <ListItem title={article.title} id={article.id} key={article.id} url_path={article.url_path} has_children={article.has_children} >
+          </ListItem>
+        );
+      });
+      return (
+        <ul style={{display: 'none'}}>
+        {childNodes}
+        </ul>
+      );
+    }
+  })
+
+  var ListItem = React.createClass({
+    loadChildrenFromServer: function() {
+      $.ajax({
+        url: "/admin/articles/load_overviewtree_as_json?root_id=" + this.props.id,
+        dataType: 'json',
+        success: function(data) {
+          console.log('success!!!!!!');
+          this.setState({data: data});
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    getInitialState: function() {
+      return {data: []};
+    },
+    componentDidMount: function() {
+      if (this.props.has_children) {
+        this.loadChildrenFromServer();
+      }
+    },
+    render: function() {
+      var restricted;
+      if (this.props.restricted) {
+        restricted = <div class="secured"></div>;
+      } else {
+        restricted = "";
+      }
+
+      var id = this.props.id;
+
+      var showChildren;
+      if (this.props.has_children) {
+        showChildren = <ChildrenList data={this.state.data} />
+      }
+
+      return (
+        <li className="listItem" id={"overview_item_" + id} >
+          <div className="item">
+            <div className={this.props.has_children ? 'folder' : 'last_folder'}></div>
+            {restricted}
+            <div className="title">
+              <a href={"/admin/articles?q%5Bparent_ids_in%5D=" + id} title="Pfad anzeigen">{this.props.title}</a>
+            </div>
+            <div className="options">
+              <a href={"/admin/articles/" + id + "/edit"} className="edit_link" title="Bearbeiten">bearbeiten</a>
+              <a href={"/admin/articles/new?parent=" + id} className="new_link" title="Neu">Neu</a>
+            </div>
+            {showChildren}
+          </div>
+        </li>
+      );
+    }
+  });
+
+  React.render(
+      <ListOfArticlesBox url="/admin/articles/load_overviewtree_as_json" pollInterval={2000} />,
+      document.getElementById('box')
+  );
+</script>
+
+<div id="box"></div>
