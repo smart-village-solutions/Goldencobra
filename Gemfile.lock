@@ -73,6 +73,7 @@ PATH
       paperclip (= 3.4.2)
       pdfkit
       progress_bar
+      rack-utf8_sanitizer
       rails (~> 3.2.11)
       rmagick
       rubyzip
@@ -250,7 +251,7 @@ GEM
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
     fssm (0.2.10)
-    geocoder (1.2.7)
+    geocoder (1.2.8)
     geokit (1.7.1)
       multi_json (>= 1.3.2)
     gherkin (2.12.2)
@@ -410,6 +411,8 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-utf8_sanitizer (1.3.0)
+      rack (~> 1.0)
     rails (3.2.21)
       actionmailer (= 3.2.21)
       actionpack (= 3.2.21)
