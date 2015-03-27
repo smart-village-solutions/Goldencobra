@@ -122,4 +122,6 @@ ActiveAdmin.setup do |config|
     config.register_javascript "goldencobra/active_admin.js"
     config.register_javascript "goldencobra/jquery.tinymce.js"
     config.register_javascript "goldencobra/chosen.jquery.min.js"
+    config.register_javascript "https://fb.me/react-0.13.1.js"
+    config.register_javascript "https://fb.me/JSXTransformer-0.13.1.js"
 end

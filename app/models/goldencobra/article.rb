@@ -160,7 +160,13 @@ module Goldencobra
     # Instance Methods
     # **************************
     # **************************
+    def has_children
+      self.has_children?
+    end
 
+    def restricted
+      Goldencobra::Permission.restricted?(self)
+    end
 
     #Das ist der Titel, der verwendet wird, wenn daraus ein Menüpunkt erstellt werden soll.
     #der menue.title hat folgende vorgaben: validates_format_of :title, :with => /^[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+$/
