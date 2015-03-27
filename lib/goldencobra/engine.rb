@@ -23,7 +23,7 @@ require 'sidekiq'
 require 'sinatra'
 require 'slim'
 require 'geokit'
-
+require "rack/utf8_sanitizer"
 
 module Goldencobra
   class Engine < ::Rails::Engine
@@ -56,6 +56,15 @@ module Goldencobra
       DeviseController.helper(Goldencobra::ArticlesHelper)
       Devise::SessionsController.helper(Goldencobra::ArticlesHelper)
       Devise::PasswordsController.helper(Goldencobra::ArticlesHelper)
+
+
     end
+
+    require "#{Goldencobra::Engine.root}/app/middleware/goldencobra/handle_invalid_percent_encoding.rb"
+    # NOTE: These must be in this order relative to each other.
+    # HandleInvalidPercentEncoding just raises for encoding errors it doesn't cover,
+    # so it must run after (= be inserted before) Rack::UTF8Sanitizer.
+    config.middleware.insert 0, Goldencobra::HandleInvalidPercentEncoding
+    config.middleware.insert 0, Rack::UTF8Sanitizer  # from a gem
   end
 end
