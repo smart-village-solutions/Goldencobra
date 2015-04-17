@@ -54,6 +54,25 @@ ActiveAdmin::Dashboards.build do
     end
    end
 
+    section I18n.t('active_admin.dashboards.vita_steps'), priority: 2, :if => proc{can?(:update, Goldencobra::Vita)} do
+        table do
+          tr do
+            ["Source", I18n.t("activerecord.attributes.goldencobra/widget.title"), "Description", ""].each do |sa|
+              th sa
+            end
+          end
+
+          Goldencobra::Vita.where(status_cd: 2).last(5).each do |vita|
+            tr do
+              td "#{vita.loggable_type} ID:#{vita.loggable_id}"
+              td vita.title
+              td vita.description
+              td l(vita.created_at, format: :short)
+            end
+          end
+        end
+     end
+
   # == Render Partial Section
   # The block is rendered within the context of the view, so you can
   # easily render a partial rather than build content in ruby.
