@@ -38,7 +38,7 @@ GIT
 PATH
   remote: .
   specs:
-    goldencobra (1.4.25)
+    goldencobra (1.4.26)
       activeadmin
       activeadmin-cancan
       acts-as-taggable-on
@@ -81,6 +81,7 @@ PATH
       sass
       sass-rails
       sidekiq (= 3.2.1)
+      simple_enum
       sinatra
       slim
       sprockets
@@ -494,6 +495,8 @@ GEM
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
+    simple_enum (1.6.9)
+      activesupport (>= 3.0.0)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -604,6 +607,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   sidekiq
+  simple_enum
   sinatra
   slim
   sunspot_rails

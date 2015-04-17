@@ -40,6 +40,7 @@ gem 'cancan'
 #gem 'linkchecker', :git => "http://github.com/seb/linkchecker.git"
 
 gem 'rmagick'
+gem 'simple_enum'
 
 
 gem "paper_trail"
