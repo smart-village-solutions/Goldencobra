@@ -24,7 +24,7 @@ gem 'omniauth'
 gem 'omniauth-openid'
 gem 'oa-oauth', :require => 'omniauth/oauth'
 gem 'oa-openid', :require => 'omniauth/openid'
-gem 'coffee-rails', '~> 3.2.0'
+gem 'coffee-rails'#, '~> 3.2.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'meta-tags', :require => 'meta_tags', :git => "http://github.com/5minpause/meta-tags.git"
 # gem "cocaine", "= 0.3.2"
