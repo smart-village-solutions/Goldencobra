@@ -19,5 +19,8 @@ module Goldencobra
     belongs_to :loggable, :polymorphic => true
     attr_accessible :description, :title, :user_id
     acts_as_taggable_on :tags
+
+    as_enum :status,  success: 0, warning: 1, error: 2
+
   end
 end
