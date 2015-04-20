@@ -12,6 +12,7 @@
 #  description   :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  status_cd     :integer          default 0 
 #
 
 module Goldencobra
