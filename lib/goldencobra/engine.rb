@@ -24,6 +24,7 @@ require 'sinatra'
 require 'slim'
 require 'geokit'
 require "rack/utf8_sanitizer"
+require 'simple_enum'
 
 
 module Goldencobra
