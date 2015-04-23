@@ -40,8 +40,12 @@ module Goldencobra
             a[0] <=> b[0]
           }
 
-          # Die React Select Liste braucht das JSON in diesem Format. -hf
-          json_uploads = @articles.map{ |a| { "value" => a.id, "title" => a.title, "label" => a.parent_path } }
+          if params[:react_select] && params[:react_select] == "true"
+            # Die React Select Liste braucht das JSON in diesem Format. -hf
+            json_uploads = @articles.map{ |a| { "value" => a.id, "label" => a.parent_path } }
+          else
+            json_uploads = @articles.map{ |a| a.as_json(:only => [:id, :title], :methods => [:parent_path]) }
+          end
 
           respond_to do |format|
             format.json { render json: json_uploads.as_json }

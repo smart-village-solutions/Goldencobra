@@ -28,7 +28,7 @@ $(function() {
   var $select_parent_articles = $(".get_goldencobra_articles_per_remote");
   if ( $select_parent_articles.length){
     $.ajax({
-      url: "/api/v2/articles.json"
+      url: "/api/v2/articles.json?react_select=true"
     }).done(function(data){
       var $this = $select_parent_articles.get(0);
       var thisId = $this.id;
