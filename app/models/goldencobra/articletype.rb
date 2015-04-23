@@ -46,7 +46,7 @@ module Goldencobra
           p.input :_destroy, :as => :boolean
         end %>},
         :article_images => %{<% f.has_many :article_images do |ai|
-          ai.input :image, :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select', :style => 'width: 70%;', 'data-placeholder' => 'Medium auswählen' }, :label => "Medium wählen"
+          ai.input :image, :as => :select, :collection => Goldencobra::Upload.where(id: ai.object.image_id).map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chzn-select get_goldencobra_uploads_per_remote', :style => 'width: 70%;', 'data-placeholder' => 'Bitte warten' }, :label => "Medium wählen", include_blank: false
           ai.input :position, :as => :select, :collection => Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip), :include_blank => false
           ai.input :_destroy, :as => :boolean
         end %>}
