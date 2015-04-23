@@ -5,7 +5,8 @@
 // require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
 //= require goldencobra/jquery.color
 //= require goldencobra/jquery.Jcrop.min
-
+//= require goldencobra/react_0.13.1.min
+//= require goldencobra/components
 
 //Live Support Settings
 var TogetherJSConfig_siteName = "Ikusei GmbH";
@@ -25,23 +26,63 @@ $(function() {
   //Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
   // hole alle Goldencobra:Article :id,:title, :ancestry
   var $select_parent_articles = $(".get_goldencobra_articles_per_remote");
-  if ( $select_parent_articles.length ){
+  if ( $select_parent_articles.length){
     $.ajax({
-      url: "/api/v2/articles.json"
+      url: "/api/v2/articles.json?react_select=true"
     }).done(function(data){
-      var selected_parent_id = $select_parent_articles.find("option:selected").val();
-      $select_parent_articles.html("<option value=''></option>");
-      $.each( data, function(index,value){
-        var selected_option = "";
-        if (value.id == selected_parent_id){
-          selected_option = " selected='selected' ";
-        } 
-        $select_parent_articles.append("<option value='" + value.id + "' " + selected_option + ">" + value.parent_path + "</option>")  ;
-      });
-      $select_parent_articles.trigger("chosen:updated");
+      var $this = $select_parent_articles.get(0);
+      var thisId = $this.id;
+      var thisName = $this.name;
+      var selectedUploadId = $($this).find("option").val();
+
+      $this.outerHTML = "<div id='react-" + thisId + "'></div>";
+      React.render(
+        React.createElement(SelectList, {id: thisId, value: selectedUploadId, options: data, name: thisName}),
+        document.getElementById('react-' + thisId)
+      );
+
+      var $thisEl = $('#' + thisId);
+      $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
+      $thisEl.chosen({ allow_single_deselect: true });
       return false;
     });
   }
+
+  //Wenn es get_goldencobra_uploads_per_remote im 'Artikel bearbeiten' gibt,
+  // hole alle Goldencobra:Uploads :id, :complete_list_name
+  function populateArticleUploads() {
+    var $selectArticleUploads = $(".get_goldencobra_uploads_per_remote").not('.reacted');
+    if ($selectArticleUploads.length) {
+      $.ajax({
+        url: "/api/v2/uploads.json"
+      }).done(function (data) {
+        var thisData = data;
+        $selectArticleUploads.each(function (index, element) {
+          var $this = element;
+          var thisId = element.id;
+          var thisName = element.name;
+          var selectedUploadId = $(element).find("option").val();
+
+          $this.outerHTML = "<div id='react-" + thisId + "'></div>";
+          React.render(
+            React.createElement(SelectList, {id: thisId, value: selectedUploadId, options: thisData, name: thisName}),
+            document.getElementById('react-' + thisId)
+          );
+
+          var $thisEl = $('#' + thisId);
+          $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
+          $thisEl.chosen();
+        });
+        return false;
+      });
+    }
+  };
+
+  populateArticleUploads();
+
+  $('.has_many.article_images a.button').on("click", function() {
+    setTimeout(populateArticleUploads(), 500);
+  });
 
   //Importer optionen Ein und Ausblendbar machen
   $("table.importer_assoziations tr.head td.nested_model_header span.button").bind("click", function(){
