@@ -15,7 +15,7 @@ var SelectList = React.createClass({displayName: "SelectList",
     });
 
     return (
-      React.createElement("select", {className: "select-list chzn-select get_goldencobra_uploads_per_remote reacted", id: this.props.id, style: {width:"70%"}, value: this.props.value, name: this.props.name},
+      React.createElement("select", {className: this.props.className + " select-list reacted", id: this.props.id, style: {width:"70%"}, value: this.props.value, name: this.props.name},
         optionNodes
       )
     );
