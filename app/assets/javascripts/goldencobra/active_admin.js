@@ -45,7 +45,7 @@ $(function() {
       var $thisEl = $('#' + thisId);
       // $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
       $thisEl.chosen({ allow_single_deselect: true });
-      $('.chosen-container,.chosen-drop,.chosen-drop .chosen-search,.chosen-drop.chosen-search input').css({width: '70%'});
+      $('.chosen-container').css({width: '70%'});
       return false;
     });
   }
