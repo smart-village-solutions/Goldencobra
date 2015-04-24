@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 require "csv"
+require "rmagick"
 
 describe Goldencobra::Import do
 
@@ -76,16 +77,11 @@ describe Goldencobra::Import do
       importer.save
       importer.run!
       article = Goldencobra::Article.find_by_title("Landessportbund Berlin")
-      article.present?.should be_true
-      article.should be_valid
-      article.content.should == "Salewski"
-      article.teaser.should == "Herr"
-      article.widgets.count.should == 1
-      puts ActsAsTaggableOn::Tag.all.inspect
-
-      #article.widgets.first.content.should == "Test"
-      #article.widgets.first.tag_list.should == ["test"]
-      #importer.result.should == []
+      expect(article.present?).to eq(true)
+      expect(article).to be_valid
+      expect(article.content).to eq "Salewski"
+      expect(article.teaser).to eq "Herr"
+      expect(article.widgets.count).to eq 1
     end
   end
 
