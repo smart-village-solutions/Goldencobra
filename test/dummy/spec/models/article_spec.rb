@@ -188,17 +188,20 @@ describe Goldencobra::Article do
   end
 
 
-  describe 'updateing an article' do
+  describe 'updating an article' do
 
     it "should have a new url_path" do
       article = create :article, :url_name => "seite1"
       sub_article = create :article, :url_name => "sub_seite", :parent => article
-      article.public_url.include?("seite1").should == true
-      sub_article.public_url.include?("seite1/sub_seite").should == true
+
+      expect(article.public_url.include?("seite1")).to eq true
+      expect(sub_article.public_url.include?("seite1/sub_seite")).to eq true
+
       article.url_name = "seite2"
       article.save
-      article.public_url.include?("seite2").should == true
-      sub_article.public_url.include?("seite2/sub_seite").should == true
+
+      expect(article.public_url.include?("seite2")).to eq true
+      expect(sub_article.public_url.include?("seite2/sub_seite")).to eq true
     end
 
   end
