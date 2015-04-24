@@ -53,7 +53,7 @@ describe Goldencobra::Widget do
       "id_name" => "mein-widget-kopie",
       "sorter" => 23,
       "mobile_content" => "Das ist der mobile Inhalt",
-      "default" => false,
+      "default" => true,
       "description" => "Dies ist der Beschreibungstext",
       "offline_days" => "Test",
       "offline_time_active" => false,

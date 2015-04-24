@@ -90,7 +90,8 @@ describe Goldencobra::ArticlesController do
         permission = create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id, :domain_id => @domain_access.id, :role_id => @guest_role.id
         sign_in(:visitor, @visitor)
         visit @parent_article.public_url
-        puts (permission.domain.blank? || (Goldencobra::Domain.current.present? && permission.domain.present? && permission.domain == Goldencobra::Domain.current))
+        puts permission.domain.blank?
+        puts (Goldencobra::Domain.current.present? && permission.domain.present? && permission.domain == Goldencobra::Domain.current)
         page.should have_content("Nicht authorisiert")
       end
 
