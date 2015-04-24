@@ -30,20 +30,22 @@ $(function() {
     $.ajax({
       url: "/api/v2/articles.json?react_select=true"
     }).done(function(data){
-      var $this = $select_parent_articles.get(0);
-      var thisId = $this.id;
-      var thisName = $this.name;
-      var selectedUploadId = $($this).find("option").val();
+      var $this             = $select_parent_articles.get(0);
+      var thisId            = $this.id;
+      var thisName          = $this.name;
+      var className         = $this.className;
+      var selectedParentId  = $($this).find('option:selected').val()
 
       $this.outerHTML = "<div id='react-" + thisId + "'></div>";
       React.render(
-        React.createElement(SelectList, {id: thisId, value: selectedUploadId, options: data, name: thisName}),
+        React.createElement(SelectList, {id: thisId, value: selectedParentId, options: data, name: thisName, className: className}),
         document.getElementById('react-' + thisId)
       );
 
       var $thisEl = $('#' + thisId);
-      $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
+      // $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
       $thisEl.chosen({ allow_single_deselect: true });
+      $('.chosen-container,.chosen-drop,.chosen-drop .chosen-search,.chosen-drop.chosen-search input').css({width: '70%'});
       return false;
     });
   }
