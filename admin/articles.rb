@@ -316,11 +316,11 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   collection_action :load_overviewtree_as_json do
     if params[:root_id].present?
       articles = Goldencobra::Article.find(params[:root_id])
-                   .children.as_json(only: [:id, :url_path, :title],
+                   .children.as_json(only: [:id, :url_path, :title, :url_name],
                                      methods: [:has_children, :restricted])
     else
       articles = Goldencobra::Article.order(:url_name)
-                   .roots.as_json(only: [:id, :url_path, :title],
+                   .roots.as_json(only: [:id, :url_path, :title, :url_name],
                                   methods: [:has_children, :restricted])
     end
     render json: articles
