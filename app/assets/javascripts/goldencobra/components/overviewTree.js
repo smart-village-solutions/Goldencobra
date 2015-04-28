@@ -30,7 +30,7 @@ var ItemList = React.createClass({displayName: "ItemList",
   render: function () {
     var articleNodes = this.props.data.map(function (article) {
       return (
-        React.createElement(ListItem, {title: article.title, id: article.id, key: article.id, url_path: article.url_path, has_children: article.has_children}
+        React.createElement(ListItem, {title: article.url_name, id: article.id, key: article.id, url_path: article.url_path, has_children: article.has_children}
         )
       );
     });
