@@ -35,7 +35,6 @@ module Goldencobra
         # @return [json] Liefert Alle Artikel :id,:title, :ancestry
         # map{|c| [c.parent_path, c.id]}
         def index
-
           @articles = Goldencobra::Article.select([:id, :title, :ancestry]).sort{ |a, b|
             a[0] <=> b[0]
           }
@@ -49,6 +48,7 @@ module Goldencobra
 
           respond_to do |format|
             format.json { render json: json_uploads.as_json }
+            format.xml { @articles = Goldencobra::Article.all}
           end
         end
 
