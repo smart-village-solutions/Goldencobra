@@ -360,7 +360,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   member_action :toggle_expert_mode do
     current_user.enable_expert_mode = !current_user.enable_expert_mode
     current_user.save
-    render template: '/goldencobra/admin/articles/toggle_expert_mode', format: 'js', locals: { enabled: current_user.enable_expert_mode }
+    redirect_to :back
   end
 
   member_action :revert do
@@ -382,7 +382,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   action_item :only => :edit, :inner_html => {:class => "expert"} do
-    link_to("#{I18n.t('active_admin.articles.action_item.link_to.expert_modus')} #{current_user.enable_expert_mode ? I18n.t('active_admin.articles.action_item.link_to.deactivate') : I18n.t('active_admin.articles.action_item.link_to.activate')}", toggle_expert_mode_admin_article_path, remote: true, id: "expert-mode")
+    link_to("#{current_user.enable_expert_mode ? I18n.t('active_admin.articles.action_item.link_to.deactivate') : I18n.t('active_admin.articles.action_item.link_to.activate')} #{I18n.t('active_admin.articles.action_item.link_to.expert_modus')}", toggle_expert_mode_admin_article_path(), id: "expert-mode")
   end
 
   #action_item :only => :index do
