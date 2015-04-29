@@ -48,7 +48,8 @@ module Goldencobra
 
           respond_to do |format|
             format.json { render json: json_uploads.as_json }
-            format.xml { @articles = Goldencobra::Article.all}
+            # Returns all publicly visible, active Articles
+            format.xml { @articles = Goldencobra::Article.new.filter_with_permissions(Goldencobra::Article.active, nil) }
           end
         end
 
