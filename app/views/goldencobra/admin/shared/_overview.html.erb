@@ -1,8 +1,18 @@
-<div id="overviewTree"></div>
-
-<script type="text/javascript">
-  React.render(
-      React.createElement(ListOfArticlesBox, {url: '/admin/articles/load_overviewtree_as_json'}),
-      document.getElementById('overviewTree')
-  );
-</script>
+<% order_by ||= "id" %>
+<% overview.order(order_by.to_sym).each do |root| %>
+  <script src="/admin/articles/load_overviewtree?order_by=<%= order_by %>&url_path=<%= url_path %>&link_name=<%= link_name %>&object_id=<%= root.id %>&object_class=<%= root.class.to_s %>" type="text/javascript" charset="utf-8" async defer></script>
+<% end %>
+<div class="overview-sidebar">
+  <ul id="overview-sidebar_list">
+    <% overview.order(order_by.to_sym).each do |root| %>
+      <li id="temp_list_item_<%= root.id %>" class="listItem">
+        <div class="item">
+          <div class="last_folder"></div>
+          <div class="title">
+            loading <%= root.send(link_name) %> ...
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
