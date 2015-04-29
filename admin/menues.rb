@@ -67,7 +67,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     column "" do |menue|
       result = ""
       result += link_to(I18n.t('active_admin.menues.form.column.edit'), edit_admin_menue_path(menue), :class => "member_link edit_link edit", :title => I18n.t('active_admin.menues.form.column.edit_title'))
-      result += link_to(I18n.t('active_admin.menues.form.column.submenu'), new_admin_menue_path(:parent => menue), :class => "member_link edit_link", :class => "new_subarticle", :title => I18n.t('active_admin.menues.form.column.submenu_title'))
+      result += link_to(I18n.t('active_admin.menues.form.column.submenu'), new_admin_menue_path(:parent => menue), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.menues.form.column.submenu_title'))
       result += link_to(I18n.t('active_admin.menues.form.column.delete'), admin_menue_path(menue), :method => :DELETE, :confirm => I18n.t('active_admin.menues.form.column.delete_confirm'), :class => "member_link delete_link delete", :title => I18n.t('active_admin.menues.form.column.delete_title'))
       raw(result)
     end
