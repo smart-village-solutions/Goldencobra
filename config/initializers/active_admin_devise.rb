@@ -1,7 +1,7 @@
 require "activeadmin"
+
 ApplicationController.class_eval do
     layout :layout_by_resource_for_user_model
-
 
     def current_ability
         @current_ability ||= Ability.new(current_user)

@@ -24,11 +24,11 @@ Gem::Specification.new do |s|
   s.requirements << "ImageMagick"
   s.required_ruby_version = ">= 1.9.2"
 
-  s.add_dependency 'coffee-script-source', "1.4.0"
+  s.add_dependency 'coffee-script-source', "~>1.8.0"
   s.add_dependency "capistrano"#, "2.14.1"
   s.add_dependency "rvm-capistrano"
   s.add_dependency 'capistrano-maintenance'
-  s.add_dependency "rails", "~> 3.2.11"
+  s.add_dependency "rails", "~> 3.2.21"
   s.add_dependency "jquery-rails", "2.1.4"
   s.add_dependency 'devise', "~> 2.2.4"
   s.add_dependency 'activeadmin-cancan'
@@ -77,6 +77,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cocaine', '0.5.5'
   s.add_dependency 'rack-utf8_sanitizer'
   s.add_dependency 'simple_enum'
+  s.add_dependency 'react-rails'
   # s.add_dependency "wicked_pdf"
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
