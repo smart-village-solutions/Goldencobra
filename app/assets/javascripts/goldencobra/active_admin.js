@@ -38,7 +38,7 @@ $(function() {
 
       $this.outerHTML = "<div id='react-" + thisId + "'></div>";
       React.render(
-        React.createElement(SelectList, {id: thisId, value: selectedParentId, options: data, name: thisName, className: className}),
+        React.createElement(SelectList, {id: thisId, value: selectedParentId, options: data, name: thisName, className: className, firstBlank: true}),
         document.getElementById('react-' + thisId)
       );
 

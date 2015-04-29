@@ -14,8 +14,15 @@ var SelectList = React.createClass({displayName: "SelectList",
       );
     });
 
+    var emptyOption;
+
+    if (this.props.firstBlank == true) {
+      emptyOption = React.createElement("option", {value: this.props.value}, this.props.label)
+    }
+
     return (
       React.createElement("select", {className: this.props.className + " select-list reacted", id: this.props.id, style: {width:"70%"}, value: this.props.value, name: this.props.name},
+        emptyOption,
         optionNodes
       )
     );
