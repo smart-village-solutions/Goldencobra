@@ -48,7 +48,7 @@ Rails.application.config.to_prepare do
 
 					a6 = at.fieldgroups.create(:title => "Medien", :position => "last_block", :foldable => true, :closed => true, :expert => false, :sorter => 6)
 					a6.fields.create(:fieldname => "article_images", :sorter => 1)
-					puts "Default Fieldoptions recreated for #{at.name}"
+					puts "Default Fieldoptions recreated for #{at.try(:name)}"
 				end
 			end
 		end
