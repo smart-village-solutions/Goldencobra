@@ -160,7 +160,13 @@ module Goldencobra
     # Instance Methods
     # **************************
     # **************************
+    def has_children
+      self.has_children?
+    end
 
+    def restricted
+      Goldencobra::Permission.restricted?(self)
+    end
 
     #Das ist der Titel, der verwendet wird, wenn daraus ein Menüpunkt erstellt werden soll.
     #der menue.title hat folgende vorgaben: validates_format_of :title, :with => /^[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+$/
@@ -689,8 +695,8 @@ module Goldencobra
         end
       else
 
-        #url_path in der Datenbank als string speichern und beim update von ancestry neu berechnen... ansosnten den urlpafh aus dem string holen statt jedesmal über alle eltern iterierne
-        if self.url_path.blank? || self.url_path_changed? || self.url_name_changed? || self.ancestry_changed?
+        #url_path in der Datenbank als string speichern und beim update von ancestry neu berechnen... ansonsten den urlpath aus dem string holen statt jedesmal über alle eltern zu iterieren
+        if self.url_path.blank? || self.url_path_changed? || self.url_name_changed? || self.ancestry_changed? || self.ancestors.map{ |a| a.url_path_changed? }
           a_url = self.get_url_from_path
         else
           a_url = self.url_path

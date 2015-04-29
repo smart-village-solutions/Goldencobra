@@ -26,9 +26,9 @@ require 'geokit'
 require "rack/utf8_sanitizer"
 require 'simple_enum'
 
-
 module Goldencobra
   class Engine < ::Rails::Engine
+
     isolate_namespace Goldencobra
     initializer "goldencobra.load_app_instance_data" do |app|
       #app.class.configure do
@@ -38,6 +38,10 @@ module Goldencobra
 
     initializer("goldencobra.locales") do |app|
       Goldencobra::Engine.config.i18n.load_path += Dir[root.join('config', 'locales', '*.{rb,yml}').to_s]
+    end
+
+    initializer "goldencobra.assets.precompile" do |app|
+      app.config.assets.precompile += %w(goldencobra/react_0.13.1.min.js)
     end
 
     config.to_prepare do

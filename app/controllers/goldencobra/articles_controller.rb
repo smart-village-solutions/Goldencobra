@@ -31,7 +31,7 @@ module Goldencobra
 
     def show
       ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)  #Possible Callbacks on start
-      before_init() #Possible Callbacks on start
+      before_init #Possible Callbacks on start
       params[:session] = session.except(:user_location)
       Goldencobra::Article::LiquidParser["url_params"] = params
       if serve_iframe?
@@ -42,21 +42,21 @@ module Goldencobra
         initialize_article(@article)
         # TODO fix session_params like url_params mit liquid method
         Goldencobra::Article.load_liquid_methods(location: session[:user_location], article: @article, params: params)
-        load_associated_model_into_liquid() if can_load_associated_model?
-        after_init()
+        load_associated_model_into_liquid if can_load_associated_model?
+        after_init
 
         if generate_index_list?
           current_operator = current_user || current_visitor
           @list_of_articles = @article.index_articles(current_operator,params[:frontend_tags])
-          after_index()
+          after_index
         end
 
         if serve_fresh_page?
-         set_expires_in()
+         set_expires_in
          ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
-          before_render()
+          before_render
           respond_to do |format|
-            format.html { render layout: choose_layout() }
+            format.html { render layout: choose_layout }
             format.rss
             format.json do
               @article["list_of_articles"] = @list_of_articles
@@ -67,12 +67,12 @@ module Goldencobra
       elsif should_statically_redirect?
         redirect_to @article.external_url_redirect
       elsif should_dynamically_redirect?
-        redirect_dynamically()
+        redirect_dynamically
       else
         if @unauthorized
-          redirect_to_401()
+          redirect_to_401
         else
-          redirect_to_404()
+          redirect_to_404
         end
       end
     end

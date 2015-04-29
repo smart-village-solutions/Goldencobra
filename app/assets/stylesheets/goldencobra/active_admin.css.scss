@@ -193,14 +193,14 @@ body.active_admin .sidebar_section > div div.overview-sidebar {
 	ul {
 		list-style: none;
 		margin: 0 0 0 0;
-		padding: 0 0 0 15px;
+		padding: 0;
 
 		li {
 			margin: 0 0 0 0;
 			padding: 0 0 0 0;
 
 			div.item {
-				width: 90%;
+				width: 92%;
 				padding: 0 0 0 8%;
 				line-height: 14px;
 				border-bottom: 1px dotted transparent;
@@ -245,9 +245,22 @@ body.active_admin .sidebar_section > div div.overview-sidebar {
           }
 
           overflow: hidden;
-          width: 145px;
+          width: 200px;
           height: 16px;
           line-height: 16px;
+
+        }
+
+        div.title ~ ul li div.title {
+          width: 175px;
+        }
+
+        div.title ~ ul li div.title ~ ul li div.title {
+          width: 145px;
+        }
+
+        div.title ~ ul li div.title ~ ul li div.title ~ ul li div.title {
+          width: 130px;
         }
 
         div.options {

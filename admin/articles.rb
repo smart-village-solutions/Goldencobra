@@ -156,7 +156,13 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   sidebar :overview, only: [:index] do
-    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Article.order(:url_name).roots, :locals => {:link_name => "url_name", :url_path => "article", :order_by => "url_name" }
+    render partial: "/goldencobra/admin/shared/overview",
+           object: Goldencobra::Article.order(:url_name).roots.limit(1),
+           locals: {
+             link_name: "url_name",
+             url_path: "article",
+             order_by: "url_name"
+           }
   end
 
   sidebar :widgets_options, only: [:edit] do
@@ -305,6 +311,19 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
                 :order_by => params[:order_by]  },
       :layout => false,
       :formats => [:js]
+  end
+
+  collection_action :load_overviewtree_as_json do
+    if params[:root_id].present?
+      articles = Goldencobra::Article.find(params[:root_id])
+                   .children.as_json(only: [:id, :url_path, :title, :url_name],
+                                     methods: [:has_children, :restricted])
+    else
+      articles = Goldencobra::Article.order(:url_name)
+                   .roots.as_json(only: [:id, :url_path, :title, :url_name],
+                                  methods: [:has_children, :restricted])
+    end
+    render json: articles
   end
 
   controller do
