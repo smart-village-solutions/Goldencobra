@@ -10,7 +10,7 @@ Rails.application.config.to_prepare do
 		if ActiveRecord::Base.connection.table_exists?("goldencobra_articletype_groups")
 			Goldencobra::Articletype.scoped.each do |at|
 				#install Basik set of Fieldgroups and Fields if no one is set up
-				if !at.fieldgroups.any?
+				if !at.try(:fieldgroups).any?
 					a1 = at.fieldgroups.create(:title => "Allgemein", :position => "first_block", :foldable => false, :closed => false, :expert => false, :sorter => 1)
 					a1.fields.create(:fieldname => "title", :sorter => 1)
 					a1.fields.create(:fieldname => "content", :sorter => 2)
