@@ -6,12 +6,13 @@ module Goldencobra
     # 'Read on' link to article for index-pages
     # If external_url_redirect is set and a link_title is given,
     # display this link title. Otherwise display a generic link title.
-    def read_on(article)
+    def read_on(article, options={})
       target_window = article.redirection_target_in_new_window ? "_blank" : "_top"
+      html_class = "more #{options[:class]}".strip
       if article.redirect_link_title.present?
-        link_to article.redirect_link_title, article.external_url_redirect, :class => "more", :target => target_window
+        link_to article.redirect_link_title, article.external_url_redirect, class: html_class, target: target_window
       else
-        link_to t(:read_on, scope: [:articles]), article.public_url, :class => "more", :target => target_window, :title => article.title
+        link_to t(:read_on, scope: [:articles]), article.public_url, class: html_class, target: target_window, title: article.title
       end
     end
 
