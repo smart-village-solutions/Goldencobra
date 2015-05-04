@@ -9,7 +9,9 @@ xml.rss version: "2.0", "xmlns:atom"=>"http://www.w3.org/2005/Atom" do
     xml.description Goldencobra::Metatag.where(article_id: Goldencobra::Article.where(startpage: true).first.id, name: 'Meta Description').first.value
     @articles.uniq.each do |article|
       xml.item do
-        xml.title "#{Nokogiri::HTML.parse(article.title).text}"
+        xml.title do
+          xml.cdata!("#{Nokogiri::HTML.parse(article.title).text}")
+        end
         xml.description do
           if article.teaser.present?
             template = Liquid::Template.parse(Nokogiri::HTML.parse(article.teaser).text)
