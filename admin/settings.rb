@@ -43,7 +43,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
 
   sidebar :goldencobra_info do
     div do
-      p "Version: #{Goldencobra::VERSION}"
+      p "Version: #{Gem.loaded_specs["goldencobra"].version.to_s}"
     end
   end
 
