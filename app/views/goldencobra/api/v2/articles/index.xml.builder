@@ -4,17 +4,17 @@ xml.instruct! :xml, version: '1.0', encoding: 'UTF-8'
 xml.rss version: "2.0", "xmlns:atom"=>"http://www.w3.org/2005/Atom" do
   xml.channel do
     xml.tag!("atom:link", {"href" => "http://#{Goldencobra::Setting.for_key('goldencobra.url').sub('http://','')}/api/v2/articles.xml", "rel"=>"self", "type"=>"application/rss+xml"})
-    xml.title Goldencobra::Article.where(startpage: true).first.title
+    xml.title Nokogiri::HTML.parse(Goldencobra::Article.where(startpage: true).first.title).text
     xml.link Goldencobra::Article.where(startpage: true).first.absolute_public_url
     xml.description Goldencobra::Metatag.where(article_id: Goldencobra::Article.where(startpage: true).first.id, name: 'Meta Description').first.value
     @articles.uniq.each do |article|
       xml.item do
-        xml.title "#{article.title.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')}"
+        xml.title "#{Nokogiri::HTML.parse(article.title).text}"
         xml.description do
           if article.teaser.present?
-            template = Liquid::Template.parse(article.teaser.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: ''))
+            template = Liquid::Template.parse(Nokogiri::HTML.parse(article.teaser).text)
           else
-            template = Liquid::Template.parse(article.content.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: ''))
+            template = Liquid::Template.parse(Nokogiri::HTML.parse(article.content).text)
           end
           xml.cdata!(template.render(Goldencobra::Article::LiquidParser))
         end
