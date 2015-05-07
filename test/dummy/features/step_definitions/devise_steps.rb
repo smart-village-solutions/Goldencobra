@@ -13,6 +13,8 @@ Given /^that a confirmed guest exists$/ do
 end
 
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |email, password|
+  page.driver.allow_url("ajax.googleapis.com")
+  page.driver.allow_url("https://togetherjs.com/togetherjs-min.js")
   visit "/admin/logout"
   visit "/admin/login"
   fill_in "user[email]", :with => email
