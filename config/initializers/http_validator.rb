@@ -19,7 +19,7 @@ module HttpValidator
     end
 
     def value_without_protocol?(attr_name)
-      self.send(attr_name)[0..7] != "https://" || self.send(attr_name)[0..6] != "http://"
+      self.send(attr_name)[0..7] != "https://" && self.send(attr_name)[0..6] != "http://"
     end
   end
 end

@@ -69,14 +69,14 @@ describe Goldencobra::Article do
       a = Goldencobra::Article.create!(@attr)
       a.external_url_redirect = "http://www.google.de"
       a.save
-      Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "http://www.google.de"
+      expect(Goldencobra::Article.find_by_id(a.id).external_url_redirect).to eq "http://www.google.de"
     end
 
     it "should have a valid redirect url by inserting an url with https" do
       a = Goldencobra::Article.create!(@attr)
       a.external_url_redirect = "https://www.google.de"
       a.save
-      Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "https://www.google.de"
+      expect(Goldencobra::Article.find_by_id(a.id).external_url_redirect).to eq "https://www.google.de"
     end
 
     it "should have no redirection if redirect url is empty" do
