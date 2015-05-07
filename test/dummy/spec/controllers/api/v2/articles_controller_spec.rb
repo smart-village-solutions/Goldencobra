@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Goldencobra::Api::V2::ArticlesController do
+describe Goldencobra::Api::V2::ArticlesController, type: :controller do
   before(:each) { @routes = Goldencobra::Engine.routes }
 
   describe 'POST #create' do
@@ -8,7 +8,7 @@ describe Goldencobra::Api::V2::ArticlesController do
     describe 'without an user who is logged in' do
 
       before do
-        get :create,
+        post :create,
              format: :json
       end
 
@@ -27,15 +27,12 @@ describe Goldencobra::Api::V2::ArticlesController do
       @user = FactoryGirl.create(:user)
       sign_in @user
 
-      get :create,
-           :article => {
-               name: 'fdf'
-           },
+      post :create,
            format: :json
     end
 
-    it "should return a json status forbidden" do
-      response.response_code.should == 403
+    it "should return a json status 400, 'article data missing'" do
+      response.response_code.should == 400
     end
 
   end
