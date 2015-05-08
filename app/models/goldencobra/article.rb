@@ -63,9 +63,6 @@ module Goldencobra
     attr_accessor   :hint_label, :manual_article_sort, :create_redirection
     ImportDataFunctions = []
 
-    serialize :link_checker#, Hash
-
-
     has_many :link_checks, :class_name => Goldencobra::LinkChecker
     has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
@@ -162,6 +159,19 @@ module Goldencobra
     # Instance Methods
     # **************************
     # **************************
+    
+    def link_checker 
+      old_result = {}
+      self.link_checks.each do |lc|
+        old_result[lc.target_link] = { "response_code"  => lc.response_code,
+                                       "response_time"  => lc.response_time,
+                                       "response_error" => lc.response_error,
+                                       "position"       => lc.position }
+      end
+      return old_result
+    end
+    
+     
     def has_children
       self.has_children?
     end
