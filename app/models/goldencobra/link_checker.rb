@@ -49,6 +49,7 @@ module Goldencobra
                                         position: value["position"], response_code: value["response_code"], 
                                         response_time: value["response_time"], response_error: value["response_error"] )
       end
+      return status_for_links
     end
 
 
