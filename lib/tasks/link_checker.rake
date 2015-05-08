@@ -8,9 +8,7 @@ namespace :link_checker do
     if article_id.present?
       article = Goldencobra::Article.find(article_id)
       if article
-        link_checker = Goldencobra::LinkChecker.new(article)
-        link_checker.set_link_checker
-        article.save
+        Goldencobra::LinkChecker.set_link_checker(article)
       end
     else
       puts "Missing Attributes! e.g.:"
@@ -23,9 +21,7 @@ namespace :link_checker do
   task :all => :environment do
     Goldencobra::Article.scoped.each do |article|
       begin
-        link_checker = Goldencobra::LinkChecker.new(article)
-        link_checker.set_link_checker
-        article.save
+        Goldencobra::LinkChecker.set_link_checker(article)
       rescue
         puts "Artikel konnte nicht geprüft werden: #{article.id}"
       end
