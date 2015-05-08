@@ -65,6 +65,8 @@ module Goldencobra
 
     serialize :link_checker#, Hash
 
+
+    has_many :link_checks, :class_name => Goldencobra::LinkChecker
     has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
     has_many :article_images
