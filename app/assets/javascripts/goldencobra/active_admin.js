@@ -63,15 +63,19 @@ $(function() {
           var $this = element;
           var thisId = element.id;
           var thisName = element.name;
+          var includeBlank = element.hasClass("chzn-select-deselect");
           var selectedUploadId = $(element).find("option").val();
 
           $this.outerHTML = "<div id='react-" + thisId + "'></div>";
           React.render(
-            React.createElement(SelectList, {id: thisId, value: selectedUploadId, options: thisData, name: thisName}),
+            React.createElement(SelectList, {id: thisId, value: selectedUploadId, options: thisData, name: thisName, firstBlank: includeBlank}),
             document.getElementById('react-' + thisId)
           );
 
           var $thisEl = $('#' + thisId);
+          if (includeBlank){
+            $thisEl.chosen({ allow_single_deselect: true });
+          }
           $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
           $thisEl.chosen();
         });
