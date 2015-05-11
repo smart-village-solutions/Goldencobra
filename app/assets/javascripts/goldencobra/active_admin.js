@@ -73,11 +73,13 @@ $(function() {
           );
 
           var $thisEl = $('#' + thisId);
+          
+          $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
           if (includeBlank){
             $thisEl.chosen({ allow_single_deselect: true });
+          } else {
+            $thisEl.chosen();
           }
-          $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
-          $thisEl.chosen();
         });
         return false;
       });
