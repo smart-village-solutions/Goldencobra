@@ -1,5 +1,5 @@
 # encoding: utf-8
 
 module Goldencobra
-  VERSION = "1.4.30"
+  VERSION = "1.4.31"
 end
