@@ -17,7 +17,7 @@ var SelectList = React.createClass({displayName: "SelectList",
     var emptyOption;
 
     if (this.props.firstBlank == true) {
-      emptyOption = React.createElement("option", {value: this.props.value}, this.props.label)
+      emptyOption = React.createElement("option", {value: ""}, this.props.label)
     }
 
     return (
