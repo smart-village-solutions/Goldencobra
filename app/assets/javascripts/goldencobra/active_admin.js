@@ -64,7 +64,7 @@ $(function() {
           var thisId = element.id;
           var thisName = element.name;
           var includeBlank = $(element).hasClass("chzn-select-deselect");
-          var selectedUploadId = $(element).find("option").val();
+          var selectedUploadId = $(element).find("option:selected").val();
 
           $this.outerHTML = "<div id='react-" + thisId + "'></div>";
           React.render(
