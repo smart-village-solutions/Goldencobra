@@ -59,6 +59,7 @@ group :development,:test do
   gem 'debugger'
   gem "rspec-rails" # rspec in dev so the rake tasks run properly
   gem "faker" # rspec in dev so the rake tasks run properly
+  gem 'newrelic_rpm'
 end
 
 group :development do
