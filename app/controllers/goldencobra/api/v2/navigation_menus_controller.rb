@@ -11,39 +11,39 @@ module Goldencobra
         # 
         # @param id [String] [ID of Submenu to render]
         #  
-        #  {"1" => [ {"2" => [ {"10" => [] }, ...]} , {"3"  => [] }, ...] }
-        # 
         # [
-        #   {
-        #     "ancestry": "1",
-        #     "id": 2,
-        #     "target": "/termine",
-        #     "title": "Termine"
-        #   },
-        #   {
-        #     "ancestry": "1",
-        #     "id": 3,
-        #     "target": "/weiteres",
-        #     "title": "Weiteres"
-        #   },
-        #   {
-        #     "ancestry": "1/2",
-        #     "id": 10,
-        #     "target": "/seite1",
-        #     "title": "Seite 1"
-        #   },
-        #   {
-        #     "ancestry": "1/2",
-        #     "id": 11,
-        #     "target": "/seite2",
-        #     "title": "Seite 2"
-        #   },
-        #   {
-        #     "ancestry": "1/2/10",
-        #     "id": 12,
-        #     "target": "/seite1/seite-a",
-        #     "title": "Subseite A"
-        #   }
+        #     {
+        #         "id": 2,
+        #         "title": "Startseite",
+        #         "target": "/",
+        #         "children": [
+        #             {
+        #                 "id": 10,
+        #                 "title": "Seite 1",
+        #                 "target": "/seite1",
+        #                 "children": [
+        #                     {
+        #                         "id": 12,
+        #                         "title": "Subseite A",
+        #                         "target": "/seite1/seite-a",
+        #                         "children": []
+        #                     }
+        #                 ]
+        #             },
+        #             {
+        #                 "id": 11,
+        #                 "title": "Seite 2",
+        #                 "target": "/seite2",
+        #                 "children": []
+        #             }
+        #         ]
+        #     },
+        #     {
+        #         "id": 5,
+        #         "title": "Weiteres",
+        #         "target": "/weiteres",
+        #         "children": []
+        #     }
         # ]
         # 
         # 
@@ -85,14 +85,7 @@ module Goldencobra
           @menus = @master_element.subtree.active.after_depth(current_depth + offset).to_depth(current_depth + depth)
 
           #Prepare Menue Data to Display
-          @menue_data_as_json = @menus.arrange_serializable(:order => :sorter) do |parent, children| 
-            {
-              "id" => parent.id,
-              "title" => parent.title,
-              "target" => parent.target,
-              "children" => children
-            }
-          end
+          @menue_data_as_json = @menus.arrange_serializable(:order => :sorter)
 
           respond_to do |format|
             format.json { render json: @menue_data_as_json.as_json(:only => ["id", "title", "target", "children"]) }
