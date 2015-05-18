@@ -32,6 +32,7 @@ Goldencobra::Engine.routes.draw do
       get '/uploads'            => 'uploads#index'
       match '/articles/create'  => 'articles#create'
       match '/articles/update'  => 'articles#update'
+      get '/navigation_menus'   => 'navigation_menus#index'
     end
   end
 
