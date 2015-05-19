@@ -13,6 +13,7 @@ describe Goldencobra::Redirector do
 
   describe 'if ignore_url_params is true without url params' do
     before(:each) do
+      Goldencobra::Setting.set_value_for_key("http://www.google.de", "goldencobra.url", data_type_name="string")
       Goldencobra::Redirector.create(:source_url => "www.yourdomain.de/weiterleitung", :target_url => "www.google.de", :ignore_url_params => true, :active => true)
     end
 
@@ -46,6 +47,7 @@ describe Goldencobra::Redirector do
 
   describe 'if ignore_url_params is true with url params on target' do
     before(:each) do
+      Goldencobra::Setting.set_value_for_key("http://www.google.de", "goldencobra.url", data_type_name="string")
       Goldencobra::Redirector.create(:source_url => "www.yourdomain.de/weiterleitung", :target_url => "www.yourdomain.de/weiterleitung?test=123", :ignore_url_params => true, :active => true)
     end
 
@@ -68,6 +70,7 @@ describe Goldencobra::Redirector do
 
   describe 'if ignore_url_params is true with url params on source' do
     before(:each) do
+      Goldencobra::Setting.set_value_for_key("http://www.google.de", "goldencobra.url", data_type_name="string")
       Goldencobra::Redirector.create(:source_url => "www.yourdomain.de/weiterleitung?test=1", :target_url => "www.google.de", :ignore_url_params => true, :active => true)
     end
 
@@ -105,6 +108,9 @@ describe Goldencobra::Redirector do
 
   describe 'more URL variants' do
 
+    before do
+      Goldencobra::Setting.set_value_for_key("http://www.google.de", "goldencobra.url", data_type_name="string")
+    end
     #no url params given or set
     #ignore_url_params = true
     it "should not redirect on different url" do
@@ -184,7 +190,7 @@ describe Goldencobra::Redirector do
 
   describe 'if an article is modified, a redirection should be created' do
     before(:each) do
-      Goldencobra::Setting.set_value_for_key("www.goldencobra.de", "goldencobra.url")
+      Goldencobra::Setting.set_value_for_key("http://www.goldencobra.de", "goldencobra.url")
       @root = Goldencobra::Article.create(url_name: "startseite", breadcrumb: "Startseite", title: "Startseite", article_type: "Default Show")
       @root.mark_as_startpage!
       @seite1 = Goldencobra::Article.create(url_name: "seite1", breadcrumb: "Seite1", title: "Seite1", article_type: "Default Show", :parent => @root, :created_at => (Time.now - 25.hours) )
