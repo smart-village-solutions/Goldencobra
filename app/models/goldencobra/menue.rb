@@ -80,6 +80,15 @@ module Goldencobra
     end
 
 
+    # Render Content of Description with liquid Tags
+    # 
+    # @return [String] self.description liquified
+    def liquid_description
+      template = Liquid::Template.parse(self.description)
+      template.render(Goldencobra::Article::LiquidParser)
+    end
+
+
     # Filtert die übergebenen mthodennamen anhand einer Whiteliste 
     # und ersetzt exteren methodenbezeichnungen mit internene helpern
     # 
@@ -89,10 +98,20 @@ module Goldencobra
     # 
     # @return [Array] Liste an methoden als Symbol, bereinigt von invaliden aufrufen
     def self.filtered_methods(method_names=[])
-      # TODO Fillter not allowed methods from additional_elements_to_show
-      method_names = method_names.map{ |a| a.to_sym }
+      #Alle zugelasssenen methodennamen als Array of Strings
+      allowed_attribute_methods = Goldencobra::Menue.new.attributes.keys 
+      additional_whitelist_methods = ["liquid_description"]
+      all_allowed_methodes = allowed_attribute_methods + additional_whitelist_methods
+
+      #Filter übergebene methodenliste auf die zugelassenen namen
+      selected_methods = method_names.select{ |a| all_allowed_methodes.include?(a) }
+
+      #Wandle method names um in Symbols
+      method_names = selected_methods.map{ |a| a.to_sym }
+      
       return method_names.sort
     end
+
 
     # Liefert ein Hash der übegenene Anestry Arranged Daten
     # @param nodes [Goldencobra::Menue] Ein Eltern-Menüelement 
