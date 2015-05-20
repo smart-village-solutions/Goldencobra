@@ -91,7 +91,7 @@ module Goldencobra
     def self.filtered_methods(method_names=[])
       # TODO Fillter not allowed methods from additional_elements_to_show
       method_names = method_names.map{ |a| a.to_sym }
-      return method_names
+      return method_names.sort
     end
 
     # Liefert ein Hash der übegenene Anestry Arranged Daten
