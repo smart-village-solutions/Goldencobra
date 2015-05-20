@@ -10,7 +10,7 @@ module Goldencobra
         # /api/v2/uploads[.json]
         # 
         # @param id [String] [ID of Submenu to render]
-        #  
+        # @param methods [String] "description,image"
         # [
         #     {
         #         "id": 2,
@@ -72,6 +72,8 @@ module Goldencobra
           # @master_element is set by before filter
 
           # Set Options
+
+      
           # How many levels of subtree should be displayed
           depth = params[:depth].present? ? params[:depth].to_i : 9999
 
@@ -85,10 +87,10 @@ module Goldencobra
           @menus = @master_element.subtree.active.after_depth(current_depth + offset).to_depth(current_depth + depth)
 
           #Prepare Menue Data to Display
-          @menue_data_as_json = @menus.arrange_serializable(:order => :sorter)
+          @menue_data_as_json = @menus.arrange(:order => :sorter)
 
           respond_to do |format|
-            format.json { render json: @menue_data_as_json.as_json(:only => ["id", "title", "target", "children"]) }
+            format.json { render json: Goldencobra::Menue.json_tree(@menue_data_as_json, display_methods ) }
           end
         end
 
@@ -111,6 +113,19 @@ module Goldencobra
 
           #Validate presents of master element
           raise "No Menueitem found" if @master_element.blank?
+        end
+
+
+        def display_methods
+          filtered_methods = []
+
+          if params[:methods].present?
+            additional_elements_to_show = params[:methods].split(",").compact
+
+            filtered_methods = Goldencobra::Menue.filtered_methods(additional_elements_to_show)
+          end
+
+          return filtered_methods
         end
 
       end

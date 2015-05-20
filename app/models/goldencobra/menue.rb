@@ -79,6 +79,40 @@ module Goldencobra
       false
     end
 
+
+    # Filtert die übergebenen mthodennamen anhand einer Whiteliste 
+    # und ersetzt exteren methodenbezeichnungen mit internene helpern
+    # 
+    # description => liquid_description
+    # 
+    # @param method_names [Array] Liste an Methodennamen als String
+    # 
+    # @return [Array] Liste an methoden als Symbol, bereinigt von invaliden aufrufen
+    def self.filtered_methods(method_names=[])
+      # TODO Fillter not allowed methods from additional_elements_to_show
+      method_names = method_names.map{ |a| a.to_sym }
+      return method_names
+    end
+
+    # Liefert ein Hash der übegenene Anestry Arranged Daten
+    # @param nodes [Goldencobra::Menue] Ein Eltern-Menüelement 
+    # @param display_methods [:method] Optionale Liste an Mehtoden die auf das Menüelement aufgerufen werden sollen
+    # 
+    #  { 
+    #   :id => node.id, 
+    #   :title => node.title, 
+    #   :target => node.target, 
+    #   :eg_desciption => node.eg_description
+    #   :children => json_tree(sub_nodes).compact
+    # }
+    # 
+    # @return [Hash] Hash of Menue Data with optional attributes
+    def self.json_tree(nodes, display_methods )
+      nodes.map do |node, sub_nodes|
+        node.as_json(:only => [:id, :title, :target], :methods => display_methods).merge({:children => json_tree(sub_nodes, display_methods).compact})
+      end
+    end
+
   end
 end
 
