@@ -70,27 +70,36 @@ module Goldencobra
         # @return [json] Liefert alle Menüs :id, :complete_list_name
         def index
           # @master_element is set by before filter
+          
+          # Generate cache key: if any Menuitem is changed => invalidate
+          last_modified = Goldencobra::Menue.order(:updated_at).pluck(:updated_at).last.to_i
+          cache_sub_key = [ params[:depth], params[:offset], display_methods, last_modified ].flatten.join("_")
+          cache_key = "Navigation/menue_#{@master_element.id}/#{Digest::MD5.hexdigest(cache_sub_key)}"
+        
+          if Rails.cache.exist?(cache_key)
+            @json_tree = Rails.cache.read(cache_key)
+          else
+            # How many levels of subtree should be displayed
+            depth = params[:depth].present? ? params[:depth].to_i : 9999
 
-          # Set Options
+            # How many levels of subtree should be skipped
+            offset = params[:offset].present? ? params[:offset].to_i : 0
 
-      
-          # How many levels of subtree should be displayed
-          depth = params[:depth].present? ? params[:depth].to_i : 9999
+            #Current Level of master element
+            current_depth = @master_element.ancestry_depth
 
-          # How many levels of subtree should be skipped
-          offset = params[:offset].present? ? params[:offset].to_i : 0
+            # GEt alls Menus of Subtree from startlevel to endlevel
+            menus = @master_element.subtree.active.after_depth(current_depth + offset).to_depth(current_depth + depth)
 
-          #Current Level of master element
-          current_depth = @master_element.ancestry_depth
+            #Prepare Menue Data to Display
+            menue_data_as_json = menus.arrange(:order => :sorter)
 
-          # GEt alls Menus of Subtree from startlevel to endlevel
-          @menus = @master_element.subtree.active.after_depth(current_depth + offset).to_depth(current_depth + depth)
-
-          #Prepare Menue Data to Display
-          @menue_data_as_json = @menus.arrange(:order => :sorter)
+            @json_tree = Goldencobra::Menue.json_tree(menue_data_as_json, display_methods )
+            Rails.cache.write(cache_key, @json_tree)
+          end
 
           respond_to do |format|
-            format.json { render json: Goldencobra::Menue.json_tree(@menue_data_as_json, display_methods ) }
+            format.json { render json: @json_tree }
           end
         end
 
