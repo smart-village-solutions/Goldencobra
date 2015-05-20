@@ -26,7 +26,17 @@
 
 <%= link_to "TEst", "/", :remote => true %>
 
-<%= navigation_menu(1, :depth => 1) %>
+  <div id="navigation-menu-1"></div>
+  <script type="text/javascript">
+    React.render(
+      React.createElement(NavigationMenu, {menuId: '1', methods: 'liquid_description', depth: '2', id: 'ul-main-nav'}),
+      document.getElementById('navigation-menu-1')
+    );
+
+  </script>
+
+
+<%= navigation_menu(1, :id => "ul-main-nav", :depth => 2) %>
 <%= navigation_menu("A-Menu", :depth => 1) %>
 <%= navigation_menu("A-Menu/Z-Menu", :depth => 1) %>
 <%= render_article_widgets(:tagged_with => "header") %>
