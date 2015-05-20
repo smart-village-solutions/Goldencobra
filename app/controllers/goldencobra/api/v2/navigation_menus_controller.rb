@@ -76,6 +76,7 @@ module Goldencobra
           cache_sub_key = [ params[:depth], params[:offset], display_methods, last_modified ].flatten.join("_")
           cache_key = "Navigation/menue_#{@master_element.id}/#{Digest::MD5.hexdigest(cache_sub_key)}"
         
+          #Gibt es Das Menü bereits im Cache?
           if Rails.cache.exist?(cache_key)
             @json_tree = Rails.cache.read(cache_key)
           else
@@ -88,13 +89,16 @@ module Goldencobra
             #Current Level of master element
             current_depth = @master_element.ancestry_depth
 
-            # GEt alls Menus of Subtree from startlevel to endlevel
+            # Get all Menus of Subtree from startlevel to endlevel
             menus = @master_element.subtree.active.after_depth(current_depth + offset).to_depth(current_depth + depth)
 
             #Prepare Menue Data to Display
             menue_data_as_json = menus.arrange(:order => :sorter)
 
+            #JsonTree der Dargestellt werden soll, übergabe der display methoden
             @json_tree = Goldencobra::Menue.json_tree(menue_data_as_json, display_methods )
+
+            #Schreibe das Ergebnis zusätzlich in den Cache
             Rails.cache.write(cache_key, @json_tree)
           end
 
