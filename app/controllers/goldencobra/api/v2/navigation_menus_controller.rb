@@ -7,6 +7,42 @@ module Goldencobra
 
         respond_to :json
 
+
+        # Get active IDs of current request/url 
+        # Searches in Subtree of a given MasterElement
+        # @param id [String] [ID of Submenu to search for]
+        # @param url [String] Url to Search vor Active MenueIDs
+        # 
+        # Beispiel
+        # http://localhost:3000/api/v2/navigation_menus/active?id=1&url="/seite1/seite-a"
+        # 
+        # @return [Integer] Array if Integers als Menue IDs
+        def active_ids
+          # @master_element is set by before filter
+          
+          if params[:url].present?
+            url_to_search = params[:url]
+
+            #TODO URI parse domain and url 
+            parsed_url_to_search = url_to_search
+
+            current_menue = @master_element.subtree.active.where(:target => parsed_url_to_search).first
+            if current_menue.present?
+              @active_menue_ids = current_menue.path_ids
+            else
+              @active_menue_ids = []
+            end
+          else
+            @active_menue_ids = []
+          end
+
+          respond_to do |format|
+            format.json { render json: @active_menue_ids }
+          end
+        end
+
+
+
         # /api/v2/uploads[.json]
         # 
         # @param id [String] [ID of Submenu to render]
