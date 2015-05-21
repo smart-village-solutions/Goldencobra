@@ -23,10 +23,10 @@ module Goldencobra
           if params[:url].present?
             url_to_search = params[:url]
 
-            #TODO URI parse domain and url 
-            parsed_url_to_search = url_to_search
+            #URI parse domain and url path
+            parsed_url = URI(url_to_search)
 
-            current_menue = @master_element.subtree.active.where(:target => parsed_url_to_search).first
+            current_menue = @master_element.subtree.active.where(:target => parsed_url.path).first
             if current_menue.present?
               @active_menue_ids = current_menue.path_ids
             else
