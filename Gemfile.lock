@@ -608,7 +608,6 @@ DEPENDENCIES
   pry
   pry-nav
   rb-fsevent (~> 0.9.1)
-  react-rails
   redcarpet
   rmagick
   rspec-core
