@@ -126,7 +126,9 @@ module Goldencobra
             current_depth = @master_element.ancestry_depth
 
             # Get all Menus of Subtree from startlevel to endlevel
-            menus = @master_element.subtree.active.after_depth(current_depth + offset).to_depth(current_depth + depth)
+            menus = @master_element.subtree.active.visible
+            menus = filter_elements(menus)
+            menus = menus.after_depth(current_depth + offset).to_depth(current_depth + depth)
 
             #Prepare Menue Data to Display
             menue_data_as_json = menus.arrange(:order => :sorter)
@@ -177,6 +179,16 @@ module Goldencobra
           return filtered_methods
         end
 
+        def filter_elements(menus)
+          return menus unless params[:filter_classes]
+          filter_classes = params[:filter_classes].split(",")
+
+          filter_classes.each do |filter_class|
+            filter_string = "%#{filter_class}%"
+            menus = menus.where('goldencobra_menues.css_class NOT LIKE ?', filter_string)
+          end
+          menus
+        end
       end
     end
   end
