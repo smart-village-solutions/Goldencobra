@@ -88,6 +88,15 @@ module Goldencobra
       template.render(Goldencobra::Article::LiquidParser)
     end
 
+    def navigation_image
+      return {} unless self.image
+
+      {
+        "alt_text" => self.image.alt_text ? self.image.alt_text : self.image.image_file_name,
+        "src" => self.image.image(:original)
+      }
+    end
+
 
     # Filtert die übergebenen mthodennamen anhand einer Whiteliste 
     # und ersetzt exteren methodenbezeichnungen mit internene helpern
@@ -100,7 +109,7 @@ module Goldencobra
     def self.filtered_methods(method_names=[])
       #Alle zugelasssenen methodennamen als Array of Strings
       allowed_attribute_methods = Goldencobra::Menue.new.attributes.keys 
-      additional_whitelist_methods = ["liquid_description"]
+      additional_whitelist_methods = ["liquid_description", "navigation_image"]
       all_allowed_methodes = allowed_attribute_methods + additional_whitelist_methods
 
       #Filter übergebene methodenliste auf die zugelassenen namen

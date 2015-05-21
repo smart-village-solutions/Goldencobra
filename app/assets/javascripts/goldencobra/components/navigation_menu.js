@@ -1,15 +1,21 @@
 var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
   menuUrl: function () {
-    var methods = this.props.methods.length ? '&methods=' + this.props.methods + ',css_class' : 'css_class';
+    var methods = '&methods=css_class' + (this.props.methods.length ? ',' + this.props.methods : '');
     var depth = this.props.depth.length ? '&depth=' + this.props.depth : '';
-    return '/api/v2/navigation_menus.json?id=' + this.props.menuId + methods + depth;
+    var filterClasses = this.props.filterClasses.length ? '&filter_classes=' + this.props.filterClasses : '';
+    var offset = this.props.offset.length ? '&offset=' + this.props.offset : '';
+    return '/api/v2/navigation_menus.json?id=' + this.props.menuId + methods + depth + filterClasses + offset;
   },
   loadMenuFromServer: function () {
     $.ajax({
       url: this.menuUrl(),
       dataType: 'json',
       success: function (data) {
-        this.setState({data: data});
+        if (App !== undefined && App.navigationMenuHandler !== undefined) {
+          this.setState({ data: App.navigationMenuHandler.handleMenuData(data)});
+        } else {
+          this.setState({data: data});
+        }
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -32,19 +38,20 @@ var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
 var NavigationList = React.createClass({displayName: 'NavigationList',
   render: function () {
     var navigationNodes = this.props.data.map(function (navEntry) {
-      if (navEntry.css_class.indexOf('hidden') == -1) {
-        return (
-          React.createElement(NavigationListItem, {
-            id: navEntry.id,
-            key: navEntry.id,
-            children: navEntry.children,
-            title: navEntry.title,
-            target: navEntry.target,
-            description: navEntry.liquid_description,
-            css_class: navEntry.css_class
-          })
-        );
-      }
+      return (
+        React.createElement(NavigationListItem, {
+          id: navEntry.id,
+          key: navEntry.id,
+          children: navEntry.children,
+          title: navEntry.title,
+          target: navEntry.target,
+          linkDescription: navEntry.liquid_description,
+          css_class: navEntry.css_class,
+          image: navEntry.navigation_image,
+          descriptionTitle: navEntry.description_title,
+          callToAction: navEntry.call_to_action_name
+        })
+      );
     });
     return (
       React.createElement('ul', {
@@ -78,9 +85,9 @@ var NavigationListItem = React.createClass({displayName: 'ListItem',
     }
 
     var imageWrapper;
-    if (this.props.image !== undefined) {
+    if (this.props.image !== undefined && 'src' in this.props.image) {
       imageWrapper = React.createElement('a', {href: target, className: 'navigtion_link_imgage_wrapper'},
-        React.createElement('img', {src: 'http://placekitten.com/100/100', alt: 'alt-text'})
+        React.createElement('img', {src: this.props.image.src, alt: this.props.image.alt_text})
       );
     }
 
@@ -95,8 +102,11 @@ var NavigationListItem = React.createClass({displayName: 'ListItem',
     var linkDescription;
     if (this.props.linkDescription !== undefined) {
       linkDescription = React.createElement('div', {
-        className: 'navigtion_link_description'
-      }, this.props.description);
+        className: 'navigtion_link_description',
+        dangerouslySetInnerHTML: {
+          __html: this.props.linkDescription
+        }
+      });
     }
 
     var callToAction;
@@ -104,7 +114,7 @@ var NavigationListItem = React.createClass({displayName: 'ListItem',
       callToAction = React.createElement('a', {
         href: target,
         className: 'navigtion_link_call_to_action_name'
-      }, 'call-to-action');
+      }, this.props.callToAction);
     }
 
     var showChildren;
