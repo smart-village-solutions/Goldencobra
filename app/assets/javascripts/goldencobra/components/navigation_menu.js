@@ -7,12 +7,16 @@ var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
     return '/api/v2/navigation_menus.json?id=' + this.props.menuId + methods + depth + filterClasses + offset;
   },
   loadMenuFromServer: function () {
+    var that = this;
     $.ajax({
       url: this.menuUrl(),
       dataType: 'json',
       success: function (data) {
-        if (App !== undefined && App.navigationMenuHandler !== undefined) {
-          this.setState({ data: App.navigationMenuHandler.handleMenuData(data)});
+        // If available and enabled use a handler() to massage JSON data for the specific application
+        if (that.props.handleData == true && App !== undefined && App.navigationMenuHandler !== undefined) {
+          App.navigationMenuHandler.handleMenuData(data, function(nextData) {
+            that.setState({data: nextData});
+          });
         } else {
           this.setState({data: data});
         }
