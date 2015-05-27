@@ -34,13 +34,55 @@ var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
   },
   render: function () {
     return (
-      React.createElement(NavigationList, {data: this.state.data, id: this.props.id, className: 'navigation'})
+      React.createElement(NavigationList, {
+        data: this.state.data,
+        id: this.props.id,
+        className: 'navigation',
+        depth: this.props.depth
+      })
     );
   }
 });
 
 var NavigationList = React.createClass({displayName: 'NavigationList',
+  getInitialState: function () {
+    return {
+      data: [],
+      activePath: []
+    };
+  },
+  componentDidMount: function () {
+    var pathname = window.location.pathname;
+    var origin = window.location.origin;
+    var that = this;
+
+    $.ajax({
+      url: origin + '/api/v2/navigation_menus/active?id=1&url=' + pathname,
+      dataType: 'json',
+      success: function (data, textStatus, jqXHR) {
+        that.setState({activePath: data});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(status, err.toString());
+        return false;
+      }.bind(this)
+    });
+  },
+  componentDidUpdate: function (prevProps, prevState) {
+    if (App !== undefined && App.navigationFinishedHandler !== undefined) {
+      App.navigationFinishedHandler.handleFinished(this.props.id);
+    }
+  },
   render: function () {
+    var that = this;
+    var setActive = function (item) {
+      var index = that.state.activePath.indexOf(item.id);
+      if (index !== -1) {
+        return (index == that.state.activePath.length - 1 ? ' active' : ' has_active_child');
+      } else {
+        return '';
+      }
+    };
     var navigationNodes = this.props.data.map(function (navEntry) {
       return (
         React.createElement(NavigationListItem, {
@@ -50,10 +92,11 @@ var NavigationList = React.createClass({displayName: 'NavigationList',
           title: navEntry.title,
           target: navEntry.target,
           linkDescription: navEntry.liquid_description,
-          css_class: navEntry.css_class,
+          css_class: navEntry.css_class + setActive(navEntry),
           image: navEntry.navigation_image,
           descriptionTitle: navEntry.description_title,
-          callToAction: navEntry.call_to_action_name
+          callToAction: navEntry.call_to_action_name,
+          depth: that.props.depth !== undefined ? that.props.depth : 1
         })
       );
     });
@@ -75,7 +118,7 @@ var NavigationListItem = React.createClass({displayName: 'ListItem',
   render: function () {
     var depth;
     if (this.props.depth !== undefined) {
-      depth = this.props.depth;
+      depth = parseInt(this.props.depth);
     } else {
       depth = 1;
     }
@@ -83,9 +126,8 @@ var NavigationListItem = React.createClass({displayName: 'ListItem',
     var classNames = this.props.css_class;
     var target = this.props.target;
 
-    if (this.props.children.length) {
-      classNames = 'has_children';
-      target = '#';
+    if (this.props.children.length && this.props.target != '/') {
+      classNames += ' has_children';
     }
 
     var imageWrapper;
@@ -122,7 +164,7 @@ var NavigationListItem = React.createClass({displayName: 'ListItem',
     }
 
     var showChildren;
-    if (this.props.children.length) {
+    if (this.props.children.length && classNames.indexOf('hidden_childs') === -1) {
       depth += 1;
       showChildren = React.createElement(NavigationList, {
         data: this.props.children,
