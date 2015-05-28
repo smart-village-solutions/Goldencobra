@@ -1,1 +1,1 @@
---colour
+--colour --require spec_helper

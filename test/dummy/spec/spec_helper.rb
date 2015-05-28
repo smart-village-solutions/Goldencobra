@@ -11,6 +11,7 @@ SimpleCov.start :rails do
   add_filter ".rbenv"
   add_filter "/spec/"
 end
+require 'yarjuf'
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'

@@ -60,6 +60,7 @@ group :development,:test do
   gem "rspec-rails" # rspec in dev so the rake tasks run properly
   gem "faker" # rspec in dev so the rake tasks run properly
   gem 'newrelic_rpm'
+  gem 'yarjuf'
 end
 
 group :development do
