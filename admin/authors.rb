@@ -3,7 +3,7 @@
 ActiveAdmin.register Goldencobra::Author, :as => "Author" do
   menu :parent => I18n.t("settings", :scope => ["active_admin", "menue"]), :label => I18n.t('active_admin.authors.as'), :if => proc{ can?(:update, Goldencobra::Author) }
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
   	selectable_column
     column :id
     column :firstname

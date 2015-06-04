@@ -14,7 +14,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
     scope(I18n.t(article_type.split(' ').first.to_s.strip, :scope => [:goldencobra, :article_types], :default => article_type.split(' ').first)){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
   end
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column I18n.t('active_admin.seo_articles.index.title_column'), :sortable => :url_name do |article|
       content_tag("span", link_to(truncate(article.title, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")

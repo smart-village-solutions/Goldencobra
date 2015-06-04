@@ -51,7 +51,7 @@ ActiveAdmin.register User, :as => "User" do
   end
 
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column :firstname
     column :lastname

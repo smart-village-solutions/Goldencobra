@@ -20,7 +20,7 @@ ActiveAdmin.register Goldencobra::Tracking, :as => "Analytic" do
   filter :location
   filter :created_at
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     column :utm_campaign
     column :session_id
     column :referer, :sortable => :referer do |tracking|

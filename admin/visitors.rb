@@ -8,7 +8,7 @@ ActiveAdmin.register Visitor do
   filter :lastname
   filter :email
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column :first_name
     column :last_name

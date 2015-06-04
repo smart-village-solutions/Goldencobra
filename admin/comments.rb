@@ -17,7 +17,7 @@ ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
     f.actions
   end
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column :content
     column :active

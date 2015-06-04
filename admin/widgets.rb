@@ -90,7 +90,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     render "/goldencobra/admin/shared/help"
   end
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column I18n.t('active_admin.widget.title'), :title, :sortable => :title do |widget|
       link_to(widget.title, edit_admin_widget_path(widget), :title => I18n.t('active_admin.widget.title1'))

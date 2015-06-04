@@ -3,7 +3,7 @@
 ActiveAdmin.register Goldencobra::Domain, :as => "Domain" do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => "Domains", :if => proc{can?(:update, Goldencobra::Domain)}
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
   	selectable_column
     column :id
     column :title
