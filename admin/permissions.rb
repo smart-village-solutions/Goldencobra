@@ -12,7 +12,7 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
       end
     end
 
-    index do
+    index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
       selectable_column
       column :domain, :sortable => :domain_id do |permission|
         permission.try(:domain).try(:title)

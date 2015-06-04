@@ -44,7 +44,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     f.actions
   end
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column I18n.t('active_admin.menues.form.index.column'), :title, :sortable => :title do |menue|
       link_to(menue.title, edit_admin_menue_path(menue), :title => I18n.t('active_admin.menues.form.index.title'))

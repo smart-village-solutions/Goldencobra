@@ -50,3 +50,6 @@ goldencobra:
   upload:
     convert_options: "-strip -colorspace sRGB -flatten"
   random_logo_url: ""
+  backend:
+    index:
+      download_links: "true"

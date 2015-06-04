@@ -4,7 +4,7 @@ ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
   controller.authorize_resource :class => Goldencobra::Article
   config.clear_action_items!
 
-  index do
+  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column :name
     column :default_template_file
