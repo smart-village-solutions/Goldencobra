@@ -34,7 +34,6 @@ When /^a restricting permission exists$/ do
 end
 
 When /^I change the page's title to "([^"]*)"$/ do |arg1|
-
   # Find the select box with the title tag.
   page.all(:css, 'select.metatag_names').instance_variable_get("@elements").each do |element|
     if element.value == 'Title Tag'
@@ -49,11 +48,10 @@ When /^I change the page's title to "([^"]*)"$/ do |arg1|
       break
     end
   end
-
 end
 
 Then /^the page title should contain "([^"]*)"$/ do |arg1|
-  page.title.include?(arg1).should == true
+  expect(page.title.include?(arg1)).to eq(true)
 end
 
 

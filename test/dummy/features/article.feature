@@ -7,18 +7,6 @@ Feature: Create and manage articles
     Given that basic Settings exists
 
   @javascript
-  Scenario: Go to the articles admin site
-    Given that a confirmed admin exists
-    And I am logged in as "admin@test.de" with password "secure12"
-    Given the following "articles" exist:
-      | title                        | url_name     | breadcrumb |
-      | "10 Internet Marketing Tips" | top-10       | 10-internet |
-      | "Top 10 Internet Marketers"  | top-10-tips  | top-10 |
-    When I go to the admin list of articles
-    And I should see "top-10" within ".index_content"
-    And I should not see "Dies ist kein Artikel"
-
-  @javascript
   Scenario: Create a new Article
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
@@ -33,6 +21,18 @@ Feature: Create and manage articles
     And I press "Artikel aktualisieren"
     Then I should see "Dies ist ein neuer Artikel" within textfield "article_title"
     And I should see "dies-ist-kurz" within textfield "article_url_name"
+
+  @javascript
+  Scenario: Go to the articles admin site
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    Given the following "articles" exist:
+      | title                        | url_name     | breadcrumb |
+      | "10 Internet Marketing Tips" | top-10       | 10-internet |
+      | "Top 10 Internet Marketers"  | top-10-tips  | top-10 |
+    When I go to the admin list of articles
+    And I should see "top-10" within ".index_content"
+    And I should not see "Dies ist kein Artikel"
 
   @javascript
   Scenario: Visit new Article in frontend
@@ -84,43 +84,21 @@ Feature: Create and manage articles
     Then the page title should contain "Metatitle"
 
   @javascript
-  Scenario: Set article offline and online as an admin,I should see everything
+  Scenario: Set article offline and online as an admin, I should see everything
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"
     Given the following "articles" exist:
       | title           | id | url_name  | active |
-      | "Seite1"        | 1  | seite1    | true   |
-      | "Seite2"        | 2  | seite2    | false  |
+      | "Seite1"        | 3  | seite1    | true   |
+      | "Seite2"        | 4  | seite2    | false  |
     When I visit url "/seite1"
     Then I should see "Seite1" within "h1"
     When I visit url "/seite2"
     Then I should see "Seite2"
     Then I go to the admin list of articles
-    And I click on "bearbeiten" within "tr#article_2"
+    And I click on "bearbeiten" within "tr#article_4"
     And  I check "article_active"
     And I press "Artikel aktualisieren"
-    When I visit url "/seite2"
-    Then I should see "Seite2" within "h1"
-
-  @javascript
-  Scenario: Set article offline and online as an user, I should see not everything
-    Given that I am not logged in
-    Given the following "articles" exist:
-      | title           | id | url_name  | active |
-      | "Seite1"        | 1  | seite1    | true   |
-      | "Seite2"        | 2  | seite2    | false  |
-    When I visit url "/seite1"
-    Then I should see "Seite1" within "h1"
-    When I visit url "/seite2"
-    Then I should not see "Seite2"
-    And I should see "404"
-    Given that a confirmed admin exists
-    And I am logged in as "admin@test.de" with password "secure12"
-    Then I go to the admin list of articles
-    And I click on "bearbeiten" within "tr#article_2"
-    And  I check "article_active"
-    And I press "Artikel aktualisieren"
-    Given that I am not logged in
     When I visit url "/seite2"
     Then I should see "Seite2" within "h1"
 
@@ -144,6 +122,28 @@ Feature: Create and manage articles
     Given the following "articles" exist:
       | title           | id | url_name  | active |
       | "Seite1"        | 1  | seite1    | true   |
+
+  @javascript
+  Scenario: Set article offline and online as an user, I should see not everything
+    Given that I am not logged in
+    Given the following "articles" exist:
+      | title           | id | url_name  | active |
+      | "Seite1"        | 1  | seite1    | true   |
+      | "Seite2"        | 2  | seite2    | false  |
+    When I visit url "/seite1"
+    Then I should see "Seite1" within "h1"
+    When I visit url "/seite2"
+    Then I should not see "Seite2"
+    And I should see "404"
+    Given that a confirmed admin exists
+    And I am logged in as "admin@test.de" with password "secure12"
+    Then I go to the admin list of articles
+    And I click on "bearbeiten" within "tr#article_2"
+    And  I check "article_active"
+    And I press "Artikel aktualisieren"
+    Given that I am not logged in
+    When I visit url "/seite2"
+    Then I should see "Seite2" within "h1"
 
   @javascript
   Scenario: Select two widgets for an article
@@ -199,9 +199,9 @@ Feature: Create and manage articles
     And I am logged in as "admin@test.de" with password "secure12"
     And the following "articles" exist:
       | title           | url_name       | external_url_redirect | active | slug          |
-      | "Seo Seite"     | weiterleitung  | http://www.google.de  | true   | weiterleitung |
+      | "Seo Seite"     | weiterleitung  | http://www.ikusei.de  | true   | weiterleitung |
     When I visit url "/weiterleitung"
-    Then I should see "Google"
+    Then I should see "ikusei"
 
 # Nicht mehr aktuell. Früher war laut Marco der Link statisch auf der Seite.
 # Derzeit wird er per JS eingebunden in ein Kopfmenü. Tests entfernt, da das
