@@ -38,7 +38,7 @@ var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
         data: this.state.data,
         id: this.props.id,
         className: 'navigation',
-        depth: 1
+        depth: this.props.depth !== undefined ? this.props.depth : 1
       })
     );
   }
