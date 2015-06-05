@@ -13,7 +13,7 @@ var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
       dataType: 'json',
       success: function (data) {
         // If available and enabled use a handler() to massage JSON data for the specific application
-        if (that.props.handleData == true && App !== undefined && App.navigationMenuHandler !== undefined) {
+        if ((that.props.handleData === true || that.props.handleData === 'true') && App !== undefined && App.navigationMenuHandler !== undefined) {
           App.navigationMenuHandler.handleMenuData(data, function(nextData) {
             that.setState({data: nextData});
           });
@@ -38,7 +38,7 @@ var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
         data: this.state.data,
         id: this.props.id,
         className: 'navigation',
-        depth: this.props.depth
+        depth: 1
       })
     );
   }
@@ -114,6 +114,11 @@ var NavigationList = React.createClass({displayName: 'NavigationList',
 var NavigationListItem = React.createClass({displayName: 'ListItem',
   getInitialState: function () {
     return {data: []};
+  },
+  componentDidUpdate: function (prevProps, prevState) {
+    if (App !== undefined && App.navigationFinishedHandler !== undefined) {
+      App.navigationFinishedHandler.handleFinished(this.props.id);
+    }
   },
   render: function () {
     var depth;
