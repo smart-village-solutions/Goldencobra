@@ -108,14 +108,14 @@ module Goldencobra
           # @master_element is set by before filter
 
           # Generate cache key: if any Menuitem is changed => invalidate
-          last_modified = Goldencobra::Menue.order(:updated_at).pluck(:updated_at).last.to_i
-          cache_sub_key = [ params[:depth], params[:offset], display_methods, last_modified ].flatten.join("_")
-          cache_key = "Navigation/menue_#{@master_element.id}/#{Digest::MD5.hexdigest(cache_sub_key)}"
+          # last_modified = Goldencobra::Menue.order(:updated_at).pluck(:updated_at).last.to_i
+          # cache_sub_key = [ params[:depth], params[:offset], display_methods, last_modified ].flatten.join("_")
+          # cache_key = "Navigation/menue_#{@master_element.id}/#{Digest::MD5.hexdigest(cache_sub_key)}"
 
           #Gibt es das Menü bereits im Cache?
-          if Rails.cache.exist?(cache_key)
-            @json_tree = Rails.cache.read(cache_key)
-          else
+          # if Rails.cache.exist?(cache_key)
+          #   @json_tree = Rails.cache.read(cache_key)
+          # else
             # How many levels of subtree should be displayed
             depth = params[:depth].present? ? params[:depth].to_i : 9999
 
@@ -137,8 +137,8 @@ module Goldencobra
             @json_tree = Goldencobra::Menue.json_tree(menue_data_as_json, display_methods )
 
             # Save result to cache
-            Rails.cache.write(cache_key, @json_tree)
-          end
+            # Rails.cache.write(cache_key, @json_tree)
+          # end
 
           respond_to do |format|
             format.json { render json: @json_tree }
