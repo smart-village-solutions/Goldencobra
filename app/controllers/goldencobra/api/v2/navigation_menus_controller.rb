@@ -26,12 +26,14 @@ module Goldencobra
             # URI parse domain and url path
             parsed_url = URI(url_to_search)
 
-            # TODO: Die Überprüfung hier sollte so sein, dass das target aus Goldencobra::Menue eventuell angehängte URL Parameter ignoriert
-            # ein where("target LIKE '%#{parsed_url.path}') welcehs nur den beginn des Strings vergleicehn würde funktioniert jedoch ncht, da
-            # hier auch andere sonst gefunden würden. 
+            # TODO: Die Überprüfung hier sollte so sein, dass das target aus Goldencobra::Menue eventuell
+            # angehängte URL Parameter ignoriert ein where("target LIKE '%#{parsed_url.path}'),
+            # was nur den beginn des Strings vergleichen würde funktioniert jedoch nicht, 
+            # da hier auch andere sonst gefunden würden. 
             # Bsp: parsed_url.path = "/news"
             # targets ["/news/seite1", "/news/seiteb", "/news?foo=bar"]
-            # In diesem Fall würden alle 3 Eintröge gefunden werden aber nur der letzte wäre gewollt
+            # In diesem Fall würden alle 3 Eintröge gefunden werden, aber nur der letzte wäre gewollt
+            # 
             current_menue = @master_element.subtree.active.where(:target => parsed_url.path).first
             if current_menue.present?
               @active_menue_ids = current_menue.path_ids
