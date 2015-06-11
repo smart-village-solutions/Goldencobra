@@ -83,7 +83,7 @@ var ListItem = React.createClass({displayName: "ListItem",
   render: function () {
     var restricted;
     if (this.props.restricted) {
-      restricted = React.createElement("div", {class: "secured"});
+      restricted = React.createElement("div", {className: "secured"});
     } else {
       restricted = "";
     }
