@@ -1,9 +1,9 @@
 var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
   menuUrl: function () {
     var methods = '&methods=css_class' + (this.props.methods.length ? ',' + this.props.methods : '');
-    var depth = this.props.depth.length ? '&depth=' + this.props.depth : '';
+    var depth = this.props.depth !== undefined ? '&depth=' + this.props.depth : '';
     var filterClasses = this.props.filterClasses.length ? '&filter_classes=' + this.props.filterClasses : '';
-    var offset = this.props.offset.length ? '&offset=' + this.props.offset : '';
+    var offset = this.props.offset !== undefined ? '&offset=' + this.props.offset : '';
     return '/api/v2/navigation_menus.json?id=' + this.props.menuId + methods + depth + filterClasses + offset;
   },
   loadMenuFromServer: function () {
