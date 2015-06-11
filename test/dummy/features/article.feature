@@ -146,21 +146,6 @@ Feature: Create and manage articles
     Then I should see "Seite2" within "h1"
 
   @javascript
-  Scenario: Select two widgets for an article
-    Given that a confirmed admin exists
-    And I am logged in as "admin@test.de" with password "secure12"
-    Given the following "articles" exist:
-      | title     | id | url_name | active |
-      | "Seite 1" |  1 | seite1   | true   |
-    And the following "widgets" exist:
-      | id | title   | active | tag_list | default |
-      | 1 | Widget1 | true   | "sidebar" | false |
-    And I go to the admin list of articles
-    And I click on "bearbeiten" within "tr#article_1"
-    And I check "widget_1"
-    And I press "Auswahl speichern"
-
-  @javascript
   Scenario: Set article to display Twitter Button
     Given that a confirmed admin exists
     And I am logged in as "admin@test.de" with password "secure12"

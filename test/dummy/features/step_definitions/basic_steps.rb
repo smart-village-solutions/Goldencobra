@@ -19,15 +19,11 @@ end
 
 
 When /^I visit url "([^\"]*)"$/ do |arg1|
-  page.driver.block_unknown_urls
-  page.driver.allow_url("ajax.googleapis.com")
-  page.driver.allow_url("www.ikusei.de")
-  page.driver.allow_url("jira.ikusei.de")
   visit(arg1)
 end
 
 When /^I press "([^\"]*)"$/ do |arg1|
-  first(:button,arg1).click
+  first(:button, arg1).click
 end
 
 When /^I fill in "([^"]*)" with "([^"]*)"$/ do |arg1, arg2|
