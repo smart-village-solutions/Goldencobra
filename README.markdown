@@ -233,3 +233,22 @@ in your view_templates:
 <%= render_article_image_gallery %>
 ```
 
+Contributing
+------------
+
+See the [CONTRIBUTING] document.
+Thank you, [contributors]!
+
+[CONTRIBUTING]: CONTRIBUTING.md
+[contributors]: https://github.com/ikusei/Goldencobra/graphs/contributors
+
+#License
+
+This project uses CC BY-NC-SA 3.0. See [License]
+
+[License]: CC-LICENSE
+
+#About
+
+Goldencobra is maintained by [ikusei GmbH](http://ikusei.de) in Berlin.
+We like you.
