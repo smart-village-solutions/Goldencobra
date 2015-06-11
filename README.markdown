@@ -250,5 +250,5 @@ This project uses CC BY-NC-SA 3.0. See [License]
 
 # About
 
-Goldencobra is maintained by [ikusei GmbH](http://ikusei.de) in Berlin.
+Goldencobra is maintained by [ikusei GmbH](http://ikusei.de) in Berlin.  
 We like you.
