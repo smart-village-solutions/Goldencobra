@@ -56,7 +56,7 @@ begin
       puts "Starting virtual display..."
       `sh -e /etc/init.d/xvfb start`
       puts "Starting features..."
-      system('export DISPLAY=:99.0 && bundle exec rake cucumber')
+      system('export DISPLAY=:99.0 && bundle exec cucumber features -f pretty -f json -o ./results.json')
       exit_status = $?.exitstatus
       puts "Stopping virtual display..."
       `sh -e /etc/init.d/xvfb stop`
