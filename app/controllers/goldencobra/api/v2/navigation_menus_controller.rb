@@ -26,17 +26,10 @@ module Goldencobra
             # URI parse domain and url path
             parsed_url = URI(url_to_search)
 
-            # TODO: Die Überprüfung hier sollte so sein, dass das target aus Goldencobra::Menue eventuell
-            # angehängte URL Parameter ignoriert ein where("target LIKE '%#{parsed_url.path}'),
-            # was nur den beginn des Strings vergleichen würde funktioniert jedoch nicht, 
-            # da hier auch andere sonst gefunden würden. 
-            # Bsp: parsed_url.path = "/news"
-            # targets ["/news/seite1", "/news/seiteb", "/news?foo=bar"]
-            # In diesem Fall würden alle 3 Eintröge gefunden werden, aber nur der letzte wäre gewollt
-            # 
-            # current_menue = @master_element.subtree.active.where(:target => parsed_url.path).first
-
+            # Lade alle Menüpunkte, die so gleich aussehen und am ende eventuell durch parameter abweichen
             possible_menues = @master_element.subtree.active.where("goldencobra_menues.target LIKE '#{parsed_url.path}%' ")
+
+            #Selektiere dann nur noch denjenigen, der identisch ist ohen url parameter
             current_menue = possible_menues.select{ |m| URI.parse(m.target).path == parsed_url.path }.first
             
             if current_menue.present?
