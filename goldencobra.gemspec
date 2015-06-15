@@ -25,9 +25,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 1.9.2"
 
   s.add_dependency 'coffee-script-source', "~>1.8.0"
-  s.add_dependency "capistrano"#, "2.14.1"
-  s.add_dependency "rvm-capistrano"
-  s.add_dependency 'capistrano-maintenance'
   s.add_dependency "rails", "~> 3.2.21"
   s.add_dependency "jquery-rails", "2.1.4"
   s.add_dependency 'devise', "~> 2.2.4"
@@ -67,7 +64,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'whenever'
   s.add_dependency 'inherited_resources'
   s.add_dependency 'geokit', "1.7.1"
-  s.add_dependency 'multi_json', "~> 1.3.2"
+  s.add_dependency 'multi_json'#, "~> 1.3.2"
   s.add_dependency 'i18n', '0.6.11'
   s.add_dependency 'i18n-active_record'
   s.add_dependency "pdfkit"

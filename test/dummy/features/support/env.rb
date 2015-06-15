@@ -28,8 +28,6 @@ Faker::Config.locale = :de
 
 
 Capybara.javascript_driver = :webkit
-#Capybara.javascript_driver = :selenium
-
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
@@ -59,7 +57,7 @@ ActionController::Base.allow_rescue = false
 begin
   require 'database_cleaner'
   require 'database_cleaner/cucumber'
-  DatabaseCleaner.strategy = :truncation
+  DatabaseCleaner.strategy = :truncation, { :except => %w[goldencobra_articletypes goldencobra_articletype_groups goldencobra_articletype_fields] }
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end
@@ -99,5 +97,13 @@ Before do |scenario|
   #load Rails.root.join('db/seeds.rb')
 end
 
+Before do
+  if page && page.driver && page.driver.respond_to?(:block_unknown_urls)
+    page.driver.block_unknown_urls
+    page.driver.allow_url("ajax.googleapis.com")
+    page.driver.allow_url("www.ikusei.de")
+    page.driver.allow_url("jira.ikusei.de")
+  end
+end
 
 

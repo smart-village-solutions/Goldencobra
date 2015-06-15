@@ -75,7 +75,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
         Rails::Application::Railties.engines.select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
           if File.exists?("#{engine.root}/app/views/layouts/#{engine.engine_name}/_edit_index.html.erb")
-            render :partial => "layouts/#{engine.engine_name}/edit_index ", :locals => {:f => f, :engine => engine}
+            render :partial => "layouts/#{engine.engine_name}/edit_index", :locals => {:f => f, :engine => engine}
           end
         end
         #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}

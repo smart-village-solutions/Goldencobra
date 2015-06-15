@@ -80,6 +80,7 @@ $(function() {
           } else {
             $thisEl.chosen();
           }
+          $('.chosen-container').css({width: '70%'});
         });
         return false;
       });
