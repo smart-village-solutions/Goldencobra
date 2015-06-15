@@ -34,7 +34,11 @@ module Goldencobra
             # targets ["/news/seite1", "/news/seiteb", "/news?foo=bar"]
             # In diesem Fall würden alle 3 Eintröge gefunden werden, aber nur der letzte wäre gewollt
             # 
-            current_menue = @master_element.subtree.active.where(:target => parsed_url.path).first
+            # current_menue = @master_element.subtree.active.where(:target => parsed_url.path).first
+
+            possible_menues = @master_element.subtree.active.where("goldencobra_menues.target LIKE '#{parsed_url.path}%' ")
+            current_menue = possible_menues.select{ |m| URI.parse(m.target).path == parsed_url.path }.first
+            
             if current_menue.present?
               @active_menue_ids = current_menue.path_ids
             else
