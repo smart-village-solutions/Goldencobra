@@ -2,6 +2,7 @@
 
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
+
     layout "application"
     before_filter :check_format
     before_filter :get_redirectors, :only => [:show]

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites errors="0" failures="0" skipped="0" tests="107" time="16.826878" timestamp="2015-05-28T10:42:23+02:00">
+  <testsuite name="updating an article" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Article updating an article should have a new url_path" time="0.388401">
+    </testcase>
+  </testsuite>
+  <testsuite name="open graph" tests="9" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Article open graph should set a default OG url if none exists" time="0.034215">
+    </testcase>
+    <testcase name="Goldencobra::Article open graph should match the article's teaser text" time="0.040069">
+    </testcase>
+    <testcase name="Goldencobra::Article open graph should match the article's content text if teaser is empty" time="0.038841">
+    </testcase>
+    <testcase name="Goldencobra::Article open graph should should set a default OG description" time="0.029869">
+    </testcase>
+    <testcase name="Goldencobra::Article open graph should match the article's title if neither teaser nor content present" time="0.041999">
+    </testcase>
+    <testcase name="Goldencobra::Article open graph should match the artices url" time="0.154098">
+    </testcase>
+    <testcase name="Goldencobra::Article open graph should match the article's title" time="0.052774">
+    </testcase>
+    <testcase name="Goldencobra::Article open graph should have some metatags" time="0.044076">
+    </testcase>
+    <testcase name="Goldencobra::Article open graph should set a default open graph title" time="0.036876">
+    </testcase>
+  </testsuite>
+  <testsuite name="moving article in articles-tree" tests="6" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Article moving article in articles-tree should have a valid url_path before saving" time="0.039811">
+    </testcase>
+    <testcase name="Goldencobra::Article moving article in articles-tree should have a valid public_url before saving" time="0.033014">
+    </testcase>
+    <testcase name="Goldencobra::Article moving article in articles-tree should have a valid url_path after saving and reloading from db" time="0.039009">
+    </testcase>
+    <testcase name="Goldencobra::Article moving article in articles-tree should have a valid public_url after saving" time="0.043435">
+    </testcase>
+    <testcase name="Goldencobra::Article moving article in articles-tree should have a valid public_url after saving and reloading from db" time="0.031758">
+    </testcase>
+    <testcase name="Goldencobra::Article moving article in articles-tree should have a valid url_path after saving" time="0.036955">
+    </testcase>
+  </testsuite>
+  <testsuite name="creating an article" tests="10" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Article creating an article should have no redirection if redirect url is empty" time="0.043889">
+    </testcase>
+    <testcase name="Goldencobra::Article creating an article should require a title" time="0.005064">
+    </testcase>
+    <testcase name="Goldencobra::Article creating an article should not require a url_name because it is filled automatically" time="0.00298">
+    </testcase>
+    <testcase name="Goldencobra::Article creating an article should return a list of 5 last modified articles" time="0.225588">
+    </testcase>
+    <testcase name="Goldencobra::Article creating an article should have a valid redirect url by inserting an url with http" time="0.044614">
+    </testcase>
+    <testcase name="Goldencobra::Article creating an article should have a valid redirect url by inserting an url without http" time="0.047555">
+    </testcase>
+    <testcase name="Goldencobra::Article creating an article should set active_since to the created_at datetime" time="0.030175">
+    </testcase>
+    <testcase name="Goldencobra::Article creating an article should not display partial in templatefiles" time="0.002767">
+    </testcase>
+    <testcase name="Goldencobra::Article creating an article should create a new article given valid attributes" time="0.036619">
+    </testcase>
+    <testcase name="Goldencobra::Article creating an article should have a valid redirect url by inserting an url with https" time="0.045692">
+    </testcase>
+  </testsuite>
+  <testsuite name="Goldencobra::Location" tests="3" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Location should have no latitude and longitude because of missing city" time="0.042325">
+    </testcase>
+    <testcase name="Goldencobra::Location should not have a latitude and longitude" time="0.008777">
+    </testcase>
+    <testcase name="Goldencobra::Location should have a latitude and longitude" time="0.096066">
+    </testcase>
+  </testsuite>
+  <testsuite name="Upload CSV file" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Import Upload CSV file should be successful" time="0.445639">
+    </testcase>
+  </testsuite>
+  <testsuite name="User" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="User should have many roles through role_users" time="0.118157">
+    </testcase>
+  </testsuite>
+  <testsuite name="changing a value" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Setting changing a value successfully changes a value" time="0.014821">
+    </testcase>
+  </testsuite>
+  <testsuite name="#create" tests="4" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Api::V1::TokensController#create should render a 401 if email is wrong" time="0.180864">
+    </testcase>
+    <testcase name="Goldencobra::Api::V1::TokensController#create should render a 401 if password is wrong" time="0.023474">
+    </testcase>
+    <testcase name="Goldencobra::Api::V1::TokensController#create should require an email and password" time="0.015617">
+    </testcase>
+    <testcase name="Goldencobra::Api::V1::TokensController#create should return a user token given correct credentials" time="0.019934">
+    </testcase>
+  </testsuite>
+  <testsuite name="sorting Articles on index pages" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Article sorting Articles on index pages should have a global sorting id" time="0.044183">
+    </testcase>
+  </testsuite>
+  <testsuite name="with an user who is logged in" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Api::V2::ArticlesController with an user who is logged in should return a json status 400, 'article data missing'" time="0.027901">
+    </testcase>
+  </testsuite>
+  <testsuite name="without an user who is logged in" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Api::V2::ArticlesController POST #create without an user who is logged in should return a json status forbidden" time="0.021509">
+    </testcase>
+  </testsuite>
+  <testsuite name="with http" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="HttpValidator with http adds nothing if 'http://' is present" time="0.00245">
+    </testcase>
+  </testsuite>
+  <testsuite name="with https" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="HttpValidator with https adds nothing if 'https://' is present" time="0.001569">
+    </testcase>
+  </testsuite>
+  <testsuite name="without protocol" tests="2" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="HttpValidator without protocol adds nothing if nothing is present" time="0.001628">
+    </testcase>
+    <testcase name="HttpValidator without protocol adds 'http://' if missing" time="0.000895">
+    </testcase>
+  </testsuite>
+  <testsuite name="Visitor" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Visitor should have many roles through role_users" time="0.002651">
+    </testcase>
+  </testsuite>
+  <testsuite name="when logged in as a visitor" tests="2" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::ArticlesController permissions: an RSS feed with protected documents when logged in as a visitor should give a complete rss feed" time="0.965887">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: an RSS feed with protected documents when logged in as a visitor should be possible to read the root article as rss" time="0.614166">
+    </testcase>
+  </testsuite>
+  <testsuite name="when logged in as a admin" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::ArticlesController permissions: an RSS feed with protected documents when logged in as a admin should give a complete rss feed" time="0.588543">
+    </testcase>
+  </testsuite>
+  <testsuite name="when not logged in" tests="3" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::ArticlesController permissions: an RSS feed with protected documents when not logged in should not be possible to view a restricted article as rss" time="0.48413">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: an RSS feed with protected documents when not logged in should give a reduced rss feed" time="0.52732">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: an RSS feed with protected documents when not logged in should be possible to read the root article as rss" time="0.562829">
+    </testcase>
+  </testsuite>
+  <testsuite name="providing an auth_token" tests="2" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::ArticlesController permissions: an RSS feed with protected documents when not logged in providing an auth_token should respond with '401-Nicht authorisiert' if the token is incorrect" time="0.476227">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: an RSS feed with protected documents when not logged in providing an auth_token should give a complete rss feed if the token is correct" time="0.616971">
+    </testcase>
+  </testsuite>
+  <testsuite name="as a guest or not logged in" tests="7" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::ArticlesController permissions: as a guest or not logged in should not be possible to read all articles" time="0.198638">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a guest or not logged in should be possible to read a secured article for a domain if it's locked for another domain" time="0.496807">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a guest or not logged in should return 404 if no article is found" time="0.180662">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a guest or not logged in should not be possible to read a secured article" time="0.274449">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a guest or not logged in should not be possible to read an article with secured parent article" time="0.196343">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a guest or not logged in should be possible to read an article" time="0.342924">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a guest or not logged in should not be possible to read a secured article for a domain if i am on this domain" time="0.221735">
+    </testcase>
+  </testsuite>
+  <testsuite name="as an admin" tests="3" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::ArticlesController permissions: as an admin should be possible to read an article" time="0.934672">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as an admin should return 404 if no article is found" time="0.266227">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as an admin should be possible to read a secured article as a preview function" time="0.348664">
+    </testcase>
+  </testsuite>
+  <testsuite name="as a visitor" tests="9" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::ArticlesController permissions: as a visitor should be possible to read a secured article for a domain if it's locked for another domain" time="0.259749">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a visitor should not be possible to read a secured article" time="0.294732">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a visitor should not be possible to read an article with secured parent article" time="0.201737">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a visitor should be possible to read a secured article for a domain if it's locked for another domain with a role" time="0.343961">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a visitor should return 404 if no article is found" time="0.178194">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a visitor should not be possible to read a secured article for a domain if I am on this domain with a role" time="0.359421">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a visitor should not be possible to read a secured article for a domain if i am on this domain" time="0.199288">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a visitor should be possible to read an article" time="0.340934">
+    </testcase>
+    <testcase name="Goldencobra::ArticlesController permissions: as a visitor should not be possible to read a secured article as a visitor" time="0.191787">
+    </testcase>
+  </testsuite>
+  <testsuite name=".rss" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::ArticlesController.rss should return an RSS feed" time="0.018649">
+    </testcase>
+  </testsuite>
+  <testsuite name="#duplicate" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Widget#duplicate creates a new Widget and duplicates content, and other attributes" time="0.1317">
+    </testcase>
+  </testsuite>
+  <testsuite name="Goldencobra::Redirector" tests="1" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Redirector should do nothing if no redirection is set" time="0.002795">
+    </testcase>
+  </testsuite>
+  <testsuite name="more URL variants" tests="12" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Redirector more URL variants should redirect on same url" time="0.038433">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should redirect on same url with url params" time="0.01542">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should not redirect on same url with url params" time="0.013633">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should redirect on same url with url params" time="0.014181">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should not redirect on same url with url params" time="0.014996">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should redirect on same url with url params" time="0.015435">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should not redirect on different url" time="0.013736">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should redirect on same url with url params" time="0.014465">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should not redirect on similar but different url" time="0.013369">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should not redirect on same url with and a given subdir" time="0.012753">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should not redirect on similar but different url" time="0.013252">
+    </testcase>
+    <testcase name="Goldencobra::Redirector more URL variants should not redirect on same url with url params" time="0.016495">
+    </testcase>
+  </testsuite>
+  <testsuite name="if ignore_url_params is true with url params on source" tests="6" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true with url params on source should redirect on same url" time="0.036029">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true with url params on source should not redirect on different url" time="0.012904">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true with url params on source should redirect on same url with url params" time="0.016227">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true with url params on source should not redirect on similar but different url" time="0.014347">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true with url params on source should not redirect on similar but different url" time="0.014739">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true with url params on source should not redirect on same url with and a given subdir" time="0.012932">
+    </testcase>
+  </testsuite>
+  <testsuite name="if ignore_url_params is true without url params" tests="5" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true without url params should redirect on same url" time="0.014969">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true without url params should not redirect on similar but different url" time="0.013575">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true without url params should not redirect on different url" time="0.013362">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true without url params should not redirect on similar but different url" time="0.013729">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true without url params should not redirect on same url with and a given subdir" time="0.013066">
+    </testcase>
+  </testsuite>
+  <testsuite name="if ignore_url_params is true with url params on target" tests="3" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true with url params on target should redirect on same url with url params" time="0.014386">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true with url params on target should redirect on same url with url params" time="0.013217">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if ignore_url_params is true with url params on target should redirect on same url with url params" time="0.013701">
+    </testcase>
+  </testsuite>
+  <testsuite name="if an article is modified, a redirection should be created" tests="7" errors="0" failures="0" skipped="0">
+    <properties/>
+    <testcase name="Goldencobra::Redirector if an article is modified, a redirection should be created if parent/ancestry changed for self and url_name changed" time="0.478359">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if an article is modified, a redirection should be created not if new article is created on existing redirection source_url" time="0.321982">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if an article is modified, a redirection should be created if parent/ancestry changed and url_name for childrens" time="0.485026">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if an article is modified, a redirection should be created if url_name changed" time="0.313548">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if an article is modified, a redirection should be created if parent/ancestry changed for self" time="0.476923">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if an article is modified, a redirection should be created not on normal article editing" time="0.287937">
+    </testcase>
+    <testcase name="Goldencobra::Redirector if an article is modified, a redirection should be created if parent changed for childrens" time="0.486775">
+    </testcase>
+  </testsuite>
+</testsuites>
