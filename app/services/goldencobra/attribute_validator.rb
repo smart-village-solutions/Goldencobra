@@ -10,7 +10,7 @@ module Goldencobra
       klass = "#{model_name}".constantize
       results = []
       klass.all.each do |k|
-        unless single_http_occurence(k.send(attribute_name.to_sym))
+        unless single_scheme_occurence(k.send(attribute_name.to_sym))
           results << {
             class: model_name,
             id: k.id,
@@ -24,12 +24,12 @@ module Goldencobra
 
     private
 
-    def self.single_http_occurence(url)
+    def self.single_scheme_occurence(url)
       return true unless url.present?
 
       parsed_uri = Addressable::URI.parse(url).normalize!
-      (parsed_uri.scheme == "http" || parsed_uri.host == "https") &&
-        parsed_uri.host != "http" && parsed_uri.host != "https"
+      (parsed_uri.scheme == "http" || parsed_uri.scheme == "https") &&
+        parsed_uri.host.start_with?("http", "https") == false
     end
 
     def self.is_class?(model_name)
