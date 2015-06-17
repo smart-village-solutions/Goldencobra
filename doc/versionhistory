@@ -1,3 +1,6 @@
+V1.4.5
+  - NavigationMenu API extended for name and target calls
+
 V1.4.4
   - Cucumber tests up and running (again)
   - NavigationMenu API added
