@@ -1,3 +1,8 @@
+V1.4.4
+  - Cucumber tests up and running (again)
+  - NavigationMenu API added
+  - ActiveNavigationMenue API added
+
 V1.4.31
   - Goldencobra::Uploads werden beim Artikelbearbeiten nun mit FacebookReact nachgeladen
 

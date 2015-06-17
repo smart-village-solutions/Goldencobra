@@ -41,3 +41,5 @@ test/dummy/solr/*
 .ruby-version
 /test-reports
 rspec.xml
+test/dummy/results.json
+test/dummy/results.xml

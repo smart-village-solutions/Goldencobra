@@ -50,6 +50,21 @@ begin
     STDERR.puts "*** The 'features' task is deprecated. See rake -T cucumber ***"
   end
 
+  namespace :cruise do
+    desc "Run all specs and features"
+    task :cruise => :environment do
+      puts "Starting virtual display..."
+      `sh -e /etc/init.d/xvfb start`
+      puts "Starting features..."
+      system('export DISPLAY=:99.0 && bundle exec cucumber features -f pretty -f json -o ./results.json')
+      exit_status = $?.exitstatus
+      puts "Stopping virtual display..."
+      `sh -e /etc/init.d/xvfb stop`
+      raise "tests failed!" unless exit_status == 0
+    end
+  end
+  task :cruise => "cruise:cruise"
+
   # In case we don't have ActiveRecord, append a no-op task that we can depend upon.
   task 'db:test:prepare' do
   end

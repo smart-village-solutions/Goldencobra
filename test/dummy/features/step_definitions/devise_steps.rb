@@ -13,16 +13,13 @@ Given /^that a confirmed guest exists$/ do
 end
 
 Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |email, password|
-  page.driver.allow_url("ajax.googleapis.com")
-  page.driver.allow_url("https://togetherjs.com/togetherjs-min.js")
   visit "/admin/logout"
   visit "/admin/login"
   fill_in "user[email]", :with => email
   fill_in "user[password]", :with => password
   click_button "Login"
   I18n.locale = :de
-  page.should have_content(email)
-  #page.should have_content('Signed in successfully.')
+  expect(page).to have_content(email)
 end
 
 Given /^that "([^"]*)" users exist$/ do |arg1|
@@ -36,7 +33,7 @@ require 'faker'
 end
 
 Then /^I should see "([^"]*)" of the last created "([^"]*)"$/ do |arg1, arg2|
-  page.should have_content(arg2.to_s.capitalize.constantize.last.send(arg1))
+  expect(page).to have_content(arg2.to_s.capitalize.constantize.last.send(arg1))
 end
 
 Given /^a "(.*?)" permission on "(.*?)" at id "(.*?)" for role "(.*?)"$/ do |action, subject, arg3, arg4|
