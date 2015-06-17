@@ -4,7 +4,10 @@ var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
     var depth = this.props.depth !== undefined ? '&depth=' + this.props.depth : '';
     var filterClasses = this.props.filterClasses.length ? '&filter_classes=' + this.props.filterClasses : '';
     var offset = this.props.offset !== undefined ? '&offset=' + this.props.offset : '';
-    return '/api/v2/navigation_menus.json?id=' + this.props.menuId + methods + depth + filterClasses + offset;
+    var idToSend = this.props.menuId !== undefined ? '&id=' + this.props.menuId : '';
+    var nameToSend = this.props.menuName !== undefined ? '&name=' + this.props.menuName : '';
+    var targetToSend = this.props.menuTarget !== undefined ? '&target=' + this.props.menuTarget : '';
+    return '/api/v2/navigation_menus.json?' + idToSend + nameToSend + targetToSend + methods + depth + filterClasses + offset;
   },
   loadMenuFromServer: function () {
     var that = this;

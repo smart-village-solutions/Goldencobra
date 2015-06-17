@@ -157,11 +157,11 @@ module Goldencobra
         def get_master_element
           # find MasterElement by ID, Name or TargetUrl
           # Priority ID > Name > Target
-          if params[:id]
+          if params[:id].present?
             @master_element = Goldencobra::Menue.active.find_by_id(params[:id])
-          elsif params[:name]
+          elsif params[:name].present?
             @master_element = Goldencobra::Menue.active.find_by_pathname(params[:name])
-          elsif params[:target]
+          elsif params[:target].present?
             @master_element = Goldencobra::Menue.active.find_by_target(params[:target])
           else
             raise "No Menueitem to search for"
