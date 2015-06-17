@@ -2,6 +2,7 @@
 
 Given /^that I am not logged in$/ do
   visit "/admin/logout"
+  page.driver.browser.clear_cookies
 end
 
 When /^I click on "([^\"]*)"$/ do |arg1|
@@ -22,7 +23,7 @@ When /^I visit url "([^\"]*)"$/ do |arg1|
 end
 
 When /^I press "([^\"]*)"$/ do |arg1|
-  first(:button,arg1).click
+  first(:button, arg1).click
 end
 
 When /^I fill in "([^"]*)" with "([^"]*)"$/ do |arg1, arg2|
@@ -40,19 +41,19 @@ end
 
 
 Then /^I should see "([^\"]*)"$/ do |arg1|
-  page.should have_content(arg1)
+  expect(page).to have_content(arg1)
 end
 
-# Then /^I should see "([^\"]*)" within "([^\"]*)"$/ do |arg1, content_position|
-#   first(content_position).should have_content(arg1)
-# end
+When(/^I should see "([^"]*)" within "([^"]*)"$/) do |arg1, arg2|
+  expect(first(arg2)).to have_content(arg1)
+end
 
 Then(/^I should see "(.*?)" \# within "(.*?)"$/) do |arg1, content_position|
-  first(content_position).should have_content(arg1)
+  expect(first(content_position)).to have_content(arg1)
 end
 
 Then /^I should not see "([^\"]*)"$/ do |arg1|
-  page.should have_no_content(arg1)
+  expect(page).to have_no_content(arg1)
 end
 
 Then /^I should not see "([^"]*)" within "([^"]*)"$/ do |arg1, content_position|
@@ -104,7 +105,7 @@ Then %r{^I should see "([^"]*)" inside ([^"].*)$} do |expected_text, named_eleme
 end
 
 Then /^I should see "([^"]*)" within textfield "([^"]*)"$/ do |arg1, arg2|
-  page.find_field("#{arg2}").value.should == "#{arg1}"
+  expect(page.find_field("#{arg2}").value).to eq "#{arg1}"
 end
 
 Then /^I should see the "([^"]*)" in this order:$/ do |selector, table|

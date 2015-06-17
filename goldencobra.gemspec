@@ -64,7 +64,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'whenever'
   s.add_dependency 'inherited_resources'
   s.add_dependency 'geokit', "1.7.1"
-  s.add_dependency 'multi_json', "~> 1.3.2"
+  s.add_dependency 'multi_json'#, "~> 1.3.2"
   s.add_dependency 'i18n', '0.6.11'
   s.add_dependency 'i18n-active_record'
   s.add_dependency "pdfkit"
@@ -74,7 +74,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cocaine', '0.5.5'
   s.add_dependency 'rack-utf8_sanitizer'
   s.add_dependency 'simple_enum'
-  s.add_dependency 'react-rails'
+  s.add_dependency 'react-rails', '~> 1.0'
   # s.add_dependency "wicked_pdf"
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'

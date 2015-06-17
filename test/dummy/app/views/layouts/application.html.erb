@@ -23,10 +23,29 @@
   <br>
   <%= link_to "Deutsch", switch_language_path("de") %>
   <%= link_to "Englisch", switch_language_path("en") %>
+  <%= link_to "TEst", "/", :remote => true %>
 
-<%= link_to "TEst", "/", :remote => true %>
+  <hr>
+  <strong>Neues Navigationsmenü</strong>
 
-<%= navigation_menu(1, :depth => 1) %>
+
+  <div id="navigation-menu-1"></div>
+  <script type="text/javascript">
+    React.render(
+      React.createElement(NavigationMenu, {menuId: '1', methods: 'liquid_description', depth: '2', id: 'ul-main-nav'}),
+      document.getElementById('navigation-menu-1')
+    );
+
+  </script>
+
+<hr>
+<strong>Altes Navigationsmenü</strong>
+
+<%= navigation_menu(1, :id => "ul-main-nav", :depth => 2) %>
+
+<hr>
+<strong>Sonstige Navigationsmenüvarianten</strong>
+
 <%= navigation_menu("A-Menu", :depth => 1) %>
 <%= navigation_menu("A-Menu/Z-Menu", :depth => 1) %>
 <%= render_article_widgets(:tagged_with => "header") %>

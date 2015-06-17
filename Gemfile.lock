@@ -23,17 +23,28 @@ GIT
 
 GIT
   remote: http://github.com/mbleigh/acts-as-taggable-on.git
-  revision: c65adf2c8a4d213a0cf8a618d6062eeed3997add
+  revision: 5fc745165a3eb6ddbd0505d75c80e8fb7b1afd09
   specs:
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
 
 GIT
   remote: http://github.com/svenfuchs/i18n-active_record.git
-  revision: 2d9a22b6a4e5d809782cdbfa65b14d9e47aa27fc
+  revision: 8a38eeb8e2cf6be53ecc1240da6f11c8b24945cb
   specs:
     i18n-active_record (0.0.2)
       i18n (>= 0.5.0)
+
+GIT
+  remote: https://github.com/cucumber/cucumber-rails.git
+  revision: 34e0f0c80d2b2042dbe4060f48e7b2a9d1dc312c
+  specs:
+    cucumber-rails (1.4.2)
+      capybara (>= 1.1.2, < 3)
+      cucumber (>= 1.3.8, < 2.1)
+      mime-types (>= 1.16, < 3)
+      nokogiri (~> 1.5)
+      railties (>= 3, < 5)
 
 PATH
   remote: .
@@ -63,7 +74,7 @@ PATH
       jquery-rails (= 2.1.4)
       liquid
       meta-tags
-      multi_json (~> 1.3.2)
+      multi_json
       oa-oauth
       oa-openid
       omniauth
@@ -74,7 +85,7 @@ PATH
       progress_bar
       rack-utf8_sanitizer
       rails (~> 3.2.21)
-      react-rails
+      react-rails (~> 1.0)
       rmagick
       rubyzip
       sass
@@ -128,7 +139,7 @@ GEM
     addressable (2.3.8)
     ancestry (2.1.0)
       activerecord (>= 3.0.0)
-    annotate (2.6.8)
+    annotate (2.6.10)
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
     arel (3.0.3)
@@ -143,7 +154,7 @@ GEM
     bourbon (3.2.4)
       sass (~> 3.2)
       thor
-    brakeman (3.0.2)
+    brakeman (3.0.3)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
       haml (>= 3.0, < 5.0)
@@ -161,7 +172,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.5.1)
+    capybara-webkit (1.5.2)
       capybara (>= 2.3.0, < 2.5.0)
       json
     celluloid (0.16.0)
@@ -192,16 +203,15 @@ GEM
     compass-rails (2.0.0)
       compass (>= 0.12.2)
     connection_pool (2.2.0)
-    cucumber (1.3.2)
+    cucumber (2.0.0)
       builder (>= 2.1.2)
+      cucumber-core (~> 1.1.3)
       diff-lcs (>= 1.1.3)
+      gherkin (~> 2.12)
+      multi_json (>= 1.7.5, < 2.0)
+      multi_test (>= 0.1.2)
+    cucumber-core (1.1.3)
       gherkin (~> 2.12.0)
-      multi_json (~> 1.3)
-    cucumber-rails (1.4.0)
-      capybara (>= 1.1.2)
-      cucumber (>= 1.2.0)
-      nokogiri (>= 1.5.0)
-      rails (>= 3.0.0)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     debugger (1.6.8)
@@ -226,7 +236,7 @@ GEM
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     execjs (2.5.2)
-    exifr (1.2.1)
+    exifr (1.2.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -244,13 +254,13 @@ GEM
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
     fssm (0.2.10)
-    geocoder (1.2.8)
+    geocoder (1.2.9)
     geokit (1.7.1)
       multi_json (>= 1.3.2)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     growl (1.0.3)
-    guard (2.12.5)
+    guard (2.12.6)
       formatador (>= 0.2.4)
       listen (~> 2.7)
       lumberjack (~> 1.0)
@@ -259,19 +269,19 @@ GEM
       pry (>= 0.9.12)
       shellany (~> 0.0)
       thor (>= 0.18.1)
-    guard-annotate (2.1)
+    guard-annotate (2.2)
       annotate (~> 2.4, >= 2.4.0)
       guard-compat (~> 1.2, >= 1.2.1)
     guard-compat (1.2.1)
-    guard-cucumber (1.5.4)
-      cucumber (>= 1.3.0)
+    guard-cucumber (1.6.0)
+      cucumber (~> 2.0)
       guard-compat (~> 1.0)
       nenv (~> 0.1)
-    guard-livereload (1.3.0)
-      em-websocket (>= 0.2.0)
-      guard (>= 1.5.0)
-      multi_json (~> 1.0)
-    guard-rspec (4.5.0)
+    guard-livereload (2.4.0)
+      em-websocket (~> 0.5)
+      guard (~> 2.8)
+      multi_json (~> 1.8)
+    guard-rspec (4.5.2)
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
@@ -280,7 +290,7 @@ GEM
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
-    hashie (3.4.1)
+    hashie (3.4.2)
     highline (1.6.21)
     hike (1.2.3)
     hirb (0.7.3)
@@ -297,15 +307,15 @@ GEM
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.2)
-    jwt (1.4.1)
+    json (1.8.3)
+    jwt (1.5.0)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.7)
-    liquid (3.0.2)
+    liquid (3.0.3)
     listen (2.10.0)
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
@@ -322,13 +332,16 @@ GEM
       polyamorous (~> 0.5.0)
     method_source (0.8.2)
     mime-types (1.25.1)
-    multi_json (1.3.7)
+    mini_portile (0.6.2)
+    multi_json (1.11.1)
+    multi_test (0.1.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mysql2 (0.3.18)
     nenv (0.2.0)
     newrelic_rpm (3.12.0.288)
-    nokogiri (1.5.11)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -358,7 +371,7 @@ GEM
       rack-openid (~> 1.3.1)
     options (2.3.2)
     orm_adapter (0.5.0)
-    paper_trail (3.0.7)
+    paper_trail (3.0.8)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
     paperclip (3.4.2)
@@ -367,7 +380,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
-    pdfkit (0.6.2)
+    pdfkit (0.7.0)
     pluginator (1.3.0)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
@@ -416,7 +429,7 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.4.2)
-    rb-fsevent (0.9.4)
+    rb-fsevent (0.9.5)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (3.12.2)
@@ -428,37 +441,37 @@ GEM
       rails (>= 3.1)
       react-source (~> 0.13)
     react-source (0.13.3)
-    redcarpet (3.2.3)
+    redcarpet (3.3.1)
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
-    rmagick (2.14.0)
+    rmagick (2.15.2)
     rsolr (1.0.12)
       builder (>= 2.1.2)
-    rspec (3.2.0)
-      rspec-core (~> 3.2.0)
-      rspec-expectations (~> 3.2.0)
-      rspec-mocks (~> 3.2.0)
-    rspec-core (3.2.3)
-      rspec-support (~> 3.2.0)
-    rspec-expectations (3.2.1)
+    rspec (3.3.0)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
+    rspec-core (3.3.0)
+      rspec-support (~> 3.3.0)
+    rspec-expectations (3.3.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.2.0)
-    rspec-mocks (3.2.1)
+      rspec-support (~> 3.3.0)
+    rspec-mocks (3.3.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.2.0)
-    rspec-rails (3.2.1)
+      rspec-support (~> 3.3.0)
+    rspec-rails (3.3.1)
       actionpack (>= 3.0, < 4.3)
       activesupport (>= 3.0, < 4.3)
       railties (>= 3.0, < 4.3)
-      rspec-core (~> 3.2.0)
-      rspec-expectations (~> 3.2.0)
-      rspec-mocks (~> 3.2.0)
-      rspec-support (~> 3.2.0)
-    rspec-support (3.2.2)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
+      rspec-support (~> 3.3.0)
+    rspec-support (3.3.0)
     ruby-openid (2.7.0)
     ruby2ruby (2.1.4)
       ruby_parser (~> 3.1)
@@ -471,12 +484,12 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.45.0)
+    selenium-webdriver (2.46.2)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sexp_processor (4.5.0)
+    sexp_processor (4.6.0)
     shellany (0.0.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
@@ -497,7 +510,7 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
-    slim (3.0.3)
+    slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
@@ -513,7 +526,7 @@ GEM
       nokogiri
       sunspot (= 2.0.0)
     sunspot_solr (2.0.0)
-    temple (0.7.5)
+    temple (0.7.6)
     terminal-table (1.4.5)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
@@ -525,7 +538,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.43)
+    tzinfo (0.3.44)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -558,7 +571,7 @@ DEPENDENCIES
   coffee-rails
   compass-rails
   cucumber
-  cucumber-rails
+  cucumber-rails!
   database_cleaner
   debugger
   devise (~> 2.2.4)
@@ -580,13 +593,13 @@ DEPENDENCIES
   i18n-active_record!
   jquery-rails
   launchy
-  listen (~> 2.0)
+  listen
   memcache-client
   meta-tags!
-  multi_json (~> 1.3)
+  multi_json
   mysql2
   newrelic_rpm
-  nokogiri (~> 1.5.3)
+  nokogiri
   oa-oauth
   oa-openid
   omniauth
@@ -598,7 +611,7 @@ DEPENDENCIES
   pre-commit
   pry
   pry-nav
-  rb-fsevent (~> 0.9.1)
+  rb-fsevent
   redcarpet
   rmagick
   rspec-core
