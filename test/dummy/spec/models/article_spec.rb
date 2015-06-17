@@ -6,7 +6,7 @@ describe Goldencobra::Article do
 
   describe 'moving article in articles-tree' do
     before(:each) do
-      @attr = { :title  => "Testartikel", :article_type => "Default Show", :breadcrumb => 'bc_testarticle' }
+      @attr = { title: "Testartikel", article_type: "Default Show", breadcrumb: 'bc_testarticle' }
     end
 
     it "should have a valid public_url before saving" do
@@ -58,32 +58,34 @@ describe Goldencobra::Article do
       @attr = { :title  => "Testartikel", :url_name  => "testartikel", :article_type => "Default Show", :breadcrumb => 'bc_testarticle' }
     end
 
-    it "should have a valid redirect url by inserting an url without http" do
-      a = Goldencobra::Article.create!(@attr)
-      a.external_url_redirect = "www.google.de"
-      a.save
-      Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "http://www.google.de"
-    end
+    describe "redirection value" do
+      it "should have a valid redirect url by inserting an url without http" do
+        a = Goldencobra::Article.create!(@attr)
+        a.external_url_redirect = "www.google.de"
+        a.save
+        Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "http://www.google.de"
+      end
 
-    it "should have a valid redirect url by inserting an url with http" do
-      a = Goldencobra::Article.create!(@attr)
-      a.external_url_redirect = "http://www.google.de"
-      a.save
-      expect(Goldencobra::Article.find_by_id(a.id).external_url_redirect).to eq "http://www.google.de"
-    end
+      it "should have a valid redirect url by inserting an url with http" do
+        a = Goldencobra::Article.create!(@attr)
+        a.external_url_redirect = "http://www.google.de"
+        a.save
+        expect(Goldencobra::Article.find_by_id(a.id).external_url_redirect).to eq "http://www.google.de"
+      end
 
-    it "should have a valid redirect url by inserting an url with https" do
-      a = Goldencobra::Article.create!(@attr)
-      a.external_url_redirect = "https://www.google.de"
-      a.save
-      expect(Goldencobra::Article.find_by_id(a.id).external_url_redirect).to eq "https://www.google.de"
-    end
+      it "should have a valid redirect url by inserting an url with https" do
+        a = Goldencobra::Article.create!(@attr)
+        a.external_url_redirect = "https://www.google.de"
+        a.save
+        expect(Goldencobra::Article.find_by_id(a.id).external_url_redirect).to eq "https://www.google.de"
+      end
 
-    it "should have no redirection if redirect url is empty" do
-      a = Goldencobra::Article.create!(@attr)
-      a.external_url_redirect = ""
-      a.save
-      Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == ""
+      it "should have no redirection if redirect url is empty" do
+        a = Goldencobra::Article.create!(@attr)
+        a.external_url_redirect = ""
+        a.save
+        Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == ""
+      end
     end
 
 
@@ -129,6 +131,35 @@ describe Goldencobra::Article do
         Goldencobra::Article.create!(@attr)
       }
       Goldencobra::Article.recent(5).collect.count.should == 5
+    end
+
+    context "of article_type_kind INDEX" do
+      it "displays its children as index if no value is given" do
+        article = create :article, article_for_index_id: nil, article_type: "Default Index"
+
+        expect(article.id).not_to eq(nil)
+        expect(article.article_for_index_id).not_to eq(nil)
+        expect(article.article_for_index_id).to eq(article.id)
+      end
+
+      it "display children of a specific article if value is given" do
+        article = create :article, article_for_index_id: 42, article_type: "Default Index"
+
+        expect(article.id).not_to eq(nil)
+        expect(article.article_for_index_id).not_to eq(nil)
+        expect(article.article_for_index_id).to eq(42)
+        expect(article.article_for_index_id).not_to eq(article.id)
+      end
+    end
+
+    context "of article_type_kind SHOW" do
+      it "does not get article_for_index_id set" do
+        article = create :article, article_for_index_id: nil, article_type: "Default Show"
+
+        expect(article.id).not_to eq(nil)
+        expect(article.article_for_index_id).to eq(nil)
+        expect(article.article_for_index_id).not_to eq(article.id)
+      end
     end
   end
 
@@ -186,7 +217,6 @@ describe Goldencobra::Article do
                                  article_id: article.id).first.value.should == article.title
     end
   end
-
 
   describe 'updating an article' do
 
