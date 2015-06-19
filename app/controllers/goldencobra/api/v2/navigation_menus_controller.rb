@@ -2,7 +2,6 @@ module Goldencobra
   module Api
     module V2
       class NavigationMenusController < ActionController::Base
-
         before_filter :get_master_element
 
         respond_to :json
@@ -18,6 +17,7 @@ module Goldencobra
         #
         # @return [Integer] Array if Integers als Menue IDs
         def active_ids
+          require "addressable/uri"
           # @master_element is set by before filter
 
           if params[:url].present?
