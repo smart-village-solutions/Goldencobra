@@ -1,3 +1,5 @@
+V1.4.6
+  - Addressable gem hinzugefügt: URLs in NAvigationAPI können nun Umlaute enthalten
 V1.4.5
   - NavigationMenu API extended for name and target calls
 

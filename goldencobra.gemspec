@@ -75,6 +75,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rack-utf8_sanitizer'
   s.add_dependency 'simple_enum'
   s.add_dependency 'react-rails', '~> 1.0'
+  s.add_dependency 'addressable'
   # s.add_dependency "wicked_pdf"
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'

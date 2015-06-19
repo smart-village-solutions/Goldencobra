@@ -24,13 +24,13 @@ module Goldencobra
             url_to_search = params[:url]
 
             # URI parse domain and url path
-            parsed_url = URI(url_to_search)
+            parsed_url = Addressable::URI.parse(url_to_search)
 
             # Lade alle Menüpunkte, die so gleich aussehen und am ende eventuell durch parameter abweichen
             possible_menues = @master_element.subtree.active.where("goldencobra_menues.target LIKE '#{parsed_url.path}%' ")
 
             #Selektiere dann nur noch denjenigen, der identisch ist ohen url parameter
-            current_menue = possible_menues.select{ |m| URI.parse(m.target).path == parsed_url.path }.first
+            current_menue = possible_menues.select{ |m| Addressable::URI.parse(m.target).path == parsed_url.path }.first
             
             if current_menue.present?
               @active_menue_ids = current_menue.path_ids
