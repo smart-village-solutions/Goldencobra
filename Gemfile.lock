@@ -53,6 +53,7 @@ PATH
       activeadmin
       activeadmin-cancan
       acts-as-taggable-on
+      addressable
       ancestry
       cancan
       cocaine (= 0.5.5)
