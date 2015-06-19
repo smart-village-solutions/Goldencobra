@@ -677,8 +677,12 @@ module Goldencobra
       return unless self.kind_of_article_type == "Index"
       return if self.article_for_index_id.present?
 
-      self.article_for_index_id = self.id
-      self.save
+      # Save without callbacks
+      if Rails::VERSION::MAJOR == 3
+        self.update_column(:article_for_index_id, self.id)
+      elsif Rails::VERSION::MAJOR > 3
+        self.update_columns(article_for_index_id: self.id)
+      end
     end
 
 
