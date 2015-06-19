@@ -101,6 +101,7 @@ module Goldencobra
     after_create :set_active_since
     after_create :notification_event_create
     after_create :cleanup_redirections
+    after_create :set_index_article_id
     before_save :parse_image_gallery_tags
     before_save :set_url_name_if_blank
     before_save :set_standard_application_template
@@ -570,7 +571,7 @@ module Goldencobra
       "/#{self.path.select([:ancestry, :url_name, :startpage, :id]).map{|a| a.url_name if !a.startpage}.compact.join("/")}"
     end
 
-    #Nachdem ein Artikel gelöscht oder aktualsisiert wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht oder bearbeitet wurde
+    # Nachdem ein Artikel gelöscht oder aktualsisiert wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht oder bearbeitet wurde
     def update_parent_article_etag
       if self.parent.present?
         self.parent.update_attributes(:updated_at => Time.now)
@@ -672,7 +673,17 @@ module Goldencobra
       end
     end
 
+    def set_index_article_id
+      return unless self.kind_of_article_type == "Index"
+      return if self.article_for_index_id.present?
 
+      # Save without callbacks
+      if Rails::VERSION::MAJOR == 3
+        self.update_column(:article_for_index_id, self.id)
+      elsif Rails::VERSION::MAJOR > 3
+        self.update_columns(article_for_index_id: self.id)
+      end
+    end
 
 
     # **************************
