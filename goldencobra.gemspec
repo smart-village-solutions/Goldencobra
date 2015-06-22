@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 1.9.2"
 
   s.add_dependency 'coffee-script-source', "~>1.8.0"
-  s.add_dependency "rails", "~> 3.2.21"
+  s.add_dependency "rails", "~> 3.2.22"
   s.add_dependency "jquery-rails", "2.1.4"
   s.add_dependency 'devise', "~> 2.2.4"
   s.add_dependency 'activeadmin-cancan'
