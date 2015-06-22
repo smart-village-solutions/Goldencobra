@@ -36,11 +36,17 @@ var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
     this.loadMenuFromServer();
   },
   render: function () {
+    var classNames;
+    if (this.props.classNames !== undefined && this.props.classNames.length) {
+      classNames = this.props.classNames + ' navigation';
+    } else {
+      classNames = 'navigation';
+    }
     return (
       React.createElement(NavigationList, {
         data: this.state.data,
         id: this.props.id,
-        className: 'navigation',
+        className: classNames,
         depth: this.props.depth !== undefined ? this.props.depth : 1
       })
     );
