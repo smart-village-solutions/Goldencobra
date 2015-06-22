@@ -1,9 +1,11 @@
-V1.4.6
+V1.4.70
+  - Rails security update -> 3.2.22
+V1.4.60
   - Addressable gem hinzugefügt: URLs in NAvigationAPI können nun Umlaute enthalten
-V1.4.5
+V1.4.50
   - NavigationMenu API extended for name and target calls
 
-V1.4.4
+V1.4.40
   - Cucumber tests up and running (again)
   - NavigationMenu API added
   - ActiveNavigationMenue API added
