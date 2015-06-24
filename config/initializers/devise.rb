@@ -4,6 +4,9 @@
 # Many of these configuration options can be set straight in your model.
 require 'openid/store/filesystem'
 Devise.setup do |config|
+
+  config.secret_key = '2f8c290766c230f36eac5efa7a845036b338794f70daa13ad085572457033ce8e07b19199157fe1242906512c2c0a7d38a7d23ed381888f84bba778691f9871d'
+  
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
@@ -161,7 +164,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
-  config.token_authentication_key = :auth_token
+  # config.token_authentication_key = :auth_token
 
   # If true, authentication through token does not store user in session and needs
   # to be supplied on each request. Useful if you are using the token as API token.
