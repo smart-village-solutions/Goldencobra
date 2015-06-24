@@ -149,9 +149,9 @@ module Goldencobra
       if self.active_changed?
         # Save without callbacks
         if Rails::VERSION::MAJOR == 3
-          self.descendants.map{ |d| d.update_column(active: self.active) }
+          self.descendants.map{ |d| d.update_column(:active, self.active) }
         elsif Rails::VERSION::MAJOR > 3
-          self.descendants.map{ |d| d.update_columns(active: self.active) }
+          self.descendants.map{ |d| d.update_columns(:active, self.active) }
         end
       end
     end
