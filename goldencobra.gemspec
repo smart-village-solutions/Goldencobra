@@ -28,8 +28,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "4.0"
   s.add_dependency "jquery-rails", "3.1.3"
   s.add_dependency 'devise', "~> 3.0.0"
-  # s.add_dependency 'activeadmin-cancan'
-  # s.add_dependency "activeadmin"
+  s.add_dependency 'activeadmin-cancan'
+  s.add_dependency "activeadmin", '~> 1.0.0.pre1'
   s.add_dependency 'sunspot_rails', "2.0.0"
   s.add_dependency 'sunspot_solr', "2.0.0"
   s.add_dependency 'sprockets'
