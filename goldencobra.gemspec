@@ -27,7 +27,9 @@ Gem::Specification.new do |s|
   # s.add_dependency 'coffee-script-source', "~>1.8.0"
   s.add_dependency "rails", "4.0"
   s.add_dependency "jquery-rails", "3.1.3"
-  s.add_dependency 'devise', "~> 3.0.0"
+  s.add_dependency 'devise'#, "~> 3.0.0"
+  # TODO: Token Authentication neu machen
+  s.add_dependency 'devise-token_authenticatable'
   s.add_dependency 'activeadmin-cancan'
   s.add_dependency "activeadmin", '~> 1.0.0.pre1'
   s.add_dependency 'sunspot_rails', "2.0.0"
@@ -73,6 +75,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_enum'
   s.add_dependency 'react-rails', '~> 1.0'
   s.add_dependency "wicked_pdf"
+  s.add_dependency 'protected_attributes'
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'

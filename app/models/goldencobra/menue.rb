@@ -46,10 +46,12 @@ module Goldencobra
     scope :visible, where("css_class <> 'hidden'").where("css_class <> 'not_visible'")
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
-    search_methods :parent_ids_in_eq
 
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
-    search_methods :parent_ids_in
+
+    # TODO: MetaSearch was removed from ActiveAdmin
+    # search_methods :parent_ids_in_eq
+    # search_methods :parent_ids_in
 
     def self.find_by_pathname(name)
       if name.include?("/")

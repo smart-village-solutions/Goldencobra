@@ -3,6 +3,7 @@
 require "friendly_id"
 require 'ancestry'
 require 'devise'
+require 'devise-token_authenticatable'
 require 'cancan'
 require 'meta_tags'
 require 'sass'

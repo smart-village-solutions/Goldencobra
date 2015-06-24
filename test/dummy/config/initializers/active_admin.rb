@@ -1,6 +1,7 @@
 # encoding: utf-8
-
 ActiveAdmin.setup do |config|
+  config.authorization_adapter = ActiveAdmin::CanCanAdapter
+  config.on_unauthorized_access = :access_denied
   #if ActiveAdmin::VERSION == "0.3.4" && Rails.version == "3.2.0.rc2"
   #  class ActiveSupport::FileUpdateChecker
   #    def paths
@@ -19,7 +20,7 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = "Golden Cobra"
 
-  config.before_filter :current_ability
+  # config.before_filter :current_ability
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.

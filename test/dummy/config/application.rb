@@ -62,16 +62,16 @@ module Dummy
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.after_initialize do |app|
-      if defined?(ActiveAdmin) and ActiveAdmin.application
-        # Try enforce reloading after app bootup
-        Rails.logger.info("==== Reloading ActiveAdmin")
-        ActiveAdmin.application.unload!
-        I18n.reload!
-        self.reload_routes!
-      end
-        Rails.logger.warn("==== Locale #{I18n.locale}")
-    end
+    # config.after_initialize do |app|
+    #   if defined?(ActiveAdmin) and ActiveAdmin.application
+    #     # Try enforce reloading after app bootup
+    #     Rails.logger.info("==== Reloading ActiveAdmin")
+    #     ActiveAdmin.application.unload!
+    #     I18n.reload!
+    #     self.reload_routes!
+    #   end
+    #     Rails.logger.warn("==== Locale #{I18n.locale}")
+    # end
   end
 end
 

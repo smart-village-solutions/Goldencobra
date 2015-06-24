@@ -55,40 +55,40 @@ gemspec
 # gem 'pdfkit'
 # gem 'wkhtmltopdf-binary'
 
-# group :development,:test do
-#   gem 'debugger'
-#   gem "rspec-rails" # rspec in dev so the rake tasks run properly
-#   gem "faker" # rspec in dev so the rake tasks run properly
-#   gem 'newrelic_rpm'
-#   gem 'yarjuf'
-# end
+group :development,:test do
+  gem 'byebug'
+  gem "rspec-rails" # rspec in dev so the rake tasks run properly
+  gem "faker" # rspec in dev so the rake tasks run properly
+  gem 'newrelic_rpm'
+  gem 'yarjuf'
+end
 
-# group :development do
-#   gem 'brakeman'
-#   gem 'hirb'
-#   gem "powder"
-#   gem 'listen'#, '~> 2.0'
-#   gem 'pre-commit'
-# end
+group :development do
+  gem 'brakeman'
+  gem 'hirb'
+  gem "powder"
+  gem 'listen'#, '~> 2.0'
+  gem 'pre-commit'
+end
 
-# group :test do
-#   #gem 'mysql2'
-#   gem 'cucumber'
-#   gem 'cucumber-rails', git: "https://github.com/cucumber/cucumber-rails.git"
-#   gem 'factory_girl'
-#   gem "factory_girl_rails"
-#   gem 'database_cleaner'
-#   gem 'capybara'
-#   gem 'capybara-webkit'
-#   gem 'selenium-webdriver'
-#   gem 'rspec-core'
-#   gem 'guard'
-#   gem 'guard-rspec'
-#   gem 'guard-cucumber'
-#   gem 'guard-livereload'
-#   gem 'rb-fsevent'#, '~> 0.9.1'
-#   gem 'growl'
-#   gem 'launchy'
-#   gem 'shoulda-matchers'
-#   gem 'simplecov', :require => false
-# end
+group :test do
+  #gem 'mysql2'
+  gem 'cucumber'
+  gem 'cucumber-rails', git: "https://github.com/cucumber/cucumber-rails.git"
+  gem 'factory_girl'
+  gem "factory_girl_rails"
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
+  gem 'rspec-core'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  gem 'guard-livereload'
+  gem 'rb-fsevent'#, '~> 0.9.1'
+  gem 'growl'
+  gem 'launchy'
+  gem 'shoulda-matchers'
+  gem 'simplecov', :require => false
+end

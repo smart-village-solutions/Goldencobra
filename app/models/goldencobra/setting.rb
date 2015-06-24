@@ -30,10 +30,12 @@ module Goldencobra
     after_update :update_cache
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
-    search_methods :parent_ids_in_eq
 
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) } if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.any?
-    search_methods :parent_ids_in
+
+    # TODO: MetaSearch was removed from ActiveAdmin
+    # search_methods :parent_ids_in_eq
+    # search_methods :parent_ids_in
 
     scope :with_values, where("value IS NOT NULL")
 
