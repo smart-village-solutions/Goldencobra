@@ -51,6 +51,8 @@ module Goldencobra
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in
 
+    before_save :set_descendants_status
+
     def self.find_by_pathname(name)
       if name.include?("/")
         where(:title => name.split("/").last).select{|a| a.path.map(&:title).join("/") == name}.first
@@ -141,6 +143,18 @@ module Goldencobra
       end
     end
 
+    private
+
+    def set_descendants_status
+      if self.active_changed?
+        # Save without callbacks
+        if Rails::VERSION::MAJOR == 3
+          self.descendants.map{ |d| d.update_column(active: self.active) }
+        elsif Rails::VERSION::MAJOR > 3
+          self.descendants.map{ |d| d.update_columns(active: self.active) }
+        end
+      end
+    end
   end
 end
 

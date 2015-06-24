@@ -1,3 +1,5 @@
+V1.4.72
+  - Goldencobra::Menue: Veraendern des Aktiv/Inaktiv Status eines Menue-Eintrags wird zu allen Abkoemmlingen des Menues weitergegeben.
 V1.4.71
   - Redirector: URI.parse ersetzt durch Addressable::URI.parse
 V1.4.70
