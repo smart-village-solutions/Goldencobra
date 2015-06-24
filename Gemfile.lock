@@ -6,11 +6,13 @@ PATH
       activeadmin-cancan
       acts-as-taggable-on
       ancestry
+      cancan
       coffee-rails
       compass
       compass-rails
       devise (~> 3.0.0)
       exception_notification
+      execjs
       friendly_id
       geocoder
       geokit
