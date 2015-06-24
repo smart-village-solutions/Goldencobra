@@ -11,6 +11,18 @@ describe Goldencobra::Redirector do
     redirector.should == nil
   end
 
+  describe 'if url includes üöä' do
+    before(:each) do
+      Goldencobra::Setting.set_value_for_key("http://www.google.de", "goldencobra.url", data_type_name="string")
+      Goldencobra::Redirector.create(:source_url => "www.yourdomain.de/weiteröleitung", :target_url => "www.google.de", :ignore_url_params => true, :active => true)
+    end
+
+    it "should not break" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiteröleitung")
+      redirector.should == ["http://www.google.de", 301]
+    end
+  end
+
   describe 'if ignore_url_params is true without url params' do
     before(:each) do
       Goldencobra::Setting.set_value_for_key("http://www.google.de", "goldencobra.url", data_type_name="string")

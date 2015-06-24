@@ -133,7 +133,8 @@ module Goldencobra
 
     def download_remote_image
       require 'open-uri'
-      io = open(URI.parse(self.image_url))
+      require "addressable/uri"
+      io = open(Addressable::URI.parse(self.image_url))
       self.image = io
       self.image_file_name = io.base_uri.path.split('/').last
       self.image_remote_url = self.image_url

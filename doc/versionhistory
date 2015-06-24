@@ -1,3 +1,5 @@
+V1.4.71
+  - Redirector: URI.parse ersetzt durch Addressable::URI.parse
 V1.4.70
   - Rails security update -> 3.2.22
 V1.4.60

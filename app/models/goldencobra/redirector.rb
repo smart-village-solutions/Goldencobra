@@ -2,6 +2,8 @@
 
 module Goldencobra
   class Redirector < ActiveRecord::Base
+    require "addressable/uri"
+
     attr_accessible :active, :redirection_code, :source_url, :target_url, :ignore_url_params, :include_subdirs, :import_csv_data
 
     attr_accessor :import_csv_data
@@ -67,7 +69,7 @@ module Goldencobra
     # @return [Array] target url to rewrite to | status code for redirection
     def self.get_by_request(request_original_url)
       begin
-        uri = URI.parse(request_original_url)
+        uri = Addressable::URI.parse(request_original_url)
       rescue
         uri = nil
       end
@@ -78,7 +80,7 @@ module Goldencobra
         if redirects.any?
           #if multiple redirectors found, select the first
           redirect = redirects.first
-          redirecter_source_uri = URI.parse(redirect.source_url)
+          redirecter_source_uri = Addressable::URI.parse(redirect.source_url)
           if redirecter_source_uri.path == uri.path
             #Wenn die url parameter egal sind
             if redirect.ignore_url_params
@@ -116,7 +118,7 @@ module Goldencobra
     # 
     # @return [string] "http://www.test.de?test=a&foo=bar"
     def self.add_param_to_url(url, uri_params)
-      target_uri = URI.parse(url)
+      target_uri = Addressable::URI.parse(url)
       target_params = Rack::Utils.parse_nested_query(target_uri.query.to_s)
       request_params = Rack::Utils.parse_nested_query(uri_params)
       merged_params = target_params.merge(request_params)
