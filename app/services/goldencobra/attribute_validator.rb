@@ -11,10 +11,16 @@ module Goldencobra
       results = []
       klass.all.each do |k|
         unless single_scheme_occurence(k.send(attribute_name.to_sym))
+
+          old_attr_value = k.send(attribute_name.to_sym)
+
+          new_attr_value = Goldencobra::AttributeRepairService.repaired_url_value(model_name, k.id, attribute_name)
+
           results << {
             class: model_name,
             id: k.id,
-            value: k.send(attribute_name.to_sym)
+            old_attr_value: old_attr_value,
+            new_attr_value: new_attr_value
           }
         end
       end
@@ -41,6 +47,8 @@ module Goldencobra
     end
 
     def self.is_attribute?(model_name, attribute_name)
+      return "Not a valid model name" unless is_class?(model_name)
+
       "#{model_name}".constantize.new.respond_to?(attribute_name)
     end
   end

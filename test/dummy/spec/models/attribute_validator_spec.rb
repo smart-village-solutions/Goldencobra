@@ -26,13 +26,14 @@ describe Goldencobra::AttributeValidator do
       expect(subject.validate_url(Goldencobra::Article, :no_real_attribute)).to eq("Not a valid attribute on Goldencobra::Article")
     end
 
-    it "should catch duplicate 'http' entries" do
+    it "should catch duplicate 'http://' entries and report them as a hash" do
       create(:article, canonical_url: "http://http://example.com")
 
       expect(subject.validate_url(Goldencobra::Article, :canonical_url)).to eq([{
                                                                              class: Goldencobra::Article,
                                                                              id: Goldencobra::Article.last.id,
-                                                                             value: Goldencobra::Article.last.canonical_url
+                                                                             old_attr_value: "http://http://example.com",
+                                                                             new_attr_value: "http://example.com"
                                                                            }])
     end
 
