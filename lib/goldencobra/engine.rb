@@ -1,20 +1,20 @@
 # encoding: utf-8
 
-require "friendly_id"
-require 'ancestry'
-require 'devise'
-require 'devise-token_authenticatable'
+# require "friendly_id"
+# require 'ancestry'
+# require 'devise'
+# require 'devise-token_authenticatable'
 require 'cancan'
-require 'meta_tags'
+# require 'meta_tags'
 require 'sass'
 require 'sprockets'
-require 'sprockets/railtie'
-require 'sass-rails'
+# require 'sprockets/railtie'
+# require 'sass-rails'
 require 'acts-as-taggable-on'
 require 'paperclip'
 require 'liquid'
 require 'geocoder'
-require "paper_trail"
+# require "paper_trail"
 require 'sunspot_rails'
 require 'sunspot_solr'
 # require "pdfkit"
