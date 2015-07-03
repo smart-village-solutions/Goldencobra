@@ -36,9 +36,9 @@ module Goldencobra
       value = value.downcase
 
       if value.scan("http://").length > 1
-        value = value.sub("http://", "")
+        value = "http://#{value.gsub('http://', '')}"
       elsif value.scan("https://").length > 1
-        value = value.sub("https://", "")
+        value = "https://#{value.gsub('https://', '')}"
       end
 
       value
