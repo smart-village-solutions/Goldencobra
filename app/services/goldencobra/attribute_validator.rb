@@ -14,7 +14,7 @@ module Goldencobra
 
           old_attr_value = k.send(attribute_name.to_sym)
 
-          new_attr_value = Goldencobra::AttributeRepairService.repaired_url_value(model_name, k.id, attribute_name)
+          new_attr_value = Goldencobra::AttributeRepairService.repaired_url_value(old_attr_value)
 
           results << {
             class: model_name,

@@ -38,23 +38,46 @@ describe Goldencobra::AttributeRepairService do
       end
     end
 
-    it "repairs faulty url values and saves them" do
-      create(:article, canonical_url: "http://http://example.com")
+    describe "repairs faulty url values and saves them" do
+      it "with two occurences of 'http://'" do
+        create(:article, canonical_url: "http://http://example.com")
 
-      expect(Goldencobra::Article.last.canonical_url).to eq("http://http://example.com")
+        expect(Goldencobra::Article.last.canonical_url).to eq("http://http://example.com")
 
-      subject.fix_duplicate_http(Goldencobra::Article, Goldencobra::Article.last.id, :canonical_url)
+        subject.fix_duplicate_http(Goldencobra::Article, Goldencobra::Article.last.id, :canonical_url)
 
-      expect(Goldencobra::Article.last.canonical_url).to eq("http://example.com")
+        expect(Goldencobra::Article.last.canonical_url).to eq("http://example.com")
+      end
 
+      it "with more than two occurences" do
+        create(:article, canonical_url: "http://http://http://http://http://http://example.com")
 
-      create(:article, canonical_url: "https://https://example.com")
+        expect(Goldencobra::Article.last.canonical_url).to eq("http://http://http://http://http://http://example.com")
 
-      expect(Goldencobra::Article.last.canonical_url).to eq("https://https://example.com")
+        subject.fix_duplicate_http(Goldencobra::Article, Goldencobra::Article.last.id, :canonical_url)
 
-      subject.fix_duplicate_http(Goldencobra::Article, Goldencobra::Article.last.id, :canonical_url)
+        expect(Goldencobra::Article.last.canonical_url).to eq("http://example.com")
+      end
 
-      expect(Goldencobra::Article.last.canonical_url).to eq("https://example.com")
+      it "with two occurences of 'https://'" do
+        create(:article, canonical_url: "https://https://example.com")
+
+        expect(Goldencobra::Article.last.canonical_url).to eq("https://https://example.com")
+
+        subject.fix_duplicate_http(Goldencobra::Article, Goldencobra::Article.last.id, :canonical_url)
+
+        expect(Goldencobra::Article.last.canonical_url).to eq("https://example.com")
+      end
+
+      it "with more than two occurences of 'https://'" do
+        create(:article, canonical_url: "https://https://https://https://https://example.com")
+
+        expect(Goldencobra::Article.last.canonical_url).to eq("https://https://https://https://https://example.com")
+
+        subject.fix_duplicate_http(Goldencobra::Article, Goldencobra::Article.last.id, :canonical_url)
+
+        expect(Goldencobra::Article.last.canonical_url).to eq("https://example.com")
+      end
     end
   end
 end
