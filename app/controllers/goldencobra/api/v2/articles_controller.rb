@@ -5,6 +5,7 @@ module Goldencobra
     module V2
       class ArticlesController < ActionController::Base
         skip_before_filter :verify_authenticity_token
+        before_filter :get_article, only: [:show]
 
         respond_to :json
 
@@ -53,6 +54,26 @@ module Goldencobra
           end
         end
 
+        # /api/v2/articles/:url[.json]
+        # 
+        # @param methods [String] "beliebe Attribute des Artikels im JSON einfuegen"
+        # 
+        # @return [json] Liefert Artikel mit einer bestimmten URL
+        #                Im JSON Response befinden sich entweder alle Attribute, oder nur die mit 
+        #                params[:methods] definierten
+        def show
+          respond_to do |format|
+            format.json { 
+              if params[:methods].present?
+                render json: @article, 
+                       serializer: Goldencobra::ArticleCustomSerializer,
+                       scope: params[:methods]
+              else
+                render json: @article
+              end
+            }
+          end
+        end
 
         # /api/v2/articles/create[.json]
         # ---------------------------------------------------------------------------------------
@@ -89,7 +110,6 @@ module Goldencobra
           else
             render status: 500, json: { :status => 500, :error => response.errors, :id => nil }
           end
-
         end
 
 
@@ -222,10 +242,18 @@ module Goldencobra
 
           # Try to save the article
           return article
-
         end
 
+        private
 
+        def get_article
+          url = params[:url].present? ? "/#{params[:url]}" : "/" 
+
+          @article = Goldencobra::Article.where(url_path: url).first
+          unless @article
+            raise "Article not found with url: #{url}"
+          end
+        end
       end
     end
   end

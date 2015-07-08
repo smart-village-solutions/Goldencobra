@@ -25,6 +25,7 @@ require 'slim'
 require 'geokit'
 require "rack/utf8_sanitizer"
 require 'simple_enum'
+require 'active_model_serializers'
 
 module Goldencobra
   class Engine < ::Rails::Engine
