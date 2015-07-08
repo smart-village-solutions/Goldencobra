@@ -76,6 +76,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_enum'
   s.add_dependency 'react-rails', '~> 1.0'
   s.add_dependency 'addressable'
+  s.add_dependency 'active_model_serializers'
   # s.add_dependency "wicked_pdf"
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
