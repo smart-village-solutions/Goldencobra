@@ -62,20 +62,27 @@ var NavigationList = React.createClass({displayName: 'NavigationList',
   },
   componentDidMount: function () {
     var pathname = window.location.pathname;
-    var origin = window.location.origin;
+    var origin = window.location.origin ? window.location.origin : window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
     var that = this;
 
-    $.ajax({
-      url: origin + '/api/v2/navigation_menus/active?id=1&url=' + pathname,
-      dataType: 'json',
-      success: function (data, textStatus, jqXHR) {
-        that.setState({activePath: data});
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.error(status, err.toString());
-        return false;
-      }.bind(this)
-    });
+    if (App !== undefined && App.activePath !== undefined) {
+      that.setState({activePath: App.activePath});
+    } else {
+      if (App === undefined) { var App = {}; }
+      $.ajax({
+        url: origin + '/api/v2/navigation_menus/active?id=1&url=' + pathname,
+        dataType: 'json',
+        success: function (data, textStatus, jqXHR) {
+          that.setState({activePath: data});
+          App.activePath = data;
+        }.bind(this),
+        error: function (xhr, status, err) {
+          console.log('error with ' + 'componentDidMount');
+          console.error(status, err.toString());
+          return false;
+        }.bind(this)
+      });
+    }
   },
   componentDidUpdate: function (prevProps, prevState) {
     if (App !== undefined && App.navigationFinishedHandler !== undefined) {
