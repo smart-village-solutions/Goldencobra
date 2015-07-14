@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 if RUBY_VERSION.include?("1.9.")
   require 'sidekiq/web'
 end
@@ -26,8 +24,9 @@ Goldencobra::Engine.routes.draw do
 
     namespace "v2" do
       get '/articles'                => 'articles#index'
-      get '/articles/*url'           => 'articles#show'
+      get '/articles/index_with_id'  => 'articles#index_with_id'
       get '/articles/search'         => 'articles#search'
+      get '/articles/*url'           => 'articles#show'
       get '/locale_string'           => 'locales#get_string'
       get '/setting_string'          => 'settings#get_string'
       get '/uploads'                 => 'uploads#index'

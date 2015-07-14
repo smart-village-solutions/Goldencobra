@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module Goldencobra
   module Api
     module V2
@@ -32,7 +30,7 @@ module Goldencobra
 
 
         # /api/v2/articles[.json]
-        # 
+        #
         # @return [json] Liefert Alle Artikel :id,:title, :ancestry
         # map{|c| [c.parent_path, c.id]}
         def index
@@ -55,23 +53,52 @@ module Goldencobra
         end
 
         # /api/v2/articles/:url[.json]
-        # 
+        #
         # @param methods [String] "beliebe Attribute des Artikels im JSON einfuegen"
-        # 
+        #
         # @return [json] Liefert Artikel mit einer bestimmten URL
-        #                Im JSON Response befinden sich entweder alle Attribute, oder nur die mit 
+        #                Im JSON Response befinden sich entweder alle Attribute, oder nur die mit
         #                params[:methods] definierten
         def show
           respond_to do |format|
-            format.json { 
+            format.json {
               if params[:methods].present?
-                render json: @article, 
+                render json: @article,
                        serializer: Goldencobra::ArticleCustomSerializer,
                        scope: params[:methods]
               else
                 render json: @article
               end
             }
+          end
+        end
+
+        # /api/v2/articles/index_with_id[.json]
+        #
+        # @param methods [String] "beliebe Attribute des Artikels im JSON einfuegen"
+        #
+        # @return [json] liefert für Artikel mit einer bestimmten URL Kinderartikel zurück,
+        #                die wiederum per IDs angefragt wurden
+        #
+        #                im JSON Response befinden sich entweder alle Attribute, oder nur die mit
+        #                params[:methods] definierten
+        def index_with_id
+          if params[:article_ids].present?
+            article_ids = params[:article_ids]
+            articles = Goldencobra::Article.where("id IN (?)", article_ids)
+            respond_to do |format|
+              format.json {
+                if params[:methods].present?
+                  render json: articles,
+                         serializer: Goldencobra::ArticleCustomSerializer,
+                         scope: params[:methods]
+                else
+                  render json: articles
+                end
+              }
+            end
+          else
+            render status: 500, json: { status: 500, error: "no IDs given", id: nil }
           end
         end
 
@@ -247,7 +274,7 @@ module Goldencobra
         private
 
         def get_article
-          url = params[:url].present? ? "/#{params[:url]}" : "/" 
+          url = params[:url].present? ? "/#{params[:url]}" : "/"
 
           @article = Goldencobra::Article.where(url_path: url).first
           unless @article
