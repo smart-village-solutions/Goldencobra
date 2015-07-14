@@ -73,6 +73,29 @@ module Goldencobra
           end
         end
 
+        def show_complete
+          respond_to do |format|
+            article = { article: @article }
+            if @article.product.present?
+              article[:product] = @article.product
+              article[:product_characteristics] = @article.product.product_characteristics
+            end
+            if @article.product_group.present?
+              article[:product_group] = @article.product_group
+              article[:children] = @article.children.active
+            end
+            format.json {
+              if params[:methods].present?
+                render json: article,
+                       serializer: Goldencobra::ArticleCustomSerializer,
+                       scope: params[:methods]
+              else
+                render json: article
+              end
+            }
+          end
+        end
+
         # /api/v2/articles/index_with_id[.json]
         #
         # @param methods [String] "beliebe Attribute des Artikels im JSON einfuegen"

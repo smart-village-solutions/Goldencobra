@@ -26,6 +26,7 @@ Goldencobra::Engine.routes.draw do
       get '/articles'                => 'articles#index'
       get '/articles/index_with_id'  => 'articles#index_with_id'
       get '/articles/search'         => 'articles#search'
+      get '/articles/complete/*url'  => 'articles#show_complete'
       get '/articles/*url'           => 'articles#show'
       get '/locale_string'           => 'locales#get_string'
       get '/setting_string'          => 'settings#get_string'
