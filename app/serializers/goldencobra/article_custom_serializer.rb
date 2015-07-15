@@ -1,6 +1,5 @@
 module Goldencobra
   class ArticleCustomSerializer < ActiveModel::Serializer
-    # root "article" # would otherwise be "article_custom"
     root false
 
     # Includes all defined methods
@@ -8,16 +7,17 @@ module Goldencobra
       data = super
       if scope
         scope.split(",").each do |field|
+          next unless whitelist_attributes.include?(field.to_sym)
           data[field.to_sym] = object.send(field.to_sym)
         end
       end
+      data[:child_ids] = object.send(:child_ids)
       data
     end
 
     has_many :metatags
     has_many :images
     has_many :widgets
-    has_many :children
 
     def metatags
       object.metatags.select([:id, :name, :value])
@@ -31,8 +31,10 @@ module Goldencobra
       object.widgets.pluck(:id)
     end
 
-    def children
-      object.children.active.pluck(:id)
+    private
+
+    def whitelist_attributes
+      Goldencobra::Article.attribute_names.map(&:to_sym)
     end
   end
 end
