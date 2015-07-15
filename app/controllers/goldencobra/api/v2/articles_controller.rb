@@ -34,21 +34,25 @@ module Goldencobra
         # @return [json] Liefert Alle Artikel :id,:title, :ancestry
         # map{|c| [c.parent_path, c.id]}
         def index
-          @articles = Goldencobra::Article.select([:id, :title, :ancestry]).sort{ |a, b|
-            a[0] <=> b[0]
-          }
-
-          if params[:react_select] && params[:react_select] == "true"
-            # Die React Select Liste braucht das JSON in diesem Format. -hf
-            json_uploads = @articles.map{ |a| { "value" => a.id, "label" => a.parent_path } }
+          if params[:article_ids].present?
+            index_with_ids
           else
-            json_uploads = @articles.map{ |a| a.as_json(:only => [:id, :title], :methods => [:parent_path]) }
-          end
+            @articles = Goldencobra::Article.select([:id, :title, :ancestry]).sort{ |a, b|
+              a[0] <=> b[0]
+            }
 
-          respond_to do |format|
-            format.json { render json: json_uploads.as_json }
-            # Returns all publicly visible, active Articles
-            format.xml { @articles = Goldencobra::Article.new.filter_with_permissions(Goldencobra::Article.active, nil) }
+            if params[:react_select] && params[:react_select] == "true"
+              # Die React Select Liste braucht das JSON in diesem Format. -hf
+              json_uploads = @articles.map{ |a| { "value" => a.id, "label" => a.parent_path } }
+            else
+              json_uploads = @articles.map{ |a| a.as_json(:only => [:id, :title], :methods => [:parent_path]) }
+            end
+
+            respond_to do |format|
+              format.json { render json: json_uploads.as_json }
+              # Returns all publicly visible, active Articles
+              format.xml { @articles = Goldencobra::Article.new.filter_with_permissions(Goldencobra::Article.active, nil) }
+            end
           end
         end
 
@@ -73,29 +77,6 @@ module Goldencobra
           end
         end
 
-        def show_complete
-          respond_to do |format|
-            article = { article: @article }
-            if @article.product.present?
-              article[:product] = @article.product
-              article[:product_characteristics] = @article.product.product_characteristics
-            end
-            if @article.product_group.present?
-              article[:product_group] = @article.product_group
-              article[:children] = @article.children.active
-            end
-            format.json {
-              if params[:methods].present?
-                render json: article,
-                       serializer: Goldencobra::ArticleCustomSerializer,
-                       scope: params[:methods]
-              else
-                render json: article
-              end
-            }
-          end
-        end
-
         # /api/v2/articles/index_with_id[.json]
         #
         # @param methods [String] "beliebe Attribute des Artikels im JSON einfuegen"
@@ -105,23 +86,19 @@ module Goldencobra
         #
         #                im JSON Response befinden sich entweder alle Attribute, oder nur die mit
         #                params[:methods] definierten
-        def index_with_id
-          if params[:article_ids].present?
-            article_ids = params[:article_ids]
-            articles = Goldencobra::Article.where("id IN (?)", article_ids)
-            respond_to do |format|
-              format.json {
-                if params[:methods].present?
-                  render json: articles,
-                         serializer: Goldencobra::ArticleCustomSerializer,
-                         scope: params[:methods]
-                else
-                  render json: articles
-                end
-              }
-            end
-          else
-            render status: 500, json: { status: 500, error: "no IDs given", id: nil }
+        def index_with_ids
+          article_ids = params[:article_ids]
+          articles = Goldencobra::Article.where("id IN (?)", article_ids)
+          respond_to do |format|
+            format.json {
+              if params[:methods].present?
+                render json: articles,
+                       each_serializer: Goldencobra::ArticleCustomSerializer,
+                       scope: params[:methods]
+              else
+                render json: articles
+              end
+            }
           end
         end
 
