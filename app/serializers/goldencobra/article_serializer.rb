@@ -8,7 +8,7 @@ module Goldencobra
         data[attr] = object.send(attr)
       end
       data[:child_ids] = object.send(:child_ids)
-      data
+      data      
     end
 
     has_many :metatags
