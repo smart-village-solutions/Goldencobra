@@ -1,6 +1,6 @@
 var OptionItem = React.createClass({
   displayName: 'OptionItem',
-  render: function () {
+  render: function() {
     return (
       React.createElement('option', { value: this.props.value }, this.props.label)
     );
@@ -9,8 +9,9 @@ var OptionItem = React.createClass({
 
 var SelectList = React.createClass({
   displayName: 'SelectList',
-  render: function () {
-    var optionNodes = this.props.options.articles.map(function (el) {
+  render: function() {
+    var jsonOptions = this.props.options;
+    var optionNodes = this.props.options[this.getRoot(jsonOptions)].map(function (el) {
       return (
         React.createElement(OptionItem, { value: el.value, label: el.label, key: el.value })
       );
@@ -18,7 +19,7 @@ var SelectList = React.createClass({
 
     var emptyOption;
 
-    if (this.props.firstBlank == true) {
+    if (this.props.firstBlank === true) {
       emptyOption = React.createElement('option', { value: '' }, this.props.label);
     }
 
@@ -33,5 +34,10 @@ var SelectList = React.createClass({
         optionNodes
       )
     );
+  },
+  getRoot: function(json) {
+    for(var prop in json) {
+     return prop; // return first found element in json
+    }
   }
 });
