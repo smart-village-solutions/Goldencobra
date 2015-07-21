@@ -23,16 +23,17 @@ Goldencobra::Engine.routes.draw do
     end
 
     namespace "v2" do
-      get '/articles'                => 'articles#index'
-      get '/articles/search'         => 'articles#search'
-      get '/articles/*url'           => 'articles#show'
-      get '/locale_string'           => 'locales#get_string'
-      get '/setting_string'          => 'settings#get_string'
-      get '/uploads'                 => 'uploads#index'
-      match '/articles/create'       => 'articles#create'
-      match '/articles/update'       => 'articles#update'
-      get '/navigation_menus'        => 'navigation_menus#index'
-      get '/navigation_menus/active' => 'navigation_menus#active_ids'
+      get '/articles'                 => 'articles#index'
+      get '/articles/search'          => 'articles#search'
+      get '/articles/breadcrumb/*url' => 'articles#breadcrumb'
+      get '/articles/*url'            => 'articles#show'
+      get '/locale_string'            => 'locales#get_string'
+      get '/setting_string'           => 'settings#get_string'
+      get '/uploads'                  => 'uploads#index'
+      match '/articles/create'        => 'articles#create'
+      match '/articles/update'        => 'articles#update'
+      get '/navigation_menus'         => 'navigation_menus#index'
+      get '/navigation_menus/active'  => 'navigation_menus#active_ids'
     end
   end
 
