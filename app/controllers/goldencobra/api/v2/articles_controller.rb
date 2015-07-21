@@ -3,7 +3,7 @@ module Goldencobra
     module V2
       class ArticlesController < ActionController::Base
         skip_before_filter :verify_authenticity_token
-        before_filter :get_article, only: [:show, :show_complete]
+        before_filter :get_article, only: [:show, :breadcrumb]
 
         respond_to :json
 
@@ -189,6 +189,18 @@ module Goldencobra
           end
         end
 
+        def breadcrumb
+          breadcrumb = []
+          @article.path.each do |art|
+            breadcrumb << { 
+              title: art.breadcrumb_name, 
+              url: art.public_url
+            }
+          end
+          respond_to do |format|
+            format.json { render json: breadcrumb.to_json }
+          end
+        end
 
         protected
 
