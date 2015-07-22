@@ -33,7 +33,7 @@ module Goldencobra
 
     has_many  :article_widgets
     has_many  :articles, :through => :article_widgets
-    has_many  :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Widget"}
+    has_many  :permissions, -> { where subject_class: "Goldencobra::Widget" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
 
     accepts_nested_attributes_for :permissions, :allow_destroy => true
 

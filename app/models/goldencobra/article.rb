@@ -71,7 +71,7 @@ module Goldencobra
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
     has_many :comments, :class_name => Goldencobra::Comment
-    has_many :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Article"}
+    has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
     belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
     belongs_to :creator, :class_name => User, :foreign_key => "creator_id"
 
@@ -228,7 +228,9 @@ module Goldencobra
 
     # Gets the related object by article_type
     def get_related_object
-      if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+      if self.article_type.present? && self.article_type_form_file.present? && 
+        self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+        
         return self.send(self.article_type_form_file.underscore.parameterize.downcase)
       else
         return nil
