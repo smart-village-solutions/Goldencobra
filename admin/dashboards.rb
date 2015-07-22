@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-ActiveAdmin::Dashboards.build do
-
+ActiveAdmin.register_page "Dashboard" do
+  
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just
   # return the content which you would like to display.
