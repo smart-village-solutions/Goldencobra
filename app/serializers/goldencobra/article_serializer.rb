@@ -12,15 +12,11 @@ module Goldencobra
     end
 
     has_many :metatags
-    has_many :images
+    has_many :images, each_serializer: Goldencobra::UploadSerializer
     has_many :widgets
 
     def metatags
       object.metatags.select([:id, :name, :value])
-    end
-
-    def images
-      object.images.pluck(:id)
     end
 
     def widgets
