@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'devise'#, "~> 3.0.0"
   # TODO: Token Authentication neu machen
   s.add_dependency 'devise-token_authenticatable'
-  s.add_dependency 'activeadmin-cancan'
+  s.add_dependency 'cancancan'
   s.add_dependency "activeadmin", '~> 1.0.0.pre1'
   s.add_dependency 'sunspot_rails', "2.0.0"
   s.add_dependency 'sunspot_solr', "2.0.0"
@@ -76,6 +76,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'react-rails', '~> 1.0'
   s.add_dependency "wicked_pdf"
   s.add_dependency 'protected_attributes'
+  s.add_dependency 'actionpack-action_caching'
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'
