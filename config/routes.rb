@@ -44,8 +44,8 @@ Goldencobra::Engine.routes.draw do
     get '/visitors/auth/:provider' => 'omniauth_callbacks#passthru'
   end
 
-  #match "/*article_id.pdf", :to => "articles#convert_to_pdf"
-  # match "/*article_id", :to => "articles#show"
+  # match "/*article_id.pdf", :to => "articles#convert_to_pdf"
+  match "/*article_id", :to => "articles#show"
 
-  # root :to => 'articles#show', :defaults => {:startpage => true}
+  root :to => 'articles#show', :defaults => {:startpage => true}
 end
