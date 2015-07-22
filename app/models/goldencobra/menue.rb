@@ -28,8 +28,8 @@ module Goldencobra
     belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
 
     validates_presence_of :title
-    validates_format_of :title, :with => /^[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+$/
-    has_many :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Menue"}
+    validates_format_of :title, :with => /\A[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+\z/
+    has_many :permissions, -> { where subject_class: "Goldencobra::Menue" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
 
     accepts_nested_attributes_for :permissions, :allow_destroy => true
 
