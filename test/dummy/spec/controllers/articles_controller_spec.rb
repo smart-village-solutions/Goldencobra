@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-describe Goldencobra::ArticlesController do
+describe Goldencobra::ArticlesController, :type => :controller do
   before(:each) { @routes = Goldencobra::Engine.routes }
-  describe ".rss", :type => :controller do
+  describe ".rss" do
     before(:each) do
       @article = Goldencobra::Article.create(title: "Mein Artikel", url_name: "mein-artikel")
     end
@@ -266,6 +266,38 @@ describe Goldencobra::ArticlesController do
           page.should have_content('Child Article 1')
           page.should have_content('Child Article 2')
         end
+      end
+    end
+  end
+
+  describe "#show" do
+    it "renders 406 if request.format is php" do
+      get :show, { format: :php, use_route: :goldencobra }
+
+      expect(response.status).to eq(406)
+    end
+
+    context "with a valid format" do
+      before do
+        article = Goldencobra::Article.create(title: "Mein Artikel", url_name: "mein-artikel")
+      end
+
+      it "accepts .html" do
+        visit "/mein-artikel"
+
+        expect(response.status).to eq(200)
+      end
+
+      it "accepts .json" do
+        visit "/mein-artikel.json"
+
+        expect(response.status).to eq(200)
+      end
+
+      it "accepts .json" do
+        visit "/mein-artikel.rss"
+
+        expect(response.status).to eq(200)
       end
     end
   end

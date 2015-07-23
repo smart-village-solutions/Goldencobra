@@ -305,7 +305,10 @@ module Goldencobra
 
     def check_format
       if request.format == "image/jpeg"  || request.format == "image/png"
-        render :text => "404", :status => 404
+        render text: "404", status: 404
+      end
+      if request.format == "php" || params[:format] == "php"
+        render nothing: true, status: 406 and return 
       end
     end
 
