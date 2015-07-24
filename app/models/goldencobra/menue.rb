@@ -75,6 +75,10 @@ module Goldencobra
       subtree_menues.select{|a| a.ancestry.to_s.starts_with?("#{self.ancestry}/#{self.id}")}.map(&:target).include?(request.path.squeeze("/").split("?")[0])
     end
 
+    def has_children
+      self.has_children?
+    end
+
     def mapped_to_article?
       #TODO Anfrage dauert zu lange bei 2000 Artikeln
       #@mapped_to_article_result ||= Goldencobra::Article.select([:url_name, :startpage, :ancestry, :id]).map{|a| a.public_url}.uniq.include?(self.target)

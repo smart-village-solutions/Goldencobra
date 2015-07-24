@@ -1,8 +1,13 @@
 <div id="overviewTree"></div>
 
+<% 
+  url ||= "/admin/articles/load_overviewtree_as_json"
+  class_name ||= 'articles'
+%>
+
 <script type="text/javascript">
   React.render(
-      React.createElement(ListOfArticlesBox, {url: '/admin/articles/load_overviewtree_as_json'}),
+      React.createElement(ListOfArticlesBox, { url: '<%= url %>', class_name: '<%= class_name %>' }),
       document.getElementById('overviewTree')
   );
 </script>
