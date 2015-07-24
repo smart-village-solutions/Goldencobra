@@ -74,11 +74,32 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   end
 
   sidebar :overview, only: [:index] do
-    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Menue.order(:title).roots, :locals => {:link_name => "title", :url_path => "menue", :order_by => "title" }
+    render partial: "/goldencobra/admin/shared/react_overview",
+           locals: {
+             url: "/admin/menues/load_overviewtree_as_json",
+             object_class: "Goldencobra::Menue",
+             link_name: "title",
+             url_path: "menue",
+             order_by: "title",
+             class_name: "menues"
+           }
   end
 
   sidebar :help, only: [:edit, :show] do
     render "/goldencobra/admin/shared/help"
+  end
+
+  collection_action :load_overviewtree_as_json do
+    if params[:root_id].present?
+      articles = Goldencobra::Menue.find(params[:root_id])
+                   .children.order(:title).as_json(
+                      only: [:id, :target, :title], 
+                      methods: [:has_children])
+    else
+      articles = Goldencobra::Menue.order(:title)
+                   .roots.as_json(only: [:id, :target, :title], methods: [:has_children])
+    end
+    render json: articles
   end
 
   #batch_action :destroy, false

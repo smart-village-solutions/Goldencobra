@@ -38,13 +38,39 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   end
 
   sidebar :overview, only: [:index]  do
-    render :partial => "/goldencobra/admin/shared/overview", :object => Goldencobra::Setting.roots, :locals => {:link_name => "title", :url_path => "setting" }
+    # render :partial => "/goldencobra/admin/shared/overview", 
+    # :object => Goldencobra::Setting.roots, 
+    # :locals => {:link_name => "title", :url_path => "setting" }
+
+    render partial: "/goldencobra/admin/shared/react_overview",
+       locals: {
+         url: "/admin/settings/load_overviewtree_as_json",
+         object_class: "Goldencobra::Setting",
+         link_name: "title",
+         url_path: "setting",
+         order_by: "title",
+         class_name: "settings"
+       }
+
   end
 
   sidebar :goldencobra_info do
     div do
       p "Version: #{Gem.loaded_specs["goldencobra"].version.to_s}"
     end
+  end
+
+  collection_action :load_overviewtree_as_json do
+    if params[:root_id].present?
+      articles = Goldencobra::Setting.find(params[:root_id])
+                   .children.order(:title).as_json(
+                      only: [:id, :value, :title], 
+                      methods: [:has_children])
+    else
+      articles = Goldencobra::Setting.order(:title)
+                   .roots.as_json(only: [:id, :value, :title], methods: [:has_children])
+    end
+    render json: articles
   end
 
   batch_action :destroy, false

@@ -129,8 +129,12 @@ module Goldencobra
       self.path.map(&:title).join(".")
     end
 
+    def has_children
+      self.has_children?
+    end
 
     private
+    
     def self.generate_default_setting(key, yml_data, parent_id=nil)
       if yml_data[key].class == Hash
         #check if childen keys are value and type or not
