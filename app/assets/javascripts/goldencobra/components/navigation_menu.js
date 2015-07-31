@@ -1,8 +1,9 @@
+var App;
 var NavigationMenu = React.createClass({displayName: 'NavigationMenu',
   menuUrl: function () {
-    var methods = '&methods=css_class' + (this.props.methods.length ? ',' + this.props.methods : '');
+    var methods = '&methods=css_class' + (this.props.methods && this.props.methods.length ? ',' + this.props.methods : '');
     var depth = this.props.depth !== undefined ? '&depth=' + this.props.depth : '';
-    var filterClasses = this.props.filterClasses.length ? '&filter_classes=' + this.props.filterClasses : '';
+    var filterClasses = this.props.filterClasses && this.props.filterClasses.length ? '&filter_classes=' + this.props.filterClasses : '';
     var offset = this.props.offset !== undefined ? '&offset=' + this.props.offset : '';
     var idToSend = this.props.menuId !== undefined ? '&id=' + this.props.menuId : '';
     var nameToSend = this.props.menuName !== undefined ? '&name=' + this.props.menuName : '';

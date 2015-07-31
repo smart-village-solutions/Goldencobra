@@ -146,7 +146,7 @@ module Goldencobra
           end
 
           respond_to do |format|
-            format.json { render json: @json_tree }
+            format.json { render json: @json_tree, root: false }
           end
         end
 
