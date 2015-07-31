@@ -1,10 +1,9 @@
-# encoding: utf-8
-
 module Goldencobra
   module Api
     module V2
       class ArticlesController < ActionController::Base
         skip_before_filter :verify_authenticity_token
+        before_filter :get_article, only: [:show, :breadcrumb]
 
         respond_to :json
 
@@ -31,28 +30,77 @@ module Goldencobra
 
 
         # /api/v2/articles[.json]
-        # 
+        #
         # @return [json] Liefert Alle Artikel :id,:title, :ancestry
         # map{|c| [c.parent_path, c.id]}
         def index
-          @articles = Goldencobra::Article.select([:id, :title, :ancestry]).sort{ |a, b|
-            a[0] <=> b[0]
-          }
-
-          if params[:react_select] && params[:react_select] == "true"
-            # Die React Select Liste braucht das JSON in diesem Format. -hf
-            json_uploads = @articles.map{ |a| { "value" => a.id, "label" => a.parent_path } }
+          if params[:article_ids].present?
+            index_with_ids
           else
-            json_uploads = @articles.map{ |a| a.as_json(:only => [:id, :title], :methods => [:parent_path]) }
-          end
+            @articles = Goldencobra::Article.select([:id, :title, :ancestry]).sort{ |a, b|
+              a[0] <=> b[0]
+            }
 
-          respond_to do |format|
-            format.json { render json: json_uploads.as_json }
-            # Returns all publicly visible, active Articles
-            format.xml { @articles = Goldencobra::Article.new.filter_with_permissions(Goldencobra::Article.active, nil) }
+            if params[:react_select] && params[:react_select] == "true"
+              # Die React Select Liste braucht das JSON in diesem Format. -hf
+              json_uploads = @articles.map{ |a| { "value" => a.id, "label" => a.parent_path } }
+            else
+              json_uploads = @articles.map{ |a| a.as_json(:only => [:id, :title], :methods => [:parent_path]) }
+            end
+
+            respond_to do |format|
+              format.json { render json: json_uploads.as_json }
+              # Returns all publicly visible, active Articles
+              format.xml { @articles = Goldencobra::Article.new.filter_with_permissions(Goldencobra::Article.active, nil) }
+            end
           end
         end
 
+        # /api/v2/articles/:url[.json]
+        #
+        # @param methods [String] "beliebe Attribute des Artikels im JSON einfuegen"
+        #
+        # @return [json] Liefert Artikel mit einer bestimmten URL
+        #                Im JSON Response befinden sich entweder alle Attribute, oder nur die mit
+        #                params[:methods] definierten
+        def show
+          respond_to do |format|
+            format.json {
+              if params[:methods].present?
+                render json: @article,
+                       serializer: Goldencobra::ArticleCustomSerializer,
+                       scope: params[:methods]
+              else
+                render json: @article
+              end
+            }
+          end
+        end
+
+        # /api/v2/articles/index_with_id[.json]
+        #
+        # @param methods [String] "beliebe Attribute des Artikels im JSON einfuegen"
+        #
+        # @return [json] liefert für Artikel mit einer bestimmten URL Kinderartikel zurück,
+        #                die wiederum per IDs angefragt wurden
+        #
+        #                im JSON Response befinden sich entweder alle Attribute, oder nur die mit
+        #                params[:methods] definierten
+        def index_with_ids
+          article_ids = params[:article_ids]
+          articles = Goldencobra::Article.where("id IN (?)", article_ids)
+          respond_to do |format|
+            format.json {
+              if params[:methods].present?
+                render json: articles,
+                       each_serializer: Goldencobra::ArticleCustomSerializer,
+                       scope: params[:methods]
+              else
+                render json: articles
+              end
+            }
+          end
+        end
 
         # /api/v2/articles/create[.json]
         # ---------------------------------------------------------------------------------------
@@ -89,7 +137,6 @@ module Goldencobra
           else
             render status: 500, json: { :status => 500, :error => response.errors, :id => nil }
           end
-
         end
 
 
@@ -142,6 +189,18 @@ module Goldencobra
           end
         end
 
+        def breadcrumb
+          breadcrumb = []
+          @article.path.each do |art|
+            breadcrumb << { 
+              title: art.breadcrumb_name, 
+              url: art.public_url
+            }
+          end
+          respond_to do |format|
+            format.json { render json: breadcrumb.to_json }
+          end
+        end
 
         protected
 
@@ -222,10 +281,18 @@ module Goldencobra
 
           # Try to save the article
           return article
-
         end
 
+        private
 
+        def get_article
+          url = params[:url].present? ? "/#{params[:url]}" : "/"
+
+          @article = Goldencobra::Article.where(url_path: url).first
+          unless @article
+            raise "Article not found with url: #{url}"
+          end
+        end
       end
     end
   end
