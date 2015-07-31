@@ -25,6 +25,7 @@ var ListOfArticlesBox = React.createClass({
           data: this.state.data,
           class_name: this.props.class_name
         })
+      )
     );
   }
 });
