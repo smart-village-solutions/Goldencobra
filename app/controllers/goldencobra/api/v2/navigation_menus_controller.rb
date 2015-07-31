@@ -42,7 +42,7 @@ module Goldencobra
           end
 
           respond_to do |format|
-            format.json { render json: @active_menue_ids }
+            format.json { render json: @active_menue_ids, root: false }
           end
         end
 
