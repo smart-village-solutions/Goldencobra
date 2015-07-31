@@ -35,8 +35,8 @@ var ItemList = React.createClass({
   render: function () {
     var that = this;
     var articleNodes = [];
-    if (this.props.data.articles !== undefined) {
-      articleNodes = this.props.data.articles.map(function (article) {
+    if (this.props.data[that.props.class_name] !== undefined) {
+      articleNodes = this.props.data[that.props.class_name].map(function (article) {
         return (
           React.createElement(ListItem, {
           title: article.url_name || article.title, 
@@ -63,8 +63,8 @@ var ChildrenList = React.createClass({
   render: function () {
     var that = this;
     var childNodes = [];
-    if (this.props.data.articles !== undefined) {
-      childNodes = this.props.data.articles.map(function (article) {
+    if (this.props.data[that.props.class_name] !== undefined) {
+      childNodes = this.props.data[that.props.class_name].map(function (article) {
         return (
           React.createElement(ListItem, {
             title: article.url_name || article.title,
