@@ -18,7 +18,6 @@ gemspec
 # gem 'i18n-active_record', :git => 'http://github.com/svenfuchs/i18n-active_record.git', :require => 'i18n/active_record'
 # gem 'execjs'
 # gem 'therubyracer', :group => [:production] #, '~> 0.10.2'
-
 # gem "friendly_id"
 # gem 'omniauth'
 # gem 'omniauth-openid'
