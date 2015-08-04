@@ -85,7 +85,7 @@ module Goldencobra
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     has_ancestry    :orphan_strategy => :restrict
-    friendly_id     :for_friendly_name, use: [:slugged] #, :history
+    friendly_id     :for_friendly_name, use: [:slugged, :finders] #, :history
     web_url         :external_url_redirect
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
