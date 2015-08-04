@@ -3,8 +3,6 @@
 ActiveAdmin.register Goldencobra::Tracking, :as => "Analytic" do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :if => proc{can?(:update, Goldencobra::Tracking)}
 
-  controller.authorize_resource :class => Goldencobra::Tracking
-
   filter :ip
   filter :session_id
   filter :referer
@@ -34,7 +32,7 @@ ActiveAdmin.register Goldencobra::Tracking, :as => "Analytic" do
     column :created_at, :sortable => :created_at do |tracking|
       raw(tracking.created_at.strftime("%d.%m.%y&nbsp;%H:%M"))
     end
-    default_actions
+    actions
   end
 
 end

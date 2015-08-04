@@ -13,7 +13,7 @@ ActiveAdmin.register Goldencobra::Domain, :as => "Domain" do
     column :main do |d|
       d.main ? "X" : ""
     end
-    default_actions
+    actions
   end
 
   form html: { enctype: "multipart/form-data" }  do |f|
