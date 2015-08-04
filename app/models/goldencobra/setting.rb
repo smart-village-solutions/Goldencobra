@@ -30,13 +30,7 @@ module Goldencobra
     after_update :update_cache
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
-
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) } if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.any?
-
-    # TODO: MetaSearch was removed from ActiveAdmin
-    # search_methods :parent_ids_in_eq
-    # search_methods :parent_ids_in
-
     scope :with_values, where("value IS NOT NULL")
 
 
@@ -193,6 +187,25 @@ module Goldencobra
         FileUtils.touch("tmp/settings/updated_#{name}.txt")
         return Time.now
       end
+    end
+
+
+    # **************************
+    # **************************
+    # Private Methods
+    # **************************
+    # **************************
+
+    private
+
+    # Allow Scopes and Methods to search for in ransack (n.a. metasearch)
+    # @param auth_object = nil [self] "if auth_object.try(:admin?)"
+    # 
+    # @return [Array] Array of Symbols representing scopes and class methods
+    def self.ransackable_scopes(auth_object = nil)
+      [
+       :parent_ids_in
+      ]
     end
 
   end
