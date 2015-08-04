@@ -105,6 +105,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     f.actions
   end
 
+  
   index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column I18n.t('active_admin.articles.index.website_title'), :sortable => :url_name do |article|
