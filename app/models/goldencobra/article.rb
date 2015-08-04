@@ -842,6 +842,30 @@ module Goldencobra
       }
     end
 
+
+
+
+    # **************************
+    # **************************
+    # Private Methods
+    # **************************
+    # **************************
+
+    private
+
+    # Allow Scopes and Methods to search for in ransack (n.a. metasearch)
+    # @param auth_object = nil [self] "if auth_object.try(:admin?)"
+    # 
+    # @return [Array] Array of Symbols representing scopes and class methods
+    def self.ransackable_scopes(auth_object = nil)
+      [
+       :parent_ids_in, 
+       :frontend_tag_name_contains, :frontend_tag_name_equals, :frontend_tag_name_starts_with, :frontend_tag_name_ends_with,
+       :tag_name_contains, :tag_name_equals, :tag_name_starts_with, :tag_name_ends_with,
+       :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with
+      ]
+    end
+
   end
 end
 
