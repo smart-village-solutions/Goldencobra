@@ -3,8 +3,6 @@
 ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   menu :parent => I18n.t('active_admin.menues.parent'), :label => I18n.t('active_admin.menues.as'), :if => proc{can?(:update, Goldencobra::Menue)}
 
-  controller.authorize_resource :class => Goldencobra::Menue
-
   filter :title, :label => I18n.t('active_admin.menues.labels.title')
   filter :target, :label => I18n.t('active_admin.menues.labels.target')
   filter :css_class, :label => I18n.t('active_admin.menues.labels.css_class')

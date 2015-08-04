@@ -3,8 +3,6 @@
 ActiveAdmin.register User, :as => "User" do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.users.as'), :if => proc{can?(:update, User)}
 
-  controller.authorize_resource :class => User
-
   filter :firstname
   filter :lastname
   filter :email
@@ -59,7 +57,7 @@ ActiveAdmin.register User, :as => "User" do
     column :roles do |u|
       u.roles.map{|r| r.name.capitalize}.join(", ")
     end
-    default_actions
+    actions
   end
 
   show :title => :lastname do

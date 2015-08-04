@@ -1,7 +1,10 @@
 # encoding: utf-8
 ActiveAdmin.setup do |config|
   config.authorization_adapter = ActiveAdmin::CanCanAdapter
-  config.on_unauthorized_access = :access_denied
+  
+  #Folgene Zeile ruft eine Methode im Entsprechenden Controller auf, wenn es ein 'permission denied' gibt
+  #config.on_unauthorized_access = :access_denied
+  
   #if ActiveAdmin::VERSION == "0.3.4" && Rails.version == "3.2.0.rc2"
   #  class ActiveSupport::FileUpdateChecker
   #    def paths

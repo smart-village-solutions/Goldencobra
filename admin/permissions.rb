@@ -3,8 +3,6 @@
 ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order => :sorter_id do
     menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.permissions.as'), :if => proc{can?(:update, Goldencobra::Permission)}
 
-    controller.authorize_resource :class => Goldencobra::Permission
-
     scope I18n.t('active_admin.permissions.scope'), :scoped, :default => true
     if ActiveRecord::Base.connection.table_exists?("goldencobra_roles") && Goldencobra::Role.all.count > 0
       Goldencobra::Role.all.each do |role|

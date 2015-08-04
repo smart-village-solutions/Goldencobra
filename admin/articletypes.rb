@@ -1,14 +1,13 @@
 ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
   menu :parent => I18n.t("active_admin.articles.parent"), :label => I18n.t('active_admin.articletypes.as'), :if => proc{can?(:update, Goldencobra::Article)}
 
-  controller.authorize_resource :class => Goldencobra::Article
   config.clear_action_items!
 
   index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column :name
     column :default_template_file
-    default_actions
+    actions
   end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|

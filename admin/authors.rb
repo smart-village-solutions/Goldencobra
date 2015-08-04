@@ -10,7 +10,7 @@ ActiveAdmin.register Goldencobra::Author, :as => "Author" do
     column :lastname
     column :email
     column :googleplus
-    default_actions
+    actions
   end
 
   form html: { enctype: "multipart/form-data" }  do |f|
