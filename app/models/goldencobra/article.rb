@@ -131,12 +131,6 @@ module Goldencobra
     end
     scope :fulltext_contains, lambda{ |name| where("content LIKE '%#{name}%' OR teaser LIKE '%#{name}%' OR url_name LIKE '%#{name}%' OR subtitle LIKE '%#{name}%' OR summary LIKE '%#{name}%' OR context_info LIKE '%#{name}%' OR breadcrumb LIKE '%#{name}%'")}
 
-    # TODO: MetaSearch was removed from ActiveAdmin
-    # search_methods :frontend_tag_name_contains
-    # search_methods :tag_name_contains
-    # search_methods :parent_ids_in
-    # search_methods :parent_ids_in_eq
-    # search_methods :fulltext_contains
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.use_solr") == "true"

@@ -49,10 +49,6 @@ module Goldencobra
 
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
 
-    # TODO: MetaSearch was removed from ActiveAdmin
-    # search_methods :parent_ids_in_eq
-    # search_methods :parent_ids_in
-
     def self.find_by_pathname(name)
       if name.include?("/")
         where(:title => name.split("/").last).select{|a| a.path.map(&:title).join("/") == name}.first
@@ -141,6 +137,23 @@ module Goldencobra
       nodes.map do |node, sub_nodes|
         node.as_json(:only => [:id, :title, :target], :methods => display_methods).merge({:children => json_tree(sub_nodes, display_methods).compact})
       end
+    end
+
+
+    # **************************
+    # **************************
+    # Private Methods
+    # **************************
+    # **************************
+
+    private
+
+    # Allow Scopes and Methods to search for in ransack (n.a. metasearch)
+    # @param auth_object = nil [self] "if auth_object.try(:admin?)"
+    # 
+    # @return [Array] Array of Symbols representing scopes and class methods
+    def self.ransackable_scopes(auth_object = nil)
+      [ :parent_ids_in ]
     end
 
   end
