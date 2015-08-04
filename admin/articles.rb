@@ -35,6 +35,9 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         f.object.articletype.fieldgroups.where(:position => "first_block").each do |atg|
           f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
             atg.fields.each do |atgf|
+
+              render :inline => "a"
+              #render(:inline => f.input(:subtitle).to_s.html_safe )
               render(:inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f })
             end
             f.input :id, :as => :hidden
