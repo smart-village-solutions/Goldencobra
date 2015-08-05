@@ -15,7 +15,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default7'))
   filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default8'))
 
-  scope I18n.t('active_admin.articles.scope1'), :scoped, :default => true, :show_count => false
+  scope I18n.t('active_admin.articles.scope1'), :all, :default => true, :show_count => false
   scope I18n.t('active_admin.articles.scope2'), :active, :show_count => false
   scope I18n.t('active_admin.articles.scope3'), :inactive, :show_count => false
 
@@ -54,7 +54,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         end
 
         #render goldencobra_module options
-        Rails::Application::Railties.engines.select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
+        ::Rails::Engine.subclasses.map(&:instance).select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
           if File.exists?("#{engine.root}/app/views/layouts/#{engine.engine_name}/_edit_show.html.erb")
             ActionController::Base.new().render_to_string( :partial => "layouts/#{engine.engine_name}/edit_show", :locals => {:f => f, :engine => engine} )
           end
@@ -71,7 +71,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
           end
         end
 
-        Rails::Application::Railties.engines.select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
+        ::Rails::Engine.subclasses.map(&:instance).select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
           if File.exists?("#{engine.root}/app/views/layouts/#{engine.engine_name}/_edit_index.html.erb")
             ActionController::Base.new().render_to_string( :partial => "layouts/#{engine.engine_name}/edit_index", :locals => {:f => f, :engine => engine} )
           end

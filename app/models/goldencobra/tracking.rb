@@ -33,7 +33,7 @@ module Goldencobra
     attr_accessible :utm_source, :utm_medium, :utm_term, :utm_content, :utm_campaign, :location
     serialize :url_paremeters
 
-    default_scope order("created_at DESC")
+    default_scope { order("created_at DESC") }
 
     def self.analytics(request, location=nil)
       if Goldencobra::Setting.for_key("goldencobra.analytics.active") == "true"

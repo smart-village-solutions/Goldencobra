@@ -41,9 +41,9 @@ module Goldencobra
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end
-    scope :active, where(:active => true).order(:sorter)
-    scope :inactive, where(:active => false).order(:sorter)
-    scope :visible, where("css_class <> 'hidden'").where("css_class <> 'not_visible'")
+    scope :active, -> { where(:active => true).order(:sorter) }
+    scope :inactive, -> { where(:active => false).order(:sorter) }
+    scope :visible, -> { where("css_class <> 'hidden'").where("css_class <> 'not_visible'") }
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
 

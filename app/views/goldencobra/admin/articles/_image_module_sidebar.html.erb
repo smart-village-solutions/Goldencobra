@@ -7,7 +7,7 @@
 		<div class="close"></div>
 	</div>
 	<ul>
-		<%# Goldencobra::Upload.scoped.each do |upload| %>
+		<%# Goldencobra::Upload.all.each do |upload| %>
 			<%# if upload && upload.image && upload.image.url %>
 				<li><%#= image_tag upload.image.url(:mini)%></li>
 			<%# end %>
@@ -23,7 +23,7 @@
 
 <%= semantic_form_for ["admin", @article], :html => {:id => "goldencobra_article_image_gallery_tags"} do |f| %>
   <%= hidden_field_tag "article[image_gallery_tags][]", "", id: "article_image_gallery_tags_hidden" %>
-  <%= select_tag "article[image_gallery_tags][]", options_for_select(Goldencobra::Upload.scoped.tag_counts_on(:tags).map{|tag| tag.name}, @article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : []), :multiple => true, :include_blank => true, :class => "chzn-select", "data-placeholder" => I18n.t('active_admin.articles.views.image_module_sidebar.placeholder') %>
+  <%= select_tag "article[image_gallery_tags][]", options_for_select(Goldencobra::Upload.all.tag_counts_on(:tags).map{|tag| tag.name}, @article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : []), :multiple => true, :include_blank => true, :class => "chzn-select", "data-placeholder" => I18n.t('active_admin.articles.views.image_module_sidebar.placeholder') %>
 
 	<% if @article.image_gallery_tags.present? %>
 		<p>

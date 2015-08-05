@@ -8,7 +8,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
   filter :id_name, :label => I18n.t('active_admin.widget.id')
   filter :sorter, :label => I18n.t('active_admin.widget.sorter')
 
-  scope I18n.t('active_admin.widget.scope1'), :scoped, :default => true
+  scope I18n.t('active_admin.widget.scope1'), :all, :default => true
   scope I18n.t('active_admin.widget.scope2'), :active
   scope I18n.t('active_admin.widget.scope3'), :inactive
   scope I18n.t('active_admin.widget.scope4'), :default
