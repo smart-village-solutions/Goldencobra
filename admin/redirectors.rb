@@ -27,7 +27,7 @@ ActiveAdmin.register Goldencobra::Redirector, :as => "Redirector" do
 
     def show
       show! do |format|
-         format.html { redirect_to edit_admin_redirector_path(@redirector.id), :flash => flash }
+         format.html { redirect_to edit_admin_redirector_path(@redirector.id)}
       end
     end
 
