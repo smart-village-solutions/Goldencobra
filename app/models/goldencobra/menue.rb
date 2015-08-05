@@ -28,8 +28,8 @@ module Goldencobra
     belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
 
     validates_presence_of :title
-    validates_format_of :title, :with => /^[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+$/
-    has_many :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Menue"}
+    validates_format_of :title, :with => /\A[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+\z/
+    has_many :permissions, -> { where subject_class: "Goldencobra::Menue" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
 
     accepts_nested_attributes_for :permissions, :allow_destroy => true
 
@@ -41,15 +41,13 @@ module Goldencobra
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end
-    scope :active, where(:active => true).order(:sorter)
-    scope :inactive, where(:active => false).order(:sorter)
-    scope :visible, where("css_class <> 'hidden'").where("css_class <> 'not_visible'")
+    scope :active, -> { where(:active => true).order(:sorter) }
+    scope :inactive, -> { where(:active => false).order(:sorter) }
+    scope :visible, -> { where("css_class <> 'hidden'").where("css_class <> 'not_visible'") }
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
-    search_methods :parent_ids_in_eq
 
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
-    search_methods :parent_ids_in
 
     before_save :set_descendants_status
 
@@ -147,6 +145,13 @@ module Goldencobra
       end
     end
 
+
+    # **************************
+    # **************************
+    # Private Methods
+    # **************************
+    # **************************
+
     private
 
     def set_descendants_status
@@ -159,6 +164,16 @@ module Goldencobra
         end
       end
     end
+
+
+    # Allow Scopes and Methods to search for in ransack (n.a. metasearch)
+    # @param auth_object = nil [self] "if auth_object.try(:admin?)"
+    # 
+    # @return [Array] Array of Symbols representing scopes and class methods
+    def self.ransackable_scopes(auth_object = nil)
+      [ :parent_ids_in ]
+    end
+
   end
 end
 

@@ -5,7 +5,7 @@
   article_types[translated_article_type.to_sym] = article_type
 end %>
 
-<%= f.inputs I18n.t(:selection, scope: [:articles]), :class => "inputs" do
+<% f.inputs I18n.t(:selection, scope: [:articles]), :class => "inputs" do
   if article_types.count > 0
     f.input :article_type, :label => I18n.t('active_admin.articles.views.select_article_type.label_type'), :as => :select, :collection => article_types.sort, include_blank: true
   end

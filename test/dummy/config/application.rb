@@ -59,19 +59,24 @@ module Dummy
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    # Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit`
+    # callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed. 
+    # Instead, the errors will propagate normally just like in other Active Record callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.after_initialize do |app|
-      if defined?(ActiveAdmin) and ActiveAdmin.application
-        # Try enforce reloading after app bootup
-        Rails.logger.info("==== Reloading ActiveAdmin")
-        ActiveAdmin.application.unload!
-        I18n.reload!
-        self.reload_routes!
-      end
-        Rails.logger.warn("==== Locale #{I18n.locale}")
-    end
+    # config.after_initialize do |app|
+    #   if defined?(ActiveAdmin) and ActiveAdmin.application
+    #     # Try enforce reloading after app bootup
+    #     Rails.logger.info("==== Reloading ActiveAdmin")
+    #     ActiveAdmin.application.unload!
+    #     I18n.reload!
+    #     self.reload_routes!
+    #   end
+    #     Rails.logger.warn("==== Locale #{I18n.locale}")
+    # end
   end
 end
 

@@ -26,8 +26,8 @@ module Goldencobra
     validates_presence_of :action
     validates_presence_of :subject_class
 
-    default_scope order("sorter_id ASC, id")
-    scope :by_role, lambda{|rid| where(:role_id => rid)}
+    default_scope { order("sorter_id ASC, id") }
+    scope :by_role, lambda{ |rid| where(:role_id => rid) }
     before_create :set_min_sorter_id
 
     def self.restricted?(item)

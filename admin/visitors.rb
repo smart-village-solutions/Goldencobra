@@ -2,7 +2,6 @@
 
 ActiveAdmin.register Visitor do
   menu :priority => 1, :if => proc{can?(:update, Visitor)}
-  #controller.authorize_resource :class => Visitor
 
   filter :firstname
   filter :lastname
@@ -25,7 +24,7 @@ ActiveAdmin.register Visitor do
     column :newsletter, sortable: :newsletter do |v|
       v.newsletter ? I18n.t('active_admin.visitors.yes_check') : I18n.t('active_admin.visitors.no_check')
     end
-    default_actions
+    actions
   end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|

@@ -15,7 +15,7 @@ module Goldencobra
 
     web_url :source_url, :target_url
 
-    scope :active, where(:active => true)
+    scope :active, -> { where(:active => true) }
 
     validate :check_csv_data
     after_create :create_multiples_from_csv_data

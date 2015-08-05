@@ -71,7 +71,7 @@ module Goldencobra
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
     has_many :comments, :class_name => Goldencobra::Comment
-    has_many :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Article"}
+    has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
     belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
     belongs_to :creator, :class_name => User, :foreign_key => "creator_id"
 
@@ -85,7 +85,7 @@ module Goldencobra
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     has_ancestry    :orphan_strategy => :restrict
-    friendly_id     :for_friendly_name, use: [:slugged] #, :history
+    friendly_id     :for_friendly_name, use: [:slugged, :finders] #, :history
     web_url         :external_url_redirect
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
@@ -113,30 +113,25 @@ module Goldencobra
     before_destroy :update_parent_article_etag
     after_update :set_redirection_step_2
 
-    scope :robots_index, where(:robots_no_index => false)
-    scope :robots_no_index, where(:robots_no_index => true)
+    scope :robots_index, -> { where(:robots_no_index => false) }
+    scope :robots_no_index, -> { where(:robots_no_index => true) }
     #scope :active nun als Klassenmethode unten definiert
-    scope :inactive, where(:active => false)
-    scope :startpage, where(:startpage => true)
+    scope :inactive, -> { where(:active => false) }
+    scope :startpage, -> { where(:startpage => true) }
     scope :articletype, lambda{ |name| where(:article_type => name)}
     scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
-    scope :for_sitemap, includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0')
+    scope :for_sitemap, -> { includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0') }
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
     scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
     if ActiveRecord::Base.connection.table_exists?("goldencobra_metatags")
-      scope :no_title_tag, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Title Tag").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
-      scope :no_meta_description, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Meta Description").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
+      scope :no_title_tag, -> { where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Title Tag").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq) }
+      scope :no_meta_description, -> { where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Meta Description").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq) }
     end
     scope :fulltext_contains, lambda{ |name| where("content LIKE '%#{name}%' OR teaser LIKE '%#{name}%' OR url_name LIKE '%#{name}%' OR subtitle LIKE '%#{name}%' OR summary LIKE '%#{name}%' OR context_info LIKE '%#{name}%' OR breadcrumb LIKE '%#{name}%'")}
 
-    search_methods :frontend_tag_name_contains
-    search_methods :tag_name_contains
-    search_methods :parent_ids_in
-    search_methods :parent_ids_in_eq
-    search_methods :fulltext_contains
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.use_solr") == "true"
@@ -228,7 +223,9 @@ module Goldencobra
 
     # Gets the related object by article_type
     def get_related_object
-      if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+      if self.article_type.present? && self.article_type_form_file.present? && 
+        self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+        
         return self.send(self.article_type_form_file.underscore.parameterize.downcase)
       else
         return nil
@@ -848,6 +845,30 @@ module Goldencobra
             :ancestry => article.ancestry ? article.ancestry : ''
         }
       }
+    end
+
+
+
+
+    # **************************
+    # **************************
+    # Private Methods
+    # **************************
+    # **************************
+
+    private
+
+    # Allow Scopes and Methods to search for in ransack (n.a. metasearch)
+    # @param auth_object = nil [self] "if auth_object.try(:admin?)"
+    # 
+    # @return [Array] Array of Symbols representing scopes and class methods
+    def self.ransackable_scopes(auth_object = nil)
+      [
+       :parent_ids_in, 
+       :frontend_tag_name_contains, :frontend_tag_name_equals, :frontend_tag_name_starts_with, :frontend_tag_name_ends_with,
+       :tag_name_contains, :tag_name_equals, :tag_name_starts_with, :tag_name_ends_with,
+       :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with
+      ]
     end
 
   end

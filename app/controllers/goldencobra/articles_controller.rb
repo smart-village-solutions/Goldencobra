@@ -33,7 +33,8 @@ module Goldencobra
     def show
       ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)  #Possible Callbacks on start
       before_init #Possible Callbacks on start
-      params[:session] = session.except(:user_location)
+      params[:session] = session.clone
+      params[:session].delete(:user_location)
       Goldencobra::Article::LiquidParser["url_params"] = params
       if serve_iframe?
         respond_to do |format|
@@ -278,8 +279,6 @@ module Goldencobra
         if article.present?
           operator = current_user || current_visitor
           a = Ability.new(operator,@current_client)
-          logger.warn("###"*40)
-          logger.warn(a.can?(:read, article))
           if a.can?(:read, article)
             @article = article
           else
