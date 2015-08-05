@@ -25,15 +25,18 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 1.9.2"
 
   # s.add_dependency 'coffee-script-source', "~>1.8.0"
-  s.add_dependency "rails", "4.0"
-  s.add_dependency "jquery-rails", "3.1.3"
+  s.add_dependency "rails", "4.2.3"
+  s.add_dependency "jquery-rails" #, "3.1.3"
   s.add_dependency 'devise'#, "~> 3.0.0"
   # TODO: Token Authentication neu machen
   s.add_dependency 'devise-token_authenticatable'
   s.add_dependency 'cancancan'
   s.add_dependency "activeadmin", '~> 1.0.0.pre1'
-  s.add_dependency 'sunspot_rails', "2.0.0"
-  s.add_dependency 'sunspot_solr', "2.0.0"
+  
+  #Sunsport und Solar scheinen noch nciht rails 4.x kompatible zu sein
+  # s.add_dependency 'sunspot_rails', "~> 2.0.0"
+  # s.add_dependency 'sunspot_solr', "~> 2.0.0"
+  
   s.add_dependency 'sprockets'
   s.add_dependency "sass-rails"
   s.add_dependency "sass"
@@ -64,7 +67,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'whenever'
   s.add_dependency 'inherited_resources'
   s.add_dependency 'geokit'
-  s.add_dependency 'multi_json'
+  s.add_dependency 'json'
+  #s.add_dependency 'multi_json'
   s.add_dependency 'i18n'
   s.add_dependency 'i18n-active_record'
   s.add_dependency "pdfkit"
@@ -77,6 +81,11 @@ Gem::Specification.new do |s|
   s.add_dependency "wicked_pdf"
   s.add_dependency 'protected_attributes'
   s.add_dependency 'actionpack-action_caching'
+
+  #Ausgelagerte Funktionen in Rails 4.x
+  s.add_dependency 'responders', '~> 2.0'
+  s.add_dependency 'web-console', '~> 2.0'
+
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'

@@ -112,22 +112,22 @@ module Goldencobra
     before_destroy :update_parent_article_etag
     after_update :set_redirection_step_2
 
-    scope :robots_index, where(:robots_no_index => false)
-    scope :robots_no_index, where(:robots_no_index => true)
+    scope :robots_index, -> { where(:robots_no_index => false) }
+    scope :robots_no_index, -> { where(:robots_no_index => true) }
     #scope :active nun als Klassenmethode unten definiert
-    scope :inactive, where(:active => false)
-    scope :startpage, where(:startpage => true)
+    scope :inactive, -> { where(:active => false) }
+    scope :startpage, -> { where(:startpage => true) }
     scope :articletype, lambda{ |name| where(:article_type => name)}
     scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
-    scope :for_sitemap, includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0')
+    scope :for_sitemap, -> { includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0') }
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
     scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
     if ActiveRecord::Base.connection.table_exists?("goldencobra_metatags")
-      scope :no_title_tag, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Title Tag").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
-      scope :no_meta_description, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Meta Description").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
+      scope :no_title_tag, -> { where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Title Tag").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq) }
+      scope :no_meta_description, -> { where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Meta Description").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq) }
     end
     scope :fulltext_contains, lambda{ |name| where("content LIKE '%#{name}%' OR teaser LIKE '%#{name}%' OR url_name LIKE '%#{name}%' OR subtitle LIKE '%#{name}%' OR summary LIKE '%#{name}%' OR context_info LIKE '%#{name}%' OR breadcrumb LIKE '%#{name}%'")}
 

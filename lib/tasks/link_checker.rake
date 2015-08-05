@@ -19,7 +19,7 @@ namespace :link_checker do
 
   desc 'Checks Links for all Articles'
   task :all => :environment do
-    Goldencobra::Article.scoped.each do |article|
+    Goldencobra::Article.all.each do |article|
       begin
         Goldencobra::LinkChecker.set_link_checker(article)
       rescue

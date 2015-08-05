@@ -49,10 +49,10 @@ module Goldencobra
 
     ImportDataFunctions = []
 
-    scope :active, where(:active => true).order(:sorter)
-    scope :inactive, where(:active => false).order(:sorter)
-    scope :default, where(:default => true).order(:sorter)
-    scope :not_default, where(:default => false).order(:sorter)
+    scope :active, -> { where(:active => true).order(:sorter) }
+    scope :inactive, -> { where(:active => false).order(:sorter) }
+    scope :default, -> { where(:default => true).order(:sorter) }
+    scope :not_default, -> { where(:default => false).order(:sorter) }
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.widgets.recreate_cache") == "true"

@@ -1,6 +1,6 @@
+
 Gem.loaded_specs['goldencobra'].dependencies.each do |d|
   next if %w(wkhtmltopdf-binary rubyzip).include?(d.name)
-
   begin 
     if d.name == "oa-oauth"
       require "omniauth/oauth"
@@ -15,6 +15,8 @@ Gem.loaded_specs['goldencobra'].dependencies.each do |d|
     require d.name.sub("-","/")
   end
 end
+
+
 
 require "goldencobra/engine"
 module Goldencobra

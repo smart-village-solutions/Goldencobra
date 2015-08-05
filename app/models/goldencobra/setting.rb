@@ -31,7 +31,7 @@ module Goldencobra
 
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) } if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.any?
-    scope :with_values, where("value IS NOT NULL")
+    scope :with_values, -> { where("value IS NOT NULL") }
 
 
     def self.absolute_base_url
