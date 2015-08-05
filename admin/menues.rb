@@ -86,7 +86,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       menue.active = false
       menue.save
     end
-    flash[:notice] = I18n.t('active_admin.menues.form.column.batch_action.flash')
+    flash["notice"] = I18n.t('active_admin.menues.form.column.batch_action.flash')
     redirect_to :action => :index
   end
 
@@ -95,7 +95,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       menue.active = true
       menue.save
     end
-    flash[:notice] = I18n.t('active_admin.menues.form.column.batch_action.flash1')
+    flash["notice"] = I18n.t('active_admin.menues.form.column.batch_action.flash1')
     redirect_to :action => :index
   end
 
@@ -123,7 +123,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     Goldencobra::Menue.find(selection).each do |menue|
       cloned_parent = Goldencobra::Menue.create(:title => "#{I18n.t('active_admin.menues.form.batch_action.title_clone')} #{menue.title}", :target => menue.target, :css_class => menue.css_class, :active => menue.active, :parent_id => menue.parent_id, :sorter => menue.sorter, :description => menue.description, :call_to_action_name => menue.call_to_action_name, :description_title => menue.description_title, :image_id => menue.image_id)
     end
-    flash[:notice] = I18n.t('active_admin.menues.form.batch_action.flash_clone')
+    flash["notice"] = I18n.t('active_admin.menues.form.batch_action.flash_clone')
     redirect_to :action => :index
   end
 
@@ -144,7 +144,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   controller do
     def show
       show! do |format|
-         format.html { redirect_to edit_admin_menue_path(@menue), :flash => flash }
+         format.html { redirect_to edit_admin_menue_path(@menue)}
       end
     end
   end
