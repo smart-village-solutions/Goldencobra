@@ -26,7 +26,11 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     if f.object.new_record?
+      panel "Neuen Artikel anlegen unterhalb von #{f.object.parent.title} (#{f.object.parent.url_name})" do
+        "Bitte wählen sie einen Artikeltyp und füllen mindestens den Titel und den Kurznamen aus."
+      end
       ActionController::Base.new().render_to_string( :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f} )
+      f.input :id, :as => :hidden
     else
       f.actions
 

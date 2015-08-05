@@ -279,8 +279,6 @@ module Goldencobra
         if article.present?
           operator = current_user || current_visitor
           a = Ability.new(operator,@current_client)
-          logger.warn("###"*40)
-          logger.warn(a.can?(:read, article))
           if a.can?(:read, article)
             @article = article
           else
