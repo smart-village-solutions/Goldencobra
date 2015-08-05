@@ -10,9 +10,9 @@ ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
       f.input :active
       f.input :approved
       f.input :reported
-      f.input :parent_id, :as => :select, :collection => Goldencobra::Comment.scoped
-      f.input :article, :as => :select, :collection => Goldencobra::Article.scoped
-      f.input :commentator, :as => :select, :collection => Goldencobra::Setting.for_key("goldencobra.comments.commentator").constantize.scoped
+      f.input :parent_id, :as => :select, :collection => Goldencobra::Comment.all
+      f.input :article, :as => :select, :collection => Goldencobra::Article.all
+      f.input :commentator, :as => :select, :collection => Goldencobra::Setting.for_key("goldencobra.comments.commentator").constantize.all
     end
     f.actions
   end

@@ -177,7 +177,7 @@ $(function() {
   });
 
   //Foldable overview in sidebar
-  $("div.overview-sidebar div.folder").live("click", function(){
+  $("div.overview-sidebar div.folder").on("click", function(){
     $(this).closest('li').find("ul:first").slideToggle();
   });
   $("div.overview-sidebar div.folder").trigger("click");
@@ -250,7 +250,7 @@ $(function() {
 
   $(".chzn-select").chosen();
   $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
-  $("a.button").live("click", function(){
+  $("a.button").on("click", function(){
     $(".chzn-select").chosen();
     $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
   });

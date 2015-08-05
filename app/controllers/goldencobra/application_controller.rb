@@ -18,6 +18,10 @@ module Goldencobra
       request.referrer
     end
 
+    def access_denied(exception)
+      redirect_to root_path, alert: exception.message
+    end
+
     rescue_from CanCan::AccessDenied do |exception|
       if can?(:read, Goldencobra::Article)
         redirect_to root_url, :alert => exception.message

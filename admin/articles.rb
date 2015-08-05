@@ -1,8 +1,6 @@
 ActiveAdmin.register Goldencobra::Article, as: "Article" do
   menu :parent => I18n.t("active_admin.articles.parent"), :label => I18n.t("active_admin.articles.as"), :if => proc{can?(:update, Goldencobra::Article)}
 
-  controller.authorize_resource :class => Goldencobra::Article
-
   # Alle Filteroptionen in der rechten Seitenleiste
   filter :parent_ids_in, :as => :select, :collection => proc { Goldencobra::Article.order("title") }, :label => I18n.t("filter_parent", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default1'))
   filter :article_type, :as => :select, :collection => Goldencobra::Article.article_types_for_select.map{|at| [I18n.t(at.parameterize.underscore.downcase, scope: [:goldencobra, :article_types], default: at), at]}.sort, :label => I18n.t("filter_type", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default2'))
@@ -17,7 +15,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   filter :created_at, :label =>  I18n.t("filter_created", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default7'))
   filter :updated_at, :label =>  I18n.t("filter_updated", :scope => [:goldencobra, :filter], :default => I18n.t('active_admin.articles.filter.default8'))
 
-  scope I18n.t('active_admin.articles.scope1'), :scoped, :default => true, :show_count => false
+  scope I18n.t('active_admin.articles.scope1'), :all, :default => true, :show_count => false
   scope I18n.t('active_admin.articles.scope2'), :active, :show_count => false
   scope I18n.t('active_admin.articles.scope3'), :inactive, :show_count => false
 
@@ -28,7 +26,11 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
     if f.object.new_record?
-      render :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f}
+      panel "Neuen Artikel anlegen unterhalb von #{f.object.parent.title} (#{f.object.parent.url_name})" do
+        "Bitte wählen sie einen Artikeltyp und füllen mindestens den Titel und den Kurznamen aus."
+      end
+      ActionController::Base.new().render_to_string( :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f} )
+      f.input :id, :as => :hidden
     else
       f.actions
 
@@ -36,8 +38,8 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       if f.object.articletype.present?
         f.object.articletype.fieldgroups.where(:position => "first_block").each do |atg|
           f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
-            atg.fields.each do |atgf|
-              render(:inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f })
+            atg.fields.each do |atgf|              
+              ActionController::Base.new().render_to_string( :inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f } )
             end
             f.input :id, :as => :hidden
           end
@@ -49,16 +51,16 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
         #render Article_type Options
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_show.html.erb")
-          render :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show", :locals => {:f => f}
+          ActionController::Base.new().render_to_string(:partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show", :locals => {:f => f})
         else
           f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show" do
           end
         end
 
         #render goldencobra_module options
-        Rails::Application::Railties.engines.select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
+        ::Rails::Engine.subclasses.map(&:instance).select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
           if File.exists?("#{engine.root}/app/views/layouts/#{engine.engine_name}/_edit_show.html.erb")
-            render :partial => "layouts/#{engine.engine_name}/edit_show", :locals => {:f => f, :engine => engine}
+            ActionController::Base.new().render_to_string( :partial => "layouts/#{engine.engine_name}/edit_show", :locals => {:f => f, :engine => engine} )
           end
         end
 
@@ -67,15 +69,15 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
         render :partial => "goldencobra/admin/articles/articles_index", :locals => {:f => f}
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_index.html.erb")
-          render :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index", :locals => {:f => f}
+          ActionController::Base.new().render_to_string( :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index", :locals => {:f => f} )
         else
           f.inputs "ERROR: Partial missing! #{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index" do
           end
         end
 
-        Rails::Application::Railties.engines.select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
+        ::Rails::Engine.subclasses.map(&:instance).select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
           if File.exists?("#{engine.root}/app/views/layouts/#{engine.engine_name}/_edit_index.html.erb")
-            render :partial => "layouts/#{engine.engine_name}/edit_index", :locals => {:f => f, :engine => engine}
+            ActionController::Base.new().render_to_string( :partial => "layouts/#{engine.engine_name}/edit_index", :locals => {:f => f, :engine => engine} )
           end
         end
         #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
@@ -91,7 +93,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         f.object.articletype.fieldgroups.where(:position => "last_block").each do |atg|
           f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
             atg.fields.each do |atgf|
-              render(:inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f })
+              ActionController::Base.new().render_to_string(:inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f })
             end
             f.input :id, :as => :hidden
           end
@@ -99,14 +101,16 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       end
     end
 
-    f.inputs I18n.t('active_admin.articles.form.JS_scripts'), :style => "display:none"  do
+    panel "Scripts", :style => "display:none" do
+    #f.inputs I18n.t('active_admin.articles.form.JS_scripts'), :style => "display:none"  do
       if current_user && current_user.enable_expert_mode == true
-        render partial: '/goldencobra/admin/articles/toggle_expert_mode'
+        ActionController::Base.new().render_to_string( partial: '/goldencobra/admin/articles/toggle_expert_mode' )
       end
     end
     f.actions
   end
 
+  
   index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column I18n.t('active_admin.articles.index.website_title'), :sortable => :url_name do |article|
@@ -331,7 +335,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
     def show
       show! do |format|
-         format.html { redirect_to edit_admin_article_path(@article.id), :flash => flash }
+         format.html { redirect_to edit_admin_article_path(@article.id)}
       end
     end
 
@@ -382,9 +386,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     link_to(I18n.t('active_admin.articles.action_item.link_to.article_preview'), resource.public_url, :target => "_blank")
   end
 
-  action_item :only => :edit, :inner_html => {:class => "expert"} do
-    link_to("#{current_user.enable_expert_mode ? I18n.t('active_admin.articles.action_item.link_to.deactivate') : I18n.t('active_admin.articles.action_item.link_to.activate')} #{I18n.t('active_admin.articles.action_item.link_to.expert_modus')}", toggle_expert_mode_admin_article_path(), id: "expert-mode")
-  end
+  # Diese Funktion soll in GC 2.0 entfernt werden, da sie überflüssig ist
+  # action_item :only => :edit, :inner_html => {:class => "expert"} do
+  #   link_to("#{current_user.enable_expert_mode ? I18n.t('active_admin.articles.action_item.link_to.deactivate') : I18n.t('active_admin.articles.action_item.link_to.activate')} #{I18n.t('active_admin.articles.action_item.link_to.expert_modus')}", toggle_expert_mode_admin_article_path(), id: "expert-mode")
+  # end
 
   #action_item :only => :index do
     #link_to(I18n.t('active_admin.articles.action_item.link_to.import'), new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")

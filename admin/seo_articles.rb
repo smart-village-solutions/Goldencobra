@@ -1,9 +1,8 @@
 ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
 
   menu false
-  controller.authorize_resource :class => Goldencobra::Article
 
-  scope I18n.t('active_admin.seo_articles.scope1'), :scoped, :default => true
+  scope I18n.t('active_admin.seo_articles.scope1'), :all, :default => true
   scope I18n.t('active_admin.seo_articles.scope2'), :active
   scope I18n.t('active_admin.seo_articles.scope3'), :inactive
   scope I18n.t('active_admin.seo_articles.scope4'), :no_title_tag

@@ -9,58 +9,58 @@ source "https://rubygems.org"
 gemspec
 
 # jquery-rails is used by the dummy application
-gem "jquery-rails"
+# gem "jquery-rails"
 
-gem 'multi_json'#, "~> 1.3"
-gem 'devise', "~> 2.2.4"#, :git => "http://github.com/plataformatec/devise.git"
-gem 'activeadmin', :git => "http://github.com/ikusei/active_admin.git", :require => "activeadmin"
-gem 'acts-as-taggable-on', :git => 'http://github.com/mbleigh/acts-as-taggable-on.git'
-gem 'i18n-active_record', :git => 'http://github.com/svenfuchs/i18n-active_record.git', :require => 'i18n/active_record'
-gem 'execjs'
-gem 'therubyracer', :group => [:production] #, '~> 0.10.2'
+# gem 'multi_json'#, "~> 1.3"
+# gem 'devise', "~> 2.2.4"#, :git => "http://github.com/plataformatec/devise.git"
+# # gem 'activeadmin', :git => "http://github.com/ikusei/active_admin.git", :require => "activeadmin"
+# gem 'acts-as-taggable-on', :git => 'http://github.com/mbleigh/acts-as-taggable-on.git'
+# gem 'i18n-active_record', :git => 'http://github.com/svenfuchs/i18n-active_record.git', :require => 'i18n/active_record'
+# gem 'execjs'
+# gem 'therubyracer', :group => [:production] #, '~> 0.10.2'
+# gem "friendly_id"
+# gem 'omniauth'
+# gem 'omniauth-openid'
+# gem 'oa-oauth', :require => 'omniauth/oauth'
+# gem 'oa-openid', :require => 'omniauth/openid'
+# gem 'coffee-rails'#, '~> 3.2.0'
+# gem 'uglifier', '>= 1.0.3'
+# gem 'meta-tags', :require => 'meta_tags', :git => "http://github.com/5minpause/meta-tags.git"
+# # gem "cocaine", "= 0.3.2"
+# gem "paperclip"#, "= 3.0.4"
+# gem 'sass-rails'
+# gem 'compass-rails'
+# gem 'memcache-client'
+# gem 'nokogiri'#, '~> 1.5.3'
+# # gem 'cancan', "1.6.7"
+# gem 'cancan'
+# #gem 'cobweb' #https://github.com/stewartmckee/cobweb
+# #gem 'link-checker'
+# #gem 'linkchecker', :git => "http://github.com/seb/linkchecker.git"
 
-gem "friendly_id"
-gem 'omniauth'
-gem 'omniauth-openid'
-gem 'oa-oauth', :require => 'omniauth/oauth'
-gem 'oa-openid', :require => 'omniauth/openid'
-gem 'coffee-rails'#, '~> 3.2.0'
-gem 'uglifier', '>= 1.0.3'
-gem 'meta-tags', :require => 'meta_tags', :git => "http://github.com/5minpause/meta-tags.git"
-# gem "cocaine", "= 0.3.2"
-gem "paperclip"#, "= 3.0.4"
-gem 'sass-rails'
-gem 'compass-rails'
-gem 'memcache-client'
-gem 'nokogiri'#, '~> 1.5.3'
-# gem 'cancan', "1.6.7"
-gem 'cancan'
-#gem 'cobweb' #https://github.com/stewartmckee/cobweb
-#gem 'link-checker'
-#gem 'linkchecker', :git => "http://github.com/seb/linkchecker.git"
-
-gem 'rmagick'
-gem 'simple_enum'
+# gem 'rmagick'
+# gem 'simple_enum'
 
 
-gem "paper_trail"
-gem 'sunspot_rails'
-gem 'sunspot_solr'
-gem 'sidekiq'
-gem 'sinatra', :require => false
-gem 'slim'
-gem 'geokit'
-gem 'exifr'
+# gem "paper_trail"
+# gem 'sunspot_rails'
+# gem 'sunspot_solr'
+# gem 'sidekiq'
+# gem 'sinatra', :require => false
+# gem 'slim'
+# gem 'geokit'
+# gem 'exifr'
 
-gem 'pdfkit'
-gem 'wkhtmltopdf-binary'
+# gem 'pdfkit'
+# gem 'wkhtmltopdf-binary'
 
 group :development,:test do
-  gem 'debugger'
+  gem 'byebug'
   gem "rspec-rails" # rspec in dev so the rake tasks run properly
   gem "faker" # rspec in dev so the rake tasks run properly
   gem 'newrelic_rpm'
   gem 'yarjuf'
+  gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 end
 
 group :development do

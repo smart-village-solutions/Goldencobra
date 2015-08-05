@@ -1,6 +1,10 @@
 # encoding: utf-8
-
 ActiveAdmin.setup do |config|
+  config.authorization_adapter = ActiveAdmin::CanCanAdapter
+  
+  #Folgene Zeile ruft eine Methode im Entsprechenden Controller auf, wenn es ein 'permission denied' gibt
+  #config.on_unauthorized_access = :access_denied
+  
   #if ActiveAdmin::VERSION == "0.3.4" && Rails.version == "3.2.0.rc2"
   #  class ActiveSupport::FileUpdateChecker
   #    def paths
@@ -19,7 +23,7 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = "Golden Cobra"
 
-  config.before_filter :current_ability
+  # config.before_filter :current_ability
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -119,7 +123,6 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
      config.register_javascript 'goldencobra/active_admin.js'
      config.register_javascript "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
-     config.register_javascript "https://togetherjs.com/togetherjs-min.js"
      config.register_javascript "goldencobra/jquery.tinymce.js"
      config.register_javascript 'goldencobra/chosen.jquery.min.js'
      config.register_javascript 'active_admin.js'
