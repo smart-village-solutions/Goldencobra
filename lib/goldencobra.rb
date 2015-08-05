@@ -6,6 +6,8 @@ Gem.loaded_specs['goldencobra'].dependencies.each do |d|
       require "omniauth/oauth"
     elsif d.name == "oa-openid"
       require "omniauth/openid"
+    elsif d.name == "addressable"
+      require 'addressable/uri'
     else
       require d.name
     end
