@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
 
   def has_role?(name)
     if name.class == Array
-      (self.roles & Goldencobra::Role.find_all_by_name(name)).any?
+      ( self.roles & Goldencobra::Role.where(:name => name) ).any?
     else
       self.roles.include?(Goldencobra::Role.find_by_name(name))
     end
