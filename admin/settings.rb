@@ -84,16 +84,16 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     redirect_to :back, :notice => "#{I18n.t('active_admin.settings.notice.undid_event')} #{@version.event}"
   end
 
-  action_item :only => :edit do
+  action_item :undo, :only => :edit do
     if resource.versions.last
       link_to(I18n.t('active_admin.settings.action_item.link'), revert_admin_setting_path(:id => resource.versions.last), :class => "undo")
     end
   end
-  action_item only: [:edit, :show] do
+  action_item :prev_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/prev_item'
   end
 
-  action_item only: [:edit, :show] do
+  action_item :next_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/next_item'
   end
 

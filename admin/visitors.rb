@@ -85,11 +85,11 @@ ActiveAdmin.register Visitor do
     end
   end
 
-  action_item only: [:edit, :show] do
+  action_item :prev_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/prev_item'
   end
 
-  action_item only: [:edit, :show] do
+  action_item :next_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/next_item'
   end
 end

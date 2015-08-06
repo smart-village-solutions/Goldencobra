@@ -141,17 +141,17 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
     redirect_to :action => :index, :notice => I18n.t('active_admin.uploads.unzip_notice')
   end
 
-  action_item :only => [:edit, :show] do
+  action_item :unzip, :only => [:edit, :show] do
     if resource.image_file_name && resource.image_file_name.include?(".zip")
       link_to('Zip-Datei entpacken', unzip_file_admin_upload_path(resource), :target => "_blank")
     end
    end
 
-  action_item only: [:edit, :show] do
+  action_item :prev_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/prev_item'
   end
 
-  action_item only: [:edit, :show] do
+  action_item :next_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/next_item'
   end
 

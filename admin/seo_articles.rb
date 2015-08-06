@@ -58,11 +58,11 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
     redirect_to :action => :index
   end
 
-  action_item :only => [:index] do
+  action_item :link_checker, :only => [:index] do
     link_to(I18n.t('active_admin.seo_articles.action_link'), admin_link_checkers_path())
   end
 
-  action_item :only => :index do
+  action_item :run, :only => :index do
     link_to(I18n.t('active_admin.seo_articles.action_link1'), run_all_link_checker_admin_seo_articles_path())
   end
 

@@ -151,11 +151,11 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
   end
 
-  action_item :only => [:index] do
+  action_item :seo, :only => [:index] do
     link_to(I18n.t('active_admin.articles.sidebar.seo_link'), admin_seo_articles_path())
   end
 
-  action_item :only => [:edit] do
+  action_item :new, :only => [:edit] do
     link_to I18n.t('active_admin.articles.sidebar.new_sub_article'), new_admin_article_path(:parent => resource), :class => "new_link"
   end
 
@@ -378,11 +378,11 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     redirect_to :back, :notice => "#{I18n.t('active_admin.settings.notice.undid_event')} #{@version.event}"
   end
 
-  action_item only: [:edit, :show] do
+  action_item :prev_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/prev_item'
   end
 
-  action_item :only => :edit do
+  action_item :preview, :only => :edit do
     link_to(I18n.t('active_admin.articles.action_item.link_to.article_preview'), resource.public_url, :target => "_blank")
   end
 
@@ -395,13 +395,13 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     #link_to(I18n.t('active_admin.articles.action_item.link_to.import'), new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
   #end
 
-  action_item :only => :edit do
+  action_item :undo, :only => :edit do
     if resource.versions.last
       link_to(I18n.t('active_admin.articles.action_item.link_to.undo'), revert_admin_article_path(:id => resource.versions.last), :class => "undo")
     end
   end
 
-  action_item only: [:edit, :show] do
+  action_item :next_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/next_item'
   end
 end

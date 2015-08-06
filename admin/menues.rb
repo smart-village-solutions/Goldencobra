@@ -148,17 +148,17 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     redirect_to :action => :index
   end
 
-  action_item only: [:edit, :show] do
+  action_item :prev_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/prev_item'
   end
 
-  action_item :only => :edit do
+  action_item :undo, :only => :edit do
     if resource.versions.last
       link_to(I18n.t('active_admin.menues.form.action_item.link_to'), revert_admin_menue_path(:id => resource.versions.last), :class => "undo")
     end
   end
 
-  action_item only: [:edit, :show] do
+  action_item :next_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/next_item'
   end
 
