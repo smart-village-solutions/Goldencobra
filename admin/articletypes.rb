@@ -14,7 +14,7 @@ ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
     f.inputs I18n.t('active_admin.articletypes.general') do
       f.input :default_template_file, :as => :select, :collection => Goldencobra::Article.templates_for_select, :include_blank => false
     end
-    f.inputs I18n.t('active_admin.articletypes.article_fields'), :class => "inputs" do
+    f.inputs I18n.t('active_admin.articletypes.article_fields'), :class => "foldable inputs" do
       f.has_many :fieldgroups do |fg|
         fg.input :title
         fg.input :position, :as => :select, :collection => [["First Block","first_block"], ["Last Block","last_block"]], :include_blank => false, :hint => I18n.t('active_admin.articletypes.position_hint')
