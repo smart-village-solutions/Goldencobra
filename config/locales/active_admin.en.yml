@@ -252,9 +252,6 @@ en:
           hint_filter: "Here registered terms are offered on overview pages as filter options"
         sort_articles_index:
           inputs: "Manually sorting index"
-        toggle_expert_mode:
-          text1: "Expert-Modus deaktivieren"
-          text2: "Expert-Modus aktivieren"
         widgets_sidebar:
           h5: "The following widgets are displayed in addition to the standard widgets"
           position: "Position: "
