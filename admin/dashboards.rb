@@ -1,6 +1,10 @@
 # encoding: utf-8
 
 ActiveAdmin.register_page "Dashboard" do
+
+  content do
+    div I18n.locale
+  end
   
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just

@@ -14,6 +14,7 @@ ActiveAdmin.setup do |config|
   #  warn = '!! double check the ActiveSupport::FileUpdateChecker duck punch in #{__FILE__} !!'
   #  puts warn
   #end
+  # 
 
   # == Site Title
   #

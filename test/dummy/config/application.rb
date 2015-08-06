@@ -35,6 +35,18 @@ module Dummy
     config.i18n.default_locale = :de
     config.i18n.locale = :de
 
+    config.before_configuration do
+      I18n.load_path += Dir[Rails.root.join('config', 'locales','*.{rb,yml}').to_s]
+      ::Rails::Engine.subclasses.map(&:instance).select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
+        I18n.load_path += Dir[engine.root.join('config', 'locales','*.{rb,yml}').to_s]
+      end
+      I18n.default_locale = :de
+      I18n.locale = :de
+      I18n.reload!
+    end
+
+    config.i18n.enforce_available_locales = false
+
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
