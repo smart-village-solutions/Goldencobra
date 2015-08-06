@@ -5,7 +5,9 @@ module Goldencobra
     before_filter :set_locale
 
     def set_locale
-      unless Rails.env == "test"
+      if Rails.env == "test"
+        I18n.locale = :de
+      else
         I18n.locale = params[:locale] || session[:locale]
       end
     end

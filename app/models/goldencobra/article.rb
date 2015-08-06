@@ -526,7 +526,10 @@ module Goldencobra
         else
           old_url = "#{self.absolute_base_url}#{Goldencobra::Domain.current.try(:url_prefix)}#{self.url_path}"
         end
-        r = Goldencobra::Redirector.find_or_create_by_source_url(old_url)
+        r = Goldencobra::Redirector.find_by_source_url(old_url)
+        if r.blank?
+          r = Goldencobra::Redirector.create(source_url: old_url)
+        end
         r.active = false
         r.save
         self.create_redirection = r.id
