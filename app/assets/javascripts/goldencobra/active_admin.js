@@ -189,7 +189,7 @@ $(function () {
 		$("#goldencobra_image_maganger").fadeOut();
 	});
 
-	$('#footer').html("<p>Golden Cobra</p>");
+	$('#footer').html("<p>Golden Cobra 2.0</p>");
 
 	//die fieldsets bekommen einen button zum auf und zu klappen
 	$('div#main_content > form > fieldset.foldable > legend').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>");
@@ -208,25 +208,32 @@ $(function () {
 	$('div#sidebar div.sidebar_section:not(#layout_positions_sidebar_section) h3').trigger("click");
   $('div#sidebar div.sidebar_section .warning').closest("div.sidebar_section").addClass("warning").find("h3").trigger("click");
 
-
-//die Settings sub groups bekommen ein button zum aufklappen
+  //die Settings sub groups bekommen ein button zum aufklappen
   $('div#goldencobra_settings_wrapper .foldable').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>");
-  $('div#goldencobra_settings_wrapper .foldable').bind("click", function(){
+  $('div#goldencobra_settings_wrapper .foldable').bind("click", function() {
     $(this).closest(".settings_group_title").find(".foldable_icon").toggleClass("open");
     $(this).closest(".settings_level").children('.settings_sub_group').slideToggle();
   });
 
 
-  $(".chosen-select").chosen();
-  $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
-  $("a.button").on("click", function(){
-    $(".chosen-select").chosen();
-    $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
+
+
+  /* init chosen */
+  $('.chosen-select').chosen();
+  $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+  $('a.button').on('click', function() {
+    setTimeout(function initChosens() {
+      $('.chosen-select').chosen();
+      $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+    }, 20);
   });
 
+
+
+
   //Menuepunkte bekommen eine funktion zum auf und zu klappen
-  $('div#overview_sidebar div.title a').bind("click", function(){
-    $(this).children("ul").hide();
+  $('div#overview_sidebar div.title a').bind('click', function() {
+    $(this).children('ul').hide();
   });
 
   $('div#overview_sidebar div.title a').trigger("click");
@@ -239,16 +246,16 @@ $(function () {
   });
 
   $("body.show #title_bar .action_items a[href$='edit']").append(" (⌘-E)");
-    key('⌘+e, ctrl+e', function(){
+    key('⌘+e, ctrl+e', function() {
     target = $("#title_bar .action_items a[href$='edit']").attr("href");
     window.location = target;
     return false;
   });
 
   //Short Key for Life support on every Page
-  key('⌘+k, ctrl+k', function(){
-    call_for_help();
-  });
+  // key('⌘+k, ctrl+k', function(){
+  //   call_for_help();
+  // });
 
   // $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)");
   // key('⌘+z, ctrl+z', function(){
@@ -297,11 +304,10 @@ $(function () {
   changeLogoFromSetting();
 });
 
-function call_for_help(argument) {
-  TogetherJS(this);
-  return false;
-}
-
+// function call_for_help(argument) {
+//   TogetherJS(this);
+//   return false;
+// }
 
 /**
  *
