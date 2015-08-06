@@ -49,11 +49,11 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
       raw(I18n.t('active_admin.permissions.sidebar.sidebar_info'))
     end
 
-  action_item only: [:edit, :show] do
+  action_item :prev_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/prev_item'
   end
 
-  action_item only: [:edit, :show] do
+  action_item :next_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/next_item'
   end
 

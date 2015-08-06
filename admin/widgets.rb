@@ -157,7 +157,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
 
   batch_action :destroy, false
 
-  action_item :only => :edit do
+  action_item :undo, :only => :edit do
     if resource.versions.last
       link_to(I18n.t('active_admin.widget.undo'), revert_admin_widget_path(:id => resource.versions.last), :class => "undo")
     end
@@ -187,11 +187,11 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
   end
 
-  action_item only: [:edit, :show] do
+  action_item :prev_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/prev_item'
   end
 
-  action_item only: [:edit, :show] do
+  action_item :next_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/next_item'
   end
 end
