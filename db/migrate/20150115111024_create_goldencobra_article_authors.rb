@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class CreateGoldencobraArticleAuthors < ActiveRecord::Migration
   def up
     create_table :goldencobra_article_authors do |t|

@@ -74,7 +74,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       end
     end
     f.inputs I18n.t('active_admin.widget.article') do
-      f.input :articles, :label => I18n.t('active_admin.widget.article_label'), :hint => I18n.t('active_admin.widget.article_hint'), :as => :select, :collection => Goldencobra::Article.order("title ASC"), :input_html => { :class => 'chzn-select', "data-placeholder" => I18n.t('active_admin.widget.article_placeholder') }
+      f.input :articles, :label => I18n.t('active_admin.widget.article_label'), :hint => I18n.t('active_admin.widget.article_hint'), :as => :select, :collection => Goldencobra::Article.order("title ASC"), :input_html => { :class => 'chosen-select', "data-placeholder" => I18n.t('active_admin.widget.article_placeholder') }
     end
     f.actions
   end
@@ -114,7 +114,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     column "" do |widget|
       result = ""
       result += link_to(t(:edit), edit_admin_widget_path(widget), :class => "member_link edit_link edit", :title => I18n.t('active_admin.widget.title_widget_edit'))
-      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.widget.title_widget_delete'))
+      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.widget.title_widget_delete'))
       raw(result)
     end
   end

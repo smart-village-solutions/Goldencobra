@@ -2,33 +2,34 @@
 //= require goldencobra/keymaster
 //= require goldencobra/notifications
 //= require goldencobra/countable
-// require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
-//= require goldencobra/jquery.color
+//= require goldencobra/jquery.tinymce
+//= require goldencobra/chosen.jquery
+//= require goldencobra/jquery.color-2.1.2
 //= require goldencobra/jquery.Jcrop.min
 //= require goldencobra/react_0.13.1.min
 //= require goldencobra/components
+// require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
 
 //Live Support Settings
-var TogetherJSConfig_siteName = "Ikusei GmbH";
-var TogetherJSConfig_toolName = "Ikusei Live Support";
+var TogetherJSConfig_siteName = 'Ikusei GmbH';
+var TogetherJSConfig_toolName = 'Ikusei Live Support';
 var TogetherJSConfig_suppressInvite = true;
 var TogetherJSConfig_on = {
   ready: function(){
     $.ajax({
-      url: "/call_for_support",
-      data: "link=" + encodeURIComponent(TogetherJS.shareUrl())
+      url: '/call_for_support',
+      data: 'link=' + encodeURIComponent(TogetherJS.shareUrl())
     });
   }
 };
 
 $(function() {
-
   //Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
   // hole alle Goldencobra:Article :id,:title, :ancestry
-  var $select_parent_articles = $(".get_goldencobra_articles_per_remote");
+  var $select_parent_articles = $('.get_goldencobra_articles_per_remote');
   if ( $select_parent_articles.length){
     $.ajax({
-      url: "/api/v2/articles.json?react_select=true"
+      url: '/api/v2/articles.json?react_select=true'
     }).done(function(data){
       var $this             = $select_parent_articles.get(0);
       var thisId            = $this.id;
@@ -45,7 +46,7 @@ $(function() {
       var $thisEl = $('#' + thisId);
       // $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
       $thisEl.chosen({ allow_single_deselect: true });
-      $('.chosen-container').css({width: '70%'});
+      $('.chosen-container').css({width: '80%'});
       return false;
     });
   }
@@ -63,7 +64,7 @@ $(function() {
           var $this = element;
           var thisId = element.id;
           var thisName = element.name;
-          var includeBlank = $(element).hasClass("chzn-select-deselect");
+          var includeBlank = $(element).hasClass("chosen-select-deselect");
           var selectedUploadId = $(element).find("option:selected").val();
 
           $this.outerHTML = "<div id='react-" + thisId + "'></div>";
@@ -73,14 +74,14 @@ $(function() {
           );
 
           var $thisEl = $('#' + thisId);
-          
+
           $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
           if (includeBlank){
             $thisEl.chosen({ allow_single_deselect: true });
           } else {
             $thisEl.chosen();
           }
-          $('.chosen-container').css({width: '70%'});
+          $('.chosen-container').css({width: '80%'});
         });
         return false;
       });
@@ -108,58 +109,61 @@ $(function() {
     var tinyMCESetting_theme_advanced_blockformats = "p,h1,h2,h3,div";
   }
 
-  $("textarea.tinymce-no-buttons").tinymce({
-    script_url: "/assets/goldencobra/tiny_mce.js",
-    mode: "textareas",
-    theme: "advanced",
-    theme_advanced_buttons1: "",
-    theme_advanced_buttons2: "",
-    theme_advanced_buttons3: "",
-    theme_advanced_toolbar_location: "top",
-    theme_advanced_toolbar_align: "center",
+  $('textarea.tinymce-no-buttons').tinymce({
+    script_url: '/assets/goldencobra/tiny_mce.js',
+    language: 'de',
+    mode: 'textareas',
+    theme: 'advanced',
+    theme_advanced_buttons1: '',
+    theme_advanced_buttons2: '',
+    theme_advanced_buttons3: '',
+    theme_advanced_toolbar_location: 'top',
+    theme_advanced_toolbar_align: 'center',
     theme_advanced_resizing: false,
     relative_urls: true,
     convert_urls: false,
     theme_advanced_blockformats: tinyMCESetting_theme_advanced_blockformats,
-    plugins: "autolink,paste",
-    dialog_type: "modal",
+    plugins: 'autolink,paste',
+    dialog_type: 'modal',
     paste_auto_cleanup_on_paste: true
   });
 
 
 	$('textarea.tinymce').tinymce({
-		script_url: "/assets/goldencobra/tiny_mce.js",
-    mode: "textareas",
-    theme: "advanced",
-    theme_advanced_buttons1: "formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen",
-    theme_advanced_buttons2: "",
-    theme_advanced_buttons3: "",
-    theme_advanced_toolbar_location: "top",
-    theme_advanced_toolbar_align: "center",
+		script_url: '/assets/goldencobra/tiny_mce.js',
+    language: 'de',
+    mode: 'textareas',
+    theme: 'advanced',
+    theme_advanced_buttons1: 'formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen',
+    theme_advanced_buttons2: '',
+    theme_advanced_buttons3: '',
+    theme_advanced_toolbar_location: 'top',
+    theme_advanced_toolbar_align: 'center',
     theme_advanced_resizing: false,
 		relative_urls: true,
     convert_urls: false,
     theme_advanced_blockformats: tinyMCESetting_theme_advanced_blockformats,
-		plugins: "fullscreen,autolink,paste",
-		dialog_type: "modal",
+		plugins: 'fullscreen,autolink,paste',
+		dialog_type: 'modal',
 		paste_auto_cleanup_on_paste: true
 	});
 
 	$('textarea.tinymce_extended').tinymce({
-		script_url: "/assets/goldencobra/tiny_mce.js",
-    mode: "textareas",
-    theme: "advanced",
-    theme_advanced_buttons1: "formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen",
-    theme_advanced_buttons2: "removeformat, fontsizeselect, forecolor, backcolor, forecolorpicker, backcolorpicker",
-    theme_advanced_buttons3: "tablecontrols",
-    theme_advanced_toolbar_location: "top",
-    theme_advanced_toolbar_align: "left",
+		script_url: '/assets/goldencobra/tiny_mce.js',
+    language: 'de',
+    mode: 'textareas',
+    theme: 'advanced',
+    theme_advanced_buttons1: 'formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen',
+    theme_advanced_buttons2: 'removeformat, fontsizeselect, forecolor, backcolor, forecolorpicker, backcolorpicker',
+    theme_advanced_buttons3: 'tablecontrols',
+    theme_advanced_toolbar_location: 'top',
+    theme_advanced_toolbar_align: 'left',
     theme_advanced_resizing: false,
 		relative_urls: true,
     convert_urls: false,
     theme_advanced_blockformats: tinyMCESetting_theme_advanced_blockformats,
-		plugins: "fullscreen,autolink,paste,table",
-		dialog_type: "modal",
+		plugins: 'fullscreen,autolink,paste,table',
+		dialog_type: 'modal',
 		paste_auto_cleanup_on_paste: true,
 		verify_html: false
 	});
@@ -186,19 +190,20 @@ $(function() {
 	//$('#einstellungen ul').append("<li><a href='/admin/background'>Background Jobs</a></li>")
 
 	$('.metadescription_hint').tinymce({
-		script_url: "/assets/goldencobra/tiny_mce.js",
-      mode: "textareas",
-      theme: "advanced",
-      readonly: 1,
-      theme_advanced_default_background_color: "#f4f4f4",
-      theme_advanced_buttons1: "",
-      theme_advanced_buttons2: "",
-      theme_advanced_buttons3: "",
-      theme_advanced_toolbar_location: "bottom",
-      theme_advanced_toolbar_align: "center",
-      theme_advanced_resizing: false,
-      body_id: "metadescription-tinymce-body",
-      content_css: "/assets/goldencobra/active_admin.css"
+		script_url: '/assets/goldencobra/tiny_mce.js',
+    language: 'de',
+    mode: 'textareas',
+    theme: 'advanced',
+    readonly: 1,
+    theme_advanced_default_background_color: '#f4f4f4',
+    theme_advanced_buttons1: '',
+    theme_advanced_buttons2: '',
+    theme_advanced_buttons3: '',
+    theme_advanced_toolbar_location: 'bottom',
+    theme_advanced_toolbar_align: 'center',
+    theme_advanced_resizing: false,
+    body_id: 'metadescription-tinymce-body',
+    content_css: '/assets/goldencobra/active_admin.css'
   });
 
   function postInitWork() {
@@ -248,11 +253,11 @@ $(function() {
   });
 
 
-  $(".chzn-select").chosen();
-  $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
+  $(".chosen-select").chosen();
+  $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
   $("a.button").on("click", function(){
-    $(".chzn-select").chosen();
-    $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
+    $(".chosen-select").chosen();
+    $(".chosen-select-deselect").chosen({ allow_single_deselect: true });
   });
 
   //Menuepunkte bekommen eine funktion zum auf und zu klappen
@@ -263,7 +268,7 @@ $(function() {
   $('div#overview_sidebar div.title a').trigger("click");
 
   $("#main_content form:not(.without_short_key) input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
-  
+
   key('⌘+s, ctrl+s', function() {
     $("#main_content form input:submit").trigger("click");
     return false;
@@ -319,7 +324,7 @@ $(function() {
   $("ul.link_checker_ul div.link_checker_label").click(function(){
     $(this).siblings(".link_checker_sources").toggle();
   });
-  
+
   // optimize header menu bar
   $('#utility_nav').after('<div style="clear: both;"></div>');
   $('#wrapper > #header').css('height', 'auto').css('min-width', '890px').css('filter', 'none');

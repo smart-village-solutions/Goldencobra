@@ -26,7 +26,7 @@ var SelectList = React.createClass({
     return (
       React.createElement('select', {
           className: this.props.className + ' select-list reacted',
-          id: this.props.id, style: { width: '70%' },
+          id: this.props.id, style: { width: '80%' },
           value: this.props.value,
           name: this.props.name
         },

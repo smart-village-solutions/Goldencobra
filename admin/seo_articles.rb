@@ -36,7 +36,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
       end
     end
     column :active, :sortable => :active do |article|
-      link_to(article.active ? I18n.t('active_admin.seo_articles.index.active_online') : I18n.t('active_admin.seo_articles.index.active_offline'), set_page_online_offline_admin_article_path(article),:confirm => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
+      link_to(article.active ? I18n.t('active_admin.seo_articles.index.active_online') : I18n.t('active_admin.seo_articles.index.active_offline'), set_page_online_offline_admin_article_path(article), "data-confirm" => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
 
 
@@ -45,7 +45,7 @@ ActiveAdmin.register Goldencobra::Article, :as => "SEO-Article" do
       result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => I18n.t('active_admin.seo_articles.column.title1'))
       result += link_to(t(:edit), edit_admin_article_path(article.id), :class => "member_link edit_link edit", :title => I18n.t('active_admin.seo_articles.column.title2'))
       result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.seo_articles.column.title3'))
-      result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.seo_articles.column.title4'))
+      result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.seo_articles.column.title4'))
       raw(result)
     end
   end
