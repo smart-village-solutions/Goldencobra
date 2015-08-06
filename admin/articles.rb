@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Article, as: "Article" do
   menu :parent => I18n.t("active_admin.articles.parent"), :label => I18n.t("active_admin.articles.as"), :if => proc{can?(:update, Goldencobra::Article)}
 
@@ -38,7 +40,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       if f.object.articletype.present?
         f.object.articletype.fieldgroups.where(:position => "first_block").each do |atg|
           f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
-            atg.fields.each do |atgf|              
+            atg.fields.each do |atgf|
               ActionController::Base.new().render_to_string( :inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f } )
             end
             f.input :id, :as => :hidden
@@ -110,7 +112,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     f.actions
   end
 
-  
+
   index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column I18n.t('active_admin.articles.index.website_title'), :sortable => :url_name do |article|
@@ -120,7 +122,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       article.public_url
     end
     column I18n.t('active_admin.articles.index.active'), :active, :sortable => :active do |article|
-      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", :confirm => I18n.t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
+      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), :title => "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", "data-confirm" => I18n.t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column I18n.t('active_admin.articles.index.article_type'), :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? I18n.t('active_admin.articles.index.default') : I18n.t(article.article_type.parameterize.underscore.downcase, scope: [:goldencobra, :article_types])
@@ -146,7 +148,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => I18n.t('active_admin.articles.index.article_preview'))
       result += link_to(t(:edit), edit_admin_article_path(article.id), :class => "member_link edit_link edit", :title => I18n.t('active_admin.articles.index.article_edit'))
       result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.articles.index.create_subarticle'))
-      result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.articles.index.delete_article'))
+      result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.articles.index.delete_article'))
       raw(result)
     end
   end
@@ -178,7 +180,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     if resource.startpage
       t("startpage", :scope => [:goldencobra, :flash_notice])
     else
-      link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(resource.id), :confirm => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
+      link_to t("action_Startpage", :scope => [:goldencobra, :flash_notice]) , mark_as_startpage_admin_article_path(resource.id), "data-confirm" => t("name_of_flashnotice", :scope => [:goldencobra, :flash_notice])
     end
   end
 
@@ -278,7 +280,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     redirect_to :action => :edit
   end
 
-  batch_action :reset_cache, :confirm => I18n.t('active_admin.articles.batch_action.cache') do |selection|
+  batch_action :reset_cache, "data-confirm" => I18n.t('active_admin.articles.batch_action.cache') do |selection|
     Goldencobra::Article.find(selection).each do |article|
       article.updated_at = Time.now
       article.without_versioning :save
@@ -287,7 +289,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     redirect_to :action => :index
   end
 
-  batch_action :set_article_online, :confirm => I18n.t('active_admin.articles.batch_action.confirm_online') do |selection|
+  batch_action :set_article_online, "data-confirm" => I18n.t('active_admin.articles.batch_action.confirm_online') do |selection|
     Goldencobra::Article.find(selection).each do |article|
       article.active = true
       article.save
@@ -296,7 +298,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     redirect_to :action => :index
   end
 
-  batch_action :set_article_offline, :confirm => I18n.t('active_admin.articles.batch_action.confirm_offline')  do |selection|
+  batch_action :set_article_offline, "data-confirm" => I18n.t('active_admin.articles.batch_action.confirm_offline')  do |selection|
     Goldencobra::Article.find(selection).each do |article|
       article.active = false
       article.save

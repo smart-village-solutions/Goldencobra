@@ -89,7 +89,7 @@ ActiveAdmin.register Goldencobra::Upload, :as => "Upload"  do
       result = ""
       result += link_to(t(:view), admin_upload_path(upload), :class => "member_link edit_link view", :title => I18n.t('active_admin.uploads.title1'))
       result += link_to(t(:edit), edit_admin_upload_path(upload), :class => "member_link edit_link edit", :title => I18n.t('active_admin.uploads.title2'))
-      result += link_to(t(:delete), admin_upload_path(upload), :method => :DELETE, :confirm => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.uploads.title3'))
+      result += link_to(t(:delete), admin_upload_path(upload), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.uploads.title3'))
       raw(result)
     end
   end

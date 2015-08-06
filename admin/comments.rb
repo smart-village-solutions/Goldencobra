@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
   menu :parent => "Content-Management", :label => I18n.t('active_admin.comments.as'), :if => proc{can?(:read, Goldencobra::Comment)}
 
@@ -32,7 +30,7 @@ ActiveAdmin.register Goldencobra::Comment, :as => "article_comment" do
     column "" do |comment|
       result = ""
       result += link_to(t(:edit), "/admin/article_comments/#{comment.id}/edit", :class => "member_link edit_link edit", :title => I18n.t('active_admin.comments.title'))
-      result += link_to(t(:delete), admin_comment_path(comment.id), :method => :DELETE, :confirm => I18n.t('active_admin.comments.delete_comment'), :class => "member_link delete_link delete", :title => I18n.t('active_admin.comments.title0'))
+      result += link_to(t(:delete), admin_comment_path(comment.id), :method => :DELETE, "data-confirm" => I18n.t('active_admin.comments.delete_comment'), :class => "member_link delete_link delete", :title => I18n.t('active_admin.comments.title0'))
       raw(result)
     end
   end

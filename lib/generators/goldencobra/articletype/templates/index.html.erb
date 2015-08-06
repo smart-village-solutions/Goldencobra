@@ -9,27 +9,25 @@
 <%= yield(:article_content) %>
 
 <% if @article.use_frontend_tags == true %>
-  <% if @list_of_articles && @article.use_frontend_tags == true%>
-
+  <% if @list_of_articles && @article.use_frontend_tags == true %>
     <div class="index_filter_search_wrapper">
       <% tags = [] %>
-          <% @list_of_articles.each do |a| %>
-              <% tags << a.frontend_tag_list.map{|a| a.to_s.strip } %>
-        <% end %>
-        <% tags = tags.flatten.compact.uniq.delete_if{|t| t.blank?} %>
+      <% @list_of_articles.each do |a| %>
+        <% tags << a.frontend_tag_list.map{|a| a.to_s.strip } %>
+      <% end %>
+      <% tags = tags.flatten.compact.uniq.delete_if{|t| t.blank?} %>
 
-        <% if tags.count > 0 %>
-            <hr />
-            <h2>Sie können diese Liste weiter einschränken</h2>
-            <%= form_tag "#{@article.public_url if @article.public_url.present? }", id: "index-filter-search", :method => :get do  %>
-              <div class="styled-select left">
-                  <%= select "", "frontend_tags", tags, :include_blank => "Alles" %>
-              </div>
-              <div class="clear"></div>
+      <% if tags.count > 0 %>
+        <hr />
+        <h2>Sie können diese Liste weiter einschränken</h2>
+        <%= form_tag "#{@article.public_url if @article.public_url.present? }", id: "index-filter-search", method: :get do  %>
+          <div class="styled-select left">
+            <%= select "", "frontend_tags", tags, include_blank: "Alles" %>
+          </div>
+          <div class="clear"></div>
         <% end %>
       <% end %>
     </div>
-
   <% end %>
 
   <% if params[:frontend_tags].present? %>
@@ -39,20 +37,19 @@
   <% end %>
 <% end %>
 
-
 <% if @list_of_articles %>
   <% @list_of_articles.each do |article| %>
     <article class="index-article">
-        <h2><%= link_to article.title, article.public_url %></h2>
+      <h2><%= link_to article.title, article.public_url %></h2>
       <% if article.teaser.present? %>
         <div class="event-description">
           <%= raw(article.teaser) %>
         </div>
-        <p><%= link_to "weiterlesen", article.public_url, :class => "more" %></p>
-          <% if @list_of_articles.count > 1 %>
-            <hr class="line" />
-          <% end %>
+        <p><%= link_to "weiterlesen", article.public_url, class: "more" %></p>
+        <% if @list_of_articles.count > 1 %>
+          <hr class="line" />
         <% end %>
+      <% end %>
     </article>
   <% end %>
 <% end %>
