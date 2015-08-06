@@ -174,7 +174,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
   end
 
-  action_item only: :edit do
+  action_item :duplicate, only: :edit do
     link_to(I18n.t('active_admin.widget.duplicate'),
             duplicate_admin_widget_path(id: resource), class: "duplicate")
   end
