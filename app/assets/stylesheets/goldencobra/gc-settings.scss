@@ -1,0 +1,52 @@
+#goldencobra_settings_wrapper {
+  .settings_category {
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    border: 1px solid grey;
+    border-radius: 5px 5px 5px 5px;
+    background-color: rgb(244, 244, 244);
+    width: 40%;
+    margin: 10px;
+    float: left;
+
+    .settings_level {
+      overflow: hidden;
+      clear: both;
+
+      .settings_group_title {
+        padding: 5px;
+        font-weight: bold;
+        font-size: 1.1em;
+        cursor: pointer;
+      }
+
+      .settings_sub_group {
+        display: none;
+      }
+
+      .setting_key_value {
+        color: rgb(50, 53, 55);
+        overflow: hidden;
+        margin-left: 15px;
+        margin-right: 10px;
+        clear: both;
+        padding: 2px;
+
+        &:hover{
+          @include background(linear-gradient(left, rgb(244, 244, 244) 0%, #E6E6E6 50%));
+        }
+
+        .setting_title {
+          float: left;
+          width: 60%;
+        }
+
+        .setting_value {
+          width: 40%;
+          float: left;
+        }
+      }
+    }
+  }
+}

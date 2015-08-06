@@ -11,20 +11,20 @@
 // require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
 
 //Live Support Settings
-var TogetherJSConfig_siteName = 'Ikusei GmbH';
-var TogetherJSConfig_toolName = 'Ikusei Live Support';
-var TogetherJSConfig_suppressInvite = true;
-var TogetherJSConfig_on = {
-  ready: function(){
-    $.ajax({
-      url: '/call_for_support',
-      data: 'link=' + encodeURIComponent(TogetherJS.shareUrl())
-    });
-  }
-};
+// var TogetherJSConfig_siteName = 'Ikusei GmbH';
+// var TogetherJSConfig_toolName = 'Ikusei Live Support';
+// var TogetherJSConfig_suppressInvite = true;
+// var TogetherJSConfig_on = {
+//   ready: function(){
+//     $.ajax({
+//       url: '/call_for_support',
+//       data: 'link=' + encodeURIComponent(TogetherJS.shareUrl())
+//     });
+//   }
+// };
 
-$(function() {
-  //Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
+$(function () {
+  // Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
   // hole alle Goldencobra:Article :id,:title, :ancestry
   var $select_parent_articles = $('.get_goldencobra_articles_per_remote');
   if ( $select_parent_articles.length){
@@ -47,46 +47,10 @@ $(function() {
       // $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
       $thisEl.chosen({ allow_single_deselect: true });
       $('.chosen-container').css({width: '80%'});
+      $('#sidebar .chosen-container').css({width: '100%'});
       return false;
     });
   }
-
-  //Wenn es get_goldencobra_uploads_per_remote im 'Artikel bearbeiten' gibt,
-  // hole alle Goldencobra:Uploads :id, :complete_list_name
-  function populateArticleUploads() {
-    var $selectArticleUploads = $(".get_goldencobra_uploads_per_remote").not('.reacted');
-    if ($selectArticleUploads.length) {
-      $.ajax({
-        url: "/api/v2/uploads.json"
-      }).done(function (data) {
-        var thisData = data;
-        $selectArticleUploads.each(function (index, element) {
-          var $this = element;
-          var thisId = element.id;
-          var thisName = element.name;
-          var includeBlank = $(element).hasClass("chosen-select-deselect");
-          var selectedUploadId = $(element).find("option:selected").val();
-
-          $this.outerHTML = "<div id='react-" + thisId + "'></div>";
-          React.render(
-            React.createElement(SelectList, {id: thisId, value: selectedUploadId, options: thisData, name: thisName, firstBlank: includeBlank}),
-            document.getElementById('react-' + thisId)
-          );
-
-          var $thisEl = $('#' + thisId);
-
-          $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
-          if (includeBlank){
-            $thisEl.chosen({ allow_single_deselect: true });
-          } else {
-            $thisEl.chosen();
-          }
-          $('.chosen-container').css({width: '80%'});
-        });
-        return false;
-      });
-    }
-  };
 
   populateArticleUploads();
 
@@ -225,7 +189,7 @@ $(function() {
 		$("#goldencobra_image_maganger").fadeOut();
 	});
 
-	$('#footer').html("<p>Goldencobra</p>");
+	$('#footer').html("<p>Golden Cobra</p>");
 
 	//die fieldsets bekommen einen button zum auf und zu klappen
 	$('div#main_content > form > fieldset.foldable > legend').prepend("<div class='foldable_icon_wrapper'><div class='foldable_icon'></div></div>");
@@ -359,4 +323,41 @@ function changeLogoFromSetting() {
       }
     }
   });
+}
+
+// Wenn es get_goldencobra_uploads_per_remote im 'Artikel bearbeiten' gibt,
+// hole alle Goldencobra:Uploads :id, :complete_list_name
+function populateArticleUploads() {
+  var $selectArticleUploads = $(".get_goldencobra_uploads_per_remote").not('.reacted');
+  if ($selectArticleUploads.length) {
+    $.ajax({
+      url: "/api/v2/uploads.json"
+    }).done(function (data) {
+      var thisData = data;
+      $selectArticleUploads.each(function (index, element) {
+        var $this = element;
+        var thisId = element.id;
+        var thisName = element.name;
+        var includeBlank = $(element).hasClass("chosen-select-deselect");
+        var selectedUploadId = $(element).find("option:selected").val();
+
+        $this.outerHTML = "<div id='react-" + thisId + "'></div>";
+        React.render(
+          React.createElement(SelectList, {id: thisId, value: selectedUploadId, options: thisData, name: thisName, firstBlank: includeBlank}),
+          document.getElementById('react-' + thisId)
+        );
+
+        var $thisEl = $('#' + thisId);
+
+        $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
+        if (includeBlank){
+          $thisEl.chosen({ allow_single_deselect: true });
+        } else {
+          $thisEl.chosen();
+        }
+        $('.chosen-container').css({width: '80%'});
+      });
+      return false;
+    });
+  }
 }
