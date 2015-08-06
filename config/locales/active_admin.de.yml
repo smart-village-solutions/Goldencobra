@@ -252,9 +252,6 @@ de:
           hint_filter: "Hier eingetragene Begriffe werden auf &Uuml;bersichtsseiten als Filteroptionen angeboten"
         sort_articles_index:
           inputs: "Manuell Index Sorting"
-        toggle_expert_mode:
-          text1: "Deactivate Expert-Modus"
-          text2: "Activate Expert-Modus"
         widgets_sidebar:
           h5: "Folgende Schnipsel werden zusätzlich zu den Standard-Schnipseln angezeigt"
           position: "Position: "

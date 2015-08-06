@@ -109,12 +109,13 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       end
     end
 
-    panel "Scripts", :style => "display:none" do
-    #f.inputs I18n.t('active_admin.articles.form.JS_scripts'), :style => "display:none"  do
-      if current_user && current_user.enable_expert_mode == true
-        ActionController::Base.new().render_to_string( partial: '/goldencobra/admin/articles/toggle_expert_mode' )
-      end
-    end
+    # expert mode wird nicht mehr genutzt
+    # panel "Scripts", :style => "display:none" do
+    # #f.inputs I18n.t('active_admin.articles.form.JS_scripts'), :style => "display:none"  do
+    #   if current_user && current_user.enable_expert_mode == true
+    #     ActionController::Base.new().render_to_string( partial: '/goldencobra/admin/articles/toggle_expert_mode' )
+    #   end
+    # end
     f.actions
   end
 
@@ -370,11 +371,11 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   end
 
-  member_action :toggle_expert_mode do
-    current_user.enable_expert_mode = !current_user.enable_expert_mode
-    current_user.save
-    redirect_to :back
-  end
+  # member_action :toggle_expert_mode do
+  #   current_user.enable_expert_mode = !current_user.enable_expert_mode
+  #   current_user.save
+  #   redirect_to :back
+  # end
 
   member_action :revert do
     @version = PaperTrail::Version.find(params[:id])

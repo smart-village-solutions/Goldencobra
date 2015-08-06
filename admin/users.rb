@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 ActiveAdmin.register User, :as => "User" do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.users.as'), :if => proc{can?(:update, User)}
 
@@ -24,7 +22,7 @@ ActiveAdmin.register User, :as => "User" do
       end
       f.input :password, hint: I18n.t('active_admin.users.hint1')
       f.input :password_confirmation, hint: I18n.t('active_admin.users.hint2')
-      f.input :enable_expert_mode
+      # f.input :enable_expert_mode # nicht mehr genutzt, datenbankfeld kann weg
       f.input :function
       f.input :phone
       f.input :fax

@@ -10,19 +10,6 @@
 //= require goldencobra/components
 // require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
 
-//Live Support Settings
-// var TogetherJSConfig_siteName = 'Ikusei GmbH';
-// var TogetherJSConfig_toolName = 'Ikusei Live Support';
-// var TogetherJSConfig_suppressInvite = true;
-// var TogetherJSConfig_on = {
-//   ready: function(){
-//     $.ajax({
-//       url: '/call_for_support',
-//       data: 'link=' + encodeURIComponent(TogetherJS.shareUrl())
-//     });
-//   }
-// };
-
 $(function () {
   // Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
   // hole alle Goldencobra:Article :id,:title, :ancestry
@@ -252,19 +239,12 @@ $(function () {
     return false;
   });
 
-  //Short Key for Life support on every Page
-  // key('⌘+k, ctrl+k', function(){
-  //   call_for_help();
-  // });
-
   // $("#title_bar .action_items a[href$='revert']").append(" (⌘-Z)");
   // key('⌘+z, ctrl+z', function(){
 	// target = $("#title_bar .action_items a[href$='revert']").attr("href");
 	// window.location = target;
 	// return false;
   // });
-
-  $('.expert').hide();
 
   /**** DOM Manipulation Zeitsteuerung ****/
   /* text input felder für den jeweiligen
@@ -303,11 +283,6 @@ $(function () {
   // own logo per app from settings url
   changeLogoFromSetting();
 });
-
-// function call_for_help(argument) {
-//   TogetherJS(this);
-//   return false;
-// }
 
 /**
  *
