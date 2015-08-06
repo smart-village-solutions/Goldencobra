@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order => :sorter_id do
     menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.permissions.as'), :if => proc{can?(:update, Goldencobra::Permission)}
 
@@ -26,7 +24,7 @@ ActiveAdmin.register Goldencobra::Permission, :as => "Permission", :sort_order =
       column "" do |permission|
         result = ""
         result += link_to(t(:edit), edit_admin_permission_path(permission.id), :class => "member_link edit_link edit", :title => I18n.t('active_admin.permissions.index.title_edit'))
-        result += link_to(t(:delete), admin_permission_path(permission.id), :method => :DELETE, :confirm => I18n.t('active_admin.permissions.index.confirm'), :class => "member_link delete_link delete", :title => I18n.t('active_admin.permissions.index.title_delete'))
+        result += link_to(t(:delete), admin_permission_path(permission.id), :method => :DELETE, "data-confirm" => I18n.t('active_admin.permissions.index.confirm'), :class => "member_link delete_link delete", :title => I18n.t('active_admin.permissions.index.title_delete'))
         raw(result)
       end
     end

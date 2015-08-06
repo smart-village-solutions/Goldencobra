@@ -5,7 +5,7 @@ en:
       action_Startpage: "Make this article startpage"
       startpage: "This article is the startpage!"
       online: "Change the visibility of the article?"
-      delete_article: "Realy want to delete this article?"
+      delete_article: "Really want to delete this article?"
     filter:
       filter_titel: "Title"
       filter_subtitel: "Subtitle"

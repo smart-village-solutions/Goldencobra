@@ -8,8 +8,8 @@
   <%= link_to "#{@operator.email} #{I18n.t('goldencobra.manage.admin_article_management_content.link1')}", "/admin/logout" %>
   <a href='/admin/articles/<%= @article.id %>/edit' target="_blank"><%= I18n.t('goldencobra.manage.admin_article_management_content.link1_text') %></a>
   <% if @article.active? %>
-    <%= link_to I18n.t('goldencobra.manage.admin_article_management_content.link2'), "manage/article_visibility/#{@article.id}", :remote => true, :confirm => I18n.t('goldencobra.manage.admin_article_management_content.confirm2') %>
+    <%= link_to I18n.t('goldencobra.manage.admin_article_management_content.link2'), "manage/article_visibility/#{@article.id}", :remote => true, "data-confirm" => I18n.t('goldencobra.manage.admin_article_management_content.confirm2') %>
   <% else %>
-    <%= link_to I18n.t('goldencobra.manage.admin_article_management_content.link3'), "manage/article_visibility/#{@article.id}", :remote => true, :confirm => I18n.t('goldencobra.manage.admin_article_management_content.confirm3') %>
+    <%= link_to I18n.t('goldencobra.manage.admin_article_management_content.link3'), "manage/article_visibility/#{@article.id}", :remote => true, "data-confirm" => I18n.t('goldencobra.manage.admin_article_management_content.confirm3') %>
   <% end %>
 </div>

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 Rails.application.config.to_prepare do
   Goldencobra::Article.class_eval do
     has_one :<%= name.underscore %>, :dependent => :destroy
@@ -9,7 +7,7 @@ Rails.application.config.to_prepare do
 
     def init_default_<%= name.underscore %>
       if (self.<%= name.underscore %>.blank? && self.article_type == "<%= name %> Show")
-        self.<%= name.underscore %> = <%= name %>.new(:article_id => self.id) 
+        self.<%= name.underscore %> = <%= name %>.new(article_id: self.id)
         self.save
       end
     end

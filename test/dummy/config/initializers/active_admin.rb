@@ -1,18 +1,17 @@
-# encoding: utf-8
 ActiveAdmin.setup do |config|
   config.authorization_adapter = ActiveAdmin::CanCanAdapter
-  
+
   #Folgene Zeile ruft eine Methode im Entsprechenden Controller auf, wenn es ein 'permission denied' gibt
   #config.on_unauthorized_access = :access_denied
-  
-  #if ActiveAdmin::VERSION == "0.3.4" && Rails.version == "3.2.0.rc2"
+
+  #if ActiveAdmin::VERSION == '0.3.4' && Rails.version == '3.2.0.rc2'
   #  class ActiveSupport::FileUpdateChecker
   #    def paths
   #      @files
   #    end
   #  end
   #else
-  #  warn = "!! double check the ActiveSupport::FileUpdateChecker duck punch in #{__FILE__} !!"
+  #  warn = '!! double check the ActiveSupport::FileUpdateChecker duck punch in #{__FILE__} !!'
   #  puts warn
   #end
 
@@ -21,14 +20,14 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Golden Cobra"
+  config.site_title = 'Golden Cobra'
 
   # config.before_filter :current_ability
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  # config.site_title_link = "/"
+  # config.site_title_link = '/'
 
   # == Default Namespace
   #
@@ -117,13 +116,9 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-    config.register_stylesheet "goldencobra/active_admin"
-    config.register_stylesheet "goldencobra/chosen.css"
+  config.register_stylesheet 'goldencobra/active_admin'
 
   # To load a javascript file:
-     config.register_javascript 'goldencobra/active_admin.js'
-     config.register_javascript "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
-     config.register_javascript "goldencobra/jquery.tinymce.js"
-     config.register_javascript 'goldencobra/chosen.jquery.min.js'
-     config.register_javascript 'active_admin.js'
+  config.register_javascript 'goldencobra/active_admin'
+  # config.register_javascript 'active_admin'
 end

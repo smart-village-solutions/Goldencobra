@@ -1,4 +1,3 @@
-# encoding: utf-8
 Rails.application.config.to_prepare do
 	if ActiveRecord::Base.connection.table_exists?("goldencobra_articles") && ActiveRecord::Base.connection.table_exists?("goldencobra_articletypes")
 		Goldencobra::Article.article_types_for_select.each do |at|
@@ -9,7 +8,7 @@ Rails.application.config.to_prepare do
 		end
 		if ActiveRecord::Base.connection.table_exists?("goldencobra_articletype_groups")
 			Goldencobra::Articletype.all.each do |at|
-				#install Basik set of Fieldgroups and Fields if no one is set up
+				# install basic set of fieldgroups and fields if no one is set up
 				if !at.try(:fieldgroups).any?
 					a1 = at.fieldgroups.create(:title => "Allgemein", :position => "first_block", :foldable => false, :closed => false, :expert => false, :sorter => 1)
 					a1.fields.create(:fieldname => "title", :sorter => 1)
