@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -33,9 +31,9 @@ module Dummy
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-     config.i18n.default_locale = :en
-     #config.i18n.default_locale = :de
-     #config.i18n.locale = :de
+    # config.i18n.default_locale = :en
+    config.i18n.default_locale = :de
+    config.i18n.locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -60,7 +58,7 @@ module Dummy
     config.assets.enabled = true
 
     # Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit`
-    # callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed. 
+    # callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed.
     # Instead, the errors will propagate normally just like in other Active Record callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 

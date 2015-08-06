@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # # encoding: utf-8
 
 # # encoding: utf-8
@@ -21,7 +19,7 @@
 #       links = []
 #       links << link_to(I18n.t('active_admin.imports.link_to.start_import'), run_admin_import_path(import), :class => "import", :title => I18n.t('active_admin.imports.title.start_import'))
 #       links << link_to(I18n.t('active_admin.imports.link_to.edit'), edit_admin_import_path(import), :class => "edit", :title => I18n.t('active_admin.imports.title.edit'))
-#       links << link_to(I18n.t('active_admin.imports.link_to.delete'), admin_import_path(import),:method => :delete, :confirm => "Destroy Import?", :class => "delete", :title => I18n.t('active_admin.imports.title.delete'))
+#       links << link_to(I18n.t('active_admin.imports.link_to.delete'), admin_import_path(import),:method => :delete, "data-confirm" => "Destroy Import?", :class => "delete", :title => I18n.t('active_admin.imports.title.delete'))
 #       links << link_to(I18n.t('active_admin.imports.link_to.allocation'), assignment_admin_import_path(import))
 #       raw(links.join(" "))
 #     end

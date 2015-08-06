@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module Goldencobra
   module Generators
     class ArticletypeGenerator < Rails::Generators::NamedBase
@@ -23,7 +21,7 @@ module Goldencobra
 
       def updates_model
         inject_into_class "app/models/#{name.underscore}.rb", name.constantize do
-          "belongs_to  :article  , :class_name => Goldencobra::Article\nSortOptions = []\ndef fulltext_searchable_text\n''\nend\n"
+          "belongs_to :article, class_name: Goldencobra::Article\nSortOptions = []\ndef fulltext_searchable_text\n''\nend\n"
         end
       end
 
