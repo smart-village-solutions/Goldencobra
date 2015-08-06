@@ -1,0 +1,14 @@
+// Active Admin CSS Styles
+//@import "active_admin/mixins";
+//@import "active_admin/base";
+
+@import "compass";
+@import "chosen";
+@import "jquery.Jcrop.min";
+
+// ikusei styles
+@import "gc-general";
+@import "gc-header";
+@import "gc-overview-tree";
+@import "gc-settings";
+@import "gc-chosen-overwrite";
