@@ -806,11 +806,11 @@ module Goldencobra
       results = []
       path_to_articletypes = File.join(::Rails.root, "app", "views", "articletypes")
       if Dir.exist?(path_to_articletypes)
-        Dir.foreach(path_to_articletypes) do |name| #.map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_edit/ }.delete_if{|a| a[0] == "_"}
+        Dir.foreach(path_to_articletypes) do |name|
           file_name_path = File.join(path_to_articletypes,name)
           if File.directory?(file_name_path)
             Dir.foreach(file_name_path) do |sub_name|
-                file_name = "#{name.titleize.gsub(' ','')}#{sub_name.titleize}" if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0
+                file_name = [name.titleize.gsub(' ',''), sub_name.gsub('_','').titleize].join(" ") if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0
                 results << file_name.split(".").first if file_name.present?
             end
           end
