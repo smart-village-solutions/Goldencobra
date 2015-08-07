@@ -21,7 +21,9 @@
 
 module Goldencobra
   class Upload < ActiveRecord::Base
-
+    attr_accessible :id, :source, :rights, :description, :image_file_name, :crop_x, :crop_y, :crop_w, :crop_h, :crop_image, :image_url
+    attr_accessible :image_content_type, :image_file_size, :created_at, :updated_at, :attachable_id, :attachable_type, :alt_text, :sorter_number
+    attr_accessible :image, :tag_list
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_image, :image_url
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads") &&
@@ -32,6 +34,7 @@ module Goldencobra
                         :url => "/system/:attachment/:id/:style/:filename",
                         :convert_options => { :all => "#{Goldencobra::Setting.for_key('goldencobra.upload.convert_options')}" },
                         :default_url => "missing_:style.png"
+      do_not_validate_attachment_file_type :image
       before_post_process :image_file?
     end
 
