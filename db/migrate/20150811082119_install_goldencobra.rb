@@ -460,7 +460,7 @@ class InstallGoldencobra < ActiveRecord::Migration
       t.string   "linkedin",               limit: 255
       t.string   "xing",                   limit: 255
       t.string   "googleplus",             limit: 255
-      t.boolean  "enable_expert_mode",                 default: false
+      t.boolean  "enable_expert_mode",                 default: true
     end
 
     add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
