@@ -1,3 +1,13 @@
+v.2.0.3
+  - Dashboard erweitert um Artikel Suche
+  - ActiveAdmin Comments deaktiviert
+  - Reihenfolge der Menüpunkte optimiert
+  - Author.save bug behoben
+
+v.2.0.2
+  - Dashboard reaktiviert (section wird zu colums und panels)
+  - ReaktJS Overview Tree repariert
+
 v.2.0.1
   - Cleanup Migrations
   - no "rake goldencobra:install:migrations" mehr notwendig, Migrations bleiben in den Engines
