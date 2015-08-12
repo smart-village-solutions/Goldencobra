@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 ActiveAdmin.register Visitor do
-  menu :priority => 1, :if => proc{can?(:update, Visitor)}
+  menu :priority => 10, :if => proc{can?(:update, Visitor)}
 
   filter :firstname
   filter :lastname

@@ -1,13 +1,25 @@
 # encoding: utf-8
 
 ActiveAdmin.register_page "Dashboard" do
-
-  content do
+  menu :priority => 0
   
-    #erste Zeile
+  content do
+
+
+    columns do
+
+      column do
+        panel "Suche nach einem Artikel", priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
+          div select_tag :article_id, nil, :class => "get_goldencobra_articles_per_remote", :id => "dashboard_article_search"
+        end
+      end
+
+    end
+    
+    #eine Zeile
     columns do 
 
-      #erste Spalte
+      #eine Spalte
       column do
         panel I18n.t('active_admin.dashboards.article_section'), priority: 1, :if => proc{can?(:update, Goldencobra::Article)} do
           table do
@@ -39,11 +51,11 @@ ActiveAdmin.register_page "Dashboard" do
 
       
     
-    end # end first columns
+    end # end columns
 
     columns do
 
-      #erste Spalte
+      #eine Spalte
       column do
         panel I18n.t('active_admin.dashboards.widget_section'), priority: 2, :if => proc{can?(:update, Goldencobra::Widget)} do
           table do
@@ -64,7 +76,7 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
 
-      #zweite Spalte
+      #eine Spalte
       column do 
         panel I18n.t('active_admin.dashboards.vita_steps'), priority: 2, :if => proc{can?(:update, Goldencobra::Vita)} do
           table do
@@ -86,7 +98,7 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
 
-    end # end second columns
+    end # end columns
 
 
 
