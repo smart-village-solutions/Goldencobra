@@ -132,7 +132,7 @@ $(function () {
   });
 
   //Foldable overview in sidebar
-  $("div.overview-sidebar div.folder").on("click", function(){
+  $("body").on("click", "div.overview-sidebar div.folder" , function(){  
     $(this).closest('li').find("ul:first").slideToggle();
   });
   $("div.overview-sidebar div.folder").trigger("click");
