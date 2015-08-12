@@ -11,6 +11,18 @@
 // require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
 
 $(function () {
+
+  //wenn wir aud der Dashboardseite sind und es eine Suche gibt
+  var $dashboard_article_search = $("#dashboard_article_search");
+  if ( $dashboard_article_search.length){
+    $("body").on("change", "#dashboard_article_search", function(){
+      var article_id = $("#dashboard_article_search").find("option:selected").val();
+      if (article_id) {
+        window.location.href = "/admin/articles/" + article_id + "/edit";        
+      }
+    })
+  }
+
   // Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
   // hole alle Goldencobra:Article :id,:title, :ancestry
   var $select_parent_articles = $('.get_goldencobra_articles_per_remote');
