@@ -28,6 +28,8 @@
 
 module Goldencobra
   class Widget < ActiveRecord::Base
+    attr_accessible :title, :content, :css_name, :active, :id_name, :sorter, :teaser, :default,
+                    :description, :alternative_content
 
     serialize :offline_time_week_start_end
 
