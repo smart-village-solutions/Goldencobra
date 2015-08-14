@@ -26,7 +26,7 @@ de:
       context_info: "Dieser Text ist f&uuml;r eine Sidebar gedacht"
       metatags_name: "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen"
       metatags_destroy: "hiermit werden die Werte entfernt bzw. auf ihren Ursprung zurückgesetzt"
-      breadcrumb: "Kurzer Titel f&uuml;r die Breadcrumb-Navigation"
+      breadcrumb: "Kurztitel f&uuml;r die Breadcrumb-Navigation"
       url_name: "Nicht mehr als 64 Zeichen, sollte keine Umlaute, Sonderzeichen oder Leerzeichen enthalten. Wenn die Seite unter 'http://meine-seite.de/mein-artikel' erreichbar sein soll, tragen Sie hier 'mein-artikel' ein."
       parent_id: "Auswahl des Artikels, der in der Seitenstruktur _oberhalb_ liegen soll. Beispiel: http://www.meine-seite.de/der-oberartikel/mein-artikel"
       canonical_url: "Falls auf dieser Seite Inhalte erscheinen, die vorher schon auf einer anderen Seite erschienen sind, sollte hier die URL der Quellseite eingetragen werden, um von Google nicht f&uuml;r doppelten Inhalt abgestraft zu werden"
