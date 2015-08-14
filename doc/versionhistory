@@ -1,3 +1,9 @@
+v.2.0.4
+  - Cucumber Tests fixed
+  - Seo Artikel View added
+  - Baumdarstellung der Artikel integriert (Version alpha)
+  - Widget.save Model fixed beim speichern
+
 v.2.0.3
   - Dashboard erweitert um Artikel Suche
   - ActiveAdmin Comments deaktiviert
