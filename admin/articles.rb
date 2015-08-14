@@ -33,11 +33,11 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     if f.object.new_record?
       if f.object.parent.present?
         panel "Neuen Unterartikel anlegen unterhalb von #{f.object.parent.title} (#{f.object.parent.url_name})" do
-          "Bitte wählen sie einen Artikeltyp und füllen mindestens den Titel und den Kurznamen aus."
+          "Bitte wählen Sie einen Artikeltyp und füllen mindestens den Titel und den kuren Titel aus."
         end
       else
         panel "Neuen Artikel anlegen" do
-          "Bitte wählen sie einen Artikeltyp und füllen mindestens den Titel und den Kurznamen aus."
+          "Bitte wählen Sie einen Artikeltyp und füllen mindestens den Titel und den kurzen Titel aus."
         end
       end
       ActionController::Base.new().render_to_string( :partial => "/goldencobra/admin/articles/select_article_type", :locals => {:f => f} )
