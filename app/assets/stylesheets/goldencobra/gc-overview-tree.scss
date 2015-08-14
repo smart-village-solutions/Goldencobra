@@ -1,3 +1,37 @@
+
+//TODO styling: http://odyniec.net/articles/turning-lists-into-trees/
+
+
+#active_admin_content ul.item_tree{
+  background: url(vline.png) repeat-y;
+  margin: 0;
+  padding: 0;
+  ul{
+    margin: 0;
+    margin-left: 10px;
+    padding: 0;
+    background: url(vline.png) repeat-y;
+  }
+  li{
+    margin: 0;
+    padding: 0 12px;
+    list-style: none;
+    background: url(node.png) no-repeat;
+  }
+  li:last-child {
+     background: #fff url(lastnode.png) no-repeat;
+   }
+  div.tree_item > div{
+      display:inline-block;
+      margin-bottom:5px;
+  }
+  div.tree_item_title{
+    margin-right:50px;
+    font-size: 1.3em
+  }
+}
+
+
 body.active_admin .sidebar_section > div div.overview-sidebar {
   margin: 0 0 0 -30px;
   padding: 0 0 0 0px;
