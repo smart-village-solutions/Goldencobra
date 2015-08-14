@@ -20,6 +20,9 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   scope I18n.t('active_admin.articles.scope1'), :all, :default => true, :show_count => false
   scope I18n.t('active_admin.articles.scope2'), :active, :show_count => false
   scope I18n.t('active_admin.articles.scope3'), :inactive, :show_count => false
+  scope I18n.t('active_admin.seo_articles.scope4'), :no_title_tag
+  scope I18n.t('active_admin.seo_articles.scope5'), :no_meta_description
+
 
   Goldencobra::Article.article_types_for_select.each do |article_type|
     next if article_type.include?("index")
@@ -120,7 +123,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
 
-  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
+  index as: :table, :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column I18n.t('active_admin.articles.index.website_title'), :sortable => :url_name do |article|
       content_tag("span", link_to(truncate(article.url_name, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
@@ -160,8 +163,41 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
   end
 
-  action_item :seo, :only => [:index] do
-    link_to(I18n.t('active_admin.articles.sidebar.seo_link'), admin_seo_articles_path())
+  index as: ActiveAdmin::Views::IndexAsSeoTable, :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
+    selectable_column
+    column I18n.t('active_admin.seo_articles.index.title_column'), :sortable => :url_name do |article|
+      content_tag("span", link_to(truncate(article.title, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
+    end
+    column I18n.t("name", :scope => [:goldencobra, :menue]), :sortable => :url_name do |article|
+      content_tag("span", link_to(truncate(article.url_name, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
+    end
+    column I18n.t('active_admin.seo_articles.index-tag_column') do |article|
+      article.metatags.find_by_name("Title Tag").try(:value)
+    end
+    column I18n.t('active_admin.seo_articles.index.meta_column') do |article|
+      article.metatags.find_by_name("Meta Description").try(:value)
+    end
+    column I18n.t('active_admin.seo_articles.index.search_column'), :robots_no_index do |article|
+      article.robots_no_index ? I18n.t('active_admin.seo_articles.index.search_column_yes') : I18n.t('active_admin.seo_articles.index.search_column_no')
+    end
+    column I18n.t('active_admin.seo_articles.index.links_column') do |article|
+      if article.link_checker.present?
+        "#{article.link_checker.count} / E:#{article.link_checker.count - article.link_checker.select{|key,value| value['response_code'] == "200"}.count}"
+      end
+    end
+    column :active, :sortable => :active do |article|
+      link_to(article.active ? I18n.t('active_admin.seo_articles.index.active_online') : I18n.t('active_admin.seo_articles.index.active_offline'), set_page_online_offline_admin_article_path(article), "data-confirm" => t("online", :scope => [:goldencobra, :flash_notice]), :class => "member_link edit_link #{article.active ? 'online' : 'offline'}")
+    end
+
+
+    column "" do |article|
+      result = ""
+      result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => I18n.t('active_admin.seo_articles.column.title1'))
+      result += link_to(t(:edit), edit_admin_article_path(article.id), :class => "member_link edit_link edit", :title => I18n.t('active_admin.seo_articles.column.title2'))
+      result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.seo_articles.column.title3'))
+      result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.seo_articles.column.title4'))
+      raw(result)
+    end
   end
 
   action_item :new, :only => [:edit] do
