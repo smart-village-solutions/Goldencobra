@@ -15,7 +15,9 @@ module ActiveAdmin
         # Start With root elements and display all children
         # which ar in @items_to_display
         @root_elements.each do |item|
-          show_subtree_of_item(item)
+          ul :class=> "item_tree" do
+            show_subtree_of_item(item)
+          end
         end
 
       end
@@ -33,8 +35,22 @@ module ActiveAdmin
 
       def show_subtree_of_item(item)
         li do
-          div :class => "" do
-            link_to item.title, edit_admin_article_path(item.id)
+          div :class => "tree_item" do 
+            div :class => "tree_item_title" do
+              item.title
+            end
+            div do
+              link_to(t(:edit), edit_admin_article_path(item.id), :class => "member_link edit_link edit", :title => I18n.t('active_admin.articles.index.article_preview'))
+            end
+            div do
+              link_to(t(:view), item.public_url, :class => "member_link edit_link view", :title => I18n.t('active_admin.articles.index.article_edit'))
+            end
+            div do
+              link_to(t(:new_subarticle), new_admin_article_path(:parent => item), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.articles.index.create_subarticle'))
+            end             
+            div do
+              link_to(t(:delete), admin_article_path(item.id), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.articles.index.delete_article'))
+            end
           end
           ul do
             item.children.each do |child|
