@@ -9,10 +9,13 @@ v.2.0.3
   - ActiveAdmin Comments deaktiviert
   - Reihenfolge der Menüpunkte optimiert
   - Author.save bug behoben
+  - Expertenmodus entfernt (Artikeltypen übernhemen diese Funktion)
+  - Wiederherstellungsfunktion von Artikeltypen
 
 v.2.0.2
   - Dashboard reaktiviert (section wird zu colums und panels)
   - ReaktJS Overview Tree repariert
+  - Cleanup Widgets (Zeitsteuerung entfernt)
 
 v.2.0.1
   - Cleanup Migrations
