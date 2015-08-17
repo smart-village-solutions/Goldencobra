@@ -111,13 +111,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       end
     end
 
-    # expert mode wird nicht mehr genutzt
-    # panel "Scripts", :style => "display:none" do
-    # #f.inputs I18n.t('active_admin.articles.form.JS_scripts'), :style => "display:none"  do
-    #   if current_user && current_user.enable_expert_mode == true
-    #     ActionController::Base.new().render_to_string( partial: '/goldencobra/admin/articles/toggle_expert_mode' )
-    #   end
-    # end
     f.actions
   end
 
@@ -163,6 +156,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   index as: ActiveAdmin::Views::IndexAsTree, :download_links => false do
+    title :title do |a|
+      "#{a.title} (#{a.url_name})"
+    end
+    options [:view,:edit,:new,:destroy]
   end
 
   index as: ActiveAdmin::Views::IndexAsSeoTable, :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
@@ -412,13 +409,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
 
   end
-
-  # member_action :toggle_expert_mode do
-  #   current_user.enable_expert_mode = !current_user.enable_expert_mode
-  #   current_user.save
-  #   redirect_to :back
-  # end
-
   
   member_action :revert do
     @version = PaperTrail::Version.find(params[:id])
@@ -438,11 +428,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   action_item :preview, :only => :edit do
     link_to(I18n.t('active_admin.articles.action_item.link_to.article_preview'), resource.public_url, :target => "_blank")
   end
-
-  # Diese Funktion soll in GC 2.0 entfernt werden, da sie überflüssig ist
-  # action_item :only => :edit, :inner_html => {:class => "expert"} do
-  #   link_to("#{current_user.enable_expert_mode ? I18n.t('active_admin.articles.action_item.link_to.deactivate') : I18n.t('active_admin.articles.action_item.link_to.activate')} #{I18n.t('active_admin.articles.action_item.link_to.expert_modus')}", toggle_expert_mode_admin_article_path(), id: "expert-mode")
-  # end
 
   #action_item :only => :index do
     #link_to(I18n.t('active_admin.articles.action_item.link_to.import'), new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")

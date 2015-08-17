@@ -21,13 +21,24 @@
   li:last-child {
      background: #fff url(lastnode.png) no-repeat;
    }
-  div.tree_item > div{
+  div.tree_item_options{
+    display:inline-block;
+    display:none;
+    overflow:hidden;
+  }
+  div.tree_item_options > div{
       display:inline-block;
       margin-bottom:5px;
   }
   div.tree_item_title{
-    margin-right:50px;
-    font-size: 1.3em
+    display:inline-block;
+    font-size: 1.4em
+  }
+  div.tree_item{
+    
+  }
+  div.tree_item:hover > .tree_item_options{
+    display:inline-block;
   }
 }
 
