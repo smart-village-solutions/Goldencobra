@@ -545,7 +545,7 @@ module Goldencobra
           r.target_url = self.absolute_public_url
           r.active = true
           r.save
-          custom_children = Goldencobra::Article.find_all_by_ancestry("#{self.ancestry}/#{self.id}")
+          custom_children = Goldencobra::Article.where(ancestry: "#{self.ancestry}/#{self.id}")
           if custom_children.any?
             if custom_children.count < 30
               # wenn es nur wenige Kinderartikel gibt, dann gleich direkt machen
