@@ -91,7 +91,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
             ActionController::Base.new().render_to_string( :partial => "layouts/#{engine.engine_name}/edit_index", :locals => {:f => f, :engine => engine} )
           end
         end
-        #render :partial => "goldencobra/admin/articles/sort_articles_index", :locals => {:f => f}
 
       else
 
@@ -234,40 +233,44 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => resource }
   end
 
-  sidebar :image_module, :only => [:edit] do
-    render "/goldencobra/admin/articles/image_module_sidebar"
-  end
+  #Deprecated, will be removed in GC 2.1
+  # sidebar :image_module, :only => [:edit] do
+  #   render "/goldencobra/admin/articles/image_module_sidebar"
+  # end
 
-  sidebar :link_checker, :only => [:edit] do
-    render "/goldencobra/admin/articles/link_checker", :locals => { :current_article => resource }
-  end
+  #Deprecated, will be removed in GC 2.1
+  # sidebar :link_checker, :only => [:edit] do
+  #   render "/goldencobra/admin/articles/link_checker", :locals => { :current_article => resource }
+  # end
 
-  sidebar :menue_options, :only => [:show, :edit] do
-    if resource.linked_menues.count > 0
-      h5 I18n.t('active_admin.articles.sidebar.h5')
-      div link_to(I18n.t('active_admin.articles.sidebar.div_link'), admin_menues_path("q[target_contains]" => resource.public_url))
-      div "oder"
-      div link_to(I18n.t('active_admin.articles.sidebar.div_link1'), new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
-    else
-      h5 I18n.t('active_admin.articles.sidebar.h5_1')
-      div link_to(I18n.t('active_admin.articles.sidebar.div_link2'), new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
-    end
+  # Deprecated, will be removed in GC 2.1
+  # Functionality should be placed somewhere else
+  # sidebar :menue_options, :only => [:show, :edit] do
+  #   if resource.linked_menues.count > 0
+  #     h5 I18n.t('active_admin.articles.sidebar.h5')
+  #     div link_to(I18n.t('active_admin.articles.sidebar.div_link'), admin_menues_path("q[target_contains]" => resource.public_url))
+  #     div "oder"
+  #     div link_to(I18n.t('active_admin.articles.sidebar.div_link1'), new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
+  #   else
+  #     h5 I18n.t('active_admin.articles.sidebar.h5_1')
+  #     div link_to(I18n.t('active_admin.articles.sidebar.div_link2'), new_admin_menue_path(:menue => {:title => resource.title, :target => resource.public_url}))
+  #   end
 
-    articles = Goldencobra::Article.active.where(:url_name => resource.url_name)
-    if articles.count > 1
-      results = articles.select{|a| a.public_url == resource.public_url}.flatten.compact.uniq
-    end
+  #   articles = Goldencobra::Article.active.where(:url_name => resource.url_name)
+  #   if articles.count > 1
+  #     results = articles.select{|a| a.public_url == resource.public_url}.flatten.compact.uniq
+  #   end
 
-    if results && results.count > 1
-      h5 "#{I18n.t('active_admin.articles.sidebar.h5_achtung')} #{pluralize(results.count - 1 , I18n.t('active_admin.articles.sidebar.h5_achtung2'), I18n.t('active_admin.articles.sidebar.h5_achtung3'))  } #{I18n.t('active_admin.articles.sidebar.h5_achtung4')}", :class => "warning"
-      ul do
-        results.each do |r|
-          next if r == resource
-          li link_to "#{r.title}", admin_article_path(r)
-        end
-      end
-    end
-  end
+  #   if results && results.count > 1
+  #     h5 "#{I18n.t('active_admin.articles.sidebar.h5_achtung')} #{pluralize(results.count - 1 , I18n.t('active_admin.articles.sidebar.h5_achtung2'), I18n.t('active_admin.articles.sidebar.h5_achtung3'))  } #{I18n.t('active_admin.articles.sidebar.h5_achtung4')}", :class => "warning"
+  #     ul do
+  #       results.each do |r|
+  #         next if r == resource
+  #         li link_to "#{r.title}", admin_article_path(r)
+  #       end
+  #     end
+  #   end
+  # end
 
   #sidebar :help, only: [:edit, :show] do
   #  render "/goldencobra/admin/shared/help"
@@ -416,6 +419,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   #   redirect_to :back
   # end
 
+  
   member_action :revert do
     @version = PaperTrail::Version.find(params[:id])
     if @version.reify
@@ -426,9 +430,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     redirect_to :back, :notice => "#{I18n.t('active_admin.settings.notice.undid_event')} #{@version.event}"
   end
 
-  action_item :prev_item, only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/prev_item'
-  end
+  #Deprecated, will be removed in GC 2.1
+  # action_item :prev_item, only: [:edit, :show] do
+  #   render partial: '/goldencobra/admin/shared/prev_item'
+  # end
 
   action_item :preview, :only => :edit do
     link_to(I18n.t('active_admin.articles.action_item.link_to.article_preview'), resource.public_url, :target => "_blank")
@@ -443,13 +448,17 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     #link_to(I18n.t('active_admin.articles.action_item.link_to.import'), new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
   #end
 
-  action_item :undo, :only => :edit do
-    if resource.versions.last
-      link_to(I18n.t('active_admin.articles.action_item.link_to.undo'), revert_admin_article_path(:id => resource.versions.last), :class => "undo")
-    end
-  end
 
-  action_item :next_item, only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/next_item'
-  end
+  #Deprecated, will be rewritten in GC 2.1
+  # 
+  # action_item :undo, :only => :edit do
+  #   if resource.versions.last
+  #     link_to(I18n.t('active_admin.articles.action_item.link_to.undo'), revert_admin_article_path(:id => resource.versions.last), :class => "undo")
+  #   end
+  # end
+
+  #Deprecated, will be removed in GC 2.1
+  # action_item :next_item, only: [:edit, :show] do
+  #   render partial: '/goldencobra/admin/shared/next_item'
+  # end
 end

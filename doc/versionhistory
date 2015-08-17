@@ -1,4 +1,19 @@
 v.2.0.4
+  - Vsitor Model marked as deprecated
+  - Author Model marked as deprecated
+  - GC Comments Model marked as deprecated
+  - Tracking Model (Analytics) marked as deprecated
+  - Cleanup Model Menue
+  - Moved ArticleTYpe to Submenue of Settings in Active Admin
+  - Article Edit Sidebar cleanup: Deprecated ImageModul, Linkchecker
+  - Article Navigation: Prev and Next Buttons removed
+  - Undo Button hidden, TODO: Rewirte UI
+  - Article Edit: Sidebar Image module deprecated
+  - Article Edit: Sidebar Link Checker deprecated
+  - Article Edit: Sidebar Menu options deprecated
+  - Article New cleanup
+
+v.2.0.4
   - Cucumber Tests fixed
   - Seo Artikel View added
   - Baumdarstellung der Artikel integriert (Version alpha)

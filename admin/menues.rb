@@ -17,9 +17,9 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       f.input :title, :label => I18n.t('active_admin.menues.form.generals.title'), :hint => I18n.t('active_admin.menues.form.generals.title_hint')
       f.input :target, :label => I18n.t('active_admin.menues.form.generals.target'), :hint => I18n.t('active_admin.menues.form.generals.target_hint')
       f.input :parent_id, :label => I18n.t('active_admin.menues.form.generals.parent_id'), :hint => I18n.t('active_admin.menues.form.generals.parent_id_hint'), :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chosen-select-deselect', :style => 'width: 80%;', 'data-placeholder' => 'Elternelement auswählen' }
+      f.input :sorter, :label => I18n.t('active_admin.menues.form.options.sorter_label'), :hint => I18n.t('active_admin.menues.form.options.sorter_hint')
     end
     f.inputs I18n.t('active_admin.menues.form.options.option'), :class => "foldable closed inputs" do
-      f.input :sorter, :label => I18n.t('active_admin.menues.form.options.sorter_label'), :hint => I18n.t('active_admin.menues.form.options.sorter_hint')
       check_box_tag "hidden", :label => I18n.t('active_admin.menues.form.options.checkbox_label'), :hint => I18n.t('active_admin.menues.form.options.checkbox_hint')
       f.input :css_class, :label => I18n.t('active_admin.menues.form.options.css_class_label'), :hint => I18n.t('active_admin.menues.form.options.css_class_hint')
       f.input :active, :label => I18n.t('active_admin.menues.form.options.active_label'), :hint => I18n.t('active_admin.menues.form.options.aktiv_hint')
@@ -33,12 +33,13 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
       end
     end
 
-    f.inputs I18n.t('active_admin.menues.form.details'), :class => "foldable closed inputs" do
-      f.input :image, :label => I18n.t('active_admin.menues.form.image_label'), :hint => I18n.t('active_admin.menues.form.image_hint'), :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chosen-select-deselect', :style => 'width: 80%;', 'data-placeholder' => 'Bild auswählen' }
-      f.input :description_title, :label => I18n.t('active_admin.menues.form.details_description_title'), :hint => ""
-      f.input :description, :label => I18n.t('active_admin.menues.form.details_description_label'), :hint => "", :input_html => { :rows => 5 }
-      f.input :call_to_action_name, :label => I18n.t('active_admin.menues.form.details_description_call_to_action'), :hint => ""
-    end
+    #Deprecated, will be removed in GC 2.1
+    # f.inputs I18n.t('active_admin.menues.form.details'), :class => "foldable closed inputs" do
+    #   f.input :image, :label => I18n.t('active_admin.menues.form.image_label'), :hint => I18n.t('active_admin.menues.form.image_hint'), :as => :select, :collection => Goldencobra::Upload.order("updated_at DESC").map{|c| [c.complete_list_name, c.id]}, :input_html => { :class => 'article_image_file chosen-select-deselect', :style => 'width: 80%;', 'data-placeholder' => 'Bild auswählen' }
+    #   f.input :description_title, :label => I18n.t('active_admin.menues.form.details_description_title'), :hint => ""
+    #   f.input :description, :label => I18n.t('active_admin.menues.form.details_description_label'), :hint => "", :input_html => { :rows => 5 }
+    #   f.input :call_to_action_name, :label => I18n.t('active_admin.menues.form.details_description_call_to_action'), :hint => ""
+    # end
     f.actions
   end
 
