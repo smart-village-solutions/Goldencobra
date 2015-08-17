@@ -21,14 +21,8 @@ describe Goldencobra::Widget do
         active: true,
         id_name: "mein-widget",
         sorter: 23,
-        mobile_content: "Das ist der mobile Inhalt",
         default: true,
         description: "Dies ist der Beschreibungstext",
-        offline_days: "Test",
-        offline_time_active: false,
-        alternative_content: "Alternativer Content",
-        offline_date_start: nil,
-        offline_date_end: nil,
         teaser: "Teaser Content"
       )
 
@@ -50,17 +44,17 @@ describe Goldencobra::Widget do
       "content" => "Das ist mein Content",
       "css_name" => "hidden klasse-1 klasse-2",
       "active" => false,
+      "alternative_content" => nil,
       "id_name" => "mein-widget-kopie",
+      "mobile_content" => nil,
+      "offline_date_end" => nil,
+      "offline_date_start" => nil,
+      "offline_days" => nil,
+      "offline_time_active" => nil,
+      "offline_time_week_start_end" => {},
       "sorter" => 23,
-      "mobile_content" => "Das ist der mobile Inhalt",
       "default" => true,
       "description" => "Dies ist der Beschreibungstext",
-      "offline_days" => "Test",
-      "offline_time_active" => false,
-      "alternative_content" => "Alternativer Content",
-      "offline_date_start" => nil,
-      "offline_date_end" => nil,
-      "offline_time_week_start_end" => {},
       "teaser" => "Teaser Content"
     }
   end
