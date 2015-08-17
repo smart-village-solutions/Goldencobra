@@ -70,7 +70,10 @@ module Goldencobra
     has_many :article_widgets
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
-    has_many :comments, :class_name => Goldencobra::Comment
+
+    # Deprecated, will be removed in GC 2.1
+    #has_many :comments, :class_name => Goldencobra::Comment
+     
     has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
     belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
     belongs_to :creator, :class_name => User, :foreign_key => "creator_id"

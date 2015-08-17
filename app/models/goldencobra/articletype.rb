@@ -32,17 +32,17 @@ module Goldencobra
       end %>},
       breadcrumb: %{<% f.input :breadcrumb, hint: I18n.t("goldencobra.article_field_hints.breadcrumb") %>},
       url_name: %{<% f.input :url_name, hint: I18n.t("goldencobra.article_field_hints.url_name"), required: false %>},
-      parent_id: %{<% f.input :parent_id, hint: I18n.t("goldencobra.article_field_hints.parent_id"), as: :select, collection: Goldencobra::Article.where("id = ?", f.object.parent_id).select([:id,:title, :ancestry]).map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}, include_blank: true, input_html: { class: 'get_goldencobra_articles_per_remote', style: 'width: 80%;', 'dataplaceholder': 'Elternelement auswählen' } %>},
+      parent_id: %{<% f.input :parent_id, hint: I18n.t("goldencobra.article_field_hints.parent_id"), as: :select, collection: Goldencobra::Article.where("id = ?", f.object.parent_id).select([:id,:title, :ancestry]).map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}, input_html: { class: 'get_goldencobra_articles_per_remote', style: 'width: 80%;', 'dataplaceholder': 'Elternelement auswählen' } %>},
       canonical_url: %{<% f.input :canonical_url, hint: I18n.t("goldencobra.article_field_hints.canonical_url") %>},
-      enable_social_sharing: %{<% f.input :enable_social_sharing, hint: I18n.t("goldencobra.article_field_hints.enable_social_sharing") %>},
+      enable_social_sharing: %{<% warn("Deprecated method enable_social_sharing") %>},
       robots_no_index: %{<% f.input :robots_no_index, hint: I18n.t("goldencobra.article_field_hints.robots_no_index") %>},
       cacheable: %{<% f.input :cacheable, as: :boolean, hint: I18n.t("goldencobra.article_field_hints.cacheable") %>},
-      commentable: %{<% f.input :commentable, as: :boolean, hint: I18n.t("goldencobra.article_field_hints.commentable") %>},
+      commentable: %{<% warn("Deprecated method commentable") %>},
       dynamic_redirection: %{<% f.input :dynamic_redirection, as: :select, collection: Goldencobra::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}, include_blank: false %>},
       external_url_redirect: %{<% f.input :external_url_redirect %>},
       redirect_link_title: %{<% f.input :redirect_link_title %>},
       redirection_target_in_new_window: %{<% f.input :redirection_target_in_new_window %>},
-      author: %{<% f.input :authors, as: :select, collection: Goldencobra::Author.order("lastname ASC").map{ |a| [a.lastname.to_s + ", " + a.firstname.to_s, a.id] }, input_html: { class: "chosen-select", style: "width: 80%;", "dataplaceholder": I18n.t("goldencobra.article_field_placeholder.author") }, hint: I18n.t("goldencobra.article_field_hints.author") %>},
+      author: %{<% warn("Deprecated Model Author") %>},
       permissions: %{<% f.has_many :permissions do |p|
         p.input :domain, include_blank: "Alle"
         p.input :role, include_blank: "Alle"
@@ -75,7 +75,6 @@ module Goldencobra
             if !at.try(:fieldgroups).any?
               a1 = at.fieldgroups.create(title: "Allgemein", position: "first_block", foldable: true, closed: false, expert: false, sorter: 1)
               a1.fields.create(fieldname: "active", sorter: 1)
-              a1.fields.create(fieldname: "breadcrumb", sorter: 5)
               a1.fields.create(fieldname: "subtitle", sorter: 10)
               a1.fields.create(fieldname: "title", sorter: 20)
               a1.fields.create(fieldname: "teaser", sorter: 30)
@@ -83,24 +82,23 @@ module Goldencobra
               a1.fields.create(fieldname: "tag_list", sorter: 50)
 
               a2 = at.fieldgroups.create(title: "Medien", position: "last_block", foldable: true, closed: true, expert: false, sorter: 1)
-              a2.fields.create(fieldname: "article_images", sorter: 1)
+              a2.fields.create(fieldname: "article_images", sorter: 5)
 
               a3 = at.fieldgroups.create(title: "Metadescriptions", position: "last_block", foldable: true, closed: true, expert: true, sorter: 3)
-              a3.fields.create(fieldname: "metatags", sorter: 1)
+              a3.fields.create(fieldname: "breadcrumb", sorter: 1)
+              a3.fields.create(fieldname: "metatags", sorter: 10)
+              a3.fields.create(fieldname: "robots_no_index", sorter: 20)
 
               a4 = at.fieldgroups.create(title: "Einstellungen", position: "last_block", foldable: true, closed: true, expert: true, sorter: 4)
               a4.fields.create(fieldname: "frontend_tag_list", sorter: 10)
               a4.fields.create(fieldname: "url_name", sorter: 20)
               a4.fields.create(fieldname: "parent_id", sorter: 30)
-              a4.fields.create(fieldname: "canonical_url", sorter: 40)
               a4.fields.create(fieldname: "active_since", sorter: 50)
-              a4.fields.create(fieldname: "robots_no_index", sorter: 60)
               a4.fields.create(fieldname: "cacheable", sorter: 70)
               a4.fields.create(fieldname: "dynamic_redirection", sorter: 100)
               a4.fields.create(fieldname: "external_url_redirect", sorter: 110)
               a4.fields.create(fieldname: "redirect_link_title", sorter: 120)
               a4.fields.create(fieldname: "redirection_target_in_new_window", sorter: 130)
-              a4.fields.create(fieldname: "author", sorter: 140)
 
               puts "Default Fieldoptions recreated for #{at.try(:name)}"
             end
