@@ -46,10 +46,6 @@ describe Goldencobra::ArticlesController, type: :controller do
 
       it "should be possible to read an article" do
         visit "/admin/logout"
-        visit "/admin/login"
-        fill_in "user[email]", :with => @user.email
-        fill_in "user[password]", :with => @user.password
-        click_button "Login"
         sign_in(:user, @user)
         visit "#{@parent_article.public_url}?auth_token=#{@user.authentication_token}"
         expect(page).to have_content(@parent_article.title)
