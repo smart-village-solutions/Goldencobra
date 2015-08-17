@@ -5,7 +5,7 @@ namespace :article_cache do
   task :recreate => :environment do
     article_id = ENV['ID']
     article = Goldencobra::Article.find_by_id(article_id)
-    custom_children = Goldencobra::Article.find_all_by_ancestry("#{self.ancestry}/#{self.id}")
+    custom_children = Goldencobra::Article.where(ancestry: "#{self.ancestry}/#{self.id}")
 
     if article.present? && custom_children.present?
       custom_children.each do |c|
