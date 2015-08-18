@@ -275,6 +275,8 @@ de:
           hint1: "Alle Artikel unterhalb dieses Artikels werden aufgelistet, exklusive diesem selbst"
           label2: "Seiten"
           hint2: "Welche Seiten sollen auf der Übersicht angezeigt werden?"
+          label3: "Artikeltypen"
+          hint3: "Welche Artikeltypen sollen auf der Übersicht angezeigt werden?"
       sidebar:
         h5: "Es existieren bereits passende Menüpunkte zu diesem Artikel"
         seo_link: "SEO-Ansicht"
