@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # == Schema Information
 #
 # Table name: users
@@ -27,7 +25,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  gender                 :boolean
-#  title                  :string(255)
+#  position               :string(255)
 #  firstname              :string(255)
 #  lastname               :string(255)
 #  function               :string(255)
@@ -49,9 +47,9 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   validates_presence_of :firstname
   validates_presence_of :lastname
-  liquid_methods :firstname, :lastname, :gender, :title, :function, :anrede, :gender_anrede
+  liquid_methods :firstname, :lastname, :gender, :position, :function, :anrede, :gender_anrede
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :gender, :title, :firstname, :lastname, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :role_ids, :vita_steps_attributes, :enable_expert_mode, :confirmed_at
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :gender, :position, :firstname, :lastname, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :role_ids, :vita_steps_attributes, :enable_expert_mode, :confirmed_at
   #has_and_belongs_to_many :roles, :join_table => "goldencobra_roles_users", :class_name => Goldencobra::Role, :include => [:permissions]
   has_many :role_users, :as => :operator, :class_name => Goldencobra::RoleUser
   has_many :roles, :through => :role_users, :class_name => Goldencobra::Role
@@ -77,14 +75,13 @@ class User < ActiveRecord::Base
       else
         r = "Sehr geehrte Frau"
       end
-      #r << " #{self.title}" if self.title.present?
       r << " #{self.lastname}"
     end
     return r
   end
 
   def title
-    "#{self.firstname} #{self.lastname} - #{self.email}"
+    "#{self.firstname} #{self.lastname}"
   end
 
   def gender_anrede
