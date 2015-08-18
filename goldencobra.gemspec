@@ -74,7 +74,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'wkhtmltopdf-binary'
   s.add_dependency 'rmagick'
   s.add_dependency 'iconv'
-  s.add_dependency 'rack-utf8_sanitizer'
+  s.add_dependency 'rack-utf8_sanitizer' # handles invalid url encodings
   s.add_dependency 'simple_enum'
   s.add_dependency 'react-rails', '~> 1.0'
   s.add_dependency 'wicked_pdf'
@@ -82,6 +82,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'protected_attributes'
   s.add_dependency 'active_model_serializers'
   s.add_dependency 'actionpack-action_caching'
+  s.add_dependency 'oj' # faster json rendering
 
   #Ausgelagerte Funktionen in Rails 4.x
   s.add_dependency 'responders', '~> 2.0'
@@ -96,4 +97,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'binding_of_caller'
   s.add_development_dependency 'yard'
   s.add_development_dependency 'redcarpet'
+  s.add_development_dependency 'rack-mini-profiler'
 end
