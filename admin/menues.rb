@@ -72,6 +72,11 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     end
   end
 
+  index as: ActiveAdmin::Views::IndexAsTree, :download_links => false do
+    title :title
+    options [:edit,:new,:destroy]
+  end
+
   sidebar :overview, only: [:index] do
     render partial: "/goldencobra/admin/shared/react_overview",
            locals: {

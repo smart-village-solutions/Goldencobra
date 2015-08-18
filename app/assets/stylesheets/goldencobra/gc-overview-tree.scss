@@ -28,11 +28,16 @@
   }
   div.tree_item_options > div{
       display:inline-block;
-      margin-bottom:5px;
+      padding-bottom:10px;
   }
   div.tree_item_title{
     display:inline-block;
     font-size: 1.4em
+  }
+
+  div.tree_item_value{
+    font-weight: bold;
+    margin-left:15px;
   }
   div.tree_item{
     

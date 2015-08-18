@@ -24,7 +24,6 @@ module ActiveAdmin
       end
 
 
-
       def self.index_name
         "Tree"
       end
@@ -38,8 +37,18 @@ module ActiveAdmin
         @title
       end
 
+      # Setter method for the configuration of optional value
+      def value(method = nil, &block)
+        if block_given? || method
+          @value = block_given? ? block : method
+        end
+        @value
+      end
+
 
       # Setter method for the configuration of the title
+      # 
+      # possible values in array: [:preview, :view, :edit, :new, :destroy]
       def options(methods = [])
         @options = methods
         @options
@@ -54,27 +63,42 @@ module ActiveAdmin
         li do
           div :class => "tree_item" do 
             div :class => "tree_item_title" do
-              render_method_on_post_or_call_proc item, @title
+              if @title.present?
+                div do
+                  render_method_on_post_or_call_proc item, @title
+                end
+              end
+              if @value.present?
+                div :class => "tree_item_value" do
+                  render_method_on_post_or_call_proc item, @value
+                end
+              end
             end
+            
             div :class => "tree_item_options" do
-              if @options.include?(:view)
+              if @options.include?(:preview)
                 div do
                   link_to(t(:view), item.public_url, :class => "member_link edit_link view", :title => I18n.t('active_admin.articles.index.article_edit'))
                 end
               end
+              if @options.include?(:view)
+                div do
+                  link_to(t(:view), resource_path(item), :class => "member_link edit_link view", :title => I18n.t('active_admin.articles.index.article_edit'))
+                end
+              end
               if @options.include?(:edit)
                 div do
-                  link_to(t(:edit), edit_admin_article_path(item.id), :class => "member_link edit_link edit", :title => I18n.t('active_admin.articles.index.article_preview'))
+                  link_to(t(:edit), edit_resource_path(item), :class => "edit", :title => I18n.t('active_admin.articles.index.article_preview'))
                 end
               end
               if @options.include?(:new)
                 div do
-                  link_to(t(:new_subarticle), new_admin_article_path(:parent => item), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.articles.index.create_subarticle'))
+                  link_to(t(:new_subarticle), new_resource_path(item, :parent => item), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.articles.index.create_subarticle'))
                 end   
               end 
               if @options.include?(:destroy)         
                 div do
-                  link_to(t(:delete), admin_article_path(item.id), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.articles.index.delete_article'))
+                  link_to(t(:delete), resource_path(item), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.articles.index.delete_article'))
                 end
               end
             end
