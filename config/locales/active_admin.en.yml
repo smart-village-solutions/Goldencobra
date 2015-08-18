@@ -275,6 +275,8 @@ en:
           hint1: "All Articles beneath this Article are listed, except for this Article."
           label2: "Pages"
           hint2: "Which Pages should be displayed in the Overview?"
+          label3: "Artikeltypes"
+          hint3: "Which Artikeltypes should be displayed in the Overview?"
       sidebar:
         h5: "Menu items for this article already exist."
         seo_link: "SEO view"

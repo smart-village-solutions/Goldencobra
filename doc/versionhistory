@@ -1,8 +1,12 @@
-v.2.0.6
+V2.0.8
+  - Default indexType sind nun Einzelseiten und Übersichtsseiten
+  - Eine Index Seite kann nun auch Seiten anderen Artikeltyps auflisten 
+
+V2.0.6
   - ActiveAdmin::Views::IndexAsTree global verfügbar gemacht
   - ActiveAdmin::Views::IndexAsTree eingebaut in Articles, Menues und Settings
 
-v.2.0.5
+V2.0.5
   - Vsitor Model marked as deprecated
   - Author Model marked as deprecated
   - GC Comments Model marked as deprecated
@@ -17,14 +21,14 @@ v.2.0.5
   - Article Edit: Sidebar Menu options deprecated
   - Article New cleanup
 
-v.2.0.4
+V2.0.4
   - Cucumber Tests fixed
   - Seo Artikel View added
   - Baumdarstellung der Artikel integriert (Version alpha)
   - Widget.save Model fixed beim speichern
   - Fixed creation of redirektion after article save
 
-v.2.0.3
+V2.0.3
   - Dashboard erweitert um Artikel Suche
   - ActiveAdmin Comments deaktiviert
   - Reihenfolge der Menüpunkte optimiert
@@ -32,16 +36,16 @@ v.2.0.3
   - Expertenmodus entfernt (Artikeltypen übernhemen diese Funktion)
   - Wiederherstellungsfunktion von Artikeltypen
 
-v.2.0.2
+V2.0.2
   - Dashboard reaktiviert (section wird zu colums und panels)
   - ReaktJS Overview Tree repariert
   - Cleanup Widgets (Zeitsteuerung entfernt)
 
-v.2.0.1
+V2.0.1
   - Cleanup Migrations
   - no "rake goldencobra:install:migrations" mehr notwendig, Migrations bleiben in den Engines
 
-v2.0
+V2.0
   - Update auf Ruby 2.2.2
   - Update auf Rails 4.2.3
   - Cleanup Widgets#edit

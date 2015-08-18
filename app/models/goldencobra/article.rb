@@ -60,6 +60,7 @@ module Goldencobra
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically", "GlobalSortID"]
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
     DisplayIndexTypes = [["Einzelseiten und Übersichtsseiten", "all"], ["Einzelseiten", "show"],["Übersichtsseiten", "index"]]
+
     attr_accessor   :hint_label, :manual_article_sort, :create_redirection
     ImportDataFunctions = []
 
