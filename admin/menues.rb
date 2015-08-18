@@ -94,16 +94,26 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
   end
 
   collection_action :load_overviewtree_as_json do
+
     if params[:root_id].present?
-      articles = Goldencobra::Menue.find(params[:root_id])
-                   .children.order(:title).as_json(
-                      only: [:id, :target, :title],
-                      methods: [:has_children])
+      objects = Goldencobra::Menue.where(id: params[:root_id]).first.children.reorder(:title)
+      cache_key ||= ["menus", params[:root_id], objects.map(&:id), objects.maximum(:updated_at)]
+
+      menus = Rails.cache.fetch(cache_key) do
+        Goldencobra::Menue.find(params[:root_id]).children.order(:title).as_json(
+          only: [:id, :target, :title],
+          methods: [:has_children])
+      end
     else
-      articles = Goldencobra::Menue.order(:title)
-                   .roots.as_json(only: [:id, :target, :title], methods: [:has_children])
+      objects = Goldencobra::Menue.reorder(:title).roots
+      cache_key ||= ["menus", objects.map(&:id), objects.maximum(:updated_at)]
+
+      menus = Rails.cache.fetch(cache_key) do
+        Goldencobra::Menue.order(:title)
+          .roots.as_json(only: [:id, :target, :title], methods: [:has_children])
+      end
     end
-    render json: articles
+    render json: Oj.dump({"menues" => menus})
   end
 
   #batch_action :destroy, false
