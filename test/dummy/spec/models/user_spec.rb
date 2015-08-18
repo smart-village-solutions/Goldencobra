@@ -6,5 +6,5 @@ require 'spec_helper'
 # has_many :roles, :through => :role_users
 
 describe User do
-  it {should have_many(:roles).through(:role_users)}
+  it { should have_many(:roles).through(:role_users) }
 end
