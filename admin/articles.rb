@@ -159,7 +159,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     title :title do |a|
       "#{a.title} (#{a.url_name})"
     end
-    options [:view,:edit,:new,:destroy]
+    options [:preview,:edit,:new,:destroy]
   end
 
   index as: ActiveAdmin::Views::IndexAsSeoTable, :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
@@ -191,7 +191,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
     column "" do |article|
       result = ""
-      result += link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => I18n.t('active_admin.seo_articles.column.title1'))
+      result += link_to(t(:view), article.public_url, :class => "edit_link view", :title => I18n.t('active_admin.seo_articles.column.title1'))
       result += link_to(t(:edit), edit_admin_article_path(article.id), :class => "member_link edit_link edit", :title => I18n.t('active_admin.seo_articles.column.title2'))
       result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.seo_articles.column.title3'))
       result += link_to(t(:delete), admin_article_path(article.id), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.seo_articles.column.title4'))

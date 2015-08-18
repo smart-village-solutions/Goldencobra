@@ -15,26 +15,35 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     f.actions
   end
 
-  # index do
-  #   selectable_column
-  #   column :id
-  #   column :title do |setting|
-  #     link_to "#{setting.parent_names}.#{setting.title}", edit_admin_setting_path(setting)
-  #   end
-  #   column :value
-  #   column :data_type
-  #   column "" do |setting|
-  #     result = ""
-  #     result += link_to(t(:edit), edit_admin_setting_path(setting), :class => "member_link edit_link edit", :title => "bearbeiten")
-  #     raw(result)
-  #   end
-  # end
+  
+  index as: ActiveAdmin::Views::IndexAsTree, :download_links => false do
+    title :title do |setting|
+      "#{setting.parent_names}.#{setting.title}"
+    end
+    value :value
+    options [:edit,:destroy]
+  end
 
-  index download_links: false, pagination_total: false do
-    div do
-      render :partial => "/goldencobra/admin/settings/index"
+  index do
+    selectable_column
+    column :id
+    column :title do |setting|
+      link_to "#{setting.parent_names}.#{setting.title}", edit_admin_setting_path(setting)
+    end
+    column :value
+    column :data_type
+    column "" do |setting|
+      result = ""
+      result += link_to(t(:edit), edit_admin_setting_path(setting), :class => "member_link edit_link edit", :title => "bearbeiten")
+      raw(result)
     end
   end
+
+  # index download_links: false, pagination_total: false do
+  #   div do
+  #     render :partial => "/goldencobra/admin/settings/index"
+  #   end
+  # end
 
   sidebar :overview, only: [:index]  do
     # render :partial => "/goldencobra/admin/shared/overview", 
