@@ -2,17 +2,17 @@
 //TODO styling: http://odyniec.net/articles/turning-lists-into-trees/
 
 
-#active_admin_content ul.item_tree{
+#active_admin_content ul.item_tree {
   background: url(vline.png) repeat-y;
   margin: 0;
   padding: 0;
-  ul{
+  ul {
     margin: 0;
     margin-left: 10px;
     padding: 0;
     background: url(vline.png) repeat-y;
   }
-  li{
+  li {
     margin: 0;
     padding: 0 12px;
     list-style: none;
@@ -20,30 +20,29 @@
   }
   li:last-child {
      background: #fff url(lastnode.png) no-repeat;
-   }
-  div.tree_item_options{
-    display:inline-block;
-    display:none;
-    overflow:hidden;
   }
-  div.tree_item_options > div{
-      display:inline-block;
-      padding-bottom:10px;
+  div.tree_item_options {
+    display: none;
+    overflow: hidden;
+    float: right;
   }
-  div.tree_item_title{
-    display:inline-block;
+  div.tree_item_options > div {
+      display: inline-block;
+      padding-bottom: 10px;
+  }
+  div.tree_item_title {
+    display: inline-block;
     font-size: 1.4em
   }
-
-  div.tree_item_value{
+  div.tree_item_value {
     font-weight: bold;
-    margin-left:15px;
+    margin-left: 15px;
   }
-  div.tree_item{
-    
+  div.tree_item:hover {
+    color: #29c172;
   }
-  div.tree_item:hover > .tree_item_options{
-    display:inline-block;
+  div.tree_item:hover > .tree_item_options {
+    display: inline-block;
   }
 }
 
