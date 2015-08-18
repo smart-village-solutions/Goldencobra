@@ -59,9 +59,9 @@ describe Goldencobra::Api::V2::NavigationMenusController, type: :controller do
   def check_menue_responses(response)
     menu_ids_to_show = JSON.parse(response.body)
     expect(response.status).to eq(200) 
-    expect( menu_ids_to_show.include?(@menue_a.id) ).to be true
-    expect( menu_ids_to_show.include?(@menue_b.id) ).to be false
-    expect( menu_ids_to_show.include?(@menue_c.id) ).to be false
+    expect(menu_ids_to_show.include?(@menue_a.id)).to be true
+    expect(menu_ids_to_show.include?(@menue_b.id)).to be false
+    expect(menu_ids_to_show.include?(@menue_c.id)).to be false
   end
 
 
