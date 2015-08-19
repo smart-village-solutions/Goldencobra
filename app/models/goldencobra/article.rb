@@ -521,6 +521,17 @@ module Goldencobra
       return @list_of_articles
     end
 
+    def self.articles_for_index_selecetion
+      cache_key ||= ["indexarticlesselect", Goldencobra::Article.all.pluck(:id, :ancestry, :title)]
+      articles = Rails.cache.fetch(cache_key) do
+        Goldencobra::Article.select([:id, :title, :ancestry]).map do
+          |c| ["#{c.path.map(&:title).join(" / ")}", c.id]
+        end.sort { |a, b| a[0] <=> b[0] }
+      end
+      return articles
+    end
+
+
     # **************************
     # **************************
     # Callback Methods
