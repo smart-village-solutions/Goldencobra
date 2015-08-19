@@ -2,7 +2,7 @@
 
 #active_admin_content ul.item_tree {
   background: url(vline.png) repeat-y;
-  margin: 0;
+  margin: 5px 0;
   padding: 0;
 
   ul {
@@ -17,6 +17,8 @@
     padding: 0 12px;
     list-style: none;
     background: url(node.png) no-repeat;
+
+    li { padding-right: 0;}
   }
 
   li:last-child { background: #fff url(lastnode.png) no-repeat; }
@@ -118,8 +120,8 @@ body.active_admin .sidebar_section > div div.overview-sidebar {
 
           a.new_link,
           a.edit_link {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             @include background-size(14px);
           }
 
