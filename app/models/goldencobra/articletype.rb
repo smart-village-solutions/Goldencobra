@@ -54,9 +54,14 @@ module Goldencobra
         ai.input :position, as: :select, collection: Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip), include_blank: false
         ai.input :_destroy, as: :boolean
       end %>},
-      index_article_for_index_id: %{<% f.input :article_for_index_id, label: I18n.t('active_admin.articles.index.views.label1'), hint: I18n.t('active_admin.articles.index.views.hint1'), as: :select, collection: Goldencobra::Article.articles_for_index_selecetion, include_blank: "/", id: "article_event_articleindex_id", input_html: { class: 'chosen-select', style: 'width: 80%;' } %>},
-      index_display_index_types: %{<% f.input :display_index_types, label: I18n.t('active_admin.articles.index.views.label2'), hint: I18n.t('active_admin.articles.index.views.hint2'), as: :select, collection: Goldencobra::Article::DisplayIndexTypes, include_blank: false %>},
-      index_display_index_articletypes: %{<% f.input :display_index_articletypes, label: I18n.t('active_admin.articles.index.views.label3'), hint: I18n.t('active_admin.articles.index.views.hint3'), as: :select, collection: ["all"] + Goldencobra::Article.article_types_for_search, include_blank: false %>}
+      index__article_for_index_id: %{<% f.input :article_for_index_id, label: I18n.t('active_admin.articles.index.views.label1'), hint: I18n.t('active_admin.articles.index.views.hint1'), as: :select, collection: Goldencobra::Article.articles_for_index_selecetion, include_blank: "/", id: "article_event_articleindex_id", input_html: { class: 'chosen-select', style: 'width: 80%;' } %>},
+      index__display_index_types: %{<% f.input :display_index_types, label: I18n.t('active_admin.articles.index.views.label2'), hint: I18n.t('active_admin.articles.index.views.hint2'), as: :select, collection: Goldencobra::Article::DisplayIndexTypes, include_blank: false %>},
+      index__display_index_articletypes: %{<% f.input :display_index_articletypes, label: I18n.t('active_admin.articles.index.views.label3'), hint: I18n.t('active_admin.articles.index.views.hint3'), as: :select, collection: ["all"] + Goldencobra::Article.article_types_for_search, include_blank: false %>},
+      index__index_of_articles_tagged_with: %{<% f.input :index_of_articles_tagged_with, label: "Artikel mit folgenden Tags", hint: "Auf der Übersichtsseite werden alle Artikel des gleichen Artikeltyps mit diesen Tags ausgegeben. Sind keine Tags angegeben, werden alle Artikel des gleichen Artikeltyps ausgegeben."%>},
+      index__not_tagged_with: %{<% f.input :not_tagged_with, label: "Artikel ohne folgende Tags", hint: "Artikel mit diesen Tags nicht anzeigen!" %>},
+      index__sorter_limit: %{<% f.input :sorter_limit, label: "Anzahl anzuzeigender Artikel", hint: "Wieviel Artikel sollen maximal auf der Übersichtsseite erscheinen?" %>},
+      index__sort_order: %{<% f.input :sort_order, hint: "Created_at - Reihenfolge nach Erstellungsdatum | Updated_at - Reihenfolge nach Aktualisierungsdatum | Random - Reihenfolge zufällig | Alphabetically - Reihenfolge alphabetisch | GlobalSortID - Reihenfolge nach globaler Sortiernummer im Einzelartikel", as: :select, collection: Goldencobra::Article::SortOptions, include_blank: false %>},
+      index__reverse_sort: %{<% f.input :reverse_sort, hint: "Soll absteigend sortiert werden? Standard: aufsteigend" %>}
     }
 
     def set_defaults
@@ -86,9 +91,14 @@ module Goldencobra
               
               if at.name.include?(" Index")
                 a1_1 = at.fieldgroups.create(title: "Index", position: "first_block", foldable: true, closed: false, expert: false, sorter: 2)
-                a1_1.fields.create(fieldname: "index_article_for_index_id", sorter: 1)
-                a1_1.fields.create(fieldname: "index_display_index_types", sorter: 2)
-                a1_1.fields.create(fieldname: "index_display_index_articletypes", sorter: 3)
+                a1_1.fields.create(fieldname: "index__article_for_index_id", sorter: 1)
+                a1_1.fields.create(fieldname: "index__display_index_types", sorter: 2)
+                a1_1.fields.create(fieldname: "index__display_index_articletypes", sorter: 3)
+                a1_1.fields.create(fieldname: "index__index_of_articles_tagged_with", sorter: 4)
+                a1_1.fields.create(fieldname: "index__not_tagged_with", sorter: 5)
+                a1_1.fields.create(fieldname: "index__sorter_limit", sorter: 6)
+                a1_1.fields.create(fieldname: "index__sort_order", sorter: 7)
+                a1_1.fields.create(fieldname: "index__reverse_sort", sorter: 8)
               end
 
               a2 = at.fieldgroups.create(title: "Medien", position: "last_block", foldable: true, closed: true, expert: false, sorter: 2)

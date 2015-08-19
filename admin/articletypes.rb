@@ -24,7 +24,7 @@ ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
         fg.input :sorter, :hint => I18n.t('active_admin.articletypes.sorter_hint')
         fg.input :_destroy, :as => :boolean
         fg.has_many :fields do |fo|
-          fo.input :fieldname, :as => :select, :collection => Goldencobra::Articletype::ArticleFieldOptions.keys.select{|a| (!a.to_s.starts_with?("index_") || f.object.name.include?(" Index") )}, :include_blank => false
+          fo.input :fieldname, :as => :select, :collection => Goldencobra::Articletype::ArticleFieldOptions.keys.select{|a| (!a.to_s.starts_with?("index__") || f.object.name.include?(" Index") )}, :include_blank => false
           fo.input :sorter
           fo.input :_destroy, :as => :boolean
         end
