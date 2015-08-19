@@ -2,7 +2,7 @@ V2.0.8
   - Default indexType sind nun Einzelseiten und Übersichtsseiten
   - Eine Index Seite kann nun auch Seiten anderen Artikeltyps auflisten 
   - Helper Method deprecated: index_of_articles
-  - Indexoptionen für einen Artikel lassen sich nun beim Artikeltyp Konfigurieren
+  - Alle Indexoptionen für einen Artikel lassen sich nun beim Artikeltyp Konfigurieren
 
 V2.0.7
   - Speeding up ActiveAdmin and API by 1000%
