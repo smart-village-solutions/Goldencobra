@@ -411,12 +411,24 @@ module Goldencobra
 
     #scope for index articles, display show articles, index articless or both articles of an current type
     def self.articletype_for_index(current_article)
-      if current_article.display_index_types == "show"
-        articletype("#{current_article.article_type_form_file} Show")
-      elsif current_article.display_index_types == "index"
-        articletype("#{current_article.article_type_form_file} Index")
+      #Wenn alle Artikeltypen angezeigt werden sollen
+      if current_article.display_index_articletypes == "all"
+        if current_article.display_index_types == "show"
+          where("article_type LIKE '% Show' ")
+        elsif current_article.display_index_types == "index"
+          where("article_type LIKE '% Index' ")
+        else
+          where("article_type LIKE '% Show' OR article_type = '% Index' ")
+        end
       else
-        where("article_type = '#{current_article.article_type_form_file} Show' OR article_type = '#{current_article.article_type_form_file} Index'")
+        #Wenn NUR Artikel von EINEM bestimmten Artkeltypen angezeigt werden sollen
+        if current_article.display_index_types == "show"
+          articletype("#{current_article.display_index_articletypes} Show")
+        elsif current_article.display_index_types == "index"
+          articletype("#{current_article.display_index_articletypes} Index")
+        else
+          where("article_type = '#{current_article.display_index_articletypes} Show' OR article_type = '#{current_article.display_index_articletypes} Index'")
+        end
       end
     end
 
