@@ -88,7 +88,7 @@ module Goldencobra
     accepts_nested_attributes_for :permissions, :allow_destroy => true
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
-    has_ancestry    :orphan_strategy => :restrict
+    has_ancestry    :orphan_strategy => :restrict, :cache_depth => true
     friendly_id     :for_friendly_name, use: [:slugged, :finders] #, :history
     web_url         :external_url_redirect
     has_paper_trail
@@ -418,7 +418,7 @@ module Goldencobra
         elsif current_article.display_index_types == "index"
           where("article_type LIKE '% Index' ")
         else
-          where("article_type LIKE '% Show' OR article_type = '% Index' ")
+          where("article_type LIKE '% Show' OR article_type LIKE '% Index' ")
         end
       else
         #Wenn NUR Artikel von EINEM bestimmten Artkeltypen angezeigt werden sollen
@@ -466,8 +466,13 @@ module Goldencobra
       else
         #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
         parent_article = Goldencobra::Article.find_by_id(self.article_for_index_id)
-        if parent_article
+        if parent_article.present?
           @list_of_articles = parent_article.descendants.active.articletype_for_index(self)
+          #Wenn nicht ale ebenen unterhalb des gewählten Baumes angezeigt werden sollen
+          unless self.index_of_articles_descendents_depth == "all"
+            current_depth = parent_article.depth
+            @list_of_articles = @list_of_articles.to_depth(current_depth + self.index_of_articles_descendents_depth.to_i)
+          end
         else
           @list_of_articles = Goldencobra::Article.active.articletype_for_index(self)
         end

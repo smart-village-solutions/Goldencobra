@@ -277,6 +277,8 @@ de:
           hint2: "Welche Seiten sollen auf der Übersicht angezeigt werden?"
           label3: "Artikeltypen"
           hint3: "Welche Artikeltypen sollen auf der Übersicht angezeigt werden?"
+          label4: "Ebenen"
+          hint4: "Wieviel Ebenen von dem Artikelbaum sollen durchsucht werden?"
       sidebar:
         h5: "Es existieren bereits passende Menüpunkte zu diesem Artikel"
         seo_link: "SEO-Ansicht"
