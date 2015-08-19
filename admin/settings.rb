@@ -46,10 +46,6 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   # end
 
   sidebar :overview, only: [:index]  do
-    # render :partial => "/goldencobra/admin/shared/overview", 
-    # :object => Goldencobra::Setting.roots, 
-    # :locals => {:link_name => "title", :url_path => "setting" }
-
     render partial: "/goldencobra/admin/shared/react_overview",
        locals: {
          url: "/admin/settings/load_overviewtree_as_json",
@@ -70,15 +66,23 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
 
   collection_action :load_overviewtree_as_json do
     if params[:root_id].present?
-      articles = Goldencobra::Setting.find(params[:root_id])
-                   .children.order(:title).as_json(
-                      only: [:id, :value, :title], 
-                      methods: [:has_children])
+      objects = Goldencobra::Setting.where(id: params[:root_id]).first.children.reorder(:title)
+      cache_key ||= ["settings", params[:root_id], objects.map(&:id), objects.maximum(:updated_at)]
+
+      settings = Rails.cache.fetch(cache_key) do
+        Goldencobra::Setting.find(params[:root_id])
+          .children.order(:title).as_json(only: [:id, :value, :title], methods: [:has_children])
+      end
     else
-      articles = Goldencobra::Setting.order(:title)
-                   .roots.as_json(only: [:id, :value, :title], methods: [:has_children])
+      objects = Goldencobra::Setting.reorder(:title).roots
+      cache_key ||= ["settings", objects.map(&:id), objects.maximum(:updated_at)]
+
+      settings = Rails.cache.fetch(cache_key) do
+        Goldencobra::Setting.order(:title)
+          .roots.as_json(only: [:id, :value, :title], methods: [:has_children])
+      end
     end
-    render json: articles
+    render json: Oj.dump({"settings" => settings})
   end
 
   batch_action :destroy, false

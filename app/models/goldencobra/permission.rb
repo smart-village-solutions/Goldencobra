@@ -29,9 +29,13 @@ module Goldencobra
     default_scope { order("sorter_id ASC, id") }
     scope :by_role, lambda{ |rid| where(:role_id => rid) }
     before_create :set_min_sorter_id
+    after_commit :set_cache_key
 
     def self.restricted?(item)
-      where(:subject_class => item.class, :subject_id => item.id).count > 0
+      @@last_permission ||= Goldencobra::Permission.reorder(:updated_at).last
+      Rails.cache.fetch("#{@@last_permission.cache_key}#{item.cache_key}") do
+        where(subject_class: item.class, subject_id: item.id).count > 0
+      end
     end
 
     def set_min_sorter_id
@@ -41,6 +45,13 @@ module Goldencobra
       else
         self.sorter_id = 0
       end
+    end
+
+    private
+
+    def set_cache_key
+      @@last_permission = Goldencobra::Permission.reorder(:updated_at).last
+      return true
     end
   end
 end
