@@ -97,5 +97,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'binding_of_caller'
   s.add_development_dependency 'yard'
   s.add_development_dependency 'redcarpet'
-  s.add_development_dependency 'rack-mini-profiler'
+
+  #rake db:migrate funktioniert in eienr Production app mit diesem Gem nicht mehr
+  #s.add_development_dependency 'rack-mini-profiler'
 end
