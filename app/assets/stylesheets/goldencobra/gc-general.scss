@@ -11,22 +11,12 @@ body {
   padding: 8px 3px 7px 0;
 }
 
-#active_admin_content {
+#active_admin_content { overflow: hidden; }
+
+#index_footer {
   overflow: hidden;
-
-  #main_content_wrapper {
-    width: 80%;
-
-    #main_content { margin-right: 15px; }
-  }
-
-  #sidebar {
-    float: right;
-    margin-left: 0;
-    width: 20%;
-
-    .sidebar_section select { width: 100%; }
-  }
+  clear: both;
+  margin-top: 15px;
 }
 
 #main_content .char_count {
