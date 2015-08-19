@@ -56,20 +56,22 @@ module Goldencobra
     end
 
 
+    # Deprecated Helper Method
     def index_of_articles(options={})
-      if @article && @article.article_for_index_id.present? && master_index_article = Goldencobra::Article.find_by_id(@article.article_for_index_id)
-        result_list = ""
-        result_list += content_tag(:h2, raw("&nbsp;"), class: "boxheader")
-        result_list += content_tag(:h1, "#{master_index_article.title}", class: "headline")
-        dom_element = (options[:wrapper]).present? ? options[:wrapper] : :div
-        master_index_article.descendants.order(:created_at).limit(@article.article_for_index_limit).each do |art|
-          if @article.article_for_index_levels.to_i == 0 || (@article.depth + @article.article_for_index_levels.to_i > art.depth)
-            rendered_article_list_item = render_article_list_item(art)
-            result_list += content_tag(dom_element, rendered_article_list_item, :id => "article_index_list_item_#{art.id}", :class => "article_index_list_item")
-          end
-        end
-        return content_tag(:article, raw(result_list), :id => "article_index_list")
-      end
+      warn "Deprecated helper method 'index_of_articles'. Will be removed in GC 2.1"
+      # if @article && @article.article_for_index_id.present? && master_index_article = Goldencobra::Article.find_by_id(@article.article_for_index_id)
+      #   result_list = ""
+      #   result_list += content_tag(:h2, raw("&nbsp;"), class: "boxheader")
+      #   result_list += content_tag(:h1, "#{master_index_article.title}", class: "headline")
+      #   dom_element = (options[:wrapper]).present? ? options[:wrapper] : :div
+      #   master_index_article.descendants.order(:created_at).limit(@article.article_for_index_limit).each do |art|
+      #     if @article.article_for_index_levels.to_i == 0 || (@article.depth + @article.article_for_index_levels.to_i > art.depth)
+      #       rendered_article_list_item = render_article_list_item(art)
+      #       result_list += content_tag(dom_element, rendered_article_list_item, :id => "article_index_list_item_#{art.id}", :class => "article_index_list_item")
+      #     end
+      #   end
+      #   return content_tag(:article, raw(result_list), :id => "article_index_list")
+      # end
     end
 
     def render_article_type_content(options={})
