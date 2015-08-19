@@ -230,12 +230,12 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     render "/goldencobra/admin/articles/layout_sidebar", :locals => { :current_article => resource }
   end
 
-  #Deprecated, will be removed in GC 2.1
+  # Deprecated, will be removed in GC 2.1
   # sidebar :image_module, :only => [:edit] do
   #   render "/goldencobra/admin/articles/image_module_sidebar"
   # end
 
-  #Deprecated, will be removed in GC 2.1
+  # Deprecated, will be removed in GC 2.1
   # sidebar :link_checker, :only => [:edit] do
   #   render "/goldencobra/admin/articles/link_checker", :locals => { :current_article => resource }
   # end
@@ -293,9 +293,12 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   member_action :mark_as_startpage do
-    article = Goldencobra::Article.find(params[:id])
-    article.mark_as_startpage!
-    flash[:notice] = I18n.t(:startpage, scope: [:goldencobra, :flash_notice]) #"Dieser Artikel ist nun der Startartikel"
+    # Deprecated, will be removed in GC 2.1
+    # Functionality should be placed somewhere else
+    #
+    # article = Goldencobra::Article.find(params[:id])
+    # article.mark_as_startpage!
+    # flash[:notice] = I18n.t(:startpage, scope: [:goldencobra, :flash_notice]) #"Dieser Artikel ist nun der Startartikel"
     redirect_to :action => :show
   end
 
@@ -320,9 +323,12 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   member_action :run_link_checker do
-    article = Goldencobra::Article.find(params[:id])
-    system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake link_checker:article ID=#{article.id} &")
-    flash[:notice] = I18n.t('active_admin.articles.member_action.flash.link_checker')
+    # Deprecated, will be removed in GC 2.1
+    # Functionality should be placed somewhere else
+    #
+    # article = Goldencobra::Article.find(params[:id])
+    # system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake link_checker:article ID=#{article.id} &")
+    # flash[:notice] = I18n.t('active_admin.articles.member_action.flash.link_checker')
     redirect_to :action => :edit
   end
 
@@ -355,28 +361,40 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   batch_action :destroy, false
 
-  collection_action :load_overviewtree do
-    render "/goldencobra/admin/shared/load_overviewtree",
-      locals: { :object_id => params[:object_id],
-                :object_class => params[:object_class],
-                :link_name => params[:link_name],
-                :url_path => params[:url_path],
-                :order_by => params[:order_by]  },
-      :layout => false,
-      :formats => [:js]
-  end
+  # Deprecated, will be removed in GC 2.1
+  # Use :load_overviewtree_as_json instead. -hf
+  #
+  # collection_action :load_overviewtree do
+  #   render "/goldencobra/admin/shared/load_overviewtree",
+  #     locals: { :object_id => params[:object_id],
+  #               :object_class => params[:object_class],
+  #               :link_name => params[:link_name],
+  #               :url_path => params[:url_path],
+  #               :order_by => params[:order_by]  },
+  #     :layout => false,
+  #     :formats => [:js]
+  # end
 
   collection_action :load_overviewtree_as_json do
     if params[:root_id].present?
-      articles = Goldencobra::Article.find(params[:root_id])
-                   .children.order(:url_name).as_json(only: [:id, :url_path, :title, :url_name],
-                                     methods: [:has_children, :restricted])
+      objects = Goldencobra::Article.where(id: params[:root_id]).first.children.reorder(:url_name)
+      cache_key ||= ["articles", params[:root_id], objects.map(&:id), objects.maximum(:updated_at)]
+
+      articles = Rails.cache.fetch(cache_key) do
+        Goldencobra::Article.find(params[:root_id])
+          .children.reorder(:url_name).as_json(only: [:id, :url_path, :title, :url_name],
+                                             methods: [:has_children, :restricted])
+      end
     else
-      articles = Goldencobra::Article.order(:url_name)
-                   .roots.as_json(only: [:id, :url_path, :title, :url_name],
-                                  methods: [:has_children, :restricted])
+      objects = Goldencobra::Article.reorder(:url_name).roots
+      cache_key ||= ["articles", objects.map(&:id), objects.maximum(:updated_at)]
+
+      articles = Rails.cache.fetch(cache_key) do
+        Goldencobra::Article.order(:url_name).roots.as_json(only: [:id, :url_path, :title, :url_name],
+                                                            methods: [:has_children, :restricted])
+      end
     end
-    render json: articles
+    render json: Oj.dump({"articles" => articles})
   end
 
   controller do
