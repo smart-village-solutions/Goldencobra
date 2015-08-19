@@ -3,6 +3,11 @@ V2.0.8
   - Eine Index Seite kann nun auch Seiten anderen Artikeltyps auflisten 
   - Helper Method deprecated: index_of_articles
 
+V2.0.7
+  - Speeding up ActiveAdmin and API by 1000%
+  - Speeding up JSON Parsing and JSON Rendering by 10000%
+  - Including gem OJ as replacement for Rails JSON Parser
+
 V2.0.6
   - ActiveAdmin::Views::IndexAsTree global verfügbar gemacht
   - ActiveAdmin::Views::IndexAsTree eingebaut in Articles, Menues und Settings
