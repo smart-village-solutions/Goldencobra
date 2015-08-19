@@ -53,7 +53,10 @@ module Goldencobra
         ai.input :image, as: :select, collection: Goldencobra::Upload.where(id: ai.object.image_id).map{|c| [c.complete_list_name, c.id]}, input_html: { class: 'article_image_file chosen-select get_goldencobra_uploads_per_remote', style: 'width: 80%;', 'dataplaceholder': 'Bitte warten' }, label: "Medium wählen", include_blank: false
         ai.input :position, as: :select, collection: Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip), include_blank: false
         ai.input :_destroy, as: :boolean
-      end %>}
+      end %>},
+      index_article_for_index_id: %{<% f.input :article_for_index_id, label: I18n.t('active_admin.articles.index.views.label1'), hint: I18n.t('active_admin.articles.index.views.hint1'), as: :select, collection: Goldencobra::Article.articles_for_index_selecetion, include_blank: "/", id: "article_event_articleindex_id", input_html: { class: 'chosen-select', style: 'width: 80%;' } %>},
+      index_display_index_types: %{<% f.input :display_index_types, label: I18n.t('active_admin.articles.index.views.label2'), hint: I18n.t('active_admin.articles.index.views.hint2'), as: :select, collection: Goldencobra::Article::DisplayIndexTypes, include_blank: false %>},
+      index_display_index_articletypes: %{<% f.input :display_index_articletypes, label: I18n.t('active_admin.articles.index.views.label3'), hint: I18n.t('active_admin.articles.index.views.hint3'), as: :select, collection: ["all"] + Goldencobra::Article.article_types_for_search, include_blank: false %>}
     }
 
     def set_defaults
@@ -80,8 +83,15 @@ module Goldencobra
               a1.fields.create(fieldname: "teaser", sorter: 30)
               a1.fields.create(fieldname: "content", sorter: 40)
               a1.fields.create(fieldname: "tag_list", sorter: 50)
+              
+              if at.name.include?(" Index")
+                a1_1 = at.fieldgroups.create(title: "Index", position: "first_block", foldable: true, closed: false, expert: false, sorter: 2)
+                a1_1.fields.create(fieldname: "index_article_for_index_id", sorter: 1)
+                a1_1.fields.create(fieldname: "index_display_index_types", sorter: 2)
+                a1_1.fields.create(fieldname: "index_display_index_articletypes", sorter: 3)
+              end
 
-              a2 = at.fieldgroups.create(title: "Medien", position: "last_block", foldable: true, closed: true, expert: false, sorter: 1)
+              a2 = at.fieldgroups.create(title: "Medien", position: "last_block", foldable: true, closed: true, expert: false, sorter: 2)
               a2.fields.create(fieldname: "article_images", sorter: 5)
 
               a3 = at.fieldgroups.create(title: "Metadescriptions", position: "last_block", foldable: true, closed: true, expert: true, sorter: 3)

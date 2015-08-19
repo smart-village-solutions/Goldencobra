@@ -78,7 +78,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       #render Index Options if articletype == Index
       elsif f.object.kind_of_article_type.downcase == "index"
 
-        render :partial => "goldencobra/admin/articles/articles_index", :locals => {:f => f}
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_index.html.erb")
           ActionController::Base.new().render_to_string( :partial => "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index", :locals => {:f => f} )
         else
