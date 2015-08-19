@@ -13,6 +13,12 @@ body {
 
 #active_admin_content { overflow: hidden; }
 
+#index_footer {
+  overflow: hidden;
+  clear: both;
+  margin-top: 15px;
+}
+
 #main_content .char_count {
   position: relative;
   float: right;
