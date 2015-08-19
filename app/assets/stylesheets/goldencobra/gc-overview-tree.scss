@@ -1,49 +1,49 @@
-
 //TODO styling: http://odyniec.net/articles/turning-lists-into-trees/
-
 
 #active_admin_content ul.item_tree {
   background: url(vline.png) repeat-y;
   margin: 0;
   padding: 0;
+
   ul {
     margin: 0;
     margin-left: 10px;
     padding: 0;
     background: url(vline.png) repeat-y;
   }
+
   li {
     margin: 0;
     padding: 0 12px;
     list-style: none;
     background: url(node.png) no-repeat;
   }
-  li:last-child {
-     background: #fff url(lastnode.png) no-repeat;
-  }
+
+  li:last-child { background: #fff url(lastnode.png) no-repeat; }
+
   div.tree_item_options {
     display: none;
     overflow: hidden;
     float: right;
   }
+
   div.tree_item_options > div {
-      display: inline-block;
-      padding-bottom: 10px;
+    display: inline-block;
+    padding-bottom: 10px;
   }
+
   div.tree_item_title {
     display: inline-block;
     font-size: 1.4em
   }
+
   div.tree_item_value {
     font-weight: bold;
     margin-left: 15px;
   }
-  div.tree_item:hover {
-    color: #29c172;
-  }
-  div.tree_item:hover > .tree_item_options {
-    display: inline-block;
-  }
+
+  div.tree_item:hover { color: #29c172; }
+  div.tree_item:hover > .tree_item_options { display: inline-block; }
 }
 
 
@@ -63,12 +63,6 @@ body.active_admin .sidebar_section > div div.overview-sidebar {
       div.item {
         width: 92%;
         padding: 0 0 0 8%;
-        line-height: 14px;
-        border-bottom: 1px dotted transparent;
-
-        &:hover {
-          border-bottom: 1px dotted grey;
-        }
 
         div.folder {
           background: url("/assets/goldencobra/tree.png") no-repeat -6px;
@@ -89,40 +83,29 @@ body.active_admin .sidebar_section > div div.overview-sidebar {
           width: 9px;
           height: 9px;
           background: url("/assets/goldencobra/icons/16/locked.png");
-          @include background-size(9px);
           display: inline-block;
+          @include background-size(9px);
         }
 
         div.title {
           display: inline-block;
-
-          ul {
-            display: none;
-          }
-
-          a {
-            text-decoration: none;
-            cursor: pointer;
-          }
-
           overflow: hidden;
           width: 200px;
           height: 16px;
           line-height: 16px;
 
+          ul { display: none; }
+
+          a {
+            text-decoration: none;
+            cursor: pointer;
+          }
         }
 
-        div.title ~ ul li div.title {
-          width: 175px;
-        }
+        div.title ~ ul li div.title { width: 175px; }
 
-        div.title ~ ul li div.title ~ ul li div.title {
-          width: 145px;
-        }
-
-        div.title ~ ul li div.title ~ ul li div.title ~ ul li div.title {
-          width: 130px;
-        }
+        div.title ~ ul li div.title ~ ul li div.title {width: 145px;}
+        div.title ~ ul li div.title ~ ul li div.title ~ ul li div.title { width: 130px;}
 
         div.options {
           display: inline-block;
@@ -133,18 +116,18 @@ body.active_admin .sidebar_section > div div.overview-sidebar {
             text-indent: -9999px;
           }
 
-          a.new_link {
-            width: 14px;
-            height: 14px;
-            background: url("/assets/goldencobra/icons/16/plus.png");
-            @include background-size(14px);
-          }
-
+          a.new_link,
           a.edit_link {
             width: 14px;
             height: 14px;
-            background: url("/assets/goldencobra/icons/16/compose-3.png");
             @include background-size(14px);
+          }
+
+          a.new_link { background: url("/assets/goldencobra/icons/16/plus.png"); }
+
+          a.edit_link {
+            background: url("/assets/goldencobra/icons/16/compose-3.png");
+            margin-right: 3px;
           }
         }
       }
