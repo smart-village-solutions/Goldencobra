@@ -1,12 +1,11 @@
 <% f.inputs I18n.t('active_admin.articles.index.views.inputs'), class: "foldable inputs" do %>
 
-  <% cache_key ||= ["indexarticlesselect", Goldencobra::Article.all.pluck(:id, :ancestry, :title)]
-     articles = Rails.cache.fetch(cache_key) do
-       Goldencobra::Article.select([:id, :title, :ancestry]).map do
-        |c| ["#{c.path.map(&:title).join(" / ")}", c.id]
-       end.sort { |a, b| a[0] <=> b[0] }
-     end
-  %>
+  <% cache_key ||= ["indexarticlesselect", Goldencobra::Article.all.pluck(:id, :ancestry, :title)] %>
+  <% articles = Rails.cache.fetch(cache_key) do %>
+     <% Goldencobra::Article.select([:id, :title, :ancestry]).map do %>
+      <% |c| ["#{c.path.map(&:title).join(" / ")}", c.id] %>
+     <% end.sort { |a, b| a[0] <=> b[0] } %>
+   <% end %>
 
   <% f.input :article_for_index_id, label: I18n.t('active_admin.articles.index.views.label1'), hint: I18n.t('active_admin.articles.index.views.hint1'), as: :select, collection: articles, include_blank: "/", id: "article_event_articleindex_id", input_html: { class: 'chosen-select', style: 'width: 80%;' } %>
 
