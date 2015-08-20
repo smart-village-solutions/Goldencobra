@@ -14,7 +14,10 @@ ActiveAdmin.setup do |config|
   #  warn = '!! double check the ActiveSupport::FileUpdateChecker duck punch in #{__FILE__} !!'
   #  puts warn
   #end
-  # 
+  #
+
+
+
 
   # == Site Title
   #
@@ -92,14 +95,35 @@ ActiveAdmin.setup do |config|
 
   # == Admin Comments
   #
-  # Admin comments allow you to add comments to any model for admin use
-  #
-  # Admin comments are enabled by default in the default
-  # namespace only. You can turn them on in a namesapce
-  # by adding them to the comments array.
+  # Admin comments allow you to add comments to any model for admin use.
+  # Admin comments are enabled by default.
   #
   # Default:
-  # config.allow_comments_in = [:admin]
+  # config.allow_comments = true
+  #
+  # You can turn them on and off for any given namespace by using a
+  # namespace config block.
+  #
+  # Eg:
+  #   config.namespace :without_comments do |without_comments|
+  #     without_comments.allow_comments = false
+  #   end
+
+
+  # == Batch Actions
+  #
+  # Enable and disable Batch Actions
+  #
+  # Default:
+  config.batch_actions = true
+
+
+  # == Pagination Actions
+  #
+  # Show per Page Pagination
+  #
+  # Default:
+  config.default_per_page = [30, 50, 100, 250, 500, 1000]
 
 
   # == Controller Filters
@@ -117,9 +141,14 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
+  #   config.register_stylesheet 'my_stylesheet.css'
   config.register_stylesheet 'goldencobra/active_admin'
 
+  # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
+  #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
+  #
   # To load a javascript file:
+  #   config.register_javascript 'my_javascript.js'
   config.register_javascript 'goldencobra/active_admin'
   # config.register_javascript 'active_admin'
 end
