@@ -115,9 +115,6 @@ module Goldencobra
               a3.fields.create(fieldname: "metatag_meta_description", sorter: 20)
               a3.fields.create(fieldname: "metatag_open_graph_title", sorter: 30)
               a3.fields.create(fieldname: "metatag_open_graph_description", sorter: 40)
-              a3.fields.create(fieldname: "metatag_open_graph_type", sorter: 50)
-              a3.fields.create(fieldname: "metatag_open_graph_url", sorter: 60)
-              a3.fields.create(fieldname: "metatag_open_graph_image", sorter: 70)
               a3.fields.create(fieldname: "robots_no_index", sorter: 80) 
 
               a4 = at.fieldgroups.create(title: "Einstellungen", position: "last_block", foldable: true, closed: true, expert: true, sorter: 4)
