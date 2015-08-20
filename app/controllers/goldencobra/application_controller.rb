@@ -51,7 +51,7 @@ module Goldencobra
           :description => current_article.metatag_open_graph_description,
           :type => current_article.metatag_open_graph_type,
           :url => current_article.metatag_open_graph_url,
-          :image => current_article.metatag_open_graph_mage
+          :image => current_article.metatag_open_graph_image
         }
       }
 
