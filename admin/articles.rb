@@ -415,7 +415,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
 
   end
-  
+
   member_action :revert do
     @version = PaperTrail::Version.find(params[:id])
     if @version.reify
@@ -441,7 +441,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
 
   #Deprecated, will be rewritten in GC 2.1
-  # 
+  #
   # action_item :undo, :only => :edit do
   #   if resource.versions.last
   #     link_to(I18n.t('active_admin.articles.action_item.link_to.undo'), revert_admin_article_path(:id => resource.versions.last), :class => "undo")
