@@ -6,7 +6,7 @@ xml.rss version: "2.0", "xmlns:atom"=>"http://www.w3.org/2005/Atom" do
     xml.tag!("atom:link", {"href" => "http://#{Goldencobra::Setting.for_key('goldencobra.url').sub('http://','')}/api/v2/articles.xml", "rel"=>"self", "type"=>"application/rss+xml"})
     xml.title Nokogiri::HTML.parse(Goldencobra::Article.where(startpage: true).first.title).text
     xml.link Goldencobra::Article.where(startpage: true).first.absolute_public_url
-    xml.description Goldencobra::Metatag.where(article_id: Goldencobra::Article.where(startpage: true).first.id, name: 'Meta Description').first.value
+    xml.description Goldencobra::Article.where(startpage: true).first.metatag_meta_description
     @articles.uniq.each do |article|
       xml.item do
         xml.title do

@@ -25,11 +25,14 @@ module Goldencobra
       active: %{<% f.input :active, hint: I18n.t("goldencobra.article_field_hints.active"), wrapper_html: { class: '' } %>},
       active_since: %{<% f.input :active_since, hint: I18n.t("goldencobra.article_field_hints.active_since"), as: :string, input_html: { class: "", size: "20" }, wrapper_html: { class: 'expert' } %>},
       context_info: %{<% f.input :context_info, input_html: { class: "tinymce" }, hint: I18n.t("goldencobra.article_field_hints.context_info") %>},
-      metatags: %{<% f.has_many :metatags do |m|
-        m.input :name, as: :select, collection: Goldencobra::Article::MetatagNames, input_html: { class: 'metatag_names'}, hint: I18n.t("goldencobra.article_field_hints.metatags_name")
-        m.input :value, input_html: { class: 'metatag_values'}
-        m.input :_destroy, label: "entfernen/zurücksetzen", hint: I18n.t("goldencobra.article_field_hints.metatags_destroy"), as: :boolean
-      end %>},
+      metatags: %{<% warn("Deprecated method commentable") %>},
+      metatag_title_tag: %{<% f.input :metatag_title_tag %>},
+      metatag_meta_description: %{<% f.input :metatag_meta_description %>},
+      metatag_open_graph_title: %{<% f.input :metatag_open_graph_title %>},
+      metatag_open_graph_description: %{<% f.input :metatag_open_graph_description %>},
+      metatag_open_graph_type: %{<% f.input :metatag_open_graph_type %>},
+      metatag_open_graph_url: %{<% f.input :metatag_open_graph_url %>},
+      metatag_open_graph_image: %{<% f.input :metatag_open_graph_image %>},
       breadcrumb: %{<% f.input :breadcrumb, hint: I18n.t("goldencobra.article_field_hints.breadcrumb") %>},
       url_name: %{<% f.input :url_name, hint: I18n.t("goldencobra.article_field_hints.url_name"), required: false %>},
       parent_id: %{<% f.input :parent_id, hint: I18n.t("goldencobra.article_field_hints.parent_id"), as: :select, collection: Goldencobra::Article.where("id = ?", f.object.parent_id).select([:id,:title, :ancestry]).map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}, input_html: { class: 'get_goldencobra_articles_per_remote', style: 'width: 80%;', 'dataplaceholder': 'Elternelement auswählen' } %>},
@@ -108,8 +111,14 @@ module Goldencobra
 
               a3 = at.fieldgroups.create(title: "Metadescriptions", position: "last_block", foldable: true, closed: true, expert: true, sorter: 3)
               a3.fields.create(fieldname: "breadcrumb", sorter: 1)
-              a3.fields.create(fieldname: "metatags", sorter: 10)
-              a3.fields.create(fieldname: "robots_no_index", sorter: 20)
+              a3.fields.create(fieldname: "metatag_title_tag", sorter: 10)
+              a3.fields.create(fieldname: "metatag_meta_description", sorter: 20)
+              a3.fields.create(fieldname: "metatag_open_graph_title", sorter: 30)
+              a3.fields.create(fieldname: "metatag_open_graph_description", sorter: 40)
+              a3.fields.create(fieldname: "metatag_open_graph_type", sorter: 50)
+              a3.fields.create(fieldname: "metatag_open_graph_url", sorter: 60)
+              a3.fields.create(fieldname: "metatag_open_graph_image", sorter: 70)
+              a3.fields.create(fieldname: "robots_no_index", sorter: 80) 
 
               a4 = at.fieldgroups.create(title: "Einstellungen", position: "last_block", foldable: true, closed: true, expert: true, sorter: 4)
               a4.fields.create(fieldname: "frontend_tag_list", sorter: 10)
