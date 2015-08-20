@@ -3,6 +3,7 @@ V2.0.8
   - Eine Index Seite kann nun auch Seiten anderen Artikeltyps auflisten 
   - Helper Method deprecated: index_of_articles
   - Alle Indexoptionen für einen Artikel lassen sich nun beim Artikeltyp Konfigurieren
+  - Metatags sind nun kein eigenes Model mehr sondern in Goldencobra::Articles integriert
 
 V2.0.7
   - Speeding up ActiveAdmin and API by 1000%
