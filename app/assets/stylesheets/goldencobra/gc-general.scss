@@ -19,6 +19,25 @@ body {
   margin-top: 15px;
 }
 
+#index_header {
+  @extend #index_footer;
+  font-size: 0.85em;
+  padding-top: 5px;
+  text-align: right;
+
+  .batch_actions_selector {
+    float: left;
+
+    .dropdown_menu_button {
+      display: inline;
+      line-height: 9px;
+      margin-bottom: 6px;
+      padding-bottom: 3px;
+      padding-top: 4px;
+    }
+  }
+}
+
 #main_content .char_count {
   position: relative;
   float: right;
