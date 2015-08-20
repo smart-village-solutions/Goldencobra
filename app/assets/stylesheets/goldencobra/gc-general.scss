@@ -360,3 +360,11 @@ form > fieldset > ol > .has_many > h3 { color: #FFF; }
 body.active_admin form > fieldset { padding: 0px; }
 body.active_admin form fieldset > ol > li.boolean { height: 2.2em; }
 body.active_admin form fieldset > ol > li p.inline-errors { text-transform: none; }
+
+li.hidden_label > label {
+  display:none;
+}
+
+li.hidden_label > .chosen-container {
+  margin-left: 20%;
+}

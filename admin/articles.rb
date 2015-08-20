@@ -86,9 +86,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         end
 
       else
-
-        #error
-
+        #Der Artikeltyp ist weder Index noch Show
       end
 
       #Render alle Feldgruppen und Felder mit Position "last"
@@ -207,9 +205,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
            }
   end
 
-  sidebar :widgets_options, only: [:edit] do
-    render "/goldencobra/admin/articles/widgets_sidebar", :locals => { :current_article => resource }
-  end
 
   sidebar :startpage_options, :only => [:show, :edit] do
     if resource.startpage
