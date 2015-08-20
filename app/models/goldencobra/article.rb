@@ -80,7 +80,6 @@ module Goldencobra
     has_many :article_authors
     has_many :authors, :through => :article_authors
 
-    accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     accepts_nested_attributes_for :article_images, :allow_destroy => true
     accepts_nested_attributes_for :images, :allow_destroy => true
     accepts_nested_attributes_for :permissions, :allow_destroy => true
@@ -368,9 +367,7 @@ module Goldencobra
     end
 
     def metatag(name)
-      return "" if !MetatagNames.include?(name)
-      metatag = self.metatags.find_by_name(name)
-      metatag.value if metatag
+      warn "Deprecated method metatag(name). Will be removed in GC 2.1"
     end
 
 

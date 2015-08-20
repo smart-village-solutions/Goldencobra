@@ -419,6 +419,13 @@ de:
         frontend_tag_list: "Filterkriterium"
         created_at: "Erstellt am"
         updated_at: "Bearbeitet am"
+        metatag_title_tag: "Title Tag"
+        metatag_meta_description: "Meta Description"
+        metatag_open_graph_title: "OpenGraph Title"
+        metatag_open_graph_description: "OpenGraph Description"
+        metatag_open_graph_type: "OpenGraph Type"
+        metatag_open_graph_url: "OpenGraph URL"
+        metatag_open_graph_image: "OpenGraph Image"
       goldencobra/permission:
         role: "Rolle"
         action: "Aktion"

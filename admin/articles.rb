@@ -164,10 +164,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       content_tag("span", link_to(truncate(article.url_name, :length => 40), edit_admin_article_path(article.id), :class => "member_link edit_link"), :class => article.startpage ? "startpage" : "")
     end
     column I18n.t('active_admin.seo_articles.index-tag_column') do |article|
-      article.metatags.find_by_name("Title Tag").try(:value)
+      article.metatag_title_tag
     end
     column I18n.t('active_admin.seo_articles.index.meta_column') do |article|
-      article.metatags.find_by_name("Meta Description").try(:value)
+      article.metatag_meta_description
     end
     column I18n.t('active_admin.seo_articles.index.search_column'), :robots_no_index do |article|
       article.robots_no_index ? I18n.t('active_admin.seo_articles.index.search_column_yes') : I18n.t('active_admin.seo_articles.index.search_column_no')

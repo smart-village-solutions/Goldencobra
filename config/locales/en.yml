@@ -212,6 +212,13 @@ en:
         updated_at: "updated at"
         tag_list: "List of tags"
         frontend_tag_list: "Filters"
+        metatag_title_tag: "Title Tag"
+        metatag_meta_description: "Meta Description"
+        metatag_open_graph_title: "OpenGraph Title"
+        metatag_open_graph_description: "OpenGraph Description"
+        metatag_open_graph_type: "OpenGraph Type"
+        metatag_open_graph_url: "OpenGraph URL"
+        metatag_open_graph_image: "OpenGraph Image"
       goldencobra/upload:
         image_remote_url: "Download URL"
         source: "source"
