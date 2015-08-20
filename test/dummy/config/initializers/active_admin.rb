@@ -1,6 +1,8 @@
 ActiveAdmin.setup do |config|
   config.authorization_adapter = ActiveAdmin::CanCanAdapter
   config.comments = false
+
+  config.batch_actions = true
   #Folgene Zeile ruft eine Methode im Entsprechenden Controller auf, wenn es ein 'permission denied' gibt
   #config.on_unauthorized_access = :access_denied
 
