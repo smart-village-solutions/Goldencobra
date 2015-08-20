@@ -83,6 +83,7 @@ module Goldencobra
     accepts_nested_attributes_for :article_images, :allow_destroy => true
     accepts_nested_attributes_for :images, :allow_destroy => true
     accepts_nested_attributes_for :permissions, :allow_destroy => true
+    accepts_nested_attributes_for :article_widgets, :allow_destroy => true
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     has_ancestry    :orphan_strategy => :restrict, :cache_depth => true

@@ -52,6 +52,11 @@ module Goldencobra
         p.input :action, as: :select, collection: Goldencobra::Permission::PossibleActions, include_blank: false
         p.input :_destroy, as: :boolean
       end %>},
+      widgets: %{<% Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag| %>
+          <% f.inputs "Position: " + wtag do %>
+            <% f.input :widgets, :as => :select, collection: Goldencobra::Widget.tagged_with(wtag), input_html: { class: 'chosen-select', style: 'width: 80%; margin-left:20%' }, wrapper_html: { class: "hidden_label"} %>
+          <% end %>
+        <% end %> },
       article_images: %{<% f.has_many :article_images do |ai|
         ai.input :image, as: :select, collection: Goldencobra::Upload.where(id: ai.object.image_id).map{|c| [c.complete_list_name, c.id]}, input_html: { class: 'article_image_file chosen-select get_goldencobra_uploads_per_remote', style: 'width: 80%;', 'dataplaceholder': 'Bitte warten' }, label: "Medium wählen", include_blank: false
         ai.input :position, as: :select, collection: Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip), include_blank: false
@@ -117,7 +122,10 @@ module Goldencobra
               a3.fields.create(fieldname: "metatag_open_graph_description", sorter: 40)
               a3.fields.create(fieldname: "robots_no_index", sorter: 80) 
 
-              a4 = at.fieldgroups.create(title: "Einstellungen", position: "last_block", foldable: true, closed: true, expert: true, sorter: 4)
+              a5 = at.fieldgroups.create(title: "Widgets", position: "last_block", foldable: true, closed: true, expert: true, sorter: 4)
+              a5.fields.create(fieldname: "widgets", sorter: 1)
+
+              a4 = at.fieldgroups.create(title: "Einstellungen", position: "last_block", foldable: true, closed: true, expert: true, sorter: 5)
               a4.fields.create(fieldname: "frontend_tag_list", sorter: 10)
               a4.fields.create(fieldname: "url_name", sorter: 20)
               a4.fields.create(fieldname: "parent_id", sorter: 30)
