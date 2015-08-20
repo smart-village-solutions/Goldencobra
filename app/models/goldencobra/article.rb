@@ -55,7 +55,6 @@ module Goldencobra
   class Article < ActiveRecord::Base
 
     extend FriendlyId
-    MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Description", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
     LiquidParser = {}
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically", "GlobalSortID"]
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
@@ -65,7 +64,6 @@ module Goldencobra
     ImportDataFunctions = []
 
     has_many :link_checks, :class_name => Goldencobra::LinkChecker
-    has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
     has_many :article_images
     has_many :article_widgets
@@ -130,10 +128,10 @@ module Goldencobra
     scope :for_sitemap, -> { includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0') }
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
     scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
-    if ActiveRecord::Base.connection.table_exists?("goldencobra_metatags")
-      scope :no_title_tag, -> { where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Title Tag").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq) }
-      scope :no_meta_description, -> { where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Meta Description").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq) }
-    end
+    
+      scope :no_title_tag, -> { where("metatag_title_tag IS NULL OR metatag_title_tag = ''") }
+      scope :no_meta_description, -> { where("metatag_meta_description IS NULL OR metatag_meta_description = ''") }
+    
     scope :fulltext_contains, lambda{ |name| where("content LIKE '%#{name}%' OR teaser LIKE '%#{name}%' OR url_name LIKE '%#{name}%' OR subtitle LIKE '%#{name}%' OR summary LIKE '%#{name}%' OR context_info LIKE '%#{name}%' OR breadcrumb LIKE '%#{name}%'")}
 
 
@@ -630,36 +628,12 @@ module Goldencobra
         meta_description = self.content.present? ? remove_html_tags(self.content).truncate(200) : self.title
       end
 
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'Meta Description').none?
-        Goldencobra::Metatag.create(name: 'Meta Description',
-                                    article_id: self.id,
-                                    value: meta_description)
-      end
+      self.metatag_meta_description = meta_description if self.metatag_meta_description.blank?
+      self.metatag_title_tag = self.title if self.metatag_title_tag.blank?
+      self.metatag_open_graph_description = meta_description if self.metatag_open_graph_description.blank?
+      self.metatag_open_graph_title = self.title if self.metatag_open_graph_title.blank?
+      self.metatag_open_graph_url = self.absolute_public_url if self.metatag_open_graph_url.blank?
 
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'Title Tag').none?
-        Goldencobra::Metatag.create(name: 'Title Tag',
-                                    article_id: self.id,
-                                    #value: self.breadcrumb.present? ? self.breadcrumb : self.title)
-                                    value: self.title)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph Description',
-                                    article_id: self.id,
-                                    value: meta_description)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph Title',
-                                    article_id: self.id,
-                                    value: self.title)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph URL',
-                                    article_id: self.id,
-                                    value: self.absolute_public_url)
-      end
     end
 
     # helper um links zu entfernen in text
@@ -668,13 +642,13 @@ module Goldencobra
     end
 
     def verify_existence_of_opengraph_image
-      if Goldencobra::Metatag.where(article_id: self.id, name: "OpenGraph Image").none?
+      if self.metatag_open_graph_image.blank?
         if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
           og_img_val = "#{self.absolute_base_url}#{self.article_images.first.image.image.url}"
         else
           og_img_val = Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image")
         end
-        Goldencobra::Metatag.create(name: "OpenGraph Image", article_id: self.id, value: og_img_val)
+        self.metatag_open_graph_image = og_img_val
       end
     end
 
