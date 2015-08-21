@@ -47,8 +47,8 @@ module Goldencobra
     # 
     # @return [HTML] ImageGallery
     def render_article_image_gallery(options={})
-      link_image_size = option.fetch(:link_image_size, :thumb)
-      target_image_size = option.fetch(:target_image_size, :large)
+      link_image_size = options.fetch(:link_image_size, :thumb)
+      target_image_size = options.fetch(:target_image_size, :large)
       if @article
         result = ""
         uploads = Goldencobra::Upload.tagged_with(@article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : "" )
