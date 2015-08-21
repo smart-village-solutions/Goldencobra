@@ -53,8 +53,9 @@ $(function () {
 
   populateArticleUploads();
 
-  $('.has_many.article_images a.button').on('click', function() {
-    setTimeout(populateArticleUploads(), 500);
+  $('.has_many_container.article_images a.button.has_many_add').on('click', function() {
+    console.log('clicked');
+    setTimeout(populateArticleUploads, 100);
   });
 
   //Importer optionen Ein und Ausblendbar machen
