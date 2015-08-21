@@ -4,6 +4,7 @@ V2.0.8
   - Helper Method deprecated: index_of_articles
   - Alle Indexoptionen für einen Artikel lassen sich nun beim Artikeltyp Konfigurieren
   - Metatags sind nun kein eigenes Model mehr sondern in Goldencobra::Articles integriert
+  - Artikel Widgets werden nun im Formular konfiguriert und nciht merh in der Seitenleiste
 
 V2.0.7
   - Speeding up ActiveAdmin and API by 1000%
