@@ -63,7 +63,7 @@ module Goldencobra
         ai.input :_destroy, as: :boolean
       end %>},
       index__article_for_index_id: %{<% f.input :article_for_index_id, label: I18n.t('active_admin.articles.index.views.label1'), hint: I18n.t('active_admin.articles.index.views.hint1'), as: :select, collection: Goldencobra::Article.articles_for_index_selecetion, include_blank: "/", id: "article_event_articleindex_id", input_html: { class: 'chosen-select', style: 'width: 80%;' } %>},
-      index__article_descendents_depth: %{<% f.input :index_of_articles_descendents_depth, as: :select, collection: [["Alle", "all"],["1 Ebene", "1"],["2 Ebenen", "2"],["3 Ebenen", "3"]], include_blank: false, label: I18n.t('active_admin.articles.index.views.label4'), hint: I18n.t('active_admin.articles.index.views.hint4') %>},
+      index__article_descendents_depth: %{<% f.input :index_of_articles_descendents_depth, as: :select, collection: [["1 Ebene", "1"],["2 Ebenen", "2"],["3 Ebenen", "3"],["Alle", "all"]], include_blank: false, label: I18n.t('active_admin.articles.index.views.label4'), hint: I18n.t('active_admin.articles.index.views.hint4') %>},
       index__display_index_types: %{<% f.input :display_index_types, label: I18n.t('active_admin.articles.index.views.label2'), hint: I18n.t('active_admin.articles.index.views.hint2'), as: :select, collection: Goldencobra::Article::DisplayIndexTypes, include_blank: false %>},
       index__display_index_articletypes: %{<% f.input :display_index_articletypes, label: I18n.t('active_admin.articles.index.views.label3'), hint: I18n.t('active_admin.articles.index.views.hint3'), as: :select, collection: ["all"] + Goldencobra::Article.article_types_for_search, include_blank: false %>},
       index__index_of_articles_tagged_with: %{<% f.input :index_of_articles_tagged_with, label: "Artikel mit folgenden Tags", hint: "Auf der Übersichtsseite werden alle Artikel des gleichen Artikeltyps mit diesen Tags ausgegeben. Sind keine Tags angegeben, werden alle Artikel des gleichen Artikeltyps ausgegeben."%>},
@@ -97,7 +97,7 @@ module Goldencobra
               a1.fields.create(fieldname: "teaser", sorter: 30)
               a1.fields.create(fieldname: "content", sorter: 40)
               a1.fields.create(fieldname: "tag_list", sorter: 50)
-              
+
               if at.name.include?(" Index")
                 a1_1 = at.fieldgroups.create(title: "Index", position: "first_block", foldable: true, closed: false, expert: false, sorter: 2)
                 a1_1.fields.create(fieldname: "index__article_for_index_id", sorter: 1)
@@ -120,7 +120,7 @@ module Goldencobra
               a3.fields.create(fieldname: "metatag_meta_description", sorter: 20)
               a3.fields.create(fieldname: "metatag_open_graph_title", sorter: 30)
               a3.fields.create(fieldname: "metatag_open_graph_description", sorter: 40)
-              a3.fields.create(fieldname: "robots_no_index", sorter: 80) 
+              a3.fields.create(fieldname: "robots_no_index", sorter: 80)
 
               a5 = at.fieldgroups.create(title: "Widgets", position: "last_block", foldable: true, closed: true, expert: true, sorter: 4)
               a5.fields.create(fieldname: "widgets", sorter: 1)
