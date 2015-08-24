@@ -97,9 +97,10 @@ en:
     per_page: "Entries per page"
     pagination:
       empty: "No %{model} found"
-      one: "Show <b>1</b> %{model}"
-      one_page: "Show <b>all %{n}</b> %{model}"
-      multiple: "Show %{model} <b>%{from}&nbsp;–&nbsp;%{to}</b> from <b>%{total}</b>"
+      one: "Displaying <b>1</b> %{model}"
+      one_page: "Displaying <b>all %{n}</b> %{model}"
+      multiple: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{total}</b> in total"
+      multiple_without_total: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b>"
       entry:
         one: "Entry"
         other: "Entries"
