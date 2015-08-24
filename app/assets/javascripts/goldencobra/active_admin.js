@@ -14,7 +14,7 @@
 $(function () {
   //wenn wir aud der Dashboardseite sind und es eine Suche gibt
   var $dashboard_article_search = $('#dashboard_article_search');
-  if ( $dashboard_article_search.length) {
+  if ($dashboard_article_search.length) {
     $('body').on('change', '#dashboard_article_search', function() {
       var article_id = $('#dashboard_article_search').find('option:selected').val();
       if (article_id) {
@@ -26,7 +26,7 @@ $(function () {
   // Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
   // hole alle Goldencobra:Article :id,:title, :ancestry
   var $select_parent_articles = $('.get_goldencobra_articles_per_remote');
-  if ( $select_parent_articles.length){
+  if ($select_parent_articles.length){
     $.ajax({
       url: '/api/v2/articles.json?react_select=true'
     }).done(function(data){
@@ -34,7 +34,7 @@ $(function () {
       var thisId            = $this.id;
       var thisName          = $this.name;
       var className         = $this.className;
-      var selectedParentId  = $($this).find('option:selected').val()
+      var selectedParentId  = $($this).find('option:selected').val();
 
       $this.outerHTML = "<div id='react-" + thisId + "'></div>";
       React.render(
@@ -51,10 +51,12 @@ $(function () {
     });
   }
 
+  // goldencobra uploads per react
   populateArticleUploads();
 
-  $('.has_many.article_images a.button').on('click', function() {
-    setTimeout(populateArticleUploads(), 500);
+  // GCZ-28
+  $('.has_many_container.article_images a.button.has_many_add').on('click', function() {
+    setTimeout(populateArticleUploads, 100);
   });
 
   //Importer optionen Ein und Ausblendbar machen
@@ -63,7 +65,7 @@ $(function () {
     $('tr.model_group.' + id_to_class).toggle();
     if ($(this).html() == 'Felder anzeigen'){
       $(this).html('Felder ausblenden');
-    }else{
+    } else {
       $(this).html('Felder anzeigen');
     }
   });
