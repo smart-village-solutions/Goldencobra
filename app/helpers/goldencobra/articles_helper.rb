@@ -95,12 +95,8 @@ module Goldencobra
       tags = options[:tagged_with] || ""
       
       #include default widgets?
-      if options[:default].present?
-        include_defaults = options[:default].to_s == "true"
-      else
-        include_defaults = false
-      end
-
+      include_defaults = options[:default].to_s == "true" || false
+      
       #include article widgets?
       if options[:article].present?
         include_articles = options[:article].to_s == "true"
@@ -132,9 +128,7 @@ module Goldencobra
       #Get default widgets
       if include_defaults == true 
         default_widgets = Goldencobra::Widget.active.where(:default => true)
-        if tags.present?
-          default_widgets = default_widgets.tagged_with(tags.split(","))
-        end
+        default_widgets = default_widgets.tagged_with(tags.split(",")) if tags.present?
       else
         default_widgets = []
       end
@@ -151,20 +145,11 @@ module Goldencobra
         #check if current user has permissions to see this widget
         if ability.can?(:read, widget)
           template = Liquid::Template.parse(widget.content)
-          alt_template = Liquid::Template.parse(widget.alternative_content)
           html_data_options = {"class" => "#{widget.css_name} #{custom_css} goldencobra_widget",
                                 "id" => widget.id_name.present? ? widget.id_name : "widget_id_#{widget.id}",
-                                'data-date-start' => widget.offline_date_start_display,
-                                'data-date-end' => widget.offline_date_end_display,
-                                'data-offline-active' => widget.offline_time_active,
                                 'data-id' => widget.id
                               }
-          html_data_options = html_data_options.merge(widget.offline_time_week)
           result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
-          if @timecontrol
-            result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
-                        class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget", 'data-id' => widget.id)
-          end
         end
       end
       
