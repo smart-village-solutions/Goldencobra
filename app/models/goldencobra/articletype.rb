@@ -35,7 +35,7 @@ module Goldencobra
       metatag_open_graph_image: %{<% f.input :metatag_open_graph_image %>},
       breadcrumb: %{<% f.input :breadcrumb, hint: I18n.t("goldencobra.article_field_hints.breadcrumb") %>},
       url_name: %{<% f.input :url_name, hint: I18n.t("goldencobra.article_field_hints.url_name"), required: false %>},
-      parent_id: %{<% f.input :parent_id, hint: I18n.t("goldencobra.article_field_hints.parent_id"), as: :select, collection: Goldencobra::Article.where("id = ?", f.object.parent_id).select([:id,:title, :ancestry]).map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}, input_html: { class: 'get_goldencobra_articles_per_remote', style: 'width: 80%;', 'dataplaceholder': 'Elternelement auswählen' } %>},
+      parent_id: %{<% f.input :parent_id, hint: I18n.t("goldencobra.article_field_hints.parent_id"), as: :select, collection: Goldencobra::Article.where("id = ?", f.object.parent_id).select([:id,:title, :ancestry]).map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}, input_html: { class: 'get_goldencobra_articles_per_remote include_blank_false', style: 'width: 80%;', 'dataplaceholder': 'Elternelement auswählen' } %>},
       canonical_url: %{<% f.input :canonical_url, hint: I18n.t("goldencobra.article_field_hints.canonical_url") %>},
       enable_social_sharing: %{<% warn("Deprecated method enable_social_sharing") %>},
       robots_no_index: %{<% f.input :robots_no_index, hint: I18n.t("goldencobra.article_field_hints.robots_no_index") %>},
