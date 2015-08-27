@@ -64,14 +64,13 @@
   <%= render_article_type_content() %>
 	<%= render_article_image_gallery %>
   <div id="widgets">
-  	<%= render_article_widgets(:default => true, :tagged_with => "sidebar") %>
+  	<%= render_article_widgets(default: true, tagged_with: "sidebar") %>
   </div>
 </div>
 <div id="social_sharing_buttons" class="bottom_buttons">
 	<%= yield(:social_sharing_buttons) %>
 </div>
 
-<%= render_article_widgets(:tagged_with => "sidebar") %>
 
 <%= navigation_menu(2) %>
 
