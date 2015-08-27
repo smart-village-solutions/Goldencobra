@@ -18,7 +18,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   
   index as: ActiveAdmin::Views::IndexAsTree, :download_links => false do
     title :title do |setting|
-      "#{setting.parent_names}.#{setting.title}"
+      link_to "#{setting.parent_names}.#{setting.title}", edit_admin_setting_path(setting), class: "member_link edit_link"
     end
     value :value
     options [:edit,:destroy]
