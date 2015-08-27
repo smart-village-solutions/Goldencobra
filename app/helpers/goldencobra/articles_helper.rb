@@ -91,7 +91,6 @@ module Goldencobra
     end
 
     def render_article_widgets(options={})
-      @timecontrol = Goldencobra::Setting.for_key("goldencobra.widgets.time_control") == "true"
       custom_css = options[:class] || ""
       tags = options[:tagged_with] || ""
       
