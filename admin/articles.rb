@@ -148,7 +148,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   index as: ActiveAdmin::Views::IndexAsTree, :download_links => false do
     title :title do |a|
-      "#{a.title} (#{a.url_name})"
+      link_to "#{a.title}", edit_admin_article_path(a.id), class: "member_link edit_link"
     end
     options [:preview,:edit,:new,:destroy]
   end

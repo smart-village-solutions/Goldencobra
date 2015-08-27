@@ -5,6 +5,10 @@
   margin: 5px 0;
   padding: 0;
 
+  a.member_link.edit_link{
+    text-decoration: none;
+  }
+
   ul {
     margin: 0;
     margin-left: 10px;
@@ -44,7 +48,10 @@
     margin-left: 15px;
   }
 
-  div.tree_item:hover { color: #29c172; }
+  div.tree_item:hover { 
+    color: #29c172; 
+    a { color: #29c172; }
+  }
   div.tree_item:hover > .tree_item_options { display: inline-block; }
 }
 
