@@ -398,6 +398,9 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       if params[:parent] && params[:parent].present?
         @parent = Goldencobra::Article.find(params[:parent])
         @article.parent_id = @parent.id
+      else
+        parent_id = Goldencobra::Article.startpage.first.try(:id)
+        @article.parent_id = parent_id
       end
     end
 
