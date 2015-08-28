@@ -92,7 +92,7 @@ module Goldencobra
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
 
-    validates_presence_of :title, :article_type
+    validates_presence_of :article_type
     validates_format_of :url_name, :with => /\A[\w\-]+\Z/, allow_blank: true
     validates_presence_of :breadcrumb, :on => :create
     validates_length_of :breadcrumb, :within => 1..70, :on => :create
@@ -100,6 +100,7 @@ module Goldencobra
     attr_protected :startpage
 
     before_update :set_redirection_step_1
+    before_create :set_title_from_breadcrumb
     after_create :set_active_since
     after_create :notification_event_create
     after_create :cleanup_redirections
@@ -538,6 +539,14 @@ module Goldencobra
     # Callback Methods
     # **************************
     # **************************
+     
+    
+    def set_title_from_breadcrumb
+      if self.title.blank? && self.breadcrumb.present?
+        self.title = self.breadcrumb
+      end
+    end 
+  
 
     def cleanup_redirections
       Goldencobra::Redirector.where(:source_url => self.absolute_public_url).destroy_all
