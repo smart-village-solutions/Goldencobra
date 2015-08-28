@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.2'
 
   # s.add_dependency 'coffee-script-source', '~>1.8.0'
-  s.add_dependency 'rails', '4.2.3'
+  s.add_dependency 'rails', '4.2.4'
   s.add_dependency 'jquery-rails' #, '3.1.3'
   s.add_dependency 'devise'#, '~> 3.0.0'
   # TODO: Token Authentication neu machen
