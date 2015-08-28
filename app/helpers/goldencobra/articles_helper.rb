@@ -91,10 +91,19 @@ module Goldencobra
     end
 
     def render_article_widgets(options={})
-      @timecontrol = Goldencobra::Setting.for_key("goldencobra.widgets.time_control") == "true"
       custom_css = options[:class] || ""
       tags = options[:tagged_with] || ""
-      default = options[:default] || "false"
+      
+      #include default widgets?
+      include_defaults = options[:default].to_s == "true" || false
+      
+      #include article widgets?
+      if options[:article].present?
+        include_articles = options[:article].to_s == "true"
+      else
+        include_articles = true
+      end      
+      
       widget_wrapper = options[:wrapper] || "section"
       result = ""
       if params[:frontend_tags] && params[:frontend_tags].class != String && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
@@ -108,38 +117,42 @@ module Goldencobra
           ability = Ability.new()
         end
       end
-      if @article
-        widgets = @article.widgets.active
-        if tags.present? && default == "false"
-          widgets = widgets.tagged_with(tags.split(","))
-        elsif default == true && tags.present?
-          widgets = Goldencobra::Widget.active.where(:default => true).tagged_with(tags.split(","))
-        else
-          widgets = widgets.where(:tag_list => "")
-        end
-        widgets = widgets.order(:sorter)
+      
+      # Get article Widgets
+      if @article && include_articles
+        article_widgets = @article.widgets.active.tagged_with(tags.split(","))
+      else
+        article_widgets = []
+      end
+      
+      #Get default widgets
+      if include_defaults == true 
+        default_widgets = Goldencobra::Widget.active.where(:default => true)
+        default_widgets = default_widgets.tagged_with(tags.split(",")) if tags.present?
+      else
+        default_widgets = []
+      end
+        
+      # merge article and default widgets
+      widgets = [default_widgets] + [article_widgets]
+      widgets = widgets.flatten.uniq.compact
 
-        widgets.each do |widget|
-          #check if current user has permissions to see this widget
-          if ability.can?(:read, widget)
-            template = Liquid::Template.parse(widget.content)
-            alt_template = Liquid::Template.parse(widget.alternative_content)
-            html_data_options = {"class" => "#{widget.css_name} #{custom_css} goldencobra_widget",
-                                  "id" => widget.id_name.present? ? widget.id_name : "widget_id_#{widget.id}",
-                                  'data-date-start' => widget.offline_date_start_display,
-                                  'data-date-end' => widget.offline_date_end_display,
-                                  'data-offline-active' => widget.offline_time_active,
-                                  'data-id' => widget.id
-                                }
-            html_data_options = html_data_options.merge(widget.offline_time_week)
-            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
-            if @timecontrol
-              result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
-                          class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget", 'data-id' => widget.id)
-            end
-          end
+      #Sort widgets bei global sorter id
+      widgets = widgets.sort_by(&:sorter)
+
+      #render Widgets
+      widgets.each do |widget|
+        #check if current user has permissions to see this widget
+        if ability.can?(:read, widget)
+          template = Liquid::Template.parse(widget.content)
+          html_data_options = {"class" => "#{widget.css_name} #{custom_css} goldencobra_widget",
+                                "id" => widget.id_name.present? ? widget.id_name : "widget_id_#{widget.id}",
+                                'data-id' => widget.id
+                              }
+          result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
         end
       end
+      
       return raw(result)
     end
 
