@@ -23,7 +23,9 @@ module Goldencobra
       tag_list: %{<% f.input :tag_list, hint: I18n.t("goldencobra.article_field_hints.tag_list"), wrapper_html: { class: '' } %>},
       frontend_tag_list: %{<% f.input :frontend_tag_list, hint: I18n.t("goldencobra.article_field_hints.frontend_tag_list"), wrapper_html: { class: '' } %>},
       active: %{<% f.input :active, hint: I18n.t("goldencobra.article_field_hints.active"), wrapper_html: { class: '' } %>},
-      active_since: %{<% f.input :active_since, hint: I18n.t("goldencobra.article_field_hints.active_since"), as: :string, input_html: { class: "", size: "20" }, wrapper_html: { class: 'expert' } %>},
+      active_since: %{<% f.input :active_since, hint: I18n.t("goldencobra.article_field_hints.active_since"), 
+                            as: :string, 
+                            input_html: { class: "", size: "20" }, wrapper_html: { class: 'expert' } %>},
       context_info: %{<% f.input :context_info, input_html: { class: "tinymce" }, hint: I18n.t("goldencobra.article_field_hints.context_info") %>},
       metatags: %{<% warn("Deprecated method commentable") %>},
       metatag_title_tag: %{<% f.input :metatag_title_tag %>},
@@ -35,7 +37,11 @@ module Goldencobra
       metatag_open_graph_image: %{<% f.input :metatag_open_graph_image %>},
       breadcrumb: %{<% f.input :breadcrumb, hint: I18n.t("goldencobra.article_field_hints.breadcrumb") %>},
       url_name: %{<% f.input :url_name, hint: I18n.t("goldencobra.article_field_hints.url_name"), required: false %>},
-      parent_id: %{<% f.input :parent_id, hint: I18n.t("goldencobra.article_field_hints.parent_id"), as: :select, collection: Goldencobra::Article.where("id = ?", f.object.parent_id).select([:id,:title, :ancestry]).map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}, input_html: { class: 'get_goldencobra_articles_per_remote include_blank_false', style: 'width: 80%;', 'dataplaceholder': 'Elternelement auswählen' } %>},
+      parent_id: %{<% f.input :parent_id, hint: I18n.t("goldencobra.article_field_hints.parent_id"), 
+                      as: :select, 
+                      collection: Goldencobra::Article.where("id = ?", f.object.parent_id).select([:id,:title, :ancestry]).map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}, 
+                      input_html: { class: "get_goldencobra_articles_per_remote" + (f.object.startpage ? ' include_blank_true ' : ' include_blank_false ' ), 
+                                    style: 'width: 80%;', 'dataplaceholder': 'Elternelement auswählen' } %>},
       canonical_url: %{<% f.input :canonical_url, hint: I18n.t("goldencobra.article_field_hints.canonical_url") %>},
       enable_social_sharing: %{<% warn("Deprecated method enable_social_sharing") %>},
       robots_no_index: %{<% f.input :robots_no_index, hint: I18n.t("goldencobra.article_field_hints.robots_no_index") %>},
@@ -54,12 +60,18 @@ module Goldencobra
       end %>},
       widgets: %{<% Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag| %>
           <% f.inputs "Position: " + wtag do %>
-            <% f.input :widgets, :as => :select, collection: Goldencobra::Widget.tagged_with(wtag), input_html: { class: 'chosen-select', style: 'width: 80%; margin-left:20%' }, wrapper_html: { class: "hidden_label"} %>
+            <% f.input :widgets, :as => :select, collection: Goldencobra::Widget.tagged_with(wtag), 
+                input_html: { class: 'chosen-select', style: 'width: 80%; margin-left:20%' }, wrapper_html: { class: "hidden_label"} %>
           <% end %>
         <% end %> },
       article_images: %{<% f.has_many :article_images do |ai|
-        ai.input :image, as: :select, collection: Goldencobra::Upload.where(id: ai.object.image_id).map{|c| [c.complete_list_name, c.id]}, input_html: { class: 'article_image_file chosen-select get_goldencobra_uploads_per_remote', style: 'width: 80%;', 'dataplaceholder': 'Bitte warten' }, label: "Medium wählen", include_blank: false
-        ai.input :position, as: :select, collection: Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip), include_blank: false
+        ai.input :image, 
+          as: :select, 
+          collection: Goldencobra::Upload.where(id: ai.object.image_id).map{|c| [c.complete_list_name, c.id]}, 
+          input_html: { class: 'article_image_file chosen-select get_goldencobra_uploads_per_remote', style: 'width: 80%;', 'dataplaceholder': 'Bitte warten' }, label: "Medium wählen", include_blank: false
+        ai.input :position, 
+          as: :select, 
+          collection: Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip), include_blank: false
         ai.input :_destroy, as: :boolean
       end %>},
       index__article_for_index_id: %{<% f.input :article_for_index_id, label: I18n.t('active_admin.articles.index.views.label1'), hint: I18n.t('active_admin.articles.index.views.hint1'), as: :select, collection: Goldencobra::Article.articles_for_index_selecetion, include_blank: "/", id: "article_event_articleindex_id", input_html: { class: 'chosen-select', style: 'width: 80%;' } %>},
