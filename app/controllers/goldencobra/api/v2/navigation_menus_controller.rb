@@ -25,13 +25,9 @@ module Goldencobra
 
             # URI parse domain and url path
             parsed_url = Addressable::URI.parse(url_to_search)
-
-            # Lade alle Menüpunkte, die so gleich aussehen und am ende eventuell durch parameter abweichen
-            possible_menues = @master_element.subtree.active.where("goldencobra_menues.target LIKE '#{parsed_url.path}%' ")
-
-            #Selektiere dann nur noch denjenigen, der identisch ist ohen url parameter
-            current_menue = possible_menues.select{ |m| Addressable::URI.parse(m.target).path == parsed_url.path }.first
             
+            current_menue = find_menu_with_matching_path(parsed_url)
+
             if current_menue.present?
               @active_menue_ids = current_menue.path_ids
             else
@@ -193,6 +189,25 @@ module Goldencobra
             menus = menus.where('goldencobra_menues.css_class NOT LIKE ?', filter_string)
           end
           menus
+        end
+
+        def find_menu_with_matching_path(parsed_url)
+          # All Menu records that match the path but might differ by parameters
+          possible_menues = @master_element.subtree.active
+            .where("goldencobra_menues.target LIKE '#{parsed_url.path}%' ")
+
+          # Select matching record (without matching for parameters)
+          current_menue = possible_menues.select do |pos_menu|
+            Addressable::URI.parse(pos_menu.target).path == parsed_url.path
+          end.first
+
+          if current_menue.blank?
+            # Try for a path without last element
+            reduced_url = parsed_url.path.split("/").tap(&:pop).join("/")
+            return find_menu_with_matching_path(Addressable::URI.parse(reduced_url))
+          end
+
+          current_menue
         end
       end
     end
