@@ -44,7 +44,12 @@ $(function () {
 
       var $thisEl = $('#' + thisId);
       // $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
-      $thisEl.chosen({ allow_single_deselect: true });
+      if ($('.get_goldencobra_articles_per_remote').hasClass("include_blank_false")){
+        $thisEl.chosen({ allow_single_deselect: false });  
+      } else {
+        $thisEl.chosen({ allow_single_deselect: true });
+      }
+
       $('.chosen-container').css({width: '80%'});
       $('#sidebar .chosen-container').css({width: '100%'});
       return false;
