@@ -101,11 +101,6 @@ describe Goldencobra::Article do
       expect(article.active_since).to eq(article.created_at)
     end
 
-    it "should require a title" do
-      no_name_article = Goldencobra::Article.new(@attr.merge(title: ""))
-      expect(no_name_article).to_not be_valid
-    end
-
     it "should not require a url_name because it is filled automatically" do
       no_url_name_article = Goldencobra::Article.new(@attr.merge(url_name: ""))
       expect(no_url_name_article).to be_valid
@@ -163,62 +158,6 @@ describe Goldencobra::Article do
         expect(article.article_for_index_id).to eq(nil)
         expect(article.article_for_index_id).not_to eq(article.id)
       end
-    end
-  end
-
-  describe 'open graph' do
-    it 'should have some metatags' do
-      article = create :article
-      expect(article.metatags.count).to be > 0
-    end
-
-    it "should set a default open graph title" do
-      article = create :article
-      expect(Goldencobra::Metatag.where(name: 'OpenGraph Title', article_id: article.id).count).to eq 1
-    end
-
-    it "should match the article's title" do
-      article = create :article
-      expect(Goldencobra::Metatag.where(name: 'OpenGraph Title',
-                                 article_id: article.id).first.value).to eq article.title
-    end
-
-    it "should set a default OG url if none exists" do
-      article = create :article
-      expect(Goldencobra::Metatag.where(name: 'OpenGraph URL', article_id: article.id).count).to eq 1
-    end
-
-    it "should match the artices url" do
-      article = create :article
-      expect(Goldencobra::Metatag.where(name: 'OpenGraph URL',
-                                 article_id: article.id).first.value).to eq article.absolute_public_url
-    end
-
-    it "should should set a default OG description" do
-      article = create :article
-      expect(Goldencobra::Metatag.where(name: 'OpenGraph Description',
-                                 article_id: article.id).count).to eq 1
-    end
-
-    it "should match the article's teaser text" do
-      article = create :article, teaser: 'Das ist ein kurzer Teaser Text.'
-      expect(Goldencobra::Metatag.where(name: 'OpenGraph Description',
-                                 article_id: article.id).first.value).to eq article.teaser
-    end
-
-    it "should match the article's content text if teaser is empty" do
-      article = create :article, content: 'Sed ut perspiciatis unde omnis iste natus' +
-      'error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ' +
-      'ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.'
-
-      expect(Goldencobra::Metatag.where(name: 'OpenGraph Description',
-                                 article_id: article.id).first.value).to eq article.content.truncate(200)
-    end
-
-    it "should match the article's title if neither teaser nor content present" do
-      article = create :article
-      expect(Goldencobra::Metatag.where(name: 'OpenGraph Description',
-                                 article_id: article.id).first.value).to eq article.title
     end
   end
 
