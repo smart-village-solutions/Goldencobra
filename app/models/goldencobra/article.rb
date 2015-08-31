@@ -545,6 +545,7 @@ module Goldencobra
       if self.title.blank? && self.breadcrumb.present?
         self.title = self.breadcrumb
       end
+      return true
     end 
   
 
