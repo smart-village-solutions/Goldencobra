@@ -8,7 +8,7 @@ describe Goldencobra::Permission, type: :model do
                subject_class: "Goldencobra::Article",
                subject_id: 1)
 
-        article = double(Goldencobra::Article, id: 1, class: "Goldencobra::Article")
+        article = double(Goldencobra::Article, id: 1, class: "Goldencobra::Article", cache_key: "1")
 
         expect(Goldencobra::Permission.restricted?(article)).to eq(true)
       end
@@ -16,7 +16,10 @@ describe Goldencobra::Permission, type: :model do
 
     context "without restricted items" do
       it "returns false" do
-        article = double(Goldencobra::Article, id: 1, class: "Goldencobra::Article")
+        create(:permission,
+               subject_class: "Goldencobra::Article",
+               subject_id: 2)
+        article = double(Goldencobra::Article, id: 1, class: "Goldencobra::Article", cache_key: "2")
 
         expect(Goldencobra::Permission.restricted?(article)).to eq(false)
       end

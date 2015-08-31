@@ -33,8 +33,9 @@ module Goldencobra
 
     def self.restricted?(item)
       @@last_permission ||= Goldencobra::Permission.reorder(:updated_at).last
-      Rails.cache.fetch("#{@@last_permission.cache_key}#{item.cache_key}") do
-        where(subject_class: item.class, subject_id: item.id).count > 0
+      cache_key = "#{@@last_permission.try(:cache_key)}-#{item.try(:cache_key)}"
+      return Rails.cache.fetch(cache_key) do
+        Goldencobra::Permission.where(subject_class: item.class, subject_id: item.id).count > 0
       end
     end
 
