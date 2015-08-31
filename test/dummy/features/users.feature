@@ -57,7 +57,7 @@ Feature: Manage users
     And I am logged in as "admin@test.de" with password "secure12"
     When I go to the admin list of users
     And I click on "Bearbeiten"
-    And I click on "Vita Step hinzufügen"
+    And I click on "Vita hinzufügen"
     And I fill in "Eintrag" with "Das ist ein Test"
     And I fill in "Bearbeiter" with "Holger"
     And I press "Benutzer aktualisieren"

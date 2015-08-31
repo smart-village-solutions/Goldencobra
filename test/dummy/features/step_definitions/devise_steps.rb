@@ -19,7 +19,7 @@ Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |email, passw
   fill_in "user[password]", :with => password
   click_button "Login"
   I18n.locale = :de
-  expect(page).to have_content(email)
+  expect(page).to have_content("Abmelden")
 end
 
 Given /^that "([^"]*)" users exist$/ do |arg1|
