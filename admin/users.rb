@@ -11,7 +11,7 @@ ActiveAdmin.register User, :as => "User" do
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
     f.inputs I18n.t('active_admin.users.general') do
-      f.input :title
+      f.input :gender, as: :select, collection: [["Frau", false], ["Herr", true]]
       f.input :firstname
       f.input :lastname
       f.input :email

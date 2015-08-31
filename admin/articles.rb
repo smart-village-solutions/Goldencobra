@@ -281,12 +281,13 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   member_action :mark_as_startpage do
+    warn "Deprecated: mark_as_startpage will be removed in GC 2.1"
     # Deprecated, will be removed in GC 2.1
     # Functionality should be placed somewhere else
     #
-    # article = Goldencobra::Article.find(params[:id])
-    # article.mark_as_startpage!
-    # flash[:notice] = I18n.t(:startpage, scope: [:goldencobra, :flash_notice]) #"Dieser Artikel ist nun der Startartikel"
+    article = Goldencobra::Article.find(params[:id])
+    article.mark_as_startpage!
+    flash[:notice] = I18n.t(:startpage, scope: [:goldencobra, :flash_notice]) #"Dieser Artikel ist nun der Startartikel"
     redirect_to :action => :show
   end
 
