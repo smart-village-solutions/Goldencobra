@@ -126,7 +126,7 @@ module Goldencobra
               a2 = at.fieldgroups.create(title: "Medien", position: "last_block", foldable: true, closed: true, expert: false, sorter: 2)
               a2.fields.create(fieldname: "article_images", sorter: 5)
 
-              a3 = at.fieldgroups.create(title: "Metadescriptions", position: "last_block", foldable: true, closed: true, expert: true, sorter: 3)
+              a3 = at.fieldgroups.create(title: "Metadescriptions", position: "last_block", foldable: true, closed: true, expert: false, sorter: 3)
               a3.fields.create(fieldname: "breadcrumb", sorter: 1)
               a3.fields.create(fieldname: "metatag_title_tag", sorter: 10)
               a3.fields.create(fieldname: "metatag_meta_description", sorter: 20)
@@ -134,10 +134,10 @@ module Goldencobra
               a3.fields.create(fieldname: "metatag_open_graph_description", sorter: 40)
               a3.fields.create(fieldname: "robots_no_index", sorter: 80)
 
-              a5 = at.fieldgroups.create(title: "Widgets", position: "last_block", foldable: true, closed: true, expert: true, sorter: 4)
+              a5 = at.fieldgroups.create(title: "Widgets", position: "last_block", foldable: true, closed: true, expert: false, sorter: 4)
               a5.fields.create(fieldname: "widgets", sorter: 1)
 
-              a4 = at.fieldgroups.create(title: "Einstellungen", position: "last_block", foldable: true, closed: true, expert: true, sorter: 5)
+              a4 = at.fieldgroups.create(title: "Einstellungen", position: "last_block", foldable: true, closed: true, expert: false, sorter: 5)
               a4.fields.create(fieldname: "frontend_tag_list", sorter: 10)
               a4.fields.create(fieldname: "url_name", sorter: 20)
               a4.fields.create(fieldname: "parent_id", sorter: 30)
