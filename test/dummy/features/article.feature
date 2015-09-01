@@ -57,7 +57,7 @@ Feature: Create and manage articles
       | "Startseite"                 | false     |  3 |
     When I go to the admin list of articles
     Then I click on "bearbeiten" within "tr#goldencobra_article_3"
-    #And I should see "Artikel bearbeiten" within "#page_title"
+    And I should see "Artikel bearbeiten" within "#page_title"
     And I should see "Diesen Artikel als Startseite einrichten"
     When I click on "Diesen Artikel als Startseite einrichten" within "#startpage_options_sidebar_section"
     Then I should see "Dieser Artikel ist nun der Startartikel"
