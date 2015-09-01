@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'compass-960-plugin'
   s.add_dependency 'progress_bar'
   s.add_dependency "execjs"
-  s.add_dependency "therubyracer" # , "~> 0.10.2"
+  #s.add_dependency "therubyracer" # , "~> 0.10.2"
   s.add_dependency "friendly_id"#, ">= 4.0.6"
   s.add_dependency "omniauth"
   s.add_dependency "omniauth-openid"
