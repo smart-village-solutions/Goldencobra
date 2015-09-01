@@ -97,13 +97,19 @@ Before do |scenario|
   #load Rails.root.join('db/seeds.rb')
 end
 
-Before do
-  if page && page.driver && page.driver.respond_to?(:block_unknown_urls)
-    page.driver.block_unknown_urls
-    page.driver.allow_url("ajax.googleapis.com")
-    page.driver.allow_url("www.ikusei.de")
-    page.driver.allow_url("jira.ikusei.de")
-  end
-end
+# Before do
+  # if page && page.driver && page.driver.respond_to?(:block_unknown_urls)
+    # page.driver.block_unknown_urls
+    # page.driver.allow_url("ajax.googleapis.com")
+    # page.driver.allow_url("www.ikusei.de")
+    # page.driver.allow_url("jira.ikusei.de")
+  # end
+# end
 
+Capybara::Webkit.configure do |config|
+    config.block_unknown_urls
+    config.allow_url("ajax.googleapis.com")
+    config.allow_url("www.ikusei.de")
+    config.allow_url("jira.ikusei.de")
+  end
 

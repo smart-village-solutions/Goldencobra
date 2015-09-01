@@ -17,7 +17,7 @@ gem 'activeadmin', :git => "http://github.com/ikusei/active_admin.git", :require
 gem 'acts-as-taggable-on', :git => 'http://github.com/mbleigh/acts-as-taggable-on.git'
 gem 'i18n-active_record', :git => 'http://github.com/svenfuchs/i18n-active_record.git', :require => 'i18n/active_record'
 gem 'execjs'
-gem 'therubyracer', :group => [:production] #, '~> 0.10.2'
+#gem 'therubyracer', :group => [:production], :platform => :ruby #, '~> 0.10.2'
 
 gem "friendly_id"
 gem 'omniauth'

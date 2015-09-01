@@ -272,7 +272,7 @@ describe Goldencobra::ArticlesController, :type => :controller do
 
   describe "#show" do
     it "renders 406 if request.format is php" do
-      get :show, { format: :php, use_route: :goldencobra }
+      get :show, { format: :php, use_route: :goldencobra, id: "wilkommen" }
 
       expect(response.status).to eq(406)
     end
