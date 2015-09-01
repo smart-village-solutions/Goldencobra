@@ -1,0 +1,1 @@
+Mime::Type.register "text/html", :php
