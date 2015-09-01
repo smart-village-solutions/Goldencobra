@@ -34,8 +34,8 @@ Dummy::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.i18n.default_locale = :en
-  config.i18n.locale = :en
+  config.i18n.default_locale = :de
+  config.i18n.locale = :de
   config.time_zone = 'Berlin'
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
