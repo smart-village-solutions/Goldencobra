@@ -39,10 +39,8 @@ module Goldencobra
           format.html { render layout: "/goldencobra/bare_layout" }
         end
       elsif request.format == "php" || params[:format].to_s == "php"
-        puts "PHP"
         respond_to do |format|
           format.html { render nothing: true, status: 406 }
-          format.php { render nothing: true, status: 406 }
         end
       elsif request.format == "image/jpeg"  || request.format == "image/png"
         respond_to do |format|
