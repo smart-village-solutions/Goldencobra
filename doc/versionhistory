@@ -1,10 +1,26 @@
-V2.0.8
+V2.0.9 - 02.09.2015
+  - Update zu Rails 4.2.4 (c8d601257ee38662024b8bbeca69a76c1bac14b8)
+  - „Titel“ ist kein Pflichtfeld mehr für den Artikel. Wird, wenn notwendig, durch 
+  „Kurztitel/Breadcrumb“ gesetzt (cab090efeab301b72feb6640acf5834f73e6d96a)
+  - Aktualisierte Texte im Backend (5188e72d622c62955a489fa607eb47a19051a380)
+  - Expertenmodus bei der Bearbeitung von Artikel ist „deprecated“ und wird in 2.1 entfernt werden 
+  (cb13aa193ab9fdf5d4416915e331331f36a0b2cd)
+  - Teile des ‚aktiven Pfades‘ der Navigation werden berücksichtigt, auch wenn
+    der hintere Teil keinen Goldencobra::Menue Eintrag haben sollte. 
+    (8faf6cd3805bc3fa8a99d4c7d0a49391544b4472)
+
+V2.0.8 - 27.08.2015
   - Default indexType sind nun Einzelseiten und Übersichtsseiten
   - Eine Index Seite kann nun auch Seiten anderen Artikeltyps auflisten 
   - Helper Method deprecated: index_of_articles
   - Alle Indexoptionen für einen Artikel lassen sich nun beim Artikeltyp Konfigurieren
   - Metatags sind nun kein eigenes Model mehr sondern in Goldencobra::Articles integriert
-  - Artikel Widgets werden nun im Formular konfiguriert und nciht merh in der Seitenleiste
+  - Artikel Widgets werden nun im Formular konfiguriert und nicht mehr in der Seitenleiste (1788e434f04c39a9e89e023f2ab76252bc2666bc)
+  - Bei der Ausgabe von Artikel-Widgets ist es im Layout nur noch nötig _einmal_ den Helper
+  `render_article_widgets(tagged_with: "sidebar")` zu benutzen. (fd808738061b4c68347503a1d6b1bcad027ce4b1)
+  - Überbleibsel bei der Zeitsteuerung von Widgets entfernt (783e52d03f81bfad6db5b567504be71835dd46c5, 875bea8e29008f27b63c6286dfc9fc4c8c4132a8, 1865ce611ab4ea7ef1bca4cce37518e57ed01870)
+  - Bei Seiten _unterhalb_ der Startseite ist es nicht mehr möglich den Elternartikel zu entfernen. 
+  Dies ist nur noch bei der Startseite selbst möglich (c3b7598e44ddb472e5cf525236430f4ee55d76cb, 5dd92688a5debe861e1915a3847c2d616814883e)
 
 V2.0.7
   - Speeding up ActiveAdmin and API by 1000%
