@@ -54,7 +54,7 @@ require "open-uri"
 module Goldencobra
   class Article < ActiveRecord::Base
 
-    extend FriendlyId
+    #extend FriendlyId
     LiquidParser = {}
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically", "GlobalSortID"]
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
@@ -87,7 +87,7 @@ module Goldencobra
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     has_ancestry    :orphan_strategy => :restrict, :cache_depth => true
-    friendly_id     :for_friendly_name, use: [:slugged, :finders] #, :history
+    #friendly_id     :for_friendly_name, use: [:slugged, :finders] #, :history
     web_url         :external_url_redirect
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
@@ -670,8 +670,7 @@ module Goldencobra
 
     def set_url_name_if_blank
       if self.url_name.blank?
-        #self.url_name = self.breadcrumb
-        self.url_name = self.friendly_id.split("--")[0]
+        self.url_name = self.breadcrumb.urlize(downcase: true, convert_spaces: true).gsub("_","-")
       end
     end
 
@@ -770,15 +769,15 @@ module Goldencobra
     end
 
 
-    def for_friendly_name
-      if self.url_name.present?
-        self.url_name
-      elsif self.breadcrumb.present?
-        self.breadcrumb
-      else
-        self.title
-      end
-    end
+    # def for_friendly_name
+    #   if self.url_name.present?
+    #     self.url_name
+    #   elsif self.breadcrumb.present?
+    #     self.breadcrumb
+    #   else
+    #     self.title
+    #   end
+    # end
 
 
     # **************************
