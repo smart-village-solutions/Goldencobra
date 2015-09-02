@@ -192,6 +192,8 @@ module Goldencobra
         end
 
         def find_menu_with_matching_path(parsed_url)
+          parsed_url = Addressable::URI.parse(parsed_url.path.chomp("/"))
+
           # All Menu records that match the path but might differ by parameters
           possible_menues = @master_element.subtree.active
             .where("goldencobra_menues.target LIKE '#{parsed_url.path}%' ")
