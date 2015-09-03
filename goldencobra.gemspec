@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   #Sunsport und Solar scheinen noch nciht rails 4.x kompatible zu sein
   # s.add_dependency 'sunspot_rails', '~> 2.0.0'
   # s.add_dependency 'sunspot_solr', '~> 2.0.0'
-
+  s.add_dependency 'remove_accents'
   s.add_dependency 'sprockets'
   s.add_dependency 'sass-rails'
   s.add_dependency 'sass'
@@ -44,7 +44,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'compass-rails'
   s.add_dependency 'execjs'
   s.add_dependency 'therubyracer'
-  s.add_dependency 'friendly_id'
+  #s.add_dependency 'friendly_id'
   s.add_dependency 'omniauth'
   s.add_dependency 'omniauth-openid'
   s.add_dependency 'oa-oauth'
