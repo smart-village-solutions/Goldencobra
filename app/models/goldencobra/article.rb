@@ -69,9 +69,6 @@ module Goldencobra
     has_many :article_widgets
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
-
-    # Deprecated, will be removed in GC 2.1
-    #has_many :comments, :class_name => Goldencobra::Comment
      
     has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
     belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
@@ -87,7 +84,7 @@ module Goldencobra
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     has_ancestry    :orphan_strategy => :restrict, :cache_depth => true
-    #friendly_id     :for_friendly_name, use: [:slugged, :finders] #, :history
+
     web_url         :external_url_redirect
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
@@ -107,6 +104,7 @@ module Goldencobra
     after_create :set_index_article_id
     before_save :parse_image_gallery_tags
     before_save :set_url_name_if_blank
+    before_save :uniqify_url_name
     before_save :set_standard_application_template
     after_save :set_default_meta_opengraph_values
     after_save :verify_existence_of_opengraph_image
@@ -118,7 +116,7 @@ module Goldencobra
 
     scope :robots_index, -> { where(:robots_no_index => false) }
     scope :robots_no_index, -> { where(:robots_no_index => true) }
-    #scope :active nun als Klassenmethode unten definiert
+    scope :active, -> { where("active = 1 AND active_since < '#{Time.now.strftime('%Y-%m-%d %H:%M:%S ')}'") }
     scope :inactive, -> { where(:active => false) }
     scope :startpage, -> { where(:startpage => true) }
     scope :articletype, lambda{ |name| where(:article_type => name)}
@@ -129,10 +127,8 @@ module Goldencobra
     scope :for_sitemap, -> { includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0') }
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
     scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
-    
-      scope :no_title_tag, -> { where("metatag_title_tag IS NULL OR metatag_title_tag = ''") }
-      scope :no_meta_description, -> { where("metatag_meta_description IS NULL OR metatag_meta_description = ''") }
-    
+    scope :no_title_tag, -> { where("metatag_title_tag IS NULL OR metatag_title_tag = ''") }
+    scope :no_meta_description, -> { where("metatag_meta_description IS NULL OR metatag_meta_description = ''") }
     scope :fulltext_contains, lambda{ |name| where("content LIKE '%#{name}%' OR teaser LIKE '%#{name}%' OR url_name LIKE '%#{name}%' OR subtitle LIKE '%#{name}%' OR summary LIKE '%#{name}%' OR context_info LIKE '%#{name}%' OR breadcrumb LIKE '%#{name}%'")}
 
 
@@ -674,6 +670,19 @@ module Goldencobra
       end
     end
 
+    # append counter, if url_name is already used in siblings
+    # 
+    # news => news--2 
+    # 
+    # @return [String] url_name
+    def uniqify_url_name
+      similar_names = self.siblings.pluck(:url_name).select{|c| c.split("--")[0] == self.url_name }
+      if similar_names.count > 1
+        last_used_number = similar_names.map{|v| v.split("--")[1].to_i}.compact.max
+        self.url_name = [self.url_name, last_used_number + 1].join("--")
+      end
+    end
+
     def set_standard_application_template
       if ActiveRecord::Base.connection.table_exists?("goldencobra_articles") && ActiveRecord::Base.connection.table_exists?("goldencobra_articletypes")
         if self.template_file.blank?
@@ -768,27 +777,11 @@ module Goldencobra
       end
     end
 
-
-    # def for_friendly_name
-    #   if self.url_name.present?
-    #     self.url_name
-    #   elsif self.breadcrumb.present?
-    #     self.breadcrumb
-    #   else
-    #     self.title
-    #   end
-    # end
-
-
     # **************************
     # **************************
     # Class Methods
     # **************************
     # **************************
-
-    def self.active
-      Goldencobra::Article.where("active = 1 AND active_since < '#{Time.now.strftime('%Y-%m-%d %H:%M:%S ')}'")
-    end
 
     def active?
       self.active && self.active_since < Time.now.utc
