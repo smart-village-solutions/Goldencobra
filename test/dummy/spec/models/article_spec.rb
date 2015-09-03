@@ -61,6 +61,33 @@ describe Goldencobra::Article do
                 breadcrumb: 'bc_testarticle' }
     end
 
+    describe "url_name" do
+      it "should be uniq in siblings or appendend by higher number" do
+        parent_article = Goldencobra::Article.create!(@attr)
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news", parent_id: parent_article.id}) )
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news--2", parent_id: parent_article.id}) )
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news--5", parent_id: parent_article.id}) )
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news--8"}) )
+        Goldencobra::Article.create!( @attr.merge({ url_name: "archiv", parent_id: parent_article.id}) )
+
+        a = Goldencobra::Article.create( @attr.merge({ url_name: "news", parent_id: parent_article.id}) )
+        expect(a.url_name).to eq "news--6"
+
+        a.save
+        expect(a.url_name).to eq "news--6"        
+
+        b = Goldencobra::Article.create( @attr.merge({ url_name: "test", parent_id: parent_article.id}) )
+        expect(b.url_name).to eq "test"
+      end
+
+      it "should be the same if appending number is modified by user" do
+        parent_article = Goldencobra::Article.create!(@attr)
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news--2", parent_id: parent_article.id}) )        
+        a = Goldencobra::Article.create( @attr.merge({ url_name: "news--2", parent_id: parent_article.id}) )
+        expect(a.url_name).to eq "news--2"
+      end
+    end
+
     describe "redirection value" do
       it "should have a valid redirect url by inserting an url without http" do
         a = Goldencobra::Article.create!(@attr)
