@@ -27,7 +27,7 @@ module Goldencobra
             parsed_url = Addressable::URI.parse(url_to_search)
 
             current_menue = find_menu_with_matching_path(parsed_url)
-            
+
             if current_menue.present?
               @active_menue_ids = current_menue.path_ids
             else
@@ -192,18 +192,19 @@ module Goldencobra
         end
 
         def find_menu_with_matching_path(parsed_url)
+          parsed_url = parsed_url.path.chomp("/")
           # All Menu records that match the path but might differ by parameters
           possible_menues = @master_element.subtree.active
-            .where("goldencobra_menues.target LIKE '#{parsed_url.path}%' ")
+          .where("goldencobra_menues.target LIKE '#{parsed_url}%' ")
 
           # Select matching record (without matching for parameters)
           current_menue = possible_menues.select do |pos_menu|
-            Addressable::URI.parse(pos_menu.target).path == parsed_url.path
+            Addressable::URI.parse(pos_menu.target).path == parsed_url
           end.first
 
           if current_menue.blank?
             # Try for a path without last element
-            reduced_url = parsed_url.path.split("/").tap(&:pop).join("/")
+            reduced_url = parsed_url.split("/").tap(&:pop).join("/")
             return find_menu_with_matching_path(Addressable::URI.parse(reduced_url))
           end
 
