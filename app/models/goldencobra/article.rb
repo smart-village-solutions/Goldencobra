@@ -69,7 +69,7 @@ module Goldencobra
     has_many :article_widgets
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
-     
+
     has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
     belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
     belongs_to :creator, :class_name => User, :foreign_key => "creator_id"
@@ -154,8 +154,8 @@ module Goldencobra
     # Instance Methods
     # **************************
     # **************************
-    
-    def link_checker 
+
+    def link_checker
       old_result = {}
       self.link_checks.each do |lc|
         old_result[lc.target_link] = { "response_code"  => lc.response_code,
@@ -165,8 +165,8 @@ module Goldencobra
       end
       return old_result
     end
-    
-     
+
+
     def has_children
       self.has_children?
     end
@@ -222,9 +222,9 @@ module Goldencobra
 
     # Gets the related object by article_type
     def get_related_object
-      if self.article_type.present? && self.article_type_form_file.present? && 
-        self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
-        
+      if self.article_type.present? && self.article_type_form_file.present? &&
+          self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+
         return self.send(self.article_type_form_file.underscore.parameterize.downcase)
       else
         return nil
@@ -234,11 +234,11 @@ module Goldencobra
     #dynamic methods for article.event or article.consultant .... depending on related object type
     def method_missing(meth, *args, &block)
       if meth.to_s.split(".").first == self.get_related_object.class.name.downcase
-          if meth.to_s.split(".").count == 1
-            self.get_related_object
-          else
-            self.get_related_object.send(meth.to_s.split(".").last)
-          end
+        if meth.to_s.split(".").count == 1
+          self.get_related_object
+        else
+          self.get_related_object.send(meth.to_s.split(".").last)
+        end
       else
         super
       end
@@ -535,15 +535,15 @@ module Goldencobra
     # Callback Methods
     # **************************
     # **************************
-     
-    
+
+
     def set_title_from_breadcrumb
       if self.title.blank? && self.breadcrumb.present?
         self.title = self.breadcrumb
       end
       return true
-    end 
-  
+    end
+
 
     def cleanup_redirections
       Goldencobra::Redirector.where(:source_url => self.absolute_public_url).destroy_all
@@ -671,9 +671,9 @@ module Goldencobra
     end
 
     # append counter, if url_name is already used in siblings
-    # 
-    # news => news--2 
-    # 
+    #
+    # news => news--2
+    #
     # @return [String] url_name
     def uniqify_url_name
       similar_names = self.siblings.pluck(:url_name).select{|c| c.split("--")[0] == self.url_name }
@@ -816,8 +816,8 @@ module Goldencobra
           file_name_path = File.join(path_to_articletypes,name)
           if File.directory?(file_name_path)
             Dir.foreach(file_name_path) do |sub_name|
-                file_name = [name.titleize.gsub(' ',''), sub_name.gsub('_','').titleize].join(" ") if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0
-                results << file_name.split(".").first if file_name.present?
+              file_name = [name.titleize.gsub(' ',''), sub_name.gsub('_','').titleize].join(" ") if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0
+              results << file_name.split(".").first if file_name.present?
             end
           end
         end
@@ -842,16 +842,16 @@ module Goldencobra
 
     def self.simple_search(q)
       self.active.search(:title_or_subtitle_or_url_name_or_content_or_summary_or_teaser_contains => q).relation.map {
-          |article|
+        |article|
         {
-            :id => article.id,
-            :absolute_public_url => article.absolute_public_url,
-            :title => article ? article.title : '',
-            :teaser => article ? article.teaser : '',
-            :article_type => article.article_type,
-            :updated_at => article.updated_at,
-            :parent_title => article.parent ? article.parent.title ? article.parent.title : '' : '',
-            :ancestry => article.ancestry ? article.ancestry : ''
+          :id => article.id,
+          :absolute_public_url => article.absolute_public_url,
+          :title => article ? article.title : '',
+          :teaser => article ? article.teaser : '',
+          :article_type => article.article_type,
+          :updated_at => article.updated_at,
+          :parent_title => article.parent ? article.parent.title ? article.parent.title : '' : '',
+          :ancestry => article.ancestry ? article.ancestry : ''
         }
       }
     end
@@ -869,14 +869,14 @@ module Goldencobra
 
     # Allow Scopes and Methods to search for in ransack (n.a. metasearch)
     # @param auth_object = nil [self] "if auth_object.try(:admin?)"
-    # 
+    #
     # @return [Array] Array of Symbols representing scopes and class methods
     def self.ransackable_scopes(auth_object = nil)
       [
-       :parent_ids_in, 
-       :frontend_tag_name_contains, :frontend_tag_name_equals, :frontend_tag_name_starts_with, :frontend_tag_name_ends_with,
-       :tag_name_contains, :tag_name_equals, :tag_name_starts_with, :tag_name_ends_with,
-       :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with
+        :parent_ids_in,
+        :frontend_tag_name_contains, :frontend_tag_name_equals, :frontend_tag_name_starts_with, :frontend_tag_name_ends_with,
+        :tag_name_contains, :tag_name_equals, :tag_name_starts_with, :tag_name_ends_with,
+        :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with
       ]
     end
 
@@ -905,4 +905,3 @@ end
 #subtree          Scopes the model on descendants and itself
 #subtree_ids      Returns a list of all ids in the record's subtree
 #depth            Return the depth of the node, root nodes are at depth 0
-
