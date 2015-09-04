@@ -143,7 +143,7 @@ module Goldencobra
           end
 
           respond_to do |format|
-            format.json { render json: Oj.dump(@json_tree), root: false }
+            format.json { render json: Oj.dump(@json_tree, mode: :compat), root: false }
           end
         end
 
