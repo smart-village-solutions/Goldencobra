@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.requirements << "ImageMagick"
   s.required_ruby_version = ">= 1.9.2"
 
+  s.add_dependency 'oj' # Beschleuigung von json rendering im Controller
   s.add_dependency 'coffee-script-source', "~>1.8.0"
   s.add_dependency "rails", "~> 3.2.22"
   s.add_dependency "jquery-rails", "2.1.4"
