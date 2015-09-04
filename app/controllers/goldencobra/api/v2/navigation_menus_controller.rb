@@ -194,10 +194,13 @@ module Goldencobra
         end
 
         def find_menu_with_matching_path(parsed_url)
-          parsed_url = parsed_url.path.chomp("/")
+          parsed_url = parsed_url.path
+          #Nur das letzte / wegwerfen, wenn es nicht die Startseite ist
+          parsed_url = parsed_url.chomp("/") if parsed_url.count("/") > 1
+
           # All Menu records that match the path but might differ by parameters
           possible_menues = @master_element.subtree.active
-          .where("goldencobra_menues.target LIKE '#{parsed_url}%' ")
+          .where("goldencobra_menues.target LIKE '#{parsed_url}%' AND ancestry IS NOT NULL")
 
           # Select matching record (without matching for parameters)
           current_menue = possible_menues.select do |pos_menu|
