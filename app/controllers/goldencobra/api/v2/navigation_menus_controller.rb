@@ -17,6 +17,7 @@ module Goldencobra
         #
         # @return [Integer] Array if Integers als Menue IDs
         def active_ids
+          require "oj"
           require "addressable/uri"
           # @master_element is set by before filter
 
@@ -38,7 +39,7 @@ module Goldencobra
           end
 
           respond_to do |format|
-            format.json { render json: @active_menue_ids, root: false }
+            format.json { render json: Oj.dump(@active_menue_ids, mode: :compat), root: false }
           end
         end
 
