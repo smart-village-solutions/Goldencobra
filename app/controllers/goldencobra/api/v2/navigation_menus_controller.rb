@@ -106,6 +106,7 @@ module Goldencobra
         #
         # @return [json] All menus with :id, :complete_list_name, etc.
         def index
+          require "oj"
           # @master_element is set by before filter
 
           # Generate cache key: if any Menuitem is changed => invalidate
@@ -142,7 +143,7 @@ module Goldencobra
           end
 
           respond_to do |format|
-            format.json { render json: @json_tree, root: false }
+            format.json { render json: Oj.dump(@json_tree), root: false }
           end
         end
 
