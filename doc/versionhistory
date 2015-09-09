@@ -1,30 +1,36 @@
 V2.0.10
-  - Im "Aktiven Pfad" der Navigation werden auch Eintraege beruecksichtigt, wenn mit abschießendem 
-  Slash geprueft wird ("/foo/bar" == "foo/bar/")
+  - Im "Aktiven Pfad" der Navigation werden auch Eintraege beruecksichtigt, wenn mit abschießendem
+    Slash geprueft wird ("/foo/bar" == "foo/bar/")
+  - CSS für Backend Inputs (vertikales Padding verringert, Label für text-inputs zentriert),
+    "JS-Scripts"-Bereich bei Bidler/Uploads wieder hidden in neuer ActiveAdmin Version
 
 V2.0.9 - 02.09.2015
   - Update zu Rails 4.2.4 (c8d601257ee38662024b8bbeca69a76c1bac14b8)
-  - „Titel“ ist kein Pflichtfeld mehr für den Artikel. Wird, wenn notwendig, durch 
-  „Kurztitel/Breadcrumb“ gesetzt (cab090efeab301b72feb6640acf5834f73e6d96a)
+  - „Titel“ ist kein Pflichtfeld mehr für den Artikel. Wird, wenn notwendig, durch
+    „Kurztitel/Breadcrumb“ gesetzt (cab090efeab301b72feb6640acf5834f73e6d96a)
   - Aktualisierte Texte im Backend (5188e72d622c62955a489fa607eb47a19051a380)
-  - Expertenmodus bei der Bearbeitung von Artikel ist „deprecated“ und wird in 2.1 entfernt werden 
-  (cb13aa193ab9fdf5d4416915e331331f36a0b2cd)
+  - Expertenmodus bei der Bearbeitung von Artikel ist „deprecated“ und wird in 2.1 entfernt werden
+    (cb13aa193ab9fdf5d4416915e331331f36a0b2cd)
   - Teile des ‚aktiven Pfades‘ der Navigation werden berücksichtigt, auch wenn
-    der hintere Teil keinen Goldencobra::Menue Eintrag haben sollte. 
+    der hintere Teil keinen Goldencobra::Menue Eintrag haben sollte.
     (8faf6cd3805bc3fa8a99d4c7d0a49391544b4472)
 
 V2.0.8 - 27.08.2015
   - Default indexType sind nun Einzelseiten und Übersichtsseiten
-  - Eine Index Seite kann nun auch Seiten anderen Artikeltyps auflisten 
+  - Eine Index Seite kann nun auch Seiten anderen Artikeltyps auflisten
   - Helper Method deprecated: index_of_articles
   - Alle Indexoptionen für einen Artikel lassen sich nun beim Artikeltyp Konfigurieren
   - Metatags sind nun kein eigenes Model mehr sondern in Goldencobra::Articles integriert
-  - Artikel Widgets werden nun im Formular konfiguriert und nicht mehr in der Seitenleiste (1788e434f04c39a9e89e023f2ab76252bc2666bc)
+  - Artikel Widgets werden nun im Formular konfiguriert und nicht mehr in der Seitenleiste
+    (1788e434f04c39a9e89e023f2ab76252bc2666bc)
   - Bei der Ausgabe von Artikel-Widgets ist es im Layout nur noch nötig _einmal_ den Helper
-  `render_article_widgets(tagged_with: "sidebar")` zu benutzen. (fd808738061b4c68347503a1d6b1bcad027ce4b1)
-  - Überbleibsel bei der Zeitsteuerung von Widgets entfernt (783e52d03f81bfad6db5b567504be71835dd46c5, 875bea8e29008f27b63c6286dfc9fc4c8c4132a8, 1865ce611ab4ea7ef1bca4cce37518e57ed01870)
-  - Bei Seiten _unterhalb_ der Startseite ist es nicht mehr möglich den Elternartikel zu entfernen. 
-  Dies ist nur noch bei der Startseite selbst möglich (c3b7598e44ddb472e5cf525236430f4ee55d76cb, 5dd92688a5debe861e1915a3847c2d616814883e)
+    `render_article_widgets(tagged_with: "sidebar")` zu benutzen.
+    (fd808738061b4c68347503a1d6b1bcad027ce4b1)
+  - Überbleibsel bei der Zeitsteuerung von Widgets entfernt (783e52d03f81bfad6db5b567504be71835dd46c5,
+    875bea8e29008f27b63c6286dfc9fc4c8c4132a8, 1865ce611ab4ea7ef1bca4cce37518e57ed01870)
+  - Bei Seiten _unterhalb_ der Startseite ist es nicht mehr möglich den Elternartikel zu entfernen.
+    Dies ist nur noch bei der Startseite selbst möglich (c3b7598e44ddb472e5cf525236430f4ee55d76cb,
+    5dd92688a5debe861e1915a3847c2d616814883e)
 
 V2.0.7
   - Speeding up ActiveAdmin and API by 1000%
@@ -83,7 +89,8 @@ V2.0
 
 
 V1.4.72
-  - Goldencobra::Menue: Veraendern des Aktiv/Inaktiv Status eines Menue-Eintrags wird zu allen Abkoemmlingen des Menues weitergegeben.
+  - Goldencobra::Menue: Veraendern des Aktiv/Inaktiv Status eines Menue-Eintrags wird zu allen
+    Abkoemmlingen des Menues weitergegeben.
 V1.4.71
   - Redirector: URI.parse ersetzt durch Addressable::URI.parse
 V1.4.70
@@ -108,10 +115,12 @@ V1.4.18
   - extension for author model to assign multiple authors to an article
 
 V1.4.16
-  - possibility for an own app logo in golden cobra backend admin inteface per setting pointing to the logo
+  - possibility for an own app logo in golden cobra backend admin inteface per setting pointing
+    to the logo
 
 V1.4.15
-  - sort option "Alphabetical" changed to "Alphabetically", because "Alphabetically" is saved on index article settings
+  - sort option "Alphabetical" changed to "Alphabetically", because "Alphabetically" is saved
+    on index article settings
 
 V1.4.14
   - Fulltext Search on articles index filters
@@ -122,14 +131,15 @@ V1.4.10
 V1.4.6
   - mysql update für UTF8 auf Tables
   - params :start und :limit um rss feeds ein offset und ein Limit mitzugeben
-  
+
 V1.4.5
   - xml sitemap erweitert um erstes Bild des Artikels
   - Sidekiq fixed auf Version 3.2.1 da 3.2.2 Ruby Version 1.9.x nicht mehr unterstüzt
   - Compass fixed auf Version 0.12.7 da 1.0 fehlerhaft ist
   - Menüpunkt Goldencobra Info entfernt
   - "bundle update" durchgeführt und diverse gems aktualisiert
-  - url_path für public_url wird in der DB gespeichert (bsp: sitemap.xml bei 2000 Artikeln nun statt 11Sek jetzt 2,5Sek)
+  - url_path für public_url wird in der DB gespeichert (bsp: sitemap.xml bei 2000 Artikeln nun
+    statt 11Sek jetzt 2,5Sek)
 
 V1.4.4
   - Übersichtsbäume in der Seitenleiste werden nun dynamisch nachgeladen
@@ -144,14 +154,17 @@ V1.4.2
   - Kleine Fehlerbehebungen und Verbesserungen
 
 V1.4.1
-  - ArticleWorkerCache funktioniert wieder, recreate chache funktioniert wieder, Cleanup alter versionen funktioniert wieder
+  - ArticleWorkerCache funktioniert wieder, recreate chache funktioniert wieder, Cleanup alter
+    versionen funktioniert wieder
 
 V1.4.0
-  - Artikeltypen sind nun Models mit optionalen Defaultparametern fuer alle neuen Artikel und bietet die Moeglichkeit Settings festzulegen fuer alle Artkeltypen hinweg GC-9
+  - Artikeltypen sind nun Models mit optionalen Defaultparametern fuer alle neuen Artikel und bietet
+    die Moeglichkeit Settings festzulegen fuer alle Artkeltypen hinweg GC-9
   - Das Default Layout kann angegeben werden
   - Alle Artikelfelder sind in Gruppen anlegbar und sortierbar
   - Alle Artikelfelder sin einer Artikelfeldgruppe zuweisbar
-  - Beim Start einer Application werden die Standardwerte fuer Feldgruppen und Felder wiederhergestellt wenn ein Artikeltyp KEINE Artikelfeldgruppen besitzt.
+  - Beim Start einer Application werden die Standardwerte fuer Feldgruppen und Felder
+    wiederhergestellt wenn ein Artikeltyp KEINE Artikelfeldgruppen besitzt.
   - Artikelfeldgruppen haben Optionen wie z.b.: Sortiernummer, Expertenmodus, ausklappbar ...
   - Verschachtelte Formulare haben nun eine bessere Darstellungen
 

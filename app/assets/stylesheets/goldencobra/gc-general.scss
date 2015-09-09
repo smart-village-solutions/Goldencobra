@@ -42,7 +42,7 @@ body {
   position: relative;
   float: right;
   margin-top: -23px;
-  margin-right: 40px;
+  margin-right: 10px;
   color: grey;
 }
 
@@ -376,8 +376,11 @@ ul.link_checker_ul {
 
 form > fieldset > ol > .has_many { background-color: grey; }
 form > fieldset > ol > .has_many > h3 { color: #FFF; }
+form fieldset ol > li { padding: 5px 10px; }
+form fieldset > ol > li p.inline-hints { margin-top: 2px; }
+form fieldset ol > li.stringish label { line-height: 29px; }
 body.active_admin form > fieldset { padding: 0px; }
-body.active_admin form fieldset > ol > li.boolean { height: 2.2em; }
+body.active_admin form fieldset > ol > li.boolean { height: 2.5em; }
 body.active_admin form fieldset > ol > li p.inline-errors { text-transform: none; }
 
 li.hidden_label > label {

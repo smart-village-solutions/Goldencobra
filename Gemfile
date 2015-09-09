@@ -70,7 +70,7 @@ group :development do
 end
 
 group :test do
-  #gem 'mysql2'
+  gem 'mysql2', '~> 0.3.19'
   gem 'cucumber'
   gem 'cucumber-rails', git: 'https://github.com/cucumber/cucumber-rails.git'
   gem 'factory_girl'
