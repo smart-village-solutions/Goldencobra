@@ -1,4 +1,4 @@
-if RUBY_VERSION.include?('1.9.')
+if RUBY_VERSION.to_f >= 1.9
   require 'sidekiq/web'
 end
 
@@ -11,7 +11,7 @@ Goldencobra::Engine.routes.draw do
   post 'frontend_register/:usermodel'  => 'sessions#register', as: :frontend_register
   post 'manage/article_visibility/:id' => 'manage#article_visibility'
 
-  if RUBY_VERSION.include?('1.9.')
+  if RUBY_VERSION.to_f >= 1.9
     mount Sidekiq::Web => '/admin/background'
   end
 
