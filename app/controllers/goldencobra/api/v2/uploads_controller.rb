@@ -17,7 +17,7 @@ module Goldencobra
           json_uploads = @uploads.map{ |u| { "value" => u.id, "label" => u.complete_list_name } }
 
           respond_to do |format|
-            format.json { render json: {"uploads" => Oj.dump(json_uploads, mode: :compat) }  }
+            format.json { render json: Oj.dump({'uploads' => json_uploads}, mode: :compat) }
           end
         end
       end
