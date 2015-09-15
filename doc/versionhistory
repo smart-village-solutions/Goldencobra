@@ -1,3 +1,5 @@
+V1.4.74
+  - API::v2::Upload beschleunigt mit oj gem
 V1.4.73
   - Goldencobra::Menue: Index rendering durch gem Oj beschleunigt
 V1.4.72
