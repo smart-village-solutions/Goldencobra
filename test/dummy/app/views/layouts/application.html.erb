@@ -8,7 +8,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div class="container">
 
   Current Client:  <%= @current_client.inspect %>
 
@@ -91,6 +91,6 @@
 <h3>AdminUser with associated_model Visitor</h3>
 <%= render_registration_widget(User,Visitor) %>
 
-
+</div>
 </body>
 </html>

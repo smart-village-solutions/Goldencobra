@@ -83,6 +83,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'active_model_serializers'
   s.add_dependency 'actionpack-action_caching'
   s.add_dependency 'oj' # faster json rendering
+  s.add_dependency 'bootstrap-sass', '~> 3.3' # frontend template framework
+  s.add_dependency 'autoprefixer-rails' # to provide easy automatic css prefixing
 
   #Ausgelagerte Funktionen in Rails 4.x
   s.add_dependency 'responders', '~> 2.0'
