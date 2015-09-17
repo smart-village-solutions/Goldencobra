@@ -23,7 +23,7 @@ module Goldencobra
           else
             # Search and return the result array.
             render status: 200, json: Goldencobra::Article.simple_search(
-                ActionController::Base.helpers.sanitize(params[:q])
+              ActionController::Base.helpers.sanitize(params[:q])
             ).to_json
           end
         end
@@ -34,6 +34,7 @@ module Goldencobra
         # @return [json] Liefert Alle Artikel :id,:title, :ancestry
         # map{|c| [c.parent_path, c.id]}
         def index
+          require 'oj'
           if params[:article_ids].present?
             index_with_ids
           else
@@ -49,7 +50,7 @@ module Goldencobra
             end
 
             respond_to do |format|
-              format.json { render json: json_uploads.as_json }
+              format.json { render json: Oj.dump({'articles' => json_uploads}, mode: :compat) }
               # Returns all publicly visible, active Articles
               format.xml { @articles = Goldencobra::Article.new.filter_with_permissions(Goldencobra::Article.active, nil) }
             end
@@ -68,8 +69,8 @@ module Goldencobra
             format.json {
               if params[:methods].present?
                 render json: @article,
-                       serializer: Goldencobra::ArticleCustomSerializer,
-                       scope: params[:methods]
+                  serializer: Goldencobra::ArticleCustomSerializer,
+                  scope: params[:methods]
               else
                 render json: @article
               end
@@ -93,8 +94,8 @@ module Goldencobra
             format.json {
               if params[:methods].present?
                 render json: articles,
-                       each_serializer: Goldencobra::ArticleCustomSerializer,
-                       scope: params[:methods]
+                  each_serializer: Goldencobra::ArticleCustomSerializer,
+                  scope: params[:methods]
               else
                 render json: articles
               end
@@ -192,8 +193,8 @@ module Goldencobra
         def breadcrumb
           breadcrumb = []
           @article.path.each do |art|
-            breadcrumb << { 
-              title: art.breadcrumb_name, 
+            breadcrumb << {
+              title: art.breadcrumb_name,
               url: art.public_url
             }
           end
