@@ -60,8 +60,8 @@ module Goldencobra
         end
 
         if serve_fresh_page?
-         set_expires_in
-         ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
+          set_expires_in
+          ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
           before_render
           respond_to do |format|
             format.html { render layout: choose_layout }
@@ -285,20 +285,18 @@ module Goldencobra
         if article.present?
           operator = current_user || current_visitor
           a = Ability.new(operator,@current_client)
-          logger.warn("###"*40)
-          logger.warn(a.can?(:read, article))
           if a.can?(:read, article)
             @article = article
           else
             @unauthorized = true
           end
-        # elsif current_visitor.present?
-        #   ap = Goldencobra::Permission.where(:subject_class => "Goldencobra::Article", :operator_id => current_visitor.id, :action => "read").pluck(:subject_id)
-        #   if ap.any?
-        #     @article = Goldencobra::Article.where("id in (?)", ap).search_by_url(params[:article_id])
-        #   else
-        #     @unauthorized = true
-        #   end
+          # elsif current_visitor.present?
+          #   ap = Goldencobra::Permission.where(:subject_class => "Goldencobra::Article", :operator_id => current_visitor.id, :action => "read").pluck(:subject_id)
+          #   if ap.any?
+          #     @article = Goldencobra::Article.where("id in (?)", ap).search_by_url(params[:article_id])
+          #   else
+          #     @unauthorized = true
+          #   end
         end
       end
     end
@@ -315,7 +313,7 @@ module Goldencobra
         render text: "404", status: 404
       end
       if request.format == "php" || params[:format].to_s == "php"
-        render nothing: true, status: 406 
+        render nothing: true, status: 406
       end
       return true
     end
