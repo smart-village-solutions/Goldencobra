@@ -258,10 +258,7 @@ module Goldencobra
 
         def update_article(article_param)
           # Input validation
-          return nil unless article_param
-          return nil unless params[:article]
-          return nil unless current_user
-          return nil unless params[:referee_id]
+          return nil if check_presents_of_article_params(article_param) == false
 
           # Get existing article
           article = Goldencobra::Article.where(:creator_id => current_user.id).find_by_external_referee_id(params[:referee_id])
@@ -280,6 +277,18 @@ module Goldencobra
         end
 
         private
+
+        # Exit Reasons if params are not complete
+        # @param article_param [Hash] article_params
+        #
+        # @return [Boolean] True if all need params are present?
+        def check_presents_of_article_params(article_param)
+          return false unless article_param
+          return false unless params[:article]
+          return false unless current_user
+          return false unless params[:referee_id]
+          return true
+        end
 
         def get_article
           url = params[:url].present? ? "/#{params[:url]}" : "/"
