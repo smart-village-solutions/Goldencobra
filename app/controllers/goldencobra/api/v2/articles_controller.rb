@@ -263,12 +263,6 @@ module Goldencobra
           # Get existing article
           article = Goldencobra::Article.where(:creator_id => current_user.id).find_by_external_referee_id(params[:referee_id])
 
-          if params[:author].present? && params[:author][:lastname].present?
-            author = Goldencobra::Author.find_or_create_by_lastname(params[:author][:lastname])
-            article.author = author
-            article.save
-          end
-
           # Update existing article
           article.update_attributes(params[:article])
 
