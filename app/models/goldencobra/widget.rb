@@ -28,12 +28,16 @@
 
 module Goldencobra
   class Widget < ActiveRecord::Base
+    attr_accessible :title, :content, :css_name, :active, :id_name, :sorter, :teaser, :default,
+                    :description, :alternative_content, :mobile_content, :offline_days, :offline_time_active,
+                    :offline_date_start, :offline_date_end, :offline_time_week_start_end, :tag_list, :tags
+
 
     serialize :offline_time_week_start_end
 
     has_many  :article_widgets
     has_many  :articles, :through => :article_widgets
-    has_many  :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Widget"}
+    has_many  :permissions, -> { where subject_class: "Goldencobra::Widget" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
 
     accepts_nested_attributes_for :permissions, :allow_destroy => true
 
@@ -49,10 +53,10 @@ module Goldencobra
 
     ImportDataFunctions = []
 
-    scope :active, where(:active => true).order(:sorter)
-    scope :inactive, where(:active => false).order(:sorter)
-    scope :default, where(:default => true).order(:sorter)
-    scope :not_default, where(:default => false).order(:sorter)
+    scope :active, -> { where(:active => true).order(:sorter) }
+    scope :inactive, -> { where(:active => false).order(:sorter) }
+    scope :default, -> { where(:default => true).order(:sorter) }
+    scope :not_default, -> { where(:default => false).order(:sorter) }
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.widgets.recreate_cache") == "true"

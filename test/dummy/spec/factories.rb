@@ -70,6 +70,7 @@ FactoryGirl.define do
     email 'guest@test.de'
     password 'secure12'
     password_confirmation 'secure12'
+    confirmed_at "2012-01-09 14:28:58"
     enable_expert_mode true
   end
 

@@ -6,7 +6,7 @@ module Goldencobra
     has_many :permissions, :class_name => Goldencobra::Permission
 
     validates_presence_of :client
-    validates_format_of :client, :with => /^[\w]+$/
+    validates_format_of :client, :with => /\A[\w]+\z/
     validates_presence_of :title
     validates_presence_of :hostname
   	validates_uniqueness_of :hostname

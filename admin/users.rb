@@ -1,9 +1,5 @@
-# encoding: utf-8
-
 ActiveAdmin.register User, :as => "User" do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.users.as'), :if => proc{can?(:update, User)}
-
-  controller.authorize_resource :class => User
 
   filter :firstname
   filter :lastname
@@ -15,7 +11,7 @@ ActiveAdmin.register User, :as => "User" do
   form :html => { :enctype => "multipart/form-data" }  do |f|
     f.actions
     f.inputs I18n.t('active_admin.users.general') do
-      f.input :title
+      f.input :gender, as: :select, collection: [["Frau", false], ["Herr", true]]
       f.input :firstname
       f.input :lastname
       f.input :email
@@ -26,7 +22,7 @@ ActiveAdmin.register User, :as => "User" do
       end
       f.input :password, hint: I18n.t('active_admin.users.hint1')
       f.input :password_confirmation, hint: I18n.t('active_admin.users.hint2')
-      f.input :enable_expert_mode
+      # f.input :enable_expert_mode # nicht mehr genutzt, datenbankfeld kann weg
       f.input :function
       f.input :phone
       f.input :fax
@@ -59,7 +55,7 @@ ActiveAdmin.register User, :as => "User" do
     column :roles do |u|
       u.roles.map{|r| r.name.capitalize}.join(", ")
     end
-    default_actions
+    actions
   end
 
   show :title => :lastname do
@@ -88,11 +84,11 @@ ActiveAdmin.register User, :as => "User" do
     end
   end
 
-  action_item only: [:edit, :show] do
+  action_item :prev_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/prev_item'
   end
 
-  action_item only: [:edit, :show] do
+  action_item :next_item, only: [:edit, :show] do
     render partial: '/goldencobra/admin/shared/next_item'
   end
 end

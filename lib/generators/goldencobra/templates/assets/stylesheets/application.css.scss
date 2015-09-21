@@ -10,20 +10,3 @@
  *
  *= require_self
  */
-
-/* Compass */
-@import "compass/css3";
-@import "compass/reset";
-
-/* Variables */
-@import "share/variables";
-@import "share/mixins";
-
-/* Header Elements */
-@import "header/content";
-
-/* Main Elements */
-@import "main/content";
-
-/* Footer Elements */
-@import "footer/content";

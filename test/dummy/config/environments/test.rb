@@ -10,11 +10,10 @@ Dummy::Application.configure do
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
 
-  # Log error messages when you accidentally call methods on nil
-  config.whiny_nils = true
+  config.eager_load = false
   config.i18n.default_locale = :de
   config.i18n.locale = :de
 
@@ -39,4 +38,7 @@ Dummy::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.i18n.default_locale = :de
+  config.i18n.locale = :de
+  config.time_zone = 'Berlin'
 end

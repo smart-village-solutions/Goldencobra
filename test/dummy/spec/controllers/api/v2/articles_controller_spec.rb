@@ -13,7 +13,7 @@ describe Goldencobra::Api::V2::ArticlesController, type: :controller do
       end
 
       it "should return a json status forbidden" do
-        response.response_code.should == 403
+        expect(response.response_code).to eq 403
       end
 
     end
@@ -32,10 +32,7 @@ describe Goldencobra::Api::V2::ArticlesController, type: :controller do
     end
 
     it "should return a json status 400, 'article data missing'" do
-      response.response_code.should == 400
+      expect(response.response_code).to eq 400
     end
-
   end
-
-
 end

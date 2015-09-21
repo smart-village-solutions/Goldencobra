@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -33,9 +31,21 @@ module Dummy
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-     config.i18n.default_locale = :en
-     #config.i18n.default_locale = :de
-     #config.i18n.locale = :de
+    # config.i18n.default_locale = :en
+    config.i18n.default_locale = :de
+    config.i18n.locale = :de
+
+    config.before_configuration do
+      I18n.load_path += Dir[Rails.root.join('config', 'locales','*.{rb,yml}').to_s]
+      ::Rails::Engine.subclasses.map(&:instance).select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
+        I18n.load_path += Dir[engine.root.join('config', 'locales','*.{rb,yml}').to_s]
+      end
+      I18n.default_locale = :de
+      I18n.locale = :de
+      I18n.reload!
+    end
+
+    config.i18n.enforce_available_locales = false
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -59,19 +69,24 @@ module Dummy
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    # Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit`
+    # callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed.
+    # Instead, the errors will propagate normally just like in other Active Record callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.after_initialize do |app|
-      if defined?(ActiveAdmin) and ActiveAdmin.application
-        # Try enforce reloading after app bootup
-        Rails.logger.info("==== Reloading ActiveAdmin")
-        ActiveAdmin.application.unload!
-        I18n.reload!
-        self.reload_routes!
-      end
-        Rails.logger.warn("==== Locale #{I18n.locale}")
-    end
+    # config.after_initialize do |app|
+    #   if defined?(ActiveAdmin) and ActiveAdmin.application
+    #     # Try enforce reloading after app bootup
+    #     Rails.logger.info("==== Reloading ActiveAdmin")
+    #     ActiveAdmin.application.unload!
+    #     I18n.reload!
+    #     self.reload_routes!
+    #   end
+    #     Rails.logger.warn("==== Locale #{I18n.locale}")
+    # end
   end
 end
 

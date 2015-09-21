@@ -27,7 +27,7 @@ describe Goldencobra::Article do
       a = Goldencobra::Article.new(@attr)
       a.breadcrumb = "article1"
       a.save
-      expect(Goldencobra::Article.find_by_id(a.id).public_url).to eql("/article1")
+      expect(Goldencobra::Article.find_by_id(a.id).public_url).to eq("/article1")
     end
 
     it "should have a valid url_path before saving" do
@@ -55,7 +55,37 @@ describe Goldencobra::Article do
 
   describe 'creating an article' do
     before(:each) do
-      @attr = { :title  => "Testartikel", :url_name  => "testartikel", :article_type => "Default Show", :breadcrumb => 'bc_testarticle' }
+      @attr = { title: "Testartikel", 
+                url_name: "testartikel", 
+                article_type: "Default Show", 
+                breadcrumb: 'bc_testarticle' }
+    end
+
+    describe "url_name" do
+      it "should be uniq in siblings or appendend by higher number" do
+        parent_article = Goldencobra::Article.create!(@attr)
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news", parent_id: parent_article.id}) )
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news--2", parent_id: parent_article.id}) )
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news--5", parent_id: parent_article.id}) )
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news--8"}) )
+        Goldencobra::Article.create!( @attr.merge({ url_name: "archiv", parent_id: parent_article.id}) )
+
+        a = Goldencobra::Article.create( @attr.merge({ url_name: "news", parent_id: parent_article.id}) )
+        expect(a.url_name).to eq "news--6"
+
+        a.save
+        expect(a.url_name).to eq "news--6"        
+
+        b = Goldencobra::Article.create( @attr.merge({ url_name: "test", parent_id: parent_article.id}) )
+        expect(b.url_name).to eq "test"
+      end
+
+      it "should be the same if appending number is modified by user" do
+        parent_article = Goldencobra::Article.create!(@attr)
+        Goldencobra::Article.create!( @attr.merge({ url_name: "news--2", parent_id: parent_article.id}) )        
+        a = Goldencobra::Article.create( @attr.merge({ url_name: "news--2", parent_id: parent_article.id}) )
+        expect(a.url_name).to eq "news--2"
+      end
     end
 
     describe "redirection value" do
@@ -63,7 +93,7 @@ describe Goldencobra::Article do
         a = Goldencobra::Article.create!(@attr)
         a.external_url_redirect = "www.google.de"
         a.save
-        Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == "http://www.google.de"
+        expect(Goldencobra::Article.find_by_id(a.id).external_url_redirect).to eq "http://www.google.de"
       end
 
       it "should have a valid redirect url by inserting an url with http" do
@@ -84,7 +114,7 @@ describe Goldencobra::Article do
         a = Goldencobra::Article.create!(@attr)
         a.external_url_redirect = ""
         a.save
-        Goldencobra::Article.find_by_id(a.id).external_url_redirect.should == ""
+        expect(Goldencobra::Article.find_by_id(a.id).external_url_redirect).to eq ""
       end
     end
 
@@ -95,17 +125,12 @@ describe Goldencobra::Article do
 
     it "should set active_since to the created_at datetime" do
       article = create :article
-      article.active_since.should eql(article.created_at)
-    end
-
-    it "should require a title" do
-      no_name_article = Goldencobra::Article.new(@attr.merge(:title => ""))
-      no_name_article.should_not be_valid
+      expect(article.active_since).to eq(article.created_at)
     end
 
     it "should not require a url_name because it is filled automatically" do
-      no_url_name_article = Goldencobra::Article.new(@attr.merge(:url_name => ""))
-      no_url_name_article.should be_valid
+      no_url_name_article = Goldencobra::Article.new(@attr.merge(url_name: ""))
+      expect(no_url_name_article).to be_valid
     end
 
     it "should not display partial in templatefiles" do
@@ -114,11 +139,11 @@ describe Goldencobra::Article do
       File.new("#{::Rails.root}/app/views/layouts/_partial_2.html.erb", "w")
       File.new("#{::Rails.root}/app/views/layouts/12layout.html.erb", "w")
 
-      Goldencobra::Article.templates_for_select.include?("tim_test").should == true
-      Goldencobra::Article.templates_for_select.include?("_partial").should == false
-      Goldencobra::Article.templates_for_select.include?("_partial_2").should == false
-      Goldencobra::Article.templates_for_select.include?("application").should == true
-      Goldencobra::Article.templates_for_select.include?("12layout").should == true
+      expect(Goldencobra::Article.templates_for_select.include?("tim_test")).to eq true
+      expect(Goldencobra::Article.templates_for_select.include?("_partial")).to eq false
+      expect(Goldencobra::Article.templates_for_select.include?("_partial_2")).to eq false
+      expect(Goldencobra::Article.templates_for_select.include?("application")).to eq true
+      expect(Goldencobra::Article.templates_for_select.include?("12layout")).to eq true
 
       File.delete("#{::Rails.root}/app/views/layouts/tim_test.html.erb")
       File.delete("#{::Rails.root}/app/views/layouts/_partial.html.erb")
@@ -130,7 +155,7 @@ describe Goldencobra::Article do
       1.upto(5) { |i|
         Goldencobra::Article.create!(@attr)
       }
-      Goldencobra::Article.recent(5).collect.count.should == 5
+      expect(Goldencobra::Article.recent(5).collect.count).to eq 5
     end
 
     context "of article_type_kind INDEX" do
@@ -163,66 +188,11 @@ describe Goldencobra::Article do
     end
   end
 
-  describe 'open graph' do
-    it 'should have some metatags' do
-      article = create :article
-      article.metatags.count.should > 0
-    end
-
-    it "should set a default open graph title" do
-      article = create :article
-      Goldencobra::Metatag.where(name: 'OpenGraph Title', article_id: article.id).count.should == 1
-    end
-
-    it "should match the article's title" do
-      article = create :article
-      Goldencobra::Metatag.where(name: 'OpenGraph Title',
-                                 article_id: article.id).first.value.should == article.title
-    end
-
-    it "should set a default OG url if none exists" do
-      article = create :article
-      Goldencobra::Metatag.where(name: 'OpenGraph URL', article_id: article.id).count.should == 1
-    end
-
-    it "should match the artices url" do
-      article = create :article
-      Goldencobra::Metatag.where(name: 'OpenGraph URL',
-                                 article_id: article.id).first.value.should == article.absolute_public_url
-    end
-
-    it "should should set a default OG description" do
-      article = create :article
-      Goldencobra::Metatag.where(name: 'OpenGraph Description',
-                                 article_id: article.id).count.should == 1
-    end
-
-    it "should match the article's teaser text" do
-      article = create :article, teaser: 'Das ist ein kurzer Teaser Text.'
-      Goldencobra::Metatag.where(name: 'OpenGraph Description',
-                                 article_id: article.id).first.value.should == article.teaser
-    end
-
-    it "should match the article's content text if teaser is empty" do
-      article = create :article, content: 'Sed ut perspiciatis unde omnis iste natus' +
-      'error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ' +
-      'ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.'
-      Goldencobra::Metatag.where(name: 'OpenGraph Description',
-                                 article_id: article.id).first.value.should == article.content.truncate(200)
-    end
-
-    it "should match the article's title if neither teaser nor content present" do
-      article = create :article
-      Goldencobra::Metatag.where(name: 'OpenGraph Description',
-                                 article_id: article.id).first.value.should == article.title
-    end
-  end
-
   describe 'updating an article' do
 
     it "should have a new url_path" do
-      article = create :article, :url_name => "seite1"
-      sub_article = create :article, :url_name => "sub_seite", :parent => article
+      article = create :article, url_name: "seite1"
+      sub_article = create :article, url_name: "sub_seite", parent: article
 
       expect(article.public_url.include?("seite1")).to eq true
       expect(sub_article.public_url.include?("seite1/sub_seite")).to eq true
@@ -233,7 +203,5 @@ describe Goldencobra::Article do
       expect(article.public_url.include?("seite2")).to eq true
       expect(sub_article.public_url.include?("seite2/sub_seite")).to eq true
     end
-
   end
-
 end

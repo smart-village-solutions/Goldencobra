@@ -3,8 +3,6 @@
 ActiveAdmin.register Goldencobra::Redirector, :as => "Redirector" do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.redirector.as'), :if => proc{can?(:update, Goldencobra::Redirector)}
 
-  controller.authorize_resource :class => Goldencobra::Redirector
-
   form html: { enctype: "multipart/form-data" }  do |f|
     f.actions
       f.inputs "Einzelne Weiterleitung einrichten", :class => "foldable inputs" do
@@ -29,7 +27,7 @@ ActiveAdmin.register Goldencobra::Redirector, :as => "Redirector" do
 
     def show
       show! do |format|
-         format.html { redirect_to edit_admin_redirector_path(@redirector.id), :flash => flash }
+         format.html { redirect_to edit_admin_redirector_path(@redirector.id)}
       end
     end
 

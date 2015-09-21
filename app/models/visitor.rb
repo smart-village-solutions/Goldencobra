@@ -42,7 +42,8 @@ class Visitor < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :token_authenticatable, :lockable
 
-  has_many :comments, :class_name => Goldencobra::Comment, :as => :commentator
+  #Deprecated, will be removed in GC 2.1
+  #has_many :comments, :class_name => Goldencobra::Comment, :as => :commentator
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :provider, :uid, :agb, :newsletter, :username, :loginable, :role_ids
 

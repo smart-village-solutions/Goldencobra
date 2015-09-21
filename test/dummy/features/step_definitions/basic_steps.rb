@@ -2,7 +2,6 @@
 
 Given /^that I am not logged in$/ do
   visit "/admin/logout"
-  page.driver.browser.clear_cookies
 end
 
 When /^I click on "([^\"]*)"$/ do |arg1|

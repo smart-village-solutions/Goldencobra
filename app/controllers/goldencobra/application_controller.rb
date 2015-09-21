@@ -5,7 +5,9 @@ module Goldencobra
     before_filter :set_locale
 
     def set_locale
-      unless Rails.env == "test"
+      if Rails.env == "test"
+        I18n.locale = :de
+      else
         I18n.locale = params[:locale] || session[:locale]
       end
     end
@@ -16,6 +18,10 @@ module Goldencobra
 
     def after_sign_in_path_for(resource_or_scope)
       request.referrer
+    end
+
+    def access_denied(exception)
+      redirect_to root_path, alert: exception.message
     end
 
     rescue_from CanCan::AccessDenied do |exception|
@@ -37,16 +43,15 @@ module Goldencobra
 
       meta_tags = {
         :site => s('goldencobra.page.default_title_tag'),
-        :title => current_article.metatag("Title Tag").present? ? current_article.metatag("Title Tag") : current_article.title,
+        :title => current_article.metatag_title_tag.present? ? current_article.metatag_title_tag : current_article.title,
         :reverse => true,
-        :description => current_article.metatag("Meta Description"),
-        :keywords => current_article.metatag("Keywords"),
+        :description => current_article.metatag_meta_description,
         :open_graph => {
-          :title => current_article.metatag("OpenGraph Title"),
-          :description => current_article.metatag("OpenGraph Description"),
-          :type => current_article.metatag("OpenGraph Type"),
-          :url => current_article.metatag("OpenGraph URL"),
-          :image => current_article.metatag("OpenGraph Image")
+          :title => current_article.metatag_open_graph_title,
+          :description => current_article.metatag_open_graph_description,
+          :type => current_article.metatag_open_graph_type,
+          :url => current_article.metatag_open_graph_url,
+          :image => current_article.metatag_open_graph_image
         }
       }
 

@@ -21,17 +21,32 @@
 
 module Goldencobra
   class Upload < ActiveRecord::Base
-
+    attr_accessible :id, :source, :rights, :description, :image_file_name, :crop_x, :crop_y,
+                    :crop_w, :crop_h, :crop_image, :image_url, :image_content_type,
+                    :image_file_size, :created_at, :updated_at, :attachable_id, :attachable_type,
+                    :alt_text, :sorter_number, :image, :tag_list
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_image, :image_url
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads") &&
       ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       has_attached_file :image,
-                        :styles => { :large => ["900x900>", :jpg], :big => ["600x600>",:jpg], :medium => ["300x300>",:jpg], :px250 => ["250x250>",:jpg], :px200 => ["200x200>",:jpg], :px150 => ["150x150>",:jpg], :thumb => ["100x100>", :jpg], :mini => ["50x50>",:jpg] },
-                        :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
-                        :url => "/system/:attachment/:id/:style/:filename",
-                        :convert_options => { :all => "#{Goldencobra::Setting.for_key('goldencobra.upload.convert_options')}" },
-                        :default_url => "missing_:style.png"
+                        styles: {
+                          large: ["900x900>", :jpg],
+                          big: ["600x600>", :jpg],
+                          medium: ["300x300>", :jpg],
+                          px250: ["250x250>", :jpg],
+                          px200: ["200x200>", :jpg],
+                          px150: ["150x150>", :jpg],
+                          thumb: ["100x100>", :jpg],
+                          mini: ["50x50>", :jpg]
+                        },
+                        path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+                        url: "/system/:attachment/:id/:style/:filename",
+                        convert_options: -> {
+                          { all: "#{Goldencobra::Setting.for_key('goldencobra.upload.convert_options')}" }
+                        }.call,
+                        default_url: "missing_:style.png"
+      do_not_validate_attachment_file_type :image
       before_post_process :image_file?
     end
 
@@ -46,7 +61,9 @@ module Goldencobra
     def crop_image_with_coords
       require 'RMagick'
       # Should we crop?
-      if self.crop_image.present? && self.crop_image == "1" && self.crop_x.present? && self.crop_y.present? && self.crop_w.present? && self.crop_h.present?
+      if self.crop_image.present? && self.crop_image == "1" && self.crop_x.present? &&
+        self.crop_y.present? && self.crop_w.present? && self.crop_h.present?
+
         scaled_img = Magick::ImageList.new(self.image.path(:large))
         orig_img = Magick::ImageList.new(self.image.path(:original))
         scale = orig_img.columns.to_f / scaled_img.columns
