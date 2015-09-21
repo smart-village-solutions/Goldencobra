@@ -1,30 +1,39 @@
-# encoding: utf-8
-
 ActiveAdmin.setup do |config|
-  #if ActiveAdmin::VERSION == "0.3.4" && Rails.version == "3.2.0.rc2"
+  config.authorization_adapter = ActiveAdmin::CanCanAdapter
+  config.comments = false
+
+  config.batch_actions = true
+  #Folgene Zeile ruft eine Methode im Entsprechenden Controller auf, wenn es ein 'permission denied' gibt
+  #config.on_unauthorized_access = :access_denied
+
+  #if ActiveAdmin::VERSION == '0.3.4' && Rails.version == '3.2.0.rc2'
   #  class ActiveSupport::FileUpdateChecker
   #    def paths
   #      @files
   #    end
   #  end
   #else
-  #  warn = "!! double check the ActiveSupport::FileUpdateChecker duck punch in #{__FILE__} !!"
+  #  warn = '!! double check the ActiveSupport::FileUpdateChecker duck punch in #{__FILE__} !!'
   #  puts warn
   #end
+  #
+
+
+
 
   # == Site Title
   #
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Golden Cobra"
+  config.site_title = 'Golden Cobra'
 
-  config.before_filter :current_ability
+  # config.before_filter :current_ability
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  # config.site_title_link = "/"
+  # config.site_title_link = '/'
 
   # == Default Namespace
   #
@@ -88,14 +97,35 @@ ActiveAdmin.setup do |config|
 
   # == Admin Comments
   #
-  # Admin comments allow you to add comments to any model for admin use
-  #
-  # Admin comments are enabled by default in the default
-  # namespace only. You can turn them on in a namesapce
-  # by adding them to the comments array.
+  # Admin comments allow you to add comments to any model for admin use.
+  # Admin comments are enabled by default.
   #
   # Default:
-  # config.allow_comments_in = [:admin]
+  # config.allow_comments = true
+  #
+  # You can turn them on and off for any given namespace by using a
+  # namespace config block.
+  #
+  # Eg:
+  #   config.namespace :without_comments do |without_comments|
+  #     without_comments.allow_comments = false
+  #   end
+
+
+  # == Batch Actions
+  #
+  # Enable and disable Batch Actions
+  #
+  # Default:
+  config.batch_actions = true
+
+
+  # == Pagination Actions
+  #
+  # Show per Page Pagination
+  #
+  # Default:
+  config.default_per_page = [30, 50, 100, 250, 500, 1000]
 
 
   # == Controller Filters
@@ -113,14 +143,14 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-    config.register_stylesheet "goldencobra/active_admin"
-    config.register_stylesheet "goldencobra/chosen.css"
+  #   config.register_stylesheet 'my_stylesheet.css'
+  config.register_stylesheet 'goldencobra/active_admin'
 
+  # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
+  #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
+  #
   # To load a javascript file:
-     config.register_javascript 'goldencobra/active_admin.js'
-     config.register_javascript "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"
-     config.register_javascript "https://togetherjs.com/togetherjs-min.js"
-     config.register_javascript "goldencobra/jquery.tinymce.js"
-     config.register_javascript 'goldencobra/chosen.jquery.min.js'
-     config.register_javascript 'active_admin.js'
+  #   config.register_javascript 'my_javascript.js'
+  config.register_javascript 'goldencobra/active_admin'
+  # config.register_javascript 'active_admin'
 end

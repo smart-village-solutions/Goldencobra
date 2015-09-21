@@ -38,9 +38,13 @@ module Goldencobra
           if params[:article_ids].present?
             index_with_ids
           else
-            @articles = Goldencobra::Article.select([:id, :title, :ancestry]).sort{ |a, b|
-              a[0] <=> b[0]
-            }
+            cache_key ||= ["indexarticles", Goldencobra::Article.all.pluck(:id, :ancestry, :title)]
+
+            @articles = Rails.cache.fetch(cache_key) do
+              Goldencobra::Article.select([:id, :title, :ancestry]).sort{ |a, b|
+                a[0] <=> b[0]
+              }
+            end
 
             if params[:react_select] && params[:react_select] == "true"
               # Die React Select Liste braucht das JSON in diesem Format. -hf
@@ -68,11 +72,11 @@ module Goldencobra
           respond_to do |format|
             format.json {
               if params[:methods].present?
-                render json: @article,
-                  serializer: Goldencobra::ArticleCustomSerializer,
-                  scope: params[:methods]
+                render json: Oj.dump(@article,
+                                     serializer: Goldencobra::ArticleCustomSerializer,
+                                     scope: params[:methods])
               else
-                render json: @article
+                render json: Oj.dump(@article)
               end
             }
           end
@@ -89,15 +93,19 @@ module Goldencobra
         #                params[:methods] definierten
         def index_with_ids
           article_ids = params[:article_ids]
-          articles = Goldencobra::Article.where("id IN (?)", article_ids)
+          cache_key ||= ["indexarticles", article_ids]
+
+          articles = Rails.cache.fetch(cache_key) do
+            Goldencobra::Article.where("id IN (?)", article_ids)
+          end
           respond_to do |format|
             format.json {
               if params[:methods].present?
-                render json: articles,
-                  each_serializer: Goldencobra::ArticleCustomSerializer,
-                  scope: params[:methods]
+                render json: Oj.dump(articles,
+                                     each_serializer: Goldencobra::ArticleCustomSerializer,
+                                     scope: params[:methods])
               else
-                render json: articles
+                render json: Oj.dump(articles)
               end
             }
           end

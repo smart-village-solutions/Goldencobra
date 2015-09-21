@@ -1,6 +1,8 @@
 #Goldencobra
 
-[![Build Status](https://secure.travis-ci.org/ikusei/Goldencobra.png)](http://travis-ci.org/ikusei/Goldencobra)
+[![Build Status](https://secure.travis-ci.org/ikusei/Goldencobra.png)](http://travis-ci.org/ikusei/Goldencobra)  
+[![Code
+Climate](https://codeclimate.com/github/ikusei/Goldencobra/badges/gpa.svg)](https://codeclimate.com/github/ikusei/Goldencobra)
 
 This Project is still under development.
 This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis-modul/browse and now always up to date!

@@ -34,13 +34,13 @@ feature 'Visitor visits article' do
     visit "/admin/logout"
     article = Goldencobra::Article.where(title: 'Foo title').first
     visit article.absolute_public_url
-    page.should have_content('404')
+    expect(page).to have_content('404')
   end
 
   def visitor_can_see_article
     visit "/admin/logout"
     article = Goldencobra::Article.where(title: 'Online title').first
     visit article.absolute_public_url
-    page.should have_content('Online title')
+    expect(page).to have_content('Online title')
   end
 end

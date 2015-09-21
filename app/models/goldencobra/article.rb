@@ -54,43 +54,42 @@ require "open-uri"
 module Goldencobra
   class Article < ActiveRecord::Base
 
-    extend FriendlyId
-    MetatagNames = ["Title Tag", "Meta Description", "Keywords", "OpenGraph Title", "OpenGraph Description", "OpenGraph Type", "OpenGraph URL", "OpenGraph Image"]
+    #extend FriendlyId
     LiquidParser = {}
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically", "GlobalSortID"]
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
-    DisplayIndexTypes = [["Einzelseiten", "show"],["Übersichtsseiten", "index"], ["Alle Seiten", "all"]]
+    DisplayIndexTypes = [["Einzelseiten und Übersichtsseiten", "all"], ["Einzelseiten", "show"],["Übersichtsseiten", "index"]]
+
     attr_accessor   :hint_label, :manual_article_sort, :create_redirection
     ImportDataFunctions = []
 
     has_many :link_checks, :class_name => Goldencobra::LinkChecker
-    has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
     has_many :article_images
     has_many :article_widgets
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
-    has_many :comments, :class_name => Goldencobra::Comment
-    has_many :permissions, :class_name => Goldencobra::Permission, :foreign_key => "subject_id", :conditions => {:subject_class => "Goldencobra::Article"}
+
+    has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
     belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
     belongs_to :creator, :class_name => User, :foreign_key => "creator_id"
 
     has_many :article_authors
     has_many :authors, :through => :article_authors
 
-    accepts_nested_attributes_for :metatags, :allow_destroy => true, :reject_if => proc { |attributes| attributes['value'].blank? }
     accepts_nested_attributes_for :article_images, :allow_destroy => true
     accepts_nested_attributes_for :images, :allow_destroy => true
     accepts_nested_attributes_for :permissions, :allow_destroy => true
+    accepts_nested_attributes_for :article_widgets, :allow_destroy => true
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
-    has_ancestry    :orphan_strategy => :restrict
-    friendly_id     :for_friendly_name, use: [:slugged] #, :history
+    has_ancestry    :orphan_strategy => :restrict, :cache_depth => true
+
     web_url         :external_url_redirect
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
 
-    validates_presence_of :title, :article_type
+    validates_presence_of :article_type
     validates_format_of :url_name, :with => /\A[\w\-]+\Z/, allow_blank: true
     validates_presence_of :breadcrumb, :on => :create
     validates_length_of :breadcrumb, :within => 1..70, :on => :create
@@ -98,12 +97,14 @@ module Goldencobra
     attr_protected :startpage
 
     before_update :set_redirection_step_1
+    before_create :set_title_from_breadcrumb
     after_create :set_active_since
     after_create :notification_event_create
     after_create :cleanup_redirections
     after_create :set_index_article_id
     before_save :parse_image_gallery_tags
     before_save :set_url_name_if_blank
+    before_save :uniqify_url_name
     before_save :set_standard_application_template
     after_save :set_default_meta_opengraph_values
     after_save :verify_existence_of_opengraph_image
@@ -113,30 +114,23 @@ module Goldencobra
     before_destroy :update_parent_article_etag
     after_update :set_redirection_step_2
 
-    scope :robots_index, where(:robots_no_index => false)
-    scope :robots_no_index, where(:robots_no_index => true)
-    #scope :active nun als Klassenmethode unten definiert
-    scope :inactive, where(:active => false)
-    scope :startpage, where(:startpage => true)
+    scope :robots_index, -> { where(:robots_no_index => false) }
+    scope :robots_no_index, -> { where(:robots_no_index => true) }
+    scope :active, -> { where("active = 1 AND active_since < '#{Time.now.strftime('%Y-%m-%d %H:%M:%S ')}'") }
+    scope :inactive, -> { where(:active => false) }
+    scope :startpage, -> { where(:startpage => true) }
     scope :articletype, lambda{ |name| where(:article_type => name)}
     scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
-    scope :for_sitemap, includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0')
+    scope :for_sitemap, -> { includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0') }
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
     scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
-    if ActiveRecord::Base.connection.table_exists?("goldencobra_metatags")
-      scope :no_title_tag, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Title Tag").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
-      scope :no_meta_description, where("goldencobra_articles.id NOT IN (?)", Goldencobra::Metatag.where(:name => "Meta Description").where("value IS NOT NULL AND value <> ''").pluck(:article_id).uniq)
-    end
+    scope :no_title_tag, -> { where("metatag_title_tag IS NULL OR metatag_title_tag = ''") }
+    scope :no_meta_description, -> { where("metatag_meta_description IS NULL OR metatag_meta_description = ''") }
     scope :fulltext_contains, lambda{ |name| where("content LIKE '%#{name}%' OR teaser LIKE '%#{name}%' OR url_name LIKE '%#{name}%' OR subtitle LIKE '%#{name}%' OR summary LIKE '%#{name}%' OR context_info LIKE '%#{name}%' OR breadcrumb LIKE '%#{name}%'")}
 
-    search_methods :frontend_tag_name_contains
-    search_methods :tag_name_contains
-    search_methods :parent_ids_in
-    search_methods :parent_ids_in_eq
-    search_methods :fulltext_contains
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.use_solr") == "true"
@@ -160,8 +154,8 @@ module Goldencobra
     # Instance Methods
     # **************************
     # **************************
-    
-    def link_checker 
+
+    def link_checker
       old_result = {}
       self.link_checks.each do |lc|
         old_result[lc.target_link] = { "response_code"  => lc.response_code,
@@ -171,8 +165,8 @@ module Goldencobra
       end
       return old_result
     end
-    
-     
+
+
     def has_children
       self.has_children?
     end
@@ -228,7 +222,9 @@ module Goldencobra
 
     # Gets the related object by article_type
     def get_related_object
-      if self.article_type.present? && self.article_type_form_file.present? && self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+      if self.article_type.present? && self.article_type_form_file.present? &&
+          self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+
         return self.send(self.article_type_form_file.underscore.parameterize.downcase)
       else
         return nil
@@ -238,11 +234,11 @@ module Goldencobra
     #dynamic methods for article.event or article.consultant .... depending on related object type
     def method_missing(meth, *args, &block)
       if meth.to_s.split(".").first == self.get_related_object.class.name.downcase
-          if meth.to_s.split(".").count == 1
-            self.get_related_object
-          else
-            self.get_related_object.send(meth.to_s.split(".").last)
-          end
+        if meth.to_s.split(".").count == 1
+          self.get_related_object
+        else
+          self.get_related_object.send(meth.to_s.split(".").last)
+        end
       else
         super
       end
@@ -369,9 +365,7 @@ module Goldencobra
     end
 
     def metatag(name)
-      return "" if !MetatagNames.include?(name)
-      metatag = self.metatags.find_by_name(name)
-      metatag.value if metatag
+      warn "Deprecated method metatag(name). Will be removed in GC 2.1"
     end
 
 
@@ -410,12 +404,24 @@ module Goldencobra
 
     #scope for index articles, display show articles, index articless or both articles of an current type
     def self.articletype_for_index(current_article)
-      if current_article.display_index_types == "show"
-        articletype("#{current_article.article_type_form_file} Show")
-      elsif current_article.display_index_types == "index"
-        articletype("#{current_article.article_type_form_file} Index")
+      #Wenn alle Artikeltypen angezeigt werden sollen
+      if current_article.display_index_articletypes == "all"
+        if current_article.display_index_types == "show"
+          where("article_type LIKE '% Show' ")
+        elsif current_article.display_index_types == "index"
+          where("article_type LIKE '% Index' ")
+        else
+          where("article_type LIKE '% Show' OR article_type LIKE '% Index' ")
+        end
       else
-        where("article_type = '#{current_article.article_type_form_file} Show' OR article_type = '#{current_article.article_type_form_file} Index'")
+        #Wenn NUR Artikel von EINEM bestimmten Artkeltypen angezeigt werden sollen
+        if current_article.display_index_types == "show"
+          articletype("#{current_article.display_index_articletypes} Show")
+        elsif current_article.display_index_types == "index"
+          articletype("#{current_article.display_index_articletypes} Index")
+        else
+          where("article_type = '#{current_article.display_index_articletypes} Show' OR article_type = '#{current_article.display_index_articletypes} Index'")
+        end
       end
     end
 
@@ -453,8 +459,13 @@ module Goldencobra
       else
         #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
         parent_article = Goldencobra::Article.find_by_id(self.article_for_index_id)
-        if parent_article
+        if parent_article.present?
           @list_of_articles = parent_article.descendants.active.articletype_for_index(self)
+          #Wenn nicht ale ebenen unterhalb des gewählten Baumes angezeigt werden sollen
+          unless self.index_of_articles_descendents_depth == "all"
+            current_depth = parent_article.depth
+            @list_of_articles = @list_of_articles.to_depth(current_depth + self.index_of_articles_descendents_depth.to_i)
+          end
         else
           @list_of_articles = Goldencobra::Article.active.articletype_for_index(self)
         end
@@ -508,11 +519,31 @@ module Goldencobra
       return @list_of_articles
     end
 
+    def self.articles_for_index_selecetion
+      cache_key ||= ["indexarticlesselect", Goldencobra::Article.all.pluck(:id, :ancestry, :title)]
+      articles = Rails.cache.fetch(cache_key) do
+        Goldencobra::Article.select([:id, :title, :ancestry]).map do
+          |c| ["#{c.path.map(&:title).join(" / ")}", c.id]
+        end.sort { |a, b| a[0] <=> b[0] }
+      end
+      return articles
+    end
+
+
     # **************************
     # **************************
     # Callback Methods
     # **************************
     # **************************
+
+
+    def set_title_from_breadcrumb
+      if self.title.blank? && self.breadcrumb.present?
+        self.title = self.breadcrumb
+      end
+      return true
+    end
+
 
     def cleanup_redirections
       Goldencobra::Redirector.where(:source_url => self.absolute_public_url).destroy_all
@@ -529,7 +560,10 @@ module Goldencobra
         else
           old_url = "#{self.absolute_base_url}#{Goldencobra::Domain.current.try(:url_prefix)}#{self.url_path}"
         end
-        r = Goldencobra::Redirector.find_or_create_by_source_url(old_url)
+        r = Goldencobra::Redirector.find_by_source_url(old_url)
+        if r.blank?
+          r = Goldencobra::Redirector.create(source_url: old_url)
+        end
         r.active = false
         r.save
         self.create_redirection = r.id
@@ -545,7 +579,7 @@ module Goldencobra
           r.target_url = self.absolute_public_url
           r.active = true
           r.save
-          custom_children = Goldencobra::Article.find_all_by_ancestry("#{self.ancestry}/#{self.id}")
+          custom_children = Goldencobra::Article.where(ancestry: "#{self.ancestry}/#{self.id}")
           if custom_children.any?
             if custom_children.count < 30
               # wenn es nur wenige Kinderartikel gibt, dann gleich direkt machen
@@ -598,36 +632,12 @@ module Goldencobra
         meta_description = self.content.present? ? remove_html_tags(self.content).truncate(200) : self.title
       end
 
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'Meta Description').none?
-        Goldencobra::Metatag.create(name: 'Meta Description',
-                                    article_id: self.id,
-                                    value: meta_description)
-      end
+      self.metatag_meta_description = meta_description if self.metatag_meta_description.blank?
+      self.metatag_title_tag = self.title if self.metatag_title_tag.blank?
+      self.metatag_open_graph_description = meta_description if self.metatag_open_graph_description.blank?
+      self.metatag_open_graph_title = self.title if self.metatag_open_graph_title.blank?
+      self.metatag_open_graph_url = self.absolute_public_url if self.metatag_open_graph_url.blank?
 
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'Title Tag').none?
-        Goldencobra::Metatag.create(name: 'Title Tag',
-                                    article_id: self.id,
-                                    #value: self.breadcrumb.present? ? self.breadcrumb : self.title)
-                                    value: self.title)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Description').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph Description',
-                                    article_id: self.id,
-                                    value: meta_description)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph Title').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph Title',
-                                    article_id: self.id,
-                                    value: self.title)
-      end
-
-      if Goldencobra::Metatag.where(article_id: self.id, name: 'OpenGraph URL').none?
-        Goldencobra::Metatag.create(name: 'OpenGraph URL',
-                                    article_id: self.id,
-                                    value: self.absolute_public_url)
-      end
     end
 
     # helper um links zu entfernen in text
@@ -636,13 +646,13 @@ module Goldencobra
     end
 
     def verify_existence_of_opengraph_image
-      if Goldencobra::Metatag.where(article_id: self.id, name: "OpenGraph Image").none?
+      if self.metatag_open_graph_image.blank?
         if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
           og_img_val = "#{self.absolute_base_url}#{self.article_images.first.image.image.url}"
         else
           og_img_val = Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image")
         end
-        Goldencobra::Metatag.create(name: "OpenGraph Image", article_id: self.id, value: og_img_val)
+        self.metatag_open_graph_image = og_img_val
       end
     end
 
@@ -656,8 +666,20 @@ module Goldencobra
 
     def set_url_name_if_blank
       if self.url_name.blank?
-        #self.url_name = self.breadcrumb
-        self.url_name = self.friendly_id.split("--")[0]
+        self.url_name = self.breadcrumb.urlize(downcase: true, convert_spaces: true).gsub("_","-")
+      end
+    end
+
+    # append counter, if url_name is already used in siblings
+    #
+    # news => news--2
+    #
+    # @return [String] url_name
+    def uniqify_url_name
+      similar_names = self.siblings.pluck(:url_name).select{|c| c.split("--")[0] == self.url_name }
+      if similar_names.count > 1
+        last_used_number = similar_names.map{|v| v.split("--")[1].to_i}.compact.max
+        self.url_name = [self.url_name, last_used_number + 1].join("--")
       end
     end
 
@@ -755,27 +777,11 @@ module Goldencobra
       end
     end
 
-
-    def for_friendly_name
-      if self.url_name.present?
-        self.url_name
-      elsif self.breadcrumb.present?
-        self.breadcrumb
-      else
-        self.title
-      end
-    end
-
-
     # **************************
     # **************************
     # Class Methods
     # **************************
     # **************************
-
-    def self.active
-      Goldencobra::Article.where("active = 1 AND active_since < '#{Time.now.strftime('%Y-%m-%d %H:%M:%S ')}'")
-    end
 
     def active?
       self.active && self.active_since < Time.now.utc
@@ -792,8 +798,8 @@ module Goldencobra
     end
 
     def self.recreate_cache
-      if RUBY_VERSION.include?("1.9.")
-        ArticlesCacheWorker.perform_async()
+      if RUBY_VERSION.to_f >= 1.9
+        ArticlesCacheWorker.perform_async
       else
         Goldencobra::Article.active.each do |article|
           article.updated_at = Time.now
@@ -806,12 +812,12 @@ module Goldencobra
       results = []
       path_to_articletypes = File.join(::Rails.root, "app", "views", "articletypes")
       if Dir.exist?(path_to_articletypes)
-        Dir.foreach(path_to_articletypes) do |name| #.map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_edit/ }.delete_if{|a| a[0] == "_"}
+        Dir.foreach(path_to_articletypes) do |name|
           file_name_path = File.join(path_to_articletypes,name)
           if File.directory?(file_name_path)
             Dir.foreach(file_name_path) do |sub_name|
-                file_name = "#{name.titleize.gsub(' ','')}#{sub_name.titleize}" if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0
-                results << file_name.split(".").first if file_name.present?
+              file_name = [name.titleize.gsub(' ',''), sub_name.gsub('_','').titleize].join(" ") if File.exist?(File.join(file_name_path,sub_name)) && (sub_name =~ /^_(?!edit).*/) == 0
+              results << file_name.split(".").first if file_name.present?
             end
           end
         end
@@ -836,18 +842,42 @@ module Goldencobra
 
     def self.simple_search(q)
       self.active.search(:title_or_subtitle_or_url_name_or_content_or_summary_or_teaser_contains => q).relation.map {
-          |article|
+        |article|
         {
-            :id => article.id,
-            :absolute_public_url => article.absolute_public_url,
-            :title => article ? article.title : '',
-            :teaser => article ? article.teaser : '',
-            :article_type => article.article_type,
-            :updated_at => article.updated_at,
-            :parent_title => article.parent ? article.parent.title ? article.parent.title : '' : '',
-            :ancestry => article.ancestry ? article.ancestry : ''
+          :id => article.id,
+          :absolute_public_url => article.absolute_public_url,
+          :title => article ? article.title : '',
+          :teaser => article ? article.teaser : '',
+          :article_type => article.article_type,
+          :updated_at => article.updated_at,
+          :parent_title => article.parent ? article.parent.title ? article.parent.title : '' : '',
+          :ancestry => article.ancestry ? article.ancestry : ''
         }
       }
+    end
+
+
+
+
+    # **************************
+    # **************************
+    # Private Methods
+    # **************************
+    # **************************
+
+    private
+
+    # Allow Scopes and Methods to search for in ransack (n.a. metasearch)
+    # @param auth_object = nil [self] "if auth_object.try(:admin?)"
+    #
+    # @return [Array] Array of Symbols representing scopes and class methods
+    def self.ransackable_scopes(auth_object = nil)
+      [
+        :parent_ids_in,
+        :frontend_tag_name_contains, :frontend_tag_name_equals, :frontend_tag_name_starts_with, :frontend_tag_name_ends_with,
+        :tag_name_contains, :tag_name_equals, :tag_name_starts_with, :tag_name_ends_with,
+        :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with
+      ]
     end
 
   end
@@ -875,4 +905,3 @@ end
 #subtree          Scopes the model on descendants and itself
 #subtree_ids      Returns a list of all ids in the record's subtree
 #depth            Return the depth of the node, root nodes are at depth 0
-

@@ -1,0 +1,15 @@
+#header {
+  h1 {
+    width: 100px;
+    height: 80px;
+    background: url("/assets/goldencobra/cobra.png") no-repeat scroll center top / auto auto rgba(0, 0, 0, 0);
+    text-indent: -9999px;
+    position: absolute;
+    left: 0;
+    z-index: 5000;
+    padding-top: 0 !important;
+    margin-right: 0;
+  }
+
+  ul#tabs.header-item { left: 160px; }
+}

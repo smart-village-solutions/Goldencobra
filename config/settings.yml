@@ -19,7 +19,6 @@ goldencobra:
     recreate_cache: "false"
   widgets:
     recreate_cache: "false"
-    time_control: "true"
   html2pdf_uid: "c5c13af822"
   use_solr: "false"
   page:

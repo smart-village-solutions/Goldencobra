@@ -1,14 +1,12 @@
-# encoding: utf-8
-
 module Goldencobra
   module Generators
     class ArticletypeGenerator < Rails::Generators::NamedBase
       source_root File.expand_path('../templates', __FILE__)
-      argument :model_attributes, type: :array, default: [], banner: "model:attributes"
+      argument :model_attributes, type: :array, default: [], banner: 'model:attributes'
 
       def create_articletype_files
         #TODO: Check if class name already exists and abort if true
-        generate("model", "#{name} #{model_attributes.join(' ')} article_id:integer")
+        generate('model', "#{name} #{model_attributes.join(' ')} article_id:integer")
       end
 
       def create_partials
@@ -23,7 +21,7 @@ module Goldencobra
 
       def updates_model
         inject_into_class "app/models/#{name.underscore}.rb", name.constantize do
-          "belongs_to  :article  , :class_name => Goldencobra::Article\nSortOptions = []\ndef fulltext_searchable_text\n''\nend\n"
+          "belongs_to :article, class_name: Goldencobra::Article\nSortOptions = []\ndef fulltext_searchable_text\n''\nend\n"
         end
       end
 

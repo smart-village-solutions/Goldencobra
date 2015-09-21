@@ -1,10 +1,8 @@
-<%% f.inputs "<%= name %>", :class=> "inputs" do %>
+<%% f.inputs "<%= name %>", class: "foldable" do %>
   <%% f.fields_for :<%= name.underscore.to_sym %> do |c| %>
-    <%% c.inputs "Details" do %>
-      <% model_attributes.each do |attr_name| -%>
-        <%% c.input :<%= attr_name.split(':')[0] %> %>
-      <% end -%>
-    <%% end %>
+    <% model_attributes.each do |attr_name| -%>
+      <%% c.input :<%= attr_name.split(':')[0] %> %>
+    <% end -%>
     <%% c.input :article_id, as: :hidden %>
     <%% c.input :id, as: :hidden %>
   <%% end %>

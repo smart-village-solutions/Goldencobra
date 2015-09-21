@@ -3,9 +3,7 @@
 ActiveAdmin.register Translation do
   menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.translations.as'), :if => proc{can?(:update, Translation)}
 
-  controller.authorize_resource :class => Translation
-
-  scope I18n.t('active_admin.translations.all'), :scoped
+  scope I18n.t('active_admin.translations.all'), :all
   scope :with_values
   scope :missing_values
 
@@ -13,7 +11,7 @@ ActiveAdmin.register Translation do
     column :locale
     column :key
     column :value
-    default_actions
+    actions
   end
 
   form do |f|
