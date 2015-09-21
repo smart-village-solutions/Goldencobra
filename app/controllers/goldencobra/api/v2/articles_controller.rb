@@ -272,19 +272,6 @@ module Goldencobra
             article.save
           end
 
-          # if params[:images].present?
-          #   params[:images].each do |key,value|
-          #     existing_images = Goldencobra::Upload.where(:image_remote_url => value[:image][:image_url])
-          #     if existing_images.blank?
-          #       img = Goldencobra::Upload.create(value[:image])
-          #     else
-          #       img = existing_images.first
-          #     end
-          #     image_position = Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).first
-          #     article.article_images.create(:image => img, :position => image_position)
-          #   end
-          # end
-
           # Update existing article
           article.update_attributes(params[:article])
 
