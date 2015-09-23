@@ -28,7 +28,11 @@ module Goldencobra
     def parent_id
       css_name = "get_goldencobra_articles_per_remote" + (@f.object.startpage ? ' include_blank_true ' : ' include_blank_false ')
       collection = Goldencobra::Article.where("id = ?", @f.object.parent_id).select([:id,:title, :ancestry]).map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}
-      input_form_for(:parent_id, as: :select, collection: collection, input_html: { :class => css_name }, style: 'width: 80%;', dataplaceholder: 'Elternelement auswählen'  )
+      input_form_for(:parent_id, as: :select,
+                     collection: collection,
+                     input_html: { :class => css_name },
+                     style: 'width: 80%;',
+                     dataplaceholder: 'Elternelement auswählen'  )
     end
 
     def dynamic_redirection
@@ -61,9 +65,12 @@ module Goldencobra
       @f.has_many :article_images do |ai|
         ai.input :image, as: :select,
           collection: Goldencobra::Upload.where(id: ai.object.image_id).map{|c| [c.complete_list_name, c.id]},
-          input_html: { :class => 'article_image_file chosen-select get_goldencobra_uploads_per_remote', style: 'width: 80%;', 'dataplaceholder': 'Bitte warten' }, label: "Medium waehlen", include_blank: false
+          input_html: { :class => 'article_image_file chosen-select get_goldencobra_uploads_per_remote',
+                        style: 'width: 80%;', 'dataplaceholder': 'Bitte warten' },
+          label: "Medium waehlen", include_blank: false
         ai.input :position, as: :select,
-          collection: Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip), include_blank: false
+          collection: Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip),
+          include_blank: false
         ai.input :_destroy, as: :boolean
       end
     end
@@ -82,27 +89,46 @@ module Goldencobra
     end
 
     def index__article_descendents_depth
-      @f.input :index_of_articles_descendents_depth, as: :select, collection: [["1 Ebene", "1"],["2 Ebenen", "2"],["3 Ebenen", "3"],["Alle", "all"]], include_blank: false, label: I18n.t('active_admin.articles.index.views.label4'), hint: I18n.t('active_admin.articles.index.views.hint4')
+      @f.input :index_of_articles_descendents_depth,
+        as: :select,
+        collection: [["1 Ebene", "1"],["2 Ebenen", "2"],["3 Ebenen", "3"],["Alle", "all"]],
+        include_blank: false, label: I18n.t('active_admin.articles.index.views.label4'),
+        hint: I18n.t('active_admin.articles.index.views.hint4')
     end
 
     def index__display_index_types
-      @f.input :display_index_types, label: I18n.t('active_admin.articles.index.views.label2'), hint: I18n.t('active_admin.articles.index.views.hint2'), as: :select, collection: Goldencobra::Article::DisplayIndexTypes, include_blank: false
+      @f.input :display_index_types,
+        label: I18n.t('active_admin.articles.index.views.label2'),
+        hint: I18n.t('active_admin.articles.index.views.hint2'),
+        as: :select,
+        collection: Goldencobra::Article::DisplayIndexTypes,
+        include_blank: false
     end
 
     def index__display_index_articletypes
-      @f.input :display_index_articletypes, label: I18n.t('active_admin.articles.index.views.label3'), hint: I18n.t('active_admin.articles.index.views.hint3'), as: :select, collection: ["all"] + Goldencobra::Article.article_types_for_search, include_blank: false
+      @f.input :display_index_articletypes,
+        label: I18n.t('active_admin.articles.index.views.label3'),
+        hint: I18n.t('active_admin.articles.index.views.hint3'),
+        as: :select, collection: ["all"] + Goldencobra::Article.article_types_for_search,
+        include_blank: false
     end
 
     def index__index_of_articles_tagged_with
-      @f.input :index_of_articles_tagged_with, label: "Artikel mit folgenden Tags", hint: "Auf der Übersichtsseite werden alle Artikel des gleichen Artikeltyps mit diesen Tags ausgegeben. Sind keine Tags angegeben, werden alle Artikel des gleichen Artikeltyps ausgegeben."
+      @f.input :index_of_articles_tagged_with,
+        label: "Artikel mit folgenden Tags",
+        hint: "Auf der Übersichtsseite werden alle Artikel des gleichen Artikeltyps mit diesen Tags ausgegeben. Sind keine Tags angegeben, werden alle Artikel des gleichen Artikeltyps ausgegeben."
     end
 
     def index__not_tagged_with
-      @f.input :not_tagged_with, label: "Artikel ohne folgende Tags", hint: "Artikel mit diesen Tags nicht anzeigen!"
+      @f.input :not_tagged_with,
+        label: "Artikel ohne folgende Tags",
+        hint: "Artikel mit diesen Tags nicht anzeigen!"
     end
 
     def index__sorter_limit
-      @f.input :sorter_limit, label: "Anzahl anzuzeigender Artikel", hint: "Wieviel Artikel sollen maximal auf der Übersichtsseite erscheinen?"
+      @f.input :sorter_limit,
+        label: "Anzahl anzuzeigender Artikel",
+        hint: "Wieviel Artikel sollen maximal auf der Übersichtsseite erscheinen?"
     end
 
     def index__sort_order
@@ -169,7 +195,7 @@ module Goldencobra
                         include_blank: include_blank,
                         label: label }
 
-      input_options = input_options.delete_if{|k,v| v.blank?}
+      input_options = input_options.delete_if{ |k,v| v.blank? }
       @f.input(id, input_options )
 
     end
