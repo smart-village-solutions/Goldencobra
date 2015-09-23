@@ -29,7 +29,7 @@ module Goldencobra
 
         if ActiveRecord::Base.connection.table_exists?("goldencobra_articletype_groups")
           Goldencobra::Articletype.all.each do |at|
-            # install basic set of fieldgroups and fields if no one is set up
+            # Install basic set of fieldgroups and fields if none are set up
             reset_field_blocks_for(at)
           end
         end
@@ -40,7 +40,7 @@ module Goldencobra
 
 
     def self.reset_field_blocks_for(articletype)
-      if !articletype.try(:fieldgroups).any?
+      if articletype.try(:fieldgroups).blank?
         reset_common_block(articletype)
         reset_index_block(articletype)
         reset_media_block(articletype)
@@ -84,12 +84,9 @@ module Goldencobra
 
     def self.reset_meta_block(at)
       new_a = at.fieldgroups.create(title: "Metadescriptions", position: "last_block", foldable: true, closed: true, expert: false, sorter: 3)
-      new_a.fields.create(fieldname: "breadcrumb", sorter: 1)
-      new_a.fields.create(fieldname: "metatag_title_tag", sorter: 10)
-      new_a.fields.create(fieldname: "metatag_meta_description", sorter: 20)
-      new_a.fields.create(fieldname: "metatag_open_graph_title", sorter: 30)
-      new_a.fields.create(fieldname: "metatag_open_graph_description", sorter: 40)
-      new_a.fields.create(fieldname: "robots_no_index", sorter: 80)
+      ["breadcrumb", "metatag_title_tag", "metatag_meta_description", "metatag_open_graph_title", "metatag_open_graph_description", "robots_no_index"].each_with_index do |index, name|
+        new_a.fields.create(fieldname: name, sorter: index * 10)
+      end
     end
 
 
