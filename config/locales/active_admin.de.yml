@@ -32,11 +32,11 @@ de:
     sessions:
       login:
         link1: "abmelden"
-        label_email: "E-Mail Adresse"
+        label_email: "E-Mail"
         label_password: "Passwort"
         submit: "Login"
     register:
-      label_email: "E-Mail Adresse *"
+      label_email: "E-Mail *"
       label_username: 'Benutzername *'
       label_password: 'Passwort *'
       label_pass_confirmation: 'Passwort bestätigen *'
@@ -58,6 +58,9 @@ de:
         sign_up: "Registrieren"
         forgot_your_password: "Passwort vergessen?"
         resend_unlock_instructions: "E-Mail zum Entsperren neu zuschicken"
+      unlock:
+        title: "E-Mail zum Entsperren neu zuschicken"
+        submit: "E-Mail zum Entsperren senden"
     edit: "Bearbeiten"
     delete: "Löschen"
     delete_confirmation: "Wollen Sie dieses Element wirklich löschen?"
