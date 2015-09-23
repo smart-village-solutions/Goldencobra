@@ -27,7 +27,7 @@ module Goldencobra
 
     def parent_id
       css_name = "get_goldencobra_articles_per_remote" + (@f.object.startpage ? ' include_blank_true ' : ' include_blank_false ')
-      collection = Goldencobra::Article.where("id = ?", @f.object.parent_id).select([:id,:title, :ancestry]).map{|c| [c.parent_path, c.id]}.sort{|a,b| a[0] <=> b[0]}
+      collection = [[@f.object.try(:parent).try(:parent_path), @f.object.try(:parent).try(:id)]]
       input_form_for(:parent_id, as: :select,
                      collection: collection,
                      input_html: { :class => css_name },
