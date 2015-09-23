@@ -24,7 +24,7 @@ ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
         fg.input :sorter, :hint => I18n.t('active_admin.articletypes.sorter_hint')
         fg.input :_destroy, :as => :boolean
         fg.has_many :fields do |fo|
-          fo.input :fieldname, :as => :select, :collection => Goldencobra::Articletype::ArticleFieldOptions.keys.select{|a| (!a.to_s.starts_with?("index__") || f.object.name.include?(" Index") )}, :include_blank => false
+          fo.input :fieldname, :as => :select, :collection => Goldencobra::Articletype::ArticleFieldOptions.select{|a| (!a.to_s.starts_with?("index__") || f.object.name.include?(" Index") )}, :include_blank => false
           fo.input :sorter
           fo.input :_destroy, :as => :boolean
         end
@@ -33,11 +33,11 @@ ActiveAdmin.register Goldencobra::Articletype, :as => "Articletype" do
     if f.object.present? && !f.object.new_record? && File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.name.underscore.parameterize.downcase}/_edit_articletype.html.erb")
       render :partial => "articletypes/#{f.object.name.underscore.parameterize.downcase}/edit_articletype", :locals => {:f => f}
     end
-	  ::Rails::Engine.subclasses.map(&:instance).select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
-	  	if File.exists?("#{engine.root}/app/views/layouts/#{engine.engine_name}/_edit_articletype.html.erb")
-	  	  render :partial => "layouts/#{engine.engine_name}/edit_articletype", :locals => {:f => f, :engine => engine}
-	  	end
-		end
+    ::Rails::Engine.subclasses.map(&:instance).select{|a| a.engine_name.include?("goldencobra")}.each do |engine|
+      if File.exists?("#{engine.root}/app/views/layouts/#{engine.engine_name}/_edit_articletype.html.erb")
+        render :partial => "layouts/#{engine.engine_name}/edit_articletype", :locals => {:f => f, :engine => engine}
+      end
+    end
     f.actions
   end
 
