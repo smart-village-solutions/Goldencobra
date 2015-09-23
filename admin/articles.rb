@@ -198,8 +198,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   sidebar :overview, only: [:index] do
     #calls collection_action :load_overviewtree_as_json
-    render partial: "/goldencobra/admin/shared/react_overview",
-    locals: {
+    render partial: "/goldencobra/admin/shared/react_overview", locals: {
       object_class: "Goldencobra::Article",
       link_name: "url_name",
       url_path: "article",
