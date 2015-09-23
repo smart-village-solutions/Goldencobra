@@ -141,6 +141,9 @@ module Goldencobra
       end
     end
 
+    def self.default_position
+      Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).first
+    end
 
     private
 
