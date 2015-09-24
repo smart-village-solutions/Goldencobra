@@ -30,6 +30,8 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   form :html => { :enctype => "multipart/form-data" }  do |f|
+    articletype_presenter = Goldencobra::ArticletypePresenter.new(f, f.object.articletype)
+
     if f.object.new_record?
       if f.object.parent.present?
         panel "Neuen Unterartikel anlegen unterhalb von #{f.object.parent.title} (#{f.object.parent.url_name})" do
@@ -50,7 +52,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         f.object.articletype.fieldgroups.where(:position => "first_block").each do |atg|
           f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
             atg.fields.each do |atgf|
-              ActionController::Base.new().render_to_string( :inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f } )
+              articletype_presenter.send(atgf.fieldname.to_sym)
             end
             f.input :id, :as => :hidden
           end
@@ -72,7 +74,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
           end
         end
 
-      #render Index Options if articletype == Index
+        #render Index Options if articletype == Index
       elsif f.object.kind_of_article_type.downcase == "index"
 
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_index.html.erb")
@@ -94,7 +96,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         f.object.articletype.fieldgroups.where(:position => "last_block").each do |atg|
           f.inputs atg.title, :class => "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
             atg.fields.each do |atgf|
-              ActionController::Base.new().render_to_string(:inline => Goldencobra::Articletype::ArticleFieldOptions[atgf.fieldname.to_sym], :locals => { :f => f })
+              articletype_presenter.send(atgf.fieldname.to_sym)
             end
             f.input :id, :as => :hidden
           end
@@ -196,13 +198,12 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   sidebar :overview, only: [:index] do
     #calls collection_action :load_overviewtree_as_json
-    render partial: "/goldencobra/admin/shared/react_overview",
-           locals: {
-             object_class: "Goldencobra::Article",
-             link_name: "url_name",
-             url_path: "article",
-             order_by: "url_name"
-           }
+    render partial: "/goldencobra/admin/shared/react_overview", locals: {
+      object_class: "Goldencobra::Article",
+      link_name: "url_name",
+      url_path: "article",
+      order_by: "url_name"
+    }
   end
 
 
@@ -371,7 +372,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
       articles = Rails.cache.fetch(cache_key) do
         Goldencobra::Article.find(params[:root_id])
-          .children.reorder(:url_name).as_json(only: [:id, :url_path, :title, :url_name],
+        .children.reorder(:url_name).as_json(only: [:id, :url_path, :title, :url_name],
                                              methods: [:has_children, :restricted])
       end
     else
@@ -390,7 +391,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
     def show
       show! do |format|
-         format.html { redirect_to edit_admin_article_path(@article.id)}
+        format.html { redirect_to edit_admin_article_path(@article.id)}
       end
     end
 
@@ -414,7 +415,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
           end
           flash[:error] += "</ul>"
         end
-         format.html { redirect_to edit_admin_article_path(@article.id) }
+        format.html { redirect_to edit_admin_article_path(@article.id) }
       end
     end
 
@@ -440,7 +441,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   #action_item :only => :index do
-    #link_to(I18n.t('active_admin.articles.action_item.link_to.import'), new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
+  #link_to(I18n.t('active_admin.articles.action_item.link_to.import'), new_admin_import_path(:target_model => "Goldencobra::Article"), :class => "importer")
   #end
 
 
