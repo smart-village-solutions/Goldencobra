@@ -76,7 +76,7 @@ var NavigationList = React.createClass({displayName: 'NavigationList',
   render: function () {
     var that = this;
     var setActive = function (item) {
-      var index = that.state.activePath.indexOf(item.id);
+      var index = that.state.activePath !== undefined ? that.state.activePath.indexOf(item.id) : -1
       if (index !== -1) {
         return (index == that.state.activePath.length - 1 ? ' active' : ' has_active_child');
       } else {
