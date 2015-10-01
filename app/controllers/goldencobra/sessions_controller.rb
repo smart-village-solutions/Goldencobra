@@ -1,3 +1,5 @@
+require "bcrypt"
+
 module Goldencobra
   class SessionsController < Goldencobra::ApplicationController
     layout "application"
