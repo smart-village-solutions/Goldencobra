@@ -1,16 +1,18 @@
-# encoding: utf-8
-
 module Goldencobra
   class SessionsController < Goldencobra::ApplicationController
     layout "application"
 
-
     def login
       @errors = []
-      if params[:usermodel] && params[:usermodel].constantize && params[:usermodel].constantize.present? && params[:usermodel].constantize.attribute_method?(:email)
-        @usermodel = params[:usermodel].constantize.find_by_email(params[:loginmodel][:email])
-        unless @usermodel && params[:usermodel].constantize.attribute_method?(:username)
-          @usermodel = params[:usermodel].constantize.find_by_username(params[:loginmodel][:email])
+      if params[:usermodel] && params[:usermodel].constantize &&
+         params[:usermodel].constantize.present? &&
+         params[:usermodel].constantize.attribute_method?(:email)
+        # search for user/visitor per email address
+        @usermodel = params[:usermodel].constantize.where(email: params[:loginmodel][:email]).first
+        if @usermodel.blank? && params[:usermodel].constantize.attribute_method?(:username)
+          # if not found, search for visitor per email address
+          # only visitor has attribute_method "username"
+          @usermodel = params[:usermodel].constantize.where(username: params[:loginmodel][:email]).first
         end
       end
 
@@ -33,9 +35,10 @@ module Goldencobra
       end
     end
 
-
     def logout
-      if params[:usermodel] && params[:usermodel].constantize && params[:usermodel].constantize.present? && params[:usermodel].constantize.attribute_method?(:email)
+      if params[:usermodel] && params[:usermodel].constantize &&
+         params[:usermodel].constantize.present? &&
+         params[:usermodel].constantize.attribute_method?(:email)
         sign_out
         reset_session
         flash[:notice] = I18n.translate("signed_out", :scope => ["devise", "sessions"])
@@ -47,11 +50,7 @@ module Goldencobra
       end
     end
 
-
     def register
-
     end
-
-
   end
 end
