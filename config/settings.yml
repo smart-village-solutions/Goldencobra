@@ -52,3 +52,9 @@ goldencobra:
   backend:
     index:
       download_links: "true"
+  html_textarea:
+    editor: "tinymce-v3"
+    tinymce_v3_setup_tags: "p, h1, h2, h3, div"
+    tinymce_v3_setup_buttons: "formatselect, bold, italic, underline, strikethrough, |, bullist, numlist, blockquote, |, pastetext, pasteword, |, undo, redo, |, link, unlink, code, fullscreen"
+    tinymce_v4_setup_tags: "p, h1, h2, h3, div"
+    tinymce_v4_setup_buttons: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
