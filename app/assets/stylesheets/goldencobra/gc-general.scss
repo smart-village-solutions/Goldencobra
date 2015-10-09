@@ -1,10 +1,7 @@
-body {
-  min-width: 980px;
-}
+$dark-color: #222d32;
 
-#dashboard_article_search_chosen{
-  width:100% !important;
-}
+body { min-width: 980px; }
+#dashboard_article_search_chosen { width:100% !important; }
 
 body.logged_out #login {
   #user_email_input label,
@@ -12,13 +9,22 @@ body.logged_out #login {
     padding: 0 3px 7px 0;
   }
 
-  form fieldset ol > li label { width: 32%; }
+  form fieldset ol > li label {
+    width: 32%;
+    color: $dark-color;
+  }
+
   form fieldset > ol > li.boolean label { padding-left: 32%; }
 
   form fieldset input[type="text"],
   form fieldset input[type="email"],
   form fieldset input[type="password"] {
     width: 62%;
+  }
+
+  h2 {
+    background: #222d32;
+    font-weight: normal;
   }
 }
 
@@ -105,6 +111,7 @@ div#goldencobra_image_maganger {
 }
 
 #title_bar { padding-left: 160px; }
+#title_bar h2 { color: $dark-color; }
 
 // div#main_content h3 { margin-left: 10px; }
 // a.button { margin-left: 10px; }
@@ -323,7 +330,7 @@ div.has_many.vita_steps li.input {
 body.active_admin form input[type="submit"] {
   display: inline-block;
   margin-right: 3px;
-  padding: 7px 16px 6px;
+  padding: 7px 11px 6px;
   cursor: pointer;
 
   background-color: #29c172;
@@ -332,7 +339,7 @@ body.active_admin form input[type="submit"] {
 
   border-color: #63A62F #63A62F #5B992B;
   border-image: none;
-  border-radius: 200px 200px 200px 200px;
+  border-radius: 4px;
   border-style: solid;
   border-width: 1px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 #96CA6D inset;
@@ -340,7 +347,7 @@ body.active_admin form input[type="submit"] {
   color: #FFFFFF;
   font-family: Helvetica,Arial,sans-serif;
   font-size: 1em;
-  font-weight: bold;
+  font-weight: normal;
   line-height: 12px;
   text-shadow: 0 -1px 0 #4C9021;
   text-decoration: none;
@@ -351,6 +358,49 @@ body.active_admin form input[type="submit"]:hover:not(.disabled) {
   background: -moz-linear-gradient(center top , #39d584, #219b5c);
   background: -webkit-gradient(linear, left top, left bottom, from(#39d584), to(#219b5c));
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 0 0 #8DBF67 inset;
+}
+
+form.filter_form a.clear_filters_btn,
+#title_bar .action_items span.action_item > a,
+#title_bar .action_items span.action_item > .dropdown_menu > a,
+.dropdown_menu .dropdown_menu_button,
+form fieldset.buttons li.cancel a,
+form fieldset.actions li.cancel a,
+a.button,
+a:link.button,
+a:visited.button,
+input[type=submit],
+input[type=button],
+button {
+  border-radius: 4px;
+}
+
+form.filter_form a.clear_filters_btn,
+form fieldset.buttons li.cancel a,
+form fieldset.actions li.cancel a,
+a.button,
+a:link.button,
+a:visited.button,
+input[type=submit],
+input[type=button],
+button {
+  padding: 7px 11px 6px;
+  font-weight: normal;
+}
+
+#title_bar .action_items span.action_item > a,
+#title_bar .action_items span.action_item > .dropdown_menu > a {
+  padding: 12px 10px 10px;
+}
+
+.table_tools_segmented_control li:first-child a {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.table_tools_segmented_control li:last-child a {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 li.response_200 {
@@ -393,11 +443,6 @@ form fieldset ol > li.stringish label { line-height: 29px; }
 body.active_admin form > fieldset { padding: 0px; }
 body.active_admin form fieldset > ol > li.boolean { height: 2.5em; }
 body.active_admin form fieldset > ol > li p.inline-errors { text-transform: none; }
-
-li.hidden_label > label {
-  display:none;
-}
-
-li.hidden_label > .chosen-container {
-  margin-left: 20%;
-}
+li.hidden_label > label { display: none; }
+li.hidden_label > .chosen-container { margin-left: 20%; }
+.pagination span.page.current { background: $dark-color; }
