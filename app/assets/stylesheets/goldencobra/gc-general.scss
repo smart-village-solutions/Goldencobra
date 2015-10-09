@@ -371,7 +371,10 @@ a:link.button,
 a:visited.button,
 input[type=submit],
 input[type=button],
-button {
+button,
+form input[type="submit"],
+form input[type="button"],
+form button {
   border-radius: 4px;
 }
 
@@ -438,7 +441,12 @@ ul.link_checker_ul {
 form > fieldset > ol > .has_many { background-color: grey; }
 form > fieldset > ol > .has_many > h3 { color: #FFF; }
 form fieldset ol > li { padding: 5px 10px; }
-form fieldset > ol > li p.inline-hints { margin-top: 2px; }
+
+form fieldset > ol > li p.inline-hints {
+  margin-top: 2px;
+  clear: right;
+}
+
 form fieldset ol > li.stringish label { line-height: 29px; }
 body.active_admin form > fieldset { padding: 0px; }
 body.active_admin form fieldset > ol > li.boolean { height: 2.5em; }
@@ -446,3 +454,10 @@ body.active_admin form fieldset > ol > li p.inline-errors { text-transform: none
 li.hidden_label > label { display: none; }
 li.hidden_label > .chosen-container { margin-left: 20%; }
 .pagination span.page.current { background: $dark-color; }
+
+.mce-tinymce { float: right !important; }
+
+.cke {
+  float: right;
+  width: 79.7% !important;
+}
