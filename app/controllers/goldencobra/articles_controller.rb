@@ -45,7 +45,7 @@ module Goldencobra
         end
       elsif request.format == "image/jpeg"  || request.format == "image/png"
         respond_to do |format|
-          format.html { render render text: "404", status: 404 }
+          format.html { render text: "404", status: 404 }
         end
       elsif serve_basic_article?
         initialize_article(@article)
