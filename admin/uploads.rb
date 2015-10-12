@@ -23,28 +23,29 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
 
   form html: { enctype: "multipart/form-data" }  do |f|
     f.actions
-    f.inputs I18n.t('active_admin.uploads.file') do
-      f.input :image, as: :file, hint: I18n.t('active_admin.uploads.file_hint')
-      f.input :image_url, hint: I18n.t('active_admin.uploads.file_url_hint')
+    f.inputs I18n.t("active_admin.uploads.file") do
+      f.input :image, as: :file, hint: I18n.t("active_admin.uploads.file_hint")
+      f.input :image_url, hint: I18n.t("active_admin.uploads.file_url_hint")
       if f.object && f.object.image_content_type.present?
-        f.input :image_content_type, hint: I18n.t('active_admin.uploads.content_type_hint')
+        f.input :image_content_type, hint: I18n.t("active_admin.uploads.content_type_hint")
       end
       f.input :id, as: :hidden
     end
-    f.inputs I18n.t('active_admin.uploads.preview') do
+    f.inputs I18n.t("active_admin.uploads.preview") do
       image_tag(f.object.image(:large), id: "image_crop") if f.object && f.object.image.present?
     end
-    f.inputs I18n.t('active_admin.uploads.photo') do
-      f.input :crop_image, as: :boolean, hint: I18n.t('active_admin.uploads.photo_hint')
+    f.inputs I18n.t("active_admin.uploads.photo") do
+      f.input :crop_image, as: :boolean, hint: I18n.t("active_admin.uploads.photo_hint")
     end
-    f.inputs I18n.t('active_admin.uploads.data') do
+    f.inputs I18n.t("active_admin.uploads.data") do
       f.object.image_file_name
     end
-    f.inputs I18n.t('active_admin.uploads.general') do
+    f.inputs I18n.t("active_admin.uploads.general") do
       f.input :source
       f.input :rights
-      f.input :tag_list, hint: I18n.t('active_admin.uploads.general_hint'), label: I18n.t('active_admin.uploads.general_label')
-      f.input :description, input_html: { class: "tinymce", rows: 3 }
+      f.input :tag_list, hint: I18n.t("active_admin.uploads.general_hint"),
+              label: I18n.t("active_admin.uploads.general_label")
+      f.input :description, input_html: { class: "html-textarea", rows: 3 }
       f.input :alt_text
       f.input :sorter_number
       f.input :crop_x, as: :hidden
@@ -52,8 +53,8 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
       f.input :crop_w, as: :hidden
       f.input :crop_h, as: :hidden
     end
-    f.inputs I18n.t('active_admin.uploads.js'), class: "hide" do
-      render partial: '/goldencobra/admin/uploads/jcrop'
+    f.inputs I18n.t("active_admin.uploads.js"), class: "hide" do
+      render partial: "/goldencobra/admin/uploads/jcrop"
     end
     f.actions
   end
@@ -61,45 +62,45 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
   index download_links: proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column :id
-    column I18n.t('active_admin.uploads.url') do |upload|
+    column I18n.t("active_admin.uploads.url") do |upload|
       result = ""
       result << upload.image.url
     end
     # column :source, sortable: :source do |upload|
     # 	truncate(upload.source, length: 20)
     # end
-    column t(I18n.t('active_admin.uploads.preview1')) do |upload|
+    column t(I18n.t("active_admin.uploads.preview1")) do |upload|
       image_tag(upload.image(:mini))
     end
     column :created_at, sortable: :created_at do |upload|
     	l(upload.created_at, format: :short)
 	  end
     column :sorter_number
-    column I18n.t('active_admin.uploads.tags') do |upload|
+    column I18n.t("active_admin.uploads.tags") do |upload|
       upload.tag_list
     end
-	  column I18n.t('active_admin.uploads.zip') do |upload|
+	  column I18n.t("active_admin.uploads.zip") do |upload|
 	    if upload.image_file_name && upload.image_file_name.include?(".zip")
-	      link_to(raw(I18n.t('active_admin.uploads.pack')), unzip_file_admin_upload_path(upload))
+	      link_to(raw(I18n.t("active_admin.uploads.pack")), unzip_file_admin_upload_path(upload))
       else
         "-"
 	    end
 	  end
     column "" do |upload|
       result = ""
-      result += link_to(t(:view), admin_upload_path(upload), class: "member_link edit_link view", title: I18n.t('active_admin.uploads.title1'))
-      result += link_to(t(:edit), edit_admin_upload_path(upload), class: "member_link edit_link edit", title: I18n.t('active_admin.uploads.title2'))
-      result += link_to(t(:delete), admin_upload_path(upload), method: :DELETE, "data-confirm" => t("delete_article", scope: [:goldencobra, :flash_notice]), class: "member_link delete_link delete", title: I18n.t('active_admin.uploads.title3'))
+      result += link_to(t(:view), admin_upload_path(upload), class: "member_link edit_link view", title: I18n.t("active_admin.uploads.title1"))
+      result += link_to(t(:edit), edit_admin_upload_path(upload), class: "member_link edit_link edit", title: I18n.t("active_admin.uploads.title2"))
+      result += link_to(t(:delete), admin_upload_path(upload), method: :DELETE, "data-confirm" => t("delete_article", scope: [:goldencobra, :flash_notice]), class: "member_link delete_link delete", title: I18n.t("active_admin.uploads.title3"))
       raw(result)
     end
   end
 
   show do
     attributes_table do
-      row I18n.t('active_admin.uploads.preview_row') do
+      row I18n.t("active_admin.uploads.preview_row") do
           image_tag(upload.image(:thumb))
       end
-      row I18n.t('active_admin.uploads.original_row') do
+      row I18n.t("active_admin.uploads.original_row") do
         link_to("http://#{Goldencobra::Setting.for_key("goldencobra.url").html_safe}" + upload.image(:original),upload.image(:original), target: "_blank" )
       end
       Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |image_size|
@@ -121,15 +122,15 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
 
   sidebar :image_formates do
     ul do
-      li I18n.t('active_admin.uploads.format_original')
-      li I18n.t('active_admin.uploads.format_large')
-      li I18n.t('active_admin.uploads.format_big')
-      li I18n.t('active_admin.uploads.format_medium')
-      li I18n.t('active_admin.uploads.format_px250')
-      li I18n.t('active_admin.uploads.format_px200')
-      li I18n.t('active_admin.uploads.format_px150')
-      li I18n.t('active_admin.uploads.format_thumb')
-      li I18n.t('active_admin.uploads.format_mini')
+      li I18n.t("active_admin.uploads.format_original")
+      li I18n.t("active_admin.uploads.format_large")
+      li I18n.t("active_admin.uploads.format_big")
+      li I18n.t("active_admin.uploads.format_medium")
+      li I18n.t("active_admin.uploads.format_px250")
+      li I18n.t("active_admin.uploads.format_px200")
+      li I18n.t("active_admin.uploads.format_px150")
+      li I18n.t("active_admin.uploads.format_thumb")
+      li I18n.t("active_admin.uploads.format_mini")
     end
   end
 
@@ -138,21 +139,21 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
   member_action :unzip_file do
     upload = Goldencobra::Upload.find(params[:id])
     upload.unzip_files
-    redirect_to action: :index, notice: I18n.t('active_admin.uploads.unzip_notice')
+    redirect_to action: :index, notice: I18n.t("active_admin.uploads.unzip_notice")
   end
 
   action_item :unzip, only: [:edit, :show] do
     if resource.image_file_name && resource.image_file_name.include?(".zip")
-      link_to('Zip-Datei entpacken', unzip_file_admin_upload_path(resource), target: "_blank")
+      link_to("Zip-Datei entpacken", unzip_file_admin_upload_path(resource), target: "_blank")
     end
    end
 
   action_item :prev_item, only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/prev_item'
+    render partial: "/goldencobra/admin/shared/prev_item"
   end
 
   action_item :next_item, only: [:edit, :show] do
-    render partial: '/goldencobra/admin/shared/next_item'
+    render partial: "/goldencobra/admin/shared/next_item"
   end
 
   controller do
