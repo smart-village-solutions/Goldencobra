@@ -72,8 +72,9 @@ module Goldencobra
           @f.input :widgets,
             as: :select,
             collection: Goldencobra::Widget.tagged_with(wtag),
-            input_html: { :class => 'chosen-select', style: 'width: 80%; margin-left:20%' },
-            wrapper_html: { :class => "hidden_label"}
+            input_html: { :class => "chosen-select", style: "width: 80%; margin-left:20%",
+                          "data-placeholder" => "Widgets auswählen" },
+            wrapper_html: { :class => "hidden_label" }
         end
       end
     end

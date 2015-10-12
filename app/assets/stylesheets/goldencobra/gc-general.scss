@@ -376,6 +376,13 @@ form input[type="submit"],
 form input[type="button"],
 form button {
   border-radius: 4px;
+
+  .mce-tinymce & { border-radius: 0; }
+
+  &.has_many_add,
+  &.has_many_remove {
+    background: $dark-color;
+  }
 }
 
 form.filter_form a.clear_filters_btn,
@@ -389,6 +396,23 @@ input[type=button],
 button {
   padding: 7px 11px 6px;
   font-weight: normal;
+}
+
+a.button:hover:not(.disabled),
+a.button:link:hover:not(.disabled),
+a.button:visited:hover:not(.disabled),
+input[type="submit"]:hover:not(.disabled),
+input[type="button"]:hover:not(.disabled),
+button:hover:not(.disabled),
+form input[type="submit"]:hover:not(.disabled),
+form input[type="button"]:hover:not(.disabled),
+form button:hover:not(.disabled) {
+  background: inherit;
+
+  &.has_many_add,
+  &.has_many_remove {
+    background: lighten($dark-color, 8%);
+  }
 }
 
 #title_bar .action_items span.action_item > a,

@@ -35,11 +35,13 @@
 
   ul.tabs > li.has_nested.current > a,
   ul.tabs > li.has_nested:hover > a,
-  ul.tabs > li:hover > a {
+  ul.tabs > li:hover > a,
+  ul.tabs > li.current > a {
     color: $dark-color;
     background-color: #fff;
     text-shadow: none;
   }
 
+  ul.tabs > li ul li.current a { color: #fff; }
   #utility_nav a:hover { color: $dark-color; }
 }
