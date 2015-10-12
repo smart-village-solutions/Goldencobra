@@ -28,7 +28,7 @@ $(function () {
   }
 
   // Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
-  // hole alle Goldencobra:Article :id,:title, :ancestry
+  // hole alle Goldencobra:Article :id, :title, :ancestry
   var $select_parent_articles = $('.get_goldencobra_articles_per_remote');
   if ($select_parent_articles.length){
     $.ajax({
@@ -42,7 +42,15 @@ $(function () {
 
       $this.outerHTML = "<div id='react-" + thisId + "'></div>";
       React.render(
-        React.createElement(SelectList, {id: thisId, value: selectedParentId, options: data, name: thisName, className: className, firstBlank: true}),
+        React.createElement(SelectList, {
+          id: thisId,
+          value: selectedParentId,
+          options: data,
+          name: thisName,
+          className: className,
+          firstBlank: true,
+          dataPlaceholder: "Artikel wählen"
+        }),
         document.getElementById('react-' + thisId)
       );
 

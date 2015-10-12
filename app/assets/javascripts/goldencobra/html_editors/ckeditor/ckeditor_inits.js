@@ -9,9 +9,9 @@ function initCKEditor() {
     jsTag.type = 'text/javascript';
     jsTag.src = '/assets/goldencobra/html_editors/ckeditor/adapters/jquery.js';
     document.getElementsByTagName('head')[0].appendChild(jsTag);
-  }, 100);
+  }, 200);
 
   setTimeout(function () {
     $('textarea.html-textarea').ckeditor();
-  }, 500);
+  }, 700);
 }
