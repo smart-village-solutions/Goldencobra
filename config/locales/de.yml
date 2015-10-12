@@ -24,6 +24,8 @@ de:
       frontend_tag_list: "Hier eingetragene Begriffe können auf &Uuml;bersichtsseiten als Filteroptionen angeboten werden."
       active_since: "Wenn der Artikel online ist, seit wann ist er online? Bsp: 02.10.2011 15:35"
       context_info: ""
+      content: "Inhalt des Artikels"
+      subtitle: ""
       metatags_name: "Hier k&ouml;nnen Sie die verschiedenen Metatags definieren, sowie alle Einstellungen f&uuml;r den OpenGraph vonehmen"
       metatags_destroy: "hiermit werden die Werte entfernt bzw. auf ihren Ursprung zurückgesetzt"
       breadcrumb: "Kurztitel f&uuml;r die Breadcrumb-Navigation"

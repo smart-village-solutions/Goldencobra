@@ -8,7 +8,7 @@ module Goldencobra
     end
 
     def content
-      input_form_for(:content, input_html: { :class => "tinymce" } )
+      input_form_for(:content, input_html: { class: "html-textarea" } )
     end
 
     def teaser
@@ -24,7 +24,7 @@ module Goldencobra
     end
 
     def context_info
-      input_form_for(:context_info, input_html: { :class => "tinymce" } )
+      input_form_for(:context_info, input_html: { class: "html-textarea" } )
     end
 
     def tag_list
@@ -40,25 +40,28 @@ module Goldencobra
     end
 
     def parent_id
-      css_name = "get_goldencobra_articles_per_remote" + (@f.object.startpage ? ' include_blank_true ' : ' include_blank_false ')
+      css_name = "get_goldencobra_articles_per_remote" +
+                 (@f.object.startpage ? " include_blank_true " : " include_blank_false ")
       collection = [[@f.object.try(:parent).try(:parent_path), @f.object.try(:parent).try(:id)]]
       input_form_for(:parent_id, as: :select,
                      collection: collection,
                      input_html: { :class => css_name },
-                     style: 'width: 80%;',
-                     dataplaceholder: 'Elternelement auswählen'  )
+                     style: "width: 80%;",
+                     dataplaceholder: "Elternelement auswählen")
     end
 
     def dynamic_redirection
-      collection = Goldencobra::Article::DynamicRedirectOptions.map{|a| [a[1], a[0]]}
-      input_form_for(:dynamic_redirection, as: :select, collection: collection, include_blank: false)
+      collection = Goldencobra::Article::DynamicRedirectOptions.map{ |a| [a[1], a[0]] }
+      input_form_for(:dynamic_redirection, as: :select, collection: collection,
+        include_blank: false)
     end
 
     def permissions
       @f.has_many :permissions do
         p.input :domain, include_blank: "Alle"
         p.input :role, include_blank: "Alle"
-        p.input :action, as: :select, collection: Goldencobra::Permission::PossibleActions, include_blank: false
+        p.input :action, as: :select, collection: Goldencobra::Permission::PossibleActions,
+                include_blank: false
         p.input :_destroy, as: :boolean
       end
     end
@@ -69,8 +72,9 @@ module Goldencobra
           @f.input :widgets,
             as: :select,
             collection: Goldencobra::Widget.tagged_with(wtag),
-            input_html: { :class => 'chosen-select', style: 'width: 80%; margin-left:20%' },
-            wrapper_html: { :class => "hidden_label"}
+            input_html: { :class => "chosen-select", style: "width: 80%; margin-left:20%",
+                          "data-placeholder" => "Widgets auswählen" },
+            wrapper_html: { :class => "hidden_label" }
         end
       end
     end
@@ -78,10 +82,11 @@ module Goldencobra
     def article_images
       @f.has_many :article_images do |ai|
         ai.input :image, as: :select,
-          collection: Goldencobra::Upload.where(id: ai.object.image_id).map{|c| [c.complete_list_name, c.id]},
-          input_html: { :class => 'article_image_file chosen-select get_goldencobra_uploads_per_remote',
-                        style: 'width: 80%;', 'dataplaceholder': 'Bitte warten' },
-          label: "Medium waehlen", include_blank: false
+          collection: Goldencobra::Upload.where(id: ai.object.image_id).map{ |c| [c.complete_list_name, c.id] },
+          input_html: { class: "article_image_file chosen-select get_goldencobra_uploads_per_remote",
+                        style: "width: 80%;", "data-placeholder" => "Bitte warten" },
+          label: "Medium waehlen",
+          include_blank: false
         ai.input :position, as: :select,
           collection: Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip),
           include_blank: false
@@ -89,9 +94,8 @@ module Goldencobra
       end
     end
 
-
     # Index Methods
-
+    #
     def index__article_for_index_id
       collection = Goldencobra::Article.articles_for_index_selecetion
       @f.input :article_for_index_id, label: I18n.t('active_admin.articles.index.views.label1'),
@@ -157,8 +161,6 @@ module Goldencobra
       @f.input :reverse_sort, hint: "Soll absteigend sortiert werden? Standard: aufsteigend"
     end
 
-
-
     # Alle nicht vom default abweichenden Artikel Methoden werden herüber abgefangen
     def method_missing(method_name, *arguments, &block)
       if @f.object.respond_to?(method_name)
@@ -167,7 +169,6 @@ module Goldencobra
         super
       end
     end
-
 
     # Deprecated Methods
 
@@ -187,7 +188,6 @@ module Goldencobra
       warn("Deprecated method author")
     end
 
-
     private
 
     def input_form_for(id, options={})
@@ -200,7 +200,8 @@ module Goldencobra
       include_blank = options[:include_blank] || nil
       label = options[:label] || nil
 
-      input_options = { hint: hint,
+      input_options = {
+                        hint: hint,
                         input_html: input_html,
                         as: display_as,
                         collection: collection,
@@ -210,12 +211,11 @@ module Goldencobra
                         label: label
                       }
 
-      input_options = input_options.delete_if{ |k,v| v.blank? }
+      input_options = input_options.delete_if{ |k, v| v.blank? }
       @f.input(id, input_options )
 
     end
 
     attr_reader :articletype
-
   end
 end
