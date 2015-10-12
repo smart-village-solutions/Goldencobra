@@ -16,7 +16,7 @@ module Goldencobra
     end
 
     def summary
-      input_form_for(:summary, input_html: { rows: 5 } )
+      input_form_for(:summary, input_html: { rows: 5, class: "html-textarea" } )
     end
 
     def active_since
