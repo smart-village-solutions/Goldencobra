@@ -28,7 +28,8 @@ var SelectList = React.createClass({
           className: this.props.className + ' select-list reacted',
           id: this.props.id, style: { width: '80%' },
           value: this.props.value,
-          name: this.props.name
+          name: this.props.name,
+          "data-placeholder": this.props.dataPlaceholder
         },
         emptyOption,
         optionNodes
