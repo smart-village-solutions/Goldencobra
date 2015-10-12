@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Goldencobra
   class ArticletypePresenter < Goldencobra::BasePresenter
     def initialize(f, articletype)
@@ -23,6 +25,18 @@ module Goldencobra
 
     def context_info
       input_form_for(:context_info, input_html: { :class => "tinymce" } )
+    end
+
+    def tag_list
+      @f.input :tag_list,
+        hint: I18n.t("goldencobra.article_field_hints.tag_list"),
+        input_html: { value: @f.object.tag_list.join(", ") }
+    end
+
+    def frontend_tag_list
+      @f.input :frontend_tag_list,
+        hint: I18n.t("goldencobra.article_field_hints.frontend_tag_list"),
+        input_html: { value: @f.object.frontend_tag_list.join(", ") }
     end
 
     def parent_id
@@ -193,7 +207,8 @@ module Goldencobra
                         style: style,
                         dataplaceholder: dataplaceholder,
                         include_blank: include_blank,
-                        label: label }
+                        label: label
+                      }
 
       input_options = input_options.delete_if{ |k,v| v.blank? }
       @f.input(id, input_options )

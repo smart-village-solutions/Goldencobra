@@ -6,9 +6,20 @@ body {
   width:100% !important;
 }
 
-#login #user_email_input label,
-#login #user_password_input label {
-  padding: 0 3px 7px 0;
+body.logged_out #login {
+  #user_email_input label,
+  #user_password_input label {
+    padding: 0 3px 7px 0;
+  }
+
+  form fieldset ol > li label { width: 32%; }
+  form fieldset > ol > li.boolean label { padding-left: 32%; }
+
+  form fieldset input[type="text"],
+  form fieldset input[type="email"],
+  form fieldset input[type="password"] {
+    width: 62%;
+  }
 }
 
 #active_admin_content { overflow: hidden; }
