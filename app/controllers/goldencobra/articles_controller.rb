@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
 
@@ -28,10 +26,9 @@ module Goldencobra
       return Zlib.crc32(generated_cache_key).to_s
     end
 
-
     def show
-      ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)  #Possible Callbacks on start
-      before_init #Possible Callbacks on start
+      ActiveSupport::Notifications.instrument("goldencobra.article.show", params: params)
+      before_init # possible callbacks on start
       params[:session] = session.clone
       params[:session].delete(:user_location)
       Goldencobra::Article::LiquidParser["url_params"] = params
@@ -62,7 +59,7 @@ module Goldencobra
 
         if serve_fresh_page?
           set_expires_in
-          ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
+          ActiveSupport::Notifications.instrument("goldencobra.article.render", params: params)
           before_render
           respond_to do |format|
             format.html { render layout: choose_layout }
@@ -138,8 +135,6 @@ module Goldencobra
         end
       end
     end
-
-
 
     # ------------------ Redirection ------------------------------------------
     def get_redirectors
@@ -276,7 +271,6 @@ module Goldencobra
       end
     end
 
-
     def article_by_role
       # Admin should get preview of article even if it's offline
       if current_user && current_user.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
@@ -301,7 +295,6 @@ module Goldencobra
         end
       end
     end
-
 
     def is_startpage?
       startpage = params[:startpage]
@@ -362,6 +355,5 @@ module Goldencobra
     def analytics
       Goldencobra::Tracking.analytics(request, session[:user_location])
     end
-
   end
 end
