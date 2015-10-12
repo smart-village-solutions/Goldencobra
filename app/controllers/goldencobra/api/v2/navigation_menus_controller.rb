@@ -209,6 +209,7 @@ module Goldencobra
           if current_menue.blank?
             # Try for a path without last element
             reduced_url = parsed_url.split("/").tap(&:pop).join("/")
+            reduced_url = "/" if reduced_url.blank?
             return find_menu_with_matching_path(Addressable::URI.parse(reduced_url))
           end
 
