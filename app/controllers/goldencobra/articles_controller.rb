@@ -107,7 +107,7 @@ module Goldencobra
       end
       @domain_name = Goldencobra::Setting.for_key("goldencobra.url")
       @articles = Goldencobra::Article.for_sitemap
-      #TODO: authorize! :read, @article
+      # TODO: authorize! :read, @article
       respond_to do |format|
         format.xml
       end
