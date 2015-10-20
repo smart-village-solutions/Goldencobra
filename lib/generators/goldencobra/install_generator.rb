@@ -102,12 +102,6 @@ module Goldencobra
         File.expand_path("../templates", __FILE__)
       end
 
-      def install_optional_assets
-        gem("better_errors", group: "development")
-        gem("binding_of_caller", group: "development")
-        system("bundle install")
-      end
-
       def install_errbit
           gem("airbrake")
           system("bundle install")
