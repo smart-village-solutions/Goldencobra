@@ -1,10 +1,7 @@
-# encoding: utf-8
-
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
 
     layout "application"
-    before_filter :check_format
     before_filter :get_redirectors, :only => [:show]
     before_filter :get_article, :only => [:show, :convert_to_pdf]
     before_filter :verify_token, :only => [:show]
@@ -29,16 +26,23 @@ module Goldencobra
       return Zlib.crc32(generated_cache_key).to_s
     end
 
-
     def show
-      ActiveSupport::Notifications.instrument("goldencobra.article.show", :params => params)  #Possible Callbacks on start
-      before_init #Possible Callbacks on start
+      ActiveSupport::Notifications.instrument("goldencobra.article.show", params: params)
+      before_init # possible callbacks on start
       params[:session] = session.clone
       params[:session].delete(:user_location)
       Goldencobra::Article::LiquidParser["url_params"] = params
       if serve_iframe?
         respond_to do |format|
           format.html { render layout: "/goldencobra/bare_layout" }
+        end
+      elsif request.format == "php" || params[:format].to_s == "php"
+        respond_to do |format|
+          format.html { render nothing: true, status: 406 }
+        end
+      elsif request.format == "image/jpeg"  || request.format == "image/png"
+        respond_to do |format|
+          format.html { render text: "404", status: 404 }
         end
       elsif serve_basic_article?
         initialize_article(@article)
@@ -54,8 +58,8 @@ module Goldencobra
         end
 
         if serve_fresh_page?
-         set_expires_in
-         ActiveSupport::Notifications.instrument("goldencobra.article.render", :params => params)
+          set_expires_in
+          ActiveSupport::Notifications.instrument("goldencobra.article.render", params: params)
           before_render
           respond_to do |format|
             format.html { render layout: choose_layout }
@@ -131,8 +135,6 @@ module Goldencobra
         end
       end
     end
-
-
 
     # ------------------ Redirection ------------------------------------------
     def get_redirectors
@@ -269,7 +271,6 @@ module Goldencobra
       end
     end
 
-
     def article_by_role
       # Admin should get preview of article even if it's offline
       if current_user && current_user.has_role?(Goldencobra::Setting.for_key("goldencobra.article.preview.roles").split(",").map{|a| a.strip})
@@ -284,17 +285,16 @@ module Goldencobra
           else
             @unauthorized = true
           end
-        # elsif current_visitor.present?
-        #   ap = Goldencobra::Permission.where(:subject_class => "Goldencobra::Article", :operator_id => current_visitor.id, :action => "read").pluck(:subject_id)
-        #   if ap.any?
-        #     @article = Goldencobra::Article.where("id in (?)", ap).search_by_url(params[:article_id])
-        #   else
-        #     @unauthorized = true
-        #   end
+          # elsif current_visitor.present?
+          #   ap = Goldencobra::Permission.where(:subject_class => "Goldencobra::Article", :operator_id => current_visitor.id, :action => "read").pluck(:subject_id)
+          #   if ap.any?
+          #     @article = Goldencobra::Article.where("id in (?)", ap).search_by_url(params[:article_id])
+          #   else
+          #     @unauthorized = true
+          #   end
         end
       end
     end
-
 
     def is_startpage?
       startpage = params[:startpage]
@@ -306,9 +306,10 @@ module Goldencobra
       if request.format == "image/jpeg"  || request.format == "image/png"
         render text: "404", status: 404
       end
-      if request.format == "php" || params[:format] == "php"
-        render nothing: true, status: 406 and return 
+      if request.format == "php" || params[:format].to_s == "php"
+        render nothing: true, status: 406
       end
+      return true
     end
 
     def geocode_ip_address
@@ -354,6 +355,5 @@ module Goldencobra
     def analytics
       Goldencobra::Tracking.analytics(request, session[:user_location])
     end
-
   end
 end

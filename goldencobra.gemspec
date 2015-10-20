@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
   #s.add_dependency 'friendly_id'
   s.add_dependency 'omniauth'
   s.add_dependency 'omniauth-openid'
+
   s.add_dependency 'oa-oauth'
   s.add_dependency 'oa-openid'
   s.add_dependency 'cancan'

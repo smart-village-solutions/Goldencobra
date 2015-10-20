@@ -160,7 +160,7 @@ module Goldencobra
         if Rails::VERSION::MAJOR == 3
           self.descendants.map{ |d| d.update_column(:active, self.active) }
         elsif Rails::VERSION::MAJOR > 3
-          self.descendants.map{ |d| d.update_columns(:active, self.active) }
+          self.descendants.map{ |d| d.update_columns(active: self.active) }
         end
       end
     end

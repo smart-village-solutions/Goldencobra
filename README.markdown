@@ -1,32 +1,35 @@
 #Goldencobra
 
-[![Build Status](https://secure.travis-ci.org/ikusei/Goldencobra.png)](http://travis-ci.org/ikusei/Goldencobra)
+[![Build Status](https://secure.travis-ci.org/ikusei/Goldencobra.png)](http://travis-ci.org/ikusei/Goldencobra)  
+[![Code
+Climate](https://codeclimate.com/github/ikusei/Goldencobra/badges/gpa.svg)](https://codeclimate.com/github/ikusei/Goldencobra)
 
 This Project is still under development.
 This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis-modul/browse and now always up to date!
 
-#Powered by
+# Powered by
 - ActiveAdmin
 
 Installation of Goldencobra into a fresh Ruby on Rails project:
 
-#Requirements
-* Ruby 1.9.2-p180+ (recommended 1.9.3-p286)
-* Rails 3.2.16
+# Requirements
+* Ruby 2.2.2+ 
+* Rails 4.2.3
 * Mysql 5.5.x (tested with e.g. 5.5.19)
 
+# Installation
 
-#Guided Installation wit rvm,git,capistrano and server deploy
+## Guided Installation wit rvm,git,capistrano and server deploy
 ```ruby
 rails new PROJECTNAME -m https://raw.github.com/ikusei/goldencobra-installer/master/template.rb -d mysql
 ```
 
-#OR Manual Installation: Create new project
+## OR Manual Installation: Create new project
 ``` ruby
 rails new PROJECTNAME -d mysql
 ```
 
-#Install Goldencobra gem
+## Install Goldencobra gem
 Add the following to file "PROJECTNAME/Gemfile":
 ``` ruby
 gem 'goldencobra', git: 'git://github.com/ikusei/Goldencobra.git'
@@ -37,20 +40,23 @@ gem 'activeadmin', :git => 'git://github.com/ikusei/active_admin.git', :require 
 bundle install
 ```
 
-#Create database
+## Create database
 ```ruby
 rake db:create
 ```
 
-#Install prerequisites for Goldencobra
+## Install prerequisites for Goldencobra
 ```ruby
 rake goldencobra:install:migrations
 rails generate goldencobra:install
 rake db:migrate db:test:prepare
 ```
 
-#If you want to use goldencobra in a subdirectory (http://www.domain.de/subdir/), please modify your config/routes.rb
-#and setup your domains in "Settings > Domains" in the backendinterface
+## If you want to use goldencobra in a subdirectory 
+
+(http://www.domain.de/subdir/), please modify your config/routes.rb
+and setup your domains in "Settings > Domains" in the backendinterface
+
 ```ruby
 Goldencobra::Domain.pluck(:url_prefix).each do |url_prefix|
     scope url_prefix do
@@ -61,13 +67,13 @@ Goldencobra::Domain.pluck(:url_prefix).each do |url_prefix|
 end
 ```
 
-#Setup Goldencobra
+# Setup Goldencobra
 
 If you want to use Batch Actions in Goldencobra (set a batch of articles offline), you need to uncomment the line `# config.batch_actions = true` in config/initializers/active_admin.rb
 
 This would also be the place where you can override stylesheets and javascripts. Just put them inside the block `# == Register Stylesheets & Javascripts`.
 
-#Create new article types
+# Create new article types
 Nearly every site in Goldencobra is an article. If the default article isn't enough for your needs you can create new article types. There's a generator for that:
 `rails generate goldencobra:articletype Thing name:string`
 
@@ -91,7 +97,7 @@ The index and show partials are for fronted display of your article type. The "_
 "Show" is an individual article of this article_type. The "_edit_show" gives you control over the models attributes.
 
 
-#Settings
+# Settings
 
 We have a quite flexible settings system in place.
 In the admin backend you have many values you can customize for your installation.
@@ -107,9 +113,9 @@ Important values are
 When creating articles, a default value is set for open graph image url. Please make sure you provide a default open graph image at "/assets/open-graph.png"
 
 
-#Usage
+# Usage
 
-##Basic Headers
+## Basic Headers
 call in head-section of any view_template to include stylesheets, javascripts (jquery, jqueryui, jquery.tools ...), bugtracker, metatags, airbrake and article_administration element:
 
 ```ruby
@@ -129,7 +135,7 @@ place this code in your application layout in header section:
 `<%= bugtracker %>`
 
 
-##Navigation Menu
+## Navigation Menu
 call in any view_template:
 
 ```ruby
@@ -145,37 +151,37 @@ navigation_menu(menue_id, option={})
 ```
 
 **example:**
-
+renders menue starting with id 1 and only childs of first grade
 ```ruby
 <%= navigation_menu(1, :depth => 1) %>
-# renders menue starting with id 1 and only childs of first grade
-```
 
+```
+renders menue starting with id 2 and all children as a nested list
 ```ruby
 <%= navigation_menu(2) %>
-# renders menue starting with id 2 and all children as a nested list
-```
 
+```
+renders menue starting with first Menuitem including title 'MainNavigation' and all children as a nested list
 ```ruby
 <%= navigation_menu("MainNavigation") %>
-# renders menue starting with first Menuitem including title 'MainNavigation' and all children as a nested list
-```
 
+```
+renders menue starting with first Menuitem including title 'MainNavigation' in the submenue 'Sub' and all children as a nested list
 ```ruby
 <%= navigation_menu("Sub/MainNavigation") %>
-# renders menue starting with first Menuitem including title 'MainNavigation' in the submenue 'Sub' and all children as a nested list
-```
 
+```
+renders menue starting with first Menuitem including title 'MainNavigation' in the submenue 'de' or 'en' depending of your current Locale and all children as a nested list
 ```ruby
 <%= navigation_menu("#{I18n.locale.to_s}/MainNavigation") %>
-# renders menue starting with first Menuitem including title 'MainNavigation' in the submenue 'de' or 'en' depending of your current Locale and all children as a nested list
+
 ```
 
 ```ruby
 <%= navigation_menu("Top-Menue", :submenue_of_article => @article, :class => "ul_submain_nav", :depth => 2, :show_image => false, :show_description_title => false, :show_description => false, :show_call_to_action_name => false) %>
 ```
 
-##Switching Languages
+## Switching Languages
 ```erb
 <%= link_to "Deutsch", switch_language("de") %>
 <%= link_to "Englisch", switch_language("en") %>
@@ -183,14 +189,14 @@ navigation_menu(menue_id, option={})
 
 
 
-##Breadcrumb Menue
+## Breadcrumb Menue
 in your view_templates:
 ```erb
     <%= breadcrumb() %>
 ```
 
 
-##Rendering content in layouts
+## Rendering content in layouts
 ```erb
 <% # Renders contents of different article types %>
 <% if @article %>
@@ -203,14 +209,50 @@ in your view_templates:
 <%= yield(:article_teaser) %>
 ```
 
-##Render widgets
+## Render widgets
+
+Alle DefaultWidgets UND alle ArtikelWidgets mit dem Tag "sidebar" sortiert nach SorterID:
 ```erb
-<%= render_article_widgets(tagged_with: "slider", wrapper: "div", class: "slide-content") %>
-#
+render_article_widgets(default: true, tagged_with: "sidebar")
+```
+
+Alle ArtikelWidgets mit dem Tag "sidebar" sortiert nach SorterID:
+```erb
+  <%= render_article_widgets(default: false, tagged_with: "sidebar") %>
+```
+
+Alle ArtikelWidgets mit dem Tag "sidebar" sortiert nach SorterID:
+```erb
+  <%= render_article_widgets(tagged_with: "sidebar") %>
+```
+
+Alle DefaultWidgets und alle ArtikelWidgets:
+```erb
+  <%= render_article_widgets(default: true) %>
+```
+
+Alle ArtikelWidgets:
+```erb
+  <%= render_article_widgets() %>
+```
+
+Alle DefaultWidgets:
+```erb
+  <%= render_article_widgets(article: false) %>
+```
+
+Alle DefaultWidgets mit dem Tag "sidebar" sortiert nach SorterID:
+```erb
+  <%= render_article_widgets(article: false, tagged_with: "sidebar") %>
+```
+
+Alle Optionen mit Defaultwerten:
+```erb
+  <%= render_article_widgets(default="false", article="true", tagged_with: "") %>
 ```
 
 
-##Render Login and Registration Widgets
+## Render Login and Registration Widgets
 in your view_templates:
 ```erb
     <%= render_login_widget(User) %>
@@ -221,14 +263,14 @@ in your view_templates:
 
 
 
-##Include social media sharing buttons where applicable
+## Include social media sharing buttons where applicable
 ```erb
 <div id="social_sharing_buttons" class="bottom_buttons">
   <%= yield(:social_sharing_buttons) %>
 </div>
 ```
 
-##Render an image gallery inside article content
+## Render an image gallery inside article content
 ```erb
 <%= render_article_image_gallery %>
 ```

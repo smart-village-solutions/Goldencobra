@@ -17,6 +17,7 @@ module Goldencobra
         #
         # @return [Integer] Array if Integers als Menue IDs
         def active_ids
+          require "oj"
           require "addressable/uri"
           # @master_element is set by before filter
 
@@ -38,7 +39,7 @@ module Goldencobra
           end
 
           respond_to do |format|
-            format.json { render json: @active_menue_ids, root: false }
+            format.json { render json: Oj.dump(@active_menue_ids, mode: :compat), root: false }
           end
         end
 
@@ -106,6 +107,7 @@ module Goldencobra
         #
         # @return [json] All menus with :id, :complete_list_name, etc.
         def index
+          require "oj"
           # @master_element is set by before filter
 
           # Generate cache key: if any Menuitem is changed => invalidate
@@ -142,7 +144,7 @@ module Goldencobra
           end
 
           respond_to do |format|
-            format.json { render json: @json_tree, root: false }
+            format.json { render json: Oj.dump(@json_tree, mode: :compat), root: false }
           end
         end
 
@@ -193,7 +195,7 @@ module Goldencobra
 
         def find_menu_with_matching_path(parsed_url)
           parsed_url = parsed_url.path
-          #Nur das letzte / wegwerfen, wenn es nciht die Startseite ist
+          #Nur das letzte / wegwerfen, wenn es nicht die Startseite ist
           parsed_url = parsed_url.chomp("/") if parsed_url.count("/") > 1
 
           # All Menu records that match the path but might differ by parameters
@@ -207,6 +209,7 @@ module Goldencobra
           if current_menue.blank?
             # Try for a path without last element
             reduced_url = parsed_url.split("/").tap(&:pop).join("/")
+            reduced_url = "/" if reduced_url.blank?
             return find_menu_with_matching_path(Addressable::URI.parse(reduced_url))
           end
 
