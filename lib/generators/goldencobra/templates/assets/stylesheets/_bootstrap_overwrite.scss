@@ -1,0 +1,60 @@
+/*!
+ * ikusei Golden Cobra
+ * Bootstrap Overwrite
+ * @author Daniel Molnar
+ */
+
+.full-section {
+  background-color: $gray-dark;
+  color: $gray-lighter;
+  padding: $line-height-computed 0;
+
+  .border-bottom { border-bottom: 1px solid $gray-lighter; }
+}
+
+.article-image { margin: $line-height-computed 0; }
+
+//******* additional classes *******
+
+.border-bottom { border-bottom: 1px solid $gray-dark; }
+.top-margin { margin-top: $line-height-computed; }
+
+
+
+//*******************************************************************************
+/*!
+ * Start Bootstrap - Business Frontpage HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+  padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+/* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
+
+.business-header {
+  height: 400px;
+  background: url('http://placehold.it/1920x400') center center no-repeat scroll;
+  background-size: cover;
+}
+
+/* Customize the text color and shadow color and to optimize text legibility. */
+
+.tagline {
+  text-shadow: 0 0 10px #000;
+  color: #fff;
+}
+
+.img-center {
+  margin: 0 auto;
+}
+
+footer {
+  margin: 50px 0 $line-height-computed 0;
+}
+
+.navbar-fixed-top .navbar-brand {
+  padding: 5px 0 0 15px;
+}
