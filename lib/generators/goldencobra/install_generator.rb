@@ -65,13 +65,6 @@ module Goldencobra
         end
       end
 
-      def install_gems
-        gem("bootstrap-sass")
-        gem("font-awesome-sass")
-        gem("autoprefixer-rails")
-        system("bundle install")
-      end
-
       def copy_initializer
         @underscored_user_name = "user".underscore
         template "../templates/active_admin.rb.erb", "config/initializers/active_admin.rb"
