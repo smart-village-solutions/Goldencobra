@@ -25,8 +25,8 @@ Gem::Specification.new do |s|
 
   # s.add_dependency 'coffee-script-source', '~>1.8.0'
   s.add_dependency 'rails', '4.2.4'
-  s.add_dependency 'jquery-rails' #, '3.1.3'
-  s.add_dependency 'devise'#, '~> 3.0.0'
+  s.add_dependency 'jquery-rails'
+  s.add_dependency 'devise'
   # TODO: Token Authentication neu machen
   s.add_dependency 'devise-token_authenticatable'
   s.add_dependency 'cancancan'
@@ -37,8 +37,10 @@ Gem::Specification.new do |s|
   # s.add_dependency 'sunspot_solr', '~> 2.0.0'
   s.add_dependency 'remove_accents'
   s.add_dependency 'sprockets'
-  s.add_dependency 'sass-rails'
   s.add_dependency 'sass'
+  s.add_dependency 'sass-rails'
+  s.add_dependency 'compass'
+  s.add_dependency 'compass-rails'
   s.add_dependency 'sidekiq'
   s.add_dependency 'sinatra'
   s.add_dependency 'omniauth'
