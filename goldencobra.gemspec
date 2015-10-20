@@ -39,6 +39,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'sprockets'
   s.add_dependency 'sass-rails'
   s.add_dependency 'sass'
+  s.add_dependency 'sidekiq'
+  s.add_dependency 'sinatra'
   s.add_dependency 'omniauth'
   s.add_dependency 'omniauth-openid'
   s.add_dependency 'oa-oauth'
