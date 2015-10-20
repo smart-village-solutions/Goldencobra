@@ -28,7 +28,6 @@ gemspec
 # # gem 'cocaine', '= 0.3.2'
 # gem 'paperclip'#, '= 3.0.4'
 # gem 'sass-rails'
-# gem 'compass-rails'
 # gem 'memcache-client'
 # gem 'nokogiri'#, '~> 1.5.3'
 # # gem 'cancan', '1.6.7'
@@ -53,7 +52,7 @@ gemspec
 # gem 'pdfkit'
 # gem 'wkhtmltopdf-binary'
 
-group :development,:test do
+group :development, :test do
   gem 'byebug'
   gem 'rspec-rails' # rspec in dev so the rake tasks run properly
   gem 'faker' # rspec in dev so the rake tasks run properly

@@ -1,6 +1,6 @@
 Rails.application.config.to_prepare do
   Goldencobra::Article.class_eval do
-    has_one :<%= name.underscore %>, :dependent => :destroy
+    has_one :<%= name.underscore %>, dependent: :destroy
     accepts_nested_attributes_for :<%= name.underscore %>
 
     after_create :init_default_<%= name.underscore %>
@@ -11,6 +11,5 @@ Rails.application.config.to_prepare do
         self.save
       end
     end
-
   end
 end

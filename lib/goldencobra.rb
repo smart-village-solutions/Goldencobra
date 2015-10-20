@@ -1,4 +1,4 @@
-Gem.loaded_specs['goldencobra'].dependencies.each do |d|
+Gem.loaded_specs["goldencobra"].dependencies.each do |d|
   next if %w(wkhtmltopdf-binary rubyzip).include?(d.name)
   begin
     if d.name == "oa-oauth"
@@ -7,7 +7,9 @@ Gem.loaded_specs['goldencobra'].dependencies.each do |d|
       require "omniauth/openid"
     elsif d.name == "addressable"
       require 'addressable/uri'
-    elsif ["annotate", "guard-annotate", "pry", "pry-nav", "better_errors", "yard", "redcarpet"].include?(d.name)
+    elsif [
+        "annotate", "guard-annotate", "pry", "pry-nav", "better_errors", "yard", "redcarpet"
+      ].include?(d.name)
       #nichts tun
     else
       require d.name

@@ -1,11 +1,189 @@
-<h1>
-  <%= yield(:article_title) %>
-</h1>
-<% if yield(:article_summary).present? %>
-  <div class="summary">
-    <%= yield(:article_summary) %>
+<% if @article.startpage %>
+  <%= render "/layouts/startpage" %>
+<% else %>
+  <header class="business-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="tagline"><%= yield(:article_title) %></h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <% if yield(:article_summary).present? %>
+    <section class="full-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <strong>
+              <%= yield(:article_summary) %>
+            </strong>
+          </div>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <% if yield(:article_subtitle).present? %>
+          <h2><%= yield(:article_subtitle) %></h2>
+        <% end %>
+        <div class="article-content">
+          <%= yield(:article_content) %>
+        </div>
+        <div class="article-image">
+          <img class="img-responsive img-center" src="http://placehold.it/1200x550" alt="">
+        </div>
+        <% if yield(:article_context_info).present? %>
+          <div class="article-context-info">
+            <%= yield(:article_context_info) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
+
+  <section class="full-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="border-bottom">Boxes #1</h2>
+        </div>
+        <div class="col-sm-4">
+          <img class="img-responsive img-center" src="http://placehold.it/500x300" alt="">
+          <h4>Box #1</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <img class="img-responsive img-center" src="http://placehold.it/500x300" alt="">
+          <h4>Box #2</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <img class="img-responsive img-center" src="http://placehold.it/500x300" alt="">
+          <h4>Box #3</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="border-bottom">Boxes #2</h2>
+        </div>
+        <div class="col-sm-6">
+          <img class="img-responsive img-center" src="http://placehold.it/600x300" alt="">
+          <h4>Box #1</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </p>
+        </div>
+        <div class="col-sm-6">
+          <img class="img-responsive img-center" src="http://placehold.it/600x300" alt="">
+          <h4>Box #2</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2 class="text-center">Headline headline headline headline</h2>
+      </div>
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="border-bottom">Boxes images</h3>
+          </div>
+          <% 2.times do %>
+            <div class="col-xs-6">
+              <img class="img-responsive img-center" src="http://placehold.it/450x210" alt="">
+            </div>
+          <% end %>
+          <% 2.times do %>
+            <div class="col-xs-6 top-margin">
+              <img class="img-responsive img-center" src="http://placehold.it/450x210" alt="">
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-8 top-margin">
+        <img class="img-responsive" src="http://placehold.it/750x300" alt="">
+        <h3 class="border-bottom">Headline</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+          Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+
+          Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+
+          Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+
+          Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.
+
+          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <section class="full-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2>Headline headline headline headline</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3 class="border-bottom">Headline</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+          Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+        </p>
+        <img class="img-responsive" src="http://placehold.it/750x300" alt="">
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="border-bottom">Boxes images</h3>
+          </div>
+          <% 2.times do %>
+            <div class="col-xs-6">
+              <img class="img-responsive img-center" src="http://placehold.it/450x210" alt="">
+            </div>
+          <% end %>
+          <% 2.times do %>
+            <div class="col-xs-6 top-margin">
+              <img class="img-responsive img-center" src="http://placehold.it/450x210" alt="">
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
 <% end %>
-<div class="article_content">
-  <%= yield(:article_content) %>
-</div>
