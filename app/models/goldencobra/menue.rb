@@ -22,14 +22,18 @@
 module Goldencobra
   class Menue < ActiveRecord::Base
     attr_accessible :title, :target, :css_class, :active, :ancestry, :parent_id,
-                    :sorter, :description, :call_to_action_name, :description_title, :image_attributes, :image_id,
-                    :permissions_attributes, :remote
-    has_ancestry :orphan_strategy => :rootify, :cache_depth => true
+                    :sorter, :description, :call_to_action_name, :description_title,
+                    :image_attributes, :image_id, :permissions_attributes, :remote
+
+    has_ancestry orphan_strategy: :rootify, cache_depth: true
+
     belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
+
+    has_many :permissions, -> { where subject_class: "Goldencobra::Menue" },
+             class_name: Goldencobra::Permission, foreign_key: "subject_id"
 
     validates_presence_of :title
     validates_format_of :title, :with => /\A[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+\z/
-    has_many :permissions, -> { where subject_class: "Goldencobra::Menue" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
 
     accepts_nested_attributes_for :permissions, :allow_destroy => true
 
@@ -38,15 +42,15 @@ module Goldencobra
         after_save 'Goldencobra::Article.recreate_cache'
       end
     end
+
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end
-    scope :active, -> { where(:active => true).order(:sorter) }
-    scope :inactive, -> { where(:active => false).order(:sorter) }
+
+    scope :active, -> { where(active: true).order(:sorter) }
+    scope :inactive, -> { where(active: false).order(:sorter) }
     scope :visible, -> { where("css_class <> 'hidden'").where("css_class <> 'not_visible'") }
-
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
-
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
 
     before_save :set_descendants_status
@@ -83,9 +87,8 @@ module Goldencobra
       false
     end
 
-
     # Render Content of Description with liquid Tags
-    # 
+    #
     # @return [String] self.description liquified
     def liquid_description
       template = Liquid::Template.parse(self.description)
@@ -101,18 +104,17 @@ module Goldencobra
       }
     end
 
-
-    # Filtert die übergebenen mthodennamen anhand einer Whiteliste 
+    # Filtert die übergebenen mthodennamen anhand einer Whiteliste
     # und ersetzt exteren methodenbezeichnungen mit internene helpern
-    # 
+    #
     # description => liquid_description
-    # 
+    #
     # @param method_names [Array] Liste an Methodennamen als String
-    # 
+    #
     # @return [Array] Liste an methoden als Symbol, bereinigt von invaliden aufrufen
     def self.filtered_methods(method_names=[])
       #Alle zugelasssenen methodennamen als Array of Strings
-      allowed_attribute_methods = Goldencobra::Menue.new.attributes.keys 
+      allowed_attribute_methods = Goldencobra::Menue.new.attributes.keys
       additional_whitelist_methods = ["liquid_description", "navigation_image"]
       all_allowed_methodes = allowed_attribute_methods + additional_whitelist_methods
 
@@ -121,30 +123,28 @@ module Goldencobra
 
       #Wandle method names um in Symbols
       method_names = selected_methods.map{ |a| a.to_sym }
-      
+
       return method_names.sort
     end
 
-
     # Liefert ein Hash der übegenene Anestry Arranged Daten
-    # @param nodes [Goldencobra::Menue] Ein Eltern-Menüelement 
+    # @param nodes [Goldencobra::Menue] Ein Eltern-Menüelement
     # @param display_methods [:method] Optionale Liste an Mehtoden die auf das Menüelement aufgerufen werden sollen
-    # 
-    #  { 
-    #   :id => node.id, 
-    #   :title => node.title, 
-    #   :target => node.target, 
+    #
+    #  {
+    #   :id => node.id,
+    #   :title => node.title,
+    #   :target => node.target,
     #   :eg_desciption => node.eg_description
     #   :children => json_tree(sub_nodes).compact
     # }
-    # 
+    #
     # @return [Hash] Hash of Menue Data with optional attributes
     def self.json_tree(nodes, display_methods )
       nodes.map do |node, sub_nodes|
         node.as_json(:only => [:id, :title, :target], :methods => display_methods).merge({:children => json_tree(sub_nodes, display_methods).compact})
       end
     end
-
 
     # **************************
     # **************************
@@ -165,21 +165,19 @@ module Goldencobra
       end
     end
 
-
     # Allow Scopes and Methods to search for in ransack (n.a. metasearch)
     # @param auth_object = nil [self] "if auth_object.try(:admin?)"
-    # 
+    #
     # @return [Array] Array of Symbols representing scopes and class methods
     def self.ransackable_scopes(auth_object = nil)
       [ :parent_ids_in ]
     end
-
   end
 end
 
 
-# has_ancestry Doku 
-# 
+# has_ancestry Doku
+#
 # parent           Returns the parent of the record, nil for a root node
 # parent_id        Returns the id of the parent of the record, nil for a root node
 # root             Returns the root of the tree the record is in, self for a root node
@@ -202,5 +200,3 @@ end
 # subtree          Scopes the model on descendants and itself
 # subtree_ids      Returns a list of all ids in the record's subtree
 # depth            Return the depth of the node, root nodes are at depth 0
-
-

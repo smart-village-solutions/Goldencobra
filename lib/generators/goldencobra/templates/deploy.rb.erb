@@ -29,10 +29,7 @@ role :web, "<%= @ip_address %>"                          # Your HTTP server, Apa
 role :app, "<%= @ip_address %>"                          # This may be the same as your `Web` server
 role :db,  "<%= @ip_address %>", :primary => true        # This is where Rails migrations will run
 
-
-
 namespace :deploy do
-
   desc "Upgrade and restart the application"
   task :upgrade, :roles => :app do
     restart
@@ -104,7 +101,6 @@ namespace :deploy do
   end
 
   namespace :db do
-
     task :setup, :role => :db do
       set(:db_root_password) { Capistrano::CLI.password_prompt("Enter MySQL ROOT password [noecho]: ") }
       set(:db_password) { Capistrano::CLI.password_prompt("Enter MySQL password for #{application} [noecho]: ") }
@@ -123,9 +119,7 @@ namespace :deploy do
       location = "#{deploy_to}/shared/config/database.yml"
       put config, location
     end
-
   end
-
 end
 
 after 'deploy:create_symlink', 'deploy:web:disable'
