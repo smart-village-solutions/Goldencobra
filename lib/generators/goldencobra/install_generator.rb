@@ -66,8 +66,6 @@ module Goldencobra
       end
 
       def install_gems
-        gem("acts-as-taggable-on", git: "git://github.com/mbleigh/acts-as-taggable-on")
-        gem("meta-tags", git: "git://github.com/jazzgumpy/meta-tags.git")
         gem("bootstrap-sass")
         gem("font-awesome-sass")
         gem("autoprefixer-rails")
