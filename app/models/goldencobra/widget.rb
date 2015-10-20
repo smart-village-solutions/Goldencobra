@@ -29,9 +29,9 @@
 module Goldencobra
   class Widget < ActiveRecord::Base
     attr_accessible :title, :content, :css_name, :active, :id_name, :sorter, :teaser, :default,
-                    :description, :alternative_content, :mobile_content, :offline_days, :offline_time_active,
-                    :offline_date_start, :offline_date_end, :offline_time_week_start_end, :tag_list, :tags
-
+                    :description, :alternative_content, :mobile_content, :offline_days,
+                    :offline_time_active, :offline_date_start, :offline_date_end,
+                    :offline_time_week_start_end, :tag_list, :tags, :article_ids
 
     serialize :offline_time_week_start_end
 
@@ -48,8 +48,8 @@ module Goldencobra
     before_save :set_week_start_end_times
     before_save :validate_start_end_time
 
-    OfflineDays   = ["Mo", 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
-    OfflineDaysEN = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su']
+    OfflineDays   = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+    OfflineDaysEN = ["mo", "tu", "we", "th", "fr", "sa", "su"]
 
     ImportDataFunctions = []
 
@@ -60,7 +60,7 @@ module Goldencobra
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.widgets.recreate_cache") == "true"
-        after_save 'Goldencobra::Article.recreate_cache'
+        after_save "Goldencobra::Article.recreate_cache"
       end
     end
     if ActiveRecord::Base.connection.table_exists?("versions")
@@ -83,7 +83,7 @@ module Goldencobra
     end
 
     def self.recent(count)
-      Goldencobra::Widget.where('title IS NOT NULL').order('created_at DESC').limit(count)
+      Goldencobra::Widget.where("title IS NOT NULL").order("created_at DESC").limit(count)
     end
 
     # def offline_time_start_display

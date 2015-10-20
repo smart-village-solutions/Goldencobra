@@ -14,7 +14,6 @@ module Goldencobra
       end
     end
 
-
     def article_visibility
       @article_saved = false
       @operator = current_user || current_visitor

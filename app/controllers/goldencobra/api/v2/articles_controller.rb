@@ -23,7 +23,7 @@ module Goldencobra
           else
             # Search and return the result array.
             render status: 200, json: Goldencobra::Article.simple_search(
-                ActionController::Base.helpers.sanitize(params[:q])
+              ActionController::Base.helpers.sanitize(params[:q])
             ).to_json
           end
         end
@@ -34,6 +34,7 @@ module Goldencobra
         # @return [json] Liefert Alle Artikel :id,:title, :ancestry
         # map{|c| [c.parent_path, c.id]}
         def index
+          require 'oj'
           if params[:article_ids].present?
             index_with_ids
           else
@@ -53,7 +54,7 @@ module Goldencobra
             end
 
             respond_to do |format|
-              format.json { render json: Oj.dump({"articles" => json_uploads}) }
+              format.json { render json: Oj.dump({'articles' => json_uploads}, mode: :compat) }
               # Returns all publicly visible, active Articles
               format.xml { @articles = Goldencobra::Article.new.filter_with_permissions(Goldencobra::Article.active, nil) }
             end
@@ -101,8 +102,8 @@ module Goldencobra
             format.json {
               if params[:methods].present?
                 render json: Oj.dump(articles,
-                       each_serializer: Goldencobra::ArticleCustomSerializer,
-                       scope: params[:methods])
+                                     each_serializer: Goldencobra::ArticleCustomSerializer,
+                                     scope: params[:methods])
               else
                 render json: Oj.dump(articles)
               end
@@ -200,8 +201,8 @@ module Goldencobra
         def breadcrumb
           breadcrumb = []
           @article.path.each do |art|
-            breadcrumb << { 
-              title: art.breadcrumb_name, 
+            breadcrumb << {
+              title: art.breadcrumb_name,
               url: art.public_url
             }
           end
@@ -257,32 +258,10 @@ module Goldencobra
 
         def update_article(article_param)
           # Input validation
-          return nil unless article_param
-          return nil unless params[:article]
-          return nil unless current_user
-          return nil unless params[:referee_id]
+          return nil if check_presents_of_article_params(article_param) == false
 
           # Get existing article
           article = Goldencobra::Article.where(:creator_id => current_user.id).find_by_external_referee_id(params[:referee_id])
-
-          if params[:author].present? && params[:author][:lastname].present?
-            author = Goldencobra::Author.find_or_create_by_lastname(params[:author][:lastname])
-            article.author = author
-            article.save
-          end
-
-          # if params[:images].present?
-          #   params[:images].each do |key,value|
-          #     existing_images = Goldencobra::Upload.where(:image_remote_url => value[:image][:image_url])
-          #     if existing_images.blank?
-          #       img = Goldencobra::Upload.create(value[:image])
-          #     else
-          #       img = existing_images.first
-          #     end
-          #     image_position = Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).first
-          #     article.article_images.create(:image => img, :position => image_position)
-          #   end
-          # end
 
           # Update existing article
           article.update_attributes(params[:article])
@@ -292,6 +271,18 @@ module Goldencobra
         end
 
         private
+
+        # Exit Reasons if params are not complete
+        # @param article_param [Hash] article_params
+        #
+        # @return [Boolean] True if all need params are present?
+        def check_presents_of_article_params(article_param)
+          return false unless article_param
+          return false unless params[:article]
+          return false unless current_user
+          return false unless params[:referee_id]
+          return true
+        end
 
         def get_article
           url = params[:url].present? ? "/#{params[:url]}" : "/"

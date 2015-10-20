@@ -32,11 +32,11 @@ en:
     sessions:
       login:
         link1: "logout"
-        label_email: "E-Mail Address"
+        label_email: "E-Mail"
         label_password: "Password"
         submit: "Login"
     register:
-      label_email: "E-Mail Address *"
+      label_email: "E-Mail *"
       label_username: 'Username *'
       label_password: 'Password *'
       label_pass_confirmation: 'Password confirmation *'
@@ -58,6 +58,9 @@ en:
         sign_up: "Sign up"
         forgot_your_password: "Forgot password?"
         resend_unlock_instructions: "Send email with unlock instructions"
+      unlock:
+        title: "Send email with unlock instructions"
+        submit: "Send now"
     edit: "Edit"
     delete: "Delete"
     delete_confirmation: "Do you really want to delete this element?"

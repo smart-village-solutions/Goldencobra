@@ -2,7 +2,6 @@
 //= require goldencobra/keymaster
 //= require goldencobra/notifications
 //= require goldencobra/countable
-//= require goldencobra/jquery.tinymce
 //= require goldencobra/chosen.jquery
 //= require goldencobra/jquery.color-2.1.2
 //= require goldencobra/jquery.Jcrop.min
@@ -11,8 +10,13 @@
 //= require goldencobra/pagination
 // require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
 
+//= require goldencobra/html_editors/general
+//= require goldencobra/html_editors/tinymce_v3/tinymce_v3_inits
+//= require goldencobra/html_editors/tinymce_v4/tinymce_v4_inits
+//= require goldencobra/html_editors/ckeditor/ckeditor_inits
+
 $(function () {
-  //wenn wir aud der Dashboardseite sind und es eine Suche gibt
+  // wenn wir auf der Dashboardseite sind und es eine Suche gibt
   var $dashboard_article_search = $('#dashboard_article_search');
   if ($dashboard_article_search.length) {
     $('body').on('change', '#dashboard_article_search', function() {
@@ -24,7 +28,7 @@ $(function () {
   }
 
   // Wenn es get_goldencobra_articles_per_remote im 'Artikel bearbeiten' gibt,
-  // hole alle Goldencobra:Article :id,:title, :ancestry
+  // hole alle Goldencobra:Article :id, :title, :ancestry
   var $select_parent_articles = $('.get_goldencobra_articles_per_remote');
   if ($select_parent_articles.length){
     $.ajax({
@@ -38,14 +42,22 @@ $(function () {
 
       $this.outerHTML = "<div id='react-" + thisId + "'></div>";
       React.render(
-        React.createElement(SelectList, {id: thisId, value: selectedParentId, options: data, name: thisName, className: className, firstBlank: true}),
+        React.createElement(SelectList, {
+          id: thisId,
+          value: selectedParentId,
+          options: data,
+          name: thisName,
+          className: className,
+          firstBlank: true,
+          dataPlaceholder: "Artikel wählen"
+        }),
         document.getElementById('react-' + thisId)
       );
 
       var $thisEl = $('#' + thisId);
       // $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
       if ($('.get_goldencobra_articles_per_remote').hasClass("include_blank_false")){
-        $thisEl.chosen({ allow_single_deselect: false });  
+        $thisEl.chosen({ allow_single_deselect: false });
       } else {
         $thisEl.chosen({ allow_single_deselect: true });
       }
@@ -75,72 +87,9 @@ $(function () {
     }
   });
 
-  if (typeof tinyMCESetting_theme_advanced_blockformats === 'undefined') {
-    var tinyMCESetting_theme_advanced_blockformats = 'p,h1,h2,h3,div';
-  }
-
-  $('textarea.tinymce-no-buttons').tinymce({
-    script_url: '/assets/goldencobra/tiny_mce.js',
-    language: 'de',
-    mode: 'textareas',
-    theme: 'advanced',
-    theme_advanced_buttons1: '',
-    theme_advanced_buttons2: '',
-    theme_advanced_buttons3: '',
-    theme_advanced_toolbar_location: 'top',
-    theme_advanced_toolbar_align: 'center',
-    theme_advanced_resizing: false,
-    relative_urls: true,
-    convert_urls: false,
-    theme_advanced_blockformats: tinyMCESetting_theme_advanced_blockformats,
-    plugins: 'autolink,paste',
-    dialog_type: 'modal',
-    paste_auto_cleanup_on_paste: true
-  });
-
-
-	$('textarea.tinymce').tinymce({
-		script_url: '/assets/goldencobra/tiny_mce.js',
-    language: 'de',
-    mode: 'textareas',
-    theme: 'advanced',
-    theme_advanced_buttons1: 'formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen',
-    theme_advanced_buttons2: '',
-    theme_advanced_buttons3: '',
-    theme_advanced_toolbar_location: 'top',
-    theme_advanced_toolbar_align: 'center',
-    theme_advanced_resizing: false,
-		relative_urls: true,
-    convert_urls: false,
-    theme_advanced_blockformats: tinyMCESetting_theme_advanced_blockformats,
-		plugins: 'fullscreen,autolink,paste',
-		dialog_type: 'modal',
-		paste_auto_cleanup_on_paste: true
-	});
-
-	$('textarea.tinymce_extended').tinymce({
-		script_url: '/assets/goldencobra/tiny_mce.js',
-    language: 'de',
-    mode: 'textareas',
-    theme: 'advanced',
-    theme_advanced_buttons1: 'formatselect, bold, italic, underline, strikethrough,|, bullist, numlist, blockquote, |, pastetext,pasteword, |, undo, redo, |, link, unlink, code, fullscreen',
-    theme_advanced_buttons2: 'removeformat, fontsizeselect, forecolor, backcolor, forecolorpicker, backcolorpicker',
-    theme_advanced_buttons3: 'tablecontrols',
-    theme_advanced_toolbar_location: 'top',
-    theme_advanced_toolbar_align: 'left',
-    theme_advanced_resizing: false,
-		relative_urls: true,
-    convert_urls: false,
-    theme_advanced_blockformats: tinyMCESetting_theme_advanced_blockformats,
-		plugins: 'fullscreen,autolink,paste,table',
-		dialog_type: 'modal',
-		paste_auto_cleanup_on_paste: true,
-		verify_html: false
-	});
-
-  //TextCounter auf title, subtitle, Teaser, Summary, Breadcrumb, url_name
-  teaser = $('#article_title, #article_subtitle, #article_teaser, #article_breadcrumb, #article_url_name, #article_summary, #widget_teaser, #widget_description').each(function(index){
-    Countable.live($(this)[0], function(counter) {
+  // text counter auf title, subtitle, teaser, breadcrumb, url_name, widget teaser, widget description
+  $('#article_title, #article_subtitle, #article_teaser, #article_breadcrumb, #article_url_name, #widget_teaser, #widget_description').each(function (index) {
+    Countable.live($(this)[0], function (counter) {
       if (!$(this).siblings('.char_count').length) {
         $(this).wrap('<div></div>');
         $(this).after("<div class='char_count'></div>");
@@ -158,23 +107,6 @@ $(function () {
 
   //Add Button Background Jobs zu Settings
 	//$('#einstellungen ul').append("<li><a href='/admin/background'>Background Jobs</a></li>")
-
-	$('.metadescription_hint').tinymce({
-		script_url: '/assets/goldencobra/tiny_mce.js',
-    language: 'de',
-    mode: 'textareas',
-    theme: 'advanced',
-    readonly: 1,
-    theme_advanced_default_background_color: '#f4f4f4',
-    theme_advanced_buttons1: '',
-    theme_advanced_buttons2: '',
-    theme_advanced_buttons3: '',
-    theme_advanced_toolbar_location: 'bottom',
-    theme_advanced_toolbar_align: 'center',
-    theme_advanced_resizing: false,
-    body_id: 'metadescription-tinymce-body',
-    content_css: '/assets/goldencobra/active_admin.css'
-  });
 
   function postInitWork() {
     var editor = tinyMCE.getInstanceById('metadescription-tinymce');
@@ -222,13 +154,10 @@ $(function () {
     $(this).closest('.settings_level').children('.settings_sub_group').slideToggle();
   });
 
-
-
-
   /* init chosen */
   $('.chosen-select').chosen();
   $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-  $('a.button').on('click', function() {
+  $('a.button').on('click', function () {
     setTimeout(function initChosens() {
       $('.chosen-select').chosen();
       $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
@@ -241,23 +170,23 @@ $(function () {
   /* create pagination links in overviews */
   moveBatchActionsIndexHeader();
 
-
   //Menuepunkte bekommen eine funktion zum auf und zu klappen
-  $('div#overview_sidebar div.title a').bind('click', function() {
+  $('div#overview_sidebar div.title a').bind('click', function () {
     $(this).children('ul').hide();
   });
 
   $('div#overview_sidebar div.title a').trigger('click');
 
-  $('#main_content form:not(.without_short_key) input:submit').attr('value', $('#main_content form input:submit').attr('value') + ' (⌘-S)');
+  $('#main_content form:not(.without_short_key) input:submit').attr('value',
+    $('#main_content form input:submit').attr('value') + ' (⌘-S)');
 
-  key('⌘+s, ctrl+s', function() {
+  key('⌘+s, ctrl+s', function () {
     $('#main_content form input:submit').trigger('click');
     return false;
   });
 
   $('body.show #title_bar .action_items a[href$="edit"]').append(' (⌘-E)');
-    key('⌘+e, ctrl+e', function() {
+    key('⌘+e, ctrl+e', function () {
     target = $('#title_bar .action_items a[href$="edit"]').attr('href');
     window.location = target;
     return false;
@@ -310,7 +239,7 @@ $(function () {
 
 /**
  *
- * get ajax logo url for chanigng admin backend logo picture
+ * get ajax logo url for changing admin backend logo picture
  *
  */
 function changeLogoFromSetting() {

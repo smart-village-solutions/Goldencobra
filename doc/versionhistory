@@ -1,8 +1,10 @@
-V2.0.10
+V2.0.10 - 12.10.2015
   - Im "Aktiven Pfad" der Navigation werden auch Eintraege beruecksichtigt, wenn mit abschießendem
     Slash geprueft wird ("/foo/bar" == "foo/bar/")
   - CSS für Backend Inputs (vertikales Padding verringert, Label für text-inputs zentriert),
     "JS-Scripts"-Bereich bei Bidler/Uploads wieder hidden in neuer ActiveAdmin Version
+  - HTML-Editoren wählbar per Golden Cobra Setting (tinymce-v3/tinymce-v4/ckeditor)
+    (a44621e4ff05bbd1fd64a73ed6ef61410e77832d)
 
 V2.0.9 - 02.09.2015
   - Update zu Rails 4.2.4 (c8d601257ee38662024b8bbeca69a76c1bac14b8)
@@ -85,18 +87,28 @@ V2.0
   - Update auf Rails 4.2.3
   - Cleanup Widgets#edit
 
+V1.4.75
+  - API::v2::Articles beschleunigt mit oj gem
 
+V1.4.74
+  - API::v2::Upload beschleunigt mit oj gem
 
+V1.4.73
+  - Goldencobra::Menue: Index rendering durch gem Oj beschleunigt
 
 V1.4.72
   - Goldencobra::Menue: Veraendern des Aktiv/Inaktiv Status eines Menue-Eintrags wird zu allen
     Abkoemmlingen des Menues weitergegeben.
+
 V1.4.71
   - Redirector: URI.parse ersetzt durch Addressable::URI.parse
+
 V1.4.70
   - Rails security update -> 3.2.22
+
 V1.4.60
   - Addressable gem hinzugefügt: URLs in NAvigationAPI können nun Umlaute enthalten
+
 V1.4.50
   - NavigationMenu API extended for name and target calls
 
