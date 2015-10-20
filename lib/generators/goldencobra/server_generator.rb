@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'securerandom'
 
 module Goldencobra
@@ -10,15 +8,14 @@ module Goldencobra
       desc "configure your remote server"
       class_option :orm
 
-
       def install_capistrano
         if yes?("Would you like to configure git?")
           @git_url = ask("What is your git url? (bsp: ssh://git@git.ikusei.de:7999/KLIMA/website.git)")
           git :init
-          git :remote => "add origin #{@git_url}"
-          git :add => "."
-          git :commit => "-m 'First commit'"
-          git :push => "origin master"
+          git remote: "add origin #{@git_url}"
+          git add: "."
+          git commit: "-m 'First commit'"
+          git push: "origin master"
         end
         if yes?("Would you like to configure capistrano? (a git repository is required)")
           @ip_address = ask("To which IP do you want to deploy? (bsp: Taurus 178.23.121.27)")
@@ -28,24 +25,24 @@ module Goldencobra
           @app_name = Rails.application.class.parent_name.parameterize.underscore
           capify!
           remove_file "config/deploy.rb"
-          template '../templates/deploy.rb.erb', 'config/deploy.rb'
+          template "../templates/deploy.rb.erb", "config/deploy.rb"
 
           #Add Changes to git
-          git :add => "."
-          git :commit => "-m 'Deploy files added'"
-          git :push => "origin master"
+          git add: "."
+          git commit: "-m 'Deploy files added'"
+          git push: "origin master"
         end
         if yes?("Would you like to configure your server and deploy to it?")
           @app_name = Rails.application.class.parent_name.parameterize.underscore
-          copy_file '../templates/create_database.mysql.erb', 'config/templates/create_database.mysql.erb'
-          copy_file '../templates/database.yml.erb', 'config/templates/database.yml.erb'
-          template '../templates/apache.tmpl.erb', "config/templates/#{@app_name}"
+          copy_file "../templates/create_database.mysql.erb", "config/templates/create_database.mysql.erb"
+          copy_file "../templates/database.yml.erb", "config/templates/database.yml.erb"
+          template "../templates/apache.tmpl.erb", "config/templates/#{@app_name}"
           system("bundle install")
 
           #Add Changes to git
-          git :add => "."
-          git :commit => "-m 'Server configuration files added'"
-          git :push => "origin master"
+          git add: "."
+          git commit: "-m 'Server configuration files added'"
+          git push: "origin master"
 
           system("cap deploy:create_gemset")
           system("cap deploy:setup")

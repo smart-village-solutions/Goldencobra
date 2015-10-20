@@ -4,15 +4,15 @@
   <%= render "/layouts/header_meta" %>
 </head>
 <body>
+  <%= render "/layouts/navigation" %>
+
   <%# page content %>
-  <div>
-    <%= render_article_type_content %>
-    <%= yield %>
-  </div>
+  <%= render_article_type_content %>
+  <%= yield %>
 
   <%= render "/layouts/footer" %>
 
-	<%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application" %>
 
   <%# place for special page javascripts %>
   <%= yield :page_script %>
