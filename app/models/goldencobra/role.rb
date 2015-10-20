@@ -14,6 +14,7 @@
 
 module Goldencobra
   class Role < ActiveRecord::Base
+      attr_accessible :name, :description, :redirect_after_login
 
       validates_presence_of :name
 
