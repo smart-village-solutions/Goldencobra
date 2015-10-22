@@ -45,7 +45,7 @@ module Goldencobra
       collection = [[@f.object.try(:parent).try(:parent_path), @f.object.try(:parent).try(:id)]]
       input_form_for(:parent_id, as: :select,
                      collection: collection,
-                     input_html: { :class => css_name },
+                     input_html: { class: css_name },
                      style: "width: 80%;",
                      dataplaceholder: "Elternelement auswählen")
     end
@@ -72,25 +72,25 @@ module Goldencobra
           @f.input :widgets,
             as: :select,
             collection: Goldencobra::Widget.tagged_with(wtag),
-            input_html: { :class => "chosen-select", style: "width: 80%; margin-left:20%",
+            input_html: { class: "chosen-select", style: "width: 80%; margin-left:20%",
                           "data-placeholder" => "Widgets auswählen" },
-            wrapper_html: { :class => "hidden_label" }
+            wrapper_html: { class: "hidden_label" }
         end
       end
     end
 
     def article_images
-      @f.has_many :article_images do |ai|
+      @f.has_many :article_images, heading: "", new_record: "+ hinzufügen" do |ai|
         ai.input :image, as: :select,
           collection: Goldencobra::Upload.where(id: ai.object.image_id).map{ |c| [c.complete_list_name, c.id] },
           input_html: { class: "article_image_file chosen-select get_goldencobra_uploads_per_remote",
                         style: "width: 80%;", "data-placeholder" => "Bitte warten" },
-          label: "Medium waehlen",
+          label: "Medium wählen",
           include_blank: false
         ai.input :position, as: :select,
           collection: Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip),
           include_blank: false
-        ai.input :_destroy, as: :boolean
+        ai.input :_destroy, as: :boolean, label: "Löschen"
       end
     end
 
@@ -103,7 +103,7 @@ module Goldencobra
         as: :select, collection: collection,
         include_blank: "/",
         id: "article_event_articleindex_id",
-        input_html: { :class => 'chosen-select', style: 'width: 80%;' }
+        input_html: { class: 'chosen-select', style: 'width: 80%;' }
     end
 
     def index__article_descendents_depth
