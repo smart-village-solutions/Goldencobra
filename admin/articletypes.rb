@@ -1,6 +1,8 @@
+# encoding: utf-8
+
 ActiveAdmin.register Goldencobra::Articletype, as: "Articletype" do
   menu parent: I18n.t("settings", scope: ["active_admin","menue"]),
-       label: I18n.t('active_admin.articletypes.as'), if: proc{can?(:update, Goldencobra::Article)}
+       label: I18n.t("active_admin.articletypes.as"), if: proc{can?(:update, Goldencobra::Article)}
 
   config.clear_action_items!
 
@@ -12,28 +14,28 @@ ActiveAdmin.register Goldencobra::Articletype, as: "Articletype" do
   end
 
   form html: { enctype: "multipart/form-data" }  do |f|
-    f.inputs I18n.t('active_admin.articletypes.general') do
+    f.inputs I18n.t("active_admin.articletypes.general") do
       f.input :default_template_file, as: :select,
-              collection: Goldencobra::Article.templates_for_select, include_blank: false
+              collection: Goldencobra::Article.templates_for_select, include_blank: false,
+              label: "Standardlayout"
     end
-    f.inputs I18n.t('active_admin.articletypes.article_fields'), class: "foldable" do
-      f.has_many :fieldgroups do |fg|
-        fg.input :title
+    f.inputs I18n.t("active_admin.articletypes.article_fields"), class: "foldable" do
+      f.has_many :fieldgroups, heading: "", new_record: "+ Feldgruppe hinzufügen" do |fg|
+        fg.input :title, label: "Titel"
         fg.input :position, as: :select,
-                 collection: [["First Block","first_block"], ["Last Block","last_block"]],
-                 include_blank: false, hint: I18n.t('active_admin.articletypes.position_hint')
-        fg.input :foldable, hint: I18n.t('active_admin.articletypes.foldable_hint')
-        fg.input :closed, hint: I18n.t('active_admin.articletypes.closed_hint')
-        fg.input :expert, hint: I18n.t('active_admin.articletypes.expert_hint')
-        fg.input :sorter, hint: I18n.t('active_admin.articletypes.sorter_hint')
+                 collection: [["Erster Block", "first_block"], ["Letzter Block", "last_block"]],
+                 include_blank: false, hint: I18n.t("active_admin.articletypes.position_hint")
+        fg.input :foldable, hint: I18n.t("active_admin.articletypes.foldable_hint")
+        fg.input :closed, hint: I18n.t("active_admin.articletypes.closed_hint")
+        fg.input :sorter, hint: I18n.t("active_admin.articletypes.sorter_hint"), label: "Sortierung"
         fg.input :_destroy, as: :boolean
-        fg.has_many :fields, sortable: :sorter do |fo|
+        fg.has_many :fields, sortable: :sorter, heading: "", new_record: "+ Artikelfeld hinzufügen" do |fo|
           fo.input :fieldname, as: :select,
                    collection: Goldencobra::Articletype::ArticleFieldOptions.select{
                      |a| (!a.to_s.starts_with?("index__") || f.object.name.include?(" Index"))
-                   }, include_blank: false
+                   }, include_blank: false, label: "Artikelfeld"
           fo.hidden_field :sorter
-          fo.input :_destroy, as: :boolean
+          fo.input :_destroy, as: :boolean, label: "Löschen"
         end
       end
     end
