@@ -5,6 +5,7 @@ V2.0.10 - 12.10.2015
     "JS-Scripts"-Bereich bei Bidler/Uploads wieder hidden in neuer ActiveAdmin Version
   - HTML-Editoren wählbar per Golden Cobra Setting (tinymce-v3/tinymce-v4/ckeditor)
     (a44621e4ff05bbd1fd64a73ed6ef61410e77832d)
+  - Artikeltypen per sortable sortierbar per Drag&Drop beim Einrichten
 
 V2.0.9 - 02.09.2015
   - Update zu Rails 4.2.4 (c8d601257ee38662024b8bbeca69a76c1bac14b8)
