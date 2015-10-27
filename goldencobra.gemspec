@@ -51,7 +51,7 @@ Gem::Specification.new do |s|
   s.add_dependency "cancan"
   s.add_dependency "ancestry"
   s.add_dependency 'meta-tags'
-  s.add_dependency 'paperclip', "3.4.2"
+  s.add_dependency 'paperclip', "~> 3.4.2"
   s.add_dependency 'uglifier'
   s.add_dependency 'exception_notification', '4.0.0'
   s.add_dependency 'acts-as-taggable-on' #, '3.1.0.rc1'
@@ -59,7 +59,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rubyzip'
   s.add_dependency 'geocoder'
   s.add_dependency 'paper_trail'
-  s.add_dependency 'sidekiq', "3.2.1"
+  s.add_dependency 'sidekiq', "~> 3.2"
   s.add_dependency 'sinatra'
   s.add_dependency 'slim'
   s.add_dependency 'whenever'
