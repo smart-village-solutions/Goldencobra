@@ -47,6 +47,7 @@ module Goldencobra
 
     before_save :set_week_start_end_times
     before_save :validate_start_end_time
+    before_save :set_default_tag
 
     OfflineDays   = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
     OfflineDaysEN = ["mo", "tu", "we", "th", "fr", "sa", "su"]
@@ -68,7 +69,6 @@ module Goldencobra
     end
     acts_as_taggable_on :tags
 
-    before_save :set_default_tag
 
     def set_default_tag
       self.tag_list = "sidebar" if self.tag_list.blank?

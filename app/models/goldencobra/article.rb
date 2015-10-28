@@ -106,6 +106,7 @@ module Goldencobra
     before_save :set_url_name_if_blank
     before_save :uniqify_url_name
     before_save :set_standard_application_template
+    before_save :set_descendants_status
     after_save :set_default_meta_opengraph_values
     after_save :verify_existence_of_opengraph_image
     after_update :notification_event_update
@@ -878,6 +879,18 @@ module Goldencobra
         :tag_name_contains, :tag_name_equals, :tag_name_starts_with, :tag_name_ends_with,
         :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with
       ]
+    end
+
+
+    def set_descendants_status
+      if self.active_changed?
+        # Save without callbacks
+        if Rails::VERSION::MAJOR == 3
+          self.descendants.map{ |d| d.update_column(:active, self.active) }
+        elsif Rails::VERSION::MAJOR > 3
+          self.descendants.map{ |d| d.update_columns(active: self.active) }
+        end
+      end
     end
 
   end
