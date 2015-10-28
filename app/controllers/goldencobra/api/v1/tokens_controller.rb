@@ -30,6 +30,16 @@ module Goldencobra
             render status: 401, json: { error: "Invalid email or password." }
           end
         end
+
+        def show
+          unless current_user.present?
+            render status: 400, json: { error: 'You are not logged in' }
+            return
+          end
+          current_user.ensure_authentication_token!
+          render status: 200, json: { token: current_user.authentication_token }
+        end
+
       end
     end
   end

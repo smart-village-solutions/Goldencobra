@@ -18,7 +18,7 @@ Goldencobra::Engine.routes.draw do
   # post '/api/v1/tokens' => 'goldencobra/api/v1/tokens_controller#create'
   namespace 'api' do
     namespace 'v1' do
-      resources :tokens, only: [:create]
+      resources :tokens, only: [:create, :show]
     end
 
     namespace 'v2' do
