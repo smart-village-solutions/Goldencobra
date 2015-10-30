@@ -21,10 +21,10 @@ Gem::Specification.new do |s|
   # end
 
   s.requirements << 'ImageMagick'
-  s.required_ruby_version = '>= 1.9.2'
+  s.required_ruby_version = '>= 2.2.2'
 
   # s.add_dependency 'coffee-script-source', '~>1.8.0'
-  s.add_dependency 'rails', '4.2.4'
+  s.add_dependency 'rails', '~> 5.0'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'devise'
   # TODO: Token Authentication neu machen
@@ -75,15 +75,15 @@ Gem::Specification.new do |s|
   s.add_dependency 'protected_attributes'
   s.add_dependency 'active_model_serializers'
   s.add_dependency 'actionpack-action_caching'
-  s.add_dependency 'react-rails', '~> 1.0'
+  s.add_dependency 'react-rails', '>= 1.0'
   s.add_dependency 'oj' # faster json rendering
-  s.add_dependency 'bootstrap-sass', '~> 3.3' # frontend template framework
+  s.add_dependency 'bootstrap-sass', '>= 3.3' # frontend template framework
   s.add_dependency 'font-awesome-sass'
   s.add_dependency 'autoprefixer-rails' # to provide easy automatic css prefixing
 
   #Ausgelagerte Funktionen in Rails 4.x
   s.add_dependency 'responders', '~> 2.0'
-  s.add_dependency 'web-console', '~> 2.0'
+  # s.add_dependency 'web-console', '~> 2.0'
 
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'annotate'
