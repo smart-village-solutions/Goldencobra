@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
   # TODO: Token Authentication neu machen
   s.add_dependency 'devise-token_authenticatable'
   s.add_dependency 'cancancan'
+  s.add_dependency 'administrate'
   s.add_dependency 'activeadmin', '~> 1.0.0.pre1'
 
   #Sunsport und Solar scheinen noch nciht rails 4.x kompatible zu sein
