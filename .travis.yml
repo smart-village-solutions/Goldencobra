@@ -11,7 +11,7 @@ before_script:
   - "export DISPLAY=:99.0 && bundle exec cucumber"
   - "bundle exec rspec"
 rvm:
-  - 2.1.1
+  - 2.2.0
 gemfile:
   - Gemfile
 branches:

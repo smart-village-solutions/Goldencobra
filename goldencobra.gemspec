@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   # end
 
   s.requirements << 'ImageMagick'
-  s.required_ruby_version = '>= 1.9.2'
+  s.required_ruby_version = '>= 2.2.0'
 
   # s.add_dependency 'coffee-script-source', '~>1.8.0'
   s.add_dependency 'rails', '4.2.4'
