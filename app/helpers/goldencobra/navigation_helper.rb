@@ -2,8 +2,8 @@ module Goldencobra
   module NavigationHelper
 
     def breadcrumb(options={})
-      id_name = options[:id] || "breadcrumb"
-      class_name = options[:class] || ""
+      id_name = options["id"] || "breadcrumb"
+      class_name = options["class"] || ""
       if @article
         list = ""
         @article.path.each do |art|
@@ -12,19 +12,19 @@ module Goldencobra
         end
         content_list = content_tag(:ol, raw(list))
         if id_name.present?
-          result = content_tag(:nav, raw(content_list), :id => "#{id_name}", :class => "#{class_name}")
+          result = content_tag(:nav, raw(content_list), id: "#{id_name}", class: "#{class_name}")
         else
-          result = content_tag(:nav, raw(content_list), :class => "#{class_name}")
+          result = content_tag(:nav, raw(content_list), class: "#{class_name}")
         end
         return raw(result)
       end
     end
 
-    # navigation_menu("Hauptmenue", :depth => 1, :class => "top", :id => "menue1", :offset => 1 )
+    # navigation_menu("Hauptmenue", depth: 1, class: "top", id: "menue1", offset: 1 )
     # depth: 0 = unlimited, 1 = self, 2 = self and children 1. grades, 3 = self and up to children 2.grades
     # offset: number of levels to skip, 0 = none
 
-    #<%= navigation_menu("Top-Menu", :current_article => @article, :class => "ul_main_nav", :depth => 1, :offset => 1 %>
+    #<%= navigation_menu("Top-Menu", current_article: @article, class: "ul_main_nav", depth: 1, offset: 1 %>
 
     #TODO: offset implementieren
     def navigation_menu(menue_id, options={})
@@ -38,14 +38,14 @@ module Goldencobra
 
       if menue_id.class == String
         if current_article.present? && current_article.public_url.present?
-          current_menue = Goldencobra::Menue.active.where(:target => current_article.public_url(false)).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
+          current_menue = Goldencobra::Menue.active.where(target: current_article.public_url(false)).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
           if current_menue
             master_menue = Goldencobra::Menue.find_by_id(current_menue.path_ids[offset])
           else
             return ""
           end
         elsif submenue_of_article.present? && submenue_of_article.public_url.present?
-          master_menue = Goldencobra::Menue.active.where(:target => submenue_of_article.public_url).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
+          master_menue = Goldencobra::Menue.active.where(target: submenue_of_article.public_url).select{|a| a.path.map(&:title).join("/").include?(menue_id)}.first
         else
           master_menue = Goldencobra::Menue.active.find_by_pathname(menue_id)
         end
@@ -88,9 +88,9 @@ module Goldencobra
         end
 
         if id_name.present?
-          result = content_tag(:ul, raw(content),:id => "#{id_name}", :class => "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
+          result = content_tag(:ul, raw(content),id: "#{id_name}", class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
         else
-          result = content_tag(:ul, raw(content), :class => "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
+          result = content_tag(:ul, raw(content), class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
         end
       end
       return raw(result)
@@ -114,17 +114,17 @@ module Goldencobra
         child_target_link = child.target.gsub("\"",'')
       end
       if child.remote
-        link_options = {"data-remote" => "true",:href => child_target_link}
+        link_options = {"data-remote" => "true",href: child_target_link}
       else
-        link_options = {:href => child_target_link}
+        link_options = {href: child_target_link}
       end
       child_link = content_tag(:a, child.title, link_options )
       image_link = child.image.present? ? image_tag(child.image.image(:original)) : ""
-      child_link = child_link + content_tag(:a, image_link, link_options.merge(:class => "navigtion_link_imgage_wrapper")) unless options[:show_image] == false
-      child_link = child_link + content_tag(:a, child.description_title, link_options.merge(:class => "navigtion_link_description_title")) unless options[:show_description_title] == false
+      child_link = child_link + content_tag(:a, image_link, link_options.merge(class: "navigtion_link_imgage_wrapper")) unless options[:show_image] == false
+      child_link = child_link + content_tag(:a, child.description_title, link_options.merge(class: "navigtion_link_description_title")) unless options[:show_description_title] == false
       template = Liquid::Template.parse(child.description)
-      child_link = child_link + content_tag("div", raw(template.render(Goldencobra::Article::LiquidParser)), :class => "navigtion_link_description") unless options[:show_description] == false
-      child_link = child_link + content_tag(:a, child.call_to_action_name, link_options.merge(:class => "navigtion_link_call_to_action_name")) unless options[:show_call_to_action_name] == false
+      child_link = child_link + content_tag("div", raw(template.render(Goldencobra::Article::LiquidParser)), class: "navigtion_link_description") unless options[:show_description] == false
+      child_link = child_link + content_tag(:a, child.call_to_action_name, link_options.merge(class: "navigtion_link_call_to_action_name")) unless options[:show_call_to_action_name] == false
 
       current_depth += 1
       child_elements = menue_children(child, subtree_menues)
@@ -138,7 +138,7 @@ module Goldencobra
           content_level << navigation_menu_helper(subchild, options, subtree_menues, current_depth)
         end
         if content_level.present?
-          child_link = child_link + content_tag(:ul, raw(content_level), :class => "level_#{current_depth} children_#{visible_child_element_count}" )
+          child_link = child_link + content_tag(:ul, raw(content_level), class: "level_#{current_depth} children_#{visible_child_element_count}" )
         end
       end
 
@@ -153,7 +153,7 @@ module Goldencobra
       #   request = path_obj.new(options[:liquid_url_path])
       # end
 
-      return content_tag(:li, raw(child_link), "data-id" => child.id, :class => "#{ visible_child_element_count > 0 ? 'has_children' : '' } #{ (child.has_active_child?(request, subtree_menues) ? 'has_active_child' : '') if request.present? } #{ (child.is_active?(request) ? 'active' : '') if request.present? } #{ child.css_class.gsub(/\W/,' ') }".squeeze(' ').strip)
+      return content_tag(:li, raw(child_link), "data-id" => child.id, class: "#{ visible_child_element_count > 0 ? 'has_children' : '' } #{ (child.has_active_child?(request, subtree_menues) ? 'has_active_child' : '') if request.present? } #{ (child.is_active?(request) ? 'active' : '') if request.present? } #{ child.css_class.gsub(/\W/,' ') }".squeeze(' ').strip)
     end
 
   end
