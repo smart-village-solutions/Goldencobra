@@ -41,7 +41,7 @@ module Goldencobra
       if params[:usermodel] && params[:usermodel].constantize &&
          params[:usermodel].constantize.present? &&
          params[:usermodel].constantize.attribute_method?(:email)
-        sign_out
+        sign_out params[:usermodel].downcase.to_sym
         reset_session
         flash[:notice] = I18n.translate("signed_out", :scope => ["devise", "sessions"])
       end
