@@ -1,3 +1,6 @@
+/* globals document, setTimeout, $ */
+/* exported initCKEditor */
+
 function initCKEditor() {
   var jsTag = document.createElement('script');
   jsTag.type = 'text/javascript';
@@ -9,9 +12,11 @@ function initCKEditor() {
     jsTag.type = 'text/javascript';
     jsTag.src = '/assets/goldencobra/html_editors/ckeditor/adapters/jquery.js';
     document.getElementsByTagName('head')[0].appendChild(jsTag);
-  }, 200);
+  }, 500);
 
   setTimeout(function () {
-    $('textarea.html-textarea').ckeditor();
-  }, 700);
+    var $textareaHtml = $('textarea.html-textarea');
+    $textareaHtml.ckeditor();
+    $textareaHtml.parent('li').css('overflow', 'hidden');
+  }, 1000);
 }
