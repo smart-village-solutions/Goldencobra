@@ -6,7 +6,7 @@ redis:
   image: redis
 app:
   build: .
-  command: bundle exec rails s --port 3000 --binding 0.0.0.0
+  command: "cd test/dummy && bundle exec rails s --port 3000 --binding 0.0.0.0"
   volumes:
     - .:/myapp
   ports:

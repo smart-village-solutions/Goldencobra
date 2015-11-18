@@ -1,5 +1,7 @@
 FROM ruby:2.2.2
 
+MAINTAINER ikusei GmbH
+
 RUN apt-get update -qq && apt-get install -y build-essential
 
 # for nokogiri
@@ -26,6 +28,15 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 ADD Gemfile* $APP_HOME/
+ADD goldencobra.gemspec $APP_HOME/
+ADD . $APP_HOME
+
 RUN bundle install
 
-ADD . $APP_HOME
+RUN RAILS_ENV=production bundle exec rake db:create --trace
+RUN RAILS_ENV=production bundle exec rake db:migrate --trace
+RUN RAILS_ENV=production bundle exec rake db:seed --trace
+
+
+
+# https://docs.docker.com/mac/step_six/
