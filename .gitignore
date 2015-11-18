@@ -47,3 +47,4 @@ test/dummy/results.xml
 test/dummy/config/database.yml
 
 Gemfile.lock
+docker_config/id_*
