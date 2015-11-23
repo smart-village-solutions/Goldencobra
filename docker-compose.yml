@@ -23,6 +23,7 @@ worker:
   command: bundle exec sidekiq
   links:
     - redis
+    - db
   environment:
     - RACK_ENV=development
   volumes:

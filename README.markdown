@@ -278,6 +278,48 @@ in your view_templates:
 # Contributing
 
 
+## Docker installieren
+
+### Docker für Mac
+
+https://www.docker.com/toolbox
+
+Starte "Docker Quickstart Terminal.app"
+
+=> docker is configured to use the default machine with IP xxx.xxx.xxx.xxx
+
+
+## Installationsanleitung mit Docker
+
+
+### Configs aus Templates erstellen:
+
+``` 
+cp config/database.yml.tmpl config/database.yml
+cp config/initializers/sidekiq.rb.tmpl config/initializers/sidekiq.rb
+cp config/unicorn.rb.tmpl config/unicorn.rb
+```
+
+
+### Datenbank Setup
+```
+docker-compose build
+docker-compose run app rake db:setup
+```
+
+
+## Starten der App
+
+```
+git pull
+docker-compose build
+docker-compose up
+```
+
+=> visit: http://dockerIP:3000
+
+
+
 See the [CONTRIBUTING] document.
 Thank you, [contributors]!
 
