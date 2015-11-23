@@ -48,3 +48,6 @@ test/dummy/config/database.yml
 
 Gemfile.lock
 docker_config/id_*
+config/unicorn.rb
+config/sidekiq.yml
+config/initializers/sidekiq.rb
