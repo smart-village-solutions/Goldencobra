@@ -1,0 +1,7 @@
+Sidekiq.configure_client do |config|
+  config.redis = { size: 1, namespace: "sidekiq_goldencobra", url: "redis://redis:6379/0" }
+end
+
+Sidekiq.configure_server do |config|
+  config.redis = { url: 'redis://redis:6379/0', namespace: 'sidekiq_goldencobra' }
+end
