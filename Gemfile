@@ -59,6 +59,7 @@ group :development, :test do
   gem 'newrelic_rpm'
   gem 'yarjuf'
   gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'unicorn-rails' # Start unicorn with multiple threads instead of built in webserver
 end
 
 group :development do
