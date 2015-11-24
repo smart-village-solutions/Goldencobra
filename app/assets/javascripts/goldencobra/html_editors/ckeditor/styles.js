@@ -13,7 +13,7 @@
 // Otherwise it is strongly recommended to customize this file to match your
 // website requirements and design properly.
 
-CKEDITOR.stylesSet.add('default', [
+CKEDITOR.stylesSet.add( 'default', [
 	/* Block Styles */
 
 	// These styles are already available in the "Format" combo ("format" plugin),
@@ -107,4 +107,5 @@ CKEDITOR.stylesSet.add('default', [
 
 	{ name: 'Borderless Table',		element: 'table',	styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
 	{ name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } }
-]);
+] );
+
