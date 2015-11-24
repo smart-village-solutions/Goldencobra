@@ -1,7 +1,11 @@
+/* globals document, $ */
+/* exported initTinyMCEv3 */
+
 function initTinyMCEv3() {
   var jsTag = document.createElement('script');
   jsTag.type = 'text/javascript';
   jsTag.src = '/assets/goldencobra/html_editors/tinymce_v3/jquery.tinymce_v3.js';
+  jsTag.async = false;
   document.getElementsByTagName('head')[0].appendChild(jsTag);
 
   var tags = '';
