@@ -803,8 +803,7 @@ module Goldencobra
         ArticlesCacheWorker.perform_async
       else
         Goldencobra::Article.active.each do |article|
-          article.updated_at = Time.now
-          article.without_versioning :save
+          article.touch
         end
       end
     end
