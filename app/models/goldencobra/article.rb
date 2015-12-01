@@ -792,7 +792,7 @@ module Goldencobra
     end
 
     def self.recreate_cache
-      if RUBY_VERSION.include?("1.9.")
+      if RUBY_VERSION.to_f > 1.8
         ArticlesCacheWorker.perform_async()
       else
         Goldencobra::Article.active.each do |article|

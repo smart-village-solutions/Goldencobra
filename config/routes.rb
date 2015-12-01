@@ -1,4 +1,4 @@
-if RUBY_VERSION.include?("1.9.")
+if RUBY_VERSION.to_f > 1.8
   require 'sidekiq/web'
 end
 
@@ -12,7 +12,7 @@ Goldencobra::Engine.routes.draw do
   match "manage/article_visibility/:id" => "manage#article_visibility"
   match "call_for_support"              => "manage#call_for_support"
 
-  if RUBY_VERSION.include?("1.9.")
+  if RUBY_VERSION.to_f > 1.8
     mount Sidekiq::Web => '/admin/background'
   end
 

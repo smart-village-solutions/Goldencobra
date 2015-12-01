@@ -43,7 +43,13 @@ module Goldencobra
 
     before_save :set_week_start_end_times
     before_save :validate_start_end_time
-
+    before_save :set_default_tag
+    if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+      if Goldencobra::Setting.for_key("goldencobra.widgets.recreate_cache") == "true"
+        after_save 'Goldencobra::Article.recreate_cache'
+      end
+    end
+    
     OfflineDays   = ["Mo", 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
     OfflineDaysEN = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su']
 
@@ -54,17 +60,12 @@ module Goldencobra
     scope :default, where(:default => true).order(:sorter)
     scope :not_default, where(:default => false).order(:sorter)
 
-    if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
-      if Goldencobra::Setting.for_key("goldencobra.widgets.recreate_cache") == "true"
-        after_save 'Goldencobra::Article.recreate_cache'
-      end
-    end
+
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end
     acts_as_taggable_on :tags
 
-    before_save :set_default_tag
 
     def set_default_tag
       self.tag_list = "sidebar" if self.tag_list.blank?
