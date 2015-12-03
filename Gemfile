@@ -10,14 +10,13 @@ gemspec
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
-
+gem "mysql2", "0.3.10"    # Fix auf Version, weil: (can't activate mysql2 (~> 0.3.10), already activated mysql2-0.4.2.
 gem 'multi_json'#, "~> 1.3"
 gem 'devise', "~> 2.2.4"#, :git => "http://github.com/plataformatec/devise.git"
 gem 'activeadmin', :git => "http://github.com/ikusei/active_admin.git", :require => "activeadmin"
 gem 'acts-as-taggable-on', :git => 'http://github.com/mbleigh/acts-as-taggable-on.git'
 gem 'i18n-active_record', :git => 'http://github.com/svenfuchs/i18n-active_record.git', :require => 'i18n/active_record'
 gem 'execjs'
-#gem 'therubyracer', :group => [:production], :platform => :ruby #, '~> 0.10.2'
 
 gem "friendly_id"
 gem 'omniauth'
@@ -27,13 +26,11 @@ gem 'oa-openid', :require => 'omniauth/openid'
 gem 'coffee-rails'#, '~> 3.2.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'meta-tags', :require => 'meta_tags', :git => "http://github.com/5minpause/meta-tags.git"
-# gem "cocaine", "= 0.3.2"
 gem "paperclip"#, "= 3.0.4"
 gem 'sass-rails'
 gem 'compass-rails'
 gem 'memcache-client'
 gem 'nokogiri'#, '~> 1.5.3'
-# gem 'cancan', "1.6.7"
 gem 'cancan'
 #gem 'cobweb' #https://github.com/stewartmckee/cobweb
 #gem 'link-checker'

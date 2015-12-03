@@ -32,6 +32,7 @@ module Goldencobra
                         :url => "/system/:attachment/:id/:style/:filename",
                         :convert_options => { :all => "#{Goldencobra::Setting.for_key('goldencobra.upload.convert_options')}" },
                         :default_url => "missing_:style.png"
+      do_not_validate_attachment_file_type :image
       before_post_process :image_file?
     end
 
