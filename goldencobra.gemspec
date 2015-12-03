@@ -42,7 +42,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'compass-960-plugin'
   s.add_dependency 'progress_bar'
   s.add_dependency "execjs"
-  #s.add_dependency "therubyracer" # , "~> 0.10.2"
   s.add_dependency "friendly_id"#, ">= 4.0.6"
   s.add_dependency "omniauth"
   s.add_dependency "omniauth-openid"
@@ -51,7 +50,7 @@ Gem::Specification.new do |s|
   s.add_dependency "cancan"
   s.add_dependency "ancestry"
   s.add_dependency 'meta-tags'
-  s.add_dependency 'paperclip', "~> 3.4.2"
+  s.add_dependency 'paperclip'
   s.add_dependency 'uglifier'
   s.add_dependency 'exception_notification', '4.0.0'
   s.add_dependency 'acts-as-taggable-on' #, '3.1.0.rc1'
@@ -78,7 +77,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'react-rails', '~> 1.0'
   s.add_dependency 'addressable'
   s.add_dependency 'active_model_serializers'
-  # s.add_dependency "wicked_pdf"
+  s.add_dependency 'nokogiri'
+  s.add_dependency "wicked_pdf"
   s.add_development_dependency "mysql2"
   s.add_development_dependency 'annotate'
   s.add_development_dependency 'guard-annotate'
