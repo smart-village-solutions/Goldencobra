@@ -50,7 +50,7 @@ module Goldencobra
       before_post_process :image_file?
     end
 
-    has_many :article_images, :class_name => Goldencobra::ArticleImage
+    has_many :article_images, :class_name => Goldencobra::ArticleImage, dependent: :destoy
     has_many :articles, :through => :article_images
     has_many :imports, :class_name => Goldencobra::Import
     belongs_to :attachable, polymorphic: true
