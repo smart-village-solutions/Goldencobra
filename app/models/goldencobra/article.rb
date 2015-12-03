@@ -66,7 +66,7 @@ module Goldencobra
     has_many :link_checks, :class_name => Goldencobra::LinkChecker
     has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
-    has_many :article_images, dependent: :destoy
+    has_many :article_images, dependent: :destroy
     has_many :article_widgets
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
