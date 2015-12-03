@@ -1,3 +1,6 @@
+V1.4.76
+  - Fix in Goldencobra Menue TKD-48
+  - Update von Paperclip aufgrund Security Warning
 V1.4.75
   - API::v2::Articles beschleunigt mit oj gem
 V1.4.74
