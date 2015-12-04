@@ -64,7 +64,6 @@ module Goldencobra
       end
     end
 
-
     def self.reset_common_block(at)
       new_a = at.fieldgroups.create(title: "Allgemein", position: "first_block", foldable: true, closed: false, expert: false, sorter: 1)
       common_elements = ["active", "subtitle", "title", "teaser", "content", "tag_list"]
@@ -86,10 +85,8 @@ module Goldencobra
     end
 
     def self.reset_media_block(at)
-      new_a = at.fieldgroups.create(title: "Medien", position: "last_block", foldable: true, closed: true, expert: false, sorter: 2)
-      new_a.fields.create(fieldname: "article_images", sorter: 5)
+      create_fieldgroup(at, "Medien", "last_block", true, true, false, 2, "article_images", 5)
     end
-
 
     def self.reset_meta_block(at)
       new_a = at.fieldgroups.create(title: "Metadescriptions", position: "last_block", foldable: true, closed: true, expert: false, sorter: 3)
@@ -99,10 +96,8 @@ module Goldencobra
       end
     end
 
-
     def self.reset_widget_block(at)
-      new_a = at.fieldgroups.create(title: "Widgets", position: "last_block", foldable: true, closed: true, expert: false, sorter: 4)
-      new_a.fields.create(fieldname: "widgets", sorter: 1)
+      create_fieldgroup(at, "Widgets", "last_block", true, true, false, 4, "widgets", 1)
     end
 
     def self.reset_settings_block(at)
@@ -112,6 +107,11 @@ module Goldencobra
       setting_elements.each_with_index do |name, index|
         new_a.fields.create(fieldname: name, sorter: index * 10)
       end
+    end
+
+    def self.create_fieldgroup(at, title, position, foldable, closed, expert, sorter, fieldname, fieldsorter)
+      new_a = at.fieldgroups.create(title: title, position: position, foldable: foldable, closed: closed, expert: expert, sorter: sorter)
+      new_a.fields.create(fieldname: fieldname, sorter: fieldsorter)
     end
 
   end
