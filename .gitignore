@@ -46,4 +46,3 @@ test/dummy/results.json
 test/dummy/results.xml
 test/dummy/config/database.yml
 
-Gemfile.lock
