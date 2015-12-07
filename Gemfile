@@ -12,20 +12,20 @@ gemspec
 gem "jquery-rails"
 gem "mysql2", "0.3.10"    # Fix auf Version, weil: (can't activate mysql2 (~> 0.3.10), already activated mysql2-0.4.2.
 gem 'multi_json'#, "~> 1.3"
-gem 'devise', "~> 2.2.4"#, :git => "http://github.com/plataformatec/devise.git"
-gem 'activeadmin', :git => "http://github.com/ikusei/active_admin.git", :require => "activeadmin"
-gem 'acts-as-taggable-on', :git => 'http://github.com/mbleigh/acts-as-taggable-on.git'
-gem 'i18n-active_record', :git => 'http://github.com/svenfuchs/i18n-active_record.git', :require => 'i18n/active_record'
+gem 'devise', "~> 2.2.4"#, git: "https://github.com/plataformatec/devise.git"
+gem 'activeadmin', git: "https://github.com/ikusei/active_admin.git", require: "activeadmin"
+gem 'acts-as-taggable-on', git: 'https://github.com/mbleigh/acts-as-taggable-on.git'
+gem 'i18n-active_record', git: 'https://github.com/svenfuchs/i18n-active_record.git', require: 'i18n/active_record'
 gem 'execjs'
 
 gem "friendly_id"
 gem 'omniauth'
 gem 'omniauth-openid'
-gem 'oa-oauth', :require => 'omniauth/oauth'
-gem 'oa-openid', :require => 'omniauth/openid'
+gem 'oa-oauth', require: 'omniauth/oauth'
+gem 'oa-openid', require: 'omniauth/openid'
 gem 'coffee-rails'#, '~> 3.2.0'
 gem 'uglifier', '>= 1.0.3'
-gem 'meta-tags', :require => 'meta_tags', :git => "http://github.com/5minpause/meta-tags.git"
+gem 'meta-tags', require: 'meta_tags', git: "https://github.com/5minpause/meta-tags.git"
 gem "paperclip"#, "= 3.0.4"
 gem 'sass-rails'
 gem 'compass-rails'
@@ -34,7 +34,7 @@ gem 'nokogiri'#, '~> 1.5.3'
 gem 'cancan'
 #gem 'cobweb' #https://github.com/stewartmckee/cobweb
 #gem 'link-checker'
-#gem 'linkchecker', :git => "http://github.com/seb/linkchecker.git"
+#gem 'linkchecker', git: "https://github.com/seb/linkchecker.git"
 
 gem 'rmagick'
 gem 'simple_enum'
@@ -44,7 +44,7 @@ gem "paper_trail"
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'sidekiq'
-gem 'sinatra', :require => false
+gem 'sinatra', require: false
 gem 'slim'
 gem 'geokit'
 gem 'exifr'
@@ -87,5 +87,5 @@ group :test do
   gem 'growl'
   gem 'launchy'
   gem 'shoulda-matchers'
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
 end
