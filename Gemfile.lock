@@ -625,7 +625,7 @@ DEPENDENCIES
   memcache-client
   meta-tags!
   multi_json
-  mysql2 (~> 0.3.10)
+  mysql2 (~> 0.3.20)
   newrelic_rpm
   nokogiri
   oa-oauth
