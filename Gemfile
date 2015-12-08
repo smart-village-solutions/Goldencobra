@@ -10,7 +10,7 @@ gemspec
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
-gem "mysql2", "0.3.10"    # Fix auf Version, weil: (can't activate mysql2 (~> 0.3.10), already activated mysql2-0.4.2.
+gem "mysql2", "~> 0.3.10"    # Fix auf Version, weil: (can't activate mysql2 (~> 0.3.10), already activated mysql2-0.4.2.
 gem 'multi_json'#, "~> 1.3"
 gem 'devise', "~> 2.2.4"#, git: "https://github.com/plataformatec/devise.git"
 gem 'activeadmin', git: "https://github.com/ikusei/active_admin.git", require: "activeadmin"

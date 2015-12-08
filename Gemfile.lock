@@ -364,7 +364,7 @@ GEM
     multi_test (0.1.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.3.10)
+    mysql2 (0.3.20)
     nenv (0.2.0)
     newrelic_rpm (3.14.0.305)
     nokogiri (1.6.7)
@@ -625,7 +625,7 @@ DEPENDENCIES
   memcache-client
   meta-tags!
   multi_json
-  mysql2 (= 0.3.10)
+  mysql2 (~> 0.3.10)
   newrelic_rpm
   nokogiri
   oa-oauth
