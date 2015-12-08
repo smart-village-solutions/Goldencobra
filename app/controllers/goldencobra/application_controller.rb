@@ -26,9 +26,9 @@ module Goldencobra
 
     rescue_from CanCan::AccessDenied do |exception|
       if can?(:read, Goldencobra::Article)
-        redirect_to root_url, :alert => exception.message
+        redirect_to root_url, alert: exception.message
       else
-        redirect_to "/admin", :alert => exception.message
+        redirect_to "/admin", alert: exception.message
       end
     end
 
@@ -42,16 +42,16 @@ module Goldencobra
       Goldencobra::Article::LiquidParser["current_article"] = current_article
 
       meta_tags = {
-        :site => s('goldencobra.page.default_title_tag'),
-        :title => current_article.metatag_title_tag.present? ? current_article.metatag_title_tag : current_article.title,
-        :reverse => true,
-        :description => current_article.metatag_meta_description,
-        :open_graph => {
-          :title => current_article.metatag_open_graph_title,
-          :description => current_article.metatag_open_graph_description,
-          :type => current_article.metatag_open_graph_type,
-          :url => current_article.metatag_open_graph_url,
-          :image => current_article.metatag_open_graph_image
+        site: s('goldencobra.page.default_title_tag'),
+        title: current_article.metatag_title_tag.present? ? current_article.metatag_title_tag : current_article.title,
+        reverse: true,
+        description: current_article.metatag_meta_description,
+        open_graph: {
+          title: current_article.metatag_open_graph_title,
+          description: current_article.metatag_open_graph_description,
+          type: current_article.metatag_open_graph_type,
+          url: current_article.metatag_open_graph_url,
+          image: current_article.metatag_open_graph_image
         }
       }
 

@@ -3,7 +3,7 @@
 module Goldencobra
   class LinkChecker < ActiveRecord::Base
 
-    belongs_to :article, :class_name => Goldencobra::Article, :foreign_key => "article_id"
+    belongs_to :article, class_name: Goldencobra::Article, foreign_key: "article_id"
 
     #get all links of a page and make a check for response status and time
     def self.set_link_checker(article)
@@ -45,8 +45,8 @@ module Goldencobra
       #save status_for_links to DB
       status_for_links.each do |link_name, value|
         article.link_checks.destroy_all
-        Goldencobra::LinkChecker.create(article_id: article.id, target_link: link_name, 
-                                        position: value["position"], response_code: value["response_code"], 
+        Goldencobra::LinkChecker.create(article_id: article.id, target_link: link_name,
+                                        position: value["position"], response_code: value["response_code"],
                                         response_time: value["response_time"], response_error: value["response_error"] )
       end
       return status_for_links

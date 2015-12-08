@@ -16,7 +16,7 @@ module Goldencobra
     self.table_name = 'goldencobra_roles_users'
     attr_accessible :operator_id, :role_id, :operator_type
 
-    belongs_to :operator, :polymorphic => true
-    belongs_to :role, :class_name => Goldencobra::Role
+    belongs_to :operator, polymorphic: true
+    belongs_to :role, class_name: Goldencobra::Role
   end
 end

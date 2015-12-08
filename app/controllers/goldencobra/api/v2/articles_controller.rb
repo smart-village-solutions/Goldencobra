@@ -13,13 +13,13 @@ module Goldencobra
 
           # Check if we have an argument.
           unless params[:q]
-            render status: 200, json: { :status => 200 }
+            render status: 200, json: { status: 200 }
             return
           end
 
           # Check if the query string contains something.
           if params[:q].length == 0
-            render status: 200, json: { :status => 200 }
+            render status: 200, json: { status: 200 }
           else
             # Search and return the result array.
             render status: 200, json: Goldencobra::Article.simple_search(
@@ -50,7 +50,7 @@ module Goldencobra
               # Die React Select Liste braucht das JSON in diesem Format. -hf
               json_uploads = @articles.map{ |a| { "value" => a.id, "label" => a.parent_path } }
             else
-              json_uploads = @articles.map{ |a| a.as_json(:only => [:id, :title], :methods => [:parent_path]) }
+              json_uploads = @articles.map{ |a| a.as_json(only: [:id, :title], methods: [:parent_path]) }
             end
 
             respond_to do |format|
@@ -116,85 +116,85 @@ module Goldencobra
         def create
           # Check if a user is currently logged in.
           unless current_user
-            render status: 403, json: { :status => 403 }
+            render status: 403, json: { status: 403 }
             return
           end
 
           # Check if we do have an article passed by the parameters.
           unless params[:article]
-            render status: 400, json: { :status => 400, :error => "article data missing" }
+            render status: 400, json: { status: 400, error: "article data missing" }
             return
           end
 
           #check if an external referee is passed by the parameters
           unless params[:referee_id]
-            render status: 400, json: { :status => 400, :error => "referee_id missing"  }
+            render status: 400, json: { status: 400, error: "referee_id missing"  }
             return
           end
 
           #check if Article already exists by comparing external referee and current user of caller
-          existing_articles = Goldencobra::Article.where(:creator_id => current_user.id, :external_referee_id => params[:referee_id])
+          existing_articles = Goldencobra::Article.where(creator_id: current_user.id, external_referee_id: params[:referee_id])
           if existing_articles.any?
-            render status: 423, json: { :status => 423, :error => "article already exists", :id => existing_articles.first.id  }
+            render status: 423, json: { status: 423, error: "article already exists", id: existing_articles.first.id  }
             return
           end
 
           # Try to save the article
           response = create_article(params[:article])
           if response.id.present?
-            render status: 200, json: { :status => 200, :id => response.id }
+            render status: 200, json: { status: 200, id: response.id }
           else
-            render status: 500, json: { :status => 500, :error => response.errors, :id => nil }
+            render status: 500, json: { status: 500, error: response.errors, id: nil }
           end
         end
 
 
         def update
           unless current_user
-            render status: 403, json: { :status => 403 }
+            render status: 403, json: { status: 403 }
             return
           end
 
           # Check if we do have an article passed by the parameters.
           unless params[:article]
-            render status: 400, json: { :status => 400, :error => "article data missing" }
+            render status: 400, json: { status: 400, error: "article data missing" }
             return
           end
 
           #check if an external referee is passed by the parameters
           unless params[:referee_id]
-            render status: 400, json: { :status => 400, :error => "referee_id missing"  }
+            render status: 400, json: { status: 400, error: "referee_id missing"  }
             return
           end
 
           #check if Article already exists by comparing external referee and current user of caller
-          existing_articles = Goldencobra::Article.where(:creator_id => current_user.id, :external_referee_id => params[:referee_id])
+          existing_articles = Goldencobra::Article.where(creator_id: current_user.id, external_referee_id: params[:referee_id])
           if existing_articles.blank?
-            render status: 423, json: { :status => 423, :error => "article not found", :id => nil  }
+            render status: 423, json: { status: 423, error: "article not found", id: nil  }
             return
           end
 
           # Try to save the article
           response = update_article(params[:article])
           if response.id.present?
-            render status: 200, json: { :status => 200, :id => response.id }
+            render status: 200, json: { status: 200, id: response.id }
 
             #Erst render ergebnis dann den rest machen
             if params[:images].present?
               params[:images].each do |key,value|
-                existing_images = Goldencobra::Upload.where(:image_remote_url => value[:image][:image_url])
+                existing_images = Goldencobra::Upload.where(image_remote_url: value[:image][:image_url])
                 if existing_images.blank?
                   img = Goldencobra::Upload.create(value[:image])
                 else
                   img = existing_images.first
                 end
                 image_position = Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).first
-                existing_articles.first.article_images.create(:image => img, :position => image_position)
+                existing_articles.first.article_images.create(image: img, position: image_position)
               end
             end
 
           else
-            render status: 500, json: { :status => 500, :error => response.errors, :id => nil }
+            render status: 500, json: { status: 500, error: response.errors, id: nil }
           end
         end
 
@@ -261,7 +261,7 @@ module Goldencobra
           return nil if check_presents_of_article_params(article_param) == false
 
           # Get existing article
-          article = Goldencobra::Article.where(:creator_id => current_user.id).find_by_external_referee_id(params[:referee_id])
+          article = Goldencobra::Article.where(creator_id: current_user.id).find_by_external_referee_id(params[:referee_id])
 
           # Update existing article
           article.update_attributes(params[:article])

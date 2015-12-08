@@ -19,16 +19,16 @@
 
 module Goldencobra
   class Comment < ActiveRecord::Base
-    belongs_to :article, :class_name => Goldencobra::Article, :foreign_key => "article_id"
+    belongs_to :article, class_name: Goldencobra::Article, foreign_key: "article_id"
     belongs_to :commentator, polymorphic: true
-    has_ancestry :orphan_strategy => :rootify
+    has_ancestry orphan_strategy: :rootify
 
     validates_presence_of :article_id, :content, :commentator_id
 
-    scope :approved, -> { where(:approved => true) }
-    scope :not_approved, -> { where(:approved => false) }
-    scope :active, -> { where(:active => true) }
-    scope :reported, -> { where(:reported => true) }
+    scope :approved, -> { where(approved: true) }
+    scope :not_approved, -> { where(approved: false) }
+    scope :active, -> { where(active: true) }
+    scope :reported, -> { where(reported: true) }
     scope :not_reported_and_active, -> { where(reported: false, active: true) }
 
     def title

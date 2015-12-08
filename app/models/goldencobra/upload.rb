@@ -19,10 +19,12 @@
 
 module Goldencobra
   class Upload < ActiveRecord::Base
-    attr_accessible :id, :source, :rights, :description, :image_file_name, :crop_x, :crop_y,
-                    :crop_w, :crop_h, :crop_image, :image_url, :image_content_type,
-                    :image_file_size, :created_at, :updated_at, :attachable_id, :attachable_type,
-                    :alt_text, :sorter_number, :image, :tag_list
+    attr_accessible :id, :source, :rights, :description, :image_file_name,
+                    :crop_x, :crop_y, :crop_w, :crop_h, :crop_image, :image_url,
+                    :image_content_type, :image_file_size, :created_at,
+                    :updated_at, :attachable_id, :attachable_type, :alt_text,
+                    :sorter_number, :image, :tag_list
+
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_image, :image_url
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads") &&
@@ -48,12 +50,12 @@ module Goldencobra
       before_post_process :image_file?
     end
 
-    has_many :article_images, :class_name => Goldencobra::ArticleImage, dependent: :destroy
-    has_many :articles, :through => :article_images
-    has_many :imports, :class_name => Goldencobra::Import
+    has_many :article_images, class_name: Goldencobra::ArticleImage, dependent: :destroy
+    has_many :articles, through: :article_images
+    has_many :imports, class_name: Goldencobra::Import
     belongs_to :attachable, polymorphic: true
 
-    before_save :download_remote_image, :if => :image_url_provided?
+    before_save :download_remote_image, if: :image_url_provided?
 
     before_save :crop_image_with_coords
     def crop_image_with_coords
@@ -111,11 +113,11 @@ module Goldencobra
           int = int + 1
           if zipped_file.file?
             zipped_file.extract("tmp/#{self.id}_unzipped_#{int}.jpg")
-            Goldencobra::Upload.create(:image => File.open("tmp/#{self.id}_unzipped_#{int}.jpg"),
-                        :source => self.source,
-                        :rights => self.rights,
-                        :description => self.description,
-                        :tag_list => self.tag_list.join(", ") )
+            Goldencobra::Upload.create(image: File.open("tmp/#{self.id}_unzipped_#{int}.jpg"),
+                        source: self.source,
+                        rights: self.rights,
+                        description: self.description,
+                        tag_list: self.tag_list.join(", ") )
             File.delete("tmp/#{self.id}_unzipped_#{int}.jpg")
           end
         end

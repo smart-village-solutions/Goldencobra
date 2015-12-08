@@ -134,7 +134,7 @@ module Goldencobra
             menus = menus.after_depth(current_depth + offset).to_depth(current_depth + depth)
 
             # Prepare menu data to display
-            menue_data_as_json = menus.arrange(:order => :sorter)
+            menue_data_as_json = menus.arrange(order: :sorter)
 
             # JsonTree to display, use specified display_methods
             @json_tree = Goldencobra::Menue.json_tree(menue_data_as_json, display_methods )
