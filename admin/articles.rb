@@ -211,7 +211,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       ul do
         results.each do |r|
           next if r == resource
-          li link_to "#{r.title}", admin_article_path(r)
+          li link_to "#{r.title}", admin_article_path(r.id)
         end
       end
     end
@@ -335,10 +335,14 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       end
     end
 
+    def edit
+      @article = Goldencobra::Article.find_by_id(params[:id])
+    end
+
     def new
       @article = Goldencobra::Article.new(params[:article])
       if params[:parent] && params[:parent].present?
-        @parent = Goldencobra::Article.find(params[:parent])
+        @parent = Goldencobra::Article.find_by_id(params[:parent])
         @article.parent_id = @parent.id
       else
         parent_id = Goldencobra::Article.startpage.first.try(:id)

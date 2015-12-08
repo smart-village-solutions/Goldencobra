@@ -22,8 +22,8 @@ ActiveAdmin::Dashboards.build do
           td article.title
           td l(article.created_at, format: :short)
           result = link_to(t(:view), article.public_url, :class => "member_link edit_link view", :title => I18n.t('active_admin.dashboards.title1'), :target => "_blank")
-          result += link_to(t(:edit), admin_article_path(article), :class => "member_link edit_link edit", :title => I18n.t('active_admin.dashboards.title2'))
-          result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.dashboards.title3'))
+          result += link_to(t(:edit), edit_admin_article_path(article.id), :class => "member_link edit_link edit", :title => I18n.t('active_admin.dashboards.title2'))
+          result += link_to(t(:new_subarticle), new_admin_article_path(:parent => article.id), :class => "member_link edit_link new_subarticle", :title => I18n.t('active_admin.dashboards.title3'))
           td result
         end
       end
@@ -31,7 +31,7 @@ ActiveAdmin::Dashboards.build do
 
     table do
       tr do
-        td link_to(I18n.t('active_admin.dashboards.new_link'), admin_article_path("new"))
+        td link_to(I18n.t('active_admin.dashboards.new_link'), new_admin_article_path())
       end
     end
    end
