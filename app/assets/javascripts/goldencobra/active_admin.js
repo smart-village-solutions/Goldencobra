@@ -34,7 +34,7 @@ $(function() {
       var thisId            = $this.id;
       var thisName          = $this.name;
       var className         = $this.className;
-      var selectedParentId  = $($this).find('option:selected').val()
+      var selectedParentId  = $($this).find('option:selected').val();
 
       $this.outerHTML = "<div id='react-" + thisId + "'></div>";
       React.render(
@@ -73,7 +73,7 @@ $(function() {
           );
 
           var $thisEl = $('#' + thisId);
-          
+
           $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
           if (includeBlank){
             $thisEl.chosen({ allow_single_deselect: true });
@@ -85,7 +85,7 @@ $(function() {
         return false;
       });
     }
-  };
+  }
 
   populateArticleUploads();
 
@@ -104,8 +104,9 @@ $(function() {
     }
   });
 
-  if (typeof tinyMCESetting_theme_advanced_blockformats === "undefined") {
-    var tinyMCESetting_theme_advanced_blockformats = "p,h1,h2,h3,div";
+  var tinyMCESetting_theme_advanced_blockformats;
+  if ("undefined" === typeof tinyMCESetting_theme_advanced_blockformats) {
+    tinyMCESetting_theme_advanced_blockformats = "p,h1,h2,h3,div";
   }
 
   $("textarea.tinymce-no-buttons").tinymce({
@@ -263,7 +264,7 @@ $(function() {
   $('div#overview_sidebar div.title a').trigger("click");
 
   $("#main_content form:not(.without_short_key) input:submit").attr("value", $("#main_content form input:submit").attr("value") + " (⌘-S)");
-  
+
   key('⌘+s, ctrl+s', function() {
     $("#main_content form input:submit").trigger("click");
     return false;
@@ -319,7 +320,7 @@ $(function() {
   $("ul.link_checker_ul div.link_checker_label").click(function(){
     $(this).siblings(".link_checker_sources").toggle();
   });
-  
+
   // optimize header menu bar
   $('#utility_nav').after('<div style="clear: both;"></div>');
   $('#wrapper > #header').css('height', 'auto').css('min-width', '890px').css('filter', 'none');
