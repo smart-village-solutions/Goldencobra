@@ -26,11 +26,11 @@ module Goldencobra
   #   require 'iconv'
   #   require 'csv'
 
-  #   belongs_to :upload, :class_name => Goldencobra::Upload
+  #   belongs_to :upload, class_name: Goldencobra::Upload
   #   serialize :assignment
   #   serialize :assignment_groups
   #   EncodingTypes = ["UTF-8","ISO-8859-1", "ISO-8859-2", "ISO-8859-16", "US-ASCII", "Big5", "UTF-16BE", "IBM437", "Windows-1252"]
-  #   accepts_nested_attributes_for :upload, :allow_destroy => true, :reject_if => proc { |attributes| attributes['image'].blank? }
+  #   accepts_nested_attributes_for :upload, allow_destroy: true, reject_if: proc { |attributes| attributes['image'].blank? }
   #   after_initialize :init_nested_attributes
   #   BlockedAttributes = ["id", "created_at", "updated_at", "url_name", "slug", "upload_id", "images", "article_images", "article_widgets", "permissions", "versions"]
   #   DataHandling = [["bestehenden Datensatz suchen oder erstellen","update"],["Datensatz immer neu anlegen", "create"]]
@@ -38,7 +38,7 @@ module Goldencobra
   #   def analyze_csv
   #     begin
   #       result = []
-  #       data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
+  #       data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {col_sep: self.separator})
   #       data.first.each_with_index do |a, index|
   #         result << [a,index.to_s]
   #       end
@@ -50,7 +50,7 @@ module Goldencobra
 
   #   def data_rows
   #     begin
-  #       CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
+  #       CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {col_sep: self.separator})
   #     rescue
   #       [["Error in reading File: Please check encoding type"]]
   #     end
@@ -87,7 +87,7 @@ module Goldencobra
   #     import_data_attribute_assignments = all_data_attribute_assignments["Goldencobra::ImportMetadata"]
   #     #all_data_attribute_assignments.delete("Goldencobra::ImportMetadata")
 
-  #     data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {:col_sep => self.separator})
+  #     data = CSV.read(self.upload.image.path, "r:#{self.encoding_type}", {col_sep: self.separator})
   #     data.each do |row|
   #       if count == 0
   #         count = 1

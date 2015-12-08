@@ -36,10 +36,10 @@ module Goldencobra
     serialize :offline_time_week_start_end
 
     has_many  :article_widgets
-    has_many  :articles, :through => :article_widgets
+    has_many  :articles, through: :article_widgets
     has_many  :permissions, -> { where subject_class: "Goldencobra::Widget" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
 
-    accepts_nested_attributes_for :permissions, :allow_destroy => true
+    accepts_nested_attributes_for :permissions, allow_destroy: true
 
     attr_accessor :offline_time_start_mo, :offline_time_end_mo, :offline_time_start_tu, :offline_time_end_tu, :offline_time_start_we, :offline_time_end_we
     attr_accessor :offline_time_start_th, :offline_time_end_th, :offline_time_start_fr, :offline_time_end_fr, :offline_time_start_sa, :offline_time_end_sa
@@ -59,12 +59,12 @@ module Goldencobra
 
     ImportDataFunctions = []
 
-    scope :active, -> { where(:active => true).order(:sorter) }
-    scope :inactive, -> { where(:active => false).order(:sorter) }
-    scope :default, -> { where(:default => true).order(:sorter) }
-    scope :not_default, -> { where(:default => false).order(:sorter) }
+    scope :active, -> { where(active: true).order(:sorter) }
+    scope :inactive, -> { where(active: false).order(:sorter) }
+    scope :default, -> { where(default: true).order(:sorter) }
+    scope :not_default, -> { where(default: false).order(:sorter) }
 
-    
+
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end

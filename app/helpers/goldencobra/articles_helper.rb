@@ -18,7 +18,7 @@ module Goldencobra
 
     #Ausgabe aller Hauptbestandteile eines Artikels über "content_for :xy"
     def render_article_content_parts(article)
-      render :partial => "/goldencobra/articles/show", :locals => {:article => article}
+      render partial: "/goldencobra/articles/show", locals: {article: article}
     end
 
 
@@ -27,12 +27,12 @@ module Goldencobra
       glossar_parent = nil
       if parent_article_id
         glossar_parent = Goldencobra::Article.find_by_id(parent_article_id)
-        glossar_article = glossar_parent.children.where(:breadcrumb => tag_name).first
+        glossar_article = glossar_parent.children.where(breadcrumb: tag_name).first
       else
-        glossar_article = Goldencobra::Article.where(:breadcrumb => tag_name).first
+        glossar_article = Goldencobra::Article.where(breadcrumb: tag_name).first
       end
       unless glossar_article
-        glossar_article = Goldencobra::Article.create(:title => tag_name, :breadcrumb => tag_name, :article_type => "Default Show", :parent => glossar_parent)
+        glossar_article = Goldencobra::Article.create(title: tag_name, breadcrumb: tag_name, article_type: "Default Show", parent: glossar_parent)
       end
 
       if glossar_article.present?
@@ -44,7 +44,7 @@ module Goldencobra
 
     # [render_article_image_gallery description]
     # @param options={} [Hash] {link_image_size: :thumb, target_image_size: :large}
-    # 
+    #
     # @return [HTML] ImageGallery
     def render_article_image_gallery(options={})
       link_image_size = options.fetch(:link_image_size, :thumb)
@@ -57,7 +57,7 @@ module Goldencobra
             result << content_tag("li", link_to(image_tag(upload.image.url(link_image_size), {alt: upload.alt_text}), upload.image.url(target_image_size), title: raw(upload.description)))
           end
         end
-        return content_tag("ul", raw(result), :class => "goldencobra_article_image_gallery")
+        return content_tag("ul", raw(result), class: "goldencobra_article_image_gallery")
       end
     end
 
@@ -73,19 +73,19 @@ module Goldencobra
         master_index_article.descendants.order(:created_at).limit(@article.article_for_index_limit).each do |art|
           if @article.article_for_index_levels.to_i == 0 || (@article.depth + @article.article_for_index_levels.to_i > art.depth)
             rendered_article_list_item = render_article_list_item(art)
-            result_list += content_tag(dom_element, rendered_article_list_item, :id => "article_index_list_item_#{art.id}", :class => "article_index_list_item")
+            result_list += content_tag(dom_element, rendered_article_list_item, id: "article_index_list_item_#{art.id}", class: "article_index_list_item")
           end
         end
-        return content_tag(:article, raw(result_list), :id => "article_index_list")
+        return content_tag(:article, raw(result_list), id: "article_index_list")
       end
     end
 
     def render_article_type_content(options={})
       if @article
         if @article.article_type.present? && @article.kind_of_article_type.present?
-         render :partial => "articletypes/#{@article.article_type_form_file.underscore.parameterize.downcase}/#{@article.kind_of_article_type.downcase}"
+         render partial: "articletypes/#{@article.article_type_form_file.underscore.parameterize.downcase}/#{@article.kind_of_article_type.downcase}"
         else
-          render :partial => "articletypes/default/show"
+          render partial: "articletypes/default/show"
         end
       end
     end
@@ -93,17 +93,17 @@ module Goldencobra
     def render_article_widgets(options={})
       custom_css = options[:class] || ""
       tags = options[:tagged_with] || ""
-      
+
       #include default widgets?
       include_defaults = options[:default].to_s == "true" || false
-      
+
       #include article widgets?
       if options[:article].present?
         include_articles = options[:article].to_s == "true"
       else
         include_articles = true
-      end      
-      
+      end
+
       widget_wrapper = options[:wrapper] || "section"
       result = ""
       if params[:frontend_tags] && params[:frontend_tags].class != String && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
@@ -117,22 +117,22 @@ module Goldencobra
           ability = Ability.new()
         end
       end
-      
+
       # Get article Widgets
       if @article && include_articles
         article_widgets = @article.widgets.active.tagged_with(tags.split(","))
       else
         article_widgets = []
       end
-      
+
       #Get default widgets
-      if include_defaults == true 
-        default_widgets = Goldencobra::Widget.active.where(:default => true)
+      if include_defaults == true
+        default_widgets = Goldencobra::Widget.active.where(default: true)
         default_widgets = default_widgets.tagged_with(tags.split(",")) if tags.present?
       else
         default_widgets = []
       end
-        
+
       # merge article and default widgets
       widgets = [default_widgets] + [article_widgets]
       widgets = widgets.flatten.uniq.compact
@@ -152,7 +152,7 @@ module Goldencobra
           result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
         end
       end
-      
+
       return raw(result)
     end
 
@@ -163,9 +163,9 @@ module Goldencobra
       result += content_tag(:div, link_to(article_item.title, article_item.public_url), :class=> "title")
       result += content_tag(:div, article_item.created_at.strftime("%d.%m.%Y %H:%M"), :class=>"created_at")
       if @article.article_for_index_images == true && article_item.images.count > 0
-        result += content_tag(:div, image_tag(article_item.images.first.image(:thumb)), :class => "article_image")
+        result += content_tag(:div, image_tag(article_item.images.first.image(:thumb)), class: "article_image")
       end
-      result += content_tag(:div, raw(article_item.public_teaser), :class => "teaser")
+      result += content_tag(:div, raw(article_item.public_teaser), class: "teaser")
       result += content_tag(:div, link_to(s("goldencobra.article.article_index.link_to_article"), article_item.public_url), :class=> "link_to_article")
       return raw(result)
     end

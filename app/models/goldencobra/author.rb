@@ -5,8 +5,8 @@ module Goldencobra
     attr_accessible :firstname, :lastname, :email, :googleplus
 
 		has_many  :article_authors
-    has_many  :articles, :through => :article_authors
-    
+    has_many  :articles, through: :article_authors
+
 		web_url :googleplus
 
 		def title

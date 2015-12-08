@@ -8,25 +8,25 @@ module Goldencobra
 
     attr_accessor :import_csv_data
 
-    validates_presence_of :source_url, :if => proc { |obj| obj.import_csv_data.blank? }
-    validates_presence_of :target_url, :if => proc { |obj| obj.active == true && obj.import_csv_data.blank? }
+    validates_presence_of :source_url, if: proc { |obj| obj.import_csv_data.blank? }
+    validates_presence_of :target_url, if: proc { |obj| obj.active == true && obj.import_csv_data.blank? }
 
     validates_uniqueness_of :source_url
 
     web_url :source_url, :target_url
 
-    scope :active, -> { where(:active => true) }
+    scope :active, -> { where(active: true) }
 
     validate :check_csv_data
     after_create :create_multiples_from_csv_data
 
     # Creates multiple new Redirections based on 'import_csv_data'
-    # and deletes this single, new, invalid record afterwards  
-    # 
-    # @return [Goldencobra::Redirector] 
+    # and deletes this single, new, invalid record afterwards
+    #
+    # @return [Goldencobra::Redirector]
     def create_multiples_from_csv_data
       if import_csv_data.present?
-          data = CSV.parse(import_csv_data, { :col_sep => "," })
+          data = CSV.parse(import_csv_data, { col_sep: "," })
           Goldencobra::Redirector.transaction do
             data.each do |row|
               Goldencobra::Redirector.create(source_url: row[0].strip, target_url: row[1].strip, redirection_code: redirection_code, active: active, ignore_url_params: ignore_url_params )
@@ -37,13 +37,13 @@ module Goldencobra
     end
 
     # Validator wenn es csv Daten zum importierne gibt
-    # 
+    #
     # @return [Boolean]
     def check_csv_data
       if import_csv_data.present?
         begin
-          all_source_urls = Goldencobra::Redirector.where(:active => true).pluck(:source_url)
-          data = CSV.parse(import_csv_data, { :col_sep => "," })
+          all_source_urls = Goldencobra::Redirector.where(active: true).pluck(:source_url)
+          data = CSV.parse(import_csv_data, { col_sep: "," })
           source_urls_from_data = data.map{|a| a[0].strip}
           if source_urls_from_data.length != source_urls_from_data.uniq.length
             errors.add(:import_csv_data, "Die CSV Daten enthalten mehrere Zeilen mit gleichen Source URLs<br>" )
@@ -56,16 +56,16 @@ module Goldencobra
               errors.add(:import_csv_data, "Source URL in Zeile #{index + 1} existiert bereits<br>" )
             end
           end
-        rescue 
+        rescue
           errors.add(:import_csv_data, "Die CSV Daten sind leider ungültig")
         end
       end
     end
-    
-    # 
+
+    #
     # Returns a target url where to redirect of a given url
     # @param request_original_url [String] SourceURl of Request
-    # 
+    #
     # @return [Array] target url to rewrite to | status code for redirection
     def self.get_by_request(request_original_url)
       begin
@@ -106,7 +106,7 @@ module Goldencobra
 
     # Helper Method for rewriting urls
     # @param uri_params [String] foo=bar&test=12
-    # 
+    #
     # @return [String] TargetURl of given Redirector merged with source params
     def rewrite_target_url(uri_params)
       Goldencobra::Redirector.add_param_to_url(self.target_url, uri_params)
@@ -115,7 +115,7 @@ module Goldencobra
     # Add a url-params tu an url
     # @param url [string] "http://www.test.de" || "http://www.test.de?test=a"
     # @param uri_params [string] "foo=bar"
-    # 
+    #
     # @return [string] "http://www.test.de?test=a&foo=bar"
     def self.add_param_to_url(url, uri_params)
       target_uri = Addressable::URI.parse(url)

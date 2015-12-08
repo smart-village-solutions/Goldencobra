@@ -1,61 +1,59 @@
-#encoding: utf-8
-
 ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
-  menu :parent => I18n.t('active_admin.widget.parent'), :label => I18n.t('active_admin.widget.as'), :if => proc{can?(:update, Goldencobra::Widget)}
+  menu parent: I18n.t('active_admin.widget.parent'), label: I18n.t('active_admin.widget.as'), if: proc{can?(:update, Goldencobra::Widget)}
 
-  filter :title, :label => I18n.t('active_admin.widget.title')
-  filter :css_name, :label => I18n.t('active_admin.widget.css_class')
-  filter :id_name, :label => I18n.t('active_admin.widget.id')
-  filter :sorter, :label => I18n.t('active_admin.widget.sorter')
+  filter :title, label: I18n.t('active_admin.widget.title')
+  filter :css_name, label: I18n.t('active_admin.widget.css_class')
+  filter :id_name, label: I18n.t('active_admin.widget.id')
+  filter :sorter, label: I18n.t('active_admin.widget.sorter')
 
-  scope I18n.t('active_admin.widget.scope1'), :all, :default => true
+  scope I18n.t('active_admin.widget.scope1'), :all, default: true
   scope I18n.t('active_admin.widget.scope2'), :active
   scope I18n.t('active_admin.widget.scope3'), :inactive
   scope I18n.t('active_admin.widget.scope4'), :default
 
   if ActiveRecord::Base.connection.table_exists?("tags")
     Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
-      scope(I18n.t(wtag, :scope => [:goldencobra, :widget_types], :default => wtag).capitalize){ |t| t.tagged_with(wtag) }
+      scope(I18n.t(wtag, scope: [:goldencobra, :widget_types], default: wtag).capitalize){ |t| t.tagged_with(wtag) }
     end
   end
 
   form html: { enctype: "multipart/form-data" } do |f|
     f.actions
-    f.inputs I18n.t('active_admin.widget.general'), :class => "foldable inputs" do
-      f.input :title, :label => I18n.t('active_admin.widget.label1'), :hint => I18n.t('active_admin.widget.hint1')
-      f.input :tag_list, :label => I18n.t('active_admin.widget.label2'), :hint => I18n.t('active_admin.widget.hint2')
-      f.input :active, :label => I18n.t('active_admin.widget.label3'), :hint => I18n.t('active_admin.widget.hint3')
-      f.input :default, :label => I18n.t('active_admin.widget.label4'), :hint => I18n.t('active_admin.widget.hint4')
+    f.inputs I18n.t('active_admin.widget.general'), class: "foldable inputs" do
+      f.input :title, label: I18n.t('active_admin.widget.label1'), hint: I18n.t('active_admin.widget.hint1')
+      f.input :tag_list, label: I18n.t('active_admin.widget.label2'), hint: I18n.t('active_admin.widget.hint2')
+      f.input :active, label: I18n.t('active_admin.widget.label3'), hint: I18n.t('active_admin.widget.hint3')
+      f.input :default, label: I18n.t('active_admin.widget.label4'), hint: I18n.t('active_admin.widget.hint4')
     end
-    f.inputs I18n.t('active_admin.widget.layout_web'), :class => "foldable inputs" do
-      f.input :content, :label => I18n.t('active_admin.widget.label_web'), :hint => I18n.t('active_admin.widget.hint_web')
+    f.inputs I18n.t('active_admin.widget.layout_web'), class: "foldable inputs" do
+      f.input :content, label: I18n.t('active_admin.widget.label_web'), hint: I18n.t('active_admin.widget.hint_web')
     end
     # Wird so gut wie nie benutzt => erstmal ausgeblendet:
-    # f.inputs I18n.t('active_admin.widget.layout_mobile'), :class => "foldable inputs closed" do
-    #   f.input :mobile_content, :label => I18n.t('active_admin.widget.label_mobile'), :hint => I18n.t('active_admin.widget.hint_mobile')
+    # f.inputs I18n.t('active_admin.widget.layout_mobile'), class: "foldable inputs closed" do
+    #   f.input :mobile_content, label: I18n.t('active_admin.widget.label_mobile'), hint: I18n.t('active_admin.widget.hint_mobile')
     # end
-    f.inputs I18n.t('active_admin.widget.info'), :class => "foldable inputs closed"  do
-      f.input :sorter, :label => I18n.t('active_admin.widget.label_info1'), :hint => I18n.t('active_admin.widget.label_hint1')
-      f.input :css_name, :label => I18n.t('active_admin.widget.label_info2'), :hint => I18n.t('active_admin.widget.label_hint2')
-      f.input :id_name, :label => I18n.t('active_admin.widget.label_info3'), :hint => I18n.t('active_admin.widget.label_hint3')
+    f.inputs I18n.t('active_admin.widget.info'), class: "foldable inputs closed"  do
+      f.input :sorter, label: I18n.t('active_admin.widget.label_info1'), hint: I18n.t('active_admin.widget.label_hint1')
+      f.input :css_name, label: I18n.t('active_admin.widget.label_info2'), hint: I18n.t('active_admin.widget.label_hint2')
+      f.input :id_name, label: I18n.t('active_admin.widget.label_info3'), hint: I18n.t('active_admin.widget.label_hint3')
       # Wird so gut wie nie benutzt => erstmal ausgeblendet:
       #f.input :teaser
-      #f.input :description, :label => I18n.t('active_admin.widget.label_info4'), :hint => I18n.t('active_admin.widget.label_hint4')
+      #f.input :description, label: I18n.t('active_admin.widget.label_info4'), hint: I18n.t('active_admin.widget.label_hint4')
     end
-    f.inputs I18n.t('active_admin.widget.access_rights'), :class => "foldable closed inputs" do
+    f.inputs I18n.t('active_admin.widget.access_rights'), class: "foldable closed inputs" do
       f.has_many :permissions do |p|
-        p.input :role, :include_blank => "Alle"
-        p.input :action, :as => :select, :collection => Goldencobra::Permission::PossibleActions, :include_blank => false
-        p.input :_destroy, :as => :boolean
+        p.input :role, include_blank: "Alle"
+        p.input :action, as: :select, collection: Goldencobra::Permission::PossibleActions, include_blank: false
+        p.input :_destroy, as: :boolean
       end
     end
     f.inputs I18n.t('active_admin.widget.article') do
-      f.input :articles, :label => I18n.t('active_admin.widget.article_label'), :hint => I18n.t('active_admin.widget.article_hint'), :as => :select, :collection => Goldencobra::Article.order("title ASC"), :input_html => { :class => 'chosen-select', "data-placeholder" => I18n.t('active_admin.widget.article_placeholder') }
+      f.input :articles, label: I18n.t('active_admin.widget.article_label'), hint: I18n.t('active_admin.widget.article_hint'), as: :select, collection: Goldencobra::Article.order("title ASC"), input_html: { class: 'chosen-select', "data-placeholder" => I18n.t('active_admin.widget.article_placeholder') }
     end
     f.actions
   end
 
-  sidebar :layout_positions, :only => [:edit] do
+  sidebar :layout_positions, only: [:edit] do
     ul do
       Goldencobra::Widget.tag_counts_on(:tags).map(&:name).each do |wtag|
         li do
@@ -69,17 +67,17 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     render "/goldencobra/admin/shared/help"
   end
 
-  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
+  index download_links: proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
-    column I18n.t('active_admin.widget.title'), :title, :sortable => :title do |widget|
-      link_to(widget.title, edit_admin_widget_path(widget), :title => I18n.t('active_admin.widget.title1'))
+    column I18n.t('active_admin.widget.title'), :title, sortable: :title do |widget|
+      link_to(widget.title, edit_admin_widget_path(widget), title: I18n.t('active_admin.widget.title1'))
     end
-    column I18n.t('active_admin.widget.position'), :tag_list, :sortable => false
-    column I18n.t('active_admin.widget.active'), :active, :sortable => :active do |widget|
+    column I18n.t('active_admin.widget.position'), :tag_list, sortable: false
+    column I18n.t('active_admin.widget.active'), :active, sortable: :active do |widget|
       raw("<span class='#{widget.active ? I18n.t('active_admin.widget.online') : I18n.t('active_admin.widget.offline')}'>#{widget.active ? I18n.t('active_admin.widget.online') : I18n.t('active_admin.widget.offline')}</span>")
     end
     column I18n.t('active_admin.widget.sorternr'), :sorter
-    column I18n.t('active_admin.widget.standard'), :default, :sortable => :default do |widget|
+    column I18n.t('active_admin.widget.standard'), :default, sortable: :default do |widget|
       widget.default ? "Ja" : "Nein"
     end
     column I18n.t('active_admin.widget.css_classes'), :css_name
@@ -89,13 +87,13 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     end
     column "" do |widget|
       result = ""
-      result += link_to(t(:edit), edit_admin_widget_path(widget), :class => "member_link edit_link edit", :title => I18n.t('active_admin.widget.title_widget_edit'))
-      result += link_to(t(:delete), admin_widget_path(widget), :method => :DELETE, "data-confirm" => t("delete_article", :scope => [:goldencobra, :flash_notice]), :class => "member_link delete_link delete", :title => I18n.t('active_admin.widget.title_widget_delete'))
+      result += link_to(t(:edit), edit_admin_widget_path(widget), class: "member_link edit_link edit", title: I18n.t('active_admin.widget.title_widget_edit'))
+      result += link_to(t(:delete), admin_widget_path(widget), method: :DELETE, "data-confirm" => t("delete_article", scope: [:goldencobra, :flash_notice]), class: "member_link delete_link delete", title: I18n.t('active_admin.widget.title_widget_delete'))
       raw(result)
     end
   end
 
-  show :title => :title do
+  show title: :title do
     panel I18n.t('active_admin.widget.widget') do
       attributes_table_for widget do
         [:title, :content, :css_name, :active].each do |a|
@@ -128,14 +126,14 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
     else
       @version.item.destroy
     end
-    redirect_to :back, :notice => "#{I18n.t('active_admin.widget.revert_notice')} #{@version.event}"
+    redirect_to :back, notice: "#{I18n.t('active_admin.widget.revert_notice')} #{@version.event}"
   end
 
   batch_action :destroy, false
 
-  action_item :undo, :only => :edit do
+  action_item :undo, only: :edit do
     if resource.versions.last
-      link_to(I18n.t('active_admin.widget.undo'), revert_admin_widget_path(:id => resource.versions.last), :class => "undo")
+      link_to(I18n.t('active_admin.widget.undo'), revert_admin_widget_path(id: resource.versions.last), class: "undo")
     end
   end
 

@@ -3,10 +3,10 @@
 module Goldencobra
   class Domain < ActiveRecord::Base
 
-    has_many :permissions, :class_name => Goldencobra::Permission
+    has_many :permissions, class_name: Goldencobra::Permission
 
     validates_presence_of :client
-    validates_format_of :client, :with => /\A[\w]+\z/
+    validates_format_of :client, with: /\A[\w]+\z/
     validates_presence_of :title
     validates_presence_of :hostname
   	validates_uniqueness_of :hostname
@@ -14,7 +14,7 @@ module Goldencobra
     before_save :mark_as_main
 
     def self.main
-      Goldencobra::Domain.where(:main => true).first
+      Goldencobra::Domain.where(main: true).first
     end
 
     def mark_as_main

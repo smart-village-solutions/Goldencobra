@@ -1,7 +1,5 @@
-# encoding: utf-8
-
 ActiveAdmin.register Translation do
-  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.translations.as'), :if => proc{can?(:update, Translation)}
+  menu parent: I18n.t("settings", scope: ["active_admin","menue"]), label: I18n.t('active_admin.translations.as'), if: proc{can?(:update, Translation)}
 
   scope I18n.t('active_admin.translations.all'), :all
   scope :with_values

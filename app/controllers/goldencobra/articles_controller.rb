@@ -2,14 +2,14 @@ module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
 
     layout "application"
-    before_filter :get_redirectors, :only => [:show]
-    before_filter :get_article, :only => [:show, :convert_to_pdf]
-    before_filter :verify_token, :only => [:show]
+    before_filter :get_redirectors, only: [:show]
+    before_filter :get_article, only: [:show, :convert_to_pdf]
+    before_filter :verify_token, only: [:show]
     before_filter :geocode_ip_address, only: [:show]
-    after_filter :analytics, :only => [:show]
+    after_filter :analytics, only: [:show]
 
     if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true"
-      caches_action :show, :cache_path => :show_cache_path.to_proc, :if => proc {@article && @article.present? && is_cachable?  }
+      caches_action :show, cache_path: :show_cache_path.to_proc, if: proc {@article && @article.present? && is_cachable?  }
     end
 
     def show_cache_path
@@ -116,7 +116,7 @@ module Goldencobra
     def verify_token
       if params[:auth_token].present?
         unless current_visitor || current_user
-          render :text => "Nicht authorisiert", :status => 401
+          render text: "Nicht authorisiert", status: 401
         end
       end
     end
@@ -143,7 +143,7 @@ module Goldencobra
       #base_request_url = request.original_url.to_s.split("?")[0]  # nimmt nur den teil ohne urlparameter
       redirect_url, redirect_code = Goldencobra::Redirector.get_by_request(request.original_url)
       if redirect_url.present? && redirect_code.present?
-        redirect_to redirect_url, :status => redirect_code
+        redirect_to redirect_url, status: redirect_code
       end
     end
 
@@ -165,26 +165,26 @@ module Goldencobra
     end
 
     def redirect_to_404
-      ActiveSupport::Notifications.instrument("goldencobra.article.not_found", :params => params)
+      ActiveSupport::Notifications.instrument("goldencobra.article.not_found", params: params)
       @article = Goldencobra::Article.find_by_url_name("404")
       if @article
         respond_to do |format|
-          format.html { render :layout => @article.selected_layout, :status => 404 }
+          format.html { render layout: @article.selected_layout, status: 404 }
         end
       else
-        render :text => "404", :status => 404
+        render text: "404", status: 404
       end
     end
 
     def redirect_to_401
-      ActiveSupport::Notifications.instrument("goldencobra.article.not_authorized", :params => params)
+      ActiveSupport::Notifications.instrument("goldencobra.article.not_authorized", params: params)
       @article = Goldencobra::Article.find_by_url_name("401")
       if @article
         respond_to do |format|
-          format.html { render :layout => @article.selected_layout, :status => 401 }
+          format.html { render layout: @article.selected_layout, status: 401 }
         end
       else
-        render :text => "401: Nicht authorisiert", :status => 401
+        render text: "401: Nicht authorisiert", status: 401
       end
     end
     # ------------------ /Redirection -----------------------------------------
@@ -243,10 +243,10 @@ module Goldencobra
 
     def set_expires_in
       if is_cachable?
-        expires_in 30.seconds, :public => true
+        expires_in 30.seconds, public: true
         response.last_modified = @article.date_of_last_modified_child
       else
-        expires_in 1.seconds, :public => true
+        expires_in 1.seconds, public: true
         response.last_modified = Time.now
       end
     end
@@ -286,7 +286,7 @@ module Goldencobra
             @unauthorized = true
           end
           # elsif current_visitor.present?
-          #   ap = Goldencobra::Permission.where(:subject_class => "Goldencobra::Article", :operator_id => current_visitor.id, :action => "read").pluck(:subject_id)
+          #   ap = Goldencobra::Permission.where(subject_class: "Goldencobra::Article", operator_id: current_visitor.id, action: "read").pluck(:subject_id)
           #   if ap.any?
           #     @article = Goldencobra::Article.where("id in (?)", ap).search_by_url(params[:article_id])
           #   else
@@ -320,7 +320,7 @@ module Goldencobra
             begin
               @ip_result = Geokit::Geocoders::MultiGeocoder.geocode(request.remote_ip)
               session[:user_location] = @ip_result
-            rescue Exception => e
+            rescue Exception
               @ip_result = nil
             end
             if @ip_result.present? && @ip_result.city.present?

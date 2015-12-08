@@ -42,26 +42,33 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable,
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :registerable, :token_authenticatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable,
+         :validatable, :lockable, :registerable, :token_authenticatable
   acts_as_tagger
   # Setup accessible (or protected) attributes for your model
   validates_presence_of :firstname
   validates_presence_of :lastname
-  liquid_methods :firstname, :lastname, :gender, :position, :function, :anrede, :gender_anrede
+  liquid_methods :firstname, :lastname, :gender, :position, :function, :anrede,
+                 :gender_anrede
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :gender, :position, :firstname, :lastname, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :role_ids, :vita_steps_attributes, :enable_expert_mode, :confirmed_at
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+                  :gender, :position, :firstname, :lastname, :function, :phone,
+                  :fax, :facebook, :twitter, :linkedin, :xing, :googleplus,
+                  :role_ids, :vita_steps_attributes, :enable_expert_mode,
+                  :confirmed_at
 
-  #has_and_belongs_to_many :roles, :join_table => "goldencobra_roles_users", :class_name => Goldencobra::Role, :include => [:permissions]
-  has_many :role_users, :as => :operator, :class_name => Goldencobra::RoleUser
-  has_many :roles, :through => :role_users, :class_name => Goldencobra::Role
-  has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
-  accepts_nested_attributes_for :vita_steps, allow_destroy: true, reject_if: lambda { |a| a[:description].blank? }
+  #has_and_belongs_to_many :roles, join_table: "goldencobra_roles_users", class_name: Goldencobra::Role, include: [:permissions]
+  has_many :role_users, as: :operator, class_name: Goldencobra::RoleUser
+  has_many :roles, through: :role_users, class_name: Goldencobra::Role
+  has_many :vita_steps, as: :loggable, class_name: Goldencobra::Vita
+  accepts_nested_attributes_for :vita_steps, allow_destroy: true,
+                                reject_if: lambda { |a| a[:description].blank? }
 
   before_save :ensure_authentication_token
 
   def has_role?(name)
     if name.class == Array
-      ( self.roles & Goldencobra::Role.where(:name => name) ).any?
+      ( self.roles & Goldencobra::Role.where(name: name) ).any?
     else
       self.roles.include?(Goldencobra::Role.find_by_name(name))
     end
@@ -92,5 +99,4 @@ class User < ActiveRecord::Base
       "Sehr geehrte Frau"
     end
   end
-
 end

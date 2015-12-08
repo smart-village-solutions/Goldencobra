@@ -22,7 +22,7 @@ module Goldencobra
     @@key_value = {}
     attr_accessible :title, :value, :ancestry, :parent_id, :data_type
     SettingsDataTypes = ["string","date","datetime","boolean","array"]
-    has_ancestry :orphan_strategy => :restrict
+    has_ancestry orphan_strategy: :restrict
     if ActiveRecord::Base.connection.table_exists?("versions")
       has_paper_trail
     end
@@ -70,7 +70,7 @@ module Goldencobra
     def self.for_key_helper(name)
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       setting_title = name.split(".").last
-      settings = Goldencobra::Setting.where(:title => setting_title)
+      settings = Goldencobra::Setting.where(title: setting_title)
       if settings.count == 1
         return settings.first.value
       elsif settings.count > 1
@@ -89,7 +89,7 @@ module Goldencobra
       @@key_value = nil
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         setting_title = name.split(".").last
-        settings = Goldencobra::Setting.where(:title => setting_title)
+        settings = Goldencobra::Setting.where(title: setting_title)
         if settings.count == 1
           settings.first.update_attributes(value: value, data_type: data_type_name)
           true
@@ -130,7 +130,7 @@ module Goldencobra
     end
 
     private
-    
+
     def self.generate_default_setting(key, yml_data, parent_id=nil)
       if yml_data[key].class == Hash
         #check if childen keys are value and type or not
@@ -141,7 +141,7 @@ module Goldencobra
           #old way of defining Settings
           parent = Setting.find_by_ancestry_and_title(parent_id, key)
           unless parent
-            parent = Setting.create(:ancestry => parent_id, :title => key)
+            parent = Setting.create(ancestry: parent_id, title: key)
           end
           yml_data[key].each_key do |name|
             generate_default_setting(name, yml_data[key], [parent.ancestry,parent.id].compact.join('/'))
@@ -159,10 +159,10 @@ module Goldencobra
       set = Goldencobra::Setting.find_by_title_and_ancestry(key, parent)
       unless set
         if Goldencobra::Setting.new.respond_to?(:data_type)
-          Goldencobra::Setting.create(:title => key , :value => value_name, :ancestry => parent, :data_type => data_type_name )
+          Goldencobra::Setting.create(title: key , value: value_name, ancestry: parent, data_type: data_type_name )
         else
           if data_type_name == "string"
-            Goldencobra::Setting.create(:title => key , :value => value_name, :ancestry => parent)
+            Goldencobra::Setting.create(title: key , value: value_name, ancestry: parent)
           end
         end
       end
@@ -204,7 +204,7 @@ module Goldencobra
 
     # Allow Scopes and Methods to search for in ransack (n.a. metasearch)
     # @param auth_object = nil [self] "if auth_object.try(:admin?)"
-    # 
+    #
     # @return [Array] Array of Symbols representing scopes and class methods
     def self.ransackable_scopes(auth_object = nil)
       [

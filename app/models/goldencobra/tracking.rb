@@ -29,8 +29,11 @@
 
 module Goldencobra
   class Tracking < ActiveRecord::Base
-    attr_accessible :ip, :referer, :request, :session_id, :url, :user_agent, :language, :url_paremeters, :path, :page_duration, :view_duration, :db_duration
-    attr_accessible :utm_source, :utm_medium, :utm_term, :utm_content, :utm_campaign, :location
+    attr_accessible :ip, :referer, :request, :session_id, :url, :user_agent,
+                    :language, :url_paremeters, :path, :page_duration,
+                    :view_duration, :db_duration, :utm_source, :utm_medium,
+                    :utm_term, :utm_content, :utm_campaign, :location
+
     serialize :url_paremeters
 
     default_scope { order("created_at DESC") }

@@ -27,15 +27,15 @@ module Goldencobra
 
     has_ancestry orphan_strategy: :rootify, cache_depth: true
 
-    belongs_to :image, :class_name => Goldencobra::Upload, :foreign_key => "image_id"
+    belongs_to :image, class_name: Goldencobra::Upload, foreign_key: "image_id"
 
     has_many :permissions, -> { where subject_class: "Goldencobra::Menue" },
              class_name: Goldencobra::Permission, foreign_key: "subject_id"
 
     validates_presence_of :title
-    validates_format_of :title, :with => /\A[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+\z/
+    validates_format_of :title, with: /\A[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+\z/
 
-    accepts_nested_attributes_for :permissions, :allow_destroy => true
+    accepts_nested_attributes_for :permissions, allow_destroy: true
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.menues.recreate_cache") == "true"
@@ -57,7 +57,7 @@ module Goldencobra
 
     def self.find_by_pathname(name)
       if name.include?("/")
-        where(:title => name.split("/").last).select{|a| a.path.map(&:title).join("/") == name}.first
+        where(title: name.split("/").last).select{|a| a.path.map(&:title).join("/") == name}.first
       else
         find_by_title(name)
       end
@@ -132,17 +132,17 @@ module Goldencobra
     # @param display_methods [:method] Optionale Liste an Mehtoden die auf das Menüelement aufgerufen werden sollen
     #
     #  {
-    #   :id => node.id,
-    #   :title => node.title,
-    #   :target => node.target,
-    #   :eg_desciption => node.eg_description
-    #   :children => json_tree(sub_nodes).compact
+    #   id: node.id,
+    #   title: node.title,
+    #   target: node.target,
+    #   eg_desciption: node.eg_description
+    #   children: json_tree(sub_nodes).compact
     # }
     #
     # @return [Hash] Hash of Menue Data with optional attributes
     def self.json_tree(nodes, display_methods )
       nodes.map do |node, sub_nodes|
-        node.as_json(:only => [:id, :title, :target], :methods => display_methods).merge({:children => json_tree(sub_nodes, display_methods).compact})
+        node.as_json(only: [:id, :title, :target], methods: display_methods).merge({children: json_tree(sub_nodes, display_methods).compact})
       end
     end
 

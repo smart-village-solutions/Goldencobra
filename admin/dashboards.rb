@@ -128,8 +128,8 @@ ActiveAdmin.register_page "Dashboard" do
   # bottom right. The default priority is 10. By giving a section numerically lower
   # priority it will be sorted higher. For example:
   #
-  #   section 'last_updated_articles', :priority => 1
-  #   section "Recent User", :priority => 1
+  #   section 'last_updated_articles', priority: 1
+  #   section "Recent User", priority: 1
   #
   # Will render the "Recent Users" then the "Recent Posts" sections on the dashboard.
   end

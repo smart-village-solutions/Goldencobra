@@ -40,18 +40,22 @@ class Visitor < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :token_authenticatable, :lockable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+         :trackable, :validatable, :omniauthable, :token_authenticatable,
+         :lockable
 
   #Deprecated, will be removed in GC 2.1
-  #has_many :comments, :class_name => Goldencobra::Comment, :as => :commentator
+  #has_many :comments, class_name: Goldencobra::Comment, as: :commentator
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :provider, :uid, :agb, :newsletter, :username, :loginable, :role_ids
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+                  :first_name, :last_name, :provider, :uid, :agb, :newsletter,
+                  :username, :loginable, :role_ids
 
   validates_uniqueness_of :email
-  validates_acceptance_of :agb, :accept => true
-  has_many :role_users, :as => :operator, :class_name => Goldencobra::RoleUser
-  has_many :roles, :through => :role_users, :class_name => Goldencobra::Role
-  belongs_to :loginable, :polymorphic => true
+  validates_acceptance_of :agb, accept: true
+  has_many :role_users, as: :operator, class_name: Goldencobra::RoleUser
+  has_many :roles, through: :role_users, class_name: Goldencobra::Role
+  belongs_to :loginable, polymorphic: true
 
   before_save :ensure_authentication_token
   after_create :send_confirmation_mail
@@ -79,7 +83,7 @@ class Visitor < ActiveRecord::Base
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     #logger.error auth.inspect
-    visitor = Visitor.where(:provider => auth.provider, :uid => auth.uid).first
+    visitor = Visitor.where(provider: auth.provider, uid: auth.uid).first
     unless visitor
       visitor = Visitor.find_by_email(auth.info.email)
       if visitor.present?

@@ -1,22 +1,20 @@
-# encoding: utf-8
-
-ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
-  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.settings.as'), :if => proc{can?(:update, Goldencobra::Setting)}
-  scope I18n.t('active_admin.settings.scope'), :with_values, :default => true, :show_count => false
+ActiveAdmin.register Goldencobra::Setting, as: "Setting"  do
+  menu parent: I18n.t("settings", scope: ["active_admin","menue"]), label: I18n.t('active_admin.settings.as'), if: proc{can?(:update, Goldencobra::Setting)}
+  scope I18n.t('active_admin.settings.scope'), :with_values, default: true, show_count: false
   config.paginate = false
 
-  form :html => { :enctype => "multipart/form-data" }  do |f|
+  form html: { enctype: "multipart/form-data" }  do |f|
     f.inputs I18n.t('active_admin.settings.form.general')  do
-      f.input :title, :input_html => {:disabled => "disabled"}
+      f.input :title, input_html: {disabled: "disabled"}
       f.input :value
-      f.input :data_type, :as => :select, :collection => Goldencobra::Setting::SettingsDataTypes, :include_blank => false
-      f.input :parent_id, :as => :select, :collection => Goldencobra::Setting.all.map{|c| [c.title, c.id]}, :include_blank => true
+      f.input :data_type, as: :select, collection: Goldencobra::Setting::SettingsDataTypes, include_blank: false
+      f.input :parent_id, as: :select, collection: Goldencobra::Setting.all.map{|c| [c.title, c.id]}, include_blank: true
     end
     f.actions
   end
 
-  
-  index as: ActiveAdmin::Views::IndexAsTree, :download_links => false do
+
+  index as: ActiveAdmin::Views::IndexAsTree, download_links: false do
     title :title do |setting|
       link_to "#{setting.parent_names}.#{setting.title}", edit_admin_setting_path(setting), class: "member_link edit_link"
     end
@@ -34,14 +32,14 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     column :data_type
     column "" do |setting|
       result = ""
-      result += link_to(t(:edit), edit_admin_setting_path(setting), :class => "member_link edit_link edit", :title => "bearbeiten")
+      result += link_to(t(:edit), edit_admin_setting_path(setting), class: "member_link edit_link edit", title: "bearbeiten")
       raw(result)
     end
   end
 
   # index download_links: false, pagination_total: false do
   #   div do
-  #     render :partial => "/goldencobra/admin/settings/index"
+  #     render partial: "/goldencobra/admin/settings/index"
   #   end
   # end
 
@@ -94,12 +92,12 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     else
       @version.item.destroy
     end
-    redirect_to :back, :notice => "#{I18n.t('active_admin.settings.notice.undid_event')} #{@version.event}"
+    redirect_to :back, notice: "#{I18n.t('active_admin.settings.notice.undid_event')} #{@version.event}"
   end
 
-  action_item :undo, :only => :edit do
+  action_item :undo, only: :edit do
     if resource.versions.last
-      link_to(I18n.t('active_admin.settings.action_item.link'), revert_admin_setting_path(:id => resource.versions.last), :class => "undo")
+      link_to(I18n.t('active_admin.settings.action_item.link'), revert_admin_setting_path(id: resource.versions.last), class: "undo")
     end
   end
   action_item :prev_item, only: [:edit, :show] do

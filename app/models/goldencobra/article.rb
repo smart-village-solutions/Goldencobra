@@ -63,36 +63,36 @@ module Goldencobra
     attr_accessor   :hint_label, :manual_article_sort, :create_redirection
     ImportDataFunctions = []
 
-    has_many :link_checks, :class_name => Goldencobra::LinkChecker
-    has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
+    has_many :link_checks, class_name: Goldencobra::LinkChecker
+    has_many :images, through: :article_images, class_name: Goldencobra::Upload
     has_many :article_images, dependent: :destroy
     has_many :article_widgets
-    has_many :widgets, :through => :article_widgets
-    has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
+    has_many :widgets, through: :article_widgets
+    has_many :vita_steps, as: :loggable, class_name: Goldencobra::Vita
 
     has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
-    belongs_to :articletype, :class_name => Goldencobra::Articletype, :foreign_key => "article_type", :primary_key => "name"
-    belongs_to :creator, :class_name => User, :foreign_key => "creator_id"
+    belongs_to :articletype, class_name: Goldencobra::Articletype, foreign_key: "article_type", primary_key: "name"
+    belongs_to :creator, class_name: User, foreign_key: "creator_id"
 
     has_many :article_authors
-    has_many :authors, :through => :article_authors
+    has_many :authors, through: :article_authors
 
-    accepts_nested_attributes_for :article_images, :allow_destroy => true
-    accepts_nested_attributes_for :images, :allow_destroy => true
-    accepts_nested_attributes_for :permissions, :allow_destroy => true
-    accepts_nested_attributes_for :article_widgets, :allow_destroy => true
+    accepts_nested_attributes_for :article_images, allow_destroy: true
+    accepts_nested_attributes_for :images, allow_destroy: true
+    accepts_nested_attributes_for :permissions, allow_destroy: true
+    accepts_nested_attributes_for :article_widgets, allow_destroy: true
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
-    has_ancestry    :orphan_strategy => :restrict, :cache_depth => true
+    has_ancestry    orphan_strategy: :restrict, cache_depth: true
 
     web_url         :external_url_redirect
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
 
     validates_presence_of :article_type
-    validates_format_of :url_name, :with => /\A[\w\-]+\Z/, allow_blank: true
-    validates_presence_of :breadcrumb, :on => :create
-    validates_length_of :breadcrumb, :within => 1..70, :on => :create
+    validates_format_of :url_name, with: /\A[\w\-]+\Z/, allow_blank: true
+    validates_presence_of :breadcrumb, on: :create
+    validates_length_of :breadcrumb, within: 1..70, on: :create
 
     attr_protected :startpage
 
@@ -115,19 +115,19 @@ module Goldencobra
     before_destroy :update_parent_article_etag
     after_update :set_redirection_step_2
 
-    scope :robots_index, -> { where(:robots_no_index => false) }
-    scope :robots_no_index, -> { where(:robots_no_index => true) }
+    scope :robots_index, -> { where(robots_no_index: false) }
+    scope :robots_no_index, -> { where(robots_no_index: true) }
     scope :active, -> { where("active = 1 AND active_since < '#{Time.now.strftime('%Y-%m-%d %H:%M:%S ')}'") }
-    scope :inactive, -> { where(:active => false) }
-    scope :startpage, -> { where(:startpage => true) }
-    scope :articletype, lambda{ |name| where(:article_type => name)}
+    scope :inactive, -> { where(active: false) }
+    scope :startpage, -> { where(startpage: true) }
+    scope :articletype, lambda{ |name| where(article_type: name)}
     scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
     scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
     scope :for_sitemap, -> { includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0') }
-    scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :frontend_tags)}
-    scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), :on => :tags)}
+    scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), on: :frontend_tags)}
+    scope :tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), on: :tags)}
     scope :no_title_tag, -> { where("metatag_title_tag IS NULL OR metatag_title_tag = ''") }
     scope :no_meta_description, -> { where("metatag_meta_description IS NULL OR metatag_meta_description = ''") }
     scope :fulltext_contains, lambda{ |name| where("content LIKE '%#{name}%' OR teaser LIKE '%#{name}%' OR url_name LIKE '%#{name}%' OR subtitle LIKE '%#{name}%' OR summary LIKE '%#{name}%' OR context_info LIKE '%#{name}%' OR breadcrumb LIKE '%#{name}%'")}
@@ -136,7 +136,7 @@ module Goldencobra
     if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       if Goldencobra::Setting.for_key("goldencobra.use_solr") == "true"
         searchable do
-          text :title, :boost => 5
+          text :title, boost: 5
           text :summary
           text :content
           text :subtitle
@@ -177,7 +177,7 @@ module Goldencobra
     end
 
     #Das ist der Titel, der verwendet wird, wenn daraus ein Menüpunkt erstellt werden soll.
-    #der menue.title hat folgende vorgaben: validates_format_of :title, :with => /^[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+$/
+    #der menue.title hat folgende vorgaben: validates_format_of :title, with: /^[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+$/
     def parsed_title
       self.title.to_s.gsub("/", " ")
     end
@@ -385,7 +385,7 @@ module Goldencobra
     end
 
     def linked_menues
-      Goldencobra::Menue.where(:target => self.public_url)
+      Goldencobra::Menue.where(target: self.public_url)
     end
 
     def complete_json
@@ -435,8 +435,8 @@ module Goldencobra
       if localparams.present? && localparams[:params].present?
         av.params.merge!(localparams[:params])
       end
-      av.assign({:article => self})
-      html_to_render = av.render(template: "/goldencobra/articles/show.html.erb", :layout => "layouts/#{layoutfile}", :locals => localparams, :content_type => "text/html" )
+      av.assign({article: self})
+      html_to_render = av.render(template: "/goldencobra/articles/show.html.erb", layout: "layouts/#{layoutfile}", locals: localparams, content_type: "text/html" )
       return html_to_render
     end
 
@@ -479,7 +479,7 @@ module Goldencobra
       end
       #get articles without tag
       if self.not_tagged_with.present?
-        @list_of_articles = @list_of_articles.tagged_with(self.not_tagged_with.split(",").map{|t| t.strip}, :exclude => true, on: :tags)
+        @list_of_articles = @list_of_articles.tagged_with(self.not_tagged_with.split(",").map{|t| t.strip}, exclude: true, on: :tags)
       end
       #get_articles_by_frontend_tags
       if user_frontend_tags.present?
@@ -547,7 +547,7 @@ module Goldencobra
 
 
     def cleanup_redirections
-      Goldencobra::Redirector.where(:source_url => self.absolute_public_url).destroy_all
+      Goldencobra::Redirector.where(source_url: self.absolute_public_url).destroy_all
     end
 
     #bevor ein Artikle gespeichert wird , wird ein redirector unvollständig erstellt
@@ -574,7 +574,7 @@ module Goldencobra
     def set_redirection_step_2
       if self.create_redirection.present? && self.create_redirection.to_i > 0
         #Suche Redirector nur mit source und vervollständige ihn
-        Goldencobra::Redirector.where(:source_url => self.absolute_public_url).destroy_all
+        Goldencobra::Redirector.where(source_url: self.absolute_public_url).destroy_all
         r = Goldencobra::Redirector.find_by_id(self.create_redirection)
         if r.present?
           r.target_url = self.absolute_public_url
@@ -609,7 +609,7 @@ module Goldencobra
     # Nachdem ein Artikel gelöscht oder aktualsisiert wurde soll sein Elternelement aktualisiert werden, damit ein rss feed oder ähnliches mitbekommt wenn ein kindeintrag gelöscht oder bearbeitet wurde
     def update_parent_article_etag
       if self.parent.present?
-        self.parent.update_attributes(:updated_at => Time.now)
+        self.parent.update_attributes(updated_at: Time.now)
       end
     end
 
@@ -658,11 +658,11 @@ module Goldencobra
     end
 
     def notification_event_create
-      ActiveSupport::Notifications.instrument("goldencobra.article.created", :article_id => self.id)
+      ActiveSupport::Notifications.instrument("goldencobra.article.created", article_id: self.id)
     end
 
     def notification_event_update
-      ActiveSupport::Notifications.instrument("goldencobra.article.updated", :article_id => self.id)
+      ActiveSupport::Notifications.instrument("goldencobra.article.updated", article_id: self.id)
     end
 
     def set_url_name_if_blank
@@ -718,7 +718,7 @@ module Goldencobra
 
     def self.search_by_url(url)
       article = nil
-      articles = Goldencobra::Article.where(:url_name => url.split("/").last.to_s.split(".").first)
+      articles = Goldencobra::Article.where(url_name: url.split("/").last.to_s.split(".").first)
       article_path = "/#{url.split('.').first}"
       if articles.count > 0
         article = articles.select{|a| a.public_url(false) == article_path}.first
@@ -841,17 +841,17 @@ module Goldencobra
     end
 
     def self.simple_search(q)
-      self.active.search(:title_or_subtitle_or_url_name_or_content_or_summary_or_teaser_contains => q).relation.map {
+      self.active.search(title_or_subtitle_or_url_name_or_content_or_summary_or_teaser_contains: q).relation.map {
         |article|
         {
-          :id => article.id,
-          :absolute_public_url => article.absolute_public_url,
-          :title => article ? article.title : '',
-          :teaser => article ? article.teaser : '',
-          :article_type => article.article_type,
-          :updated_at => article.updated_at,
-          :parent_title => article.parent ? article.parent.title ? article.parent.title : '' : '',
-          :ancestry => article.ancestry ? article.ancestry : ''
+          id: article.id,
+          absolute_public_url: article.absolute_public_url,
+          title: article ? article.title : '',
+          teaser: article ? article.teaser : '',
+          article_type: article.article_type,
+          updated_at: article.updated_at,
+          parent_title: article.parent ? article.parent.title ? article.parent.title : '' : '',
+          ancestry: article.ancestry ? article.ancestry : ''
         }
       }
     end

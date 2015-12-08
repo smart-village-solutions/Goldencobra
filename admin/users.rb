@@ -1,14 +1,14 @@
-ActiveAdmin.register User, :as => "User" do
-  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.users.as'), :if => proc{can?(:update, User)}
+ActiveAdmin.register User, as: "User" do
+  menu parent: I18n.t("settings", scope: ["active_admin","menue"]), label: I18n.t('active_admin.users.as'), if: proc{can?(:update, User)}
 
   filter :firstname
   filter :lastname
   filter :email
 
   #TODO: Gab es hierfür eienn Grund?
-  #actions :all, :except => [:new]
+  #actions :all, except: [:new]
 
-  form :html => { :enctype => "multipart/form-data" }  do |f|
+  form html: { enctype: "multipart/form-data" }  do |f|
     f.actions
     f.inputs I18n.t('active_admin.users.general') do
       f.input :gender, as: :select, collection: [["Frau", false], ["Herr", true]]
@@ -16,9 +16,9 @@ ActiveAdmin.register User, :as => "User" do
       f.input :lastname
       f.input :email
       if current_user.has_role?('admin')
-        f.input :roles, :as => :check_boxes, :collection => Goldencobra::Role.all
+        f.input :roles, as: :check_boxes, collection: Goldencobra::Role.all
       else
-        f.input :id, :as => :hidden
+        f.input :id, as: :hidden
       end
       f.input :password, hint: I18n.t('active_admin.users.hint1')
       f.input :password_confirmation, hint: I18n.t('active_admin.users.hint2')
@@ -38,7 +38,7 @@ ActiveAdmin.register User, :as => "User" do
           step.input :description, as: :string, label: I18n.t('active_admin.users.label1')
           step.input :title, label: I18n.t('active_admin.users.label2'), hint: I18n.t('active_admin.users.hint3')
         else
-          render :partial => "/goldencobra/admin/users/vita_steps", :locals => {:step => step}
+          render partial: "/goldencobra/admin/users/vita_steps", locals: {step: step}
         end
       end
     end
@@ -47,7 +47,7 @@ ActiveAdmin.register User, :as => "User" do
   end
 
 
-  index :download_links => proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
+  index download_links: proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column :firstname
     column :lastname
@@ -58,7 +58,7 @@ ActiveAdmin.register User, :as => "User" do
     actions
   end
 
-  show :title => :lastname do
+  show title: :lastname do
     panel I18n.t('active_admin.users.user') do
       attributes_table_for user do
         [:firstname, :lastname, :title, :email, :gender, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :created_at, :updated_at].each do |aa|
