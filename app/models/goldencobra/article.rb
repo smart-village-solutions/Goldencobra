@@ -66,7 +66,7 @@ module Goldencobra
     has_many :link_checks, :class_name => Goldencobra::LinkChecker
     has_many :metatags
     has_many :images, :through => :article_images, :class_name => Goldencobra::Upload
-    has_many :article_images
+    has_many :article_images, dependent: :destroy
     has_many :article_widgets
     has_many :widgets, :through => :article_widgets
     has_many :vita_steps, :as => :loggable, :class_name => Goldencobra::Vita
@@ -160,8 +160,8 @@ module Goldencobra
     # Instance Methods
     # **************************
     # **************************
-    
-    def link_checker 
+
+    def link_checker
       old_result = {}
       self.link_checks.each do |lc|
         old_result[lc.target_link] = { "response_code"  => lc.response_code,
@@ -171,8 +171,8 @@ module Goldencobra
       end
       return old_result
     end
-    
-     
+
+
     def has_children
       self.has_children?
     end
