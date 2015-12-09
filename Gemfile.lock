@@ -658,6 +658,3 @@ DEPENDENCIES
   wkhtmltopdf-binary
   yard
   yarjuf
-
-BUNDLED WITH
-   1.10.6
