@@ -1,3 +1,5 @@
+V1.4.77
+  - FIX für Artikel Bearbeiten URL, wenn ID und URL unterschiedlicher Artikel identisch ist
 V1.4.76
   - Fix in Goldencobra Menue TKD-48
   - Update von Paperclip aufgrund Security Warning
@@ -44,7 +46,7 @@ V1.4.10
 V1.4.6
   - mysql update für UTF8 auf Tables
   - params :start und :limit um rss feeds ein offset und ein Limit mitzugeben
-  
+
 V1.4.5
   - xml sitemap erweitert um erstes Bild des Artikels
   - Sidekiq fixed auf Version 3.2.1 da 3.2.2 Ruby Version 1.9.x nicht mehr unterstüzt

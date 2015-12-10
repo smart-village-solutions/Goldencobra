@@ -26,7 +26,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     scope(I18n.t(article_type.split(' ').first.to_s.strip, scope: [:goldencobra, :article_types], default: article_type.split(' ').first), show_count: false){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
   end
 
-  form html: { enctype: "multipart/form-data" }  do |f|
+  form html: { enctype: "multipart/form-data" } do |f|
     if f.object.new_record?
       render partial: "/goldencobra/admin/articles/select_article_type", locals: {f: f}
     else
@@ -351,6 +351,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
 
     def update
+      @article = Goldencobra::Article.find_by_slug(params[:id])
       update! do |format|
         if @article.errors.present? && @article.errors.messages.any?
           flash[:error] = "<h3>Fehler beim Speichern</h3><ul>"
