@@ -61,7 +61,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
       #render Show Options if articletype == Show
       if f.object.article_type.present? && f.object.kind_of_article_type.downcase == "show"
-
         #render Article_type Options
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_show.html.erb")
           ActionController::Base.new().render_to_string(partial: "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_show", locals: { f: f })
@@ -76,7 +75,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
         #render Index Options if articletype == Index
       elsif f.object.kind_of_article_type.downcase == "index"
-
         if File.exists?("#{::Rails.root}/app/views/articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/_edit_index.html.erb")
           ActionController::Base.new().render_to_string( partial: "articletypes/#{f.object.article_type_form_file.underscore.parameterize.downcase}/edit_index", locals: {f: f} )
         end
@@ -88,10 +86,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         end
 
       else
-        #Der Artikeltyp ist weder Index noch Show
+        # Der Artikeltyp ist weder Index noch Show
       end
 
-      #Render alle Feldgruppen und Felder mit Position "last"
+      # Render alle Feldgruppen und Felder mit Position "last"
       if f.object.articletype.present?
         f.object.articletype.fieldgroups.where(position: "last_block").each do |atg|
           f.inputs atg.title, class: "#{atg.foldable ? 'foldable' : ''} #{atg.expert ? 'expert' : ''} #{atg.closed ? 'closed' : ''} inputs" do
@@ -106,7 +104,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
     f.actions
   end
-
 
   index as: :table, download_links: proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
@@ -125,12 +122,12 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     column I18n.t('active_admin.articles.index.permission') do |article|
       Goldencobra::Permission.restricted?(article) ? raw(I18n.t('active_admin.articles.index.restricted')) : ""
     end
-    #column :created_at, sortable: :created_at do |article|
+    # column :created_at, sortable: :created_at do |article|
     #  l(article.created_at)
-    #end
-    #column :updated_at, sortable: :updated_at do |article|
+    # end
+    # column :updated_at, sortable: :updated_at do |article|
     #  l(article.updated_at)
-    #end
+    # end
     column I18n.t("menue", scope: [:goldencobra, :menue]) do |article|
       if article.linked_menues.count > 0
         link_to(I18n.t("list", scope: [:goldencobra, :menue]), admin_menues_path("q[target_contains]" => article.public_url), class: "list", title: I18n.t('active_admin.articles.index.list_menu'))
