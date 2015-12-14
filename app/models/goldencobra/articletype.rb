@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module Goldencobra
   class Articletype < ActiveRecord::Base
     attr_accessible :default_template_file, :name, :fieldgroups_attributes
@@ -13,27 +11,29 @@ module Goldencobra
 
     after_destroy :set_defaults
 
-    ArticleFieldOptions = [:global_sorting_id, :title, :subtitle, :content,
-                           :teaser, :summary, :tag_list, :frontend_tag_list, :active,
-                           :active_since, :context_info, :metatags, :metatag_title_tag,
-                           :metatag_meta_description, :metatag_open_graph_title,
-                           :metatag_open_graph_description, :metatag_open_graph_type,
-                           :metatag_open_graph_url, :metatag_open_graph_image, :breadcrumb,
-                           :url_name, :parent_id, :canonical_url, :enable_social_sharing,
-                           :robots_no_index, :cacheable, :commentable, :dynamic_redirection,
-                           :external_url_redirect, :redirect_link_title, :redirection_target_in_new_window,
-                           :author, :permissions, :widgets, :article_images, :index__article_for_index_id,
-                           :index__article_descendents_depth, :index__display_index_types,
-                           :index__display_index_articletypes, :index__index_of_articles_tagged_with,
-                           :index__not_tagged_with, :index__sorter_limit, :index__sort_order, :index__reverse_sort
-                           ]
+    ArticleFieldOptions = [
+      :global_sorting_id, :title, :subtitle, :content,
+      :teaser, :summary, :tag_list, :frontend_tag_list, :active,
+      :active_since, :context_info, :metatags, :metatag_title_tag,
+      :metatag_meta_description, :metatag_open_graph_title,
+      :metatag_open_graph_description, :metatag_open_graph_type,
+      :metatag_open_graph_url, :metatag_open_graph_image, :breadcrumb,
+      :url_name, :parent_id, :canonical_url, :enable_social_sharing,
+      :robots_no_index, :cacheable, :commentable, :dynamic_redirection,
+      :external_url_redirect, :redirect_link_title, :redirection_target_in_new_window,
+      :author, :permissions, :widgets, :article_images, :index__article_for_index_id,
+      :index__article_descendents_depth, :index__display_index_types,
+      :index__display_index_articletypes, :index__index_of_articles_tagged_with,
+      :index__not_tagged_with, :index__sorter_limit, :index__sort_order, :index__reverse_sort
+    ]
 
     def set_defaults
       Goldencobra::Articletype.reset_to_default
     end
 
     def self.reset_to_default
-      if ActiveRecord::Base.connection.table_exists?("goldencobra_articles") && ActiveRecord::Base.connection.table_exists?("goldencobra_articletypes")
+      if ActiveRecord::Base.connection.table_exists?("goldencobra_articles") &&
+         ActiveRecord::Base.connection.table_exists?("goldencobra_articletypes")
         Goldencobra::Article.article_types_for_select.each do |at|
           if Goldencobra::Articletype.find_by_name(at).blank?
             Goldencobra::Articletype.create(name: at, default_template_file: "application")
@@ -113,6 +113,5 @@ module Goldencobra
       new_a = at.fieldgroups.create(title: title, position: position, foldable: foldable, closed: closed, expert: expert, sorter: sorter)
       new_a.fields.create(fieldname: fieldname, sorter: fieldsorter)
     end
-
   end
 end

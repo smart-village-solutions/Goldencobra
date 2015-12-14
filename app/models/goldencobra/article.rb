@@ -638,7 +638,6 @@ module Goldencobra
       self.metatag_open_graph_description = meta_description if self.metatag_open_graph_description.blank?
       self.metatag_open_graph_title = self.title if self.metatag_open_graph_title.blank?
       self.metatag_open_graph_url = self.absolute_public_url if self.metatag_open_graph_url.blank?
-
     end
 
     # helper um links zu entfernen in text
@@ -648,7 +647,9 @@ module Goldencobra
 
     def verify_existence_of_opengraph_image
       if self.metatag_open_graph_image.blank?
-        if self.article_images.any? && self.article_images.first.present? && self.article_images.first.image.present? && self.article_images.first.image.image.present?
+        if self.article_images.any? && self.article_images.first.present? &&
+           self.article_images.first.image.present? &&
+           self.article_images.first.image.image.present?
           og_img_val = "#{self.absolute_base_url}#{self.article_images.first.image.image.url}"
         else
           og_img_val = Goldencobra::Setting.for_key("goldencobra.facebook.opengraph_default_image")
@@ -667,7 +668,7 @@ module Goldencobra
 
     def set_url_name_if_blank
       if self.url_name.blank?
-        self.url_name = self.breadcrumb.urlize(downcase: true, convert_spaces: true).gsub("_","-")
+        self.url_name = self.breadcrumb.urlize(downcase: true, convert_spaces: true).gsub("_", "-")
       end
     end
 

@@ -1,17 +1,15 @@
-# encoding: utf-8
-
 module Goldencobra
   class Engine < ::Rails::Engine
-
     isolate_namespace Goldencobra
     initializer "goldencobra.load_app_instance_data" do |app|
-      #app.class.configure do
-        #call some action
-      #end
+      # app.class.configure do
+        # call some action
+      # end
     end
 
     initializer("goldencobra.locales") do |app|
-      Goldencobra::Engine.config.i18n.load_path += Dir[root.join('config', 'locales', '*.{rb,yml}').to_s]
+      Goldencobra::Engine.config.i18n.load_path += Dir[root.join('config', 'locales', '*.{rb,yml}')
+        .to_s]
     end
 
     initializer "goldencobra.assets.precompile" do |app|
@@ -27,20 +25,21 @@ module Goldencobra
     end
 
     config.to_prepare do
-      #ActionController::Base.send :include, Goldencobra::ArticlesController
+      # ActionController::Base.send :include, Goldencobra::ArticlesController
+
+      # application helper
       ApplicationController.helper(Goldencobra::ApplicationHelper)
       ActionController::Base.helper(Goldencobra::ApplicationHelper)
       DeviseController.helper(Goldencobra::ApplicationHelper)
       Devise::SessionsController.helper(Goldencobra::ApplicationHelper)
       Devise::PasswordsController.helper(Goldencobra::ApplicationHelper)
 
+      # articles helper
       ApplicationController.helper(Goldencobra::ArticlesHelper)
       ActionController::Base.helper(Goldencobra::ArticlesHelper)
       DeviseController.helper(Goldencobra::ArticlesHelper)
       Devise::SessionsController.helper(Goldencobra::ArticlesHelper)
       Devise::PasswordsController.helper(Goldencobra::ArticlesHelper)
-
-
     end
 
     if defined? Rack::UTF8Sanitizer

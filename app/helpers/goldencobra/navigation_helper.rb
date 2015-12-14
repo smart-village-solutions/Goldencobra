@@ -1,6 +1,5 @@
 module Goldencobra
   module NavigationHelper
-
     def breadcrumb(options={})
       id_name = options["id"] || "breadcrumb"
       class_name = options["class"] || ""
@@ -26,7 +25,7 @@ module Goldencobra
 
     #<%= navigation_menu("Top-Menu", current_article: @article, class: "ul_main_nav", depth: 1, offset: 1 %>
 
-    #TODO: offset implementieren
+    # TODO: offset implementieren
     def navigation_menu(menue_id, options={})
       return "id can't be blank" if menue_id.blank?
       depth = options[:depth] || 9999
@@ -56,7 +55,7 @@ module Goldencobra
       return "" if master_menue.blank?
 
       current_depth = master_menue.ancestry_depth
-      #Check for Permission
+      # Check for Permission
       begin
         if params.present? && params[:frontend_tags].present? && params[:frontend_tags].class != String && params[:frontend_tags][:format] && params[:frontend_tags][:format] == "email"
           #Wenn format email, dann gibt es keinen realen webseit besucher

@@ -1,10 +1,16 @@
 # encoding: utf-8
 
 module Goldencobra
-  class ArticletypePresenter < Goldencobra::BasePresenter
+  class ArticletypePresenter
     def initialize(f, articletype)
       @f = f
       @articletype = articletype
+    end
+
+    # Info: breadcrumb muss hier, obwohl default Feld, extra definiert werden, da es einen
+    # NavigationHelper gibt mit selbigem Namen. Somit greift method_missing nicht.
+    def breadcrumb
+      input_form_for(:breadcrumb)
     end
 
     def content
@@ -161,7 +167,8 @@ module Goldencobra
       @f.input :reverse_sort, hint: "Soll absteigend sortiert werden? Standard: aufsteigend"
     end
 
-    # Alle nicht vom default abweichenden Artikel Methoden werden herüber abgefangen
+    # Alle nicht vom default abweichenden Artikel Methoden werden herüber abgefangen, es sei denn
+    # es gibt einen Helper, der den selben Namen hat wie die Methode (Bsp. breadcrumb) - ätzend
     def method_missing(method_name, *arguments, &block)
       if @f.object.respond_to?(method_name)
         input_form_for(method_name.to_sym)
@@ -190,8 +197,8 @@ module Goldencobra
 
     private
 
-    def input_form_for(id, options={})
-      hint = options[:hint] || I18n.t("goldencobra.article_field_hints.#{id}")
+    def input_form_for(method_symbol, options={})
+      hint = options[:hint] || I18n.t("goldencobra.article_field_hints.#{method_symbol}")
       input_html = options[:input_html] || nil
       display_as = options[:as] || nil
       collection = options[:collection] || nil
@@ -201,19 +208,18 @@ module Goldencobra
       label = options[:label] || nil
 
       input_options = {
-                        hint: hint,
-                        input_html: input_html,
-                        as: display_as,
-                        collection: collection,
-                        style: style,
-                        dataplaceholder: dataplaceholder,
-                        include_blank: include_blank,
-                        label: label
-                      }
+        hint: hint,
+        input_html: input_html,
+        as: display_as,
+        collection: collection,
+        style: style,
+        dataplaceholder: dataplaceholder,
+        include_blank: include_blank,
+        label: label
+      }
 
       input_options = input_options.delete_if{ |k, v| v.blank? }
-      @f.input(id, input_options )
-
+      @f.input(method_symbol, input_options)
     end
 
     attr_reader :articletype
