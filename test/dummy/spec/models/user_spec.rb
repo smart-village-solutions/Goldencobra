@@ -5,7 +5,7 @@ require 'spec_helper'
 # has_many :role_users, :as => :operator
 # has_many :roles, :through => :role_users
 
-describe User do
+describe User, type: :model do
   it { should have_many(:roles).through(:role_users) }
 
   describe "ensure_authentication_token" do

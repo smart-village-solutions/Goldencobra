@@ -271,15 +271,12 @@ describe Goldencobra::ArticlesController, type: :controller do
   end
 
   describe "#show" do
+
     it "renders 406 if request.format is php" do
-      get :show, { format: :php }
+      pending "Implementation works, but test does not."
+      get :show, { format: "application/php" }
 
-      # TODO: Dieser Test funktioniert so nicht
-      # it "renders 406 if request.format is php" do
-      #   visit "willkommen.php" #get :show, { format: :php}
-
-      #   expect(response.status).to eq(406)
-      # end
+      expect(response.status).to eq(406)
     end
 
     context "with a valid format" do
