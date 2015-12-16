@@ -11,7 +11,7 @@ This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis
 - ActiveAdmin
 
 ## Current Version
-2.0
+2.0.x
 
 # Requirements
 * Ruby 2.2.2+
