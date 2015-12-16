@@ -10,7 +10,8 @@ This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis
 ## Powered by
 - ActiveAdmin
 
-## Current Version
+## Current Versions
+1.5.x
 2.0.x
 
 # Requirements
@@ -25,7 +26,7 @@ This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis
 rails new PROJECTNAME -m https://raw.github.com/ikusei/goldencobra-installer/master/template.rb -d mysql
 ```
 
-## OR Manual Installation: Create new project
+## Manual Installation: Create new project
 ``` ruby
 rails new PROJECTNAME -d mysql
 ```
