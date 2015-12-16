@@ -1,19 +1,20 @@
 #Goldencobra
 
-[![Build Status](https://secure.travis-ci.org/ikusei/Goldencobra.png)](http://travis-ci.org/ikusei/Goldencobra)  
+[![Build Status](https://secure.travis-ci.org/ikusei/Goldencobra.png)](http://travis-ci.org/ikusei/Goldencobra)
 [![Code
 Climate](https://codeclimate.com/github/ikusei/Goldencobra/badges/gpa.svg)](https://codeclimate.com/github/ikusei/Goldencobra)
 
 This Project is still under development.
 This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis-modul/browse and now always up to date!
 
-# Powered by
+## Powered by
 - ActiveAdmin
 
-Installation of Goldencobra into a fresh Ruby on Rails project:
+## Current Version
+2.0
 
 # Requirements
-* Ruby 2.2.2+ 
+* Ruby 2.2.2+
 * Rails 4.2.3
 * Mysql 5.5.x (tested with e.g. 5.5.19)
 
@@ -52,7 +53,7 @@ rails generate goldencobra:install
 rake db:migrate db:test:prepare
 ```
 
-## If you want to use goldencobra in a subdirectory 
+## If you want to use goldencobra in a subdirectory
 
 (http://www.domain.de/subdir/), please modify your config/routes.rb
 and setup your domains in "Settings > Domains" in the backendinterface
@@ -292,5 +293,5 @@ This project uses CC BY-NC-SA 3.0. See [License]
 
 # About
 
-Goldencobra is maintained by [ikusei GmbH](http://ikusei.de) in Berlin.  
+Goldencobra is maintained by [ikusei GmbH](http://ikusei.de) in Berlin.
 We like you.
