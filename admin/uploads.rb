@@ -103,9 +103,11 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
       row I18n.t("active_admin.uploads.original_row") do
         link_to("http://#{Goldencobra::Setting.for_key("goldencobra.url").html_safe}" + upload.image(:original),upload.image(:original), target: "_blank" )
       end
-      Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |image_size|
-        row "#{image_size}" do
-          link_to("http://#{Goldencobra::Setting.for_key("goldencobra.url").html_safe}" + upload.image(image_size),upload.image(image_size), target: "_blank" )
+      if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
+        Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |image_size|
+          row "#{image_size}" do
+            link_to("http://#{Goldencobra::Setting.for_key("goldencobra.url").html_safe}" + upload.image(image_size),upload.image(image_size), target: "_blank" )
+          end
         end
       end
       row :source
