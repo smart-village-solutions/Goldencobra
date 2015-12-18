@@ -276,8 +276,9 @@ function populateArticleUploads() {
         var selectedUploadId = $(element).find('option:selected').val();
 
         $this.outerHTML = "<div id='react-" + thisId + "'></div>";
+        console.log(thisId, selectedUploadId, thisData, thisName, includeBlank);
         React.render(
-          React.createElement(SelectList, {id: thisId, value: selectedUploadId, options: thisData, name: thisName, firstBlank: includeBlank}),
+          React.createElement(SelectList, { id: thisId, value: selectedUploadId, options: thisData, name: thisName, firstBlank: includeBlank }),
           document.getElementById('react-' + thisId)
         );
 
