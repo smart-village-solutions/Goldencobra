@@ -16,16 +16,13 @@ module Goldencobra
             select([:id, :image_file_name, :source, :rights, :updated_at])
 
           # Die React Select Liste braucht das JSON in diesem Format. -hf
-          json_uploads = @uploads.each do |u|
+          json_uploads = @uploads.map do |u|
             { "value" => u.id, "label" => u.complete_list_name }
           end
 
           respond_to do |format|
             format.json {
-              render json: Oj.dump(
-                { 'uploads' => json_uploads },
-                mode: :compat
-              )
+              render json: Oj.dump( { 'uploads' => json_uploads }, mode: :compat )
             }
           end
         end

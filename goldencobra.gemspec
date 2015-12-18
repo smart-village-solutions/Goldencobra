@@ -36,11 +36,16 @@ Gem::Specification.new do |s|
   # s.add_dependency 'sunspot_rails', '~> 2.0.0'
   # s.add_dependency 'sunspot_solr', '~> 2.0.0'
   s.add_dependency 'remove_accents'
-  s.add_dependency 'sprockets'
+
+  # Fix Auf Versions da sonst CSS rendering nciht mehr funktioniert - 18.12.2015
+  s.add_dependency 'sprockets', "2.12.4"
+  s.add_dependency "sprockets-rails", "2.3.3"
+  s.add_dependency "tilt", "1.4.1"
+  s.add_dependency 'compass-rails', "2.0.5"
+
   s.add_dependency 'sass'
   s.add_dependency 'sass-rails'
   s.add_dependency 'compass'
-  s.add_dependency 'compass-rails'
   s.add_dependency 'sidekiq'
   s.add_dependency 'sinatra'
   s.add_dependency 'omniauth'

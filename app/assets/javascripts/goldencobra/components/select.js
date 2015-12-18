@@ -16,7 +16,6 @@ var SelectList = React.createClass({
         React.createElement(OptionItem, { value: el.value, label: el.label, key: el.value })
       );
     });
-
     var emptyOption;
 
     if (this.props.firstBlank === true) {
