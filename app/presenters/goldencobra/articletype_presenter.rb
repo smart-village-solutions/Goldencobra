@@ -89,7 +89,7 @@ module Goldencobra
       @f.has_many :article_images, heading: "", new_record: "+ hinzufügen" do |ai|
         ai.input :image, as: :select,
           collection: Goldencobra::Upload.where(id: ai.object.image_id).map{ |c| [c.complete_list_name, c.id] },
-          input_html: { class: "article_image_file chosen-select-deselct get_goldencobra_uploads_per_remote",
+          input_html: { class: "article_image_file chosen-select-deselect get_goldencobra_uploads_per_remote",
                         style: "width: 80%;", "data-placeholder" => "Bitte warten" },
           label: "Medium wählen",
           include_blank: false
