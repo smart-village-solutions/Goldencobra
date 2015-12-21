@@ -77,7 +77,8 @@ module Goldencobra
     has_many :article_authors
     has_many :authors, through: :article_authors
 
-    accepts_nested_attributes_for :article_images, allow_destroy: true
+    accepts_nested_attributes_for :article_images, allow_destroy: true,
+                                  reject_if: proc { |attributes| attributes["image_id"].blank? }
     accepts_nested_attributes_for :images, allow_destroy: true
     accepts_nested_attributes_for :permissions, allow_destroy: true
     accepts_nested_attributes_for :article_widgets, allow_destroy: true
