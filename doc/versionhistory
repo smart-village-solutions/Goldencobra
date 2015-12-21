@@ -1,4 +1,6 @@
-V2.0.13 - 14.12.2015
+V2.0.14 - 21.12.2015
+  - reject_if: image_id blank? für article_images, sodass keine leeren Verknüpfungen entstehen
+V2.0.13 - 18.12.2015
   - fix für "undefined method 'attachment_definitions'"
 V2.0.12 - 14.12.2015
   - Bugfix für .breadcrumb im ArticlePresenter
