@@ -1,3 +1,5 @@
+V2.0.15 - 04.01.2016
+  - Plugin-Erweiterung für Tabellen im ckeditor (z. B.: CSS-Klasse hinzufügen)
 V2.0.14 - 21.12.2015
   - reject_if: image_id blank? für article_images, sodass keine leeren Verknüpfungen entstehen
 V2.0.13 - 18.12.2015
