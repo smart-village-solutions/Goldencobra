@@ -59,9 +59,15 @@ $(function () {
       var $thisEl = $('#' + thisId);
       // $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
       if ($('.get_goldencobra_articles_per_remote').hasClass("include_blank_false")){
-        $thisEl.chosen({ allow_single_deselect: false });
+        $thisEl.chosen({
+          allow_single_deselect: false,
+          search_contains: true
+        });
       } else {
-        $thisEl.chosen({ allow_single_deselect: true });
+        $thisEl.chosen({
+          allow_single_deselect: true,
+          search_contains: true
+        });
       }
 
       $('.chosen-container').css({width: '80%'});
@@ -157,12 +163,18 @@ $(function () {
   });
 
   /* init chosen */
-  $('.chosen-select').chosen();
-  $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+  $('.chosen-select').chosen({ search_contains: true });
+  $('.chosen-select-deselect').chosen({
+    allow_single_deselect: true,
+    search_contains: true
+  });
   $('a.button').on('click', function () {
     setTimeout(function initChosens() {
-      $('.chosen-select').chosen();
-      $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+      $('.chosen-select').chosen({ search_contains: true });
+      $('.chosen-select-deselect').chosen({
+        allow_single_deselect: true,
+        search_contains: true
+      });
     }, 20);
   });
 
@@ -293,9 +305,12 @@ function populateArticleUploads() {
 
         $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
         if (includeBlank){
-          $thisEl.chosen({ allow_single_deselect: true });
+          $thisEl.chosen({
+            allow_single_deselect: true,
+            search_contains: true
+          });
         } else {
-          $thisEl.chosen();
+          $thisEl.chosen({ search_contains: true });
         }
         $('.chosen-container').css({width: '80%'});
       });
