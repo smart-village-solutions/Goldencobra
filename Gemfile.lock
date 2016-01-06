@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    goldencobra (2.0.13)
+    goldencobra (2.0.16)
       actionpack-action_caching
       active_model_serializers
       activeadmin (~> 1.0.0.pre1)
