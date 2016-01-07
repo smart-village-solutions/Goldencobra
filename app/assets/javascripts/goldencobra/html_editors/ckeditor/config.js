@@ -11,7 +11,7 @@ CKEDITOR.editorConfig = function(config) {
   // http://docs.ckeditor.com/#!/api/CKEDITOR.config
   config.language = 'de';
   config.uiColor = '#dfe1e2';
-  config.extraPlugins = 'autogrow';
+  config.extraPlugins = 'autogrow,dialogadvtab';
   config.autoGrow_minHeight = 200;
   config.autoGrow_maxHeight = 400;
 
