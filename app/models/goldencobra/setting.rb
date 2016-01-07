@@ -15,7 +15,7 @@
 
 module Goldencobra
   class Setting < ActiveRecord::Base
-
+    require 'fileutils'
     # TODO cache invalidate über touch /temp/settings_updated.txt
 
 
@@ -179,18 +179,22 @@ module Goldencobra
     def update_cache
       @@key_value ||= {}
       @@key_value[self.path_name] = nil
-      FileUtils.mkdir_p("tmp/settings")
-      FileUtils.touch("tmp/settings/updated_#{self.path_name}.txt")
+      FileUtils.mkdir_p(Goldencobra::Setting.absolute_tmp_path)
+      FileUtils.touch(Goldencobra::Setting.absolute_tmp_path("updated_#{self.path_name}.txt"))
     end
 
     def self.get_cache_modification_time(name)
-      if File.exists?("tmp/settings/updated_#{name}.txt")
-        File.mtime("tmp/settings/updated_#{name}.txt")
+      if File.exists?(absolute_tmp_path("updated_#{name}.txt"))
+        File.mtime(absolute_tmp_path("updated_#{name}.txt"))
       else
-        FileUtils.mkdir_p("tmp/settings")
-        FileUtils.touch("tmp/settings/updated_#{name}.txt")
+        FileUtils.mkdir_p(absolute_tmp_path)
+        FileUtils.touch(absolute_tmp_path("updated_#{name}.txt"))
         return Time.now
       end
+    end
+
+    def self.absolute_tmp_path(file_name = nil)
+      File.join([Rails.root, "tmp", "settings", file_name].compact)
     end
 
 
