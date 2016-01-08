@@ -191,6 +191,9 @@ module Goldencobra
         FileUtils.touch(absolute_tmp_path("updated_#{name}.txt"))
         return Time.now
       end
+    rescue
+      Airbrake.notify(error_message: "Rescued Error 'FileUtils mkdir_p' with '#{Goldencobra::Setting.absolute_tmp_path}' ")
+      return Time.now
     end
 
     def self.absolute_tmp_path(file_name = nil)
