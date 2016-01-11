@@ -38,6 +38,7 @@ module Goldencobra
         end
       elsif request.format == "php" || params[:format].to_s == "php"
         respond_to do |format|
+          format.php { render nothing: true, status: 406 }
           format.html { render nothing: true, status: 406 }
         end
       elsif request.format == "image/jpeg"  || request.format == "image/png"
