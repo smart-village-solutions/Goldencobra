@@ -885,7 +885,7 @@ module Goldencobra
 
 
     def set_descendants_status
-      if self.active_changed?
+      if !self.new_record? && self.active_changed? && self.descendants.any?
         # Save without callbacks
         if Rails::VERSION::MAJOR == 3
           self.descendants.map{ |d| d.update_column(:active, self.active) }
