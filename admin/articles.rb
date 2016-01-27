@@ -410,8 +410,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
           @article.errors.messages.each do |key, value|
             flash[:error] += "#{t(key, scope: [:activerecord, :attributes, :profile])}: #{value.join(', ')}"
           end
+          format.html { render :edit }
+        else
+          format.html { redirect_to edit_admin_article_path(@article.id) }
         end
-        format.html { redirect_to edit_admin_article_path(@article.id) }
       end
     end
 

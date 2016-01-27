@@ -31,7 +31,7 @@ PATH
       cancan
       cancancan
       compass
-      compass-rails (= 2.0.5)
+      compass-rails
       devise
       devise-token_authenticatable
       exception_notification
@@ -67,9 +67,9 @@ PATH
       sidekiq
       simple_enum
       sinatra
-      sprockets (= 2.12.4)
-      sprockets-rails (= 2.3.3)
-      tilt (= 1.4.1)
+      sprockets
+      sprockets-rails
+      tilt
       uglifier
       web-console (~> 2.0)
       whenever
