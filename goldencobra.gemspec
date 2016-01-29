@@ -88,7 +88,6 @@ Gem::Specification.new do |s|
 
   #Ausgelagerte Funktionen in Rails 4.x
   s.add_dependency 'responders', '~> 2.0'
-  s.add_dependency 'web-console', '~> 2.0'
 
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'annotate'
