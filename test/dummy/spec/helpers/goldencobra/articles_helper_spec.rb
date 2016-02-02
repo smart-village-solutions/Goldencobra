@@ -2,7 +2,6 @@ require "spec_helper"
 
 describe Goldencobra::ArticlesHelper, type: :helper do
   describe "#render_article_image_gallery" do
-    
     it "returns nil if article is not present" do
       expect(helper.render_article_image_gallery).to eq nil
     end
@@ -27,7 +26,7 @@ describe Goldencobra::ArticlesHelper, type: :helper do
       upload = Goldencobra::Upload.create
       upload.tag_list.add("foo-tag")
       upload.save
-      expect(helper.render_article_image_gallery({link_image_size: :medium, target_image_size: :medium})).to eq("<ul class=\"goldencobra_article_image_gallery\"><li><a title=\"\" href=\"missing_medium.png\"><img src=\"/images/missing_medium.png\" /></a></li></ul>")
+      expect(helper.render_article_image_gallery(link_image_size: :medium, target_image_size: :medium)).to eq("<ul class=\"goldencobra_article_image_gallery\"><li><a title=\"\" href=\"missing_medium.png\"><img src=\"/images/missing_medium.png\" /></a></li></ul>")
     end
   end
 end

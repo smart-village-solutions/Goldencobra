@@ -46,15 +46,15 @@ module Goldencobra
     # @param options={} [Hash] {link_image_size: :thumb, target_image_size: :large}
     #
     # @return [HTML] ImageGallery
-    def render_article_image_gallery(options = {link_image_size: :thumb, target_image_size: :large})
+    def render_article_image_gallery(options = {})
       if @article && @article.image_gallery_tags.present?
         tags = @article.image_gallery_tags.split(",")
         uploads = Goldencobra::Upload.tagged_with(tags)
         list_items = ""
         uploads.order(:sorter_number).each do |upload|
-          list_items << content_tag("li") do 
-            link_to upload.image.url(options[:target_image_size]), title: raw(upload.description) do
-              image_tag(upload.image.url(options[:link_image_size]), {alt: upload.alt_text})
+          list_items << content_tag("li") do
+            link_to upload.image.url(options[:target_image_size] || :large), title: raw(upload.description) do
+              image_tag(upload.image.url(options[:link_image_size] || :thumb), alt: upload.alt_text)
             end
           end
         end
