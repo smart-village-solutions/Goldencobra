@@ -46,21 +46,34 @@ module Goldencobra
     # @param options={} [Hash] {link_image_size: :thumb, target_image_size: :large}
     #
     # @return [HTML] ImageGallery
-    def render_article_image_gallery(options={})
-      link_image_size = options.fetch(:link_image_size, :thumb)
-      target_image_size = options.fetch(:target_image_size, :large)
-      if @article
-        result = ""
-        uploads = Goldencobra::Upload.tagged_with(@article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : "" )
-        if uploads && uploads.count > 0
-          uploads.order(:sorter_number).each do |upload|
-            result << content_tag("li", link_to(image_tag(upload.image.url(link_image_size), {alt: upload.alt_text}), upload.image.url(target_image_size), title: raw(upload.description)))
-          end
+ #   def render_article_image_gallery(options={})
+ #     link_image_size = options.fetch(:link_image_size, :thumb)
+ #     target_image_size = options.fetch(:target_image_size, :large)
+ #     if @article
+ #       result = ""
+ #       uploads = Goldencobra::Upload.tagged_with(@article.image_gallery_tags.present? ? @article.image_gallery_tags.split(",") : "" )
+ #       if uploads && uploads.count > 0
+ #         uploads.order(:sorter_number).each do |upload|
+ #           result << content_tag("li", link_to(image_tag(upload.image.url(link_image_size), {alt: upload.alt_text}), upload.image.url(target_image_size), title: raw(upload.description)))
+ #         end
+ #       end
+ #       return content_tag("ul", raw(result), class: "goldencobra_article_image_gallery")
+ #     end
+ #   end
+    def render_article_image_gallery(options = {link_image_size: :thumb, target_image_size: :large})
+      if @article && @article.image_gallery_tags.present?
+        tags = @article.image_gallery_tags.split(",")
+        uploads = Goldencobra::Upload.tagged_with(tags)
+        url_string = ""
+        uploads.order(:sorter_number).each do |upload|
+          url_string << content_tag("li", link_to(image_tag(upload.image.url(options[:link_image_size]), {alt: upload.alt_text}), upload.image.url(options[:target_image_size]), title: raw(upload.description)))
         end
-        return content_tag("ul", raw(result), class: "goldencobra_article_image_gallery")
+        #need to add url_string to string below
+        content_tag("ul", raw(""), class: "goldencobra_article_image_gallery")
+      elsif @article
+        content_tag("ul", raw(""), class: "goldencobra_article_image_gallery")
       end
     end
-
 
     # Deprecated Helper Method, will be removed in GC 2.1
     def index_of_articles(options={})
