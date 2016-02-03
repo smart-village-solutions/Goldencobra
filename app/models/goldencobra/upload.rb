@@ -102,64 +102,6 @@ module Goldencobra
       result << "(#{self.source}, #{self.rights}) " if self.source.present? || self.rights.present?
       result << "- #{self.updated_at.strftime("%d.%m.%Y - %H:%M Uhr")}"
       return result
-<<<<<<< HEAD
-    end
-
-    def unzip_files
-      if self.image_file_name.include?(".zip") && File.exists?(self.image.path)
-        require 'zip'
-        zipped_files = Zip::File.open(self.image.path)
-        int = 0
-        zipped_files.each do |zipped_file|
-          int = int + 1
-          if zipped_file.file?
-            zipped_file.extract("tmp/#{self.id}_unzipped_#{int}.jpg")
-            Goldencobra::Upload.create(image: File.open("tmp/#{self.id}_unzipped_#{int}.jpg"),
-                        source: self.source,
-                        rights: self.rights,
-                        description: self.description,
-                        tag_list: self.tag_list.join(", ") )
-            File.delete("tmp/#{self.id}_unzipped_#{int}.jpg")
-          end
-        end
-      end
-    end
-
-    # Internal: Makes sure to only post-process files which are either pdf
-    # or image files. Word documents would break file upload.
-    #
-    # No params
-    #
-    # Returns true for image or pdf files and false for everything else
-    def image_file?
-      #debugger
-      if !(self.image_content_type =~ /^image.*/).nil?
-        return true
-      elsif !(self.image_content_type =~ /pdf/).nil?
-        return true
-      else
-        return false
-      end
-    end
-
-
-    private
-
-    def image_url_provided?
-      self.image_url.present?
-    end
-
-    def download_remote_image
-      require 'open-uri'
-      require "addressable/uri"
-      io = open(Addressable::URI.parse(self.image_url))
-      self.image = io
-      self.image_file_name = io.base_uri.path.split('/').last
-      self.image_remote_url = self.image_url
-    rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
-    end
-
-=======
     end
 
     def unzip_files
@@ -200,7 +142,8 @@ module Goldencobra
     end
 
     def self.default_position
-      Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).first
+      Goldencobra::Setting.for_key("goldencobra.article.image_positions").
+      to_s.split(",").map(&:strip).first
     end
 
     private
@@ -216,10 +159,10 @@ module Goldencobra
       self.image = io
       self.image_file_name = io.base_uri.path.split('/').last
       self.image_remote_url = self.image_url
-    rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+    rescue
+    # catch url errors with validations instead of exceptions
+    # (Errno::ENOENT, OpenURI::HTTPError, etc...)
     end
-
->>>>>>> f21e23c7e13c3e28712c25f9fadc0e32b80fefbc
   end
 end
 
