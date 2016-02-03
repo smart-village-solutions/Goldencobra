@@ -26,6 +26,7 @@ group :development do
   gem "powder"
   gem "listen"
   gem "pre-commit"
+  gem "web-console"
 end
 
 group :test do
