@@ -1,3 +1,5 @@
+V2.0.16.1 - 04.02.2016
+  - Excludes further (development-only) gems from being required on engine load.
 V2.0.16 - 06.01.2016
   - Extended quick search functionality in chosen selects (within words)
 V2.0.15 - 04.01.2016

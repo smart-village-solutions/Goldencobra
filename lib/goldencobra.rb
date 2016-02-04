@@ -8,16 +8,24 @@ Gem.loaded_specs["goldencobra"].dependencies.each do |d|
     elsif d.name == "addressable"
       require 'addressable/uri'
     elsif [
-        "annotate", "guard-annotate", "pry", "pry-nav", "better_errors", "yard", "redcarpet"
+        "annotate",
+        "guard-annotate",
+        "pry",
+        "pry-nav",
+        "better_errors",
+        "yard",
+        "redcarpet",
+        "binding_of_caller"
       ].include?(d.name)
-      #nichts tun
+      # do nothing. These are development dependencies. The reason this does not
+      # work without this elsif is unclear atm.
     else
       require d.name
     end
   rescue LoadError
-    # Some gem names are like this "rack-utf8_sanitizer". You'll get a LoadError. The require needs
-    # to load the gem as "rack/utf8_sanitizer"
-    require d.name.sub("-","/")
+    # Some gem names are like this "rack-utf8_sanitizer". You'll get a
+    # LoadError. The require needs to load the gem as "rack/utf8_sanitizer"
+    require d.name.sub("-", "/")
   end
 end
 
