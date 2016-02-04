@@ -481,17 +481,17 @@ module Goldencobra
         if self.sort_order == "Random"
           @list_of_articles = @list_of_articles.flatten.shuffle
         elsif self.sort_order == "Alphabetically"
-          @list_of_articles = @list_of_articles.flatten.sort_by{ |article| article.title }
+          @list_of_articles = @list_of_articles.flatten.sort_by { |article| article.title }
         elsif self.sort_order == "GlobalSortID"
-          @list_of_articles = @list_of_articles.flatten.sort_by{ |article| article.try(:global_sorting_id) }
+          @list_of_articles = @list_of_articles.flatten.sort_by { |article| article.try(:global_sorting_id).to_i }
         elsif self.respond_to?(self.sort_order.downcase)
           sort_order = self.sort_order.downcase
-          @list_of_articles = @list_of_articles.flatten.sort_by{ |article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
+          @list_of_articles = @list_of_articles.flatten.sort_by { |article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
         elsif self.sort_order.include?(".")
           sort_order = self.sort_order.downcase.split(".")
-          @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(self.sort_order) }
-          @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(self.sort_order) }
-          @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{self.sort_order}") }
+          @unsortable = @list_of_articles.flatten.select { |a| !a.respond_to_all?(self.sort_order) }
+          @list_of_articles = @list_of_articles.flatten.delete_if { |a| !a.respond_to_all?(self.sort_order) }
+          @list_of_articles = @list_of_articles.sort_by { |a| eval("a.#{self.sort_order}") }
           if @unsortable.count > 0
             @list_of_articles = @unsortable + @list_of_articles
             @list_of_articles = @list_of_articles.flatten
@@ -502,7 +502,7 @@ module Goldencobra
         end
       end
       if self.sorter_limit && self.sorter_limit > 0
-        @list_of_articles = @list_of_articles[0..self.sorter_limit-1]
+        @list_of_articles = @list_of_articles[0..self.sorter_limit - 1]
       end
 
       return @list_of_articles
