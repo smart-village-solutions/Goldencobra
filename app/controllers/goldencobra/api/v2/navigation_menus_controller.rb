@@ -112,7 +112,13 @@ module Goldencobra
 
           # Generate cache key: if any Menuitem is changed => invalidate
           last_modified = Goldencobra::Menue.order(:updated_at).pluck(:updated_at).last.to_i
-          cache_sub_key = [ params[:depth], params[:offset], display_methods, last_modified ].flatten.join("_")
+          cache_sub_key = [
+            params[:depth],
+            params[:offset],
+            display_methods,
+            last_modified,
+            Goldencobra::Menue.count
+          ].flatten.join("_")
           cache_key = "Navigation/menue_#{@master_element.id}/#{Digest::MD5.hexdigest(cache_sub_key)}"
 
           #Gibt es das Menü bereits im Cache?
