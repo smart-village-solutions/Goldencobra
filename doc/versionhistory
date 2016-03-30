@@ -1,24 +1,37 @@
+V1.4.77.3
+  - FIX: Unknown column 'goldencobra_article_images.upload_id'
+
 V1.4.77.2
   - FIX: Loeschen von Navigationspunkten/Menueeintraegen refreshte nicht die gecachten API Antwort.
+
 V1.4.77
   - FIX für Artikel Bearbeiten URL, wenn ID und URL unterschiedlicher Artikel identisch ist
+
 V1.4.76
   - Fix in Goldencobra Menue TKD-48
   - Update von Paperclip aufgrund Security Warning
+
 V1.4.75
   - API::v2::Articles beschleunigt mit oj gem
+
 V1.4.74
   - API::v2::Upload beschleunigt mit oj gem
+
 V1.4.73
   - Goldencobra::Menue: Index rendering durch gem Oj beschleunigt
+
 V1.4.72
   - Goldencobra::Menue: Veraendern des Aktiv/Inaktiv Status eines Menue-Eintrags wird zu allen Abkoemmlingen des Menues weitergegeben.
+
 V1.4.71
   - Redirector: URI.parse ersetzt durch Addressable::URI.parse
+
 V1.4.70
   - Rails security update -> 3.2.22
+
 V1.4.60
   - Addressable gem hinzugefügt: URLs in NAvigationAPI können nun Umlaute enthalten
+
 V1.4.50
   - NavigationMenu API extended for name and target calls
 
