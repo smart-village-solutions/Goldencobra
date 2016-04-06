@@ -45,8 +45,4 @@ rspec.xml
 test/dummy/results.json
 test/dummy/results.xml
 test/dummy/config/database.yml
-<<<<<<< HEAD
 docker_config/id_*
-=======
-
->>>>>>> f21e23c7e13c3e28712c25f9fadc0e32b80fefbc
