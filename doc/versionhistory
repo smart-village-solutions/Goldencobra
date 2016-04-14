@@ -1,3 +1,5 @@
+V2.0.16.4 - 14.04.2016
+ - Fixed: PHP request resulting in Error https://github.com/ikuseiGmbH/Goldencobra/issues/47
 V2.0.16.3 - 07.03.2016
  - Bugfix: Invalidate Cache for Goldencobra::Menu entries when deleting a record.
 V2.0.16.1 - 04.02.2016
