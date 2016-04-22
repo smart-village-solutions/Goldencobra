@@ -711,31 +711,27 @@ module Goldencobra
       end
     end
 
-
     # **************************
     # **************************
     # URL and Redirection Methods
     # **************************
     # **************************
 
-
     def self.search_by_url(url)
       article = nil
       articles = Goldencobra::Article.where(url_name: url.split("/").last.to_s.split(".").first)
       article_path = "/#{url.split('.').first}"
       if articles.count > 0
-        article = articles.select{|a| a.public_url(false) == article_path}.first
+        article = articles.select { |a| a.public_url(false) == article_path }.first
       end
       return article
     end
 
-
     def parent_path
-      self.path.map(&:title).join(" / ")
+      self.path.map(&:url_name).join("/")
     end
 
-
-    def public_url(with_prefix=true)
+    def public_url(with_prefix = true)
       if self.startpage
         if with_prefix
           return "#{Goldencobra::Domain.current.try(:url_prefix)}/"
@@ -759,9 +755,8 @@ module Goldencobra
       end
     end
 
-
     def absolute_base_url
-      golden_url = Goldencobra::Setting.for_key('goldencobra.url').gsub(/(http|https):\/\//,'')
+      golden_url = Goldencobra::Setting.for_key("goldencobra.url").gsub(/(http|https):\/\//,'')
 
       if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
         "https://#{golden_url}"
