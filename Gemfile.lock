@@ -49,7 +49,7 @@ GIT
 PATH
   remote: .
   specs:
-    goldencobra (1.4.76)
+    goldencobra (1.4.77.4)
       active_model_serializers
       activeadmin
       activeadmin-cancan
@@ -122,7 +122,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active_model_serializers (0.9.3)
+    active_model_serializers (0.9.5)
       activemodel (>= 3.2)
     activeadmin-cancan (0.1.4)
       activeadmin (>= 0.4.0)
@@ -149,7 +149,7 @@ GEM
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
     arel (3.0.3)
-    babel-source (5.8.34)
+    babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
@@ -187,7 +187,7 @@ GEM
     capybara-webkit (1.7.1)
       capybara (>= 2.3.0, < 2.6.0)
       json
-    celluloid (0.17.2)
+    celluloid (0.17.3)
       celluloid-essentials
       celluloid-extras
       celluloid-fsm
@@ -258,7 +258,7 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
-    eventmachine (1.0.8)
+    eventmachine (1.0.9.1)
     exception_notification (4.0.0)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
@@ -281,7 +281,7 @@ GEM
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
     fssm (0.2.10)
-    geocoder (1.2.12)
+    geocoder (1.3.4)
     geokit (1.7.1)
       multi_json (>= 1.3.2)
     gherkin (2.12.2)
@@ -390,7 +390,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
-    oj (2.14.0)
+    oj (2.15.0)
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
       rack (~> 1.0)
@@ -440,8 +440,8 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
-    rack-utf8_sanitizer (1.3.1)
-      rack (~> 1.0)
+    rack-utf8_sanitizer (1.3.2)
+      rack (>= 1.0, < 3.0)
     rails (3.2.22)
       actionmailer (= 3.2.22)
       actionpack (= 3.2.22)
@@ -463,7 +463,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    react-rails (1.5.0)
+    react-rails (1.6.2)
       babel-transpiler (>= 0.7.0)
       coffee-script-source (~> 1.8)
       connection_pool
@@ -471,7 +471,7 @@ GEM
       rails (>= 3.2)
       tilt
     redcarpet (3.3.3)
-    redis (3.2.2)
+    redis (3.3.0)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     request_store (1.2.1)
@@ -523,12 +523,12 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
-    sidekiq (3.5.3)
-      celluloid (~> 0.17.2)
-      connection_pool (~> 2.2, >= 2.2.0)
-      json (~> 1.0)
-      redis (~> 3.2, >= 3.2.1)
-      redis-namespace (~> 1.5, >= 1.5.2)
+    sidekiq (3.2.1)
+      celluloid (>= 0.15.2)
+      connection_pool (>= 2.0.0)
+      json
+      redis (>= 3.0.6)
+      redis-namespace (>= 1.3.1)
     simple_enum (1.6.9)
       activesupport (>= 3.0.0)
     simplecov (0.11.1)
@@ -574,7 +574,7 @@ GEM
     websocket (1.2.2)
     whenever (0.9.4)
       chronic (>= 0.6.3)
-    wicked_pdf (1.0.3)
+    wicked_pdf (1.0.6)
     wkhtmltopdf-binary (0.9.9.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -603,6 +603,7 @@ DEPENDENCIES
   database_cleaner
   debugger
   devise (~> 2.2.4)
+  eventmachine (~> 1.0.9.1)
   execjs
   exifr
   factory_girl
@@ -647,7 +648,7 @@ DEPENDENCIES
   sass-rails
   selenium-webdriver
   shoulda-matchers
-  sidekiq
+  sidekiq (= 3.2.1)
   simple_enum
   simplecov
   sinatra
@@ -658,3 +659,6 @@ DEPENDENCIES
   wkhtmltopdf-binary
   yard
   yarjuf
+
+BUNDLED WITH
+   1.11.2

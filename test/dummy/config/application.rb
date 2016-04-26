@@ -1,17 +1,16 @@
 # encoding: utf-8
 
-require File.expand_path('../boot', __FILE__)
+require File.expand_path("../boot", __FILE__)
 
-require 'rails/all'
+require "rails/all"
 
 Bundler.require
 require "goldencobra"
 
 module Dummy
   class Application < Rails::Application
-
-    require 'pdfkit'
-    config.middleware.use PDFKit::Middleware, :print_media_type => true
+    require "pdfkit"
+    config.middleware.use PDFKit::Middleware, print_media_type: true
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -29,13 +28,13 @@ module Dummy
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = 'Europe/Berlin'
+    config.time_zone = "Europe/Berlin"
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-     config.i18n.default_locale = :en
-     #config.i18n.default_locale = :de
-     #config.i18n.locale = :de
+    config.i18n.default_locale = :en
+    # config.i18n.default_locale = :de
+    # config.i18n.locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -53,14 +52,14 @@ module Dummy
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
-    Date::DATE_FORMATS.merge!(:default => '%d.%m.%Y')
-    Time::DATE_FORMATS.merge!(:default => '%d.%m.%Y %H:%M')
+    Date::DATE_FORMATS.merge!(default: "%d.%m.%Y")
+    Time::DATE_FORMATS.merge!(default: "%d.%m.%Y %H:%M")
 
     # Enable the asset pipeline
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = "1.0"
 
     config.after_initialize do |app|
       if defined?(ActiveAdmin) and ActiveAdmin.application
@@ -70,7 +69,7 @@ module Dummy
         I18n.reload!
         self.reload_routes!
       end
-        Rails.logger.warn("==== Locale #{I18n.locale}")
+      Rails.logger.warn("==== Locale #{I18n.locale}")
     end
   end
 end

@@ -1,3 +1,6 @@
+V1.4.77.4
+  - Choose parent articles on url_name instead of titles
+
 V1.4.77.3
   - FIX: Unknown column 'goldencobra_article_images.upload_id'
 

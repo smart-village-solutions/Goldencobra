@@ -44,7 +44,7 @@ $(function() {
 
       var $thisEl = $('#' + thisId);
       // $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
-      $thisEl.chosen({ allow_single_deselect: true });
+      $thisEl.chosen({ allow_single_deselect: true, search_contains: true });
       $('.chosen-container').css({width: '70%'});
       return false;
     });
@@ -76,9 +76,9 @@ $(function() {
 
           $thisEl.parents('.select.input').find('.chosen-container.chosen-container-single').remove();
           if (includeBlank){
-            $thisEl.chosen({ allow_single_deselect: true });
+            $thisEl.chosen({ allow_single_deselect: true, search_contains: true });
           } else {
-            $thisEl.chosen();
+            $thisEl.chosen({ search_contains: true });
           }
           $('.chosen-container').css({width: '70%'});
         });
@@ -249,11 +249,11 @@ $(function() {
   });
 
 
-  $(".chzn-select").chosen();
-  $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
+  $(".chzn-select").chosen({ search_contains: true });
+  $(".chzn-select-deselect").chosen({ allow_single_deselect: true, search_contains: true });
   $("a.button").live("click", function(){
-    $(".chzn-select").chosen();
-    $(".chzn-select-deselect").chosen({ allow_single_deselect: true });
+    $(".chzn-select").chosen({ search_contains: true });
+    $(".chzn-select-deselect").chosen({ allow_single_deselect: true, search_contains: true });
   });
 
   //Menuepunkte bekommen eine funktion zum auf und zu klappen
