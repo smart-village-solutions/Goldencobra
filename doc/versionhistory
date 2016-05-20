@@ -1,3 +1,6 @@
+V2.0.16.6 - 20.05.2016
+ - freezes the versions of gems 'active_model_serializers' and 'paper_trail'. See issue
+   https://github.com/ikuseiGmbH/Goldencobra/issues/51
 V2.0.16.5 - 20.05.2016
  - The sidekiq.rb initializer was reduced to a template file. Goldencobra doesn't provide its own
    Sidekiq/Redis settings anymore, so your own configuration won't be interfered with.

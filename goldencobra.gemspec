@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'liquid'
   s.add_dependency 'rubyzip'
   s.add_dependency 'geocoder'
-  s.add_dependency 'paper_trail'
+  s.add_dependency 'paper_trail', '~> 4.1.0'
   s.add_dependency 'whenever'
   s.add_dependency 'inherited_resources'
   s.add_dependency 'geokit'
@@ -78,7 +78,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_enum'
   s.add_dependency 'addressable'
   s.add_dependency 'protected_attributes'
-  s.add_dependency 'active_model_serializers'
+  s.add_dependency 'active_model_serializers', '~> 0.9.5'
   s.add_dependency 'actionpack-action_caching'
   s.add_dependency 'react-rails', '~> 1.0'
   s.add_dependency 'oj' # faster json rendering
