@@ -1,3 +1,8 @@
+V2.0.17 -30.05.2016
+  - CreatorId editable in backend
+  - Article states added (empty, draft, in_review, waiting, published, discarded)
+  - Filters for creator and state added
+  - gems updated
 V2.0.16.6 - 20.05.2016
  - freezes the versions of gems 'active_model_serializers' and 'paper_trail'. See issue
    https://github.com/ikuseiGmbH/Goldencobra/issues/51

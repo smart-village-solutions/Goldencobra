@@ -24,9 +24,9 @@ group :development do
   gem "brakeman"
   gem "hirb"
   gem "powder"
-  gem "listen"
+  gem "listen", "3.0.5"  # Fix auf diese Version, weil danach ruby 2.2.3 vorrausgesetzt wird
   gem "pre-commit"
-  gem "web-console"
+  gem "web-console", "2.3.0"
 end
 
 group :test do
@@ -39,6 +39,7 @@ group :test do
   gem "capybara-webkit"
   gem "selenium-webdriver"
   gem "rspec-core"
+
   gem "guard"
   gem "guard-rspec"
   gem "guard-cucumber"
