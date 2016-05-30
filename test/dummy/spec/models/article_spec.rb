@@ -1,12 +1,11 @@
 # encoding: utf-8
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Goldencobra::Article do
-
-  describe 'moving article in articles-tree' do
+  describe "moving article in articles-tree" do
     before(:each) do
-      @attr = { title: "Testartikel", article_type: "Default Show", breadcrumb: 'bc_testarticle' }
+      @attr = { title: "Testartikel", article_type: "Default Show", breadcrumb: "bc_testarticle" }
     end
 
     it "should have a valid public_url before saving" do
@@ -50,40 +49,39 @@ describe Goldencobra::Article do
       a.save
       expect(Goldencobra::Article.find_by_id(a.id).url_path).to eql("/article1")
     end
-
   end
 
-  describe 'creating an article' do
+  describe "creating an article" do
     before(:each) do
-      @attr = { title: "Testartikel", 
-                url_name: "testartikel", 
-                article_type: "Default Show", 
-                breadcrumb: 'bc_testarticle' }
+      @attr = { title: "Testartikel",
+                url_name: "testartikel",
+                article_type: "Default Show",
+                breadcrumb: "bc_testarticle" }
     end
 
     describe "url_name" do
       it "should be uniq in siblings or appendend by higher number" do
         parent_article = Goldencobra::Article.create!(@attr)
-        Goldencobra::Article.create!( @attr.merge({ url_name: "news", parent_id: parent_article.id}) )
-        Goldencobra::Article.create!( @attr.merge({ url_name: "news--2", parent_id: parent_article.id}) )
-        Goldencobra::Article.create!( @attr.merge({ url_name: "news--5", parent_id: parent_article.id}) )
-        Goldencobra::Article.create!( @attr.merge({ url_name: "news--8"}) )
-        Goldencobra::Article.create!( @attr.merge({ url_name: "archiv", parent_id: parent_article.id}) )
+        Goldencobra::Article.create!(@attr.merge(url_name: "news", parent_id: parent_article.id))
+        Goldencobra::Article.create!(@attr.merge(url_name: "news--2", parent_id: parent_article.id))
+        Goldencobra::Article.create!(@attr.merge(url_name: "news--5", parent_id: parent_article.id))
+        Goldencobra::Article.create!(@attr.merge(url_name: "news--8"))
+        Goldencobra::Article.create!(@attr.merge(url_name: "archiv", parent_id: parent_article.id))
 
-        a = Goldencobra::Article.create( @attr.merge({ url_name: "news", parent_id: parent_article.id}) )
+        a = Goldencobra::Article.create(@attr.merge(url_name: "news", parent_id: parent_article.id))
         expect(a.url_name).to eq "news--6"
 
         a.save
-        expect(a.url_name).to eq "news--6"        
+        expect(a.url_name).to eq "news--6"
 
-        b = Goldencobra::Article.create( @attr.merge({ url_name: "test", parent_id: parent_article.id}) )
+        b = Goldencobra::Article.create(@attr.merge(url_name: "test", parent_id: parent_article.id))
         expect(b.url_name).to eq "test"
       end
 
       it "should be the same if appending number is modified by user" do
         parent_article = Goldencobra::Article.create!(@attr)
-        Goldencobra::Article.create!( @attr.merge({ url_name: "news--2", parent_id: parent_article.id}) )        
-        a = Goldencobra::Article.create( @attr.merge({ url_name: "news--2", parent_id: parent_article.id}) )
+        Goldencobra::Article.create!(@attr.merge(url_name: "news--2", parent_id: parent_article.id))
+        a = Goldencobra::Article.create(@attr.merge(url_name: "news--2", parent_id: parent_article.id))
         expect(a.url_name).to eq "news--2"
       end
     end
@@ -117,7 +115,6 @@ describe Goldencobra::Article do
         expect(Goldencobra::Article.find_by_id(a.id).external_url_redirect).to eq ""
       end
     end
-
 
     it "should create a new article given valid attributes" do
       Goldencobra::Article.create!(@attr)
@@ -188,8 +185,7 @@ describe Goldencobra::Article do
     end
   end
 
-  describe 'updating an article' do
-
+  describe "updating an article" do
     it "should have a new url_path" do
       article = create :article, url_name: "seite1"
       sub_article = create :article, url_name: "sub_seite", parent: article
@@ -202,6 +198,41 @@ describe Goldencobra::Article do
 
       expect(article.public_url.include?("seite2")).to eq true
       expect(sub_article.public_url.include?("seite2/sub_seite")).to eq true
+    end
+  end
+
+  describe "state of an article" do
+    before(:each) do
+      @article = create :article, url_name: "seite1"
+    end
+
+    it "should have a state empty on create" do
+      expect(@article.empty?).to eq(true)
+    end
+
+    it "should have a state draft" do
+      @article.draft!
+      expect(@article.draft?).to eq(true)
+    end
+
+    it "should have a state in_review" do
+      @article.in_review!
+      expect(@article.in_review?).to eq(true)
+    end
+
+    it "should have a state waiting" do
+      @article.waiting!
+      expect(@article.waiting?).to eq(true)
+    end
+
+    it "should have a state published" do
+      @article.published!
+      expect(@article.published?).to eq(true)
+    end
+
+    it "should have a state discarded" do
+      @article.discarded!
+      expect(@article.discarded?).to eq(true)
     end
   end
 end

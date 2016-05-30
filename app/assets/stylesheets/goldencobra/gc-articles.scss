@@ -1,0 +1,12 @@
+.article_state {
+  width: 17px;
+  height: 17px;
+  border-radius: 10px;
+  display: inline-block;
+  &.empty { background-color: #f56954; }
+  &.draft { background-color: #f39c12; }
+  &.in_review { background-color: #ffdd00; }
+  &.waiting { background-color: #00a65a; }
+  &.published { background-color: #357ca5; }
+  &.discarded { background-color: #b5bbc8; }
+}
