@@ -222,7 +222,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   #end
 
   member_action :change_articletype, method: :post do
-    article = Goldencobra::Article.find(params[:id])
+    article = Goldencobra::Article.find_by_id(params[:id])
     article.article_type = params[:new_article_type]
     if article.article_type.include?("Show")
       unless article.article_type.include?("Default")
@@ -241,14 +241,14 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   member_action :mark_as_startpage do
-    article = Goldencobra::Article.find(params[:id])
+    article = Goldencobra::Article.find_by_id(params[:id])
     article.mark_as_startpage!
     flash[:notice] = I18n.t(:startpage, scope: [:goldencobra, :flash_notice]) #"Dieser Artikel ist nun der Startartikel"
     redirect_to action: :show
   end
 
   member_action :set_page_online_offline do
-    article = Goldencobra::Article.find(params[:id])
+    article = Goldencobra::Article.find_by_id(params[:id])
     if article.active
       article.active = false
       flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_offline')
@@ -262,13 +262,13 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   member_action :update_widgets, method: :post do
-    article = Goldencobra::Article.find(params[:id])
+    article = Goldencobra::Article.find_by_id(params[:id])
     article.update_attributes(widget_ids: params[:widget_ids])
     redirect_to action: :edit, notice: I18n.t('active_admin.articles.member_action.flash.widgets')
   end
 
   member_action :run_link_checker do
-    article = Goldencobra::Article.find(params[:id])
+    article = Goldencobra::Article.find_by_id(params[:id])
     system("cd #{::Rails.root} && RAILS_ENV=#{::Rails.env} bundle exec rake link_checker:article ID=#{article.id} &")
     flash[:notice] = I18n.t('active_admin.articles.member_action.flash.link_checker')
     redirect_to action: :edit

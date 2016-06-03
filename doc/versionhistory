@@ -1,3 +1,8 @@
+V1.4.77.5
+  - Changed .find(params[:id]) to .find_by_id(params[:id]) in admin/articles because of a bug
+    when finding a slug with the given id which results in an different article than the one
+    searched for
+
 V1.4.77.4
   - Choose parent articles on url_name instead of titles
 
