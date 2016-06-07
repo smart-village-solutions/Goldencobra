@@ -520,17 +520,20 @@ module Goldencobra
         @list_of_articles = @list_of_articles[0..self.sorter_limit - 1]
       end
 
-      return @list_of_articles
+      @list_of_articles
     end
 
     def self.articles_for_index_selecetion
-      cache_key ||= ["indexarticlesselect", Goldencobra::Article.all.pluck(:id, :ancestry, :title)]
-      articles = Rails.cache.fetch(cache_key) do
-        Goldencobra::Article.select([:id, :title, :ancestry]).map do
-          |c| ["#{c.path.map(&:title).join(" / ")}", c.id]
-        end.sort { |a, b| a[0] <=> b[0] }
+      cache_key ||= [
+        "indexarticlesselect",
+        Goldencobra::Article.all.pluck(:id, :ancestry, :url_name)
+      ]
+
+      Rails.cache.fetch(cache_key) do
+        Goldencobra::Article.select([:id, :ancestry, :url_name]).map do
+          |a| [a.parent_path, a.id]
+        end.sort
       end
-      return articles
     end
 
 
@@ -545,7 +548,8 @@ module Goldencobra
       if self.title.blank? && self.breadcrumb.present?
         self.title = self.breadcrumb
       end
-      return true
+
+      true
     end
 
 
@@ -875,7 +879,8 @@ module Goldencobra
         :parent_ids_in,
         :frontend_tag_name_contains, :frontend_tag_name_equals, :frontend_tag_name_starts_with, :frontend_tag_name_ends_with,
         :tag_name_contains, :tag_name_equals, :tag_name_starts_with, :tag_name_ends_with,
-        :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with
+        :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with,
+        :state_eq
       ]
     end
 

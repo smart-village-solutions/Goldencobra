@@ -35,8 +35,8 @@ module Goldencobra
 
         # /api/v2/articles[.json]
         #
-        # @return [json] Liefert Alle Artikel :id,:title, :ancestry
-        # map{|c| [c.parent_path, c.id]}
+        # @return [json] Liefert Alle Artikel :id, :title, :parent_path
+        # map{ |c| [c.parent_path, c.id] }
         def index
           if params[:article_ids].present?
             index_with_ids
@@ -266,6 +266,7 @@ module Goldencobra
           if params[:react_select] && params[:react_select] == "true"
             # Die React Select Liste braucht das JSON in diesem Format. -hf
             @articles.map { |a| { "value" => a.id, "label" => a.parent_path } }
+                     .sort { |a, b| a["label"] <=> b["label"] }
           else
             @articles.map do |a|
               a.as_json(only: [:id, :title], methods: [:parent_path])

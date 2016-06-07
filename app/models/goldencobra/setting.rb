@@ -110,7 +110,7 @@ module Goldencobra
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         require 'yaml'
         raise "Settings File '#{path_file_name}' does not exist" if !File.exists?(path_file_name)
-        imports = open(path_file_name) {|f| YAML.load(f) }
+        imports = open(path_file_name) { |f| YAML.load(f) }
         imports.each_key do |key|
           generate_default_setting(key, imports)
         end
@@ -131,29 +131,26 @@ module Goldencobra
 
     private
 
-    def self.generate_default_setting(key, yml_data, parent_id=nil)
+    def self.generate_default_setting(key, yml_data, parent_id = nil)
       if yml_data[key].class == Hash
-        #check if childen keys are value and type or not
-        if yml_data[key].keys.count == 2 && yml_data[key].keys.sort == ["type","value"]
-          #new way of defining settings by additional value and type params
-          create_setting_by_key_and_parent_and_type_and_value(key,parent_id, yml_data[key]["type"], yml_data[key]["value"])
+        # check if childen keys are value and type or not
+        if yml_data[key].keys.count == 2 && yml_data[key].keys.sort == ["type", "value"]
+          # new way of defining settings by additional value and type params
+          create_setting_by_key_and_parent_and_type_and_value(key, parent_id, yml_data[key]["type"], yml_data[key]["value"])
         else
-          #old way of defining Settings
+          # old way of defining Settings
           parent = Setting.find_by_ancestry_and_title(parent_id, key)
-          unless parent
-            parent = Setting.create(ancestry: parent_id, title: key)
-          end
+          parent = Setting.create(ancestry: parent_id, title: key) unless parent
           yml_data[key].each_key do |name|
-            generate_default_setting(name, yml_data[key], [parent.ancestry,parent.id].compact.join('/'))
+            generate_default_setting(name, yml_data[key], [parent.ancestry, parent.id].compact.join('/'))
           end
         end
       elsif yml_data[key].class == String
-        create_setting_by_key_and_parent_and_type_and_value(key,parent_id, "string", yml_data[key])
+        create_setting_by_key_and_parent_and_type_and_value(key, parent_id, "string", yml_data[key])
       else
         raise "invalid yml File at: #{key}  -  #{yml_data}"
       end
     end
-
 
     def self.create_setting_by_key_and_parent_and_type_and_value(key,parent, data_type_name, value_name)
       set = Goldencobra::Setting.find_by_title_and_ancestry(key, parent)

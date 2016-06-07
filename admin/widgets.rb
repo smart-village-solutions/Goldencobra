@@ -48,7 +48,7 @@ ActiveAdmin.register Goldencobra::Widget, as: "Widget" do
       end
     end
     f.inputs I18n.t('active_admin.widget.article') do
-      f.input :articles, label: I18n.t('active_admin.widget.article_label'), hint: I18n.t('active_admin.widget.article_hint'), as: :select, collection: Goldencobra::Article.order("title ASC"), input_html: { class: 'chosen-select', "data-placeholder" => I18n.t('active_admin.widget.article_placeholder') }
+      f.input :articles, label: I18n.t('active_admin.widget.article_label'), hint: I18n.t('active_admin.widget.article_hint'), as: :select, collection: Goldencobra::Article.all.map { |a| [a.parent_path, a.id] }.sort, input_html: { class: "chosen-select", "data-placeholder" => I18n.t("active_admin.widget.article_placeholder"), "style" => "width: 70%;" }
     end
     f.actions
   end

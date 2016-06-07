@@ -8,7 +8,7 @@ ActiveAdmin.register Goldencobra::Setting, as: "Setting"  do
       f.input :title, input_html: {disabled: "disabled"}
       f.input :value
       f.input :data_type, as: :select, collection: Goldencobra::Setting::SettingsDataTypes, include_blank: false
-      f.input :parent_id, as: :select, collection: Goldencobra::Setting.all.map{|c| [c.title, c.id]}, include_blank: true
+      f.input :parent_id, as: :select, collection: Goldencobra::Setting.all.map{ |s| [s.path.map(&:title).join("/"), s.id] }.sort, include_blank: true
     end
     f.actions
   end
