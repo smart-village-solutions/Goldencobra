@@ -259,7 +259,7 @@ de:
           h5: "Folgende Schnipsel werden zusätzlich zu den Standard-Schnipseln angezeigt"
           position: "Position: "
       index:
-        website_title: "Website-Titel"
+        website_title: "Website-Url"
         website_url: "Website-Adresse"
         active: "Aktiv?"
         article_type: "Artikeltyp"

@@ -259,7 +259,7 @@ en:
           h5: "The following widgets are displayed in addition to the standard widgets"
           position: "Position: "
       index:
-        website_title: "Website title"
+        website_title: "Website url"
         website_url: "Website address"
         active: "Active?"
         article_type: "Article type"

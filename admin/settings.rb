@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
-  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.settings.as'), :if => proc{can?(:update, Goldencobra::Setting)}
+  menu :parent => I18n.t("settings", :scope => ["active_admin","menue"]), :label => I18n.t('active_admin.settings.as'), :if => proc{ can?(:update, Goldencobra::Setting) }
   controller.authorize_resource :class => Goldencobra::Setting
   scope I18n.t('active_admin.settings.scope'), :with_values, :default => true, :show_count => false
   config.paginate = false
@@ -11,7 +11,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
       f.input :title, :input_html => {:disabled => "disabled"}
       f.input :value
       f.input :data_type, :as => :select, :collection => Goldencobra::Setting::SettingsDataTypes, :include_blank => false
-      f.input :parent_id, :as => :select, :collection => Goldencobra::Setting.all.map{|c| [c.title, c.id]}, :include_blank => true
+      f.input :parent_id, :as => :select, :collection => Goldencobra::Setting.all.map{ |s| [s.path.map(&:title).join("/"), s.id] }.sort, :include_blank => true
     end
     f.actions
   end
@@ -38,8 +38,8 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
   end
 
   sidebar :overview, only: [:index]  do
-    # render :partial => "/goldencobra/admin/shared/overview", 
-    # :object => Goldencobra::Setting.roots, 
+    # render :partial => "/goldencobra/admin/shared/overview",
+    # :object => Goldencobra::Setting.roots,
     # :locals => {:link_name => "title", :url_path => "setting" }
 
     render partial: "/goldencobra/admin/shared/react_overview",
@@ -64,7 +64,7 @@ ActiveAdmin.register Goldencobra::Setting, :as => "Setting"  do
     if params[:root_id].present?
       articles = Goldencobra::Setting.find(params[:root_id])
                    .children.order(:title).as_json(
-                      only: [:id, :value, :title], 
+                      only: [:id, :value, :title],
                       methods: [:has_children])
     else
       articles = Goldencobra::Setting.order(:title)

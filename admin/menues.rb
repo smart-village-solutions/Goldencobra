@@ -18,7 +18,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     f.inputs I18n.t('active_admin.menues.form.generals.general') do
       f.input :title, :label => I18n.t('active_admin.menues.form.generals.title'), :hint => I18n.t('active_admin.menues.form.generals.title_hint')
       f.input :target, :label => I18n.t('active_admin.menues.form.generals.target'), :hint => I18n.t('active_admin.menues.form.generals.target_hint')
-      f.input :parent_id, :label => I18n.t('active_admin.menues.form.generals.parent_id'), :hint => I18n.t('active_admin.menues.form.generals.parent_id_hint'), :as => :select, :collection => Goldencobra::Menue.all.map{|c| ["#{c.path.map(&:title).join(" / ")}", c.id]}.sort{|a,b| a[0] <=> b[0]}, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
+      f.input :parent_id, :label => I18n.t('active_admin.menues.form.generals.parent_id'), :hint => I18n.t('active_admin.menues.form.generals.parent_id_hint'), :as => :select, :collection => Goldencobra::Menue.all.map{ |m| ["#{m.path.map(&:title).join("/")}", m.id]}.sort, :include_blank => true, :input_html => { :class => 'chzn-select-deselect', :style => 'width: 70%;', 'data-placeholder' => 'Elternelement auswählen' }
     end
     f.inputs I18n.t('active_admin.menues.form.options.option'), :class => "foldable closed inputs" do
       f.input :sorter, :label => I18n.t('active_admin.menues.form.options.sorter_label'), :hint => I18n.t('active_admin.menues.form.options.sorter_hint')
@@ -93,7 +93,7 @@ ActiveAdmin.register Goldencobra::Menue, :as => "Menue" do
     if params[:root_id].present?
       articles = Goldencobra::Menue.find(params[:root_id])
                    .children.order(:title).as_json(
-                      only: [:id, :target, :title], 
+                      only: [:id, :target, :title],
                       methods: [:has_children])
     else
       articles = Goldencobra::Menue.order(:title)

@@ -31,26 +31,24 @@ module Goldencobra
 
         # /api/v2/articles[.json]
         #
-        # @return [json] Liefert Alle Artikel :id,:title, :ancestry
-        # map{|c| [c.parent_path, c.id]}
+        # @return [json] Liefert Alle Artikel :id, :title, :parent_path
+        # map{ |c| [c.parent_path, c.id] }
         def index
           require 'oj'
           if params[:article_ids].present?
             index_with_ids
           else
-            @articles = Goldencobra::Article.select([:id, :title, :ancestry]).sort{ |a, b|
-              a[0] <=> b[0]
-            }
+            @articles = Goldencobra::Article.select([:id, :title, :ancestry, :url_name])
 
             if params[:react_select] && params[:react_select] == "true"
               # Die React Select Liste braucht das JSON in diesem Format. -hf
-              json_uploads = @articles.map{ |a| { "value" => a.id, "label" => a.parent_path } }
+              json_uploads = @articles.map { |a| { "value" => a.id, "label" => a.parent_path } }.sort { |a, b| a["label"] <=> b["label"] }
             else
-              json_uploads = @articles.map{ |a| a.as_json(:only => [:id, :title], :methods => [:parent_path]) }
+              json_uploads = @articles.order(:title).map { |a| a.as_json(:only => [:id, :title], :methods => [:parent_path]) }
             end
 
             respond_to do |format|
-              format.json { render json: Oj.dump({'articles' => json_uploads}, mode: :compat) }
+              format.json { render json: Oj.dump({ "articles" => json_uploads }, mode: :compat) }
               # Returns all publicly visible, active Articles
               format.xml { @articles = Goldencobra::Article.new.filter_with_permissions(Goldencobra::Article.active, nil) }
             end

@@ -253,7 +253,7 @@ en:
       metatags_destroy: "reset to defaults"
       breadcrumb: "short title for a breadcrumb navigation"
       url_name: "max 64 chars"
-      parent_id: "Parrent article"
+      parent_id: "Parent article"
       canonical_url: ""
       enable_social_sharing: ""
       robots_no_index: ""
