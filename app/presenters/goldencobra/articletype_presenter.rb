@@ -44,7 +44,7 @@ module Goldencobra
     def state
       @f.input :state,
                as: :select,
-               collection: Goldencobra::Article.states.keys,
+               collection: Goldencobra::Article.state_attributes_for_select,
                include_blank: false,
                hint: I18n.t("goldencobra.article_field_hints.state")
     end
