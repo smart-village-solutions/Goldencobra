@@ -157,6 +157,10 @@ module Goldencobra
     # **************************
     # **************************
 
+    def active?
+      self.active && self.active_since < Time.now.utc
+    end
+
     def link_checker
       old_result = {}
       self.link_checks.each do |lc|
@@ -167,7 +171,6 @@ module Goldencobra
       end
       return old_result
     end
-
 
     def has_children
       self.has_children?
@@ -666,11 +669,11 @@ module Goldencobra
     end
 
     def notification_event_create
-      ActiveSupport::Notifications.instrument("goldencobra.article.created", article_id: self.id)
+      ActiveSupport::Notifications.instrument("goldencobra.article.created", article_id: id)
     end
 
     def notification_event_update
-      ActiveSupport::Notifications.instrument("goldencobra.article.updated", article_id: self.id)
+      ActiveSupport::Notifications.instrument("goldencobra.article.updated", article_id: id)
     end
 
     def set_url_name_if_blank
@@ -752,16 +755,14 @@ module Goldencobra
           a_url = self.url_path
         end
 
-        if with_prefix
-          return "#{Goldencobra::Domain.current.try(:url_prefix)}#{a_url}"
-        else
-          return a_url
-        end
+        return "#{Goldencobra::Domain.current.try(:url_prefix)}#{a_url}" if with_prefix
+
+        return a_url
       end
     end
 
     def absolute_base_url
-      golden_url = Goldencobra::Setting.for_key("goldencobra.url").gsub(/(http|https):\/\//,'')
+      golden_url = Goldencobra::Setting.for_key("goldencobra.url").gsub(/(http|https):\/\//, "")
 
       if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
         "https://#{golden_url}"
@@ -772,12 +773,12 @@ module Goldencobra
 
 
     def absolute_public_url
-      golden_url = Goldencobra::Setting.for_key('goldencobra.url').gsub(/(http|https):\/\//,'')
+      golden_url = Goldencobra::Setting.for_key("goldencobra.url").gsub(/(http|https):\/\//, "")
 
       if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
-        "https://#{golden_url}#{self.public_url}"
+        "https://#{golden_url}#{public_url}"
       else
-        "http://#{golden_url}#{self.public_url}"
+        "http://#{golden_url}#{public_url}"
       end
     end
 
@@ -787,27 +788,24 @@ module Goldencobra
     # **************************
     # **************************
 
-    def active?
-      self.active && self.active_since < Time.now.utc
+    def self.state_attributes_for_select
+      states.map do |s, _|
+        [I18n.t("activerecord.attributes.#{model_name.i18n_key}.states.#{s}"), s]
+      end
     end
 
-
-
-    def self.load_liquid_methods(options={})
-
+    def self.load_liquid_methods(options = {})
     end
 
     def self.recent(count)
-      Goldencobra::Article.where('title IS NOT NULL').order('created_at DESC').limit(count)
+      Goldencobra::Article.where("title IS NOT NULL").order("created_at DESC").limit(count)
     end
 
     def self.recreate_cache
       if RUBY_VERSION.to_f >= 1.9
         ArticlesCacheWorker.perform_async
       else
-        Goldencobra::Article.active.each do |article|
-          article.touch
-        end
+        Goldencobra::Article.active.each(&:touch)
       end
     end
 
@@ -832,7 +830,7 @@ module Goldencobra
       results = []
       path_to_articletypes = File.join(::Rails.root, "app", "views", "articletypes")
       if Dir.exist?(path_to_articletypes)
-        Dir.foreach(path_to_articletypes) do |name| #.map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_edit/ }
+        Dir.foreach(path_to_articletypes) do |name|
           results << name.capitalize unless name.include?(".")
         end
       end
@@ -840,12 +838,13 @@ module Goldencobra
     end
 
     def self.templates_for_select
-      Dir.glob(File.join(::Rails.root, "app", "views", "layouts", "*.html.erb")).map{|a| File.basename(a, ".html.erb")}.delete_if{|a| a =~ /^_/ }
+      Dir.glob(File.join(::Rails.root, "app", "views", "layouts", "*.html.erb"))
+         .map { |a| File.basename(a, ".html.erb") }
+         .delete_if { |a| a =~ /^_/ }
     end
 
     def self.simple_search(q)
-      self.active.search(title_or_subtitle_or_url_name_or_content_or_summary_or_teaser_contains: q).relation.map {
-        |article|
+      active.search(title_or_subtitle_or_url_name_or_content_or_summary_or_teaser_contains: q).relation.map do |article|
         {
           id: article.id,
           absolute_public_url: article.absolute_public_url,
@@ -856,11 +855,8 @@ module Goldencobra
           parent_title: article.parent ? article.parent.title ? article.parent.title : '' : '',
           ancestry: article.ancestry ? article.ancestry : ''
         }
-      }
+      end
     end
-
-
-
 
     # **************************
     # **************************
@@ -884,7 +880,6 @@ module Goldencobra
       ]
     end
 
-
     def set_descendants_status
       if !self.new_record? && self.active_changed? && self.descendants.any?
         # Save without callbacks
@@ -895,7 +890,6 @@ module Goldencobra
         end
       end
     end
-
   end
 end
 

@@ -16,7 +16,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   filter :fulltext, as: :string
   filter :created_at, label:  I18n.t("filter_created", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default7"))
   filter :updated_at, label:  I18n.t("filter_updated", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default8"))
-  filter :state, as: :select, collection: Goldencobra::Article.states
+  filter :state, as: :select, collection: Goldencobra::Article.state_attributes_for_select
   filter :creator_id, as: :select, collection: User.all
 
   scope I18n.t("active_admin.articles.scope1"), :all, default: true, show_count: false
@@ -119,7 +119,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), title: "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", "data-confirm" => I18n.t("online", scope: [:goldencobra, :flash_notice]), class: "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column :state do |a|
-      content_tag("span", "", class: "article_state #{a.state}", title: a.state)
+      content_tag("span", "", class: "article_state #{a.state}", title: Goldencobra::Article.state_attributes_for_select.to_h.invert[a.state])
     end
     column I18n.t('active_admin.articles.index.article_type'), :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? I18n.t('active_admin.articles.index.default') : I18n.t(article.article_type.parameterize.underscore.downcase, scope: [:goldencobra, :article_types])
