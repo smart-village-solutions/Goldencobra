@@ -3,14 +3,18 @@ module Goldencobra
     module V2
       class ArticlesController < ActionController::Base
         skip_before_filter :verify_authenticity_token
-        before_filter :get_article, only: [:show, :breadcrumb]
+        before_action :get_article,            only: [:show, :breadcrumb]
+        before_action :find_article,           only: [:update]
+        before_action :check_for_current_user, only: [:create, :update]
+        before_action :check_for_article,      only: [:create, :update]
+        before_action :check_for_referee,      only: [:create, :update]
+        before_action :get_existing_articles,  only: [:create, :update]
 
         respond_to :json
 
         # /api/v2/articles/search[.json]
-        # ---------------------------------------------------------------------------------------
+        # ----------------------------------------------------------------------
         def search
-
           # Check if we have an argument.
           unless params[:q]
             render status: 200, json: { status: 200 }
@@ -31,66 +35,69 @@ module Goldencobra
 
         # /api/v2/articles[.json]
         #
-        # @return [json] Liefert Alle Artikel :id,:title, :ancestry
-        # map{|c| [c.parent_path, c.id]}
+        # @return [json] Liefert Alle Artikel :id, :title, :parent_path
+        # map{ |c| [c.parent_path, c.id] }
         def index
-          require 'oj'
           if params[:article_ids].present?
             index_with_ids
           else
-            cache_key ||= ["indexarticles", Goldencobra::Article.all.pluck(:id, :ancestry, :title)]
-
-            @articles = Rails.cache.fetch(cache_key) do
-              Goldencobra::Article.select([:id, :title, :ancestry]).sort{ |a, b|
-                a[0] <=> b[0]
-              }
-            end
-
-            if params[:react_select] && params[:react_select] == "true"
-              # Die React Select Liste braucht das JSON in diesem Format. -hf
-              json_uploads = @articles.map{ |a| { "value" => a.id, "label" => a.parent_path } }
-            else
-              json_uploads = @articles.map{ |a| a.as_json(only: [:id, :title], methods: [:parent_path]) }
-            end
+            @articles = cached_articles
 
             respond_to do |format|
-              format.json { render json: Oj.dump({'articles' => json_uploads}, mode: :compat) }
+              format.json do
+                render json: Oj.dump(
+                  { articles: articles_as_json },
+                  mode: :compat
+                )
+              end
               # Returns all publicly visible, active Articles
-              format.xml { @articles = Goldencobra::Article.new.filter_with_permissions(Goldencobra::Article.active, nil) }
+              format.xml do
+                @articles = Goldencobra::Article.
+                            new.
+                            filter_with_permissions(
+                              Goldencobra::Article.active,
+                              nil
+                            )
+              end
             end
           end
         end
 
         # /api/v2/articles/:url[.json]
         #
-        # @param methods [String] "beliebe Attribute des Artikels im JSON einfuegen"
+        # @param methods [String] "beliebe Attribute des Artikels im JSON
+        #                         einfuegen"
         #
         # @return [json] Liefert Artikel mit einer bestimmten URL
-        #                Im JSON Response befinden sich entweder alle Attribute, oder nur die mit
-        #                params[:methods] definierten
+        #                Im JSON Response befinden sich entweder alle Attribute,
+        #                oder nur die mit params[:methods] definierten
         def show
           respond_to do |format|
-            format.json {
+            format.json do
               if params[:methods].present?
-                render json: Oj.dump(@article,
-                                     serializer: Goldencobra::ArticleCustomSerializer,
-                                     scope: params[:methods])
+                render json: Oj.dump(
+                  @article,
+                  serializer: Goldencobra::ArticleCustomSerializer,
+                  scope: params[:methods]
+                )
               else
                 render json: Oj.dump(@article)
               end
-            }
+            end
           end
         end
 
         # /api/v2/articles/index_with_id[.json]
         #
-        # @param methods [String] "beliebe Attribute des Artikels im JSON einfuegen"
+        # @param methods [String] "beliebe Attribute des Artikels im JSON
+        #                         einfuegen"
         #
-        # @return [json] liefert für Artikel mit einer bestimmten URL Kinderartikel zurück,
-        #                die wiederum per IDs angefragt wurden
+        # @return [json] liefert für Artikel mit einer bestimmten URL
+        #                Kinderartikel zurück, die wiederum per IDs angefragt
+        #                wurden
         #
-        #                im JSON Response befinden sich entweder alle Attribute, oder nur die mit
-        #                params[:methods] definierten
+        #                im JSON Response befinden sich entweder alle Attribute,
+        #                oder nur die mit params[:methods] definierten
         def index_with_ids
           article_ids = params[:article_ids]
           cache_key ||= ["indexarticles", article_ids]
@@ -99,44 +106,29 @@ module Goldencobra
             Goldencobra::Article.where("id IN (?)", article_ids)
           end
           respond_to do |format|
-            format.json {
+            format.json do
               if params[:methods].present?
-                render json: Oj.dump(articles,
-                                     each_serializer: Goldencobra::ArticleCustomSerializer,
-                                     scope: params[:methods])
+                render json: Oj.dump(
+                  articles,
+                  each_serializer: Goldencobra::ArticleCustomSerializer,
+                  scope: params[:methods]
+                )
               else
                 render json: Oj.dump(articles)
               end
-            }
+            end
           end
         end
 
         # /api/v2/articles/create[.json]
-        # ---------------------------------------------------------------------------------------
+        # ----------------------------------------------------------------------
         def create
-          # Check if a user is currently logged in.
-          unless current_user
-            render status: 403, json: { status: 403 }
-            return
-          end
-
-          # Check if we do have an article passed by the parameters.
-          unless params[:article]
-            render status: 400, json: { status: 400, error: "article data missing" }
-            return
-          end
-
-          #check if an external referee is passed by the parameters
-          unless params[:referee_id]
-            render status: 400, json: { status: 400, error: "referee_id missing"  }
-            return
-          end
-
-          #check if Article already exists by comparing external referee and current user of caller
-          existing_articles = Goldencobra::Article.where(creator_id: current_user.id, external_referee_id: params[:referee_id])
           if existing_articles.any?
-            render status: 423, json: { status: 423, error: "article already exists", id: existing_articles.first.id  }
-            return
+            render status: 423, json: {
+              status: 423,
+              error: "article already exists",
+              id: existing_articles.first.id
+            } and return
           end
 
           # Try to save the article
@@ -144,57 +136,22 @@ module Goldencobra
           if response.id.present?
             render status: 200, json: { status: 200, id: response.id }
           else
-            render status: 500, json: { status: 500, error: response.errors, id: nil }
+            render status: 500, json: {
+              status: 500,
+              error: response.errors,
+              id: nil
+            }
           end
         end
 
 
         def update
-          unless current_user
-            render status: 403, json: { status: 403 }
-            return
-          end
-
-          # Check if we do have an article passed by the parameters.
-          unless params[:article]
-            render status: 400, json: { status: 400, error: "article data missing" }
-            return
-          end
-
-          #check if an external referee is passed by the parameters
-          unless params[:referee_id]
-            render status: 400, json: { status: 400, error: "referee_id missing"  }
-            return
-          end
-
-          #check if Article already exists by comparing external referee and current user of caller
-          existing_articles = Goldencobra::Article.where(creator_id: current_user.id, external_referee_id: params[:referee_id])
-          if existing_articles.blank?
-            render status: 423, json: { status: 423, error: "article not found", id: nil  }
-            return
-          end
-
-          # Try to save the article
-          response = update_article(params[:article])
-          if response.id.present?
-            render status: 200, json: { status: 200, id: response.id }
-
-            #Erst render ergebnis dann den rest machen
-            if params[:images].present?
-              params[:images].each do |key,value|
-                existing_images = Goldencobra::Upload.where(image_remote_url: value[:image][:image_url])
-                if existing_images.blank?
-                  img = Goldencobra::Upload.create(value[:image])
-                else
-                  img = existing_images.first
-                end
-                image_position = Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).first
-                existing_articles.first.article_images.create(image: img, position: image_position)
-              end
-            end
-
+          if @article.update_attributes(params[:article])
+            render status: 200, json: { status: 200, id: @article.id }
+            # Erst render Ergebnis dann den Rest machen
+            create_images(@article, params[:images])
           else
-            render status: 500, json: { status: 500, error: response.errors, id: nil }
+            render_error(response.errors, 500)
           end
         end
 
@@ -211,77 +168,89 @@ module Goldencobra
           end
         end
 
-        protected
 
-        # Creates an article from the given article array.
-        # ---------------------------------------------------------------------------------------
-        def create_article(article_param)
-
-          # Input validation
-          return nil unless article_param
-          return nil unless params[:article]
-          return nil unless current_user
-          return nil unless params[:referee_id]
-
-          # Create a new article
-          new_article = Goldencobra::Article.new(params[:article])
-          new_article.creator_id = current_user.id
-
-          if params[:article][:article_type]
-            new_article.article_type = params[:article][:article_type]
-          else
-            new_article.article_type = 'Default Show'
-          end
-
-          if params[:author].present? && params[:author][:lastname].present?
-            author = Goldencobra::Author.find_or_create_by_lastname(params[:author][:lastname])
-            new_article.author = author
-          end
-
-          if params[:images].present?
-            params[:images].each do |i|
-              img = Goldencobra::Upload.create(i[:image])
-              article.images << img
-            end
-          end
-
-
-          #Set externel Referee
-          new_article.external_referee_id = params[:referee_id]
-          new_article.external_referee_ip = request.env['REMOTE_ADDR']
-
-          # Try to save the article
-          new_article.save
-          return new_article
-        end
-
-
-        def update_article(article_param)
-          # Input validation
-          return nil if check_presents_of_article_params(article_param) == false
-
-          # Get existing article
-          article = Goldencobra::Article.where(creator_id: current_user.id).find_by_external_referee_id(params[:referee_id])
-
-          # Update existing article
-          article.update_attributes(params[:article])
-
-          # Try to save the article
-          return article
-        end
 
         private
 
-        # Exit Reasons if params are not complete
-        # @param article_param [Hash] article_params
-        #
-        # @return [Boolean] True if all need params are present?
-        def check_presents_of_article_params(article_param)
-          return false unless article_param
-          return false unless params[:article]
-          return false unless current_user
-          return false unless params[:referee_id]
-          return true
+        def find_article
+          attrs = {
+            creator_id: current_user.id,
+            external_referee_id: params[:referee_id]
+          }.delete_if { |_k, v| v.blank? }
+          @article = Goldencobra::Article.where(attrs).first
+
+          render_error("article not found", 423) and return unless @article
+        end
+
+        def setup_params(old_params)
+          old_params.merge(
+            creator_id: current_user.id,
+            article_type: old_params.fetch(:article_type, "Default Show"),
+            author: author,
+            external_referee_id: params[:referee_id],
+            external_referee_ip: request.env["REMOTE_ADDR"]
+          )
+        end
+
+        def author
+          if params[:author].present? && params[:author][:lastname].present?
+            Goldencobra::Author.find_or_create_by_lastname(
+              params[:author][:lastname]
+            )
+          end
+        end
+
+        def create_article(article_param)
+          new_params = setup_params(article_params)
+          new_article = Goldencobra::Article.new(new_params)
+          article_param.each do |i|
+            new_article.images << Goldencobra::Upload.create(i[:image])
+          end
+          new_article.save
+          new_article
+        end
+
+        def check_for_current_user
+          render_error(nil, 403) and return unless current_user
+        end
+
+        def check_for_article
+          render_error("article data missing") and return unless params[:article]
+        end
+
+        def check_for_referee
+          render_error("referee_id missing") and return unless params[:referee_id]
+        end
+
+        def render_error(message, status = 400)
+          if message
+            render status: status, json: { status: status, error: message }
+          else
+            render status: status, json: { status: status }
+          end
+        end
+
+        def existing_articles
+          attrs = {
+            creator_id: current_user.id,
+            external_referee_id: params[:referee_id]
+          }.delete_if { |_k, v| v.blank? }
+          Goldencobra::Article.where(attrs)
+        end
+
+        def create_images(article, images)
+          images.each do |key,value|
+            existing_images = Goldencobra::Upload.where(
+              image_remote_url: value[:image][:image_url]
+            )
+            if existing_images.blank?
+              img = Goldencobra::Upload.create(value[:image])
+            else
+              img = existing_images.first
+            end
+            image_position = Goldencobra::Upload.default_position
+            article.article_images.create(image: img, position: image_position)
+          end
         end
 
         def get_article
@@ -290,6 +259,31 @@ module Goldencobra
           @article = Goldencobra::Article.where(url_path: url).first
           unless @article
             raise "Article not found with url: #{url}"
+          end
+        end
+
+        def articles_as_json
+          if params[:react_select] && params[:react_select] == "true"
+            # Die React Select Liste braucht das JSON in diesem Format. -hf
+            @articles.map { |a| { "value" => a.id, "label" => a.parent_path } }
+                     .sort { |a, b| a["label"] <=> b["label"] }
+          else
+            @articles.map do |a|
+              a.as_json(only: [:id, :title], methods: [:parent_path])
+            end
+          end
+        end
+
+        def cached_articles
+          cache_key ||= [
+            "indexarticles",
+            Goldencobra::Article.all.pluck(:id, :ancestry, :title)
+          ]
+
+          Rails.cache.fetch(cache_key) do
+            Goldencobra::Article.select([:id, :title, :ancestry]).sort do|a, b|
+              a[0] <=> b[0]
+            end
           end
         end
       end

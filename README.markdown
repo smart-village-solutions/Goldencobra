@@ -11,15 +11,20 @@ This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis
 - ActiveAdmin
 
 ## Current Versions
-1.5.x
-2.0.x
+1.5.x (branch: release/1.5)  
+2.0.x (branch: master)  
 
 # Requirements
-* Ruby 2.2.2+
-* Rails 4.2.3
-* Mysql 5.5.x (tested with e.g. 5.5.19)
+* Ruby 2.2+
+* Rails 4.2+
+* Mysql 5.x (tested with e.g. 5.7.10)
 
 # Installation
+
+This installation is meant for using Golden Cobra as a gem inside your Rails application. If you would like to contribute to
+Golden Cobra development, please read this document => [Installation instructions for development].
+
+[Installation instructions for development]: development-instructions.md  
 
 ## Guided Installation wit rvm,git,capistrano and server deploy
 ```ruby

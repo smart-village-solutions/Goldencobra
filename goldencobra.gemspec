@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   # s.add_dependency 'coffee-script-source', '~>1.8.0'
   s.add_dependency 'rails', '~> 4.2.5'
   s.add_dependency 'jquery-rails'
-  s.add_dependency 'devise'
+  s.add_dependency 'devise', "~> 3.5"
   # TODO: Token Authentication neu machen
   s.add_dependency 'devise-token_authenticatable'
   s.add_dependency 'cancancan'
@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'liquid'
   s.add_dependency 'rubyzip'
   s.add_dependency 'geocoder'
-  s.add_dependency 'paper_trail'
+  s.add_dependency 'paper_trail', '~> 4.1.0'
   s.add_dependency 'whenever'
   s.add_dependency 'inherited_resources'
   s.add_dependency 'geokit'
@@ -78,7 +78,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_enum'
   s.add_dependency 'addressable'
   s.add_dependency 'protected_attributes'
-  s.add_dependency 'active_model_serializers'
+  s.add_dependency 'active_model_serializers', '~> 0.9.5'
   s.add_dependency 'actionpack-action_caching'
   s.add_dependency 'react-rails', '~> 1.0'
   s.add_dependency 'oj' # faster json rendering
@@ -88,7 +88,6 @@ Gem::Specification.new do |s|
 
   #Ausgelagerte Funktionen in Rails 4.x
   s.add_dependency 'responders', '~> 2.0'
-  s.add_dependency 'web-console', '~> 2.0'
 
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'annotate'

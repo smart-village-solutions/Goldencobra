@@ -85,6 +85,7 @@ module Goldencobra
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
     has_ancestry    orphan_strategy: :restrict, cache_depth: true
 
+    enum state: { void: 0, draft: 1, in_review: 2, waiting: 3, published: 4, discarded: 5 }
     web_url         :external_url_redirect
     has_paper_trail
     liquid_methods :title, :created_at, :updated_at, :subtitle, :context_info, :id, :frontend_tags
@@ -495,17 +496,17 @@ module Goldencobra
         if self.sort_order == "Random"
           @list_of_articles = @list_of_articles.flatten.shuffle
         elsif self.sort_order == "Alphabetically"
-          @list_of_articles = @list_of_articles.flatten.sort_by{ |article| article.title }
+          @list_of_articles = @list_of_articles.flatten.sort_by { |article| article.title }
         elsif self.sort_order == "GlobalSortID"
-          @list_of_articles = @list_of_articles.flatten.sort_by{ |article| article.try(:global_sorting_id) }
+          @list_of_articles = @list_of_articles.flatten.sort_by { |article| article.try(:global_sorting_id).to_i }
         elsif self.respond_to?(self.sort_order.downcase)
           sort_order = self.sort_order.downcase
-          @list_of_articles = @list_of_articles.flatten.sort_by{ |article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
+          @list_of_articles = @list_of_articles.flatten.sort_by { |article| article.respond_to?(sort_order) ? article.send(sort_order) : article }
         elsif self.sort_order.include?(".")
           sort_order = self.sort_order.downcase.split(".")
-          @unsortable = @list_of_articles.flatten.select{|a| !a.respond_to_all?(self.sort_order) }
-          @list_of_articles = @list_of_articles.flatten.delete_if{|a| !a.respond_to_all?(self.sort_order) }
-          @list_of_articles = @list_of_articles.sort_by{|a| eval("a.#{self.sort_order}") }
+          @unsortable = @list_of_articles.flatten.select { |a| !a.respond_to_all?(self.sort_order) }
+          @list_of_articles = @list_of_articles.flatten.delete_if { |a| !a.respond_to_all?(self.sort_order) }
+          @list_of_articles = @list_of_articles.sort_by { |a| eval("a.#{self.sort_order}") }
           if @unsortable.count > 0
             @list_of_articles = @unsortable + @list_of_articles
             @list_of_articles = @list_of_articles.flatten
@@ -516,20 +517,23 @@ module Goldencobra
         end
       end
       if self.sorter_limit && self.sorter_limit > 0
-        @list_of_articles = @list_of_articles[0..self.sorter_limit-1]
+        @list_of_articles = @list_of_articles[0..self.sorter_limit - 1]
       end
 
-      return @list_of_articles
+      @list_of_articles
     end
 
     def self.articles_for_index_selecetion
-      cache_key ||= ["indexarticlesselect", Goldencobra::Article.all.pluck(:id, :ancestry, :title)]
-      articles = Rails.cache.fetch(cache_key) do
-        Goldencobra::Article.select([:id, :title, :ancestry]).map do
-          |c| ["#{c.path.map(&:title).join(" / ")}", c.id]
-        end.sort { |a, b| a[0] <=> b[0] }
+      cache_key ||= [
+        "indexarticlesselect",
+        Goldencobra::Article.all.pluck(:id, :ancestry, :url_name)
+      ]
+
+      Rails.cache.fetch(cache_key) do
+        Goldencobra::Article.select([:id, :ancestry, :url_name]).map do
+          |a| [a.parent_path, a.id]
+        end.sort
       end
-      return articles
     end
 
 
@@ -544,7 +548,8 @@ module Goldencobra
       if self.title.blank? && self.breadcrumb.present?
         self.title = self.breadcrumb
       end
-      return true
+
+      true
     end
 
 
@@ -711,31 +716,27 @@ module Goldencobra
       end
     end
 
-
     # **************************
     # **************************
     # URL and Redirection Methods
     # **************************
     # **************************
 
-
     def self.search_by_url(url)
       article = nil
       articles = Goldencobra::Article.where(url_name: url.split("/").last.to_s.split(".").first)
       article_path = "/#{url.split('.').first}"
       if articles.count > 0
-        article = articles.select{|a| a.public_url(false) == article_path}.first
+        article = articles.select { |a| a.public_url(false) == article_path }.first
       end
       return article
     end
 
-
     def parent_path
-      self.path.map(&:title).join(" / ")
+      self.path.map(&:url_name).join("/")
     end
 
-
-    def public_url(with_prefix=true)
+    def public_url(with_prefix = true)
       if self.startpage
         if with_prefix
           return "#{Goldencobra::Domain.current.try(:url_prefix)}/"
@@ -759,9 +760,8 @@ module Goldencobra
       end
     end
 
-
     def absolute_base_url
-      golden_url = Goldencobra::Setting.for_key('goldencobra.url').gsub(/(http|https):\/\//,'')
+      golden_url = Goldencobra::Setting.for_key("goldencobra.url").gsub(/(http|https):\/\//,'')
 
       if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
         "https://#{golden_url}"
@@ -879,7 +879,8 @@ module Goldencobra
         :parent_ids_in,
         :frontend_tag_name_contains, :frontend_tag_name_equals, :frontend_tag_name_starts_with, :frontend_tag_name_ends_with,
         :tag_name_contains, :tag_name_equals, :tag_name_starts_with, :tag_name_ends_with,
-        :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with
+        :fulltext_contains, :fulltext_equals, :fulltext_starts_with, :fulltext_ends_with,
+        :state_eq
       ]
     end
 

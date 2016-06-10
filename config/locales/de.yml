@@ -37,6 +37,12 @@ de:
       cacheable: "Dieser Artikel darf im Cache liegen"
       commentable: "Kommentarfunktion für diesen Artikel aktivieren?"
       author: "Wer ist der Verfasser dieses Artikels?"
+      creator: "Wer ist der Verfasser dieses Artikels?"
+      state: "Status des Artikels: Leer, Entwurf, In Prüfung, Wartet, Veröffentlicht, Papierkorb"
+      redirection_target_in_new_window: ""
+      redirect_link_title: ""
+      external_url_redirect: ""
+      dynamic_redirection: ""
     flash_notice:
       name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
       action_Startpage: "Diesen Artikel als Startseite einrichten"

@@ -272,6 +272,12 @@ en:
       cacheable: ""
       commentable: ""
       author: ""
+      creator: ""
+      state: "Possible states of the article: empty, draft, in review, waiting, published, discarded"
+      redirection_target_in_new_window: ""
+      redirect_link_title: ""
+      external_url_redirect: ""
+      dynamic_redirection: ""
     article_types:
       Chairman: "Vorstand"
       Subsidiary: "Niederlassungen"

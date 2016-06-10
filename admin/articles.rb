@@ -4,29 +4,31 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   menu parent: I18n.t("active_admin.articles.parent"), label: I18n.t("active_admin.articles.as"), if: proc{can?(:update, Goldencobra::Article)}, priority: 2
 
   # Alle Filteroptionen in der rechten Seitenleiste
-  filter :parent_ids_in, as: :select, collection: proc { Goldencobra::Article.order("title") }, label: I18n.t("filter_parent", scope: [:goldencobra, :filter], default: I18n.t('active_admin.articles.filter.default1'))
-  filter :article_type, as: :select, collection: Goldencobra::Article.article_types_for_select.map{|at| [I18n.t(at.parameterize.underscore.downcase, scope: [:goldencobra, :article_types], default: at), at]}.sort, label: I18n.t("filter_type", scope: [:goldencobra, :filter], default: I18n.t('active_admin.articles.filter.default2'))
-  filter :title, label: I18n.t("filter_titel", scope: [:goldencobra, :filter], default: I18n.t('active_admin.articles.filter.default3'))
-  filter :frontend_tag_name, as: :string, label: I18n.t("frontend_tags", scope: [:goldencobra, :filter], default: I18n.t('active_admin.articles.filter.default4'))
-  filter :tag_name, as: :string, label: I18n.t("tags", scope: [:goldencobra, :filter], default: I18n.t('active_admin.articles.filter.default5'))
+  filter :parent_ids_in, as: :select, collection: Goldencobra::Article.all.map { |a| [a.parent_path, a.id] }.sort, label: I18n.t("filter_parent", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default1"))
+  filter :article_type, as: :select, collection: Goldencobra::Article.article_types_for_select.map{|at| [I18n.t(at.parameterize.underscore.downcase, scope: [:goldencobra, :article_types], default: at), at]}.sort, label: I18n.t("filter_type", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default2"))
+  filter :title, label: I18n.t("filter_titel", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default3"))
+  filter :frontend_tag_name, as: :string, label: I18n.t("frontend_tags", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default4"))
+  filter :tag_name, as: :string, label: I18n.t("tags", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default5"))
   #filter :subtitle, label:  I18n.t("filter_subtitel", scope: [:goldencobra, :filter], default: "Unteritel")
   #filter :breadcrumb, label:  I18n.t("filter_breadcrumb", scope: [:goldencobra, :filter], default: "Brotkruemel")
-  filter :url_name, label:  I18n.t("filter_url", scope: [:goldencobra, :filter], default: I18n.t('active_admin.articles.filter.default6'))
+  filter :url_name, label:  I18n.t("filter_url", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default6"))
   #filter :template_file, label:  I18n.t("filter_template", scope: [:goldencobra, :filter], default: "Template Datei")
   filter :fulltext, as: :string
-  filter :created_at, label:  I18n.t("filter_created", scope: [:goldencobra, :filter], default: I18n.t('active_admin.articles.filter.default7'))
-  filter :updated_at, label:  I18n.t("filter_updated", scope: [:goldencobra, :filter], default: I18n.t('active_admin.articles.filter.default8'))
+  filter :created_at, label:  I18n.t("filter_created", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default7"))
+  filter :updated_at, label:  I18n.t("filter_updated", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default8"))
+  filter :state, as: :select, collection: Goldencobra::Article.states
+  filter :creator_id, as: :select, collection: User.all
 
-  scope I18n.t('active_admin.articles.scope1'), :all, default: true, show_count: false
-  scope I18n.t('active_admin.articles.scope2'), :active, show_count: false
-  scope I18n.t('active_admin.articles.scope3'), :inactive, show_count: false
-  scope I18n.t('active_admin.seo_articles.scope4'), :no_title_tag
-  scope I18n.t('active_admin.seo_articles.scope5'), :no_meta_description
+  scope I18n.t("active_admin.articles.scope1"), :all, default: true, show_count: false
+  scope I18n.t("active_admin.articles.scope2"), :active, show_count: false
+  scope I18n.t("active_admin.articles.scope3"), :inactive, show_count: false
+  scope I18n.t("active_admin.seo_articles.scope4"), :no_title_tag
+  scope I18n.t("active_admin.seo_articles.scope5"), :no_meta_description
 
 
   Goldencobra::Article.article_types_for_select.each do |article_type|
     next if article_type.include?("index")
-    scope(I18n.t(article_type.split(' ').first.to_s.strip, scope: [:goldencobra, :article_types], default: article_type.split(' ').first), show_count: false){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
+    scope(I18n.t(article_type.split(" ").first.to_s.strip, scope: [:goldencobra, :article_types], default: article_type.split(' ').first), show_count: false){ |t| t.where("article_type LIKE '%#{article_type.split(' ').first}%'") }
   end
 
   form html: { enctype: "multipart/form-data" }  do |f|
@@ -115,6 +117,9 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
     column I18n.t('active_admin.articles.index.active'), :active, sortable: :active do |article|
       link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), title: "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", "data-confirm" => I18n.t("online", scope: [:goldencobra, :flash_notice]), class: "member_link edit_link #{article.active ? 'online' : 'offline'}")
+    end
+    column :state do |a|
+      content_tag("span", "", class: "article_state #{a.state}", title: a.state)
     end
     column I18n.t('active_admin.articles.index.article_type'), :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? I18n.t('active_admin.articles.index.default') : I18n.t(article.article_type.parameterize.underscore.downcase, scope: [:goldencobra, :article_types])

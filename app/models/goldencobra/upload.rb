@@ -48,6 +48,7 @@ module Goldencobra
                         default_url: "missing_:style.png"
       do_not_validate_attachment_file_type :image
       before_post_process :image_file?
+
     end
 
     has_many :article_images, class_name: Goldencobra::ArticleImage, foreign_key: "image_id", dependent: :destroy
@@ -77,7 +78,6 @@ module Goldencobra
         self.image.reprocess!
       end
     end
-
     #
 
     # def crop_image_with_coords
@@ -141,6 +141,10 @@ module Goldencobra
       end
     end
 
+    def self.default_position
+      Goldencobra::Setting.for_key("goldencobra.article.image_positions").
+      to_s.split(",").map(&:strip).first
+    end
 
     private
 
@@ -155,9 +159,10 @@ module Goldencobra
       self.image = io
       self.image_file_name = io.base_uri.path.split('/').last
       self.image_remote_url = self.image_url
-    rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+    rescue
+    # catch url errors with validations instead of exceptions
+    # (Errno::ENOENT, OpenURI::HTTPError, etc...)
     end
-
   end
 end
 

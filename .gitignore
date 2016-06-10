@@ -45,4 +45,4 @@ rspec.xml
 test/dummy/results.json
 test/dummy/results.xml
 test/dummy/config/database.yml
-
+docker_config/id_*
