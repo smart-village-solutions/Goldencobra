@@ -48,7 +48,10 @@ ActiveAdmin.register Goldencobra::Menue, as: "Menue" do
     end
     column I18n.t("active_admin.menues.form.index.column1"), :target
     column I18n.t("active_admin.menues.form.index.column2"), :active, sortable: :active do |menue|
-      raw("<span class='#{menue.active ? 'online' : 'offline'}'>#{menue.active ? 'online' : 'offline'}</span>")
+      link_to(menue.active ? "online" : "offline", activate_deactivate_menu_item_admin_menue_path(menue),
+              title: "#{menue.active ? I18n.t("active_admin.menues.member_action.set_menu_item_offline") : I18n.t("active_admin.menues.member_action.set_menu_item_online")}",
+              "data-confirm" => I18n.t("change_menu_visibility", scope: [:goldencobra, :flash_notice]),
+              class: "member_link edit_link #{menue.active ? 'online' : 'offline'}")
     end
     column I18n.t("active_admin.menues.form.index.column3"), :sorter
     column I18n.t("active_admin.menues.form.index.column4") do |menue|
@@ -92,7 +95,6 @@ ActiveAdmin.register Goldencobra::Menue, as: "Menue" do
   end
 
   collection_action :load_overviewtree_as_json do
-
     if params[:root_id].present?
       objects = Goldencobra::Menue.where(id: params[:root_id]).first.children.reorder(:title)
       cache_key ||= ["menus", params[:root_id], objects.map(&:id), objects.maximum(:updated_at)]
@@ -154,6 +156,20 @@ ActiveAdmin.register Goldencobra::Menue, as: "Menue" do
     redirect_to :back, notice: "#{I18n.t('active_admin.menues.form.member_action.notice')} #{@version.event}"
   end
 
+  member_action :activate_deactivate_menu_item do
+    menu_item = Goldencobra::Menue.find(params[:id])
+    if menu_item.active
+      menu_item.active = false
+      flash[:notice] = I18n.t("active_admin.menues.member_action.flash.menu_item_offline")
+    else
+      menu_item.active = true
+      flash[:notice] = I18n.t("active_admin.menues.member_action.flash.menu_item_online")
+    end
+    menu_item.save
+
+    redirect_to action: :index
+  end
+
   batch_action :clone, "data-confirm" => I18n.t("active_admin.menues.form.batch_action.confirm_clone") do |selection|
     Goldencobra::Menue.find(selection).each do |menue|
       Goldencobra::Menue.create(
@@ -194,5 +210,4 @@ ActiveAdmin.register Goldencobra::Menue, as: "Menue" do
       end
     end
   end
-
 end
