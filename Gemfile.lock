@@ -32,8 +32,8 @@ PATH
       cancancan
       compass
       compass-rails
-      devise (~> 3.5)
-      devise-token_authenticatable
+      devise (~> 3.5.2)
+      devise-token_authenticatable (= 0.4.6)
       exception_notification
       font-awesome-sass
       geocoder
@@ -229,7 +229,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise-token_authenticatable (0.4.9)
+    devise-token_authenticatable (0.4.6)
       devise (>= 3.5.2, < 4.0.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
