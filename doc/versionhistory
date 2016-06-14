@@ -1,4 +1,6 @@
-V2.0.17 -30.05.2016
+V2.0.17.1 - 13.06.2016
+  - set visibility of menu item directly from admin menu index view like already known from articles
+V2.0.17 - 30.05.2016
   - CreatorId editable in backend
   - Article states added (empty, draft, in_review, waiting, published, discarded)
   - Filters for creator and state added
