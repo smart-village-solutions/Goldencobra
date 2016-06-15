@@ -148,6 +148,7 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bcrypt (3.1.11)
+    benchmark-ips (2.6.1)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -550,6 +551,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  benchmark-ips
   better_errors
   binding_of_caller
   brakeman

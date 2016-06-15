@@ -27,6 +27,7 @@ group :development do
   gem "listen", "3.0.5"  # Fix auf diese Version, weil danach ruby 2.2.3 vorrausgesetzt wird
   gem "pre-commit"
   gem "web-console", "2.3.0"
+  gem "benchmark-ips"
 end
 
 group :test do
