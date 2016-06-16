@@ -1,3 +1,7 @@
+V2.0.17.2 - 16.06.2016
+  - Removes all wkhtmltopdf and pdf gems. If you need pdf generation, please make sure to add
+    appropriate gems to your application. Golden Cobra no longer provides these as there were always
+    many conflicts with older versions of wkhtmltopdf binaries.
 V2.0.17.1 - 13.06.2016
   - set visibility of menu item directly from admin menu index view like already known from articles
 V2.0.17 - 30.05.2016
