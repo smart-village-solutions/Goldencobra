@@ -5,6 +5,7 @@ en:
       action_Startpage: "Make this article startpage"
       startpage: "This article is the startpage!"
       online: "Change the visibility of the article?"
+      change_menu_visibility: "Change the visibility of this menu item?"
       delete_article: "Really want to delete this article?"
     filter:
       filter_titel: "Title"
@@ -431,6 +432,12 @@ en:
           notice: "Undo:"
         action_item:
           link_to: "undo"
+      member_action:
+        set_menu_item_online: "Set this menu item online."
+        set_menu_item_offline: "Set this menu item offline."
+        flash:
+          menu_item_online: "This menu item is now online."
+          menu_item_offline: "This menu item is now offline."
     permissions:
       as: "Permissions"
       scope: "All"

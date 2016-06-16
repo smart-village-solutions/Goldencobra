@@ -447,6 +447,13 @@ de:
         metatag_open_graph_type: "OpenGraph Type"
         metatag_open_graph_url: "OpenGraph URL"
         metatag_open_graph_image: "OpenGraph Image"
+        states:
+            void: "Leer"
+            draft: "Entwurf"
+            in_review: "In Prüfung"
+            waiting: "Wartet"
+            published: "Veröffentlicht"
+            discarded: "Papierkorb"
       goldencobra/permission:
         role: "Rolle"
         action: "Aktion"

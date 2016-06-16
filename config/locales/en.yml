@@ -224,6 +224,13 @@ en:
         metatag_open_graph_type: "OpenGraph Type"
         metatag_open_graph_url: "OpenGraph URL"
         metatag_open_graph_image: "OpenGraph Image"
+        states:
+            void: "Empty"
+            draft: "Draft"
+            in_review: "In Review"
+            waiting: "Waiting"
+            published: "Published"
+            discarded: "Discarded"
       goldencobra/upload:
         image_remote_url: "Download URL"
         source: "source"

@@ -5,6 +5,7 @@ de:
       action_Startpage: "Diesen Artikel als Startseite einrichten"
       startpage: "Dieser Artikel ist nun der Startartikel"
       online: "Sichtbarkeit dieses Artikels ändern?"
+      change_menu_visibility: "Sichtbarkeit dieses Menüpunktes ändern?"
       delete_article: "Artikel wirklich löschen?"
     filter:
       filter_titel: "Titel"
@@ -297,8 +298,8 @@ de:
         h5_achtung4: "mit dieser URL:"
       member_action:
         flash:
-          article_online: "Dieser Artikel ist nun online"
-          article_offline: "Dieser Artikel ist nun offline"
+          article_online: "Dieser Artikel ist nun online."
+          article_offline: "Dieser Artikel ist nun offline."
           widgets: "Widgets added"
           link_checker: "Die Links dieses Artikels werden überprüft. Bitte warten Sie, dies kann wenige Minuten in Anspruch nehmen."
       batch_action:
@@ -431,6 +432,12 @@ de:
           notice: "Rückgängig:"
         action_item:
           link_to: "rückgängig"
+      member_action:
+        set_menu_item_online: "Diesen Menüpunkt online schalten."
+        set_menu_item_offline: "Diesen Menüpunkt offline schalten."
+        flash:
+          menu_item_online: "Dieser Menüpunkt ist nun online."
+          menu_item_offline: "Dieser Menüpunkt ist nun offline."
     permissions:
       as: "Zugriffsrechte"
       scope: "Alle"
