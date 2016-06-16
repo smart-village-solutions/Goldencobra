@@ -69,9 +69,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'json'
   s.add_dependency 'i18n'
   s.add_dependency 'i18n-active_record'
-  s.add_dependency 'pdfkit'
-  s.add_dependency 'wkhtmltopdf-binary'
-  s.add_dependency 'wicked_pdf'
   s.add_dependency 'rmagick'
   s.add_dependency 'iconv'
   s.add_dependency 'rack-utf8_sanitizer' # handles invalid url encodings
