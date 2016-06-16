@@ -20,7 +20,7 @@ describe Goldencobra::ArticleAdapter, type: :model do
                                        target_url: "www.ikusei.de/seite-b",
                                        ignore_url_params: true,
                                        active: true)
-        found_article_id = Goldencobra::ArticleAdapter.find("http://www.ikusei.de/seite-a")
+        found_article_id = Goldencobra::ArticleAdapter.find("http://www.ikusei.de/seite-a", follow_redirection: true)
         found_article = Goldencobra::Article.find(found_article_id)
         expect(found_article_id.present?).to eq(true)
         expect(found_article.absolute_public_url).to eq("http://www.ikusei.de/seite-b")
