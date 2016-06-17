@@ -9,8 +9,8 @@ module Goldencobra
     def self.setup(article_id)
       article = Goldencobra::Article.find_by_id(article_id)
 
-      # wenn der Artikel gelöscht wurde, sollten die has_many :urls im goldencobra Article
-      # ebenfalls gelöscht sein. Somit ist hier nichts mehr zu tun
+      # if an article is deleted, related has_many :urls should be deleted to by definition,
+      # so there is nothing else to do
       return true unless article
 
       # are multiple domains in use?
@@ -20,9 +20,8 @@ module Goldencobra
         setup_single_url(article)
       end
 
-      # Aktualisiere ale URLs der Kinder dieses Artikels
-      article.descendants.each do |d|
-        Goldencobra::ArticleUrl.setup(d.id)
+      article.descendant_ids.each do |did|
+        Goldencobra::ArticleUrl.setup(did)
       end
     end
 

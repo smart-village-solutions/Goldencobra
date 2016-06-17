@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    goldencobra (2.0.17.1)
+    goldencobra (2.0.17.2)
       actionpack-action_caching
       active_model_serializers (~> 0.9.5)
       activeadmin (~> 1.0.0.pre1)
@@ -162,7 +162,7 @@ GEM
     builder (3.2.2)
     byebug (9.0.5)
     cancan (1.6.10)
-    cancancan (1.15.0)
+    cancancan (1.14.0)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
@@ -531,7 +531,7 @@ GEM
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     websocket (1.2.3)
-    whenever (0.9.7)
+    whenever (0.9.4)
       chronic (>= 0.6.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)

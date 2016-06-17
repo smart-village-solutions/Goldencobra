@@ -541,21 +541,18 @@ module Goldencobra
       end
     end
 
-
     # **************************
     # **************************
     # Callback Methods
     # **************************
     # **************************
 
-
-    # creats and updates external url table
+    # creates and updates external url table
     #
     # only update URLs if there were any changes on the url
     #
     # @return [boolean] Goldencobra::AricleUrl.setup() response
     def update_article_urls
-
       if previous_changes["startpage"] || previous_changes["url_path"] || previous_changes["url_name"] || previous_changes["ancestry"]
         Goldencobra::ArticleUrl.setup(id)
       end

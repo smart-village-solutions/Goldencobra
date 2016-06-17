@@ -6,11 +6,26 @@ describe Goldencobra::ArticleAdapter, type: :model do
   end
   describe "finding articles" do
     context "by a given url" do
-      it "should find one article" do
+      it "should find one article id" do
         article = create(:article, url_name: "test")
         article.run_callbacks(:commit)
         found_article_id = Goldencobra::ArticleAdapter.find(article.absolute_public_url)
         expect(found_article_id.present?).to eq(true)
+      end
+
+      it "should find no article id" do
+        article = create(:article, url_name: "test")
+        article.run_callbacks(:commit)
+        found_article_id = Goldencobra::ArticleAdapter.find("")
+        expect(found_article_id).to eq(nil)
+      end
+
+      it "should find a list of urls by a given article_id" do
+        article = create(:article, url_name: "test")
+        article.run_callbacks(:commit)
+        found_article_urls = Goldencobra::ArticleAdapter.find_by_id(article.id)
+        expect(found_article_urls.count).to eq(1)
+        expect(found_article_urls.first).to eq("http://www.ikusei.de/test")
       end
 
       it "should redirect to an other url and find this article" do
