@@ -1,3 +1,6 @@
+V2.0.18 - 17.06.2016
+  - Goldencobra::ArticleAdapter added for faster article finding
+  - Goldencobra::ArticleUrl added as new storage of article urls
 V2.0.17.2 - 16.06.2016
   - Removes all wkhtmltopdf and pdf gems. If you need pdf generation, please make sure to add
     appropriate gems to your application. Golden Cobra no longer provides these as there were always
