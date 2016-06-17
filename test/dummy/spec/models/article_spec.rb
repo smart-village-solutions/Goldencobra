@@ -206,8 +206,8 @@ describe Goldencobra::Article do
       @article = create :article, url_name: "seite1"
     end
 
-    it "should have a state empty on create" do
-      expect(@article.empty?).to eq(true)
+    it "should have a state void on create" do
+      expect(@article.void?).to eq(true)
     end
 
     it "should have a state draft" do

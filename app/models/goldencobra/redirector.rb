@@ -103,7 +103,6 @@ module Goldencobra
       end
     end
 
-
     # Helper Method for rewriting urls
     # @param uri_params [String] foo=bar&test=12
     #
@@ -128,6 +127,5 @@ module Goldencobra
         return "#{target_uri.scheme}://#{target_uri.host}#{target_uri.path}"
       end
     end
-
   end
 end

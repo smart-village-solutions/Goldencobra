@@ -13,10 +13,11 @@ Feature: Create and manage articles
     And I am on the admin list of articles
     When I click on "Erstellen"
     Then I should see "Artikel erstellen"
-    When I fill in "article_title" with "Dies ist ein neuer Artikel"
-    When I fill in "article_breadcrumb" with "Neuer Artikel"
-    And I select "Standard Einzelseite" within "#article_article_type"
-    And I press "Artikel erstellen"
+    # When I fill in "article_title" with "Dies ist ein neuer Artikel"
+    # When I fill in "article_breadcrumb" with "Neuer Artikel"
+    # And I select "Standard Einzelseite" within "#article_article_type"
+    # And I press "Artikel erstellen"
+
     # And I fill in "article_url_name" with "dies-ist-kurz"
     # And I press "Artikel aktualisieren"
     # Then I should see "Dies ist ein neuer Artikel" within textfield "article_title"

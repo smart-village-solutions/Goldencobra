@@ -4,7 +4,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   menu parent: I18n.t("active_admin.articles.parent"), label: I18n.t("active_admin.articles.as"), if: proc{can?(:update, Goldencobra::Article)}, priority: 2
 
   # Alle Filteroptionen in der rechten Seitenleiste
-  filter :parent_ids_in, as: :select, collection: Goldencobra::Article.all.map { |a| [a.parent_path, a.id] }.sort, label: I18n.t("filter_parent", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default1"))
+  filter :parent_ids_in, as: :select, collection: -> { Goldencobra::Article.all.map { |a| [a.parent_path, a.id] }.sort }, label: I18n.t("filter_parent", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default1"))
   filter :article_type, as: :select, collection: Goldencobra::Article.article_types_for_select.map{|at| [I18n.t(at.parameterize.underscore.downcase, scope: [:goldencobra, :article_types], default: at), at]}.sort, label: I18n.t("filter_type", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default2"))
   filter :title, label: I18n.t("filter_titel", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default3"))
   filter :frontend_tag_name, as: :string, label: I18n.t("frontend_tags", scope: [:goldencobra, :filter], default: I18n.t("active_admin.articles.filter.default4"))

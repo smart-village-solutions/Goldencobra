@@ -69,6 +69,7 @@ module Goldencobra
     has_many :article_widgets
     has_many :widgets, through: :article_widgets
     has_many :vita_steps, as: :loggable, class_name: Goldencobra::Vita
+    has_many :urls, class_name: Goldencobra::ArticleUrl, dependent: :destroy
 
     has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
     belongs_to :articletype, class_name: Goldencobra::Articletype, foreign_key: "article_type", primary_key: "name"
@@ -115,6 +116,7 @@ module Goldencobra
     after_save :set_url_path
     before_destroy :update_parent_article_etag
     after_update :set_redirection_step_2
+    after_commit :update_article_urls
 
     scope :robots_index, -> { where(robots_no_index: false) }
     scope :robots_no_index, -> { where(robots_no_index: true) }
@@ -539,13 +541,22 @@ module Goldencobra
       end
     end
 
-
     # **************************
     # **************************
     # Callback Methods
     # **************************
     # **************************
 
+    # creates and updates external url table
+    #
+    # only update URLs if there were any changes on the url
+    #
+    # @return [boolean] Goldencobra::AricleUrl.setup() response
+    def update_article_urls
+      if previous_changes["startpage"] || previous_changes["url_path"] || previous_changes["url_name"] || previous_changes["ancestry"]
+        Goldencobra::ArticleUrl.setup(id)
+      end
+    end
 
     def set_title_from_breadcrumb
       if self.title.blank? && self.breadcrumb.present?
