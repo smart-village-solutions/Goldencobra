@@ -48,7 +48,8 @@ module Goldencobra
         uri = Addressable::URI.parse(url.strip).normalize
         # removes last '/' if one exists
         uri_path = uri.path.chomp("/")
-        URI.join("#{uri.scheme}://#{uri.host}", uri_path).to_s
+        uri_host = uri.port == 80 ? uri.host : "#{uri.host}:#{uri.port}"
+        URI.join("#{uri.scheme}://#{uri_host}", uri_path).to_s
       rescue
         nil
       end
