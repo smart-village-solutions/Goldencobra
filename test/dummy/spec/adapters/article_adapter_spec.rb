@@ -10,6 +10,27 @@ describe Goldencobra::ArticleAdapter, type: :model do
         article = create(:article, url_name: "test")
         article.run_callbacks(:commit)
         found_article_id = Goldencobra::ArticleAdapter.find(article.absolute_public_url)
+        p article.absolute_public_url
+        p Goldencobra::ArticleUrl.all.inspect
+        p found_article_id
+        expect(found_article_id.present?).to eq(true)
+      end
+
+      it "should find the startpage with trailing Slash" do
+        article = create(:article, url_name: "test")
+        article.run_callbacks(:commit)
+        article.mark_as_startpage!
+        article.run_callbacks(:commit)
+        found_article_id = Goldencobra::ArticleAdapter.find("http://www.ikusei.de/")
+        expect(found_article_id.present?).to eq(true)
+      end
+
+      it "should find the startpage without trailing Slash" do
+        article = create(:article, url_name: "test")
+        article.run_callbacks(:commit)
+        article.mark_as_startpage!
+        article.run_callbacks(:commit)
+        found_article_id = Goldencobra::ArticleAdapter.find("http://www.ikusei.de")
         expect(found_article_id.present?).to eq(true)
       end
 

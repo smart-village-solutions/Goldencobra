@@ -26,6 +26,7 @@ module Goldencobra
       # @return [Integer] ID of an article
       def find_by_url(url, follow_redirection: false)
         url_to_search = cleanup_url(url)
+        p url_to_search
         url_to_search = follow_redirections(url_to_search) if follow_redirection
         Goldencobra::ArticleUrl.where(url: url_to_search).pluck(:article_id).first
       end
@@ -46,10 +47,10 @@ module Goldencobra
       # @return [String] "http://www.ikusei.de/afasdf/foo"
       def cleanup_url(url)
         uri = Addressable::URI.parse(url.strip).normalize
-        # removes last '/' if one exists
-        uri_path = uri.path.chomp("/")
-        uri_host = uri.port == 80 ? uri.host : "#{uri.host}:#{uri.port}"
-        URI.join("#{uri.scheme}://#{uri_host}", uri_path).to_s
+        # removes first and last '/' if one exists
+        uri_path = uri.path.reverse.chomp("/").reverse.chomp("/")
+        uri_host = uri.port == 80 ? uri.host : [uri.host,uri.port].compact.join(":")
+        "#{uri.scheme}://#{uri_host}/#{uri_path}"
       rescue
         nil
       end
