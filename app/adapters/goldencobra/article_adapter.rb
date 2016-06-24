@@ -26,7 +26,6 @@ module Goldencobra
       # @return [Integer] ID of an article
       def find_by_url(url, follow_redirection: false)
         url_to_search = cleanup_url(url)
-        p url_to_search
         url_to_search = follow_redirections(url_to_search) if follow_redirection
         Goldencobra::ArticleUrl.where(url: url_to_search).pluck(:article_id).first
       end
