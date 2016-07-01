@@ -4,7 +4,7 @@
 # overhead.  For more information, visit www.newrelic.com.
 #
 # Generated May 15, 2015
-# 
+#
 # This configuration file is custom generated for ikusei
 #
 # For full documentation of agent configuration options, please refer to
@@ -12,11 +12,11 @@
 
 common: &default_settings
   # Required license key associated with your New Relic account.
-  license_key: b199ad3e4e0d728b1aac69aec4870af7ef9478bb
+  license_key: c59475960692ed5377e1849ecf9cb6f307dd6fa4
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-  app_name: Goldencobra Basis Modul
+  app_name: Goldencobra 1.5 Basis Modul
 
   # To disable the agent regardless of other settings, uncomment the following:
   # agent_enabled: false
