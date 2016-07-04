@@ -465,14 +465,14 @@ module Goldencobra
       return Goldencobra::Article.none unless display_index_articles
 
       if self.article_for_index_id.blank?
-        #Index aller Artikel anzeigen
+        # Index aller Artikel anzeigen
         @list_of_articles = Goldencobra::Article.active.articletype_for_index(self)
       else
-        #Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
-        parent_article = Goldencobra::Article.find_by_id(self.article_for_index_id)
+        # Index aller Artikel anzeigen, die Kinder sind von einem Bestimmten artikel
+        parent_article = Goldencobra::Article.where(id: self.article_for_index_id).select(:id, :ancestry).first
         if parent_article.present?
           @list_of_articles = parent_article.descendants.active.articletype_for_index(self)
-          #Wenn nicht ale ebenen unterhalb des gewählten Baumes angezeigt werden sollen
+          # Wenn nicht alle Ebenen unterhalb des gewählten Baumes angezeigt werden sollen
           unless self.index_of_articles_descendents_depth == "all"
             current_depth = parent_article.depth
             @list_of_articles = @list_of_articles.to_depth(current_depth + self.index_of_articles_descendents_depth.to_i)
@@ -481,24 +481,37 @@ module Goldencobra
           @list_of_articles = Goldencobra::Article.active.articletype_for_index(self)
         end
       end
-      #include related models
-      @list_of_articles = @list_of_articles.includes("#{self.article_type_form_file.underscore.parameterize.downcase}") if self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
-      #get articles with tag
-      if self.index_of_articles_tagged_with.present?
-        @list_of_articles = @list_of_articles.tagged_with(self.index_of_articles_tagged_with.split(",").map{|t| t.strip}, on: :tags, any: true)
-      end
-      #get articles without tag
-      if self.not_tagged_with.present?
-        @list_of_articles = @list_of_articles.tagged_with(self.not_tagged_with.split(",").map{|t| t.strip}, exclude: true, on: :tags)
-      end
-      #get_articles_by_frontend_tags
-      if user_frontend_tags.present?
-        @list_of_articles = @list_of_articles.tagged_with(user_frontend_tags, on: :frontend_tags, any: true)
-      end
-      #filter with permissions
-      @list_of_articles = filter_with_permissions(@list_of_articles,current_operator)
 
-      #sort list of articles
+      # include related models
+      if self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
+        @list_of_articles = @list_of_articles.includes("#{self.article_type_form_file.underscore.parameterize.downcase}")
+      end
+
+      # get articles with tag
+      if self.index_of_articles_tagged_with.present?
+        @list_of_articles = @list_of_articles.tagged_with(self.index_of_articles_tagged_with.split(",").map(&:strip),
+                                                          on: :tags,
+                                                          any: true)
+      end
+
+      # get articles without tag
+      if self.not_tagged_with.present?
+        @list_of_articles = @list_of_articles.tagged_with(self.not_tagged_with.split(",").map(&:strip),
+                                                          exclude: true,
+                                                          on: :tags)
+      end
+
+      # get_articles_by_frontend_tags
+      if user_frontend_tags.present?
+        @list_of_articles = @list_of_articles.tagged_with(user_frontend_tags,
+                                                          on: :frontend_tags,
+                                                          any: true)
+      end
+
+      # filter with permissions
+      @list_of_articles = filter_with_permissions(@list_of_articles, current_operator)
+
+      # sort list of articles
       if self.sort_order.present?
         if self.sort_order == "Random"
           @list_of_articles = @list_of_articles.flatten.shuffle
