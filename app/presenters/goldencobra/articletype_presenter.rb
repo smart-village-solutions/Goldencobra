@@ -118,6 +118,11 @@ module Goldencobra
 
     # Index Methods
     #
+    def index__display_index_articles
+      @f.input :display_index_articles, label: I18n.t("active_admin.articles.index.views.display_index_articles.label"),
+                                        hint: I18n.t("active_admin.articles.index.views.display_index_articles.hint")
+    end
+
     def index__article_for_index_id
       collection = Goldencobra::Article.articles_for_index_selecetion
       @f.input :article_for_index_id, label: I18n.t("active_admin.articles.index.views.label1"),

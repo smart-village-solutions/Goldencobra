@@ -275,6 +275,9 @@ de:
         create_subarticle: "Neuen Unterartikel erstellen"
         delete_article: "Artikel löschen"
         views:
+          display_index_articles:
+            label: "Artikelliste anzeigen"
+            hint: "Sollen zusätzliche Artikel auf dieser Seite dargestellt werden?"
           inputs: "Übersichtsoptionen"
           label1: "Übersicht von Artikeln im Verzeichnis"
           hint1: "Alle Artikel unterhalb dieses Artikels werden aufgelistet, exklusive diesem selbst"

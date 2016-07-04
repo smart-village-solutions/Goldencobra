@@ -21,11 +21,11 @@ module Goldencobra
       :url_name, :parent_id, :canonical_url, :enable_social_sharing,
       :robots_no_index, :cacheable, :commentable, :dynamic_redirection,
       :external_url_redirect, :redirect_link_title, :redirection_target_in_new_window,
-      :author, :permissions, :widgets, :article_images, :index__article_for_index_id,
-      :index__article_descendents_depth, :index__display_index_types,
-      :index__display_index_articletypes, :index__index_of_articles_tagged_with,
-      :index__not_tagged_with, :index__sorter_limit, :index__sort_order, :index__reverse_sort,
-      :state, :creator
+      :author, :permissions, :widgets, :article_images, :index__display_index_articles,
+      :index__article_for_index_id, :index__article_descendents_depth,
+      :index__display_index_types, :index__display_index_articletypes,
+      :index__index_of_articles_tagged_with, :index__not_tagged_with, :index__sorter_limit,
+      :index__sort_order, :index__reverse_sort, :state, :creator
     ]
 
     def set_defaults
@@ -76,9 +76,9 @@ module Goldencobra
     def self.reset_index_block(at)
       if at.name.include?(" Index")
         new_a = at.fieldgroups.create(title: "Index", position: "first_block", foldable: true, closed: false, expert: false, sorter: 2)
-        index_elements = ["index__article_for_index_id", "index__article_descendents_depth", "index__display_index_types",
-                          "index__display_index_articletypes", "index__index_of_articles_tagged_with", "index__not_tagged_with",
-                          "index__sorter_limit","index__sort_order","index__reverse_sort"]
+        index_elements = ["index__display_index_articles", "index__article_for_index_id", "index__article_descendents_depth",
+                          "index__display_index_types", "index__display_index_articletypes", "index__index_of_articles_tagged_with",
+                          "index__not_tagged_with", "index__sorter_limit","index__sort_order","index__reverse_sort"]
         index_elements.each_with_index do |name, index|
           new_a.fields.create(fieldname: name, sorter: index * 10)
         end

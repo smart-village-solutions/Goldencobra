@@ -411,7 +411,7 @@ module Goldencobra
     # **************************
 
 
-    #scope for index articles, display show articles, index articless or both articles of an current type
+    # scope for index articles, display show-articles, index-articles or both articletypes
     def self.articletype_for_index(current_article)
       #Wenn alle Artikeltypen angezeigt werden sollen
       if current_article.display_index_articletypes == "all"
@@ -462,6 +462,8 @@ module Goldencobra
 
 
     def index_articles(current_operator=nil, user_frontend_tags=nil)
+      return Goldencobra::Article.none unless display_index_articles
+
       if self.article_for_index_id.blank?
         #Index aller Artikel anzeigen
         @list_of_articles = Goldencobra::Article.active.articletype_for_index(self)

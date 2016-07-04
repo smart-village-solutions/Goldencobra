@@ -1,3 +1,5 @@
+V2.0.19 - 04.07.2016
+  - display list of additional articles only if selected in index options of article
 V2.0.18 - 17.06.2016
   - Goldencobra::ArticleAdapter added for faster article finding
   - Goldencobra::ArticleUrl added as new storage of article urls

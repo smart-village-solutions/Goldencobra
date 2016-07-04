@@ -275,6 +275,9 @@ en:
         create_subarticle: "Create new sub article"
         delete_article: "Delete article"
         views:
+          display_index_articles:
+            label: "Display list of articles"
+            hint: "display additional articles on this page?"
           inputs: "Overview Options"
           label1: "Index of articles in the directory"
           hint1: "All Articles beneath this Article are listed, except for this Article."
