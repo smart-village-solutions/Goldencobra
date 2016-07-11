@@ -1,3 +1,5 @@
+V2.0.19.1 - 11.07.2016
+  - added checks for present objects in image init methods
 V2.0.19 - 04.07.2016
   - display list of additional articles only if selected in index options of article
 V2.0.18 - 17.06.2016
