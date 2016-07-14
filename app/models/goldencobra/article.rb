@@ -209,8 +209,8 @@ module Goldencobra
         end
       end
     end
-
     Goldencobra::Article.init_image_methods
+
     def image(position="standard", size="original")
       any_images = self.article_images.where(position: position)
       if any_images.any? && any_images.first.image && any_images.first.image.image
