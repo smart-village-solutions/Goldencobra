@@ -188,21 +188,22 @@ module Goldencobra
       self.title.to_s.gsub("/", " ")
     end
 
-
-    #@article.image_standard @article.image_logo @article.image_logo_medium
+    # @article.image_standard @article.image_logo @article.image_logo_medium
     def self.init_image_methods
       if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
         Goldencobra::Setting.for_key("goldencobra.article.image_positions").to_s.split(",").map(&:strip).each do |image_type|
           define_method "image_#{image_type.underscore}" do
-            self.image(image_type,"original")
+            image(image_type, "original")
           end
           define_method "image_alt_#{image_type.underscore}" do
-            self.article_images.where(position: image_type).first.image.alt_text || self.article_images.where(position: image_type).first.image.image_file_name
+            selected_images = article_images.where(position: image_type)
+            return "" if selected_images.none? || selected_images.first.image.blank?
+            selected_images.first.image.alt_text || selected_images.first.image.image_file_name
           end
           if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
             Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |style_name|
-              define_method "image_#{image_type.underscore}_#{style_name.to_s}" do
-                self.image(image_type,style_name)
+              define_method "image_#{image_type.underscore}_#{style_name}" do
+                image(image_type, style_name)
               end
             end
           end
@@ -210,16 +211,14 @@ module Goldencobra
       end
     end
     Goldencobra::Article.init_image_methods
-
-    def image(position="standard", size="original")
-      any_images = self.article_images.where(position: position)
-      if any_images.any? && any_images.first.image && any_images.first.image.image
-        return any_images.first.image.image.url(size.to_sym)
+    def image(position = "standard", size = "original")
+      selected_images = self.article_images.where(position: position)
+      if selected_images.any? && selected_images.first.image && selected_images.first.image.image
+        return selected_images.first.image.image.url(size.to_sym)
       else
         return ""
       end
     end
-
 
     def respond_to_all?(method_name)
       begin
