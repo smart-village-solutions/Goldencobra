@@ -228,7 +228,7 @@ module Goldencobra
       end
     end
 
-    # Gets the related object by article_type
+    # gets the related object by article_type
     def get_related_object
       if self.article_type.present? && self.article_type_form_file.present? &&
           self.respond_to?(self.article_type_form_file.underscore.parameterize.downcase)
@@ -239,7 +239,7 @@ module Goldencobra
       end
     end
 
-    #dynamic methods for article.event or article.consultant .... depending on related object type
+    # dynamic method for an object to make the article respond to it like article.object
     def method_missing(meth, *args, &block)
       if meth.to_s.split(".").first == self.get_related_object.class.name.downcase
         if meth.to_s.split(".").count == 1
@@ -304,14 +304,14 @@ module Goldencobra
     end
 
 
-    # Gibt Consultant | Subsidiary | etc. zurück je nach Seitentyp
+    # returns article type name without index/show
     def article_type_form_file
       if self.article_type.present?
         self.article_type.split(" ")[0..-2].join("")
       end
     end
 
-    # Gibt Index oder Show zurück, je nach Seitentyp
+    # returns index/show without article type name
     def kind_of_article_type
       self.article_type.present? ? self.article_type.split(" ").last : ""
     end
