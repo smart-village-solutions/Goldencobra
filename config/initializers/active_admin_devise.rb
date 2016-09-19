@@ -1,6 +1,6 @@
 require "activeadmin"
 
-ApplicationController.class_eval do
+Goldencobra::ApplicationController.class_eval do
     layout :layout_by_resource_for_user_model
 
     def current_ability
