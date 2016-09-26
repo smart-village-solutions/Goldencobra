@@ -16,7 +16,7 @@ ActiveAdmin::BaseController.class_eval do
       if devise_controller? && resource_name == :user
         "goldencobra/active_admin_resque" # we emulate the active_admin layout for consistancy
       else
-        "application"
+        determine_active_admin_layout
       end
     end
 end
