@@ -32,7 +32,7 @@ module Goldencobra
     scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
     search_methods :parent_ids_in_eq
 
-    scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) } if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.all.any?
+    scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) } if ActiveRecord::Base.connection.table_exists?("goldencobra_settings") && Goldencobra::Setting.scoped.any?
     search_methods :parent_ids_in
 
     scope :with_values, where("value IS NOT NULL")
@@ -134,7 +134,7 @@ module Goldencobra
     end
 
     private
-    
+
     def self.generate_default_setting(key, yml_data, parent_id=nil)
       if yml_data[key].class == Hash
         #check if childen keys are value and type or not

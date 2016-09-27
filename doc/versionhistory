@@ -1,4 +1,7 @@
 V1.4.77.6
+  - Goldencobra::Setting scope renamed to old syntax
+
+V1.4.77.6
   - Fixes a problem with a Filter-Collection in Admin/Articles
   - Makes an update to jquery rails 3.1.x possible
 V1.4.77.5
