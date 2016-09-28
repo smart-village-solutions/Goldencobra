@@ -1,3 +1,5 @@
+V2.0.19.4 - 28.09.2016
+  - Don't overwrite access denied handler of host application
 V2.0.19.3 - 11.08.2016
   - removed client based locales in yml files PR#58
 V2.0.19.2 - 14.07.2016
