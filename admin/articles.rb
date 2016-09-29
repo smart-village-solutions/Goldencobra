@@ -199,7 +199,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   sidebar :overview, only: [:index] do
-    #calls collection_action :load_overviewtree_as_json
+    # calls collection_action :load_overviewtree_as_json
     render partial: "/goldencobra/admin/shared/react_overview", locals: {
       object_class: "Goldencobra::Article",
       link_name: "url_name",
@@ -369,12 +369,12 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   collection_action :load_overviewtree_as_json do
     if params[:root_id].present?
-      objects = Goldencobra::Article.where(id: params[:root_id]).first.children.reorder(:url_name)
+      objects = Goldencobra::Article.where(id: params[:root_id]).first.descendants.reorder(:url_name)
       cache_key ||= ["articles", params[:root_id], objects.map(&:id), objects.maximum(:updated_at)]
 
       articles = Rails.cache.fetch(cache_key) do
         Goldencobra::Article.find(params[:root_id])
-        .children.reorder(:url_name).as_json(only: [:id, :url_path, :title, :url_name],
+                            .descendants.reorder(:url_name).as_json(only: [:id, :url_path, :title, :url_name],
                                              methods: [:has_children, :restricted])
       end
     else

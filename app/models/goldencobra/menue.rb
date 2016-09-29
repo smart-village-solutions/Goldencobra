@@ -25,7 +25,7 @@ module Goldencobra
                     :sorter, :description, :call_to_action_name, :description_title,
                     :image_attributes, :image_id, :permissions_attributes, :remote
 
-    has_ancestry orphan_strategy: :rootify, cache_depth: true
+    has_ancestry orphan_strategy: :rootify, cache_depth: true, touch: true
 
     belongs_to :image, class_name: Goldencobra::Upload, foreign_key: "image_id"
 
