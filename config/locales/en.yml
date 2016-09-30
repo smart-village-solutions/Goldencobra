@@ -285,6 +285,12 @@ en:
       redirect_link_title: ""
       external_url_redirect: ""
       dynamic_redirection: ""
+      metatag_title_tag: ""
+      metatag_meta_description: ""
+      metatag_open_graph_title: ""
+      metatag_open_graph_description: ""
+      metatag_open_graph_image: ""
+      metatag_open_graph_url: ""
     article_types:
       Article: "Article"
       Default: "Article"

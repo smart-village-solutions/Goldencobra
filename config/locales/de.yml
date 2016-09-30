@@ -43,6 +43,12 @@ de:
       redirect_link_title: ""
       external_url_redirect: ""
       dynamic_redirection: ""
+      metatag_title_tag: ""
+      metatag_meta_description: ""
+      metatag_open_graph_title: ""
+      metatag_open_graph_description: ""
+      metatag_open_graph_image: ""
+      metatag_open_graph_url: ""
     flash_notice:
       name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
       action_Startpage: "Diesen Artikel als Startseite einrichten"
