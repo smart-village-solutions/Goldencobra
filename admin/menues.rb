@@ -96,11 +96,11 @@ ActiveAdmin.register Goldencobra::Menue, as: "Menue" do
 
   collection_action :load_overviewtree_as_json do
     if params[:root_id].present?
-      objects = Goldencobra::Menue.where(id: params[:root_id]).first.children.reorder(:title)
+      objects = Goldencobra::Menue.where(id: params[:root_id]).first.descendants.reorder(:title)
       cache_key ||= ["menus", params[:root_id], objects.map(&:id), objects.maximum(:updated_at)]
 
       menus = Rails.cache.fetch(cache_key) do
-        Goldencobra::Menue.find(params[:root_id]).children.order(:title).as_json(
+        Goldencobra::Menue.find(params[:root_id]).descendants.order(:title).as_json(
           only: [:id, :target, :title],
           methods: [:has_children])
       end
@@ -109,7 +109,7 @@ ActiveAdmin.register Goldencobra::Menue, as: "Menue" do
       cache_key ||= ["menus", objects.map(&:id), objects.maximum(:updated_at)]
 
       menus = Rails.cache.fetch(cache_key) do
-        Goldencobra::Menue.order(:title)
+        Goldencobra::Menue.reorder(:title)
           .roots.as_json(only: [:id, :target, :title], methods: [:has_children])
       end
     end

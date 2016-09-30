@@ -84,7 +84,7 @@ module Goldencobra
     accepts_nested_attributes_for :article_widgets, allow_destroy: true
 
     acts_as_taggable_on :tags, :frontend_tags #https://github.com/mbleigh/acts-as-taggable-on
-    has_ancestry    orphan_strategy: :restrict, cache_depth: true
+    has_ancestry orphan_strategy: :restrict, cache_depth: true
 
     enum state: { void: 0, draft: 1, in_review: 2, waiting: 3, published: 4, discarded: 5 }
     web_url         :external_url_redirect
