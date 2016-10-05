@@ -50,8 +50,12 @@ module Goldencobra
     scope :active, -> { where(active: true).order(:sorter) }
     scope :inactive, -> { where(active: false).order(:sorter) }
     scope :visible, -> { where("css_class <> 'hidden'").where("css_class <> 'not_visible'") }
-    scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
-    scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
+
+    # Vermutlich ein Active Admin Bug:
+    # url /admin/menues?q[parent_ids_in]=1 wird mit nil an den Scope
+    # übergeben. daher hier der HotFix
+    scope :parent_ids_in_eq, -> (menue_id = 1) { subtree_of(menue_id) }
+    scope :parent_ids_in, -> (menue_id = 1) { subtree_of(menue_id) }
 
     before_save :set_descendants_status
 

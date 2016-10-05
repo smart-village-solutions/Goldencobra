@@ -125,8 +125,13 @@ module Goldencobra
     scope :startpage, -> { where(startpage: true) }
     scope :articletype, lambda{ |name| where(article_type: name)}
     scope :latest, lambda{ |counter| order("created_at DESC").limit(counter)}
-    scope :parent_ids_in_eq, lambda { |art_id| subtree_of(art_id) }
-    scope :parent_ids_in, lambda { |art_id| subtree_of(art_id) }
+
+    # Vermutlich ein Active Admin Bug:
+    # url /admin/articles?q[parent_ids_in]=1 wird mit nil an den Scope
+    # übergeben. daher hier der HotFix
+    scope :parent_ids_in_eq, -> (art_id = 1) { subtree_of(art_id) }
+    scope :parent_ids_in, -> (art_id = 1) { subtree_of(art_id) }
+
     scope :modified_since, lambda{ |date| where("updated_at > ?", Date.parse(date))}
     scope :for_sitemap, -> { includes(:images).where('dynamic_redirection = "false" AND ( external_url_redirect IS NULL OR external_url_redirect = "") AND active = 1 AND robots_no_index =  0') }
     scope :frontend_tag_name_contains, lambda{|tag_name| tagged_with(tag_name.split(","), on: :frontend_tags)}
