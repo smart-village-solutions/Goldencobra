@@ -28,5 +28,17 @@ module Goldencobra
     def basic_goldencobra_headers(options={})
       render partial: "/goldencobra/articles/headers", locals: {options: options}
     end
+
+
+    # Named routes outside mounted rails engine
+    # You can call any named route defined in your railsapp
+    # inside a goldencobra_view by calling:
+    #
+    # <%= link_to "CustomRoute", application_routes.custom_page_path() %>
+    #
+    # @return [UrlHelpers]
+    def application_routes
+      Rails.application.routes.url_helpers
+    end
   end
 end

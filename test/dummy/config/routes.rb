@@ -2,6 +2,11 @@
 require "inherited_resources"
 
 Rails.application.routes.draw do
+
+  # Test Route not used in any matter
+  # only for display a usecase by application_routes()
+  get "custom_page/:id" => "application#custom_page", as: :custom_page
+
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   mount Goldencobra::Engine => "/"
