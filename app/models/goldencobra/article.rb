@@ -572,7 +572,9 @@ module Goldencobra
     #
     # @return [boolean] Goldencobra::AricleUrl.setup() response
     def update_article_urls
-      if previous_changes["startpage"] || previous_changes["url_path"] || previous_changes["url_name"] || previous_changes["ancestry"]
+      if previous_changes["startpage"] || previous_changes["url_path"] ||
+         previous_changes["url_name"] || previous_changes["ancestry"] ||
+         urls.blank?
         Goldencobra::ArticleUrl.setup(id)
       end
     end

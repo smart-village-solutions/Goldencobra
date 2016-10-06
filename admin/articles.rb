@@ -208,7 +208,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     }
   end
 
-
   sidebar :startpage_options, only: [:show, :edit] do
     if resource.startpage
       t("startpage", scope: [:goldencobra, :flash_notice])
@@ -219,6 +218,14 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   sidebar "layout", only: [:edit] do
     render "/goldencobra/admin/articles/layout_sidebar", locals: { current_article: resource }
+  end
+
+  sidebar :url, only: [:edit] do
+    resource.urls.each do |article_url|
+      div link_to(article_url.url, article_url.url, target: "_blank")
+    end
+    br
+    button_to I18n.t('active_admin.article_url.batch_action.rewrite_urls'), rewrite_urls_admin_article_path(id: resource.id)
   end
 
   # Deprecated, will be removed in GC 2.1
@@ -263,6 +270,13 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   #sidebar :help, only: [:edit, :show] do
   #  render "/goldencobra/admin/shared/help"
   #end
+
+  member_action :rewrite_urls, method: :post do
+    article = Goldencobra::Article.find_by_id(params[:id])
+    article.urls.destroy_all
+    article.save
+    redirect_to action: :edit
+  end
 
   member_action :change_articletype, method: :post do
     article = Goldencobra::Article.find(params[:id])

@@ -46,6 +46,13 @@ de:
   active_admin:
     redirector:
       as: "Weiterleitungen"
+    article_url:
+      rewrite_urls: "Alle Urls neu erzeugen"
+      batch_action:
+        rewrite_urls: "URL neu erzeugen"
+        flash:
+          rewrite_urls: "URLs wurden neu erzeugt"
+      as: "Artikel URLs"
     dashboard: Übersicht
     dashboard_welcome:
       welcome: "Willkommen in Active Admin. Dies ist die Standard-Übersichtsseite."
