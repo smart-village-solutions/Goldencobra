@@ -1,9 +1,13 @@
-V1.4.77.6
+V1.4.77.8
+  - Migration zur UTF-8 Konvertierung auskommentiert
+
+V1.4.77.7
   - Goldencobra::Setting scope renamed to old syntax
 
 V1.4.77.6
   - Fixes a problem with a Filter-Collection in Admin/Articles
   - Makes an update to jquery rails 3.1.x possible
+
 V1.4.77.5
   - Changed .find(params[:id]) to .find_by_id(params[:id]) in admin/articles because of a bug
     when finding a slug with the given id which results in an different article than the one
