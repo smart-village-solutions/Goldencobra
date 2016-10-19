@@ -1,3 +1,5 @@
+V2.0.19.7 - 19.10.2016
+  - Hotfix: Bug in LoadOverviewTree Cache fixed
 V2.0.19.6 - 05.10.2016
   - Hotfix: ID=1 in ActiveAdmin scopes crashed
 V2.0.19.5 - 30.09.2016

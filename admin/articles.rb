@@ -369,12 +369,13 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   collection_action :load_overviewtree_as_json do
     if params[:root_id].present?
-      objects = Goldencobra::Article.where(id: params[:root_id]).first.descendants.reorder(:url_name)
-      cache_key ||= ["articles", params[:root_id], objects.map(&:id), objects.maximum(:updated_at)]
+      objects = Goldencobra::Article.where(id: params[:root_id]).first.children.reorder(:url_name)
+      objects_for_cache_key = Goldencobra::Article.where(id: params[:root_id]).first.descendants.reorder(:url_name)
+      cache_key ||= ["articles", params[:root_id], objects_for_cache_key.map(&:id), objects_for_cache_key.maximum(:updated_at)]
 
       articles = Rails.cache.fetch(cache_key) do
         Goldencobra::Article.find(params[:root_id])
-                            .descendants.reorder(:url_name).as_json(only: [:id, :url_path, :title, :url_name],
+                            .children.reorder(:url_name).as_json(only: [:id, :url_path, :title, :url_name],
                                              methods: [:has_children, :restricted])
       end
     else
