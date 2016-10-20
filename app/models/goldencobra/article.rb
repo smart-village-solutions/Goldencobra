@@ -205,7 +205,7 @@ module Goldencobra
             return "" if selected_images.none? || selected_images.first.image.blank?
             selected_images.first.image.alt_text || selected_images.first.image.image_file_name
           end
-          if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
+          if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads") && Goldencobra::Upload.respond_to?(:attachment_definitions)
             Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |style_name|
               define_method "image_#{image_type.underscore}_#{style_name}" do
                 image(image_type, style_name)
