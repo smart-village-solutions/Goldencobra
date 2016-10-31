@@ -11,8 +11,8 @@ This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis
 - ActiveAdmin
 
 ## Current Versions
-1.5.x (branch: release/1.5)  
-2.0.x (branch: master)  
+1.5.x (branch: release/1.5)
+2.0.x (branch: master)
 
 # Requirements
 * Ruby 2.2+
@@ -24,7 +24,7 @@ This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis
 This installation is meant for using Golden Cobra as a gem inside your Rails application. If you would like to contribute to
 Golden Cobra development, please read this document => [Installation instructions for development].
 
-[Installation instructions for development]: development-instructions.md  
+[Installation instructions for development]: development-instructions.md
 
 ## Guided Installation wit rvm,git,capistrano and server deploy
 ```ruby
@@ -194,6 +194,12 @@ renders menue starting with first Menuitem including title 'MainNavigation' in t
 <%= link_to "Englisch", switch_language("en") %>
 ```
 
+
+## Named routes outside mounted rails engine
+You can call any named route defined in your railsapp inside a goldencobra_view by calling:
+```erb
+  <%= link_to "CustomRoute", application_routes.custom_page_path() %>
+```
 
 
 ## Breadcrumb Menue

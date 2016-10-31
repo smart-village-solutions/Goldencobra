@@ -25,6 +25,9 @@
   <hr>
   <strong>Neues Navigationsmenü</strong>
 
+  <%# Beide Links sollten dargestellt werden %>
+  <%= link_to "CustomRouteTest", application_routes.custom_page_path(id: 2) %>
+  <%= link_to "CustomRouteTest", "/custom_page/2" %>
 
   <div id="navigation-menu-1"></div>
   <script type="text/javascript">
