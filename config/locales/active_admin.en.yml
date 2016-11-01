@@ -46,6 +46,13 @@ en:
   active_admin:
     redirector:
       as: "Redirections"
+    article_url:
+      rewrite_urls: "Regenerate all urls"
+      batch_action:
+        rewrite_urls: "regenerate url"
+        flash:
+          rewrite_urls: "URLs regenerated"
+      as: "Article URLs"
     dashboard: "Dashboard"
     dashboard_welcome:
       welcome: "Welcome to Active Admin. This is the standard dashboard page."
