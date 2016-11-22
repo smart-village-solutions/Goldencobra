@@ -507,7 +507,7 @@ module Goldencobra
 
       # get_articles_by_frontend_tags
       if user_frontend_tags.present?
-        @list_of_articles = @list_of_articles.tagged_with(user_frontend_tags, on: :frontend_tags)
+        @list_of_articles = @list_of_articles.tagged_with(user_frontend_tags, on: :frontend_tags, any: true)
       end
 
       # filter with permissions
