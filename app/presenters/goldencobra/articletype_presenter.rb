@@ -177,10 +177,11 @@ module Goldencobra
     end
 
     def index__sort_order
+      sort_options = Goldencobra::Article::SortOptions + Array(@f.object.get_related_object.try(:sort_options))
       @f.input :sort_order,
                hint: "Created_at - Reihenfolge nach Erstellungsdatum | Updated_at - Reihenfolge nach Aktualisierungsdatum | Random - Reihenfolge zufällig | Alphabetically - Reihenfolge alphabetisch | GlobalSortID - Reihenfolge nach globaler Sortiernummer im Einzelartikel",
                as: :select,
-               collection: Goldencobra::Article::SortOptions,
+               collection: sort_options,
                include_blank: false
     end
 
