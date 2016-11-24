@@ -42,14 +42,15 @@ module Goldencobra
       Goldencobra::Article::LiquidParser["current_article"] = current_article
 
       meta_tags = {
-        site: s('goldencobra.page.default_title_tag'),
-        title: current_article.metatag_title_tag.present? ? current_article.metatag_title_tag : current_article.title,
+        site: s("goldencobra.page.default_title_tag"),
+        title: get_meta_value(current_article, :metatag_title_tag, :breadcrumb),
         reverse: true,
-        description: current_article.metatag_meta_description,
+        separator: " ",
+        description: get_meta_value(current_article, :metatag_meta_description, :teaser),
         open_graph: {
-          title: current_article.metatag_open_graph_title,
-          description: current_article.metatag_open_graph_description,
-          type: current_article.metatag_open_graph_type,
+          title: get_meta_value(current_article, :metatag_open_graph_title, :metatag_title_tag, :breadcrumb, :title),
+          description: get_meta_value(current_article, :metatag_open_graph_description, :metatag_meta_description, :teaser),
+          type: "website",
           url: current_article.metatag_open_graph_url,
           image: current_article.metatag_open_graph_image
         }
@@ -74,7 +75,15 @@ module Goldencobra
     end
 
     private
-    #Catcher for undefined Goldencobra Callback Hooks
+
+    def get_meta_value(article, *method_names_to_call)
+      method_names_to_call.map do |single_meta_method|
+        next unless article.send(single_meta_method).present?
+        return article.send(single_meta_method)
+      end
+    end
+
+    # Catcher for undefined Goldencobra Callback Hooks
     def method_missing(meth, *args)
       unless [:before_init, :before_render, :after_init, :after_index].include?(meth.to_sym)
         super
