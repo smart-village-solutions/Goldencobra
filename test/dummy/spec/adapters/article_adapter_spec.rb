@@ -44,7 +44,7 @@ describe Goldencobra::ArticleAdapter, type: :model do
       it "should find a list of urls by a given article_id" do
         article = create(:article, url_name: "test")
         article.run_callbacks(:commit)
-        found_article_urls = Goldencobra::ArticleAdapter.find_by_id(article.id)
+        found_article_urls = Goldencobra::ArticleAdapter.find_url_by_id(article.id)
         expect(found_article_urls.count).to eq(1)
         expect(found_article_urls.first).to eq("http://www.ikusei.de/test")
       end
@@ -60,6 +60,13 @@ describe Goldencobra::ArticleAdapter, type: :model do
         found_article = Goldencobra::Article.find(found_article_id)
         expect(found_article_id.present?).to eq(true)
         expect(found_article.absolute_public_url).to eq("http://www.ikusei.de/seite-b")
+      end
+
+      it "should find a Goldencobra::Article by a given id" do
+        article = create(:article, url_name: "seite-b")
+        found_article = Goldencobra::ArticleAdapter.find_by_id(article.id)
+        expect(found_article.present?).to eq(true)
+        expect(found_article.id).to eq(article.id)
       end
     end
   end

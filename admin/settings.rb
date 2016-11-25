@@ -5,10 +5,12 @@ ActiveAdmin.register Goldencobra::Setting, as: "Setting"  do
 
   form html: { enctype: "multipart/form-data" }  do |f|
     f.inputs I18n.t('active_admin.settings.form.general')  do
-      f.input :title, input_html: {disabled: "disabled"}
+      disabled = f.object.new_record? ? {} : {disabled: "disabled"}
+      options_for_selection = options_for_select(Goldencobra::Setting.all.map{ |s| [s.path.map(&:title).join("/"), s.id] }.sort, selected: params[:parent] || f.object.parent_id )
+      f.input :title, input_html: disabled
       f.input :value
       f.input :data_type, as: :select, collection: Goldencobra::Setting::SettingsDataTypes, include_blank: false
-      f.input :parent_id, as: :select, collection: Goldencobra::Setting.all.map{ |s| [s.path.map(&:title).join("/"), s.id] }.sort, include_blank: true
+      f.input :parent_id, as: :select, collection: options_for_selection, include_blank: true
     end
     f.actions
   end
@@ -65,7 +67,8 @@ ActiveAdmin.register Goldencobra::Setting, as: "Setting"  do
   collection_action :load_overviewtree_as_json do
     if params[:root_id].present?
       objects = Goldencobra::Setting.where(id: params[:root_id]).first.children.reorder(:title)
-      cache_key ||= ["settings", params[:root_id], objects.map(&:id), objects.maximum(:updated_at)]
+      objects_for_cache_key = Goldencobra::Setting.where(id: params[:root_id]).first.descendants.reorder(:title)
+      cache_key ||= ["settings", params[:root_id], objects_for_cache_key.map(&:id), objects_for_cache_key.maximum(:updated_at)]
 
       settings = Rails.cache.fetch(cache_key) do
         Goldencobra::Setting.find(params[:root_id])

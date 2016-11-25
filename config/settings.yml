@@ -24,6 +24,7 @@ goldencobra:
   page:
     default_title_tag: "Enter your name to appear in Title-Tag after a pipe, e.g. Goldencobra for: YourTitle | Goldencobra - You found me in Goldencobra Settings"
     default_meta_description_tag: "Enter your default MetaDescription: You found me in Goldencobra Settings"
+    custom_tags: ""
   article:
     preview:
       roles: "Admin"
