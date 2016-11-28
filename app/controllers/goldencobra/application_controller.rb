@@ -33,53 +33,22 @@ module Goldencobra
     end
 
     def s(name)
-      if name.present?
-        Goldencobra::Setting.for_key(name)
-      end
+      return unless name.present?
+      Goldencobra::Setting.for_key(name)
     end
 
     def initialize_article(current_article)
       Goldencobra::Article::LiquidParser["current_article"] = current_article
-
-      meta_tags = {
-        site: s('goldencobra.page.default_title_tag'),
-        title: current_article.metatag_title_tag.present? ? current_article.metatag_title_tag : current_article.title,
-        reverse: true,
-        description: current_article.metatag_meta_description,
-        open_graph: {
-          title: current_article.metatag_open_graph_title,
-          description: current_article.metatag_open_graph_description,
-          type: current_article.metatag_open_graph_type,
-          url: current_article.metatag_open_graph_url,
-          image: current_article.metatag_open_graph_image
-        }
-      }
-
-      if current_article.robots_no_index
-        # with noindex for meta name="robots"
-        meta_tags[:noindex] = current_article.robots_no_index
-      end
-
-      if current_article.canonical_url.present?
-        # with an canonical_url for rel="canonical"
-        meta_tags[:canonical] = current_article.canonical_url
-      else
-        d = Goldencobra::Domain.main
-        if d.present? && @current_client.present? && @current_client.id != d.id
-          meta_tags[:canonical] = "http://#{d.hostname}#{d.url_prefix}#{current_article.public_url(false)}"
-        end
-      end
-
-      set_meta_tags meta_tags
+      set_meta_tags current_article.combined_meta_tags
     end
 
     private
-    #Catcher for undefined Goldencobra Callback Hooks
+
+    # Catcher for undefined Goldencobra Callback Hooks
     def method_missing(meth, *args)
       unless [:before_init, :before_render, :after_init, :after_index].include?(meth.to_sym)
         super
       end
     end
-
   end
 end

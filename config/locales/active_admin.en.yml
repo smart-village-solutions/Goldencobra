@@ -227,6 +227,7 @@ en:
         role: "All"
         media: "Media"
         JS_scripts: "JS-Scripts"
+        meta_tag_pre: "Current value:"
       views:
         article_type:
           input: "test"

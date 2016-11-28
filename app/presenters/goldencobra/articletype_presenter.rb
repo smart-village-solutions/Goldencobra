@@ -13,6 +13,23 @@ module Goldencobra
       input_form_for(:breadcrumb)
     end
 
+    METATAG_FIELDS = {
+      metatag_title_tag: :meta_tag_title_tag,
+      metatag_meta_description: :meta_tag_meta_description,
+      metatag_open_graph_title: :meta_tag_open_graph_title,
+      metatag_open_graph_description: :meta_tag_open_graph_description,
+      metatag_open_graph_type: :meta_tag_open_graph_type,
+      metatag_open_graph_url: :meta_tag_open_graph_url,
+      metatag_open_graph_image: :meta_tag_open_graph_image
+    }.freeze
+
+    METATAG_FIELDS.each do |key, value|
+      define_method key do
+        hint = I18n.t("active_admin.articles.form.meta_tag_pre")
+        input_form_for(key, hint: "#{hint} #{@f.object.send(value)}")
+      end
+    end
+
     def content
       input_form_for(:content, input_html: { class: "html-textarea" })
     end
