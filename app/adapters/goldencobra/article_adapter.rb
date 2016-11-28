@@ -34,8 +34,16 @@ module Goldencobra
       # @param search_id [Integer]
       #
       # @return [Array] list of urls
-      def find_by_id(search_id)
+      def find_url_by_id(search_id)
         Goldencobra::ArticleUrl.where(article_id: search_id).pluck(:url)
+      end
+
+      # find an goldencobra article by a given ArticleID
+      # @param article_id [Integer]
+      #
+      # @return [Object] Goldencobra::Article
+      def find_by_id(article_id)
+        Goldencobra::Article.find_by_id(article_id)
       end
 
       private

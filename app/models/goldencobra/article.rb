@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 # == Schema Information
 #
 # Table name: goldencobra_articles
@@ -53,6 +53,7 @@ require "open-uri"
 
 module Goldencobra
   class Article < ActiveRecord::Base
+    include Goldencobra::ArticleConcerns::MetaTag
 
     #extend FriendlyId
     LiquidParser = {}
@@ -109,7 +110,6 @@ module Goldencobra
     before_save :uniqify_url_name
     before_save :set_standard_application_template
     before_save :set_descendants_status
-    after_save :set_default_meta_opengraph_values
     after_save :verify_existence_of_opengraph_image
     after_update :notification_event_update
     after_update :update_parent_article_etag
@@ -661,23 +661,6 @@ module Goldencobra
       if self.respond_to?(:image_gallery_tags)
         self.image_gallery_tags = self.image_gallery_tags.compact.delete_if{|a| a.blank?}.join(",") if self.image_gallery_tags.class == Array
       end
-    end
-
-    def set_default_meta_opengraph_values
-      # Diese Zeile schein Überflüssig geworden zu sein, da nun der teaser, description oder title als defaultwerte genommen werden
-      #meta_description = Goldencobra::Setting.for_key('goldencobra.page.default_meta_description_tag')
-
-      if self.teaser.present?
-        meta_description = remove_html_tags(self.teaser.truncate(200))
-      else
-        meta_description = self.content.present? ? remove_html_tags(self.content).truncate(200) : self.title
-      end
-
-      self.metatag_meta_description = meta_description if self.metatag_meta_description.blank?
-      self.metatag_title_tag = self.title if self.metatag_title_tag.blank?
-      self.metatag_open_graph_description = meta_description if self.metatag_open_graph_description.blank?
-      self.metatag_open_graph_title = self.title if self.metatag_open_graph_title.blank?
-      self.metatag_open_graph_url = self.absolute_public_url if self.metatag_open_graph_url.blank?
     end
 
     # helper um links zu entfernen in text
