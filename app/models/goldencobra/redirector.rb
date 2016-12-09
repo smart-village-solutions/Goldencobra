@@ -75,8 +75,8 @@ module Goldencobra
       end
       if uri.present?
         uri_params = Rack::Utils.parse_nested_query(uri.query.to_s)
-        request_path = "#{uri.scheme}://#{uri.host}#{uri.path}%"
-        redirects = Goldencobra::Redirector.active.where("source_url LIKE ?", request_path)
+        request_path = "#{uri.scheme}://#{uri.host}#{uri.path}"
+        redirects = Goldencobra::Redirector.active.where(source_url: request_path)
         if redirects.any?
           #if multiple redirectors found, select the first
           redirect = redirects.first
