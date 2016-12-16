@@ -1,3 +1,5 @@
+V2.0.24 - 16.12.2016
+  - Fixes problems with routes constraints for non php requests on sub startpage paths
 V2.0.23 - 16.12.2016
   - Loading of LiquidMethods simplified
 V2.0.22 - 28.11.2016
