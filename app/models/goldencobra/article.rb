@@ -808,6 +808,9 @@ module Goldencobra
     end
 
     def self.load_liquid_methods(options = {})
+      Goldencobra::Article::LiquidParser["location"] = options.fetch(:location, nil)
+      Goldencobra::Article::LiquidParser["current_article"] = options.fetch(:article, nil)
+      Goldencobra::Article::LiquidParser["url_params"] = options.fetch(:params, nil)
     end
 
     def self.recent(count)

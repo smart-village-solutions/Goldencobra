@@ -38,7 +38,9 @@ module Goldencobra
     end
 
     def initialize_article(current_article)
-      Goldencobra::Article::LiquidParser["current_article"] = current_article
+      Goldencobra::Article.load_liquid_methods(location: session[:user_location],
+                                               article: @article,
+                                               params: params)
       set_meta_tags current_article.combined_meta_tags
     end
 

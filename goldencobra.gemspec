@@ -59,7 +59,7 @@ Gem::Specification.new do |s|
   s.add_dependency "paperclip"
   s.add_dependency "uglifier"
   s.add_dependency "exception_notification"
-  s.add_dependency "liquid"
+  s.add_dependency "liquid", "3.0.6"
   s.add_dependency "rubyzip"
   s.add_dependency "geocoder"
   s.add_dependency "paper_trail", "~> 4.1.0"

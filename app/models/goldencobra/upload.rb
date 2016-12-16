@@ -78,17 +78,6 @@ module Goldencobra
         self.image.reprocess!
       end
     end
-    #
-
-    # def crop_image_with_coords
-    #   if self.crop_image.present? && self.crop_image == "1" && self.crop_x.present? && self.crop_y.present? && self.crop_w.present? && self.crop_h.present? && self.crop_image.present?
-    #     orig_img = Magick::ImageList.new(self.image.path(:original))
-    #     orig_img.crop(self.crop_x.to_i, self.crop_y.to_i, self.crop_w.to_i, self.crop_h.to_i)
-    #     orig_img.write(self.image.path(:original))
-    #     #self.image = File.open("tmp/cropped_image")
-    #     #self.image.reprocess!
-    #   end
-    # end
 
     def title
       "#{self.image_file_name} (#{self.image_content_type})"

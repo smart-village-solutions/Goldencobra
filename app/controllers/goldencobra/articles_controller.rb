@@ -31,7 +31,6 @@ module Goldencobra
       before_init # possible callbacks on start
       params[:session] = session.clone
       params[:session].delete(:user_location)
-      Goldencobra::Article::LiquidParser["url_params"] = params
       if serve_iframe?
         respond_to do |format|
           format.html { render layout: "/goldencobra/bare_layout" }
@@ -44,8 +43,6 @@ module Goldencobra
         end
       elsif serve_basic_article?
         initialize_article(@article)
-        # TODO fix session_params like url_params mit liquid method
-        Goldencobra::Article.load_liquid_methods(location: session[:user_location], article: @article, params: params)
         load_associated_model_into_liquid if can_load_associated_model?
         after_init
 

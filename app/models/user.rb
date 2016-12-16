@@ -48,8 +48,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   validates_presence_of :firstname
   validates_presence_of :lastname
-  liquid_methods :firstname, :lastname, :gender, :position, :function, :anrede,
-                 :gender_anrede
+  liquid_methods :firstname, :lastname, :gender, :position, :function, :anrede, :gender_anrede
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :gender, :position, :firstname, :lastname, :function, :phone,
