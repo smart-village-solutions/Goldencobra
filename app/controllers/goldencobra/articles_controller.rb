@@ -165,9 +165,10 @@ module Goldencobra
       if @article
         respond_to do |format|
           format.html { render layout: @article.selected_layout, status: 404 }
+          format.any { head(status: 404) }
         end
       else
-        render text: "404", status: 404
+        head(status: 404)
       end
     end
 
