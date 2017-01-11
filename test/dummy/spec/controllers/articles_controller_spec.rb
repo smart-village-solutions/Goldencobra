@@ -278,6 +278,82 @@ describe Goldencobra::ArticlesController, type: :controller do
       expect(response.status).to eq(404)
     end
 
+    context "the resource isn't found" do
+      context "the format != :html" do
+        context "the '404' article exists" do
+          before(:each) do
+            Goldencobra::Article.create!(
+              title: "404",
+              url_name: "404",
+              breadcrumb: "404",
+              article_type: "Default Show"
+            )
+          end
+
+          it "respond with a 404 status" do
+            get :show, { format: "application/xml" }
+
+            expect(response.status).to eq(404)
+          end
+
+          it "respond with a 404 status" do
+            get :show, { format: "application/json" }
+
+            expect(response.status).to eq(404)
+          end
+        end
+
+        context "the '404' article does not exists" do
+          before(:each) do
+            expect(Goldencobra::Article.find_by_url_name("404")).to eq(nil)
+          end
+
+          it "respond with a 404 status" do
+            get :show, { format: "application/xml" }
+
+            expect(response.status).to eq(404)
+          end
+
+          it "respond with a 404 status" do
+            get :show, { format: "application/json" }
+
+            expect(response.status).to eq(404)
+          end
+        end
+      end
+
+      context "the format == :html" do
+        context "the '404' article exists" do
+          before(:each) do
+            Goldencobra::Article.create!(
+              title: "404",
+              url_name: "404",
+              breadcrumb: "404",
+              article_type: "Default Show"
+            )
+          end
+
+          it "respond with a 404 status" do
+            get :show, { format: :html }
+
+            expect(response.status).to eq(404)
+          end
+        end
+
+        context "the '404' article does not exists" do
+          before(:each) do
+            expect(Goldencobra::Article.find_by_url_name("404")).to eq(nil)
+          end
+
+          it "respond with a 404 status" do
+            get :show, { format: :html }
+
+            expect(response.status).to eq(404)
+          end
+        end
+      end
+    end
+
     context "with a valid format" do
       before do
         Goldencobra::Article.create(title: "Mein Artikel", url_name: "mein-artikel")
