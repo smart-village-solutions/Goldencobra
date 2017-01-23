@@ -1,3 +1,5 @@
+V2.0.26 - 23.01.2017
+  - Some minor tweaks to the article type presenter
 V2.0.25 - 11.01.2017
   - Prevents ActionController::UnknownFormat errors
 V2.0.24 - 16.12.2016
