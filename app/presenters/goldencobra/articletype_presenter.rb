@@ -96,7 +96,7 @@ module Goldencobra
     end
 
     def permissions
-      @f.has_many :permissions do
+      @f.has_many :permissions do |p|
         p.input :domain, include_blank: "Alle"
         p.input :role, include_blank: "Alle"
         p.input :action, as: :select, collection: Goldencobra::Permission::PossibleActions,
