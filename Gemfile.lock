@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    goldencobra (2.0.25)
+    goldencobra (2.0.26)
       actionpack-action_caching
       active_model_serializers (~> 0.9.5)
       activeadmin (~> 1.0.0.pre1)
@@ -32,8 +32,8 @@ PATH
       cancancan
       compass
       compass-rails
-      devise (~> 3.5.2)
-      devise-token_authenticatable (= 0.4.6)
+      devise
+      devise-token_authenticatable
       exception_notification
       font-awesome-sass
       geocoder
@@ -590,4 +590,4 @@ DEPENDENCIES
   yarjuf
 
 BUNDLED WITH
-   1.13.7
+   1.14.2
