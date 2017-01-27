@@ -1,0 +1,41 @@
+languages:
+  Ruby: true
+  JavaScript: true
+  PHP: false
+  Python: false
+engines:
+  rubocop:
+    enabled: true
+  brakeman:
+    enabled: true
+  eslint:
+    enabled: true
+    exclude_paths:
+      - app/assets/javascripts/goldencobra/html_editors/
+      - app/assets/javascripts/goldencobra/**.min.js
+      - app/assets/javascripts/goldencobra/jquery.*
+      - app/assets/javascripts/goldencobra/keymaster.js
+      - app/assets/javascripts/goldencobra/moment.js
+      - app/assets/javascripts/goldencobra/tiny_mce*.js
+      - app/assets/javascripts/goldencobra/together.js
+      - app/assets/javascripts/goldencobra/countable.js
+      - app/assets/javascripts/goldencobra/chosen.jquery.js
+      - app/assets/javascripts/goldencobra/chosen.jquery.min.js
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript
+ratings:
+  paths:
+  - app/**
+  - lib/**
+  - config/initializers/**
+  - "**.rb"
+exclude_paths:
+- spec/**/*
+- "**/vendor/**/*"
+- "Gemfile.lock"
