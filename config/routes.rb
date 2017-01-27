@@ -1,5 +1,3 @@
-require "sidekiq/web" if RUBY_VERSION.to_f >= 1.9
-
 Goldencobra::Engine.routes.draw do
   get "switch_language/:locale"        => "articles#switch_language", as: :switch_language
   get "frontend_logout/:usermodel"     => "sessions#logout", as: :frontend_logout
