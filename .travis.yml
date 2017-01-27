@@ -14,7 +14,7 @@ mysql:
   encoding: utf8
 script:
   - cd test/dummy
-  - bundle exec rspec spec
-  - bundle exec cucumber
+  - cd test/dummy && bundle exec rspec spec && cd -
+  - cd test/dummy && bundle exec cucumber && cd -
 
 
