@@ -35,13 +35,7 @@ module Goldencobra
 
 
     def self.absolute_base_url
-      golden_url = Goldencobra::Setting.for_key('goldencobra.url').gsub(/(http|https):\/\//,'')
-
-      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
-        "https://#{golden_url}"
-      else
-        "http://#{golden_url}"
-      end
+      Goldencobra::Url.to_s
     end
 
     def self.regenerate_active_admin

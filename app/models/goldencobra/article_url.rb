@@ -28,12 +28,10 @@ module Goldencobra
     def self.setup_domain_urls(article)
       # cleanup old Domain Urls
       Goldencobra::ArticleUrl.where(article_id: article.id).destroy_all
-
-      base = "http://"
-      base = "https://" if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
+      protocol = Goldencobra::Url.protocol
 
       Goldencobra::Domain.all.each do |domain|
-        new_url = "#{base}#{domain.hostname}#{domain.url_prefix}#{article.public_url}"
+        new_url = "#{protocol}#{domain.hostname}#{domain.url_prefix}#{article.public_url}"
         Goldencobra::ArticleUrl.create(article_id: article.id, url: new_url)
       end
     end

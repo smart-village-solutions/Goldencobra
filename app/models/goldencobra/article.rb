@@ -775,24 +775,12 @@ module Goldencobra
     end
 
     def absolute_base_url
-      golden_url = Goldencobra::Setting.for_key("goldencobra.url").gsub(/(http|https):\/\//, "")
-
-      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
-        "https://#{golden_url}"
-      else
-        "http://#{golden_url}"
-      end
+      Goldencobra::Url.to_s
     end
 
 
     def absolute_public_url
-      golden_url = Goldencobra::Setting.for_key("goldencobra.url").gsub(/(http|https):\/\//, "")
-
-      if Goldencobra::Setting.for_key("goldencobra.use_ssl") == "true"
-        "https://#{golden_url}#{public_url}"
-      else
-        "http://#{golden_url}#{public_url}"
-      end
+      "#{absolute_base_url}#{public_url}"
     end
 
     # **************************

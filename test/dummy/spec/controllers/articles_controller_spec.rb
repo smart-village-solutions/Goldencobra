@@ -301,12 +301,6 @@ describe Goldencobra::ArticlesController, type: :controller do
 
             expect(response.status).to eq(404)
           end
-
-          it "responds with a 404 status on POST" do
-            post :show, { format: :xml }
-
-            expect(response.status).to eq(404)
-          end
         end
 
         context "the '404' article does not exists" do

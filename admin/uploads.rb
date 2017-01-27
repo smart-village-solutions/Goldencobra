@@ -1,10 +1,15 @@
-ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
-  menu parent: I18n.t('active_admin.articles.parent'), label: I18n.t('active_admin.uploads.as'), if: proc{can?(:read, Goldencobra::Upload)}
+ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
+  menu parent: I18n.t("active_admin.articles.parent"),
+       label: I18n.t("active_admin.uploads.as"),
+       if: proc { can?(:read, Goldencobra::Upload) }
 
   if ActiveRecord::Base.connection.table_exists?("tags")
     Goldencobra::Upload.tag_counts_on(:tags).each do |utag|
-      if(utag.count > 5)
-        scope(I18n.t(utag.name, scope: [:goldencobra, :widget_types], default: utag.name), show_count: false){ |t| t.tagged_with(utag.name) }
+      if utag.count > 5
+        scope(
+          I18n.t(utag.name, scope: [:goldencobra, :widget_types], default: utag.name),
+          show_count: false
+        ) { |t| t.tagged_with(utag.name) }
       end
     end
   end
@@ -21,7 +26,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
   filter :alt_text
   filter :sorter_number
 
-  form html: { enctype: "multipart/form-data" }  do |f|
+  form html: { enctype: "multipart/form-data" } do |f|
     f.actions
     f.inputs I18n.t("active_admin.uploads.file") do
       f.input :image, as: :file, hint: I18n.t("active_admin.uploads.file_hint")
@@ -43,7 +48,8 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
     f.inputs I18n.t("active_admin.uploads.general") do
       f.input :source
       f.input :rights
-      f.input :tag_list, hint: I18n.t("active_admin.uploads.general_hint"),
+      f.input :tag_list,
+              hint: I18n.t("active_admin.uploads.general_hint"),
               label: I18n.t("active_admin.uploads.general_label")
       f.input :description, input_html: { class: "html-textarea", rows: 3 }
       f.input :alt_text
@@ -59,7 +65,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
     f.actions
   end
 
-  index download_links: proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
+  index download_links: proc { Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column :id
     column I18n.t("active_admin.uploads.url") do |upload|
@@ -88,9 +94,26 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
 	  end
     column "" do |upload|
       result = ""
-      result += link_to(t(:view), admin_upload_path(upload), class: "member_link edit_link view", title: I18n.t("active_admin.uploads.title1"))
-      result += link_to(t(:edit), edit_admin_upload_path(upload), class: "member_link edit_link edit", title: I18n.t("active_admin.uploads.title2"))
-      result += link_to(t(:delete), admin_upload_path(upload), method: :DELETE, "data-confirm" => t("delete_article", scope: [:goldencobra, :flash_notice]), class: "member_link delete_link delete", title: I18n.t("active_admin.uploads.title3"))
+      result += link_to(
+        t(:view),
+        admin_upload_path(upload),
+        class: "member_link edit_link view",
+          title: I18n.t("active_admin.uploads.title1")
+      )
+      result += link_to(
+        t(:edit),
+        edit_admin_upload_path(upload),
+        class: "member_link edit_link edit",
+          title: I18n.t("active_admin.uploads.title2")
+      )
+      result += link_to(
+        t(:delete),
+        admin_upload_path(upload),
+        method: :DELETE,
+        "data-confirm" => t("delete_article", scope: [:goldencobra, :flash_notice]),
+        class: "member_link delete_link delete",
+        title: I18n.t("active_admin.uploads.title3")
+      )
       raw(result)
     end
   end
@@ -98,15 +121,23 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
   show do
     attributes_table do
       row I18n.t("active_admin.uploads.preview_row") do
-          image_tag(upload.image(:thumb))
+        image_tag(upload.image(:thumb))
       end
       row I18n.t("active_admin.uploads.original_row") do
-        link_to("http://#{Goldencobra::Setting.for_key("goldencobra.url").html_safe}" + upload.image(:original),upload.image(:original), target: "_blank" )
+        link_to(
+          "#{Goldencobra::Url.to_s}" + upload.image(:original),
+          upload.image(:original),
+          target: "_blank"
+        )
       end
       if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
         Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |image_size|
           row "#{image_size}" do
-            link_to("http://#{Goldencobra::Setting.for_key("goldencobra.url").html_safe}" + upload.image(image_size),upload.image(image_size), target: "_blank" )
+            link_to(
+              "#{Goldencobra::Url.to_s}" + upload.image(image_size),
+              upload.image(image_size),
+              target: "_blank"
+            )
           end
         end
       end
@@ -136,7 +167,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
     end
   end
 
-  #batch_action :destroy, false
+  # batch_action :destroy, false
 
   member_action :unzip_file do
     upload = Goldencobra::Upload.find(params[:id])
@@ -171,6 +202,5 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload"  do
          format.html { redirect_to admin_upload_path(@upload.id) }
       end
     end
-
   end
 end
