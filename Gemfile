@@ -11,6 +11,7 @@ gem "i18n-active_record", git: "http://github.com/svenfuchs/i18n-active_record.g
                           require: "i18n/active_record"
 
 gem "mysql2"
+gem "jquery-ui-rails", "5.0.5"
 
 group :development, :test do
   gem "byebug"

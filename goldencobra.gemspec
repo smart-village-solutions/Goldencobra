@@ -31,10 +31,6 @@ Gem::Specification.new do |s|
   # TODO: Token Authentication neu machen
   s.add_dependency "cancancan"
   s.add_dependency "activeadmin", "~> 1.0.0.pre1"
-
-  # Sunsport und Solar scheinen noch nicht rails 4.x kompatible zu sein
-  # s.add_dependency 'sunspot_rails', '~> 2.0.0'
-  # s.add_dependency 'sunspot_solr', '~> 2.0.0'
   s.add_dependency "remove_accents"
 
   # Fix Auf Versions da sonst CSS rendering nicht mehr funktioniert - 18.12.2015
