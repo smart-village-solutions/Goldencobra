@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527083745) do
+ActiveRecord::Schema.define(version: 20160704070529) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer  "resource_id",   limit: 4,     null: false
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(version: 20160527083745) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "position",   limit: 255
+  end
+
+  create_table "goldencobra_article_urls", force: :cascade do |t|
+    t.integer  "article_id", limit: 4
+    t.text     "url",        limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "goldencobra_article_widgets", force: :cascade do |t|
@@ -118,6 +125,7 @@ ActiveRecord::Schema.define(version: 20160527083745) do
     t.string   "metatag_open_graph_url",              limit: 255
     t.string   "metatag_open_graph_image",            limit: 255
     t.integer  "state",                               limit: 4,     default: 0
+    t.boolean  "display_index_articles",                            default: true
   end
 
   add_index "goldencobra_articles", ["active"], name: "index_goldencobra_articles_on_active", using: :btree
