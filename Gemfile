@@ -10,6 +10,8 @@ gemspec
 gem "i18n-active_record", git: "http://github.com/svenfuchs/i18n-active_record.git",
                           require: "i18n/active_record"
 
+gem "mysql2"
+
 group :development, :test do
   gem "byebug"
   gem "rspec-rails" # rspec in dev so the rake tasks run properly
