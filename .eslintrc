@@ -1,15 +1,13 @@
 extends: airbnb
 parser: "babel-eslint"
 env:
-browser: true
-mocha: true
-es6: true
-commonjs: true
-jquery: true
+  browser: true
+  es6: true
+  jquery: true
 plugins: [react]
 rules:
-no-console: 0
-func-names: 0
-comma-dangle: [2, never]
-indent: [2, 2, { 'SwitchCase': 1, 'VariableDeclarator': { "var": 2, "let": 2, "const": 3 } }]
-one-var: [2, "always"]
+  no-console: 0
+  func-names: 0
+  comma-dangle: [2, never]
+  indent: [2, 2, { 'SwitchCase': 1, 'VariableDeclarator': { "var": 2, "let": 2, "const": 3 } }]
+  one-var: [2, "always"]
