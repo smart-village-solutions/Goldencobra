@@ -116,12 +116,6 @@ describe Goldencobra::ArticlesController, type: :controller do
         visit "#{@child_article.public_url}?auth_token=#{@visitor.authentication_token}"
         expect(page).to have_content("Nicht authorisiert")
       end
-
-      it 'should return 404 if no article is found' do
-        sign_in(:visitor, @visitor)
-        visit "/no_article?auth_token=#{@visitor.authentication_token}"
-        expect(page).to have_content('404')
-      end
     end
 
     context 'as a guest or not logged in' do
@@ -146,11 +140,6 @@ describe Goldencobra::ArticlesController, type: :controller do
         create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200
         visit @parent_article.public_url
         expect(page).to have_content("Nicht authorisiert")
-      end
-
-      it 'should return 404 if no article is found' do
-        visit "/no_article"
-        expect(page).to have_content('404')
       end
 
       it "should not be possible to read a secured article for a domain if i am on this domain" do
