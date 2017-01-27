@@ -14,6 +14,8 @@ mysql:
   encoding: utf8
 script:
   - cd test/dummy
+  - cp config/database.yml.tmpl config/database.yml
+  - bundle exec rake db:schema:load RAILS_ENV=test
   - bundle exec rspec spec
   - bundle exec cucumber
 
