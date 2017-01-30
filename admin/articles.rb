@@ -383,32 +383,34 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   collection_action :load_overviewtree_as_json do
     if params[:root_id].present?
-      objects = Goldencobra::Article.where(id: params[:root_id]).first.children.reorder(:url_name)
-      objects_for_cache_key = Goldencobra::Article.where(id: params[:root_id]).first.descendants.reorder(:url_name)
-      cache_key ||= ["articles", params[:root_id], objects_for_cache_key.map(&:id), objects_for_cache_key.maximum(:updated_at)]
+      objects = Goldencobra::Article.where(id: params[:root_id]).first.descendants
+                                    .reorder(:url_name)
+      cache_key ||= [
+        "articles", params[:root_id], objects.map(&:id), objects.maximum(:updated_at)
+      ].join("-").hash
 
       articles = Rails.cache.fetch(cache_key) do
-        Goldencobra::Article.find(params[:root_id])
-                            .children.reorder(:url_name).as_json(only: [:id, :url_path, :title, :url_name],
-                                             methods: [:has_children, :restricted])
+        Goldencobra::Article.find(params[:root_id]).children.reorder(:url_name).as_json(
+          only: [:id, :url_path, :title, :url_name], methods: [:has_children, :restricted]
+        )
       end
     else
       objects = Goldencobra::Article.reorder(:url_name).roots
       cache_key ||= ["articles", objects.map(&:id), objects.maximum(:updated_at)]
 
       articles = Rails.cache.fetch(cache_key) do
-        Goldencobra::Article.order(:url_name).roots.as_json(only: [:id, :url_path, :title, :url_name],
-                                                            methods: [:has_children, :restricted])
+        Goldencobra::Article.order(:url_name).roots.as_json(
+          only: [:id, :url_path, :title, :url_name], methods: [:has_children, :restricted]
+        )
       end
     end
-    render json: Oj.dump({"articles" => articles})
+    render json: Oj.dump(articles: articles)
   end
 
   controller do
-
     def show
       show! do |format|
-        format.html { redirect_to edit_admin_article_path(@article.id)}
+        format.html { redirect_to edit_admin_article_path(@article.id) }
       end
     end
 

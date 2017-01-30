@@ -1093,6 +1093,16 @@ Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 10
 
+Metrics/BlockLength:
+  CountComments: false  # count full line comments?
+  Max: 25
+  ExcludedMethods: ["describe", "context", "ActiveAdmin"]
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'admin/**.rb'
+
 Metrics/ParameterLists:
   Max: 5
   CountKeywordArgs: true
