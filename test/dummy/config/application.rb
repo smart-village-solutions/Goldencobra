@@ -87,6 +87,23 @@ module Dummy
     #   end
     #     Rails.logger.warn("==== Locale #{I18n.locale}")
     # end
+
+    # belongs_to will now trigger a validation error by default if the association is not present.
+    # This can be turned off per-association with optional: true.
+    #
+    # This default will be automatically configured in new applications. If existing application
+    # want to add this feature it will need to be turned on in an initializer.
+    config.active_record.belongs_to_required_by_default = true
+
+    # Rails 5 now supports per-form CSRF tokens to mitigate against code-injection attacks with
+    # forms created by JavaScript. With this option turned on, forms in your application will each
+    # have their own CSRF token that is specified to the action and method for that form.
+    config.action_controller.per_form_csrf_tokens = true
+
+    # You can now configure your application to check if the HTTP Origin header should be checked
+    # against the site's origin as an additional CSRF defense. Set the following in your config to
+    # true:
+    config.action_controller.forgery_protection_origin_check = true
   end
 end
 
