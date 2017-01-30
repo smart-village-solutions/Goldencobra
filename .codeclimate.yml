@@ -8,17 +8,6 @@ engines:
     enabled: true
   eslint:
     enabled: true
-    exclude_paths:
-      - app/assets/javascripts/goldencobra/html_editors/**/*.js
-      - app/assets/javascripts/goldencobra/**.min.js
-      - app/assets/javascripts/goldencobra/jquery.*.js
-      - app/assets/javascripts/goldencobra/keymaster.js
-      - app/assets/javascripts/goldencobra/moment.js
-      - app/assets/javascripts/goldencobra/tiny_mce*.js
-      - app/assets/javascripts/goldencobra/togetherjs.js
-      - app/assets/javascripts/goldencobra/countable.js
-      - app/assets/javascripts/goldencobra/chosen.jquery.js
-      - app/assets/javascripts/goldencobra/chosen.jquery.min.js
   csslint:
     enabled: true
   duplication:
@@ -35,6 +24,17 @@ ratings:
   - "**.rb"
 exclude_paths:
 - spec/**/*
+- test/**/*
 - "**/vendor/**/*"
 - "Gemfile.lock"
 - "db/**/*"
+- app/assets/javascripts/goldencobra/html_editors/**/*.js
+- app/assets/javascripts/goldencobra/**.min.js
+- app/assets/javascripts/goldencobra/jquery.*.js
+- app/assets/javascripts/goldencobra/keymaster.js
+- app/assets/javascripts/goldencobra/moment.js
+- app/assets/javascripts/goldencobra/tiny_mce*.js
+- app/assets/javascripts/goldencobra/togetherjs.js
+- app/assets/javascripts/goldencobra/countable.js
+- app/assets/javascripts/goldencobra/chosen.jquery.js
+- app/assets/javascripts/goldencobra/chosen.jquery.min.js
