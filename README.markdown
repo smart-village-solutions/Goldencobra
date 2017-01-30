@@ -3,8 +3,6 @@
 [![Test Coverage](https://codeclimate.com/repos/588b6ef861c4e20053000b42/badges/1eacee363878846ec43f/coverage.svg)](https://codeclimate.com/repos/588b6ef861c4e20053000b42/coverage)
 [![Code Climate](https://codeclimate.com/repos/588b6ef861c4e20053000b42/badges/1eacee363878846ec43f/gpa.svg)](https://codeclimate.com/repos/588b6ef861c4e20053000b42/feed)
 
-This Project is still under development.
-This repository is now in sync with http://git.ikusei.de/projects/GC/repos/basis-modul/browse and now always up to date!
 
 ## Powered by
 - ActiveAdmin
