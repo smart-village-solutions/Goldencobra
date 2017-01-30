@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module Goldencobra
-  class Articletype < ActiveRecord::Base
+  class Articletype < ApplicationRecord
     attr_accessible :default_template_file, :name, :fieldgroups_attributes
 
     has_many :articles, class_name: Goldencobra::Article, foreign_key: :article_type, primary_key: :name

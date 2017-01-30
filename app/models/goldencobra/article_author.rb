@@ -12,7 +12,7 @@
 #
 
 module Goldencobra
-  class ArticleAuthor < ActiveRecord::Base
+  class ArticleAuthor < ApplicationRecord
     belongs_to :article
     belongs_to :author
   end

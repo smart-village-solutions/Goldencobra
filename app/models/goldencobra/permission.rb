@@ -16,7 +16,7 @@
 #
 
 module Goldencobra
-  class Permission < ActiveRecord::Base
+  class Permission < ApplicationRecord
     attr_accessible :role_id, :action, :subject_class, :subject_id, :sorter_id, :operator_id, :domain_id
     belongs_to :role
     belongs_to :domain

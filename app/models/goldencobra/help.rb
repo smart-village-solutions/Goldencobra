@@ -13,7 +13,7 @@
 #
 
 module Goldencobra
-  class Help < ActiveRecord::Base
+  class Help < ApplicationRecord
     attr_accessible :title, :description, :url
   end
 end

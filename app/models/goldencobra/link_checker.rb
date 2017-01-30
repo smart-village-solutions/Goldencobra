@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module Goldencobra
-  class LinkChecker < ActiveRecord::Base
+  class LinkChecker < ApplicationRecord
 
     belongs_to :article, :class_name => Goldencobra::Article, :foreign_key => "article_id"
 

@@ -20,7 +20,7 @@
 #
 
 module Goldencobra
-  class Menue < ActiveRecord::Base
+  class Menue < ApplicationRecord
     attr_accessible :title, :target, :css_class, :active, :ancestry, :parent_id,
                     :sorter, :description, :call_to_action_name, :description_title,
                     :image_attributes, :image_id, :permissions_attributes, :remote

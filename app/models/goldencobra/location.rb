@@ -21,7 +21,7 @@
 #
 
 module Goldencobra
-  class Location < ActiveRecord::Base
+  class Location < ApplicationRecord
     attr_accessible :lat, :lng, :street, :city, :zip, :region, :country, :title, :street_number,
                     :locateable_type, :locateable_id, :manual_geocoding
     geocoded_by :complete_location, latitude: :lat, longitude: :lng

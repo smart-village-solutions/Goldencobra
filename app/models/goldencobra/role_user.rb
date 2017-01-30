@@ -12,7 +12,7 @@
 #
 
 module Goldencobra
-  class RoleUser < ActiveRecord::Base
+  class RoleUser < ApplicationRecord
     self.table_name = 'goldencobra_roles_users'
     attr_accessible :operator_id, :role_id, :operator_type
 

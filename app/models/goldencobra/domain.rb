@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module Goldencobra
-  class Domain < ActiveRecord::Base
+  class Domain < ApplicationRecord
 
     has_many :permissions, :class_name => Goldencobra::Permission
 

@@ -39,7 +39,7 @@
 #  enable_expert_mode     :boolean          default(FALSE)
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable,
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :registerable, :token_authenticatable

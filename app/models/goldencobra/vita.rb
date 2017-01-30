@@ -16,7 +16,7 @@
 #
 
 module Goldencobra
-  class Vita < ActiveRecord::Base
+  class Vita < ApplicationRecord
     belongs_to :loggable, :polymorphic => true
     attr_accessible :description, :title, :user_id, :status_cd
     acts_as_taggable_on :tags

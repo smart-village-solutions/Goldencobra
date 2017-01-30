@@ -14,7 +14,7 @@
 #
 
 module Goldencobra
-  class Setting < ActiveRecord::Base
+  class Setting < ApplicationRecord
 
     # TODO cache invalidate über touch /temp/settings_updated.txt
 

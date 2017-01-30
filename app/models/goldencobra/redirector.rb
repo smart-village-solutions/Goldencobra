@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module Goldencobra
-  class Redirector < ActiveRecord::Base
+  class Redirector < ApplicationRecord
     require "addressable/uri"
 
     attr_accessible :active, :redirection_code, :source_url, :target_url, :ignore_url_params, :include_subdirs, :import_csv_data

@@ -22,7 +22,7 @@
 # und die entsprechenden parameterized.underscored klassenfunktionenen bereithalten
 
 module Goldencobra
-  class Import < ActiveRecord::Base
+  class Import < ApplicationRecord
   #   require 'iconv'
   #   require 'csv'
 

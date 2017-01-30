@@ -52,7 +52,7 @@ include Goldencobra::ApplicationHelper
 require "open-uri"
 
 module Goldencobra
-  class Article < ActiveRecord::Base
+  class Article < ApplicationRecord
 
     #extend FriendlyId
     LiquidParser = {}

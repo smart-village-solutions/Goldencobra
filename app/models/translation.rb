@@ -14,7 +14,7 @@
 #  updated_at     :datetime         not null
 #
 
-class Translation < ActiveRecord::Base
+class Translation < ApplicationRecord
   attr_accessible :interpolations, :is_proc, :key, :locale, :value
 
   scope :missing_values, -> { where("value IS NULL OR value = ''") }

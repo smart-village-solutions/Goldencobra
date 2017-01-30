@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 module Goldencobra
-	class Author < ActiveRecord::Base
+	class Author < ApplicationRecord
     attr_accessible :firstname, :lastname, :email, :googleplus
 
 		has_many  :article_authors

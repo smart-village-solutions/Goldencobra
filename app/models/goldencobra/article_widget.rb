@@ -12,7 +12,7 @@
 #
 
 module Goldencobra
-  class ArticleWidget < ActiveRecord::Base
+  class ArticleWidget < ApplicationRecord
     belongs_to :article
     belongs_to :widget
   end
