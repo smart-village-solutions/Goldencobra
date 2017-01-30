@@ -17,5 +17,7 @@ script:
   - cp config/database.yml.tmpl config/database.yml
   - bundle exec rake db:schema:load RAILS_ENV=test
   - bundle exec rspec spec
-
+addons:
+  code_climate:
+    repo_token: bcb3d22fd44aa0706dae138166faf63718535df4076af449b328134bd7ae447d
 
