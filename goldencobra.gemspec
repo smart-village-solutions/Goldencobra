@@ -26,8 +26,8 @@ Gem::Specification.new do |s|
   # s.add_dependency 'coffee-script-source', '~>1.8.0'
   s.add_dependency "rails", "~> 4.2.5"
   s.add_dependency "jquery-rails"
-  s.add_dependency "devise", "~> 3.5.2"
-  s.add_dependency "devise-token_authenticatable", "0.4.6"
+  s.add_dependency "devise"
+  s.add_dependency "devise-token_authenticatable"
   # TODO: Token Authentication neu machen
   s.add_dependency "cancancan"
   s.add_dependency "activeadmin", "~> 1.0.0.pre1"
