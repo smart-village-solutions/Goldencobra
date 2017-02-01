@@ -1,3 +1,12 @@
+V2.0.27 - 01.02.2017
+  - Takes recent changes and provides them as new version.
+  - Remove dependency on specific Devise and devise-token_authenticatable versions
+  - Updates Codeclimate and TravisCI configuration files
+  - Introduce a new `Goldencobra::Url` for easy acces to the Rails-Hosts' HOST and PROTOCOL settings
+  - Share a session between Rails Host app and the Sidekiq web interface
+  - Safe guard the installation of Goldencobra Migrations for easier updates from 1.x to 2.x apps
+V2.0.26 - xxx
+  - This version updated the ArticleTypePresenter. It went missing during merges.
 V2.0.25 - 11.01.2017
   - Prevents ActionController::UnknownFormat errors
 V2.0.24 - 16.12.2016
