@@ -2,8 +2,6 @@
 
 module Goldencobra
   class ArticletypeField < ApplicationRecord
-    attr_accessible :articletype_group_id, :class_name, :fieldname, :sorter
-
     belongs_to :group, :class_name => Goldencobra::ArticletypeGroup, :foreign_key => :articletype_group_id
 
     default_scope { order(:sorter) }

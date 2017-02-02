@@ -22,8 +22,6 @@
 
 module Goldencobra
   class Location < ApplicationRecord
-    attr_accessible :lat, :lng, :street, :city, :zip, :region, :country, :title, :street_number,
-                    :locateable_type, :locateable_id, :manual_geocoding
     geocoded_by :complete_location, latitude: :lat, longitude: :lng
     after_validation :geocode, :unless => :skip_geocoding_once_or_always
     attr_accessor :skip_geocode

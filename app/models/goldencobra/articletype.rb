@@ -2,8 +2,6 @@
 
 module Goldencobra
   class Articletype < ApplicationRecord
-    attr_accessible :default_template_file, :name, :fieldgroups_attributes
-
     has_many :articles, class_name: Goldencobra::Article, foreign_key: :article_type, primary_key: :name
     has_many :fieldgroups, class_name: Goldencobra::ArticletypeGroup, dependent: :destroy
 

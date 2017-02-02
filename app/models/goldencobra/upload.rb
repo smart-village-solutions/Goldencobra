@@ -21,10 +21,6 @@
 
 module Goldencobra
   class Upload < ApplicationRecord
-    attr_accessible :id, :source, :rights, :description, :image_file_name, :crop_x, :crop_y,
-                    :crop_w, :crop_h, :crop_image, :image_url, :image_content_type,
-                    :image_file_size, :created_at, :updated_at, :attachable_id, :attachable_type,
-                    :alt_text, :sorter_number, :image, :tag_list
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_image, :image_url
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads") &&

@@ -4,8 +4,6 @@ module Goldencobra
   class Redirector < ApplicationRecord
     require "addressable/uri"
 
-    attr_accessible :active, :redirection_code, :source_url, :target_url, :ignore_url_params, :include_subdirs, :import_csv_data
-
     attr_accessor :import_csv_data
 
     validates_presence_of :source_url, :if => proc { |obj| obj.import_csv_data.blank? }

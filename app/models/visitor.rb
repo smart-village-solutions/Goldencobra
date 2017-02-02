@@ -45,8 +45,6 @@ class Visitor < ApplicationRecord
   #Deprecated, will be removed in GC 2.1
   #has_many :comments, :class_name => Goldencobra::Comment, :as => :commentator
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :provider, :uid, :agb, :newsletter, :username, :loginable, :role_ids
-
   validates_uniqueness_of :email
   validates_acceptance_of :agb, :accept => true
   has_many :role_users, :as => :operator, :class_name => Goldencobra::RoleUser

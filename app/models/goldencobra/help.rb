@@ -14,6 +14,5 @@
 
 module Goldencobra
   class Help < ApplicationRecord
-    attr_accessible :title, :description, :url
   end
 end

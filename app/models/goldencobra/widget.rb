@@ -28,11 +28,6 @@
 
 module Goldencobra
   class Widget < ApplicationRecord
-    attr_accessible :title, :content, :css_name, :active, :id_name, :sorter, :teaser, :default,
-                    :description, :alternative_content, :mobile_content, :offline_days,
-                    :offline_time_active, :offline_date_start, :offline_date_end,
-                    :offline_time_week_start_end, :tag_list, :tags, :article_ids
-
     serialize :offline_time_week_start_end
 
     has_many  :article_widgets

@@ -69,7 +69,7 @@ namespace :db do
       end
 
       #Temporäre classe SchemaMigration um die Dtaen bequemer in die DB zu bekommen
-      class SchemaMigration < ApplicationRecord; self.primary_key = :version; attr_accessible :version; end
+      class SchemaMigration < ApplicationRecord; self.primary_key = :version; end
       SchemaMigration.destroy_all  
       file_list.sort.each do |fl|
         SchemaMigration.create(:version => fl)

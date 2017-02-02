@@ -14,8 +14,6 @@
 
 module Goldencobra
   class Role < ApplicationRecord
-      attr_accessible :name, :description, :redirect_after_login
-
       validates_presence_of :name
 
       has_many :role_users

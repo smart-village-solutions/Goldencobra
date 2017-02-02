@@ -60,7 +60,7 @@ module Goldencobra
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
     DisplayIndexTypes = [["Einzelseiten und Übersichtsseiten", "all"], ["Einzelseiten", "show"],["Übersichtsseiten", "index"]]
 
-    attr_accessor   :hint_label, :manual_article_sort, :create_redirection
+    attr_accessor :hint_label, :manual_article_sort, :create_redirection
     ImportDataFunctions = []
 
     has_many :link_checks, :class_name => Goldencobra::LinkChecker
@@ -94,7 +94,8 @@ module Goldencobra
     validates_presence_of :breadcrumb, :on => :create
     validates_length_of :breadcrumb, :within => 1..70, :on => :create
 
-    attr_protected :startpage
+    # Removed from Rails 5. We need to replace this.
+    # attr_protected :startpage
 
     before_update :set_redirection_step_1
     before_create :set_title_from_breadcrumb
