@@ -1,5 +1,5 @@
 Gem.loaded_specs["goldencobra"].dependencies.each do |d|
-  next if %w(wkhtmltopdf-binary rubyzip sinatra).include?(d.name)
+  next if %w(wkhtmltopdf-binary rubyzip).include?(d.name)
   begin
     if d.name == "oa-oauth"
       require "omniauth/oauth"
@@ -7,8 +7,6 @@ Gem.loaded_specs["goldencobra"].dependencies.each do |d|
       require "omniauth/openid"
     elsif d.name == "addressable"
       require 'addressable/uri'
-    elsif d.name == "rack/showexceptions"
-      require "rack/show_exceptions"
     elsif [
         "annotate", "guard-annotate", "pry", "pry-nav", "better_errors", "yard"
       ].include?(d.name)
