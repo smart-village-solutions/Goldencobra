@@ -273,5 +273,39 @@ describe Goldencobra::Article do
 
       expect(article.index_articles.first).to eq(new_article)
     end
+
+    it "sorts like A a B b C c" do
+      first = create(
+        :article,
+        title: "Alpha",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      second = create(
+        :article,
+        title: "alpha",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      third = create(
+        :article,
+        title: "Beta",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      fourth = create(
+        :article,
+        title: "beta",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      article.update_attributes!(sort_order: "Alphabetically")
+
+      expect(article.index_articles.to_a[0..3].map(&:title)).to eq(%w(Alpha alpha Beta beta))
+    end
   end
 end

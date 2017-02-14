@@ -518,7 +518,9 @@ module Goldencobra
         if sort_order == "Random"
           @list_of_articles = @list_of_articles.flatten.shuffle
         elsif sort_order == "Alphabetically"
-          @list_of_articles = @list_of_articles.flatten.sort_by { |article| article.title.downcase }
+          @list_of_articles = @list_of_articles.flatten.sort_by do |article|
+            [article.title.downcase, article.title]
+          end
         elsif sort_order == "GlobalSortID"
           @list_of_articles = @list_of_articles.flatten.sort_by do |article|
             article.try(:global_sorting_id).to_i
