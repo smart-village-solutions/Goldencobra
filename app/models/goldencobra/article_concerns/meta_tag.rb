@@ -58,6 +58,7 @@ module Goldencobra::ArticleConcerns::MetaTag
   # @return [Hash] {author: "MyValue", custom_tag: "otherValue"}
   def meta_tag_static_custom
     custom_tag_settings = Goldencobra::Setting.where(title: "custom_tags").first
+    return {} if custom_tag_settings.blank?
     if custom_tag_settings.present? && custom_tag_settings.parent_names == "goldencobra.page"
       Hash[custom_tag_settings.children.map { |s| [s.title.to_sym, s.value] }]
     end
