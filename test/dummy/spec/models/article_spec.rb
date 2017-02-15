@@ -235,4 +235,111 @@ describe Goldencobra::Article do
       expect(@article.discarded?).to eq(true)
     end
   end
+
+  describe "#index_articles" do
+    let(:article) do
+      article = create(
+        :article,
+        display_index_articles: true,
+        breadcrumb: "My index article",
+        title: "My index article title",
+        article_type: "Default Index"
+      )
+      5.times do |i|
+        create(
+          :article,
+          parent_id: article.id,
+          title: "Child article #{i + 1}",
+          breadcrumb: "child_article #{i + 1}",
+          article_type: "Default Show"
+        )
+      end
+      article
+    end
+
+    it "returns a list of the children" do
+      expect(article.index_articles).to be_a(ActiveRecord::Relation)
+    end
+
+    it "sorts the children alphabetically" do
+      new_article = create(
+        :article,
+        title: "another Child Article",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      article.update_attributes!(sort_order: "Alphabetically")
+
+      expect(article.index_articles.first).to eq(new_article)
+    end
+
+    it "sorts like A a B b C c" do
+      first = create(
+        :article,
+        title: "Alpha",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      second = create(
+        :article,
+        title: "alpha",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      third = create(
+        :article,
+        title: "Beta",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      fourth = create(
+        :article,
+        title: "beta",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      article.update_attributes!(sort_order: "Alphabetically")
+
+      expect(article.index_articles.to_a[0..3].map(&:title)).to eq(%w(Alpha alpha Beta beta))
+    end
+
+    it "sorts like this 'A a berlin Brisbane'" do
+      first = create(
+        :article,
+        title: "Alpha",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      second = create(
+        :article,
+        title: "alpha",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      third = create(
+        :article,
+        title: "berlin",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      fourth = create(
+        :article,
+        title: "Brisbane",
+        parent_id: article.id,
+        breadcrumb: "another child article",
+        article_type: "Default Show"
+      )
+      article.update_attributes!(sort_order: "Alphabetically")
+
+      expect(article.index_articles.to_a[0..3].map(&:title)).to eq(%w(Alpha alpha berlin Brisbane))
+    end
+  end
 end
