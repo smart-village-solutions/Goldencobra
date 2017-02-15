@@ -1,3 +1,6 @@
+V2.0.28 - 15.02.2017
+  - Use downcase to sort article alphabetically
+  - Respect sort orders like "A a B b C c", "A a berlin Brisbane"
 V2.0.27 - 01.02.2017
   - Takes recent changes and provides them as new version.
   - Remove dependency on specific Devise and devise-token_authenticatable versions
@@ -5,8 +8,9 @@ V2.0.27 - 01.02.2017
   - Introduce a new `Goldencobra::Url` for easy acces to the Rails-Hosts' HOST and PROTOCOL settings
   - Share a session between Rails Host app and the Sidekiq web interface
   - Safe guard the installation of Goldencobra Migrations for easier updates from 1.x to 2.x apps
-V2.0.26 - xxx
+V2.0.26 - 23.01.2017
   - This version updated the ArticleTypePresenter. It went missing during merges.
+  - Some minor tweaks to the article type presenter
 V2.0.25 - 11.01.2017
   - Prevents ActionController::UnknownFormat errors
 V2.0.24 - 16.12.2016
