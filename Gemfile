@@ -35,7 +35,7 @@ end
 
 group :test do
   gem "cucumber"
-  gem "cucumber-rails", git: "https://github.com/cucumber/cucumber-rails.git"
+  gem "cucumber-rails", git: "https://github.com/cucumber/cucumber-rails.git", require: false
   gem "factory_girl"
   gem "factory_girl_rails"
   gem "database_cleaner"
