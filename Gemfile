@@ -10,8 +10,10 @@ gemspec
 gem "i18n-active_record", git: "http://github.com/svenfuchs/i18n-active_record.git",
                           require: "i18n/active_record"
 
-gem "mysql2"
 gem "jquery-ui-rails", "5.0.5"
+
+# GCZ-82
+gem "active_bootstrap_skin"
 
 group :development, :test do
   gem "byebug"
