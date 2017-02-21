@@ -531,7 +531,7 @@ module Goldencobra
             article.respond_to?(sorter) ? article.send(sorter) : article
           end
         elsif sort_order.include?(".")
-          sorter = sort_order.downcase.split(".")
+          sorter = sort_order.downcase
           @unsortable = @list_of_articles.flatten.select { |a| !a.respond_to_all?(sorter) }
           @list_of_articles = @list_of_articles.flatten.delete_if { |a| !a.respond_to_all?(sorter) }
           @list_of_articles = @list_of_articles.sort_by { |a| eval("a.#{sorter}") }
