@@ -4,22 +4,6 @@ describe Goldencobra::ArticleAdapter, type: :model do
   before do
     Goldencobra::Setting.set_value_for_key("http://www.ikusei.de", "goldencobra.url")
   end
-  describe "getting base url" do
-    it "should return an complete base url of the current app" do
-      Goldencobra::Setting.set_value_for_key("false", "goldencobra.use_ssl")
-      Goldencobra::Setting.set_value_for_key("localhost:3000", "goldencobra.url")
-      url = Goldencobra::ArticleAdapter.base_url
-      expect(url).to eq("http://localhost:3000")
-    end
-
-    it "should return an complete base url with https of the current app" do
-      Goldencobra::Setting.set_value_for_key("true", "goldencobra.use_ssl")
-      Goldencobra::Setting.set_value_for_key("localhost:3000", "goldencobra.url")
-      url = Goldencobra::ArticleAdapter.base_url
-      expect(url).to eq("https://localhost:3000")
-    end
-  end
-
   describe "finding articles" do
     context "by a given url" do
       it "should find one article id" do

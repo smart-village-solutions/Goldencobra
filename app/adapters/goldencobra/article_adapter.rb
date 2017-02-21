@@ -46,16 +46,6 @@ module Goldencobra
         Goldencobra::Article.find_by_id(article_id)
       end
 
-      def base_url
-        http = case Goldencobra::Setting.for_key("goldencobra.use_ssl")
-        when "true"
-          "https://"
-        else
-          "http://"
-        end
-        [http, Goldencobra::Setting.for_key("goldencobra.url")].join
-      end
-
       private
 
       # return url to search for
