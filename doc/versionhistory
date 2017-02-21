@@ -1,3 +1,5 @@
+V2.0.29 - 21.02.2017
+  - ArticleAdapter returns URL of current app
 V2.0.28 - 15.02.2017
   - Use downcase to sort article alphabetically
   - Respect sort orders like "A a B b C c", "A a berlin Brisbane"
