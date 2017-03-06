@@ -1,5 +1,13 @@
 module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
+    # Sometimes the host app get requests like this: "/wp-admin/js/media-upload.dev.js"
+    # These request originate from bots that might be malicious and crawl sites for wordpress' weak
+    # spots. Since we have the catch all routes for articles in out engine, we try to respond to
+    # these requests. As the format of the request is "text/javascript", this triggers a CORS error
+    # for our app => ActionController::InvalidCrossOriginRequest. To prevent these errors, we have
+    # to disable the protection from forgery, for the :show action. The app will respond with a 404
+    # status for all these requests.
+    protect_from_forgery except: :show
 
     layout "application"
     before_filter :get_redirectors, only: [:show]

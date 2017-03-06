@@ -261,10 +261,12 @@ describe Goldencobra::ArticlesController, type: :controller do
 
   describe "#show" do
 
-    it "renders 404 if request.format is php" do
-      get :show, { format: "application/php" }
+    ["application/php", "text/javascript"].each do |format|
+      it "renders 404" do
+        get :show, { format: format }
 
-      expect(response.status).to eq(404)
+        expect(response.status).to eq(404)
+      end
     end
 
     context "the resource isn't found" do
