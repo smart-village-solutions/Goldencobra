@@ -404,7 +404,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         )
       end
     end
-    render json: Oj.dump(articles: articles)
+    render json: Oj.dump("articles" => articles)
   end
 
   controller do
