@@ -404,7 +404,24 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
         )
       end
     end
+
+    # The commit fcc35c1 changed admin/articles.rb:407 to use a symbol
+    # instead of a string as the hash's key. The gem OJ then creates a json
+    # key like ":mykey" instead of the expected "mykey". If we use a
+    # string for the hash's key this does not occur.
+    #
+    # This could also be solved by using the :compat mode of Oj. This mode
+    # is slower than the :object mode that is the default, though:
+    # Comparison:
+    #   classic:   446504.4 i/s
+    #   compat:   310683.9 i/s - 1.44x  slower
+    # That's why we should stick with the strings as hash keys, even though
+    # they might not suit the style guide definitions, and disable the check here.
+    # Details: https://github.com/ikuseiGmbH/Goldencobra/pull/83
+    #
+    # rubocop:disable Style/HashSyntax
     render json: Oj.dump("articles" => articles)
+    # rubocop:enable Style/HashSyntax
   end
 
   controller do
