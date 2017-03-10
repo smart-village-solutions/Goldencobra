@@ -52,7 +52,7 @@ RSpec.configure do |config|
   #config.infer_base_class_for_anonymous_controllers = false
 
   # Add this line if you use Devise for authentication:
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::Test::ControllerHelpers, :type => :controller
   config.include Capybara::DSL
 end
 
