@@ -7,7 +7,7 @@ module Goldencobra
     # for our app => ActionController::InvalidCrossOriginRequest. To prevent these errors, we have
     # to disable the protection from forgery, for the :show action. The app will respond with a 404
     # status for all these requests.
-    protect_from_forgery except: :show
+    # protect_from_forgery except: :show
 
     layout "application"
     before_filter :get_redirectors, only: [:show]
@@ -68,8 +68,7 @@ module Goldencobra
             format.html { render layout: choose_layout }
             format.rss
             format.json do
-              @article["list_of_articles"] = @list_of_articles
-              render json: @article.to_json
+              render json: {article: @article.to_json, list_of_articles: @list_of_articles.as_json}
             end
           end
         end
