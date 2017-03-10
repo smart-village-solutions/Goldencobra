@@ -271,6 +271,12 @@ describe Goldencobra::ArticlesController, type: :controller do
       end
     end
 
+    context "JS Request are not causeing a ActionController::InvalidCrossOriginRequest"
+    it "respond with a 404 Page on js request" do
+      visit "/no_article_found.js"
+      expect(response.status).to eq(200)
+    end
+
     context "the resource isn't found" do
       context "the format != :html" do
         context "the '404' article exists" do
