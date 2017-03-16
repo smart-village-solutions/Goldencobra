@@ -40,9 +40,12 @@ Goldencobra::Engine.routes.draw do
   end
 
   # match "/*article_id.pdf", to: "articles#convert_to_pdf"
+
   # php requests results in MimeType:Null-Object Github #47
-  get "/*article_id", to: "articles#show", constraints: lambda { |req| req.format.to_sym != :php && req.format.to_sym != :js }
-  get '/*path', to: redirect("/404")
+  get "/*article_id",
+      to: "articles#show",
+      constraints: ->(req) { req.format.to_sym != :php && req.format.to_sym != :js }
+  get "/*path", to: redirect("/404")
 
   root to: "articles#show", defaults: { startpage: true }
 end
