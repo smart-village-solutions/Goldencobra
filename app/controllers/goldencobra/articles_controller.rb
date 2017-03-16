@@ -60,8 +60,10 @@ module Goldencobra
             format.html { render layout: choose_layout }
             format.rss
             format.json do
-              @article["list_of_articles"] = @list_of_articles
-              render json: @article.to_json
+              render json: {
+                article: @article.to_json,
+                list_of_articles: @list_of_articles.as_json
+              }
             end
           end
         end

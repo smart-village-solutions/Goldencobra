@@ -39,63 +39,65 @@ describe Goldencobra::ArticlesController, type: :controller do
     context 'as an admin' do
       it "should be possible to read a secured article as a preview function" do
         create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", subject_id: @parent_article.id.to_s, :role_id => @admin_role.id, :sorter_id => 200
-        sign_in(:user, @user)
+        sign_in(@user, scope: :user)
         visit "#{@parent_article.public_url}?auth_token=#{@user.authentication_token}"
         expect(page).to have_content(@parent_article.title)
       end
 
       it "should be possible to read an article" do
         visit "/admin/logout"
-        sign_in(:user, @user)
+        sign_in(@user, scope: :user)
         visit "#{@parent_article.public_url}?auth_token=#{@user.authentication_token}"
         expect(page).to have_content(@parent_article.title)
       end
 
       it 'should return 404 if no article is found' do
-        sign_in(:user, @user)
+        create(:article, title: "404", url_name: "404", content: "404")
+        sign_in(@user, scope: :user)
         visit "/no_article?auth_token=#{@user.authentication_token}"
-        expect(page).to have_content('404')
+        expect(response.status).to eq(404)
+        expect(response.body).to have_content("404")
       end
     end
 
     context 'as a visitor' do
       it "should be possible to read an article" do
-        sign_in(:visitor, @visitor)
+        sign_in(@visitor, scope: :visitor)
         visit @parent_article.public_url
         expect(page).to have_content(@parent_article.title)
       end
 
       it "should not be possible to read a secured article as a visitor" do
         create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id
-        sign_in(:visitor, @visitor)
+        sign_in(@visitor, scope: :visitor)
         visit @parent_article.public_url
         expect(page).to have_content("Nicht authorisiert")
       end
 
       it "should not be possible to read a secured article for a domain if i am on this domain" do
         create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id, :domain_id => @domain_access.id
-        sign_in(:visitor, @visitor)
+        sign_in(@visitor, scope: :visitor)
         visit @parent_article.public_url
         expect(page).to have_content("Nicht authorisiert")
       end
 
       it "should be possible to read a secured article for a domain if it's locked for another domain" do
         create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id, :domain_id => @domain_restricted.id
-        sign_in(:visitor, @visitor)
+        sign_in(@visitor, scope: :visitor)
         visit @parent_article.public_url
         expect(page).to have_content(@parent_article.title)
       end
 
       it "should not be possible to read a secured article for a domain if I am on this domain with a role" do
         create :permission, action: "not_read", subject_class: "Goldencobra::Article", sorter_id: 200, subject_id: @parent_article.id, domain_id: @domain_access.id, role_id: @guest_role.id
-        sign_in(:visitor, @visitor)
+        sign_in(@visitor, scope: :visitor)
         visit @parent_article.public_url
         # expect(page).to have_content("Nicht authorisiert")
       end
 
       it "should be possible to read a secured article for a domain if it's locked for another domain with a role" do
         create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => @parent_article.id, :domain_id => @domain_restricted.id, :role_id => @guest_role.id
-        sign_in(:visitor, @visitor)
+        sign_in(@visitor, scope: :visitor)
         visit @parent_article.public_url
         expect(page).to have_content(@parent_article.title)
       end
@@ -111,7 +113,7 @@ describe Goldencobra::ArticlesController, type: :controller do
       end
 
       it "should not be possible to read an article with secured parent article" do
-        sign_in(:visitor, @visitor)
+        sign_in(@visitor, scope: :visitor)
         create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :role_id => @guest_role.id, :sorter_id => 200, :subject_id => @parent_article.id
         visit "#{@child_article.public_url}?auth_token=#{@visitor.authentication_token}"
         expect(page).to have_content("Nicht authorisiert")
@@ -243,7 +245,7 @@ describe Goldencobra::ArticlesController, type: :controller do
 
       context 'when logged in as a admin' do
         it "should give a complete rss feed" do
-          sign_in(:user, @user)
+          sign_in(@user, scope: :user)
           child2 = Goldencobra::Article.where(url_name: "child-article-2").first
           create :permission, :action => "not_read", :subject_class => "Goldencobra::Article", :sorter_id => 200, :subject_id => child2.id
           create :permission, :action => "read", :subject_class => "Goldencobra::Article", :sorter_id => 220, :subject_id => child2.id, role_id: @guest_role.id
@@ -261,10 +263,18 @@ describe Goldencobra::ArticlesController, type: :controller do
 
   describe "#show" do
 
-    it "renders 404 if request.format is php" do
-      get :show, { format: "application/php" }
+    ["application/php", "text/javascript"].each do |format|
+      it "renders 404" do
+        get :show, { format: format }
 
-      expect(response.status).to eq(404)
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context "JS Request are not causeing a ActionController::InvalidCrossOriginRequest"
+    it "respond with a 404 Page on js request" do
+      visit "/no_article_found.js"
+      expect(response.status).to eq(200)
     end
 
     context "the resource isn't found" do
