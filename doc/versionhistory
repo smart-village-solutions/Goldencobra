@@ -1,3 +1,6 @@
+V2.0.30 - 10.03.2017
+  - Repairs the usage of Oj.dump to return valid JSON. This is important for overview trees in
+    backend. See b577f767257028076677ac6b05d677c75c8486d4
 V2.0.29 - 21.02.2017
   - ArticleAdapter returns URL of current app
 V2.0.28 - 15.02.2017
