@@ -1,3 +1,5 @@
+V2.0.32 - 21.03.2017
+  - Removes old gems that weren't needed any more (oa-oauth & oa-openid)
 V2.0.31 - 16.03.2017
   - Fix ActionController::InvalidCrossOriginRequest: Security warning
 V2.0.30 - 10.03.2017
