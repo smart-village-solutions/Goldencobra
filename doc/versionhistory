@@ -1,3 +1,6 @@
+V2.0.32.1 & V2.0.32.2 - 21.03.2017
+  - Both versions were created for syncing with the correct tag. There is no change from version
+    2.0.32
 V2.0.32 - 21.03.2017
   - Removes old gems that weren't needed any more (oa-oauth & oa-openid)
 V2.0.31 - 16.03.2017
