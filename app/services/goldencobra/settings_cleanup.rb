@@ -44,7 +44,8 @@ module Goldencobra
             rescue Ancestry::AncestryException
               # If a `Ancestry::AncestryException` is thrown, than do not quit the
               # process because there could be some more settings to check in the loop.
-              # Go on with the next iteration step.
+              # Return true and go on with the next iteration step.
+              true
             end
           end
         end
@@ -52,7 +53,7 @@ module Goldencobra
       p "*" * 100
     end
 
-    # Searches for usages of settings in an Golden Cobra app source code.
+    # Searches for usages of settings in a Golden Cobra app source code.
     #
     # (!) only complete formats like "root.key1.key2.key3" will be recognized
     #
@@ -82,9 +83,11 @@ module Goldencobra
       Goldencobra::Setting.roots.where(title: settings_root).first.descendants.each do |setting|
         complete_setting = setting.path.pluck(:title).join(".")
         p "*" * 100
-        p complete_setting
+        p "Searching for #{complete_setting} in #{search_path}"
         p "-" * 100
-        system "grep -Rl '#{complete_setting}' #{search_path}"
+        unless system "grep -Rl '#{complete_setting}' #{search_path}"
+          p "#{complete_setting} not found in #{search_path}"
+        end
         p "*" * 100
       end
     end
