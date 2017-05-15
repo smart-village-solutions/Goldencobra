@@ -1,3 +1,5 @@
+V2.0.33 - 15.05.2017
+  - Provide methods for cleaning up unused settings
 V2.0.32.1 & V2.0.32.2 - 21.03.2017
   - Both versions were created for syncing with the correct tag. There is no change from version
     2.0.32
