@@ -67,6 +67,14 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
 
   index download_links: proc { Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
+    column t(I18n.t("active_admin.uploads.preview")) do |upload|
+      link_to(
+        image_tag(upload.image(:thumb)),
+        admin_upload_path(upload),
+        class: "member_link edit_link",
+        title: I18n.t("active_admin.uploads.title1")
+      )
+    end
     column I18n.t("active_admin.uploads.url") do |upload|
       result = ""
       result << upload.image.url
@@ -74,9 +82,6 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
     # column :source, sortable: :source do |upload|
     # 	truncate(upload.source, length: 20)
     # end
-    column t(I18n.t("active_admin.uploads.preview1")) do |upload|
-      image_tag(upload.image(:mini))
-    end
     column :created_at, sortable: :created_at do |upload|
     	l(upload.created_at, format: :short)
 	  end
