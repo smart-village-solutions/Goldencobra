@@ -75,7 +75,8 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
       )
     end
     column I18n.t("active_admin.uploads.url") do |upload|
-      result = content_tag(:p,
+      result = content_tag(
+        :p,
         link_to(
           upload.image_file_name,
           edit_admin_upload_path(upload),
@@ -86,9 +87,6 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
       )
       result << upload.image.url
     end
-    # column :source, sortable: :source do |upload|
-    # 	truncate(upload.source, length: 20)
-    # end
     column I18n.t("active_admin.uploads.tags") do |upload|
       upload.tag_list
     end
@@ -97,11 +95,14 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
       file_size_mb = "%.02f" % (upload.image_file_size.to_f / 1000 / 1000)
       "#{file_size_mb} MB"
     end
-	  column I18n.t("active_admin.uploads.zip") do |upload|
-	    if upload.image_file_name && upload.image_file_name.include?(".zip")
-	      link_to(raw(I18n.t("active_admin.uploads.pack")), unzip_file_admin_upload_path(upload))
-	    end
-	  end
+    column I18n.t("active_admin.uploads.zip") do |upload|
+      if upload.image_file_name && upload.image_file_name.include?(".zip")
+        link_to(
+          raw(I18n.t("active_admin.uploads.pack")),
+          unzip_file_admin_upload_path(upload)
+        )
+      end
+    end
     column :created_at do |upload|
     	l(upload.created_at, format: :date)
 	  end
@@ -111,13 +112,13 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
         t(:view),
         admin_upload_path(upload),
         class: "member_link edit_link view",
-          title: I18n.t("active_admin.uploads.title1")
+        title: I18n.t("active_admin.uploads.title1")
       )
       result += link_to(
         t(:edit),
         edit_admin_upload_path(upload),
         class: "member_link edit_link edit",
-          title: I18n.t("active_admin.uploads.title2")
+        title: I18n.t("active_admin.uploads.title2")
       )
       result += link_to(
         t(:delete),
