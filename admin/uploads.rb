@@ -15,16 +15,15 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
   end
 
   filter :id
+  filter :image_file_name
+  filter :image_content_type
+  filter :image_file_size
   filter :source
   filter :rights
   filter :description
-  filter :image_file_name
-  filter :image_file_type
-  filter :image_file_size
-  filter :updated_at
-  filter :created_at
   filter :alt_text
-  filter :sorter_number
+  filter :created_at
+  filter :updated_at
 
   form html: { enctype: "multipart/form-data" } do |f|
     f.actions
