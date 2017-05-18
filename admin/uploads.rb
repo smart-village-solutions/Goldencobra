@@ -144,34 +144,42 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
 
   show do
     attributes_table do
-      row I18n.t("active_admin.uploads.preview_row") do
-        image_tag(upload.image(:thumb))
-      end
       row I18n.t("active_admin.uploads.original_row") do
         link_to(
-          "#{Goldencobra::Url.to_s}" + upload.image(:original),
+          "#{Goldencobra::Url} #{upload.image(:original)}",
           upload.image(:original),
           target: "_blank"
         )
       end
       if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
         Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |image_size|
-          row "#{image_size}" do
-            link_to(
-              "#{Goldencobra::Url.to_s}" + upload.image(image_size),
+          row image_size do
+            result = content_tag(
+              :div,
+              image_tag(upload.image(image_size))
+            )
+            result += link_to(
+              "#{Goldencobra::Url} #{upload.image(image_size)}",
               upload.image(image_size),
               target: "_blank"
             )
           end
         end
       end
+    end
+
+    attributes_table do
+      row :image_file_name
+      row :image_content_type
+      row :image_file_size do |upload|
+        file_size_mb = "%.02f" % (upload.image_file_size.to_f / 1000 / 1000)
+        "Original: #{file_size_mb} MB"
+      end
+      row :tag_list
       row :source
       row :rights
       row :description
-      row :tag_list
-      row :image_file_name
-      row :image_content_type
-      row :image_file_size
+      row :alt_text
       row :created_at
       row :updated_at
     end
