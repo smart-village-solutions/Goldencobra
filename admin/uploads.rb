@@ -180,6 +180,20 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
       row :rights
       row :description
       row :alt_text
+      row "Artikel" do |upload|
+        result = ""
+        upload.articles.map do |article|
+          result += content_tag(
+            :p,
+            link_to(
+              article.title,
+              edit_admin_article_path(article.id),
+              title: t(:edit)
+            )
+          )
+        end
+        raw(result)
+      end
       row :created_at
       row :updated_at
     end
