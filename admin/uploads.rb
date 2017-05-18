@@ -68,7 +68,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
     selectable_column
     column t(I18n.t("active_admin.uploads.preview")) do |upload|
       link_to(
-        image_tag(upload.image(:thumb)),
+        upload.image_content_type.match(/image|pdf/) ? image_tag(upload.image(:thumb)) : "",
         admin_upload_path(upload),
         class: "member_link edit_link",
         title: I18n.t("active_admin.uploads.title1")
@@ -98,8 +98,9 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
     column I18n.t("active_admin.uploads.zip") do |upload|
       if upload.image_file_name && upload.image_file_name.include?(".zip")
         link_to(
-          raw(I18n.t("active_admin.uploads.pack")),
-          unzip_file_admin_upload_path(upload)
+          I18n.t("active_admin.uploads.pack"),
+          unzip_file_admin_upload_path(upload),
+          title: I18n.t("active_admin.uploads.pack")
         )
       end
     end
@@ -134,7 +135,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
 
   index as: :grid, columns: 6 do |upload|
     link_to(
-      image_tag(upload.image(:px200)),
+      image_tag(upload.image(:px200), alt: upload.image_file_name),
       admin_upload_path(upload),
       class: "member_link edit_link",
       title: I18n.t("active_admin.uploads.title1")
