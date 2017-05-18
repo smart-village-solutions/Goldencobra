@@ -132,6 +132,15 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
     end
   end
 
+  index as: :grid, columns: 6 do |upload|
+    link_to(
+      image_tag(upload.image(:px200)),
+      admin_upload_path(upload),
+      class: "member_link edit_link",
+      title: I18n.t("active_admin.uploads.title1")
+    )
+  end
+
   show do
     attributes_table do
       row I18n.t("active_admin.uploads.preview_row") do
