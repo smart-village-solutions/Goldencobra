@@ -97,6 +97,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
     column I18n.t("active_admin.uploads.tags") do |upload|
       upload.tag_list
     end
+    column :image_content_type
 	  column I18n.t("active_admin.uploads.zip") do |upload|
 	    if upload.image_file_name && upload.image_file_name.include?(".zip")
 	      link_to(raw(I18n.t("active_admin.uploads.pack")), unzip_file_admin_upload_path(upload))
