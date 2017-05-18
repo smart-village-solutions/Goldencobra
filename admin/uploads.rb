@@ -90,20 +90,21 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
     # column :source, sortable: :source do |upload|
     # 	truncate(upload.source, length: 20)
     # end
-    column :created_at, sortable: :created_at do |upload|
-    	l(upload.created_at, format: :short)
-	  end
-    column :sorter_number
     column I18n.t("active_admin.uploads.tags") do |upload|
       upload.tag_list
     end
     column :image_content_type
+    column :image_file_size do |upload|
+      file_size_mb = "%.02f" % (upload.image_file_size.to_f / 1000 / 1000)
+      "#{file_size_mb} MB"
+    end
 	  column I18n.t("active_admin.uploads.zip") do |upload|
 	    if upload.image_file_name && upload.image_file_name.include?(".zip")
 	      link_to(raw(I18n.t("active_admin.uploads.pack")), unzip_file_admin_upload_path(upload))
-      else
-        "-"
 	    end
+	  end
+    column :created_at do |upload|
+    	l(upload.created_at, format: :date)
 	  end
     column "" do |upload|
       result = ""
