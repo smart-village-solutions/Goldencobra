@@ -76,7 +76,15 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
       )
     end
     column I18n.t("active_admin.uploads.url") do |upload|
-      result = ""
+      result = content_tag(:p,
+        link_to(
+          upload.image_file_name,
+          edit_admin_upload_path(upload),
+          class: "member_link edit_link",
+          title: I18n.t("active_admin.uploads.title2")
+        ),
+        style: "margin-bottom: 15px;"
+      )
       result << upload.image.url
     end
     # column :source, sortable: :source do |upload|
