@@ -10,14 +10,11 @@ gemspec
 gem "i18n-active_record", git: "http://github.com/svenfuchs/i18n-active_record.git",
                           require: "i18n/active_record"
 
-gem "mysql2"
-gem "jquery-ui-rails", "5.0.5"
-
 group :development, :test do
   gem "byebug"
   gem "rspec-rails" # rspec in dev so the rake tasks run properly
   gem "faker" # rspec in dev so the rake tasks run properly
-  gem "newrelic_rpm"
+  gem "newrelic_rpm", "~> 3.18.1.330"
   gem "yarjuf"
   gem "spring" # Spring speeds up development by keeping your application running in the background.
                # Read more: https://github.com/rails/spring

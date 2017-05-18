@@ -109,7 +109,7 @@ module Goldencobra
 
       def install_newrelic
         if yes?("Would you like to install NewRelic? (www.newrelic.com)")
-          gem("newrelic_rpm", "3.5.5.38")
+          gem("newrelic_rpm", "3.18.1.330")
           system("bundle install")
           @license_key = ask("What is your NewRelic license key? (default: b199ad3e4e0d728b1aac69aec4870af7ef9478bb)")
           @license_key = "b199ad3e4e0d728b1aac69aec4870af7ef9478bb" if @license_key.blank?

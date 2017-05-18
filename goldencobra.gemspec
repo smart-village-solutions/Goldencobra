@@ -2,43 +2,41 @@ $LOAD_PATH.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
 require "goldencobra/version"
+
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "goldencobra"
   s.version     = Goldencobra::VERSION
   s.authors     = ["Marco Metz", "Holger Frohloff", "Daniel Molnar"]
-  s.email       = ["m.metz@ikusei.de"]
+  s.email       = ["it@ikusei.de"]
   s.homepage    = "https://github.com/ikusei/Goldencobra"
   s.summary     = "Basic CMS based on Rails engines"
-  s.description = "This is the Basic Module of Goldencobra. It Offers Devise, ActiveAdmin, an Article-Module, a Menu-Module, and global Settings for an CMS"
+  s.description = "This is the basic module of Golden Cobra. It offers Devise, ActiveAdmin, an article module, a menu module and global settings for an CMS"
   s.licenses    = "Lizenz CC BY-NC-SA 3.0"
   s.files = Dir["{app,config,db,lib}/**/*"] + ["CC-LICENSE", "Rakefile", "README.markdown"]
-  # s.test_files = Dir['test/**/*']
+  # s.test_files = Dir["test/**/*"]
 
   # Post Install Message
   # if File.exists?('UPGRADING')
-  #   s.post_install_message = File.read('UPGRADING')
+  #   s.post_install_message = File.read("UPGRADING")
   # end
 
   s.requirements << "ImageMagick"
   s.required_ruby_version = ">= 2.2.0"
 
-  # s.add_dependency 'coffee-script-source', '~>1.8.0'
-  s.add_dependency "rails", "~> 4.2.5"
+  s.add_dependency "rails", "~> 4.2.8"
   s.add_dependency "jquery-rails"
+  s.add_dependency "jquery-ui-rails"
   s.add_dependency "devise"
   s.add_dependency "devise-token_authenticatable"
-  # TODO: Token Authentication neu machen
+  # TODO: new token authentication
   s.add_dependency "cancancan"
-  s.add_dependency "activeadmin", "~> 1.0.0.pre1"
+  s.add_dependency "activeadmin", "~> 1.0.0"
   s.add_dependency "remove_accents"
-
-  # Fix Auf Versions da sonst CSS rendering nicht mehr funktioniert - 18.12.2015
-  s.add_dependency "sprockets" # , "2.12.4"
-  s.add_dependency "sprockets-rails" # , "2.3.3"
-  s.add_dependency "tilt" # , "1.4.1"
-  s.add_dependency "compass-rails" # , "2.0.5"
-
+  s.add_dependency "sprockets"
+  s.add_dependency "sprockets-rails"
+  s.add_dependency "tilt"
+  s.add_dependency "compass-rails"
   s.add_dependency "sass"
   s.add_dependency "sass-rails"
   s.add_dependency "compass"
@@ -77,7 +75,7 @@ Gem::Specification.new do |s|
   s.add_dependency "font-awesome-sass"
   s.add_dependency "autoprefixer-rails" # to provide easy automatic css prefixing
 
-  # Ausgelagerte Funktionen in Rails 4.x
+  # outsourced functions in Rails 4.x
   s.add_dependency "responders", "~> 2.0"
 
   s.add_development_dependency "mysql2"
@@ -89,7 +87,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency "binding_of_caller"
   s.add_development_dependency "yard"
   s.add_development_dependency "redcarpet"
-
-  # rake db:migrate funktioniert in eienr Production app mit diesem Gem nicht mehr
-  # s.add_development_dependency 'rack-mini-profiler'
 end
