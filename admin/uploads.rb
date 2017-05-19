@@ -15,16 +15,15 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
   end
 
   filter :id
+  filter :image_file_name
+  filter :image_content_type
+  filter :image_file_size
   filter :source
   filter :rights
   filter :description
-  filter :image_file_name
-  filter :image_file_type
-  filter :image_file_size
-  filter :updated_at
-  filter :created_at
   filter :alt_text
-  filter :sorter_number
+  filter :created_at
+  filter :updated_at
 
   form html: { enctype: "multipart/form-data" } do |f|
     f.actions
@@ -67,30 +66,46 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
 
   index download_links: proc { Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
-    column :id
+    column t(I18n.t("active_admin.uploads.preview")) do |upload|
+      link_to(
+        upload.image_content_type.match(/image|pdf/) ? image_tag(upload.image(:thumb)) : "",
+        admin_upload_path(upload),
+        class: "member_link edit_link",
+        title: I18n.t("active_admin.uploads.title1")
+      )
+    end
     column I18n.t("active_admin.uploads.url") do |upload|
-      result = ""
+      result = content_tag(
+        :p,
+        link_to(
+          upload.image_file_name,
+          edit_admin_upload_path(upload),
+          class: "member_link edit_link",
+          title: I18n.t("active_admin.uploads.title2")
+        ),
+        style: "margin-bottom: 15px;"
+      )
       result << upload.image.url
     end
-    # column :source, sortable: :source do |upload|
-    # 	truncate(upload.source, length: 20)
-    # end
-    column t(I18n.t("active_admin.uploads.preview1")) do |upload|
-      image_tag(upload.image(:mini))
-    end
-    column :created_at, sortable: :created_at do |upload|
-    	l(upload.created_at, format: :short)
-	  end
-    column :sorter_number
     column I18n.t("active_admin.uploads.tags") do |upload|
       upload.tag_list
     end
-	  column I18n.t("active_admin.uploads.zip") do |upload|
-	    if upload.image_file_name && upload.image_file_name.include?(".zip")
-	      link_to(raw(I18n.t("active_admin.uploads.pack")), unzip_file_admin_upload_path(upload))
-      else
-        "-"
-	    end
+    column :image_content_type
+    column :image_file_size do |upload|
+      file_size_mb = "%.02f" % (upload.image_file_size.to_f / 1000 / 1000)
+      "#{file_size_mb} MB"
+    end
+    column I18n.t("active_admin.uploads.zip") do |upload|
+      if upload.image_file_name && upload.image_file_name.include?(".zip")
+        link_to(
+          I18n.t("active_admin.uploads.pack"),
+          unzip_file_admin_upload_path(upload),
+          title: I18n.t("active_admin.uploads.pack")
+        )
+      end
+    end
+    column :created_at do |upload|
+    	l(upload.created_at, format: :date)
 	  end
     column "" do |upload|
       result = ""
@@ -98,13 +113,13 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
         t(:view),
         admin_upload_path(upload),
         class: "member_link edit_link view",
-          title: I18n.t("active_admin.uploads.title1")
+        title: I18n.t("active_admin.uploads.title1")
       )
       result += link_to(
         t(:edit),
         edit_admin_upload_path(upload),
         class: "member_link edit_link edit",
-          title: I18n.t("active_admin.uploads.title2")
+        title: I18n.t("active_admin.uploads.title2")
       )
       result += link_to(
         t(:delete),
@@ -118,36 +133,67 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
     end
   end
 
+  index as: :grid, columns: 6 do |upload|
+    link_to(
+      image_tag(upload.image(:px200), alt: upload.image_file_name),
+      admin_upload_path(upload),
+      class: "member_link edit_link",
+      title: I18n.t("active_admin.uploads.title1")
+    )
+  end
+
   show do
     attributes_table do
-      row I18n.t("active_admin.uploads.preview_row") do
-        image_tag(upload.image(:thumb))
-      end
       row I18n.t("active_admin.uploads.original_row") do
         link_to(
-          "#{Goldencobra::Url.to_s}" + upload.image(:original),
+          "#{Goldencobra::Url} #{upload.image(:original)}",
           upload.image(:original),
           target: "_blank"
         )
       end
       if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
         Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |image_size|
-          row "#{image_size}" do
-            link_to(
-              "#{Goldencobra::Url.to_s}" + upload.image(image_size),
+          row image_size do
+            result = content_tag(
+              :div,
+              image_tag(upload.image(image_size))
+            )
+            result += link_to(
+              "#{Goldencobra::Url} #{upload.image(image_size)}",
               upload.image(image_size),
               target: "_blank"
             )
           end
         end
       end
+    end
+
+    attributes_table do
+      row :image_file_name
+      row :image_content_type
+      row :image_file_size do |upload|
+        file_size_mb = "%.02f" % (upload.image_file_size.to_f / 1000 / 1000)
+        "Original: #{file_size_mb} MB"
+      end
+      row :tag_list
       row :source
       row :rights
       row :description
-      row :tag_list
-      row :image_file_name
-      row :image_content_type
-      row :image_file_size
+      row :alt_text
+      row "Artikel" do |upload|
+        result = ""
+        upload.articles.map do |article|
+          result += content_tag(
+            :p,
+            link_to(
+              article.title,
+              edit_admin_article_path(article.id),
+              title: t(:edit)
+            )
+          )
+        end
+        raw(result)
+      end
       row :created_at
       row :updated_at
     end

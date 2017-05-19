@@ -138,6 +138,8 @@ de:
       one: "Zeige <b>1</b> %{model}"
       one_page: "Zeige <b>alle %{n}</b> %{model}"
       multiple: "Zeige %{model} <b>%{from}&nbsp;–&nbsp;%{to}</b> von <b>%{total}</b>"
+      multiple_without_total: "Zeige %{model} <b>%{from}&nbsp;–&nbsp;%{to}</b>"
+      per_page: "Pro Seite:"
       entry:
         one: "Eintrag"
         other: "Einträge"
@@ -444,6 +446,7 @@ de:
         rights: "Rechteinhaber"
         description: "Beschreibung"
         image: "Datei"
+        sorter_number: "Sortiernummer"
       goldencobra/widget:
         title: "Name"
         content: "Standard Inhalt"
@@ -695,6 +698,7 @@ de:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
       short: ! '%d. %B, %H:%M Uhr'
+      date: ! '%d. %B %Y'
     pm: nachmittags
   activemodel:
     errors:
