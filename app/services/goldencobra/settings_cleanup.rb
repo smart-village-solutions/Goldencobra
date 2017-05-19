@@ -29,9 +29,9 @@ module Goldencobra
             # Example:
             #   setting path = goldencobra.locations.geocoding
             #
-            #   1. settings_to_fetch = {"goldencobra"=>{"locations"=>{"geocoding"=>"true"}}}
-            #   2. settings_to_fetch = {"locations"=>{"geocoding"=>"true"}}
-            #   3. settings_to_fetch = {"geocoding"=>"true"}
+            #   1. settings_to_fetch = {"goldencobra"=>{"locations"=>{"geocoding"=>"false"}}}
+            #   2. settings_to_fetch = {"locations"=>{"geocoding"=>"false"}}
+            #   3. settings_to_fetch = {"geocoding"=>"false"}
             settings_to_fetch = settings_to_fetch.fetch(key)
           rescue KeyError
             begin
