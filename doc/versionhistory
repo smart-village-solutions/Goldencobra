@@ -1,3 +1,5 @@
+V2.0.4 - 19.05.2017
+  - Change default setting for geocoding to false
 V2.0.33 - 15.05.2017
   - Provide methods for cleaning up unused settings
 V2.0.32.1 & V2.0.32.2 - 21.03.2017
