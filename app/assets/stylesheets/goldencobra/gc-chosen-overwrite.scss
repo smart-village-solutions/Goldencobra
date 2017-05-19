@@ -10,3 +10,21 @@
 .ui-widget-content { color: #555; }
 
 .chosen-container .chosen-results { max-height: 300px; }
+
+.react-chosen-with-images {
+
+  .chosen-container-single .chosen-single {
+    background: #ffffff;
+    height: auto;
+  }
+
+  .chose-image-small {
+    margin-top: 8px;
+    max-height: 150px;
+  }
+
+  .chose-image-list {
+    margin-right: 8px;
+    width: 50px;
+  }
+}

@@ -7,7 +7,7 @@ module Goldencobra
 
         # /api/v2/uploads[.json]
         #
-        # @return [json] Liefert alle Uploads :id, :complete_list_name
+        # @return [json] Liefert alle Uploads :id, :complete_list_name, :image_url
         def index
           require "oj"
 
@@ -17,7 +17,7 @@ module Goldencobra
 
           # Die React Select Liste braucht das JSON in diesem Format. -hf
           json_uploads = @uploads.map do |u|
-            { "value" => u.id, "label" => u.complete_list_name }
+            { "value" => u.id, "label" => u.complete_list_name, "imgSrc" => u.image(:px150) }
           end
 
           respond_to do |format|

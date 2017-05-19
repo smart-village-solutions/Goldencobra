@@ -4,12 +4,15 @@
 //= require goldencobra/keymaster
 //= require goldencobra/notifications
 //= require goldencobra/countable
-//= require goldencobra/chosen.jquery
 //= require goldencobra/jquery.color-2.1.2
 //= require goldencobra/jquery.Jcrop.min
 //= require goldencobra/react_0.13.1.min
 //= require goldencobra/components
 //= require goldencobra/pagination
+
+//= require chosen-jquery
+//= require goldencobra/jquery.image-select-1.8
+
 // require goldencobra/togetherjs  besser in actve_admin_js über url einbinden
 
 //= require goldencobra/html_editors/general
@@ -289,14 +292,16 @@ function populateArticleUploads() {
         var includeBlank = $(element).hasClass('chosen-select-deselect');
         var selectedUploadId = $(element).find('option:selected').val();
 
-        $this.outerHTML = "<div id='react-" + thisId + "'></div>";
+        $this.outerHTML = "<div id='react-" + thisId + "' class='react-chosen-with-images'></div>";
         React.render(
           React.createElement(SelectList, {
             id: thisId,
             value: selectedUploadId,
             options: thisData,
             name: thisName,
-            firstBlank: includeBlank
+            firstBlank: includeBlank,
+            className: 'select-with-images',
+            showImages: true
           }),
           document.getElementById('react-' + thisId)
         );
@@ -314,6 +319,7 @@ function populateArticleUploads() {
         }
         $('.chosen-container').css({width: '80%'});
       });
+
       return false;
     });
   }

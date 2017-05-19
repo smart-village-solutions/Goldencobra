@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.2.8"
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
+  s.add_dependency "chosen-rails"
   s.add_dependency "devise"
   s.add_dependency "devise-token_authenticatable"
   # TODO: new token authentication
