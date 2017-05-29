@@ -380,7 +380,8 @@ form button {
   .mce-tinymce & { border-radius: 0; }
 
   &.has_many_add,
-  &.has_many_remove {
+  &.has_many_remove,
+  &.article_upload_open {
     background: $dark-color;
   }
 }
@@ -410,7 +411,8 @@ form button:hover:not(.disabled) {
   background: inherit;
 
   &.has_many_add,
-  &.has_many_remove {
+  &.has_many_remove,
+  &.article_upload_open {
     background: lighten($dark-color, 8%);
   }
 }

@@ -10,6 +10,8 @@
 //= require goldencobra/components
 //= require goldencobra/pagination
 
+//= require jquery.modal
+
 //= require chosen-jquery
 //= require goldencobra/jquery.image-select-1.8
 
@@ -252,6 +254,12 @@ $(function () {
 
   // own logo per app from settings url
   changeLogoFromSetting();
+
+  // GC-8
+  $(document).on('click', '.button.article_upload_open', function (e) {
+    e.preventDefault();
+    $(this).next().modal();
+  });
 });
 
 /**
