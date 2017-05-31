@@ -21,7 +21,9 @@ ActiveAdmin.register Goldencobra::ArticleUrl, as: "ArticleUrl" do
     end
     column :created_at
     column :updated_at
-    actions(dropdown: true)
+    actions defaults: false do |post|
+      item "Delete", admin_article_url_path(post), method: :delete
+    end
   end
 
   action_item :rewrite_urls, only: [:index] do
