@@ -67,12 +67,14 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
   index download_links: proc { Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column t(I18n.t("active_admin.uploads.preview")) do |upload|
-      link_to(
-        upload.image_content_type.match(/image|pdf/) ? image_tag(upload.image(:thumb)) : "",
-        admin_upload_path(upload),
-        class: "member_link edit_link",
-        title: I18n.t("active_admin.uploads.title1")
-      )
+      if upload.image_content_type.present?
+        link_to(
+          upload.image_content_type.match(/image|pdf/) ? image_tag(upload.image(:thumb)) : "",
+          admin_upload_path(upload),
+          class: "member_link edit_link",
+          title: I18n.t("active_admin.uploads.title1")
+        )
+      end
     end
     column I18n.t("active_admin.uploads.url") do |upload|
       result = content_tag(
@@ -238,6 +240,10 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
   controller do
     def create
       create! do |format|
+        if @upload.blank?
+          flash[:error] = "Entschuldigung, da gab es einen Fehler beim Hochladen."
+          format.html { redirect_to(:back) }
+        end
         if @upload.errors.present? && @upload.errors.messages.any?
           flash[:error] = "<h3>Fehler beim Speichern</h3><ul>"
           @upload.errors.messages.each do |key, value|
