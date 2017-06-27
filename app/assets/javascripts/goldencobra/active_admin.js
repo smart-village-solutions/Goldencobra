@@ -213,32 +213,6 @@ $(function () {
 	// return false;
   // });
 
-  /**** DOM Manipulation Zeitsteuerung ****/
-  /* text input felder für den jeweiligen
-     tag in dom gruppieren */
-
-  // hilfsarray tage englisch kurz
-  var engDaysShort = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'];
-  // tages checkboxen elemente (mo, di, ..., so)
-  var checkBoxesDays = $('.choice');
-  // für jede checkbox die dazugehörigen input felder holen und anhängen
-  checkBoxesDays.each(function(i, el) {
-    // checkbox muss neue css styles erhalten
-    var addCssBox = {'float': 'left', 'width': '50px', 'margin-top': '8px'};
-    $(el).height(50).find('label').css(addCssBox);
-    // selektoren für start und end inputs eines tages
-    var startInput = $('#widget_offline_time_start_' + engDaysShort[i] + '_input');
-    var endInput = $('#widget_offline_time_end_' + engDaysShort[i] + '_input');
-    // label der inputs entfernen und benötigten css style ergänzen
-    var addCssInput = {'float': 'left', 'width': '180px'};
-    $(startInput).css(addCssInput).find('label').remove();
-    $(endInput).css(addCssInput).find('label').remove();
-    // inputs zur checkbox gruppieren
-    $(startInput).appendTo(el);
-    $(endInput).appendTo(el);
-  });
-  /**** END DOM Manipulation *****/
-
   $('ul.link_checker_ul div.link_checker_label').click(function() {
     $(this).siblings('.link_checker_sources').toggle();
   });
