@@ -1,3 +1,3 @@
 module Goldencobra
-  VERSION = "2.0.5.2"
+  VERSION = "2.1.0"
 end
