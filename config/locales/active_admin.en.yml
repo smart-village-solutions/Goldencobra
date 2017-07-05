@@ -294,6 +294,7 @@ en:
         flash:
           article_online: "This article is now online."
           article_offline: "This article is now offline."
+          article_not_edited: "Article not found and not edited."
           widgets: "Widgets added"
           link_checker: "Links for this article will be inspected. This can take couple of minutes. Thank you for your patience."
       batch_action:

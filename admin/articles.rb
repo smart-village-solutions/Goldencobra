@@ -116,7 +116,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       article.public_url
     end
     column I18n.t('active_admin.articles.index.active'), :active, sortable: :active do |article|
-      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article), title: "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", confirm: I18n.t("online", scope: [:goldencobra, :flash_notice]), class: "member_link edit_link #{article.active ? 'online' : 'offline'}")
+      link_to(article.active ? "online" : "offline", set_page_online_offline_admin_article_path(article.id), title: "#{article.active ? 'Artikel offline stellen' : 'Artikel online stellen'}", confirm: I18n.t("online", scope: [:goldencobra, :flash_notice]), class: "member_link edit_link #{article.active ? 'online' : 'offline'}")
     end
     column I18n.t('active_admin.articles.index.article_type'), :article_type, sortable: :article_type do |article|
       article.article_type.blank? ? I18n.t('active_admin.articles.index.default') : I18n.t(article.article_type.parameterize.underscore.downcase, scope: [:goldencobra, :article_types])
@@ -249,14 +249,19 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
 
   member_action :set_page_online_offline do
     article = Goldencobra::Article.find_by_id(params[:id])
-    if article.active
-      article.active = false
-      flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_offline')
+
+    if article
+      if article.active
+        article.active = false
+        flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_offline')
+      else
+        article.active = true
+        flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_online')
+      end
+      article.save
     else
-      article.active = true
-      flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_online')
+      flash[:notice] = I18n.t('active_admin.articles.member_action.flash.article_not_edited')
     end
-    article.save
 
     redirect_to action: :index
   end
