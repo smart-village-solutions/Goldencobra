@@ -51,6 +51,8 @@ gem "eventmachine", "~> 1.0.9.1"
 gem "pdfkit"
 gem "wkhtmltopdf-binary"
 
+gem "liquid", "~> 3.0"
+
 group :development, :test do
   gem "debugger"
   gem "rspec-rails" # rspec in dev so the rake tasks run properly
