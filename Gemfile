@@ -51,6 +51,9 @@ gem "eventmachine", "~> 1.0.9.1"
 gem "pdfkit"
 gem "wkhtmltopdf-binary"
 
+# fix this version to 3.x to avoid method missing errors with version >= 4.0.0
+gem "liquid", "~> 3.0"
+
 group :development, :test do
   gem "debugger"
   gem "rspec-rails" # rspec in dev so the rake tasks run properly

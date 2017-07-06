@@ -294,6 +294,7 @@ de:
         flash:
           article_online: "Dieser Artikel ist nun online"
           article_offline: "Dieser Artikel ist nun offline"
+          article_not_edited: "Artikel konnte nicht gefunden und verarbeitet werden."
           widgets: "Widgets added"
           link_checker: "Die Links dieses Artikels werden überprüft. Bitte warten Sie, dies kann wenige Minuten in Anspruch nehmen."
       batch_action:
