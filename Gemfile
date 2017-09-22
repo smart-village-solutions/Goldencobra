@@ -9,6 +9,7 @@ gemspec
 # gem version to fix "NoMethodError: undefined method `set_table_name" for #<Class:..."
 gem "i18n-active_record", git: "http://github.com/svenfuchs/i18n-active_record.git",
                           require: "i18n/active_record"
+gem "byebug"
 
 group :development, :test do
   gem "byebug"
@@ -28,6 +29,7 @@ group :development do
   gem "pre-commit"
   gem "web-console", "2.3.0"
   gem "benchmark-ips"
+
 end
 
 group :test do
