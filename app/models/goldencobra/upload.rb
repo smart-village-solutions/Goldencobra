@@ -100,18 +100,44 @@ module Goldencobra
         int = 0
         zipped_files.each do |zipped_file|
           int = int + 1
+
+          filename = zipped_file.name.split(".").last(2).join(".")
+
           if zipped_file.file?
-            zipped_file.extract("tmp/#{self.id}_unzipped_#{int}.jpg")
-            Goldencobra::Upload.create(image: File.open("tmp/#{self.id}_unzipped_#{int}.jpg"),
+            zipped_file.extract("tmp/#{filename}")
+            Goldencobra::Upload.create(image: File.open("tmp/#{filename}"),
                         source: self.source,
                         rights: self.rights,
                         description: self.description,
                         tag_list: self.tag_list.join(", ") )
-            File.delete("tmp/#{self.id}_unzipped_#{int}.jpg")
+            File.delete("tmp/#{filename}")
           end
         end
       end
     end
+
+    # def unzip_files
+    #   if self.image_file_name.include?(".zip") && File.exists?(self.image.path)
+    #     require 'zip'
+    #     zipped_files = Zip::File.open(self.image.path)
+    #     int = 0
+    #     zipped_files.each do |zipped_file|
+    #       int = int + 1
+    #       if zipped_file.file?
+    #         file_name = zipped_file.image_file_name
+    #         file_ending = zipped_file.extname
+    #         zipped_file.extract("tmp/#{orig_name}.#{file_ending}")
+    #         Goldencobra::Upload.create(image: File.open("tmp/#{orig_name}.#{file_ending}"),
+    #                     image_file_name: "#{orig_name}.#{file_ending}",
+    #                     source: self.source,
+    #                     rights: self.rights,
+    #                     description: self.description,
+    #                     tag_list: self.tag_list.join(", ") )
+    #         File.delete("tmp/#{orig_name}.#{file_ending}")
+    #       end
+    #     end
+    #   end
+    # end
 
     # Internal: Makes sure to only post-process files which are either pdf
     # or image files. Word documents would break file upload.
