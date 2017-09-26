@@ -98,7 +98,7 @@ module Goldencobra
         require 'zip'
         zipped_files = Zip::File.open(self.image.path)
         zipped_files.each do |zipped_file|
-          filename = zipped_file.name.split('/').last.gsub(" ", "_")
+          filename = zipped_file.name.split('/').last.gsub(" ", "_").gsub(/[^0-9A-z.\-]/, '')
           next if filename[0] == "."
           if zipped_file.file?
             zipped_file.extract("tmp/#{self.id}_#{filename}")
