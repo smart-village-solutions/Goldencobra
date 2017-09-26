@@ -87,9 +87,9 @@ module Goldencobra
         end
 
         if id_name.present?
-          result = content_tag(:ul, raw(content),id: "#{id_name}", class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
+          result = content_tag(:ul, raw(content),id: "#{id_name}", class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/[^A-z\-]/,' ')}".squeeze(' ').strip)
         else
-          result = content_tag(:ul, raw(content), class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
+          result = content_tag(:ul, raw(content), class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/[^A-z\-]/,' ')}".squeeze(' ').strip)
         end
       end
       return raw(result)
