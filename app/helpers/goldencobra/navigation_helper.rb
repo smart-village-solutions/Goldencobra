@@ -26,6 +26,7 @@ module Goldencobra
     #<%= navigation_menu("Top-Menu", current_article: @article, class: "ul_main_nav", depth: 1, offset: 1 %>
 
     # TODO: offset implementieren
+    # TODO: refactor method to make it easier to test
     def navigation_menu(menue_id, options={})
       return "id can't be blank" if menue_id.blank?
       depth = options[:depth] || 9999
@@ -87,9 +88,9 @@ module Goldencobra
         end
 
         if id_name.present?
-          result = content_tag(:ul, raw(content),id: "#{id_name}", class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
+          result = content_tag(:ul, raw(content),id: "#{id_name}", class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/[^A-z\-]/,' ')}".squeeze(' ').strip)
         else
-          result = content_tag(:ul, raw(content), class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/\W/,' ')}".squeeze(' ').strip)
+          result = content_tag(:ul, raw(content), class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/[^A-z\-]/,' ')}".squeeze(' ').strip)
         end
       end
       return raw(result)
