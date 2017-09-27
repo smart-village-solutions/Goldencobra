@@ -97,17 +97,19 @@ module Goldencobra
       if self.image_file_name.include?(".zip") && File.exists?(self.image.path)
         require 'zip'
         zipped_files = Zip::File.open(self.image.path)
-        int = 0
         zipped_files.each do |zipped_file|
-          int = int + 1
+          filename = zipped_file.name.split('/').last.gsub(" ", "_").gsub(/[^0-9A-z.\-]/, '')
+          file_path = "tmp/#{self.id}_#{filename}"
+          next if filename[0] == "."
           if zipped_file.file?
-            zipped_file.extract("tmp/#{self.id}_unzipped_#{int}.jpg")
-            Goldencobra::Upload.create(image: File.open("tmp/#{self.id}_unzipped_#{int}.jpg"),
+            zipped_file.extract(file_path)
+            Goldencobra::Upload.create(image: File.open(file_path),
+                        image_file_name: filename,
                         source: self.source,
                         rights: self.rights,
                         description: self.description,
                         tag_list: self.tag_list.join(", ") )
-            File.delete("tmp/#{self.id}_unzipped_#{int}.jpg")
+            File.delete(file_path)
           end
         end
       end
