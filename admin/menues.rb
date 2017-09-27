@@ -65,7 +65,7 @@ ActiveAdmin.register Goldencobra::Menue, as: "Menue" do
       end
     end
     column I18n.t("active_admin.menues.form.index.column6") do |menue|
-      if menue.parent_id.present?
+      if menue.parent_id.present? && Goldencobra::Menue.exists?(menue.parent_id)
         Goldencobra::Menue.find(menue.parent_id).title
       end
     end
