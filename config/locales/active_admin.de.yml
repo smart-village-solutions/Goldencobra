@@ -413,6 +413,7 @@ de:
           column3: "Sortieren"
           column4: "Zugriff"
           column5: "Artikel"
+          column6: "Elternelement"
           search_link: "search"
           search_class: "list"
           search_title: "Artikel auflisten"
