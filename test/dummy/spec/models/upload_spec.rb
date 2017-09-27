@@ -10,10 +10,10 @@ describe Goldencobra::Upload do
   end
 
   it "can upload and unzip a zip file" do
-     @zip.unzip_files
+    expect { @zip.unzip_files }.not_to raise_error
   end
 
-  it "creates an Goldencobra::Upload for each file contained" do
+  it "creates a Goldencobra::Upload for each file contained" do
     expect { @zip.unzip_files }.to change(Goldencobra::Upload, :count).by(1)
     expect { @zip_severals.unzip_files }.to change(Goldencobra::Upload, :count).by(3)
   end
