@@ -413,6 +413,7 @@ en:
           column3: "Sort"
           column4: "Access"
           column5: "Article"
+          column6: "Parent element"
           search_link: "search"
           search_class: "list"
           search_title: "List article"
