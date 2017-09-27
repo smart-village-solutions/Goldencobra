@@ -64,6 +64,11 @@ ActiveAdmin.register Goldencobra::Menue, as: "Menue" do
         link_to(I18n.t("active_admin.menues.form.index.search_link1"), new_admin_article_path(article: {title: menue.title, url_name: menue.target.to_s.split('/').last}), class: "create", title: I18n.t("active_admin.menues.form.index.search_title1"))
       end
     end
+    column I18n.t("active_admin.menues.form.index.column6") do |menue|
+      if menue.parent_id.present? && Goldencobra::Menue.exists?(menue.parent_id)
+        Goldencobra::Menue.find(menue.parent_id).title
+      end
+    end
     column "" do |menue|
       result = ""
       result += link_to(I18n.t("active_admin.menues.form.column.edit"), edit_admin_menue_path(menue), class: "member_link edit_link edit", title: I18n.t("active_admin.menues.form.column.edit_title"))
