@@ -26,6 +26,8 @@ describe Goldencobra::Widget do
         teaser: "Teaser Content"
       )
 
+      @widget_one.tag_list = "left, sidebar"
+
       duplicated_widget_id = @widget_one.duplicate!
       dup_widget = Goldencobra::Widget.find(duplicated_widget_id)
       dup_attrs = dup_widget.attributes.delete_if{ |a| %w(created_at updated_at).include?(a) }
@@ -33,6 +35,7 @@ describe Goldencobra::Widget do
       expect(duplicated_widget_id).to eq(Goldencobra::Widget.last.id)
       expect(Goldencobra::Widget.count).to eq(2)
       expect(dup_attrs).to eq(dupl_attributes.merge!({ "id" => duplicated_widget_id}))
+      expect(@widget_one.tag_list).to eq(dup_widget.tag_list)
     end
   end
 
