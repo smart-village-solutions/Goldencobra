@@ -46,8 +46,7 @@
 #  author_id                        :integer
 #
 
-
-#For article rendering to string (:render_html) needed
+# For article rendering to string (:render_html) needed
 include Goldencobra::ApplicationHelper
 require "open-uri"
 
@@ -55,7 +54,7 @@ module Goldencobra
   class Article < ActiveRecord::Base
     include Goldencobra::ArticleConcerns::MetaTag
 
-    #extend FriendlyId
+    # extend FriendlyId
     LiquidParser = {}
     SortOptions = ["Created_at", "Updated_at", "Random", "Alphabetically", "GlobalSortID"]
     DynamicRedirectOptions = [[:false,"deaktiviert"],[:latest,"neuester Untereintrag"], [:oldest, "ältester Untereintrag"]]
@@ -417,7 +416,7 @@ module Goldencobra
 
     # scope for index articles, display show-articles, index-articles or both articletypes
     def self.articletype_for_index(current_article)
-      #Wenn alle Artikeltypen angezeigt werden sollen
+      # Wenn alle Artikeltypen angezeigt werden sollen
       if current_article.display_index_articletypes == "all"
         if current_article.display_index_types == "show"
           where("article_type LIKE '% Show' ")
@@ -427,7 +426,7 @@ module Goldencobra
           where("article_type LIKE '% Show' OR article_type LIKE '% Index' ")
         end
       else
-        #Wenn NUR Artikel von EINEM bestimmten Artkeltypen angezeigt werden sollen
+        # Wenn NUR Artikel von EINEM bestimmten Artkeltypen angezeigt werden sollen
         if current_article.display_index_types == "show"
           articletype("#{current_article.display_index_articletypes} Show")
         elsif current_article.display_index_types == "index"
