@@ -38,7 +38,6 @@ module Goldencobra
         Goldencobra::Article.article_types_for_select.each do |at|
           if Goldencobra::Articletype.find_by_name(at).blank?
             Goldencobra::Articletype.create(name: at, default_template_file: "application")
-            puts "Default Articletype created for #{at}"
           end
         end
 
