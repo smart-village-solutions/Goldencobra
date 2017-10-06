@@ -188,7 +188,7 @@ module Goldencobra
       attrs["title"] = "#{attrs["title"]} (Kopie)"
       attrs["id_name"] = attrs["id_name"].present? ? "#{attrs["id_name"]}-kopie" : nil
       attrs["active"] = false
-      attrs["tag_list"] = self.tag_list
+      attrs["tag_list"] = tag_list
       new_widget = Goldencobra::Widget.create!(attrs)
       new_widget ? new_widget.id : nil
     end
