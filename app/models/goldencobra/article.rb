@@ -114,6 +114,7 @@ module Goldencobra
     after_update :notification_event_update
     after_update :update_parent_article_etag
     after_save :set_url_path
+    before_destroy :ensure_no_descendants
     before_destroy :update_parent_article_etag
     after_update :set_redirection_step_2
     after_commit :update_article_urls
@@ -181,6 +182,10 @@ module Goldencobra
 
     def has_children
       self.has_children?
+    end
+
+    def ensure_no_descendants
+      return false if has_children
     end
 
     def restricted

@@ -55,6 +55,8 @@ de:
       startpage: "Dieser Artikel ist nun der Startartikel"
       online: "Sichtbarkeit dieses Artikels ändern?"
       delete_article: "Artikel wirklich löschen?"
+      successfully_deleted_article: "Artikel wurde gelöscht."
+      article_has_decendants: "Artikel kann nicht gelöscht werden da untergeordnete Artikel vorhanden sind."
     filter:
       filter_titel: "Titel"
       filter_subtitel: "Untertitel"

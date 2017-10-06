@@ -303,6 +303,8 @@ en:
       startpage: "This Article is the Startpage!"
       online: "Change the visibility of the article?"
       delete_article: "Really want to delete this article?"
+      successfully_deleted_article: "Article successfully deleted."
+      article_has_decendants: "Cannot delete article because of its decendants."
     filter:
       filter_titel: "title"
       filter_subtitel: "subtitle"
