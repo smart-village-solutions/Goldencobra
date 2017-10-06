@@ -29,8 +29,12 @@ module Goldencobra
     attr_accessor :skip_geocode
 
     geocoded_by :complete_location, latitude: :lat, longitude: :lng
-    after_validation :geocode, unless: :skip_geocoding_once_or_always
+    after_validation :safe_geocode, unless: :skip_geocoding_once_or_always
 
+    def safe_geocode
+      geocode
+    rescue Geocoder::OverQueryLimitError
+    end
 
     liquid_methods :street, :city, :zip, :region, :country, :title
     belongs_to :locateable, polymorphic: true

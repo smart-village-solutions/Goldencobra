@@ -22,6 +22,38 @@ describe Goldencobra::Location do
     )
   end
 
+  describe "safe_geocoding" do
+    before do
+      expect_any_instance_of(Goldencobra::Location)
+        .to receive(:do_lookup).and_raise(Geocoder::OverQueryLimitError)
+    end
+
+    it "ignores the error and creates the record" do
+      expect {
+        Goldencobra::Location.create(
+          street: "Zossener Str. 55",
+          city: "Berlin",
+          zip: "10961"
+        )
+      }.to change(Goldencobra::Location, :count).from(0).to(1)
+    end
+
+    it "saves the given attributes" do
+        Goldencobra::Location.create(
+          street: "Zossener Str. 55",
+          city: "Berlin",
+          zip: "10961"
+        )
+
+      expect(
+        Goldencobra::Location.where(
+          street: "Zossener Str. 55",
+          city: "Berlin",
+          zip: "10961"
+        ).exists?).to eq(true)
+    end
+  end
+
   context "with a valid address" do
     it "should have a latitude and longitude" do
       location = Goldencobra::Location.create(street: "Zossener Str. 55",
