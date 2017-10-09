@@ -23,7 +23,7 @@
 module Goldencobra
   class Location < ActiveRecord::Base
     geocoded_by :complete_location, :latitude  => :lat, :longitude => :lng
-    after_validation :safe_geocode, :unless => skip_geocoding_once_or_always
+    after_validation :safe_geocode, :unless => :skip_geocoding_once_or_always
 
     attr_accessor :skip_geocode
     liquid_methods :street, :city, :zip, :region, :country, :title
