@@ -23,10 +23,16 @@
 module Goldencobra
   class Location < ActiveRecord::Base
     geocoded_by :complete_location, :latitude  => :lat, :longitude => :lng
-    after_validation :geocode, :unless => :skip_geocoding_once_or_always
+    after_validation :safe_geocode, :unless => skip_geocoding_once_or_always
+
     attr_accessor :skip_geocode
     liquid_methods :street, :city, :zip, :region, :country, :title
     belongs_to :locateable, :polymorphic => true
+
+    def safe_geocode
+      geocode
+    rescue Geocoder::OverQueryLimitError
+    end
 
     def complete_location
       result = ""
@@ -41,7 +47,8 @@ module Goldencobra
     end
 
     def skip_geocoding_once_or_always
-      (Goldencobra::Setting.for_key("goldencobra.locations.geocoding") == "false" ) || self.skip_geocode || self.manual_geocoding
+      (Goldencobra::Setting.for_key("goldencobra.locations.geocoding") == "false" ) ||
+        self.skip_geocode || self.manual_geocoding
     end
   end
 end
