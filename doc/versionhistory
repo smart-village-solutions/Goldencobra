@@ -1,3 +1,8 @@
+V1.4.10 - 09.10.2017
+  - Rescue OverQueryLimitErrors when commiting records
+    The geocode call was configured to always raise the
+    Geocoder::OverQueryLimitError error. I think this is the right
+    decision, but I still want the changes to the records to be saved.
 V1.4.9
   - Fix a bug with the member action setting articles online or offline.
     The slug of an article was used wrongly instead of the id of an article to find it.
