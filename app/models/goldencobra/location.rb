@@ -22,12 +22,12 @@
 
 module Goldencobra
   class Location < ActiveRecord::Base
-    geocoded_by :complete_location, :latitude  => :lat, :longitude => :lng
-    after_validation :safe_geocode, :unless => :skip_geocoding_once_or_always
+    geocoded_by :complete_location, latitude: :lat, longitude: :lng
+    after_validation :safe_geocode, unless: :skip_geocoding_once_or_always
 
     attr_accessor :skip_geocode
     liquid_methods :street, :city, :zip, :region, :country, :title
-    belongs_to :locateable, :polymorphic => true
+    belongs_to :locateable, polymorphic: true
 
     def safe_geocode
       geocode
@@ -36,19 +36,19 @@ module Goldencobra
 
     def complete_location
       result = ""
-      result += "#{self.street}" if self.street.present?
-      result += " #{self.street_number}" if self.street_number.present?
-      result += ", #{self.zip}" if self.zip.present?
-      result += " #{self.city}" if self.city.present?
+      result += street.to_s if street.present?
+      result += " #{street_number}" if street_number.present?
+      result += ", #{zip}" if zip.present?
+      result += " #{city}" if city.present?
     end
 
     def title
-      self.complete_location
+      complete_location
     end
 
     def skip_geocoding_once_or_always
-      (Goldencobra::Setting.for_key("goldencobra.locations.geocoding") == "false" ) ||
-        self.skip_geocode || self.manual_geocoding
+      (Goldencobra::Setting.for_key("goldencobra.locations.geocoding") == "false") ||
+        skip_geocode || manual_geocoding
     end
   end
 end
