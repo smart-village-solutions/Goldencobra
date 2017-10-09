@@ -459,10 +459,10 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     def destroy
       article = Goldencobra::Article.find(params[:id])
       if article.has_children
-         redirect_to admin_articles_path, flash: {error: I18n.t('goldencobra.flash_notice.article_has_decendants')}
+         redirect_to admin_articles_path, flash: { error: I18n.t("goldencobra.flash_notice.article_has_decendants") }
       else
         article.destroy
-        redirect_to admin_articles_path, flash: {notice: I18n.t('goldencobra.flash_notice.successfully_deleted_article')}
+        redirect_to admin_articles_path, flash: { notice: I18n.t("goldencobra.flash_notice.successfully_deleted_article") }
       end
     end
   end
