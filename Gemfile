@@ -21,7 +21,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "brakeman"
   gem "hirb"
   gem "powder"
   gem "listen", "3.0.5"  # Fix auf diese Version, weil danach ruby 2.2.3 vorrausgesetzt wird
