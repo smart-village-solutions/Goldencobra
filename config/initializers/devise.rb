@@ -3,6 +3,11 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 require 'openid/store/filesystem'
+
+# Only allow whitelisted Models to log into the system. If you use a Devise-backed model that
+# differs from `User` or `Visitor`, please make sure to add it here.
+DEVISE_MODELS_WHITELIST = %w(user visitor).freeze
+
 Devise.setup do |config|
 
   config.secret_key = '2f8c290766c230f36eac5efa7a845036b338794f70daa13ad085572457033ce8e07b19199157fe1242906512c2c0a7d38a7d23ed381888f84bba778691f9871d'

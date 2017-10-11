@@ -243,16 +243,24 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
         if @upload.blank?
           flash[:error] = "Entschuldigung, da gab es einen Fehler beim Hochladen."
           format.html { redirect_to(:back) }
+        elsif @upload.errors.present? && @upload.errors.messages.any?
+          flash[:error] = errors_flash
+          format.html { redirect_to(:back) }
         end
-        if @upload.errors.present? && @upload.errors.messages.any?
-          flash[:error] = "<h3>Fehler beim Speichern</h3><ul>"
-          @upload.errors.messages.each do |key, value|
-            flash[:error] += "<li><span>#{t(key, scope: [:activerecord, :attributes, :profile])}</span>: #{value.join(', ')}</li>"
-          end
-          flash[:error] += "</ul>"
-        end
-         format.html { redirect_to admin_upload_path(@upload.id) }
+        format.html { redirect_to admin_upload_path(@upload.id) }
       end
+    end
+
+    private
+
+    def errors_flash
+      headline = "<h3>Fehler beim Speichern</h3><ul>"
+      flash = @upload.errors.messages.inject(headline) do |previous, message|
+        attribute = t(message.first, scope: [:activerecord, :attributes, :profile])
+        error = message.last.join(", ")
+        previous + "<li><span>#{attribute}</span>: #{error}</li>"
+      end
+      raw(flash + "</ul>")
     end
   end
 end
