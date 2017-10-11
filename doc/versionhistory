@@ -1,6 +1,15 @@
-V2.2.1 - 06.09.2017
+V2.2.2 - 11.10.2017
+  - Rescue OverQueryLimitErrors when commiting records
+    The geocode call was configured to always raise the
+    Geocoder::OverQueryLimitError error. This is the right
+    decision, but you still want the changes to the records to be saved.
+  - Remove brakeman from Gemfile
+    Because of security issues the gem is removed permanently.
+  - Improve CodeClimate issues
+  - Silence and remove notices for creating article types
+V2.2.1 - 06.10.2017
   - copied widgets keep the position
-V2.2.0 - 04.09.2017
+V2.2.0 - 04.10.2017
   - files in ZIPs will correctly extract with their original names
   - show column for parent element in active admin index view for Goldencobra::Menue
   - support for classes with dashes for a Goldencobra::Menue
