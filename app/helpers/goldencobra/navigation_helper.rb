@@ -85,9 +85,17 @@ module Goldencobra
       end
       subtree_menues = subtree_menues.to_a.delete_if{|a| !ability.can?(:read, a)}
 
+<<<<<<< HEAD
       current_depth = 1
       menue_roots(subtree_menues).each do |root|
         content << navigation_menu_helper(root, options, subtree_menues, current_depth)
+=======
+        if id_name.present?
+          result = content_tag(:ul, raw(content),id: "#{id_name}", class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/[^\w\-]/,' ')}".squeeze(' ').strip)
+        else
+          result = content_tag(:ul, raw(content), class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/[^\w\-]/,' ')}".squeeze(' ').strip)
+        end
+>>>>>>> origin/master
       end
 
       klass = [
