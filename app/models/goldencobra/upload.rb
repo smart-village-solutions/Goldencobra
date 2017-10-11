@@ -28,7 +28,7 @@ module Goldencobra
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_image, :image_url
 
     if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads") &&
-      ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+       ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
       has_attached_file :image,
                         styles: {
                           large: ["900x900>", :jpg],
@@ -43,7 +43,10 @@ module Goldencobra
                         path: ":rails_root/public/system/:attachment/:id/:style/:filename",
                         url: "/system/:attachment/:id/:style/:filename",
                         convert_options: -> {
-                          { all: "#{Goldencobra::Setting.for_key('goldencobra.upload.convert_options')}" }
+                          {
+                            all: Goldencobra::Setting.for_key("goldencobra.upload.convert_options")
+                                   .to_s
+                          }
                         }.call,
                         default_url: "missing_:style.png"
       do_not_validate_attachment_file_type :image
@@ -51,16 +54,21 @@ module Goldencobra
 
     end
 
-    has_many :article_images, class_name: Goldencobra::ArticleImage, foreign_key: "image_id", dependent: :destroy
+    has_many :article_images,
+             class_name: "Goldencobra::ArticleImage",
+             foreign_key: "image_id",
+             dependent: :destroy
     has_many :articles, through: :article_images
-    has_many :imports, class_name: Goldencobra::Import
+    has_many :imports, class_name: "Goldencobra::Import"
     belongs_to :attachable, polymorphic: true
 
     before_save :download_remote_image, if: :image_url_provided?
-
     before_save :crop_image_with_coords
+
+    acts_as_taggable_on :tags
+
     def crop_image_with_coords
-      require 'RMagick'
+      require "RMagick"
       # Should we crop?
       if self.crop_image.present? && self.crop_image == "1" && self.crop_x.present? &&
         self.crop_y.present? && self.crop_w.present? && self.crop_h.present?
@@ -83,19 +91,16 @@ module Goldencobra
       "#{self.image_file_name} (#{self.image_content_type})"
     end
 
-    acts_as_taggable_on :tags
-
     def complete_list_name
       result = ""
-      result << "#{self.image_file_name} " if self.image_file_name.present?
-      result << "(#{self.source}, #{self.rights}) " if self.source.present? || self.rights.present?
-      result << "- #{self.updated_at.strftime("%d.%m.%Y - %H:%M Uhr")}"
-      return result
+      result += "#{self.image_file_name} " if self.image_file_name.present?
+      result += "(#{self.source}, #{self.rights}) " if self.source.present? || self.rights.present?
+      result + "- #{self.updated_at.strftime("%d.%m.%Y - %H:%M Uhr")}"
     end
 
     def unzip_files
       if self.image_file_name.include?(".zip") && File.exists?(self.image.path)
-        require 'zip'
+        require "zip"
         zipped_files = Zip::File.open(self.image.path)
         zipped_files.each do |zipped_file|
           filename = zipped_file.name.split('/').last.gsub(" ", "_").gsub(/[^0-9A-z.\-]/, '')
@@ -103,12 +108,14 @@ module Goldencobra
           next if filename[0] == "."
           if zipped_file.file?
             zipped_file.extract(file_path)
-            Goldencobra::Upload.create(image: File.open(file_path),
-                        image_file_name: filename,
-                        source: self.source,
-                        rights: self.rights,
-                        description: self.description,
-                        tag_list: self.tag_list.join(", ") )
+            Goldencobra::Upload.create(
+              image: File.open(file_path),
+              image_file_name: filename,
+              source: self.source,
+              rights: self.rights,
+              description: self.description,
+              tag_list: self.tag_list.join(", ")
+            )
             File.delete(file_path)
           end
         end
@@ -122,13 +129,10 @@ module Goldencobra
     #
     # Returns true for image or pdf files and false for everything else
     def image_file?
-      #debugger
-      if !(self.image_content_type =~ /^image.*/).nil?
-        return true
-      elsif !(self.image_content_type =~ /pdf/).nil?
-        return true
+      if !(self.image_content_type =~ /^image.*/).nil? || !(self.image_content_type =~ /pdf/).nil?
+        true
       else
-        return false
+        false
       end
     end
 
@@ -144,7 +148,7 @@ module Goldencobra
     end
 
     def download_remote_image
-      require 'open-uri'
+      require "open-uri"
       require "addressable/uri"
       io = open(Addressable::URI.parse(self.image_url))
       self.image = io
