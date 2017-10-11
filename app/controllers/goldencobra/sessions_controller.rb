@@ -58,7 +58,7 @@ module Goldencobra
       return false if params[:usermodel].blank?
       return false unless DEVISE_MODELS_WHITELIST.include?(params[:usermodel].to_s.downcase)
 
-      params[:usermodel].constantize
+      params[:usermodel].safe_constantize
     end
   end
 end
