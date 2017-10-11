@@ -257,7 +257,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
       headline = "<h3>Fehler beim Speichern</h3><ul>"
       flash = @upload.errors.messages.inject(headline) do |previous, message|
         attribute = t(message.first, scope: [:activerecord, :attributes, :profile])
-        error = message.last.join(', ')
+        error = message.last.join(", ")
         previous + "<li><span>#{attribute}</span>: #{error}</li>"
       end
       raw(flash + "</ul>")
