@@ -6,7 +6,7 @@ require 'openid/store/filesystem'
 
 # Only allow whitelisted Models to log into the system. If you use a Devise-backed model that
 # differs from `User` or `Visitor`, please make sure to add it here.
-DEVISE_MODELS_WHITELIST = %w(user visitor)
+DEVISE_MODELS_WHITELIST = %w(user visitor).freeze
 
 Devise.setup do |config|
 
