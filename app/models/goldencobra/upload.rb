@@ -103,7 +103,7 @@ module Goldencobra
         require "zip"
         zipped_files = Zip::File.open(self.image.path)
         zipped_files.each do |zipped_file|
-          filename = zipped_file.name.split('/').last.gsub(" ", "_").gsub(/[^0-9A-z.\-]/, '')
+          filename = zipped_file.name.split("/").last.gsub(" ", "_").gsub(/[^0-9A-z.\-]/, "")
           file_path = "tmp/#{self.id}_#{filename}"
           next if filename[0] == "."
           if zipped_file.file?
