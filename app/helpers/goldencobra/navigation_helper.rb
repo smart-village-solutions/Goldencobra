@@ -69,42 +69,52 @@ module Goldencobra
         ability = Ability.new()
       end
 
-      if !ability.can?(:read, master_menue)
+      unless ability.can?(:read, master_menue)
         return ""
       end
 
-      if master_menue.present?
-        content = ""
-        if current_article.present?
-          subtree_menues = master_menue.subtree.after_depth(current_depth).to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
-        else
-          subtree_menues = master_menue.subtree.after_depth(current_depth + offset).to_depth(current_depth + depth).active.includes(:permissions).includes(:image)
-        end
-        subtree_menues = subtree_menues.to_a.delete_if{|a| !ability.can?(:read, a)}
-
-        current_depth = 1
-        menue_roots(subtree_menues).each do |root|
-          content << navigation_menu_helper(root, options, subtree_menues, current_depth)
-        end
-
-        if id_name.present?
-          result = content_tag(:ul, raw(content),id: "#{id_name}", class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/[^\w\-]/,' ')}".squeeze(' ').strip)
-        else
-          result = content_tag(:ul, raw(content), class: "#{class_name} #{depth} navigation #{master_menue.css_class.to_s.gsub(/[^\w\-]/,' ')}".squeeze(' ').strip)
-        end
+      content = ""
+      if current_article.present?
+        subtree_menues = master_menue.subtree.after_depth(current_depth)
+                           .to_depth(current_depth + depth)
+                           .active.includes(:permissions).includes(:image)
+      else
+        subtree_menues = master_menue.subtree.after_depth(current_depth + offset)
+                           .to_depth(current_depth + depth)
+                           .active.includes(:permissions).includes(:image)
       end
-      return raw(result)
+      subtree_menues = subtree_menues.to_a.delete_if{|a| !ability.can?(:read, a)}
+
+      current_depth = 1
+      menue_roots(subtree_menues).each do |root|
+        content << navigation_menu_helper(root, options, subtree_menues, current_depth)
+      end
+
+      klass = [
+        class_name,
+        depth,
+        "navigation",
+        master_menue.css_class.to_s.gsub(/[^\w\-]/, " ")
+      ].join(" ").squeeze(" ").strip
+      result = content_tag(
+        :ul,
+        raw(content),
+        id: id_name.present? ? id_name.to_s : nil,
+        class: klass
+      )
+
+      raw(result)
     end
 
     private
 
     def menue_roots(menue_array)
       min_of_layers = menue_array.map{|a| a.ancestry.to_s.split("/").count }.min
-      return menue_array.select{|a| a.ancestry.to_s.split("/").count == min_of_layers }
+      menue_array.select{|a| a.ancestry.to_s.split("/").count == min_of_layers }
     end
 
     def menue_children(menue_element, menue_array)
-      return menue_array.select{|a| a.ancestry.to_s.split("/").last.to_i == menue_element.id }
+      menue_array.select{|a| a.ancestry.to_s.split("/").last.to_i == menue_element.id }
     end
 
     def navigation_menu_helper(child, options, subtree_menues, current_depth)
