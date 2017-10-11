@@ -45,7 +45,7 @@ module Goldencobra
                         convert_options: -> {
                           {
                             all: Goldencobra::Setting.for_key("goldencobra.upload.convert_options")
-                                   .to_s
+                                                     .to_s
                           }
                         }.call,
                         default_url: "missing_:style.png"

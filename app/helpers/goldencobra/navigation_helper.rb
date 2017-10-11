@@ -74,12 +74,12 @@ module Goldencobra
       content = ""
       if current_article.present?
         subtree_menues = master_menue.subtree.after_depth(current_depth)
-                           .to_depth(current_depth + depth)
-                           .active.includes(:permissions).includes(:image)
+                                     .to_depth(current_depth + depth)
+                                     .active.includes(:permissions).includes(:image)
       else
         subtree_menues = master_menue.subtree.after_depth(current_depth + offset)
-                           .to_depth(current_depth + depth)
-                           .active.includes(:permissions).includes(:image)
+                                     .to_depth(current_depth + depth)
+                                     .active.includes(:permissions).includes(:image)
       end
       subtree_menues = subtree_menues.to_a.delete_if{|a| !ability.can?(:read, a)}
 
