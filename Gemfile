@@ -16,6 +16,7 @@ group :development, :test do
   gem "faker" # rspec in dev so the rake tasks run properly
   gem "newrelic_rpm", "~> 3.18.1.330"
   gem "yarjuf"
+  gem "mysql2"
   gem "spring" # Spring speeds up development by keeping your application running in the background.
                # Read more: https://github.com/rails/spring
 end
