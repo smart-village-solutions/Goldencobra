@@ -160,9 +160,10 @@ module Goldencobra
     def redirect_to_404
       ActiveSupport::Notifications.instrument("goldencobra.article.not_found", params: params)
       @article = Goldencobra::Article.find_by_url_name("404")
+
       if @article
         respond_to do |format|
-          format.html { render layout: @article.selected_layout, status: 404 }
+          format.html { render layout: @article.selected_layout, status: 200 }
           format.any { head(status: 404) }
         end
       else

@@ -54,9 +54,11 @@ describe Goldencobra::ArticlesController, type: :controller do
       it 'should return 404 if no article is found' do
         create(:article, title: "404", url_name: "404", content: "404")
         sign_in(@user, scope: :user)
+
         visit "/no_article?auth_token=#{@user.authentication_token}"
-        expect(response.status).to eq(404)
-        expect(response.body).to have_content("404")
+
+        expect(response.status).to eq(200)
+        expect(page).to have_content("404")
       end
     end
 
@@ -332,10 +334,10 @@ describe Goldencobra::ArticlesController, type: :controller do
             )
           end
 
-          it "respond with a 404 status" do
+          it "respond with a 200 status" do
             get :show, { format: :html }
 
-            expect(response.status).to eq(404)
+            expect(response.status).to eq(200)
           end
         end
 
