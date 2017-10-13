@@ -31,7 +31,7 @@ module Goldencobra
       protocol = Goldencobra::Url.protocol
 
       Goldencobra::Domain.all.each do |domain|
-        new_url = "#{protocol}#{domain.hostname}#{domain.url_prefix}#{article.public_url}"
+        new_url = "#{protocol}://#{domain.hostname}#{domain.url_prefix}#{article.public_url}"
         Goldencobra::ArticleUrl.create(article_id: article.id, url: new_url)
       end
     end
