@@ -115,7 +115,13 @@ describe Goldencobra::ArticleUrl, type: :model do
     context "there are 2 domains in use" do
       before do
         @domain_a = create(:domain, title: "Ikusei", hostname: "www.ikusei.de")
-        @domain_b = create(:domain, title: "Customer", hostname: "www.customer.de", main: false, url_prefix: "/subdir")
+        @domain_b = create(
+          :domain,
+          title: "Customer",
+          hostname: "www.customer.de",
+          main: false,
+          url_prefix: "/subdir"
+        )
       end
       it "should create 2 article urls" do
         article = create(:article, url_name: "seite-a")
