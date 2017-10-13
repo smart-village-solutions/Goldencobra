@@ -3,6 +3,14 @@
 require "spec_helper"
 
 describe Goldencobra::ArticleConcerns::MetaTag do
+  before(:all) do
+    Goldencobra::Setting.set_value_for_key("Custom Title Tag", "goldencobra.page.default_title_tag")
+    Goldencobra::Setting.set_value_for_key("www.yourdomain.com", "goldencobra.url")
+    Goldencobra::Setting.set_value_for_key("image_url", "goldencobra.facebook.opengraph_default_image")
+    custom_tag_settings = Goldencobra::Setting.where(title: "custom_tags").first
+    Goldencobra::Setting.create(title: "foo", value: "bar", parent_id: custom_tag_settings.id)
+  end
+
   it "should return breadcrumb as meta_title" do
     article = create(:article, breadcrumb: "breadcrumb")
     article.update_columns(metatag_title_tag: nil)
@@ -19,12 +27,7 @@ describe Goldencobra::ArticleConcerns::MetaTag do
     expect(article.send(:get_meta_value, :breadcrumb, :title)).to eq("breadcrumb")
   end
 
-  it "sould have meta tags" do
-    Goldencobra::Setting.set_value_for_key("Custom Title Tag", "goldencobra.page.default_title_tag")
-    Goldencobra::Setting.set_value_for_key("www.yourdomain.com", "goldencobra.url")
-    Goldencobra::Setting.set_value_for_key("image_url", "goldencobra.facebook.opengraph_default_image")
-    custom_tag_settings = Goldencobra::Setting.where(title: "custom_tags").first
-    Goldencobra::Setting.create(title: "foo", value: "bar", parent_id: custom_tag_settings.id)
+  it "should have meta tags" do
     article = create(:article, teaser: "Dies ist ein Teaser")
 
     expect(article.meta_tag_site).to eq("Custom Title Tag")

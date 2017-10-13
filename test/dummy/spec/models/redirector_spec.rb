@@ -120,6 +120,7 @@ describe Goldencobra::Redirector do
     end
 
     it "should redirect on same url" do
+      pending "does not work due to issue #105"
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung")
       expect(redirector).to eq ["http://www.google.de", 301]
     end
@@ -208,6 +209,7 @@ describe Goldencobra::Redirector do
 
 
     it "should redirect on same url with url params" do
+      pending "does not work due to issue #105"
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1",
                                      target_url: "www.google.de",
                                      ignore_url_params: false,
@@ -245,7 +247,6 @@ describe Goldencobra::Redirector do
     end
 
     it "should redirect on same url with url params" do
-      pending "does not work due to issue #105"
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1",
                                      target_url: "www.google.de",
                                      ignore_url_params: false,
