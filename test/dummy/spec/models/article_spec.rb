@@ -201,6 +201,29 @@ describe Goldencobra::Article do
     end
   end
 
+  describe "deleting an article" do
+    it "should not destroy an article if there are descendants" do
+      parent_article = create :article, article_for_index_id: nil, article_type: "Default Index"
+      child_article = create :article, article_for_index_id: nil, article_type: "Default Index"
+      child_article.update!(parent: parent_article)
+
+      expect(parent_article.has_children).to eq true
+      expect(Goldencobra::Article.count).to eq(2)
+      expect(parent_article.destroy).to raise_error
+      expect(Goldencobra::Article.count).to eq(2)
+    end
+
+    it "should destroy an article if there are no descendants" do
+      parent_article = create :article, article_for_index_id: nil, article_type: "Default Index"
+      child_article = create :article, article_for_index_id: nil, article_type: "Default Index"
+      child_article.update!(parent: parent_article)
+
+      expect(Goldencobra::Article.count).to eq(2)
+      child_article.destroy
+      expect(Goldencobra::Article.count).to eq(1)
+    end
+  end
+
   describe "state of an article" do
     before(:each) do
       @article = create :article, url_name: "seite1"
