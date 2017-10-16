@@ -456,6 +456,14 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       end
     end
 
+    def destroy
+      begin
+        super
+      rescue Ancestry::AncestryException
+        flash[:error] = I18n.t('goldencobra.errors.has_descendants')
+        redirect_to admin_articles_path
+      end
+    end
   end
 
   member_action :revert do

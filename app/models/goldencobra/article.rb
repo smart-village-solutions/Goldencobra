@@ -115,6 +115,7 @@ module Goldencobra
     after_update :update_parent_article_etag
     after_save :set_url_path
     before_destroy :update_parent_article_etag
+    before_destroy :can_be_deleted
     after_update :set_redirection_step_2
     after_commit :update_article_urls
 
@@ -181,6 +182,9 @@ module Goldencobra
 
     def has_children
       self.has_children?
+    end
+
+    def can_be_deleted
     end
 
     def restricted
