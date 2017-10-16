@@ -209,7 +209,7 @@ describe Goldencobra::Article do
 
       expect(parent_article.has_children).to eq true
       expect(Goldencobra::Article.count).to eq(2)
-      expect(parent_article.destroy).to raise_error
+      expect { parent_article.destroy }.to raise_error(Ancestry::AncestryException)
       expect(Goldencobra::Article.count).to eq(2)
     end
 
