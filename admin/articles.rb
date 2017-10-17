@@ -141,7 +141,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
       result = ""
       result += link_to(t(:view), article.public_url, class: "member_link edit_link view", title: I18n.t('active_admin.articles.index.article_preview'))
       result += link_to(t(:edit), edit_admin_article_path(article.id), class: "member_link edit_link edit", title: I18n.t('active_admin.articles.index.article_edit'))
-      result += link_to(t(:new_subarticle), new_admin_article_path(parent: article), class: "member_link edit_link new_subarticle", title: I18n.t('active_admin.articles.index.create_subarticle'))
+      result += link_to(t(:new_subarticle), new_admin_article_path(parent: article.id), class: "member_link edit_link new_subarticle", title: I18n.t('active_admin.articles.index.create_subarticle'))
       result += link_to(t(:delete), admin_article_path(article.id), method: :DELETE, confirm: t("delete_article", scope: [:goldencobra, :flash_notice]), class: "member_link delete_link delete", title: I18n.t('active_admin.articles.index.delete_article'))
       raw(result)
     end
@@ -152,7 +152,7 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   action_item only: [:edit] do
-    link_to I18n.t('active_admin.articles.sidebar.new_sub_article'), new_admin_article_path(parent: resource), class: "new_link"
+    link_to I18n.t('active_admin.articles.sidebar.new_sub_article'), new_admin_article_path(parent: resource.id), class: "new_link"
   end
 
   sidebar :overview, only: [:index] do
