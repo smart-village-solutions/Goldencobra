@@ -295,6 +295,8 @@ en:
       faq_show: "FAQ Einzelseite"
       partner_index: "Partner Übersicht"
       partner_show: "Partner Einzelseite"
+    errors:
+      has_descendants: "Article cannot delete article because of its decendants."
     flash_notice:
       name_of_flashnotice: "Do you REALLY want make this Article as Startpage?"
       action_Startpage: "Make this article Startpage"

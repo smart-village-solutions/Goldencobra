@@ -35,6 +35,8 @@ de:
       cacheable: "Dieser Artikel darf im Cache liegen"
       commentable: "Kommentarfunktion für diesen Artikel aktivieren?"
       author: "Wer ist der Verfasser dieses Artikels?"
+    errors:
+      has_descendants: "Artikel kann nicht gelöscht werden da Unterartikel vorhanden sind."
     flash_notice:
       name_of_flashnotice: "Möchten Sie diesen Artikel wirklich als Startseite?"
       action_Startpage: "Diesen Artikel als Startseite einrichten"
