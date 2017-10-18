@@ -76,6 +76,8 @@ de:
       Default: "Artikel"
       default_index: "Artikel (Index)"
       default_show: "Artikel"
+    errors:
+      has_descendants: "Artikel kann nicht gelöscht werden da Unterartikel vorhanden sind."
   active_admin:
     articles:
       now_offline: "Dieser Artikel ist nun offline"
