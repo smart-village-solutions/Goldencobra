@@ -33,13 +33,6 @@ GIT
       sass (>= 3.1.0)
 
 GIT
-  remote: https://github.com/mbleigh/acts-as-taggable-on.git
-  revision: fac92a9114d20bf71595c1e4b1e8ec622fc2f190
-  specs:
-    acts-as-taggable-on (3.5.0)
-      activerecord (>= 3.2, < 5)
-
-GIT
   remote: https://github.com/svenfuchs/i18n-active_record.git
   revision: b26c2e62e32df2f3b9ae42083647725b7ecfdff0
   specs:
@@ -143,6 +136,8 @@ GEM
     activesupport (3.2.22)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
+    acts-as-taggable-on (3.5.0)
+      activerecord (>= 3.2, < 5)
     addressable (2.3.8)
     ancestry (3.0.1)
       activerecord (>= 3.2.0)
@@ -589,7 +584,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
-  acts-as-taggable-on!
+  acts-as-taggable-on (= 3.5.0)
   annotate
   better_errors (= 1.1.0)
   binding_of_caller
@@ -647,7 +642,7 @@ DEPENDENCIES
   rmagick
   rspec-core
   rspec-rails
-  sass-rails
+  sass-rails (= 3.2.6)
   selenium-webdriver
   shoulda-matchers
   sidekiq (= 3.2.1)
