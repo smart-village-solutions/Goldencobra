@@ -1,3 +1,5 @@
+V2.2.3 - 18.10.2017
+  - Added warning in form of a flash in case of an article to delete has descendants
 V2.2.2 - 11.10.2017
   - Rescue OverQueryLimitErrors when commiting records
     The geocode call was configured to always raise the
