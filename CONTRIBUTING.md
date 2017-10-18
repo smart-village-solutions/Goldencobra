@@ -1,7 +1,7 @@
 We love pull requests from everyone. We expect users to follow our
-[code of conduct] while submitting code or comments.
+[Code of Conduct] while submitting code or comments.
 
-[code of conduct]: http://www.ikusei.de/code-of-conduct
+[Code of Conduct]: https://www.ikusei.de/agentur/code-of-conduct
 
 ## Contributing
 
