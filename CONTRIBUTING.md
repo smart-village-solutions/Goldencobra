@@ -1,7 +1,5 @@
 We love pull requests from everyone. We expect users to follow our
-[Code of Conduct] while submitting code or comments.
-
-[Code of Conduct]: https://www.ikusei.de/agentur/code-of-conduct
+[Code of Conduct](https://github.com/ikuseiGmbH/Goldencobra/blob/master/CODE_OF_CONDUCT.md) while submitting code or comments.
 
 ## Contributing
 
