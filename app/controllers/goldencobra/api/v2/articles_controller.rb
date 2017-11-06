@@ -8,7 +8,6 @@ module Goldencobra
         before_action :check_for_current_user, only: [:create, :update]
         before_action :check_for_article,      only: [:create, :update]
         before_action :check_for_referee,      only: [:create, :update]
-        before_action :get_existing_articles,  only: [:create, :update]
 
         respond_to :json
 
@@ -186,10 +185,9 @@ module Goldencobra
           old_params.merge(
             creator_id: current_user.id,
             article_type: old_params.fetch(:article_type, "Default Show"),
-            author: author,
             external_referee_id: params[:referee_id],
             external_referee_ip: request.env["REMOTE_ADDR"]
-          )
+          ).merge(author.present? ? { author: author } : {})
         end
 
         def author
@@ -200,12 +198,13 @@ module Goldencobra
           end
         end
 
-        def create_article(article_param)
+        def create_article(article_params)
           new_params = setup_params(article_params)
           new_article = Goldencobra::Article.new(new_params)
-          article_param.each do |i|
-            new_article.images << Goldencobra::Upload.create(i[:image])
-          end
+          # TODO: Does not work atm.
+          # article_params.each do |i|
+          #   new_article.images << Goldencobra::Upload.create(i[:image])
+          # end
           new_article.save
           new_article
         end
