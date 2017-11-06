@@ -61,7 +61,24 @@ ActiveAdmin.register User, as: "User" do
   show title: :lastname do
     panel I18n.t('active_admin.users.user') do
       attributes_table_for user do
-        [:firstname, :lastname, :title, :email, :gender, :function, :phone, :fax, :facebook, :twitter, :linkedin, :xing, :googleplus, :created_at, :updated_at].each do |aa|
+        [
+          :firstname,
+          :lastname,
+          :title,
+          :email,
+          :gender,
+          user == current_user ? :authentication_token : nil,
+          :function,
+          :phone,
+          :fax,
+          :facebook,
+          :twitter,
+          :linkedin,
+          :xing,
+          :googleplus,
+          :created_at,
+          :updated_at
+        ].compact.each do |aa|
           row aa
         end
       end
