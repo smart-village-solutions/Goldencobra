@@ -151,7 +151,11 @@ module Goldencobra
                                 "id" => widget.id_name.present? ? widget.id_name : "widget_id_#{widget.id}",
                                 'data-id' => widget.id
                               }
-          result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
+          if widget_wrapper == ""
+            result << raw(template.render(Goldencobra::Article::LiquidParser))
+          else
+            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
+          end
         end
       end
 
