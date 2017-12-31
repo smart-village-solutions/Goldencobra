@@ -1,0 +1,632 @@
+zh-CN:
+  articles:
+    read_on: '阅读'
+    selection: "文章"
+  formtastic:
+    yes: '是'
+    no: '否'
+    create: '创建 %{model}'
+    update: '更新 %{model}'
+    submit: '保存 %{model}'
+    cancel: '取消 %{model}'
+    reset: '重置 %{model}'
+    required: '必填'
+  errors:
+    messages:
+      already_confirmed: "已经确认，请尝试登录"
+      confirmation_period_expired: "需要在 %{period}之内确认, 请申请一个新的"
+      expired: "已过期, 请申请一个新的"
+      not_found: "未找到"
+      not_locked: "未锁定"
+      not_saved:
+        one: "发生了一个错误导致无法保存 %{resource} :"
+        other: "发生了%{count} 个错误导致无法保存 %{resource}: "
+  devise:
+    confirmations:
+      confirmed: "你的电子邮件地址已经被成功确认。"
+      send_instructions: "你将在几分钟内收到一封电子邮件，介绍如何确认你的电子邮件地址。"
+      send_paranoid_instructions: "如果你的电子邮件地址存在于我们的数据库中，你将在几分钟内收到一封电子邮件，其中包含如何确认你的电子邮件地址的说明。"
+    failure:
+      already_authenticated: "你已经登录。"
+      inactive: "你的账户尚未激活。"
+      invalid: "错误的 %{authentication_keys} 或密码。"
+      locked: "你的账户被锁定。 "
+      last_attempt: "在账户被锁定之前你还有最后一次机会尝试。"
+      not_found_in_database: "错误的 %{authentication_keys} 或密码。"
+      timeout: "你的会话已过期。 请重新登录以继续。"
+      unauthenticated: "你需要登录或注册才能继续。"
+      unconfirmed: "你必须要确认你的电子邮件地址才能继续。"
+    mailer:
+      confirmation_instructions:
+        subject: "确认指南"
+      reset_password_instructions:
+        subject: "重置密码指南"
+      unlock_instructions:
+        subject: "解锁指南"
+      password_change:
+        subject: "密码已更改"
+    omniauth_callbacks:
+      failure: "由于%{reason}，无法从%{kind} 认证。"
+      success: "成功从 %{kind} 认证帐户。"      
+    passwords:
+      no_token: "如果没有密码重置邮件无法访问这个页面。如果你是从密码重置邮件访问过来的，请确认输入的网址完整。"
+      send_instructions: "在几分钟内你会收到一封密码重置邮件。"
+      send_paranoid_instructions: "如果我们的数据库中保存有你的电子邮件地址，你会在几分钟内收到一封如何恢复密码的邮件。"
+      updated: "你的密码已被成功更改，你现在已经登录。"
+      updated_not_active: "你的密码已被成功更改。"      
+    registrations:
+      updated: "Your account has been updated successfully."
+      destroyed: "再见！你的帐户已被成功取消。希望能再次见到你。"
+      signed_up: "欢迎！你已经成功注册。"
+      signed_up_but_inactive: "你已经成功注册。但是由于你的帐户未激活，你仍无法登录。"
+      signed_up_but_locked: "你已经成功注册。但是由于你的帐户被锁定，你仍无法登录。"
+      signed_up_but_unconfirmed: "我们已向你的邮箱发送了一封确认邮件。请单击邮件中的链接激活你的帐户。"
+      update_needs_confirmation: "你已经成功更新帐户，但我们需要验证你的电子邮件地址。请检查你的邮件并确认你的子邮件地址。"
+      updated: "你的帐户已被成功更新。"
+    sessions:
+      signed_in: "已成功登录。"
+      signed_out: "已成功注销。"
+      already_signed_out: "已成功注销。"
+    unlocks:
+      send_instructions: "在几分钟内你会收到一封如何解锁帐户的邮件。"
+      send_paranoid_instructions: "如果你的帐户存在，在几分钟内你会收到一封如何解锁帐户的邮件。"
+      unlocked: "你的帐户已被成功解锁，请重新登录。"
+  activerecord:
+    models:
+      redirector:
+        one: "Redirection"
+        other: "Redirections"
+      analytic:
+        one: "Analytic"
+        other: "Analytics"
+      domain:
+        one: "Domain"
+        other: "Domains"
+      goldencobra/domain:
+        one: "Domain"
+        other: "Domains"
+      articletype:
+        one: "Article type"
+        other: "Article types"
+      link-checker:
+        one: "Link checker"
+        other: "Link checker"
+      comment:
+        one: "Comment"
+        other: "Comments"
+      goldencobra/comment:
+        one: "Comment"
+        other: "Comments"
+      author:
+        one: "Author"
+        other: "Authors"
+      goldencobra/author:
+        one: "Author"
+        other: "Authors"
+      import:
+        one: "Import"
+        other: "Imports"
+      article:
+        one: "Article"
+        other: "Articles"
+      goldencobra/article:
+        one: "Article"
+        other: "Articles"
+      setting:
+        one: "Website setting"
+        other: "Website settings"
+      goldencobra/setting:
+        one: "Website setting"
+        other: "Website settings"
+      menue:
+        one: "Menu"
+        other: "Menus"
+      goldencobra/menue:
+        one: "Menu"
+        other: "Menus"
+      metag:
+        one: "Meta tag"
+        other: "Meta tags"
+      goldencobra/metag:
+        one: "Meta tag"
+        other: "Meta tags"
+      widget:
+        one: "Widget"
+        other: "Widgets"
+      goldencobra/widget:
+        one: "Widget"
+        other: "Widgets"
+      upload:
+        one: "Medium"
+        other: "Media"
+      goldencobra/upload:
+        one: "Medium"
+        other: "Media"
+      user:
+        one: "User"
+        other: "Users"
+      permission:
+        one: "Permission"
+        other: "Permissions"
+      goldencobra/permission:
+        one: "Permission"
+        other: "Permissions"
+      role:
+        one: "Role"
+        other: "Roles"
+      goldencobra/role:
+        one: "Role"
+        other: "Roles"
+    attributes:
+      goldencobra/metatag:
+        name: "Name"
+        value: "Value"
+      goldencobra/comment:
+        content: "Content"
+        active: "active"
+        approved: "approved"
+        reported: "reported"
+      goldencobra/role:
+        description: "Description"
+        created_at: "created at"
+        updated_at: "updated at"
+      user:
+        firstname: "firstname"
+        lastname: "lastname"
+        password: "password"
+        password_confirmation: "password confirmation"
+        roles: "roles"
+        function: "function"
+        phone: "phone"
+        complete_name: "name"
+        email: "email"
+        created_at: "created at"
+        updated_at: "updated at"
+      goldencobra/article:
+        redirection_target_in_new_window: "Redirect in new Window"
+        redirect_link_title: "Name of external link"
+        dynamic_redirection: "Automatic redirection"
+        commentable: "Article is commentable"
+        enable_social_sharing: "display 'Social Sharing'-Actions"
+        parent_id: "Parent article"
+        article_type: "Article type"
+        title: "Title"
+        url: "Url"
+        sorter_limit: "Number of sorted articles"
+        sort_order: "Sort order"
+        reverse_sort: "Descending order?"
+        authors: "Authors"
+        url_name: "Name of url of article"
+        slug: "Url shortform"
+        content: "Main content"
+        teaser: "Teaser"
+        ancestry: "Ancestry"
+        startpage: "Startpage"
+        active: "Online"
+        active_since: "Active since"
+        subtitle: "Subtitle"
+        summary: "Summary"
+        context_info: "Further content"
+        canonical_url: "Url for search engines"
+        robots_no_index: "do not list in search engines"
+        breadcrumb: "Breadcrumb title"
+        template_file: "Layout file"
+        enable_social_sharing: "show social media buttons"
+        cacheable: "Article cacheable"
+        external_url_redirect: "redirect to external url"
+        created_at: "created at"
+        updated_at: "updated at"
+        tag_list: "List of tags"
+        frontend_tag_list: "Filters"
+        metatag_title_tag: "Title Tag"
+        metatag_meta_description: "Meta Description"
+        metatag_open_graph_title: "OpenGraph Title"
+        metatag_open_graph_description: "OpenGraph Description"
+        metatag_open_graph_type: "OpenGraph Type"
+        metatag_open_graph_url: "OpenGraph URL"
+        metatag_open_graph_image: "OpenGraph Image"
+        states:
+            void: "Empty"
+            draft: "Draft"
+            in_review: "In Review"
+            waiting: "Waiting"
+            published: "Published"
+            discarded: "Discarded"
+      goldencobra/upload:
+        image_remote_url: "Download URL"
+        source: "Source"
+        created_at: "Created at"
+        updated_at: "Updated at"
+        image_file_name: "Image file name"
+        image_content_type: "Image content type"
+        image_file_size: "Image file size"
+        rights: "Rights"
+        description: "Description"
+        image: "Image"
+        sorter_number: "Sort number"
+      goldencobra/widget:
+        title: "Title"
+        created_at: "created at"
+        active: "Online?"
+        offline_day: "Days which show alternative content"
+        offline_time_start: "Start time"
+        offline_time_start_hint: "Time as HH:MM(24h): e.g. 16:00"
+        offline_time_end: "End time"
+        offline_time_end_hint: "Time as HH:MM(24h): e.g. 17:35"
+        offline_time_active: "Use alternative offline content?"
+        offline_time_active_hint: "Tick if you want this widget to be offline at specific times."
+        alternative_content: "Content for offline widget"
+        alternative_content_hint: "This content will be shown, when widget is offline"
+  goldencobra:
+    article_field_placeholder:
+      author: "Choose authors"
+    article_field_hints:
+      global_sorting_id: "Global sorting number for relations on article index pages"
+      title: "Title/Headline of an article."
+      teaser: "Short description of this article. Also used in Goolge and Facebook"
+      summary: ""
+      active: "Is this article online visible?"
+      tag_list: "Tags are comma separated values to organise und group your articles"
+      frontend_tag_list: "These Values are offered as filter options on index-articles"
+      active_since: ""
+      context_info: ""
+      metatags_name: ""
+      metatags_destroy: "reset to defaults"
+      breadcrumb: "short title for a breadcrumb navigation"
+      url_name: "max 64 chars"
+      parent_id: "Parent article"
+      canonical_url: ""
+      enable_social_sharing: ""
+      robots_no_index: ""
+      cacheable: ""
+      commentable: ""
+      author: ""
+      creator: ""
+      state: "Possible states of the article: empty, draft, in review, waiting, published, discarded"
+      redirection_target_in_new_window: ""
+      redirect_link_title: ""
+      external_url_redirect: ""
+      dynamic_redirection: ""
+      metatag_title_tag: ""
+      metatag_meta_description: ""
+      metatag_open_graph_title: ""
+      metatag_open_graph_description: ""
+      metatag_open_graph_image: ""
+      metatag_open_graph_url: ""
+    article_types:
+      Article: "Article"
+      Default: "Article"
+      default_index: "Article (index)"
+      default_show: "Article"
+    errors:
+      has_descendants: "Article cannot delete article because of its decendants."
+    flash_notice:
+      name_of_flashnotice: "Do you REALLY want make this Article as Startpage?"
+      action_Startpage: "Make this article Startpage"
+      startpage: "This Article is the Startpage!"
+      online: "Change the visibility of the article?"
+      delete_article: "Really want to delete this article?"
+    filter:
+      filter_titel: "title"
+      filter_subtitel: "subtitle"
+      filter_breadcrumb: "breadcrumb"
+      filter_url: "url"
+      filter_template: "template file"
+      filter_created: "creted at"
+      filter_updated: "updated at"
+      filter_parent: "parent"
+      filter_type: "article type"
+    menue:
+      preview_article: 'Preview'
+      menue: "Menue"
+      name: "name"
+      list: "list"
+      create: "create"
+  active_admin:
+    articles:
+      tag-select-placeholder: "Select tag"
+      now_offline: "This article is now offline"
+      now_online: "This article is now online"
+    resource:
+      upload: "Upload"
+      article: "Article"
+    menue:
+      settings: "Settings"
+    dashboard: "Dashboard"
+    dashboard_welcome:
+      welcome: "Welcome to Active Admin. This is the default dashboard page."
+      call_to_action: "To add dashboard sections, checkout 'app/admin/dashboards.rb'"
+    view: "View"
+    edit: "Edit"
+    delete: "Delete"
+    delete_confirmation: "Are you sure you want to delete this?"
+    new_model: "New %{model}"
+    create_model: "New %{model}"
+    edit_model: "Edit %{model}"
+    update_model: "Edit %{model}"
+    delete_model: "Delete %{model}"
+    details: "%{model} Details"
+    cancel: "Cancel"
+    empty: "Empty"
+    previous: "Previous"
+    next: "Next"
+    download: "Download:"
+    has_many_new: "Add New %{model}"
+    has_many_delete: "Delete"
+    filter: "Filter"
+    clear_filters: "Clear Filters"
+    search_field: "Search %{field}"
+    equal_to: "Equal To"
+    greater_than: "Greater Than"
+    less_than: "Less Than"
+    main_content: "Please implement %{model}#main_content to display content."
+    logout: "Logout"
+    sidebars:
+      submit_widget: "Save Widgets"
+      submit_layout: "allocate Layout"
+      widgets_options: "Widget Options"
+      overview: "Overview"
+      startpage_options: "Startpage Options"
+      layout: "Layout"
+      image_formates: "Image Formates"
+      image_module: "Image Module"
+      filters: "Filters"
+    per_page: "Items per page"
+    pagination:
+      empty: "No %{model} found"
+      one: "Displaying <b>1</b> %{model}"
+      one_page: "Displaying <b>all %{n}</b> %{model}"
+      multiple: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{total}</b> in total"
+      multiple_without_total: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b>"
+      per_page: "Per page:"
+      entry:
+        one: "Entry"
+        other: "Entries"
+    any: "Any"
+    blank_slate:
+      content: "There are no %{resource_name} yet."
+      link: "Create one"
+    batch_actions:
+      button_label: "Batch Actions"
+      delete_confirmation: "Are you sure you want to delete these %{plural_model}? You won't be able to undo this."
+      succesfully_destroyed:
+        one: "Successfully destroyed 1 %{model}"
+        other: "Successfully destroyed %{count} %{plural_model}"
+      selection_toggle_explanation: "(Toggle Selection)"
+      link: "Create one"
+      action_label: "%{title} Selected"
+      labels:
+        set_article_online: "Artikel online stellen"
+        set_article_offline: "Artikel offline stellen"
+        reset_cache: "reset cache"
+        send_default_conf_mails: "Send confirmation mails"
+        destroy: "Delete"
+    comments:
+      body: "Body"
+      author: "Author"
+      title: "Comment"
+      add: "Add Comment"
+      resource: "Resource"
+      no_comments_yet: "No comments yet."
+      title_content: "Comments (%{count})"
+      errors:
+        empty_text: "Comment wasn't saved, text was empty."
+  login:
+    messages:
+      errors:
+        no-user-found-with-this-email: "No user found"
+        wrong-username-or-password: "Wrong username or password"
+      success_redirect: "Login success. Redirecting ..."
+  views:
+    pagination:
+      first: "|‹"
+      previous: "«"
+      next: "»"
+      last: "›|"
+      truncate: "..."
+  title: "Title"
+  url: "URL"
+  created_at: "created at"
+  updated_at: "updated at"
+  new_subarticle: "New subarticle"
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%B %d, %Y'
+      short: ! '%b %d'
+    month_names:
+    -
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_minutes:
+        one: less than a minute
+        other: less than %{count} minutes
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_days:
+        one: 1 day
+        other: ! '%{count} days'
+      x_minutes:
+        one: 1 minute
+        other: ! '%{count} minutes'
+      x_months:
+        one: 1 month
+        other: ! '%{count} months'
+      x_seconds:
+        one: 1 second
+        other: ! '%{count} seconds'
+    prompts:
+      day: Day
+      hour: Hour
+      minute: Minute
+      month: Month
+      second: Seconds
+      year: Year
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: must be accepted
+      blank: can't be blank
+      confirmation: doesn't match confirmation
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      record_invalid: ! 'Validation failed: %{errors}'
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
+    template:
+      body: ! 'There were problems with the following fields:'
+      header:
+        one: 1 error prohibited this %{model} from being saved
+        other: ! '%{count} errors prohibited this %{model} from being saved'
+  helpers:
+    select:
+      prompt: Please select
+    submit:
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
+  number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%u%n'
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: $
+    format:
+      delimiter: ! ','
+      precision: 3
+      separator: .
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ', and '
+      two_words_connector: ! ' and '
+      words_connector: ! ', '
+  time:
+    am: am
+    formats:
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+      date: ! '%B %d, %Y'
+    pm: pm
+  activemodel:
+    errors:
+      <<: *errors
