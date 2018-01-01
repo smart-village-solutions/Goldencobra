@@ -271,10 +271,10 @@ zh-CN:
       active_since: ""
       context_info: ""
       metatags_name: ""
-      metatags_destroy: "reset to defaults"
-      breadcrumb: "short title for a breadcrumb navigation"
-      url_name: "max 64 chars"
-      parent_id: "Parent article"
+      metatags_destroy: "重置以恢复到默认值"
+      breadcrumb: "导航栏的短标题"
+      url_name: "最多64个字符"
+      parent_id: "父文章"
       canonical_url: ""
       enable_social_sharing: ""
       robots_no_index: ""
@@ -282,7 +282,7 @@ zh-CN:
       commentable: ""
       author: ""
       creator: ""
-      state: "Possible states of the article: empty, draft, in review, waiting, published, discarded"
+      state: "文章可能的状态： 空，草稿，审核中，等待，已发布，废弃"
       redirection_target_in_new_window: ""
       redirect_link_title: ""
       external_url_redirect: ""
@@ -294,129 +294,129 @@ zh-CN:
       metatag_open_graph_image: ""
       metatag_open_graph_url: ""
     article_types:
-      Article: "Article"
-      Default: "Article"
-      default_index: "Article (index)"
-      default_show: "Article"
+      Article: "文章"
+      Default: "文章"
+      default_index: "文章 (索引)"
+      default_show: "文章"
     errors:
-      has_descendants: "Article cannot delete article because of its decendants."
+      has_descendants: "由于子文章的存在不能删除该文章"
     flash_notice:
-      name_of_flashnotice: "Do you REALLY want make this Article as Startpage?"
-      action_Startpage: "Make this article Startpage"
-      startpage: "This Article is the Startpage!"
-      online: "Change the visibility of the article?"
-      delete_article: "Really want to delete this article?"
+      name_of_flashnotice: "你确定想把这篇文章作为起始页吗？"
+      action_Startpage: "把这篇文章作为起始页"
+      startpage: "把这篇文章是起始页!"
+      online: "改变这篇文章的可见性?"
+      delete_article: "你确定要删除这篇文章？"
     filter:
-      filter_titel: "title"
-      filter_subtitel: "subtitle"
-      filter_breadcrumb: "breadcrumb"
+      filter_titel: "标题"
+      filter_subtitel: "子标题"
+      filter_breadcrumb: "导航"
       filter_url: "url"
-      filter_template: "template file"
-      filter_created: "creted at"
-      filter_updated: "updated at"
-      filter_parent: "parent"
-      filter_type: "article type"
+      filter_template: "模板文件"
+      filter_created: "创建于"
+      filter_updated: "更新于"
+      filter_parent: "父级过滤器"
+      filter_type: "文章类型"
     menue:
-      preview_article: 'Preview'
-      menue: "Menue"
-      name: "name"
-      list: "list"
-      create: "create"
+      preview_article: '预览'
+      menue: "菜单"
+      name: "名称"
+      list: "列表"
+      create: "创建"
   active_admin:
     articles:
-      tag-select-placeholder: "Select tag"
-      now_offline: "This article is now offline"
-      now_online: "This article is now online"
+      tag-select-placeholder: "选择标签"
+      now_offline: "此文章目前离线"
+      now_online: "此文章现在在线"
     resource:
-      upload: "Upload"
-      article: "Article"
+      upload: "上传"
+      article: "文章"
     menue:
-      settings: "Settings"
-    dashboard: "Dashboard"
+      settings: "设置"
+    dashboard: "面板"
     dashboard_welcome:
-      welcome: "Welcome to Active Admin. This is the default dashboard page."
-      call_to_action: "To add dashboard sections, checkout 'app/admin/dashboards.rb'"
-    view: "View"
-    edit: "Edit"
-    delete: "Delete"
-    delete_confirmation: "Are you sure you want to delete this?"
-    new_model: "New %{model}"
-    create_model: "New %{model}"
-    edit_model: "Edit %{model}"
-    update_model: "Edit %{model}"
-    delete_model: "Delete %{model}"
-    details: "%{model} Details"
-    cancel: "Cancel"
-    empty: "Empty"
-    previous: "Previous"
-    next: "Next"
-    download: "Download:"
-    has_many_new: "Add New %{model}"
-    has_many_delete: "Delete"
-    filter: "Filter"
-    clear_filters: "Clear Filters"
-    search_field: "Search %{field}"
-    equal_to: "Equal To"
-    greater_than: "Greater Than"
-    less_than: "Less Than"
-    main_content: "Please implement %{model}#main_content to display content."
-    logout: "Logout"
+      welcome: "欢迎使用Active Admin。 这是默认控制面板页面。"
+      call_to_action: "要添加面板， 请查看'app/admin/dashboards.rb'"
+    view: "查看"
+    edit: "编辑"
+    delete: "删除"
+    delete_confirmation: "你确定要删除这个?"
+    new_model: "新 %{model}"
+    create_model: "新建 %{model}"
+    edit_model: "编辑 %{model}"
+    update_model: "更新 %{model}"
+    delete_model: "删除 %{model}"
+    details: "%{model} 详细信息"
+    cancel: "取消"
+    empty: "空"
+    previous: "上一页"
+    next: "下一页"
+    download: "下载:"
+    has_many_new: "添加新 %{model}"
+    has_many_delete: "删除"
+    filter: "过滤器"
+    clear_filters: "清楚过滤器"
+    search_field: "搜索 %{field}"
+    equal_to: "等于"
+    greater_than: "大于"
+    less_than: "小于"
+    main_content: "请实现 %{model}#main_content 来显示内容。"
+    logout: "注销"
     sidebars:
-      submit_widget: "Save Widgets"
-      submit_layout: "allocate Layout"
-      widgets_options: "Widget Options"
-      overview: "Overview"
-      startpage_options: "Startpage Options"
-      layout: "Layout"
-      image_formates: "Image Formates"
-      image_module: "Image Module"
-      filters: "Filters"
-    per_page: "Items per page"
+      submit_widget: "保存小部件"
+      submit_layout: "分配布局"
+      widgets_options: "小部件选项"
+      overview: "概览"
+      startpage_options: "开始页面选项"
+      layout: "布局"
+      image_formates: "图片格式"
+      image_module: "图片模块"
+      filters: "过滤器"
+    per_page: "每页显示个数"
     pagination:
-      empty: "No %{model} found"
-      one: "Displaying <b>1</b> %{model}"
-      one_page: "Displaying <b>all %{n}</b> %{model}"
-      multiple: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{total}</b> in total"
-      multiple_without_total: "Displaying %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b>"
-      per_page: "Per page:"
+      empty: "没找到 %{model}"
+      one: "显示 <b>1</b>个 %{model}"
+      one_page: "显示 <b>所有 %{n}</b> %{model}"
+      multiple: "显示 %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> 共 <b>%{total}</b>"
+      multiple_without_total: "显示 %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b>"
+      per_page: "每页:"
       entry:
-        one: "Entry"
-        other: "Entries"
-    any: "Any"
+        one: "条目"
+        other: "条目"
+    any: "任何"
     blank_slate:
-      content: "There are no %{resource_name} yet."
-      link: "Create one"
+      content: "目前还没有 %{resource_name}。"
+      link: "创建一个"
     batch_actions:
-      button_label: "Batch Actions"
-      delete_confirmation: "Are you sure you want to delete these %{plural_model}? You won't be able to undo this."
+      button_label: "批操作"
+      delete_confirmation: "你确定要删除这些 %{plural_model}? 你无法恢复这些操作。"
       succesfully_destroyed:
-        one: "Successfully destroyed 1 %{model}"
-        other: "Successfully destroyed %{count} %{plural_model}"
+        one: "成功删除1个 %{model}"
+        other: "成功删除 %{count}个 %{plural_model}"
       selection_toggle_explanation: "(Toggle Selection)"
-      link: "Create one"
-      action_label: "%{title} Selected"
+      link: "创建一个"
+      action_label: "已选择 %{title}"
       labels:
-        set_article_online: "Artikel online stellen"
-        set_article_offline: "Artikel offline stellen"
-        reset_cache: "reset cache"
-        send_default_conf_mails: "Send confirmation mails"
-        destroy: "Delete"
+        set_article_online: "在线文章"
+        set_article_offline: "离线文章"
+        reset_cache: "重置缓存"
+        send_default_conf_mails: "发送确认邮件"
+        destroy: "删除"
     comments:
-      body: "Body"
-      author: "Author"
-      title: "Comment"
-      add: "Add Comment"
-      resource: "Resource"
-      no_comments_yet: "No comments yet."
-      title_content: "Comments (%{count})"
+      body: "正文"
+      author: "作者"
+      title: "评论"
+      add: "添加评论"
+      resource: "资源"
+      no_comments_yet: "目前尚无评论"
+      title_content: "评论数 (%{count})"
       errors:
-        empty_text: "Comment wasn't saved, text was empty."
+        empty_text: "无法保存评论， 文本为空。"
   login:
     messages:
       errors:
-        no-user-found-with-this-email: "No user found"
-        wrong-username-or-password: "Wrong username or password"
-      success_redirect: "Login success. Redirecting ..."
+        no-user-found-with-this-email: "未找到用户"
+        wrong-username-or-password: "错误的用户名或密码"
+      success_redirect: "成功登录， 跳转中..."
   views:
     pagination:
       first: "|‹"
@@ -424,60 +424,60 @@ zh-CN:
       next: "»"
       last: "›|"
       truncate: "..."
-  title: "Title"
+  title: "标题"
   url: "URL"
-  created_at: "created at"
-  updated_at: "updated at"
-  new_subarticle: "New subarticle"
+  created_at: "创建于"
+  updated_at: "更新于"
+  new_subarticle: "新建子文章"
   date:
     abbr_day_names:
-    - Sun
-    - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
+    - 周日
+    - 周一
+    - 周二
+    - 周三
+    - 周四
+    - 周五
+    - 周六
     abbr_month_names:
     -
-    - Jan
-    - Feb
-    - Mar
-    - Apr
-    - May
-    - Jun
-    - Jul
-    - Aug
-    - Sep
-    - Oct
-    - Nov
-    - Dec
+    - 一月
+    - 二月
+    - 三月
+    - 四月
+    - 五月
+    - 六月
+    - 七月
+    - 八月
+    - 九月
+    - 十月
+    - 十一月
+    - 十二月
     day_names:
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
+    - 周日
+    - 周一
+    - 周二
+    - 周三
+    - 周四
+    - 周五
+    - 周六
     formats:
       default: ! '%Y-%m-%d'
       long: ! '%B %d, %Y'
       short: ! '%b %d'
     month_names:
     -
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - October
-    - November
-    - December
+    - 一月
+    - 二月
+    - 三月
+    - 四月
+    - 五月
+    - 六月
+    - 七月
+    - 八月
+    - 九月
+    - 十月
+    - 十一月
+    - 十二月
     order:
     - :year
     - :month
@@ -485,39 +485,39 @@ zh-CN:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: about 1 hour
-        other: about %{count} hours
+        one: 大约 1 小时
+        other: 大约 %{count} 小时
       about_x_months:
-        one: about 1 month
-        other: about %{count} months
+        one: 大约 1 个月
+        other: 大约 %{count} 个月
       about_x_years:
-        one: about 1 year
-        other: about %{count} years
+        one: 大约 1 年
+        other: 大约 %{count} 年
       almost_x_years:
-        one: almost 1 year
-        other: almost %{count} years
-      half_a_minute: half a minute
+        one: 将近 1 年
+        other: 将近 %{count} 年
+      half_a_minute: 半分钟
       less_than_x_minutes:
-        one: less than a minute
-        other: less than %{count} minutes
+        one: 小于 1 分钟
+        other: 小于 %{count} 分钟
       less_than_x_seconds:
-        one: less than 1 second
-        other: less than %{count} seconds
+        one: 小于 1 秒
+        other: 小于 %{count} 秒
       over_x_years:
-        one: over 1 year
-        other: over %{count} years
+        one: 超过 1 年
+        other: 超过 %{count} 年
       x_days:
-        one: 1 day
-        other: ! '%{count} days'
+        one: 1 天
+        other: ! '%{count} 天'
       x_minutes:
-        one: 1 minute
-        other: ! '%{count} minutes'
+        one: 1 分钟
+        other: ! '%{count} 分钟'
       x_months:
-        one: 1 month
-        other: ! '%{count} months'
+        one: 1 个 月
+        other: ! '%{count} 个月'
       x_seconds:
-        one: 1 second
-        other: ! '%{count} seconds'
+        one: 1 秒
+        other: ! '%{count} 秒'
     prompts:
       day: Day
       hour: Hour
