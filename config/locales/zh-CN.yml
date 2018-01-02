@@ -519,54 +519,54 @@ zh-CN:
         one: 1 秒
         other: ! '%{count} 秒'
     prompts:
-      day: Day
-      hour: Hour
-      minute: Minute
-      month: Month
-      second: Seconds
-      year: Year
+      day: 天
+      hour: 小时
+      minute: 分钟
+      month: 月
+      second: 秒
+      year: 年
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:
-      accepted: must be accepted
-      blank: can't be blank
-      confirmation: doesn't match confirmation
-      empty: can't be empty
-      equal_to: must be equal to %{count}
-      even: must be even
-      exclusion: is reserved
-      greater_than: must be greater than %{count}
-      greater_than_or_equal_to: must be greater than or equal to %{count}
-      inclusion: is not included in the list
-      invalid: is invalid
-      less_than: must be less than %{count}
-      less_than_or_equal_to: must be less than or equal to %{count}
-      not_a_number: is not a number
-      not_an_integer: must be an integer
-      odd: must be odd
-      record_invalid: ! 'Validation failed: %{errors}'
-      taken: has already been taken
+      accepted: 必须接受
+      blank: 不能为空白
+      confirmation: 和确认不符
+      empty: 不能为空
+      equal_to: 必须等于%{count}
+      even: 必须是偶数
+      exclusion: 已被预定
+      greater_than: 必须大于%{count}
+      greater_than_or_equal_to: 必须大于或等于%{count}
+      inclusion: 不在列表中
+      invalid: 是非法的
+      less_than: 必须小于 %{count}
+      less_than_or_equal_to: 必须小于或等于 %{count}
+      not_a_number: 不是一个数字
+      not_an_integer: 必须是一个整数
+      odd: 必须是奇数
+      record_invalid: ! '验证失败: %{errors}'
+      taken: 已经被使用
       too_long:
-        one: is too long (maximum is 1 character)
-        other: is too long (maximum is %{count} characters)
+        one: 太长（最多1个字符）
+        other: 太长（最多是%{count}个字符）
       too_short:
-        one: is too short (minimum is 1 character)
-        other: is too short (minimum is %{count} characters)
+        one: 太短（最少1个字符）
+        other: 太短（最少是%{count}个字符）
       wrong_length:
-        one: is the wrong length (should be 1 character)
-        other: is the wrong length (should be %{count} characters)
+        one: 长度错误（应该是1个字符）
+        other: 长度错误（应该是%{count}个字符）
     template:
-      body: ! 'There were problems with the following fields:'
+      body: ! '以下字段出现问题：'
       header:
-        one: 1 error prohibited this %{model} from being saved
-        other: ! '%{count} errors prohibited this %{model} from being saved'
+        one: '出现1个错误导致不能保存 %{model}'
+        other: '出现%{count}个错误导致不能保存 %{model}'
   helpers:
     select:
-      prompt: Please select
+      prompt: 请选择
     submit:
-      create: Create %{model}
-      submit: Save %{model}
-      update: Update %{model}
+      create: 创建 %{model}
+      submit: 保存 %{model}
+      update: 更新 %{model}
   number:
     currency:
       format:
@@ -587,11 +587,11 @@ zh-CN:
       decimal_units:
         format: ! '%n %u'
         units:
-          billion: Billion
-          million: Million
-          quadrillion: Quadrillion
-          thousand: Thousand
-          trillion: Trillion
+          billion: 十亿
+          million: 百万
+          quadrillion: 万亿
+          thousand: 千
+          trillion: 兆
           unit: ''
       format:
         delimiter: ''
@@ -602,8 +602,8 @@ zh-CN:
         format: ! '%n %u'
         units:
           byte:
-            one: Byte
-            other: Bytes
+            one: 字节
+            other: 字节
           gb: GB
           kb: KB
           mb: MB
@@ -620,7 +620,7 @@ zh-CN:
       two_words_connector: ! ' and '
       words_connector: ! ', '
   time:
-    am: am
+    am: 上午
     formats:
       default: ! '%a, %d %b %Y %H:%M:%S %z'
       long: ! '%B %d, %Y %H:%M'
