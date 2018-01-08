@@ -1,4 +1,6 @@
-V2.2.4 - 6.12.2017
+V2.3.0 - 08.01.2018
+  - Chinese (simplified) locales added by https://github.com/yuxisteem
+V2.2.4 - 06.12.2017
   - Added ability to render widgets without wrapper, use option `wrapper: ""`
 V2.2.3 - 18.10.2017
   - Added warning in form of a flash in case of an article to delete has descendants
