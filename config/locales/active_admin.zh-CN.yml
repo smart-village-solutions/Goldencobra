@@ -55,7 +55,7 @@ zh-CN:
       as: "文章网址"
     dashboard: "仪表板"
     dashboard_welcome:
-      welcome: "欢迎使用Active Admin。 这是标准的仪表板页面。" 
+      welcome: "欢迎使用Active Admin。 这是标准的仪表板页面。"
       call_to_action: "请参阅'app/admin/dashboards.rb'以添加新的仪表板元素。"
     view: "显示"
     devise:
@@ -130,7 +130,7 @@ zh-CN:
         send_default_conf_mails: "发送确认电子邮件"
         destroy: "删除"
       button_label: "批量编辑"
-      delete_confirmation: "你确定要删除这些%{plural_model}吗？撤消选项不可用。" available."
+      delete_confirmation: "你确定要删除这些%{plural_model}吗？撤消选项不可用。"
       succesfully_destroyed:
         one: "1个 %{model}已成功删除"
         other: "已成功删除%{count}%个{plural_model}"
@@ -211,7 +211,7 @@ zh-CN:
         active_since_label: "开始活跃时间"
         active_since_hint: "文章开始活跃时间，例如24.10.2011 15:35"
         enable_social_sharing_label: "显示社交分享操作"
-        enable_social_sharing_hint: "访问者是否应该看到链接，这样他们能够在他们的社交网络中分享这篇文章？" 
+        enable_social_sharing_hint: "访问者是否应该看到链接，这样他们能够在他们的社交网络中分享这篇文章？"
         robots_no_index_label: "文章不应该通过搜索引擎找到。"
         robots_no_index_hint: "为了避免与您自己网站上其他重要网页的竞争，你可能想要告诉Google不要索引此页面"
         cacheable_label: "可缓存的文章"
@@ -299,7 +299,7 @@ zh-CN:
       sidebar:
         h5: "本文的菜单项已经存在。"
         seo_link: "SEO视图"
-        new_sub_article: "创建子文章" 
+        new_sub_article: "创建子文章"
         div_link: "你可以在这里将它们列出"
         div_link1: "创建额外的菜单项"
         h5_1: "本文的菜单项还不存在。"
@@ -313,7 +313,7 @@ zh-CN:
           article_online: "这篇文章现在在线。"
           article_offline: "这篇文章现在离线。"
           widgets: "已添加小部件"
-          link_checker: "本文的链接将被检查。这可能需要几分钟的时间。感谢您的耐心等待。" 
+          link_checker: "本文的链接将被检查。这可能需要几分钟的时间。感谢您的耐心等待。"
       batch_action:
         cache: "你确定要清空缓存吗？"
         flash:
@@ -360,7 +360,7 @@ zh-CN:
         hint: "目前选择的数据："
       flash:
         member_action:
-          run: "导入已经开始。" 
+          run: "导入已经开始。"
     linkcheck_articles:
       link_to:
         run: "运行链接检查器"
@@ -446,7 +446,7 @@ zh-CN:
         action_item:
           link_to: "撤销"
       member_action:
-        set_menu_item_online: "设置此菜单项为在线。" 
+        set_menu_item_online: "设置此菜单项为在线。"
         set_menu_item_offline: "设置此菜单项为离线。"
         flash:
           menu_item_online: "这个菜单项目现在在线。"
