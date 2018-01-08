@@ -1,0 +1,632 @@
+zh-CN:
+  articles:
+    read_on: '阅读'
+    selection: "文章"
+  formtastic:
+    yes: '是'
+    no: '否'
+    create: '创建 %{model}'
+    update: '更新 %{model}'
+    submit: '保存 %{model}'
+    cancel: '取消 %{model}'
+    reset: '重置 %{model}'
+    required: '必填'
+  errors:
+    messages:
+      already_confirmed: "已经确认，请尝试登录"
+      confirmation_period_expired: "需要在 %{period}之内确认, 请申请一个新的"
+      expired: "已过期, 请申请一个新的"
+      not_found: "未找到"
+      not_locked: "未锁定"
+      not_saved:
+        one: "发生了一个错误导致无法保存 %{resource} :"
+        other: "发生了%{count} 个错误导致无法保存 %{resource}: "
+  devise:
+    confirmations:
+      confirmed: "你的电子邮件地址已经被成功确认。"
+      send_instructions: "你将在几分钟内收到一封电子邮件，介绍如何确认你的电子邮件地址。"
+      send_paranoid_instructions: "如果你的电子邮件地址存在于我们的数据库中，你将在几分钟内收到一封电子邮件，其中包含如何确认你的电子邮件地址的说明。"
+    failure:
+      already_authenticated: "你已经登录。"
+      inactive: "你的账户尚未激活。"
+      invalid: "错误的 %{authentication_keys} 或密码。"
+      locked: "你的账户被锁定。 "
+      last_attempt: "在账户被锁定之前你还有最后一次机会尝试。"
+      not_found_in_database: "错误的 %{authentication_keys} 或密码。"
+      timeout: "你的会话已过期。 请重新登录以继续。"
+      unauthenticated: "你需要登录或注册才能继续。"
+      unconfirmed: "你必须要确认你的电子邮件地址才能继续。"
+    mailer:
+      confirmation_instructions:
+        subject: "确认指南"
+      reset_password_instructions:
+        subject: "重置密码指南"
+      unlock_instructions:
+        subject: "解锁指南"
+      password_change:
+        subject: "密码已更改"
+    omniauth_callbacks:
+      failure: "由于%{reason}，无法从%{kind} 认证。"
+      success: "成功从 %{kind} 认证帐户。"      
+    passwords:
+      no_token: "如果没有密码重置邮件无法访问这个页面。如果你是从密码重置邮件访问过来的，请确认输入的网址完整。"
+      send_instructions: "在几分钟内你会收到一封密码重置邮件。"
+      send_paranoid_instructions: "如果我们的数据库中保存有你的电子邮件地址，你会在几分钟内收到一封如何恢复密码的邮件。"
+      updated: "你的密码已被成功更改，你现在已经登录。"
+      updated_not_active: "你的密码已被成功更改。"      
+    registrations:
+      updated: "Your account has been updated successfully."
+      destroyed: "再见！你的帐户已被成功取消。希望能再次见到你。"
+      signed_up: "欢迎！你已经成功注册。"
+      signed_up_but_inactive: "你已经成功注册。但是由于你的帐户未激活，你仍无法登录。"
+      signed_up_but_locked: "你已经成功注册。但是由于你的帐户被锁定，你仍无法登录。"
+      signed_up_but_unconfirmed: "我们已向你的邮箱发送了一封确认邮件。请单击邮件中的链接激活你的帐户。"
+      update_needs_confirmation: "你已经成功更新帐户，但我们需要验证你的电子邮件地址。请检查你的邮件并确认你的子邮件地址。"
+      updated: "你的帐户已被成功更新。"
+    sessions:
+      signed_in: "已成功登录。"
+      signed_out: "已成功注销。"
+      already_signed_out: "已成功注销。"
+    unlocks:
+      send_instructions: "在几分钟内你会收到一封如何解锁帐户的邮件。"
+      send_paranoid_instructions: "如果你的帐户存在，在几分钟内你会收到一封如何解锁帐户的邮件。"
+      unlocked: "你的帐户已被成功解锁，请重新登录。"
+  activerecord:
+    models:
+      redirector:
+        one: "重新定向"
+        other: "重新定向"
+      analytic:
+        one: "分析"
+        other: "分析"
+      domain:
+        one: "域"
+        other: "域"
+      goldencobra/domain:
+        one: "域"
+        other: "域"
+      articletype:
+        one: "文章类型"
+        other: "文章类型"
+      link-checker:
+        one: "链接检查器"
+        other: "链接检查器"
+      comment:
+        one: "留言"
+        other: "留言"
+      goldencobra/comment:
+        one: "留言"
+        other: "留言"
+      author:
+        one: "作者"
+        other: "作者"
+      goldencobra/author:
+        one: "作者"
+        other: "作者"
+      import:
+        one: "导入"
+        other: "导入"
+      article:
+        one: "文章"
+        other: "文章"
+      goldencobra/article:
+        one: "文章"
+        other: "文章"
+      setting:
+        one: "网站设置"
+        other: "网站设置"
+      goldencobra/setting:
+        one: "网站设置"
+        other: "网站设置"
+      menue:
+        one: "菜单"
+        other: "菜单"
+      goldencobra/menue:
+        one: "菜单"
+        other: "菜单"
+      metag:
+        one: "元数据标签"
+        other: "元数据标签"
+      goldencobra/metag:
+        one: "元数据标签"
+        other: "元数据标签"
+      widget:
+        one: "小部件"
+        other: "小部件"
+      goldencobra/widget:
+        one: "小部件"
+        other: "小部件"
+      upload:
+        one: "中间"
+        other: "媒体"
+      goldencobra/upload:
+        one: "中间"
+        other: "媒体"
+      user:
+        one: "用户"
+        other: "用户"
+      permission:
+        one: "权限"
+        other: "权限"
+      goldencobra/permission:
+        one: "权限"
+        other: "权限"
+      role:
+        one: "角色"
+        other: "角色"
+      goldencobra/role:
+        one: "角色"
+        other: "角色"
+    attributes:
+      goldencobra/metatag:
+        name: "名称"
+        value: "值"
+      goldencobra/comment:
+        content: "内容"
+        active: "可用"
+        approved: "已批准"
+        reported: "已报告"
+      goldencobra/role:
+        description: "描述信息"
+        created_at: "创建于"
+        updated_at: "更新于"
+      user:
+        firstname: "名"
+        lastname: "姓"
+        password: "密码"
+        password_confirmation: "密码确认"
+        roles: "角色"
+        function: "职能"
+        phone: "电话"
+        complete_name: "名称"
+        email: "电子邮件"
+        created_at: "创建于"
+        updated_at: "更新于"
+      goldencobra/article:
+        redirection_target_in_new_window: "在新窗口跳转"
+        redirect_link_title: "外部链接名称"
+        dynamic_redirection: "自动跳转"
+        commentable: "文章可添加评论"
+        enable_social_sharing: "显示 '社交分享'- 操作"
+        parent_id: "父级文章"
+        article_type: "文章类型"
+        title: "标题"
+        url: "Url"
+        sorter_limit: "已排序的文章数"
+        sort_order: "排列次序"
+        reverse_sort: "降序?"
+        authors: "作者"
+        url_name: "文章URL名称"
+        slug: "Url短网址"
+        content: "主要内容"
+        teaser: "预告"
+        ancestry: "祖先"
+        startpage: "开始页面"
+        active: "在线"
+        active_since: "开始活跃时间"
+        subtitle: "子标题"
+        summary: "汇总"
+        context_info: "更多内容"
+        canonical_url: "针对搜索引擎的Url"
+        robots_no_index: "不要在搜索引擎中列出"
+        breadcrumb: "页面导航标题"
+        template_file: "布局文件"
+        enable_social_sharing: "显示社交媒体按钮"
+        cacheable: "可缓存文章"
+        external_url_redirect: "跳转到外部url"
+        created_at: "创建于"
+        updated_at: "更新于"
+        tag_list: "标签列表"
+        frontend_tag_list: "过滤器"
+        metatag_title_tag: "标题标签"
+        metatag_meta_description: "元数据描述"
+        metatag_open_graph_title: "OpenGraph标题"
+        metatag_open_graph_description: "OpenGraph描述"
+        metatag_open_graph_type: "OpenGraph类型"
+        metatag_open_graph_url: "OpenGraph URL"
+        metatag_open_graph_image: "OpenGraph图片"
+        states:
+            void: "空"
+            draft: "草稿"
+            in_review: "在审查"
+            waiting: "等待中"
+            published: "已发布"
+            discarded: "已废弃"
+      goldencobra/upload:
+        image_remote_url: "下载URL"
+        source: "源"
+        created_at: "创建于"
+        updated_at: "更新于"
+        image_file_name: "图片文件名"
+        image_content_type: "图片内容类型"
+        image_file_size: "图片文件大小"
+        rights: "版权"
+        description: "描述信息"
+        image: "图片"
+        sorter_number: "排序号码"
+      goldencobra/widget:
+        title: "标题"
+        created_at: "创建于"
+        active: "在线?"
+        offline_day: "显示替代内容的日期"
+        offline_time_start: "开始时间"
+        offline_time_start_hint: "时间格式 HH:MM(24h): e.g. 16:00"
+        offline_time_end: "结束时间"
+        offline_time_end_hint: "时间格式 HH:MM(24h): e.g. 17:35"
+        offline_time_active: "使用其他的离线内容？"
+        offline_time_active_hint: "如果您希望此小部件在特定时间处于脱机状态，请勾选这里。"
+        alternative_content: "脱机小部件的内容"
+        alternative_content_hint: "在小部件脱机时，此内容会显示"
+  goldencobra:
+    article_field_placeholder:
+      author: "选择作者"
+    article_field_hints:
+      global_sorting_id: "文章索引页面中相关的全球排序编号"
+      title: "文章标题"
+      teaser: "这篇文章的简短描述。也用于Goolge和Facebook"
+      summary: ""
+      active: "这篇文章在线可见吗？"
+      tag_list: "标签是用逗号分隔的用来组织文章和对文章分组的值"
+      frontend_tag_list: "这些值是作为索引文章时的过滤器选项而提供的"
+      active_since: ""
+      context_info: ""
+      metatags_name: ""
+      metatags_destroy: "重置以恢复到默认值"
+      breadcrumb: "导航栏的短标题"
+      url_name: "最多64个字符"
+      parent_id: "父文章"
+      canonical_url: ""
+      enable_social_sharing: ""
+      robots_no_index: ""
+      cacheable: ""
+      commentable: ""
+      author: ""
+      creator: ""
+      state: "文章可能的状态： 空，草稿，审核中，等待，已发布，废弃"
+      redirection_target_in_new_window: ""
+      redirect_link_title: ""
+      external_url_redirect: ""
+      dynamic_redirection: ""
+      metatag_title_tag: ""
+      metatag_meta_description: ""
+      metatag_open_graph_title: ""
+      metatag_open_graph_description: ""
+      metatag_open_graph_image: ""
+      metatag_open_graph_url: ""
+    article_types:
+      Article: "文章"
+      Default: "文章"
+      default_index: "文章 (索引)"
+      default_show: "文章"
+    errors:
+      has_descendants: "由于子文章的存在不能删除该文章"
+    flash_notice:
+      name_of_flashnotice: "你确定想把这篇文章作为起始页吗？"
+      action_Startpage: "把这篇文章作为起始页"
+      startpage: "把这篇文章是起始页!"
+      online: "改变这篇文章的可见性?"
+      delete_article: "你确定要删除这篇文章？"
+    filter:
+      filter_titel: "标题"
+      filter_subtitel: "子标题"
+      filter_breadcrumb: "导航"
+      filter_url: "url"
+      filter_template: "模板文件"
+      filter_created: "创建于"
+      filter_updated: "更新于"
+      filter_parent: "父级过滤器"
+      filter_type: "文章类型"
+    menue:
+      preview_article: '预览'
+      menue: "菜单"
+      name: "名称"
+      list: "列表"
+      create: "创建"
+  active_admin:
+    articles:
+      tag-select-placeholder: "选择标签"
+      now_offline: "此文章目前离线"
+      now_online: "此文章现在在线"
+    resource:
+      upload: "上传"
+      article: "文章"
+    menue:
+      settings: "设置"
+    dashboard: "面板"
+    dashboard_welcome:
+      welcome: "欢迎使用Active Admin。 这是默认控制面板页面。"
+      call_to_action: "要添加面板， 请查看'app/admin/dashboards.rb'"
+    view: "查看"
+    edit: "编辑"
+    delete: "删除"
+    delete_confirmation: "你确定要删除这个?"
+    new_model: "新 %{model}"
+    create_model: "新建 %{model}"
+    edit_model: "编辑 %{model}"
+    update_model: "更新 %{model}"
+    delete_model: "删除 %{model}"
+    details: "%{model} 详细信息"
+    cancel: "取消"
+    empty: "空"
+    previous: "上一页"
+    next: "下一页"
+    download: "下载:"
+    has_many_new: "添加新 %{model}"
+    has_many_delete: "删除"
+    filter: "过滤器"
+    clear_filters: "清楚过滤器"
+    search_field: "搜索 %{field}"
+    equal_to: "等于"
+    greater_than: "大于"
+    less_than: "小于"
+    main_content: "请实现 %{model}#main_content 来显示内容。"
+    logout: "注销"
+    sidebars:
+      submit_widget: "保存小部件"
+      submit_layout: "分配布局"
+      widgets_options: "小部件选项"
+      overview: "概览"
+      startpage_options: "开始页面选项"
+      layout: "布局"
+      image_formates: "图片格式"
+      image_module: "图片模块"
+      filters: "过滤器"
+    per_page: "每页显示个数"
+    pagination:
+      empty: "没找到 %{model}"
+      one: "显示 <b>1</b>个 %{model}"
+      one_page: "显示 <b>所有 %{n}</b> %{model}"
+      multiple: "显示 %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> 共 <b>%{total}</b>"
+      multiple_without_total: "显示 %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b>"
+      per_page: "每页:"
+      entry:
+        one: "条目"
+        other: "条目"
+    any: "任何"
+    blank_slate:
+      content: "目前还没有 %{resource_name}。"
+      link: "创建一个"
+    batch_actions:
+      button_label: "批操作"
+      delete_confirmation: "你确定要删除这些 %{plural_model}? 你无法恢复这些操作。"
+      succesfully_destroyed:
+        one: "成功删除1个 %{model}"
+        other: "成功删除 %{count}个 %{plural_model}"
+      selection_toggle_explanation: "(Toggle Selection)"
+      link: "创建一个"
+      action_label: "已选择 %{title}"
+      labels:
+        set_article_online: "在线文章"
+        set_article_offline: "离线文章"
+        reset_cache: "重置缓存"
+        send_default_conf_mails: "发送确认邮件"
+        destroy: "删除"
+    comments:
+      body: "正文"
+      author: "作者"
+      title: "评论"
+      add: "添加评论"
+      resource: "资源"
+      no_comments_yet: "目前尚无评论"
+      title_content: "评论数 (%{count})"
+      errors:
+        empty_text: "无法保存评论， 文本为空。"
+  login:
+    messages:
+      errors:
+        no-user-found-with-this-email: "未找到用户"
+        wrong-username-or-password: "错误的用户名或密码"
+      success_redirect: "成功登录， 跳转中..."
+  views:
+    pagination:
+      first: "|‹"
+      previous: "«"
+      next: "»"
+      last: "›|"
+      truncate: "..."
+  title: "标题"
+  url: "URL"
+  created_at: "创建于"
+  updated_at: "更新于"
+  new_subarticle: "新建子文章"
+  date:
+    abbr_day_names:
+    - 周日
+    - 周一
+    - 周二
+    - 周三
+    - 周四
+    - 周五
+    - 周六
+    abbr_month_names:
+    -
+    - 一月
+    - 二月
+    - 三月
+    - 四月
+    - 五月
+    - 六月
+    - 七月
+    - 八月
+    - 九月
+    - 十月
+    - 十一月
+    - 十二月
+    day_names:
+    - 周日
+    - 周一
+    - 周二
+    - 周三
+    - 周四
+    - 周五
+    - 周六
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%B %d, %Y'
+      short: ! '%b %d'
+    month_names:
+    -
+    - 一月
+    - 二月
+    - 三月
+    - 四月
+    - 五月
+    - 六月
+    - 七月
+    - 八月
+    - 九月
+    - 十月
+    - 十一月
+    - 十二月
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: 大约 1 小时
+        other: 大约 %{count} 小时
+      about_x_months:
+        one: 大约 1 个月
+        other: 大约 %{count} 个月
+      about_x_years:
+        one: 大约 1 年
+        other: 大约 %{count} 年
+      almost_x_years:
+        one: 将近 1 年
+        other: 将近 %{count} 年
+      half_a_minute: 半分钟
+      less_than_x_minutes:
+        one: 小于 1 分钟
+        other: 小于 %{count} 分钟
+      less_than_x_seconds:
+        one: 小于 1 秒
+        other: 小于 %{count} 秒
+      over_x_years:
+        one: 超过 1 年
+        other: 超过 %{count} 年
+      x_days:
+        one: 1 天
+        other: ! '%{count} 天'
+      x_minutes:
+        one: 1 分钟
+        other: ! '%{count} 分钟'
+      x_months:
+        one: 1 个 月
+        other: ! '%{count} 个月'
+      x_seconds:
+        one: 1 秒
+        other: ! '%{count} 秒'
+    prompts:
+      day: 天
+      hour: 小时
+      minute: 分钟
+      month: 月
+      second: 秒
+      year: 年
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: 必须接受
+      blank: 不能为空白
+      confirmation: 和确认不符
+      empty: 不能为空
+      equal_to: 必须等于%{count}
+      even: 必须是偶数
+      exclusion: 已被预定
+      greater_than: 必须大于%{count}
+      greater_than_or_equal_to: 必须大于或等于%{count}
+      inclusion: 不在列表中
+      invalid: 是非法的
+      less_than: 必须小于 %{count}
+      less_than_or_equal_to: 必须小于或等于 %{count}
+      not_a_number: 不是一个数字
+      not_an_integer: 必须是一个整数
+      odd: 必须是奇数
+      record_invalid: ! '验证失败: %{errors}'
+      taken: 已经被使用
+      too_long:
+        one: 太长（最多1个字符）
+        other: 太长（最多是%{count}个字符）
+      too_short:
+        one: 太短（最少1个字符）
+        other: 太短（最少是%{count}个字符）
+      wrong_length:
+        one: 长度错误（应该是1个字符）
+        other: 长度错误（应该是%{count}个字符）
+    template:
+      body: ! '以下字段出现问题：'
+      header:
+        one: '出现1个错误导致不能保存 %{model}'
+        other: '出现%{count}个错误导致不能保存 %{model}'
+  helpers:
+    select:
+      prompt: 请选择
+    submit:
+      create: 创建 %{model}
+      submit: 保存 %{model}
+      update: 更新 %{model}
+  number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%u%n'
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: $
+    format:
+      delimiter: ! ','
+      precision: 3
+      separator: .
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: 十亿
+          million: 百万
+          quadrillion: 万亿
+          thousand: 千
+          trillion: 兆
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: 字节
+            other: 字节
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ', and '
+      two_words_connector: ! ' and '
+      words_connector: ! ', '
+  time:
+    am: 上午
+    formats:
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+      date: ! '%B %d, %Y'
+    pm: pm
+  activemodel:
+    errors:
+      <<: *errors
