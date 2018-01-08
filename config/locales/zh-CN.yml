@@ -47,15 +47,15 @@ zh-CN:
         subject: "密码已更改"
     omniauth_callbacks:
       failure: "由于%{reason}，无法从%{kind} 认证。"
-      success: "成功从 %{kind} 认证帐户。"      
+      success: "成功从 %{kind} 认证帐户。"
     passwords:
       no_token: "如果没有密码重置邮件无法访问这个页面。如果你是从密码重置邮件访问过来的，请确认输入的网址完整。"
       send_instructions: "在几分钟内你会收到一封密码重置邮件。"
       send_paranoid_instructions: "如果我们的数据库中保存有你的电子邮件地址，你会在几分钟内收到一封如何恢复密码的邮件。"
       updated: "你的密码已被成功更改，你现在已经登录。"
-      updated_not_active: "你的密码已被成功更改。"      
+      updated_not_active: "你的密码已被成功更改。"
     registrations:
-      updated: "Your account has been updated successfully."
+      updated: "您的帐户已成功更新。"
       destroyed: "再见！你的帐户已被成功取消。希望能再次见到你。"
       signed_up: "欢迎！你已经成功注册。"
       signed_up_but_inactive: "你已经成功注册。但是由于你的帐户未激活，你仍无法登录。"
