@@ -31,10 +31,7 @@ ActiveAdmin.register Goldencobra::ArticleUrl, as: "ArticleUrl" do
   end
 
   collection_action :rewrite_urls do
-    Goldencobra::ArticleUrl.all.each do |goldencobra_article_url|
-      goldencobra_article_url.destroy
-      goldencobra_article_url.article.save
-    end
+    Goldencobra::ArticleUrl.recreate_all_urls
     flash[:notice] = I18n.t('active_admin.article_url.batch_action.flash.rewrite_urls')
     redirect_to action: :index
   end
