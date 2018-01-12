@@ -6,6 +6,12 @@ module Goldencobra
     validates :article_id, presence: true
     validates :url, presence: true, uniqueness: { case_sensitive: false }
 
+    def self.recreate_all_urls
+      Goldencobra::ArticleUrl.all.each do |goldencobra_article_url|
+      goldencobra_article_url.destroy
+      goldencobra_article_url.article.save
+    end
+
     def self.setup(article_id)
       article = Goldencobra::Article.find_by_id(article_id)
 
