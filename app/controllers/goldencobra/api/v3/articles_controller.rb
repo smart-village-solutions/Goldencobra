@@ -7,7 +7,7 @@ module Goldencobra
 
         respond_to :json
 
-        # /api/v2/articles[.json]
+        # /api/v3/articles[.json]
         #
         # @return [json] Liefert Alle Artikel :id, :title, :parent_path
         # map{ |c| [c.parent_path, c.id] }
@@ -37,7 +37,7 @@ module Goldencobra
           end
         end
 
-        # /api/v2/articles/:id[.json]
+        # /api/v3/articles/:id[.json]
         #
         # @param methods [String] "beliebe Attribute des Artikels im JSON
         #                         einfuegen"
@@ -61,7 +61,7 @@ module Goldencobra
           end
         end
 
-        # /api/v2/articles/index_with_id[.json]
+        # /api/v3/articles/index_with_id[.json]
         #
         # @param methods [String] "beliebe Attribute des Artikels im JSON
         #                         einfuegen"
