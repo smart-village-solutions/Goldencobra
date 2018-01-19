@@ -143,7 +143,7 @@ module Goldencobra
             menue_data_as_json = menus.arrange(order: :sorter)
 
             # JsonTree to display, use specified display_methods
-            @json_tree = Goldencobra::Menue.json_tree(menue_data_as_json, display_methods )
+            @json_tree = Goldencobra::Menue.json_tree(menue_data_as_json, display_methods)
 
             # Save result to cache
             Rails.cache.write(cache_key, @json_tree)
@@ -177,15 +177,10 @@ module Goldencobra
 
 
         def display_methods
-          filtered_methods = []
+          return [] if params[:methods].blank?
 
-          if params[:methods].present?
-            additional_elements_to_show = params[:methods].split(",").compact
-
-            filtered_methods = Goldencobra::Menue.filtered_methods(additional_elements_to_show)
-          end
-
-          return filtered_methods
+          additional_elements_to_show = params[:methods].split(",").compact
+          Goldencobra::Menue.filtered_methods(additional_elements_to_show)
         end
 
         def filter_elements(menus)
@@ -200,6 +195,7 @@ module Goldencobra
         end
 
         def find_menu_with_matching_path(parsed_url)
+
           parsed_url = parsed_url.path
           #Nur das letzte / wegwerfen, wenn es nicht die Startseite ist
           parsed_url = parsed_url.chomp("/") if parsed_url.count("/") > 1
@@ -212,7 +208,7 @@ module Goldencobra
             Addressable::URI.parse(pos_menu.target).path == parsed_url
           end.first
 
-          if current_menue.blank?
+          if current_menue.blank? && parsed_url != "/"
             # Try for a path without last element
             reduced_url = parsed_url.split("/").tap(&:pop).join("/")
             reduced_url = "/" if reduced_url.blank?

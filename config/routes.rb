@@ -18,17 +18,22 @@ Goldencobra::Engine.routes.draw do
     end
 
     namespace "v2" do
-      get "/articles"                 => "articles#index"
-      get "/articles/search"          => "articles#search"
-      get "/articles/breadcrumb/*url" => "articles#breadcrumb"
-      get "/articles/*url"            => "articles#show"
-      get "/locale_string"            => "locales#get_string"
-      get "/setting_string"           => "settings#get_string"
-      get "/uploads"                  => "uploads#index"
-      post "/articles/create"         => "articles#create"
-      post "/articles/update"         => "articles#update"
-      get "/navigation_menus"         => "navigation_menus#index"
-      get "/navigation_menus/active"  => "navigation_menus#active_ids"
+      get "/articles"                 => "articles#index", defaults: { format: "json" }
+      get "/articles/search"          => "articles#search", defaults: { format: "json" }
+      get "/articles/breadcrumb/*url" => "articles#breadcrumb", defaults: { format: "json" }
+      get "/articles/*url"            => "articles#show", defaults: { format: "json" }
+      get "/locale_string"            => "locales#get_string", defaults: { format: "json" }
+      get "/setting_string"           => "settings#get_string", defaults: { format: "json" }
+      get "/uploads"                  => "uploads#index", defaults: { format: "json" }
+      post "/articles/create"         => "articles#create", defaults: { format: "json" }
+      post "/articles/update"         => "articles#update", defaults: { format: "json" }
+      get "/navigation_menus"         => "navigation_menus#index", defaults: { format: "json" }
+      get "/navigation_menus/active"  => "navigation_menus#active_ids", defaults: { format: "json" }
+    end
+
+    namespace "v3" do
+      get "/articles"                 => "articles#index", defaults: { format: "json" }
+      get "/articles/:id"            => "articles#show", defaults: { format: "json" }
     end
   end
 
