@@ -29,7 +29,11 @@ Goldencobra::Engine.routes.draw do
       post "/articles/update"         => "articles#update", defaults: { format: "json" }
       get "/navigation_menus"         => "navigation_menus#index", defaults: { format: "json" }
       get "/navigation_menus/active"  => "navigation_menus#active_ids", defaults: { format: "json" }
+    end
 
+    namespace "v3" do
+      get "/articles"                 => "articles#index", defaults: { format: "json" }
+      get "/articles/:id"            => "articles#show", defaults: { format: "json" }
     end
   end
 
