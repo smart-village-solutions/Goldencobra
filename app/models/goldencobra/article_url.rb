@@ -8,8 +8,9 @@ module Goldencobra
 
     def self.recreate_all_urls
       Goldencobra::ArticleUrl.all.each do |goldencobra_article_url|
-      goldencobra_article_url.destroy
-      goldencobra_article_url.article.save
+        goldencobra_article_url.destroy
+        goldencobra_article_url.article.save
+      end
     end
 
     def self.setup(article_id)
