@@ -75,12 +75,12 @@ module Goldencobra
             format.json do
               if params[:methods].present?
                 render json: Oj.dump(
-                  @article,
+                  @article.as_json,
                   serializer: Goldencobra::ArticleCustomSerializer,
                   scope: params[:methods]
                 )
               else
-                render json: Oj.dump(@article)
+                render json: Oj.dump(@article.as_json)
               end
             end
           end
@@ -267,20 +267,20 @@ module Goldencobra
             @articles.map { |a| { "value" => a.id, "label" => a.parent_path } }
                      .sort { |a, b| a["label"] <=> b["label"] }
           else
-            @articles.map do |a|
+            @articles.to_a.map do |a|
               a.as_json(only: [:id, :title], methods: [:parent_path])
             end
           end
         end
 
         def cached_articles
-          cache_key ||= [
-            "indexarticles",
-            Goldencobra::Article.all.pluck(:id, :ancestry, :title)
+          cache_key = [
+            "index-articles", "v2",
+            Goldencobra::Article.order("updated_at DESC").limit(1).first.cache_key
           ]
 
           Rails.cache.fetch(cache_key) do
-            Goldencobra::Article.select([:id, :title, :ancestry]).sort do|a, b|
+            Goldencobra::Article.select([:id, :title, :ancestry]).sort do |a, b|
               a[0] <=> b[0]
             end
           end
