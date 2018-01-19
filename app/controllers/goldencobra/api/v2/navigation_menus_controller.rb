@@ -200,6 +200,7 @@ module Goldencobra
         end
 
         def find_menu_with_matching_path(parsed_url)
+
           parsed_url = parsed_url.path
           #Nur das letzte / wegwerfen, wenn es nicht die Startseite ist
           parsed_url = parsed_url.chomp("/") if parsed_url.count("/") > 1
@@ -212,7 +213,7 @@ module Goldencobra
             Addressable::URI.parse(pos_menu.target).path == parsed_url
           end.first
 
-          if current_menue.blank?
+          if current_menue.blank? && parsed_url != "/"
             # Try for a path without last element
             reduced_url = parsed_url.split("/").tap(&:pop).join("/")
             reduced_url = "/" if reduced_url.blank?
