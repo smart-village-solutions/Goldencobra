@@ -115,7 +115,7 @@ module Goldencobra
 
         def articles_as_json
           @articles.map do |a|
-            a.as_json(methods: [:public_url, :index_articles])
+            a.as_json(methods: [:public_url, :index_articles, :image_standard_big])
           end
         end
       end
