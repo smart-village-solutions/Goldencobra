@@ -91,6 +91,10 @@ module Goldencobra
       false
     end
 
+    def article_id
+      Goldencobra::Article.select([:url_name, :startpage, :ancestry, :id, :url_path]).select{ |a| a.public_url == target }.first.try(:id)
+    end
+
     # Render Content of Description with liquid Tags
     #
     # @return [String] self.description liquified
@@ -119,7 +123,7 @@ module Goldencobra
     def self.filtered_methods(method_names=[])
       #Alle zugelasssenen methodennamen als Array of Strings
       allowed_attribute_methods = Goldencobra::Menue.new.attributes.keys
-      additional_whitelist_methods = ["liquid_description", "navigation_image"]
+      additional_whitelist_methods = ["liquid_description", "navigation_image", "article_id"]
       all_allowed_methodes = allowed_attribute_methods + additional_whitelist_methods
 
       #Filter übergebene methodenliste auf die zugelassenen namen
