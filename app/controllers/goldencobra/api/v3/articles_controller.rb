@@ -16,6 +16,8 @@ module Goldencobra
             index_with_ids
           else
             @articles = Goldencobra::Article.active
+            @articles = @articles.tagged_with(params[:tags].split(","), on: :tags) if params[:tags].present?
+            @articles = @articles.tagged_with(params[:no_tags].split(","), exclude: true, on: :tags) if params[:no_tags].present?
 
             respond_to do |format|
               format.json do
