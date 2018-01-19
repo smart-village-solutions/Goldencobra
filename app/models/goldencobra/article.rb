@@ -775,7 +775,7 @@ module Goldencobra
 
         return "#{Goldencobra::Domain.current.try(:url_prefix)}#{a_url}" if with_prefix
 
-        return a_url
+        a_url
       end
     end
 
