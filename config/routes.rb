@@ -22,8 +22,8 @@ Goldencobra::Engine.routes.draw do
       get "/articles/search"          => "articles#search", defaults: { format: "json" }
       get "/articles/breadcrumb/*url" => "articles#breadcrumb", defaults: { format: "json" }
       get "/articles/*url"            => "articles#show", defaults: { format: "json" }
-      get "/locale_string"            => "locales#get_string", defaults: { format: "json" }
-      get "/setting_string"           => "settings#get_string", defaults: { format: "json" }
+      get "/locale_string"            => "locales#get_string"
+      get "/setting_string"           => "settings#get_string"
       get "/uploads"                  => "uploads#index", defaults: { format: "json" }
       post "/articles/create"         => "articles#create", defaults: { format: "json" }
       post "/articles/update"         => "articles#update", defaults: { format: "json" }
