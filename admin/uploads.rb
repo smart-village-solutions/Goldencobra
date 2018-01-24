@@ -148,7 +148,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
     attributes_table do
       row I18n.t("active_admin.uploads.original_row") do
         link_to(
-          "#{Goldencobra::Url} #{upload.image(:original)}",
+          "#{Goldencobra::Url}#{upload.image(:original)}",
           upload.image(:original),
           target: "_blank"
         )
@@ -161,7 +161,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
               image_tag(upload.image(image_size))
             )
             result += link_to(
-              "#{Goldencobra::Url} #{upload.image(image_size)}",
+              "#{Goldencobra::Url}#{upload.image(image_size)}",
               upload.image(image_size),
               target: "_blank"
             )
