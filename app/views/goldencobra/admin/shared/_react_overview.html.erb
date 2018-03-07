@@ -1,7 +1,9 @@
 <div id="overviewTree"></div>
 
-<% 
-  url ||= "/admin/articles/load_overviewtree_as_json"
+<%
+  root_id ||= nil
+  root_option = root_id.present? ? "?root_id=#{root_id}" : nil
+  url ||= "/admin/articles/load_overviewtree_as_json#{root_option}"
   class_name ||= 'articles'
 %>
 
