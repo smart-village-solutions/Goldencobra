@@ -134,13 +134,13 @@ module Goldencobra
             # Current Level of master element
             current_depth = @master_element.ancestry_depth
 
-            # Get all menus of subtree from startlevel to endlevel
-            menus = @master_element.subtree.active.visible
-            menus = filter_elements(menus)
-            menus = menus.after_depth(current_depth + offset).to_depth(current_depth + depth)
+            # Get all menues of subtree from startlevel to endlevel
+            menues = @master_element.subtree.active.visible
+            menues = filter_elements(menues)
+            menues = menues.after_depth(current_depth + offset).to_depth(current_depth + depth)
 
             # Prepare menu data to display
-            menue_data_as_json = menus.arrange(order: :sorter)
+            menue_data_as_json = menues.arrange(order: :sorter)
 
             # JsonTree to display, use specified display_methods
             @json_tree = Goldencobra::Menue.json_tree(menue_data_as_json, display_methods)
@@ -183,15 +183,15 @@ module Goldencobra
           Goldencobra::Menue.filtered_methods(additional_elements_to_show)
         end
 
-        def filter_elements(menus)
-          return menus unless params[:filter_classes]
+        def filter_elements(menues)
+          return menues unless params[:filter_classes]
           filter_classes = params[:filter_classes].split(",")
 
           filter_classes.each do |filter_class|
             filter_string = "%#{filter_class}%"
-            menus = menus.where('goldencobra_menues.css_class NOT LIKE ?', filter_string)
+            menues = menues.where('goldencobra_menues.css_class NOT LIKE ?', filter_string)
           end
-          menus
+          menues
         end
 
         def find_menu_with_matching_path(parsed_url)
