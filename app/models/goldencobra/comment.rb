@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: goldencobra_comments
@@ -8,7 +7,7 @@
 #  article_id       :integer
 #  commentator_id   :integer
 #  commentator_type :string(255)
-#  content          :text
+#  content          :text(65535)
 #  active           :boolean          default(TRUE)
 #  approved         :boolean          default(FALSE)
 #  reported         :boolean          default(FALSE)

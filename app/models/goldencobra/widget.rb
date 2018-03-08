@@ -1,30 +1,28 @@
 #encoding: utf-8
-
 # == Schema Information
 #
 # Table name: goldencobra_widgets
 #
 #  id                          :integer          not null, primary key
 #  title                       :string(255)
-#  content                     :text
+#  content                     :text(65535)
 #  css_name                    :string(255)
 #  active                      :boolean
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  id_name                     :string(255)
 #  sorter                      :integer
-#  mobile_content              :text
+#  mobile_content              :text(65535)
 #  teaser                      :string(255)
 #  default                     :boolean
-#  description                 :text
+#  description                 :text(65535)
 #  offline_days                :string(255)
 #  offline_time_active         :boolean
-#  alternative_content         :text
+#  alternative_content         :text(65535)
 #  offline_date_start          :date
 #  offline_date_end            :date
-#  offline_time_week_start_end :text
+#  offline_time_week_start_end :text(65535)
 #
-
 
 module Goldencobra
   class Widget < ActiveRecord::Base

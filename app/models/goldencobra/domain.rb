@@ -36,3 +36,17 @@ module Goldencobra
 
   end
 end
+
+# == Schema Information
+#
+# Table name: goldencobra_domains
+#
+#  id         :integer          not null, primary key
+#  hostname   :string(255)
+#  title      :string(255)
+#  client     :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  url_prefix :string(255)
+#  main       :boolean          default(FALSE)
+#

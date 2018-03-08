@@ -52,3 +52,14 @@ module Goldencobra
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: goldencobra_article_urls
+#
+#  id         :integer          not null, primary key
+#  article_id :integer
+#  url        :text(65535)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

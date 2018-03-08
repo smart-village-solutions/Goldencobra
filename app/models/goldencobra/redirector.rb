@@ -129,3 +129,17 @@ module Goldencobra
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: goldencobra_redirectors
+#
+#  id                :integer          not null, primary key
+#  source_url        :text(65535)
+#  target_url        :text(65535)
+#  redirection_code  :integer          default(301)
+#  active            :boolean          default(TRUE)
+#  ignore_url_params :boolean          default(TRUE)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#

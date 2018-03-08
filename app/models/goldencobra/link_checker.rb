@@ -75,3 +75,18 @@ module Goldencobra
 
   end
 end
+
+# == Schema Information
+#
+# Table name: goldencobra_link_checkers
+#
+#  id             :integer          not null, primary key
+#  article_id     :integer
+#  target_link    :text(65535)
+#  position       :text(65535)
+#  response_code  :string(255)
+#  response_time  :string(255)
+#  response_error :text(65535)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#

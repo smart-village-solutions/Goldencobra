@@ -1,11 +1,10 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: goldencobra_trackings
 #
 #  id             :integer          not null, primary key
-#  request        :text
+#  request        :text(65535)
 #  session_id     :string(255)
 #  referer        :string(255)
 #  url            :string(255)
@@ -18,7 +17,7 @@
 #  page_duration  :string(255)
 #  view_duration  :string(255)
 #  db_duration    :string(255)
-#  url_paremeters :string(255)
+#  url_paremeters :text(65535)
 #  utm_source     :string(255)
 #  utm_medium     :string(255)
 #  utm_term       :string(255)

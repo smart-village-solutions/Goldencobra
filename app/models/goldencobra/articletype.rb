@@ -115,3 +115,14 @@ module Goldencobra
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: goldencobra_articletypes
+#
+#  id                    :integer          not null, primary key
+#  name                  :string(255)
+#  default_template_file :string(255)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#

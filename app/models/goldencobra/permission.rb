@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: goldencobra_permissions
@@ -9,10 +8,11 @@
 #  subject_class :string(255)
 #  subject_id    :string(255)
 #  role_id       :integer
-#  domain_id     :integer
+#  sorter_id     :integer          default(0)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  sorter_id     :integer          default(0)
+#  operator_id   :integer
+#  domain_id     :integer
 #
 
 module Goldencobra
