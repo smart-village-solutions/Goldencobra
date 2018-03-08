@@ -198,15 +198,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     link_to I18n.t('active_admin.articles.sidebar.new_sub_article'), new_admin_article_path(parent: resource), class: "new_link"
   end
 
-  sidebar :overview, only: [:index] do
-    # calls collection_action :load_overviewtree_as_json
-    render partial: "/goldencobra/admin/shared/react_overview", locals: {
-      object_class: "Goldencobra::Article",
-      link_name: "url_name",
-      url_path: "article",
-      order_by: "url_name"
-    }
-  end
 
   sidebar :startpage_options, only: [:show, :edit] do
     if resource.startpage
@@ -226,6 +217,23 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
     br
     button_to I18n.t('active_admin.article_url.batch_action.rewrite_urls'), rewrite_urls_admin_article_path(id: resource.id)
+  end
+
+  sidebar :overview, only: [:index, :edit] do
+    begin
+      root_id = resource.try(:id)
+    rescue ActiveRecord::RecordNotFound
+      root_id = nil
+    end
+
+    # calls collection_action :load_overviewtree_as_json
+    render partial: "/goldencobra/admin/shared/react_overview", locals: {
+      object_class: "Goldencobra::Article",
+      link_name: "url_name",
+      url_path: "article",
+      order_by: "url_name",
+      root_id: root_id
+    }
   end
 
   # Deprecated, will be removed in GC 2.1
@@ -366,20 +374,6 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
   end
 
   batch_action :destroy, false
-
-  # Deprecated, will be removed in GC 2.1
-  # Use :load_overviewtree_as_json instead. -hf
-  #
-  # collection_action :load_overviewtree do
-  #   render "/goldencobra/admin/shared/load_overviewtree",
-  #     locals: { object_id: params[:object_id],
-  #               object_class: params[:object_class],
-  #               link_name: params[:link_name],
-  #               url_path: params[:url_path],
-  #               order_by: params[:order_by]  },
-  #     layout: false,
-  #     formats: [:js]
-  # end
 
   collection_action :load_overviewtree_as_json do
     if params[:root_id].present?
