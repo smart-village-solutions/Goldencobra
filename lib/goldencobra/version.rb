@@ -1,3 +1,3 @@
 module Goldencobra
-  VERSION = "2.3.3".freeze
+  VERSION = "3.0.0".freeze
 end

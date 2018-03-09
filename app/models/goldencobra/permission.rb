@@ -18,8 +18,8 @@
 module Goldencobra
   class Permission < ActiveRecord::Base
     attr_accessible :role_id, :action, :subject_class, :subject_id, :sorter_id, :operator_id, :domain_id
-    belongs_to :role
-    belongs_to :domain
+    belongs_to :role, optional: true
+    belongs_to :domain, optional: true
     PossibleSubjectClasses = [":all"] + ActiveRecord::Base.descendants.map(&:name)
     PossibleActions = ["read", "not_read", "manage", "not_manage", "update", "not_update", "destroy", "not_destroy"]
 

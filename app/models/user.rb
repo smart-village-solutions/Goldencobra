@@ -57,9 +57,9 @@ class User < ActiveRecord::Base
                   :confirmed_at
 
   #has_and_belongs_to_many :roles, join_table: "goldencobra_roles_users", class_name: Goldencobra::Role, include: [:permissions]
-  has_many :role_users, as: :operator, class_name: Goldencobra::RoleUser
-  has_many :roles, through: :role_users, class_name: Goldencobra::Role
-  has_many :vita_steps, as: :loggable, class_name: Goldencobra::Vita
+  has_many :role_users, as: :operator, class_name: "Goldencobra::RoleUser"
+  has_many :roles, through: :role_users, class_name: "Goldencobra::Role"
+  has_many :vita_steps, as: :loggable, class_name: "Goldencobra::Vita"
   accepts_nested_attributes_for :vita_steps, allow_destroy: true,
                                 reject_if: lambda { |a| a[:description].blank? }
 

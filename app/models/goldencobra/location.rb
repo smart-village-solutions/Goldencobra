@@ -37,7 +37,7 @@ module Goldencobra
     end
 
     liquid_methods :street, :city, :zip, :region, :country, :title
-    belongs_to :locateable, polymorphic: true
+    belongs_to :locateable, polymorphic: true, optional: true
 
     def complete_location
       result = ""

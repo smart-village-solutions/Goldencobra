@@ -1,6 +1,6 @@
 module Goldencobra
   class ArticleUrl < ActiveRecord::Base
-    belongs_to :article, class_name: Goldencobra::Article
+    belongs_to :article, class_name: "Goldencobra::Article"
     web_url :url
 
     validates :article_id, presence: true

@@ -2,11 +2,11 @@ module Goldencobra
   class ArticlesController < Goldencobra::ApplicationController
 
     layout "application"
-    before_filter :get_redirectors, only: [:show]
-    before_filter :get_article, only: [:show, :convert_to_pdf]
-    before_filter :verify_token, only: [:show]
-    before_filter :geocode_ip_address, only: [:show]
-    after_filter :analytics, only: [:show]
+    before_action :get_redirectors, only: [:show]
+    before_action :get_article, only: [:show, :convert_to_pdf]
+    before_action :verify_token, only: [:show]
+    before_action :geocode_ip_address, only: [:show]
+    after_action :analytics, only: [:show]
 
     if Goldencobra::Setting.for_key("goldencobra.article.cache_articles") == "true"
       caches_action :show, cache_path: :show_cache_path.to_proc, if: proc {@article && @article.present? && is_cachable?  }

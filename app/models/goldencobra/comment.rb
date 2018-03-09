@@ -19,8 +19,8 @@
 
 module Goldencobra
   class Comment < ActiveRecord::Base
-    belongs_to :article, class_name: Goldencobra::Article, foreign_key: "article_id"
-    belongs_to :commentator, polymorphic: true
+    belongs_to :article, class_name: "Goldencobra::Article", foreign_key: "article_id", optional: true
+    belongs_to :commentator, polymorphic: true, optional: true
     has_ancestry orphan_strategy: :rootify
 
     validates_presence_of :article_id, :content, :commentator_id

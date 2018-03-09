@@ -1,4 +1,4 @@
-class ChangeMetatagStorage < ActiveRecord::Migration
+class ChangeMetatagStorage < ActiveRecord::Migration[4.2]
   def change
     add_column :goldencobra_articles, :metatag_title_tag, :string
     add_column :goldencobra_articles, :metatag_meta_description, :string

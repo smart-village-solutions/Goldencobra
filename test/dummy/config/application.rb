@@ -46,7 +46,6 @@ module Dummy
     end
 
     config.i18n.enforce_available_locales = false
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -72,7 +71,7 @@ module Dummy
     # Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit`
     # callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed.
     # Instead, the errors will propagate normally just like in other Active Record callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    #config.active_record.raise_in_transactional_callbacks = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

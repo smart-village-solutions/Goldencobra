@@ -17,7 +17,7 @@ ActiveAdmin.setup do |config|
   #  puts warn
   #end
   #
-
+  config.skip_before_action :verify_authenticity_token
 
 
 

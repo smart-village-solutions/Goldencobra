@@ -2,7 +2,7 @@ module Goldencobra
   module Api
     module V2
       class NavigationMenusController < ActionController::Base
-        before_filter :get_master_element
+        before_action :get_master_element
 
         respond_to :json
 

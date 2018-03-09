@@ -3,7 +3,7 @@
 module Goldencobra
   class LinkChecker < ActiveRecord::Base
 
-    belongs_to :article, class_name: Goldencobra::Article, foreign_key: "article_id"
+    belongs_to :article, class_name: "Goldencobra::Article", foreign_key: "article_id", optional: true
 
     #get all links of a page and make a check for response status and time
     def self.set_link_checker(article)

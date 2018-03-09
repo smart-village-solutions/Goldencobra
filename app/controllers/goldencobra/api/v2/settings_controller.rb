@@ -4,27 +4,20 @@ module Goldencobra
   module Api
     module V2
       class SettingsController < ActionController::Base
-
-        respond_to :text
+        respond_to :html, :json, :text
 
         # /api/v2/setting_string
         # ---------------------------------------------------------------------------------------
         def get_string
-          # check if we have the argument
-          unless params[:setting_key]
-            render status: 200, text: ""
-            return
-          end
 
-          # check if the setting_key contains something
-          if params[:setting_key].length == 0
-            render status: 200, text: ""
+          # get the translation for setting_key and return the locale value
+          if params[:setting_key].present?
+            setting = Goldencobra::Setting.for_key(params[:setting_key])
           else
-            # get the translation for setting_key and return the locale value
-            render status: 200, text: s(params[:setting_key])
+            setting = ""
           end
+          render inline: setting, status: 200
         end
-
       end
     end
   end

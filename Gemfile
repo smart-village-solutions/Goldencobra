@@ -24,10 +24,11 @@ end
 group :development do
   gem "hirb"
   gem "powder"
-  gem "listen", "3.0.5"  # Fix auf diese Version, weil danach ruby 2.2.3 vorrausgesetzt wird
+  gem "listen"
   gem "pre-commit"
   gem "web-console", "2.3.0"
   gem "benchmark-ips"
+  gem "byebug"
 end
 
 group :test do

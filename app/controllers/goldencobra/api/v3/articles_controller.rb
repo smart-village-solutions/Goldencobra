@@ -2,7 +2,7 @@ module Goldencobra
   module Api
     module V3
       class ArticlesController < ActionController::Base
-        skip_before_filter :verify_authenticity_token
+        skip_before_action :verify_authenticity_token
         before_action :get_article,            only: [:show]
 
         respond_to :json

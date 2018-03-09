@@ -63,17 +63,17 @@ module Goldencobra
     attr_accessor   :hint_label, :manual_article_sort, :create_redirection
     ImportDataFunctions = []
 
-    has_many :link_checks, class_name: Goldencobra::LinkChecker
-    has_many :images, through: :article_images, class_name: Goldencobra::Upload
+    has_many :link_checks, class_name: "Goldencobra::LinkChecker"
     has_many :article_images, dependent: :destroy
+    has_many :images, through: :article_images, class_name: "Goldencobra::Upload"
     has_many :article_widgets
     has_many :widgets, through: :article_widgets
-    has_many :vita_steps, as: :loggable, class_name: Goldencobra::Vita
-    has_many :urls, class_name: Goldencobra::ArticleUrl, dependent: :destroy
+    has_many :vita_steps, as: :loggable, class_name: "Goldencobra::Vita"
+    has_many :urls, class_name: "Goldencobra::ArticleUrl", dependent: :destroy
 
-    has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: Goldencobra::Permission, foreign_key: "subject_id"
-    belongs_to :articletype, class_name: Goldencobra::Articletype, foreign_key: "article_type", primary_key: "name"
-    belongs_to :creator, class_name: User, foreign_key: "creator_id"
+    has_many :permissions, -> { where subject_class: "Goldencobra::Article" }, class_name: "Goldencobra::Permission", foreign_key: "subject_id"
+    belongs_to :articletype, class_name: "Goldencobra::Articletype", foreign_key: "article_type", primary_key: "name", optional: true
+    belongs_to :creator, class_name: "User", foreign_key: "creator_id", optional: true
 
     has_many :article_authors
     has_many :authors, through: :article_authors

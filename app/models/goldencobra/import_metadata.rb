@@ -8,6 +8,6 @@ module Goldencobra
                     :database_owner, :exported_at, :importmetatagable_id,
                     :importmetatagable_type
 
-    belongs_to :importmetatagable, polymorphic: true
+    belongs_to :importmetatagable, polymorphic: true, optional: true
   end
 end

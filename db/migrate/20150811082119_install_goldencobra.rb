@@ -1,4 +1,4 @@
-class InstallGoldencobra < ActiveRecord::Migration
+class InstallGoldencobra < ActiveRecord::Migration[4.2]
   def change
 
     #Active Admin

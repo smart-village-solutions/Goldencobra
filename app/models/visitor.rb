@@ -53,9 +53,9 @@ class Visitor < ActiveRecord::Base
 
   validates_uniqueness_of :email
   validates_acceptance_of :agb, accept: true
-  has_many :role_users, as: :operator, class_name: Goldencobra::RoleUser
-  has_many :roles, through: :role_users, class_name: Goldencobra::Role
-  belongs_to :loginable, polymorphic: true
+  has_many :role_users, as: :operator, class_name: "Goldencobra::RoleUser"
+  has_many :roles, through: :role_users, class_name: "Goldencobra::Role"
+  belongs_to :loginable, polymorphic: true, optional: true
 
   before_save :ensure_authentication_token
   after_create :send_confirmation_mail

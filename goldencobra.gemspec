@@ -25,16 +25,16 @@ Gem::Specification.new do |s|
   # end
 
   s.requirements << "ImageMagick"
-  s.required_ruby_version = ">= 2.2.0"
+  s.required_ruby_version = ">= 2.3.1"
 
-  s.add_dependency "rails", "~> 4.2.8"
+  s.add_dependency "rails", "~> 5.1.5"
   s.add_dependency "jquery-rails"
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "devise"
   s.add_dependency "devise-token_authenticatable"
   # TODO: new token authentication
   s.add_dependency "cancancan"
-  s.add_dependency "activeadmin", "~> 1.0.0"
+  s.add_dependency "activeadmin"
   s.add_dependency "remove_accents"
   s.add_dependency "sprockets"
   s.add_dependency "sprockets-rails"
@@ -69,8 +69,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rack-utf8_sanitizer" # handles invalid url encodings
   s.add_dependency "simple_enum"
   s.add_dependency "addressable"
-  s.add_dependency "protected_attributes"
-  s.add_dependency "active_model_serializers", "~> 0.9.5"
+  s.add_dependency "protected_attributes_continued"
+  s.add_dependency "active_model_serializers"#, "~> 0.9.5"
   s.add_dependency "actionpack-action_caching"
   s.add_dependency "react-rails", "~> 1.0"
   s.add_dependency "oj" # faster json rendering
@@ -79,15 +79,15 @@ Gem::Specification.new do |s|
   s.add_dependency "autoprefixer-rails" # to provide easy automatic css prefixing
 
   # outsourced functions in Rails 4.x
-  s.add_dependency "responders", "~> 2.0"
+  s.add_dependency "responders"
 
   s.add_development_dependency "mysql2"
   s.add_development_dependency "annotate"
   s.add_development_dependency "guard-annotate"
-  s.add_development_dependency "pry"
-  s.add_development_dependency "pry-nav"
-  s.add_development_dependency "better_errors"
-  s.add_development_dependency "binding_of_caller"
+  # s.add_development_dependency "pry"
+  # s.add_development_dependency "pry-nav"
+  # s.add_development_dependency "better_errors"
+  # s.add_development_dependency "binding_of_caller"
   s.add_development_dependency "yard"
   s.add_development_dependency "redcarpet"
 end

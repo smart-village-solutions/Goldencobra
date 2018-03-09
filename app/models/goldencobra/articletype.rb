@@ -2,8 +2,8 @@ module Goldencobra
   class Articletype < ActiveRecord::Base
     attr_accessible :default_template_file, :name, :fieldgroups_attributes
 
-    has_many :articles, class_name: Goldencobra::Article, foreign_key: :article_type, primary_key: :name
-    has_many :fieldgroups, class_name: Goldencobra::ArticletypeGroup, dependent: :destroy
+    has_many :articles, class_name: "Goldencobra::Article", foreign_key: :article_type, primary_key: :name
+    has_many :fieldgroups, class_name: "Goldencobra::ArticletypeGroup", dependent: :destroy
 
     accepts_nested_attributes_for :fieldgroups, allow_destroy: true
 

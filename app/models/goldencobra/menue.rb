@@ -27,10 +27,10 @@ module Goldencobra
 
     has_ancestry orphan_strategy: :rootify, cache_depth: true, touch: true
 
-    belongs_to :image, class_name: Goldencobra::Upload, foreign_key: "image_id"
+    belongs_to :image, class_name: "Goldencobra::Upload", foreign_key: "image_id", optional: true
 
     has_many :permissions, -> { where subject_class: "Goldencobra::Menue" },
-             class_name: Goldencobra::Permission, foreign_key: "subject_id"
+             class_name: "Goldencobra::Permission", foreign_key: "subject_id"
 
     validates_presence_of :title
     validates_format_of :title, with: /\A[\w\d\?\.\'\!\s&üÜöÖäÄß\-\:\,\"]+\z/

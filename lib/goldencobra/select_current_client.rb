@@ -7,8 +7,8 @@ module Goldencobra
       base.class_eval do
         include InstanceMethods
         extend ClassMethods
-        before_filter :determine_client
-        before_filter :add_view_path_for_client
+        before_action :determine_client
+        before_action :add_view_path_for_client
         helper_method :current_client
       end
     end

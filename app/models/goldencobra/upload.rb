@@ -60,7 +60,7 @@ module Goldencobra
              dependent: :destroy
     has_many :articles, through: :article_images
     has_many :imports, class_name: "Goldencobra::Import"
-    belongs_to :attachable, polymorphic: true
+    belongs_to :attachable, polymorphic: true, optional: true
 
     before_save :download_remote_image, if: :image_url_provided?
     before_save :crop_image_with_coords

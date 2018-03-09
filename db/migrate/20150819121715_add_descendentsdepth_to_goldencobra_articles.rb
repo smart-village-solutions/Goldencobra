@@ -1,4 +1,4 @@
-class AddDescendentsdepthToGoldencobraArticles < ActiveRecord::Migration
+class AddDescendentsdepthToGoldencobraArticles < ActiveRecord::Migration[4.2]
   def change
     add_column :goldencobra_articles, :index_of_articles_descendents_depth, :string, default: "1"
     add_column :goldencobra_articles, :ancestry_depth, :integer, default: 0
