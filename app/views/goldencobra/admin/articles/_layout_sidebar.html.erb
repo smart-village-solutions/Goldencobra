@@ -21,7 +21,7 @@
     <h5>
       <%= I18n.t(@article.article_type.split(' ').first.to_s.strip, :scope => [:activerecord, :models, "goldencobra/article"], :default => "Layout der Seite") %>
     </h5>
-    <%= f.select :template_file, Goldencobra::Article.templates_for_select, :include_blank => false %>
+    <%= f.select :template_file, @article.articletype.templates.map { |t| [t.title, t.layout_file_name]}, :include_blank => false %>
     <br/><br/>
     <%= f.submit t("submit_layout", :scope => [:active_admin, :sidebars]) %>
   <% end %>

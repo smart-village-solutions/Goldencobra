@@ -863,12 +863,6 @@ module Goldencobra
       return results
     end
 
-    def self.templates_for_select
-      Dir.glob(File.join(::Rails.root, "app", "views", "layouts", "*.html.erb"))
-         .map { |a| File.basename(a, ".html.erb") }
-         .delete_if { |a| a =~ /^_/ }
-    end
-
     def self.simple_search(q)
       active.search(title_or_subtitle_or_url_name_or_content_or_summary_or_teaser_contains: q).relation.map do |article|
         {

@@ -44,6 +44,8 @@ de:
       div: "Ich akzeptiere die AGB & Datenschutzbestimmungen *"
       submit: "Registrieren"
   active_admin:
+    template:
+      as: "Templates"
     redirector:
       as: "Weiterleitungen"
     article_url:
@@ -629,6 +631,8 @@ de:
       as: "Artikeltypen"
       general: "Allgemein"
       article_fields: "Artikelfelder"
+      default_template: "Standard Layout"
+      templates: "Verfügbare Templates"
       position_hint: "Zwischen dem ersten und dem letzten Block kommen die speziellen Feldoptionen eines Artikeltypen"
       foldable_hint: "Kann man den Bereich auf und zu klappen?"
       closed_hint: "Ist der Bereich beim Laden geschlossen?"
