@@ -18,7 +18,7 @@ ActiveAdmin.register Goldencobra::Articletype, as: "Articletype" do
     f.inputs I18n.t("active_admin.articletypes.general") do
       f.input :default_template_file, as: :select,
               collection: Goldencobra::Template.all.map { |t| [t.title, t.layout_file_name]}, include_blank: false,
-              label: label: I18n.t("active_admin.articletypes.default_template")
+              label: I18n.t("active_admin.articletypes.default_template")
       f.input :templates, as: :check_boxes, collection: Goldencobra::Template.all.map { |t| [t.title, t.id]}, label: I18n.t("active_admin.articletypes.templates")
     end
     f.inputs I18n.t("active_admin.articletypes.article_fields"), class: "foldable" do
