@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: translations
@@ -7,8 +6,8 @@
 #  id             :integer          not null, primary key
 #  locale         :string(255)
 #  key            :string(255)
-#  value          :text
-#  interpolations :text
+#  value          :text(65535)
+#  interpolations :text(65535)
 #  is_proc        :boolean          default(FALSE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null

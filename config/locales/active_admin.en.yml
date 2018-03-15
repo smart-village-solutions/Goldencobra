@@ -44,6 +44,8 @@ en:
       div: "I accept AGB & Privacy Policy *"
       submit: "Sign-up"
   active_admin:
+    template:
+      as: "Templates"
     redirector:
       as: "Redirections"
     article_url:
@@ -629,6 +631,8 @@ en:
       as: "Article types"
       general: "General"
       article_fields: "Article fields"
+      default_template: "Default Layout"
+      templates: "Available Templates"
       position_hint: "Field options of article type between first and last block"
       foldable_hint: "Is this part foldable?"
       closed_hint: "Is this part closed on load?"

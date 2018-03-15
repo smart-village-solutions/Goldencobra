@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160704070529) do
+ActiveRecord::Schema.define(version: 20180308124302) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer  "resource_id",   limit: 4,     null: false
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20160704070529) do
     t.string   "metatag_open_graph_url",              limit: 255
     t.string   "metatag_open_graph_image",            limit: 255
     t.integer  "state",                               limit: 4,     default: 0
-    t.boolean  "display_index_articles",                            default: true
+    t.boolean  "display_index_articles",                            default: false
   end
 
   add_index "goldencobra_articles", ["active"], name: "index_goldencobra_articles_on_active", using: :btree
@@ -155,6 +155,13 @@ ActiveRecord::Schema.define(version: 20160704070529) do
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.string   "position",       limit: 255, default: "first_block"
+  end
+
+  create_table "goldencobra_articletype_templates", force: :cascade do |t|
+    t.integer  "articletype_id", limit: 4
+    t.integer  "template_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "goldencobra_articletypes", force: :cascade do |t|
@@ -331,6 +338,13 @@ ActiveRecord::Schema.define(version: 20160704070529) do
   add_index "goldencobra_settings", ["ancestry"], name: "index_goldencobra_articles_on_ancestry", using: :btree
   add_index "goldencobra_settings", ["title", "ancestry"], name: "index_goldencobra_articles_on_title_and_ancestry", using: :btree
   add_index "goldencobra_settings", ["title"], name: "index_goldencobra_articles_on_title", using: :btree
+
+  create_table "goldencobra_templates", force: :cascade do |t|
+    t.string   "title",            limit: 255
+    t.string   "layout_file_name", limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
 
   create_table "goldencobra_trackings", force: :cascade do |t|
     t.text     "request",        limit: 65535

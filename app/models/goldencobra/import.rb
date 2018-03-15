@@ -1,21 +1,20 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: goldencobra_imports
 #
 #  id                :integer          not null, primary key
-#  assignment        :text
-#  assignment_groups :text
+#  assignment        :text(65535)
 #  target_model      :string(255)
 #  successful        :boolean
 #  upload_id         :integer
 #  separator         :string(255)      default(",")
-#  result            :text
+#  result            :text(65535)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  encoding_type     :string(255)
+#  assignment_groups :text(65535)
 #
-
 
 # Dynamische Importfunktionen:
 # Jedes Model welches eigene Importfunktionen anbieten will muss lediglich eine liste der verfügbaren funktionen ImportDataFunctions = [] haben

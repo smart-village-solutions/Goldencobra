@@ -13,10 +13,8 @@ Gem::Specification.new do |s|
   s.summary     = "Basic CMS based on Rails engines"
   s.description = "This is the basic module of Golden Cobra. It offers Devise, ActiveAdmin, an article module, a menu module and global settings for an CMS"
   s.licenses    = "Lizenz CC BY-NC-SA 3.0"
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["CC-LICENSE", "Rakefile", "README.markdown"]
-  s.metadata = {
-    "changelog_uri"     => "https://github.com/ikuseiGmbH/Goldencobra/blob/master/doc/versionhistory"
-  }
+  s.files       = Dir["{app,config,db,lib}/**/*"] + ["CC-LICENSE", "Rakefile", "README.markdown"]
+  s.metadata    = { "changelog_uri" => "https://github.com/ikuseiGmbH/Goldencobra/blob/master/doc/versionhistory" }
   # s.test_files = Dir["test/**/*"]
 
   # Post Install Message

@@ -11,3 +11,19 @@ module Goldencobra
     default_scope { order(:sorter) }
   end
 end
+
+# == Schema Information
+#
+# Table name: goldencobra_articletype_groups
+#
+#  id             :integer          not null, primary key
+#  title          :string(255)
+#  expert         :boolean          default(FALSE)
+#  foldable       :boolean          default(TRUE)
+#  closed         :boolean          default(TRUE)
+#  sorter         :integer          default(0)
+#  articletype_id :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  position       :string(255)      default("first_block")
+#

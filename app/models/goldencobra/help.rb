@@ -1,12 +1,11 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: goldencobra_helps
 #
 #  id          :integer          not null, primary key
 #  title       :string(255)
-#  description :text
+#  description :text(65535)
 #  url         :string(255)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

@@ -10,3 +10,16 @@ module Goldencobra
     default_scope { order(:sorter) }
   end
 end
+
+# == Schema Information
+#
+# Table name: goldencobra_articletype_fields
+#
+#  id                   :integer          not null, primary key
+#  articletype_group_id :integer
+#  fieldname            :string(255)
+#  sorter               :integer          default(0)
+#  class_name           :string(255)
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#

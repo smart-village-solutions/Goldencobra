@@ -136,11 +136,11 @@ describe Goldencobra::Article do
       File.new("#{::Rails.root}/app/views/layouts/_partial_2.html.erb", "w")
       File.new("#{::Rails.root}/app/views/layouts/12layout.html.erb", "w")
 
-      expect(Goldencobra::Article.templates_for_select.include?("tim_test")).to eq true
-      expect(Goldencobra::Article.templates_for_select.include?("_partial")).to eq false
-      expect(Goldencobra::Article.templates_for_select.include?("_partial_2")).to eq false
-      expect(Goldencobra::Article.templates_for_select.include?("application")).to eq true
-      expect(Goldencobra::Article.templates_for_select.include?("12layout")).to eq true
+      expect(Goldencobra::Article.layouts_for_select.include?("tim_test")).to eq true
+      expect(Goldencobra::Article.layouts_for_select.include?("_partial")).to eq false
+      expect(Goldencobra::Article.layouts_for_select.include?("_partial_2")).to eq false
+      expect(Goldencobra::Article.layouts_for_select.include?("application")).to eq true
+      expect(Goldencobra::Article.layouts_for_select.include?("12layout")).to eq true
 
       File.delete("#{::Rails.root}/app/views/layouts/tim_test.html.erb")
       File.delete("#{::Rails.root}/app/views/layouts/_partial.html.erb")

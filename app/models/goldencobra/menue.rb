@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: goldencobra_menues
@@ -13,10 +12,12 @@
 #  updated_at          :datetime         not null
 #  ancestry            :string(255)
 #  sorter              :integer          default(0)
-#  description         :text
+#  description         :text(65535)
 #  call_to_action_name :string(255)
 #  description_title   :string(255)
 #  image_id            :integer
+#  ancestry_depth      :integer          default(0)
+#  remote              :boolean          default(FALSE)
 #
 
 module Goldencobra

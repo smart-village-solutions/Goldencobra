@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: goldencobra_vita
@@ -9,10 +8,10 @@
 #  loggable_type :string(255)
 #  user_id       :integer
 #  title         :string(255)
-#  description   :text
+#  description   :text(65535)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  status_cd     :integer          default 0
+#  status_cd     :integer          default(0)
 #
 
 module Goldencobra

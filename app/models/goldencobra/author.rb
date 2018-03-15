@@ -14,3 +14,16 @@ module Goldencobra
 		end
 	end
 end
+
+# == Schema Information
+#
+# Table name: goldencobra_authors
+#
+#  id         :integer          not null, primary key
+#  firstname  :string(255)
+#  lastname   :string(255)
+#  email      :string(255)
+#  googleplus :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

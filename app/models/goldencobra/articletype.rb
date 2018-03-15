@@ -1,10 +1,11 @@
 module Goldencobra
   class Articletype < ActiveRecord::Base
-    attr_accessible :default_template_file, :name, :fieldgroups_attributes
+    attr_accessible :default_template_file, :name, :fieldgroups_attributes, :template_ids
 
     has_many :articles, class_name: Goldencobra::Article, foreign_key: :article_type, primary_key: :name
     has_many :fieldgroups, class_name: Goldencobra::ArticletypeGroup, dependent: :destroy
-
+    has_many :articletype_templates
+    has_many :templates, through: :articletype_templates
     accepts_nested_attributes_for :fieldgroups, allow_destroy: true
 
     validates_uniqueness_of :name
@@ -115,3 +116,14 @@ module Goldencobra
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: goldencobra_articletypes
+#
+#  id                    :integer          not null, primary key
+#  name                  :string(255)
+#  default_template_file :string(255)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#

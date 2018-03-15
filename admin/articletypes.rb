@@ -14,10 +14,12 @@ ActiveAdmin.register Goldencobra::Articletype, as: "Articletype" do
   end
 
   form html: { enctype: "multipart/form-data" }  do |f|
+    f.actions
     f.inputs I18n.t("active_admin.articletypes.general") do
       f.input :default_template_file, as: :select,
-              collection: Goldencobra::Article.templates_for_select, include_blank: false,
-              label: "Standardlayout"
+              collection: Goldencobra::Template.all.map { |t| [t.title, t.layout_file_name]}, include_blank: false,
+              label: I18n.t("active_admin.articletypes.default_template")
+      f.input :templates, as: :check_boxes, collection: Goldencobra::Template.all.map { |t| [t.title, t.id]}, label: I18n.t("active_admin.articletypes.templates")
     end
     f.inputs I18n.t("active_admin.articletypes.article_fields"), class: "foldable" do
       f.has_many :fieldgroups, heading: "", new_record: "+ Feldgruppe hinzufügen" do |fg|
@@ -49,6 +51,14 @@ ActiveAdmin.register Goldencobra::Articletype, as: "Articletype" do
       end
     end
     f.actions
+  end
+
+  controller do
+    def show
+      show! do |format|
+         format.html { redirect_to edit_admin_articletype_path(@articletype)}
+      end
+    end
   end
 
 end
