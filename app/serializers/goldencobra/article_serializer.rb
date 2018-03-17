@@ -1,6 +1,6 @@
 module Goldencobra
   class ArticleSerializer < ActiveModel::Serializer
-    root false
+    # root false
 
     def attributes
       data = super
@@ -8,7 +8,7 @@ module Goldencobra
         data[attr] = object.send(attr)
       end
       data[:child_ids] = object.send(:child_ids)
-      data      
+      data
     end
 
     has_many :metatags

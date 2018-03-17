@@ -1,6 +1,6 @@
 module Goldencobra
   class ArticleCustomSerializer < ArticleSerializer
-    root false
+    # root false
 
     # Includes all defined methods
     def attributes
