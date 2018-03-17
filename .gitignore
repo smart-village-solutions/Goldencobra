@@ -47,3 +47,4 @@ test/dummy/config/database.yml
 docker_config/id_*
 Gemfile.lock
 /Gemfile.lock
+/dump.rdb
