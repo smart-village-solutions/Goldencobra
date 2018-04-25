@@ -44,7 +44,7 @@ module Goldencobra
 
     # [render_article_image_gallery description]
     # @param options={} [Hash] {link_image_size: :thumb, target_image_size: :large}
-    # 
+    #
     # @return [HTML] ImageGallery
     def render_article_image_gallery(options={})
       link_image_size = options.fetch(:link_image_size, :thumb)
@@ -130,7 +130,13 @@ module Goldencobra
                                   'data-id' => widget.id
                                 }
             html_data_options = html_data_options.merge(widget.offline_time_week)
-            result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
+
+            if widget_wrapper == ""
+              result << raw(template.render(Goldencobra::Article::LiquidParser))
+            else
+              result << content_tag(widget_wrapper, raw(template.render(Goldencobra::Article::LiquidParser)), html_data_options)
+            end
+
             if @timecontrol
               result << content_tag(widget_wrapper, raw(alt_template.render(Goldencobra::Article::LiquidParser)),
                           class: "#{widget.css_name} #{custom_css} hidden goldencobra_widget", 'data-id' => widget.id)
