@@ -123,11 +123,11 @@ h3 .foldable_icon_wrapper .foldable_icon {
   height: 20px;
   float: right;
   cursor: pointer;
-  @include rotate(90deg);
-  @include transition(all 500ms);
+  // @include rotate(90deg);
+  // @include transition(all 500ms);
 
   &.open {
-    @include rotate(0deg);
+    // @include rotate(0deg);
   }
 }
 
@@ -147,11 +147,11 @@ h3 .foldable_icon_wrapper .foldable_icon {
   height: 20px;
   float: right;
   cursor: pointer;
-  @include rotate(0deg);
-  @include transition(all 500ms);
+  // @include rotate(0deg);
+  // @include transition(all 500ms);
 
   &.open {
-    @include rotate(90deg);
+    // @include rotate(90deg);
   }
 }
 
@@ -159,7 +159,7 @@ h3 .foldable_icon_wrapper .foldable_icon {
   border-bottom: 1px solid grey;
   border-right: 1px solid grey;
   border-left: 1px solid grey;
-  @include background(linear-gradient(top, #ffffff 0%, red 100%));
+  // @include background(linear-gradient(top, #ffffff 0%, red 100%));
 }
 
 textarea.metadescription_hint {
@@ -240,7 +240,7 @@ body.active_admin .edit {
   width: 22px;
   height: 22px;
   display: inline-block;
-  @include background-size(20px);
+  // @include background-size(20px);
 }
 
 body.active_admin .secured {
@@ -249,7 +249,7 @@ body.active_admin .secured {
   text-indent: -99999px;
   background: url("/assets/goldencobra/icons/32/locked.png") no-repeat;
   display: inline-block;
-  @include background-size(20px);
+  // @include background-size(20px);
 }
 
 body.active_admin tbody .online {
@@ -258,7 +258,7 @@ body.active_admin tbody .online {
   width: 22px;
   height: 22px;
   display: inline-block;
-  @include background-size(20px);
+  // @include background-size(20px);
 }
 
 body.active_admin tbody .list {
@@ -267,7 +267,7 @@ body.active_admin tbody .list {
   width: 22px;
   height: 22px;
   display: inline-block;
-  @include background-size(20px);
+  // @include background-size(20px);
 }
 
 body.active_admin tbody .create {
@@ -276,7 +276,7 @@ body.active_admin tbody .create {
   width: 22px;
   height: 22px;
   display: inline-block;
-  @include background-size(20px);
+  // @include background-size(20px);
 }
 
 body.active_admin tbody .offline {
@@ -285,7 +285,7 @@ body.active_admin tbody .offline {
   width: 22px;
   height: 22px;
   display: inline-block;
-  @include background-size(20px);
+  // @include background-size(20px);
 }
 
 body.active_admin .view {
@@ -294,7 +294,7 @@ body.active_admin .view {
   width: 22px;
   height: 22px;
   display: inline-block;
-  @include background-size(20px);
+  // @include background-size(20px);
 }
 
 body.active_admin .delete {
@@ -303,7 +303,7 @@ body.active_admin .delete {
   width: 22px;
   height: 22px;
   display: inline-block;
-  @include background-size(20px);
+  // @include background-size(20px);
 }
 
 body.active_admin .new_subarticle {
@@ -312,7 +312,7 @@ body.active_admin .new_subarticle {
   width: 22px;
   height: 22px;
   display: inline-block;
-  @include background-size(20px);
+  // @include background-size(20px);
 }
 
 body.active_admin table.index_table th:last-child {

@@ -48,8 +48,8 @@
     margin-left: 15px;
   }
 
-  div.tree_item:hover { 
-    color: #29c172; 
+  div.tree_item:hover {
+    color: #29c172;
     a { color: #29c172; }
   }
   div.tree_item:hover > .tree_item_options { display: inline-block; }
@@ -93,7 +93,7 @@ body.active_admin .sidebar_section > div div.overview-sidebar {
           height: 9px;
           background: url("/assets/goldencobra/icons/16/locked.png");
           display: inline-block;
-          @include background-size(9px);
+          // @include background-size(9px);
         }
 
         div.title {
@@ -129,7 +129,7 @@ body.active_admin .sidebar_section > div div.overview-sidebar {
           a.edit_link {
             width: 16px;
             height: 16px;
-            @include background-size(14px);
+            // @include background-size(14px);
           }
 
           a.new_link { background: url("/assets/goldencobra/icons/16/plus.png"); }
