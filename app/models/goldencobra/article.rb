@@ -512,6 +512,8 @@ module Goldencobra
       # filter with permissions
       @list_of_articles = filter_with_permissions(@list_of_articles, current_operator)
 
+      @list_of_articles = @list_of_articles.to_a
+
       # sort list of articles
       if sort_order.present?
         if sort_order == "Random"
