@@ -437,16 +437,17 @@ ActiveAdmin.register Goldencobra::Article, as: "Article" do
     end
 
     def update
-      update! do |format|
-        if @article.errors.present? && @article.errors.messages.any?
-          flash[:error] = "Fehler beim Speichern! "
-          @article.errors.messages.each do |key, value|
-            flash[:error] += "#{t(key, scope: [:activerecord, :attributes, :profile])}: #{value.join(', ')}"
-          end
-          format.html { render :edit }
-        else
-          format.html { redirect_to edit_admin_article_path(@article.id) }
+      @article = Goldencobra::Article.find_by(id: params[:id])
+      @article.update_attributes(params.require(:article).permit!.to_h)
+
+      if @article.errors.present? && @article.errors.messages.any?
+        flash[:error] = "Fehler beim Speichern! "
+        @article.errors.messages.each do |key, value|
+          flash[:error] += "#{t(key, scope: [:activerecord, :attributes, :profile])}: #{value.join(', ')}"
         end
+        render :edit
+      else
+        redirect_to edit_admin_article_path(@article.id)
       end
     end
 
