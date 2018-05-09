@@ -29,7 +29,7 @@ describe Goldencobra::Widget do
       @widget_one.tag_list = "left, sidebar"
 
       duplicated_widget_id = @widget_one.duplicate!
-      dup_widget = Goldencobra::Widget.find(duplicated_widget_id)
+      dup_widget = Goldencobra::Widget.find_by(id: duplicated_widget_id)
       dup_attrs = dup_widget.attributes.delete_if{ |a| %w(created_at updated_at).include?(a) }
 
       expect(duplicated_widget_id).to eq(Goldencobra::Widget.last.id)

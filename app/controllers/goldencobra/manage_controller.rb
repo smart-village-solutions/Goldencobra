@@ -18,7 +18,7 @@ module Goldencobra
       @article_saved = false
       @operator = current_user || current_visitor
       if current_user
-        article = Goldencobra::Article.find(params[:id])
+        article = Goldencobra::Article.find_by(id: params[:id])
         ability = Ability.new(current_user)
         if ability.can?(:update, article)
           article.active = !article.active

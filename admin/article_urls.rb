@@ -37,7 +37,7 @@ ActiveAdmin.register Goldencobra::ArticleUrl, as: "ArticleUrl" do
   end
 
   batch_action :rewrite_urls, "data-confirm" => I18n.t('active_admin.article_url.batch_action.flash.rewrite_urls') do |selection|
-    Goldencobra::ArticleUrl.find(selection).each do |goldencobra_article_url|
+    Goldencobra::ArticleUrl.where(id: selection).each do |goldencobra_article_url|
       goldencobra_article_url.destroy
       goldencobra_article_url.article.save
     end
