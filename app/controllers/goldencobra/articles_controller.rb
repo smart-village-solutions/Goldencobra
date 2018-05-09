@@ -164,10 +164,10 @@ module Goldencobra
       if @article
         respond_to do |format|
           format.html { render layout: @article.selected_layout, status: 200 }
-          format.any { head(status: 404) }
+          format.any { head(404) }
         end
       else
-        head(status: 404)
+        head(404)
       end
     end
 
