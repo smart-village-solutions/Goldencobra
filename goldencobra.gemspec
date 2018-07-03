@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sprockets"
   s.add_dependency "sprockets-rails"
   s.add_dependency "tilt"
-  s.add_dependency "compass-rails"
+  s.add_dependency "compass-rails", "~> 3.0.2"
   s.add_dependency "sass"
   s.add_dependency "sass-rails"
   s.add_dependency "compass"
