@@ -74,7 +74,6 @@ module Goldencobra
         uri = nil
       end
       if uri.present?
-        uri_params = Rack::Utils.parse_nested_query(uri.query.to_s)
         request_path = "#{uri.scheme}://#{uri.host}#{uri.path}"
         regexp = "#{Regexp.escape(request_path)}[?$]*.*"
         redirects = Goldencobra::Redirector.active.where("source_url RLIKE '#{regexp}'")
