@@ -131,7 +131,7 @@ module Goldencobra
       target_uri = Addressable::URI.parse(url)
       target_params = Rack::Utils.parse_nested_query(target_uri.query.to_s)
       request_params = Rack::Utils.parse_nested_query(uri_params)
-      merged_params = target_params.merge(request_params)
+      merged_params = request_params.merge(target_params)
       if merged_params.present?
         return "#{target_uri.scheme}://#{target_uri.host}#{target_uri.path}?#{merged_params.to_param}"
       else

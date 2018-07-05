@@ -87,7 +87,29 @@ describe Goldencobra::Redirector do
 
     it "should redirect on same url with url params" do
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1234")
-      expect(redirector).to eq ["http://www.yourdomain.de/weiterleitung?test=1234", 301]
+      expect(redirector).to eq ["http://www.yourdomain.de/weiterleitung?test=123", 301]
+    end
+
+  end
+
+  describe 'if source has url params and target has url params with different values' do
+    before(:each) do
+      Goldencobra::Setting.set_value_for_key("http://www.google.de",
+                                             "goldencobra.url",
+                                             data_type_name="string")
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1",
+                                     target_url: "www.yourdomain.de/weiterleitung2?test=123",
+                                     active: true)
+    end
+
+    it "should redirect on url with url params merged" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1")
+      expect(redirector).to eq ["http://www.yourdomain.de/weiterleitung2?test=123", 301]
+    end
+
+    it "should redirect on url with url params merged and added" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1&foo=bar")
+      expect(redirector).to eq ["http://www.yourdomain.de/weiterleitung2?foo=bar&test=123", 301]
     end
 
   end
