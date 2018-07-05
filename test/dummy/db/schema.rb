@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180308124302) do
+ActiveRecord::Schema.define(version: 20180703084913) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.integer  "resource_id",   limit: 4,     null: false
@@ -27,6 +27,12 @@ ActiveRecord::Schema.define(version: 20180308124302) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_admin_notes_on_resource_type_and_resource_id", using: :btree
+
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -299,13 +305,12 @@ ActiveRecord::Schema.define(version: 20180308124302) do
   end
 
   create_table "goldencobra_redirectors", force: :cascade do |t|
-    t.text     "source_url",        limit: 65535
-    t.text     "target_url",        limit: 65535
-    t.integer  "redirection_code",  limit: 4,     default: 301
-    t.boolean  "active",                          default: true
-    t.boolean  "ignore_url_params",               default: true
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.text     "source_url",       limit: 65535
+    t.text     "target_url",       limit: 65535
+    t.integer  "redirection_code", limit: 4,     default: 301
+    t.boolean  "active",                         default: true
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
   end
 
   add_index "goldencobra_redirectors", ["active"], name: "index_goldencobra_articles_on_active", using: :btree

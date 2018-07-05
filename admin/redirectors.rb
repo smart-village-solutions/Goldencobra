@@ -4,7 +4,7 @@ ActiveAdmin.register Goldencobra::Redirector, as: "Redirector" do
   form html: { enctype: "multipart/form-data" }  do |f|
     f.actions
       f.inputs "Einzelne Weiterleitung einrichten", class: "foldable inputs" do
-        f.input :source_url, as: :string, hint: "Bitte absolute Adressen angeben in der Form: http://www.von_url.de"
+        f.input :source_url, as: :string, hint: "Bitte absolute Adressen angeben in der Form: http://www.von_url.de. Wenn URL-Parameter vorhanden sind, dann müssen diese bei der Anfrage vorhanden sein und der Wert muss übereinstimmen"
         f.input :target_url, as: :string, hint: "Bitte absolute Adressen angeben in der Form: http://www.nach_url.de"
       end
       if f.object.new_record? || f.object.errors.any?
@@ -14,7 +14,6 @@ ActiveAdmin.register Goldencobra::Redirector, as: "Redirector" do
       end
       f.inputs "Allgemein" do
         f.input :redirection_code, hint: raw("Welcher Weiterleitungscode soll dabei gesetzt werden? <a href='http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html' target='_blank'>Mögliche HTML-Codes</a> ")
-        f.input :ignore_url_params, hint: "Sind die URL Parameter bei Source Url relevant für die Weiterleitung"
         f.input :active, hint: "Ist diese Weiterleitung aktiv?"
       end
     f.actions
@@ -34,9 +33,5 @@ ActiveAdmin.register Goldencobra::Redirector, as: "Redirector" do
          format.html { redirect_to admin_redirectors_path() }
       end
     end
-
-
   end
-
-
 end

@@ -4,7 +4,7 @@ module Goldencobra
   class Redirector < ActiveRecord::Base
     require "addressable/uri"
 
-    attr_accessible :active, :redirection_code, :source_url, :target_url, :ignore_url_params, :include_subdirs, :import_csv_data
+    attr_accessible :active, :redirection_code, :source_url, :target_url, :include_subdirs, :import_csv_data
 
     attr_accessor :import_csv_data
 
@@ -29,7 +29,7 @@ module Goldencobra
           data = CSV.parse(import_csv_data, { col_sep: "," })
           Goldencobra::Redirector.transaction do
             data.each do |row|
-              Goldencobra::Redirector.create(source_url: row[0].strip, target_url: row[1].strip, redirection_code: redirection_code, active: active, ignore_url_params: ignore_url_params )
+              Goldencobra::Redirector.create(source_url: row[0].strip, target_url: row[1].strip, redirection_code: redirection_code, active: active )
             end
           end
           self.destroy
@@ -76,24 +76,15 @@ module Goldencobra
       if uri.present?
         uri_params = Rack::Utils.parse_nested_query(uri.query.to_s)
         request_path = "#{uri.scheme}://#{uri.host}#{uri.path}"
-        redirects = Goldencobra::Redirector.active.where(source_url: request_path)
-        if redirects.any?
-          #if multiple redirectors found, select the first
-          redirect = redirects.first
-          redirecter_source_uri = Addressable::URI.parse(redirect.source_url)
+        regexp = "#{Regexp.escape(request_path)}[?$]*.*"
+        redirects = Goldencobra::Redirector.active.where("source_url RLIKE '#{regexp}'")
+
+        matching_redirection = redirects.select { |r| compare_url_params(url_params_from_url(r.source_url), url_params_from_url(request_original_url)) }.first
+
+        if matching_redirection.present?
+          redirecter_source_uri = Addressable::URI.parse(matching_redirection.source_url)
           if redirecter_source_uri.path == uri.path
-            #Wenn die url parameter egal sind
-            if redirect.ignore_url_params
-              return [redirect.rewrite_target_url(uri.query), redirect.redirection_code]
-            else
-              #wenn die urlparameter nicht egal sind und identisch sind
-              source_params = Rack::Utils.parse_nested_query(redirecter_source_uri.query.to_s)
-              if !source_params.map{|k,v| uri_params[k] == v}.include?(false)
-                return [redirect.rewrite_target_url(uri.query), redirect.redirection_code]
-              else
-                return nil
-              end
-            end
+            return [matching_redirection.rewrite_target_url(uri.query), matching_redirection.redirection_code]
           end
         else
           return nil
@@ -101,6 +92,27 @@ module Goldencobra
       else
         return nil
       end
+    end
+
+    # Bestimmung, ob alle Parameter in source_url
+    # auch in der request_url enthalten sind
+    #
+    # @param [Array] source_params list of hashes
+    # @param [Array] request_params list of hashes
+    #
+    # @return [Boolean] True, wenn alle Parameter in source_url auch in der request_url enthalten sind
+    def self.compare_url_params(source_params, request_params)
+      Array(source_params).map { |sp| Array(request_params).include?(sp) }.all?
+    end
+
+    # Get Params from url string
+    #
+    # @param [String] url_string like "http://www.google.de?test=1"
+    #
+    # @return [Array] List of Hashes
+    def self.url_params_from_url(url_string)
+      uri_object = Addressable::URI.parse(url_string)
+      Rack::Utils.parse_nested_query(uri_object.query.to_s)
     end
 
     # Helper Method for rewriting urls
@@ -111,7 +123,7 @@ module Goldencobra
       Goldencobra::Redirector.add_param_to_url(self.target_url, uri_params)
     end
 
-    # Add a url-params tu an url
+    # Add a url-params to an url
     # @param url [string] "http://www.test.de" || "http://www.test.de?test=a"
     # @param uri_params [string] "foo=bar"
     #
@@ -139,7 +151,6 @@ end
 #  target_url        :text(65535)
 #  redirection_code  :integer          default(301)
 #  active            :boolean          default(TRUE)
-#  ignore_url_params :boolean          default(TRUE)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
