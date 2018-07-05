@@ -17,7 +17,6 @@ describe Goldencobra::Redirector do
                                              data_type_name="string")
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiteröleitung",
                                      target_url: "www.google.de",
-                                     ignore_url_params: true,
                                      active: true)
     end
 
@@ -27,17 +26,14 @@ describe Goldencobra::Redirector do
     end
   end
 
-  describe 'if ignore_url_params is true without url params' do
+  describe 'if source has no url params and target has no params' do
     before(:each) do
       Goldencobra::Setting.set_value_for_key("http://www.google.de", "goldencobra.url", data_type_name="string")
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung",
                                      target_url: "www.google.de",
-                                     ignore_url_params: true,
                                      active: true)
     end
 
-    #no url params given or set
-    #ignore_url_params = true
     it "should not redirect on different url" do
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/not_to_redirect")
       expect(redirector).to eq nil
@@ -62,16 +58,20 @@ describe Goldencobra::Redirector do
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung/test")
       expect(redirector).to eq nil
     end
+
+    it "should append existing params in redirectiontarget" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1")
+      expect(redirector).to eq ["http://www.google.de?test=1", 301]
+    end
   end
 
-  describe 'if ignore_url_params is true with url params on target' do
+  describe 'if source has no url params and target has url params' do
     before(:each) do
       Goldencobra::Setting.set_value_for_key("http://www.google.de",
                                              "goldencobra.url",
                                              data_type_name="string")
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung",
                                      target_url: "www.yourdomain.de/weiterleitung?test=123",
-                                     ignore_url_params: true,
                                      active: true)
     end
 
@@ -92,18 +92,57 @@ describe Goldencobra::Redirector do
 
   end
 
-  describe 'if ignore_url_params is true with url params on source' do
+  describe 'if source has url params and target has no url params' do
     before(:each) do
       Goldencobra::Setting.set_value_for_key("http://www.google.de",
                                              "goldencobra.url",
                                              data_type_name="string")
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1",
                                      target_url: "www.google.de",
-                                     ignore_url_params: true,
                                      active: true)
     end
 
-    #ignore_url_params = true with given url params in redirection
+    it "should not redirect on same url with wrong value of param" do
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=3", target_url: "www.google.de", active: true)
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=5", target_url: "www.google.de", active: true)
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=2")
+      expect(redirector).to eq nil
+    end
+
+    it "should redirect on one url with correct value of param" do
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=3", target_url: "www.google.de", active: true)
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=2", target_url: "www.google.de", active: true)
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=5", target_url: "www.google.de", active: true)
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=2")
+      expect(redirector).to eq ["http://www.google.de?test=2", 301]
+    end
+
+    it "should redirect on one url with correct value of param" do
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=3", target_url: "www.google.de", active: true)
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=2", target_url: "www.google.de/test2", active: true)
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=2&foo=bar", target_url: "www.google.de", active: true)
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=2")
+      expect(redirector).to eq ["http://www.google.de/test2?test=2", 301]
+    end
+
+    it "should redirect on one url with correct value of param" do
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=3", target_url: "www.google.de", active: true)
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=2", target_url: "www.google.de/test2", active: true)
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=5", target_url: "www.google.de", active: true)
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=2&foo=bar")
+      expect(redirector).to eq ["http://www.google.de/test2?foo=bar&test=2", 301]
+    end
+
+    it "should not redirect on same url with wrong value of param" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1")
+      expect(redirector).to eq ["http://www.google.de?test=1", 301]
+    end
+
+    it "should not redirect on same url with wrong value of param" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung")
+      expect(redirector).to eq nil
+    end
+
     it "should not redirect on different url" do
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/not_to_redirect")
       expect(redirector).to eq nil
@@ -119,10 +158,9 @@ describe Goldencobra::Redirector do
       expect(redirector).to eq nil
     end
 
-    it "should redirect on same url" do
-      pending "does not work due to issue #105"
+    it "should not redirect on same url without params" do
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung")
-      expect(redirector).to eq ["http://www.google.de", 301]
+      expect(redirector).to eq nil
     end
 
     it "should not redirect on same url with and a given subdir" do
@@ -131,8 +169,12 @@ describe Goldencobra::Redirector do
     end
 
     it "should redirect on same url with url params" do
-      pending "does not work due to issue #105"
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1&foo=bar")
+      expect(redirector).to eq ["http://www.google.de?foo=bar&test=1", 301]
+    end
+
+    it "should redirect on same url with correct url params in different order" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?foo=bar&test=1")
       expect(redirector).to eq ["http://www.google.de?foo=bar&test=1", 301]
     end
   end
@@ -145,11 +187,9 @@ describe Goldencobra::Redirector do
                                              data_type_name="string")
     end
     #no url params given or set
-    #ignore_url_params = true
     it "should not redirect on different url" do
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung",
                                      target_url: "www.google.de",
-                                     ignore_url_params: true,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/not_to_redirect?test=2")
       expect(redirector).to eq nil
@@ -158,7 +198,6 @@ describe Goldencobra::Redirector do
     it "should not redirect on similar but different url" do
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung",
                                      target_url: "www.google.de",
-                                     ignore_url_params: true,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiter?test=2")
       expect(redirector).to eq nil
@@ -167,7 +206,6 @@ describe Goldencobra::Redirector do
     it "should not redirect on similar but different url" do
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung",
                                      target_url: "www.google.de",
-                                     ignore_url_params: true,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitungen?test=2")
       expect(redirector).to eq nil
@@ -176,7 +214,6 @@ describe Goldencobra::Redirector do
     it "should redirect on same url" do
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung",
                                      target_url: "www.google.de",
-                                     ignore_url_params: true,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=2")
       expect(redirector).to eq ["http://www.google.de?test=2", 301]
@@ -185,34 +222,26 @@ describe Goldencobra::Redirector do
     it "should not redirect on same url with and a given subdir" do
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung",
                                      target_url: "www.google.de",
-                                     ignore_url_params: true,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung/test?test=2")
       expect(redirector).to eq nil
     end
 
     it "should redirect on same url with url params" do
-      pending "does not work due to issue #105"
       Goldencobra::Redirector.create(
         source_url: "www.yourdomain.de/weiterleitung?test=1",
         target_url: "www.google.de",
-        ignore_url_params: true,
         active: true
       )
 
-      redirector = Goldencobra::Redirector.get_by_request(
-        "http://www.yourdomain.de/weiterleitung?test=1&foo=bar"
-      )
-
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1&foo=bar")
       expect(redirector).to eq ["http://www.google.de?foo=bar&test=1", 301]
     end
 
 
     it "should redirect on same url with url params" do
-      pending "does not work due to issue #105"
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1",
                                      target_url: "www.google.de",
-                                     ignore_url_params: false,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1")
       expect(redirector).to eq ["http://www.google.de?test=1", 301]
@@ -221,7 +250,6 @@ describe Goldencobra::Redirector do
     it "should not redirect on same url with url params" do
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1",
                                      target_url: "www.google.de",
-                                     ignore_url_params: false,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=2")
       expect(redirector).to eq nil
@@ -230,26 +258,22 @@ describe Goldencobra::Redirector do
     it "should not redirect on same url with url params" do
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1",
                                      target_url: "www.google.de",
-                                     ignore_url_params: false,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?foo=1")
       expect(redirector).to eq nil
     end
 
     it "should redirect on same url with url params" do
-      pending "does not work due to issue #105"
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1",
                                      target_url: "www.google.de",
-                                     ignore_url_params: false,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?test=1&foo=bar")
       expect(redirector).to eq ["http://www.google.de?foo=bar&test=1", 301]
     end
 
-    it "should redirect on same url with url params" do
+    it "should not redirect on same url with url params" do
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1",
                                      target_url: "www.google.de",
-                                     ignore_url_params: false,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung")
       expect(redirector).to eq nil
@@ -258,7 +282,6 @@ describe Goldencobra::Redirector do
     it "should not redirect on same url with url params" do
       Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiterleitung?test=1&foo=1",
                                      target_url: "www.google.de",
-                                     ignore_url_params: false,
                                      active: true)
       redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiterleitung?foo=1")
       expect(redirector).to eq nil

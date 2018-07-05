@@ -51,7 +51,6 @@ describe Goldencobra::ArticleAdapter, type: :model do
         article.run_callbacks(:commit)
         Goldencobra::Redirector.create(source_url: "www.ikusei.de/seite-a",
                                        target_url: "www.ikusei.de/seite-b",
-                                       ignore_url_params: true,
                                        active: true)
         found_article_id = Goldencobra::ArticleAdapter.find("http://www.ikusei.de/seite-a", follow_redirection: true)
         found_article = Goldencobra::Article.find(found_article_id)

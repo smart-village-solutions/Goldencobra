@@ -54,6 +54,7 @@ RSpec.configure do |config|
   # Add this line if you use Devise for authentication:
   config.include Devise::Test::ControllerHelpers, :type => :controller
   config.include Capybara::DSL
+  # config.filter_run :focus
 end
 
 Shoulda::Matchers.configure do |config|
