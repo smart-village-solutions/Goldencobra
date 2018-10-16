@@ -745,14 +745,17 @@ module Goldencobra
     # **************************
     # **************************
 
+    # Find an article by realtive url
+    #
+    # @param [String] url e.g.: "/about-us/company.html"
+    #
+    # @return [Goldencobra::Article] matching article found by url
     def self.search_by_url(url)
-      article = nil
       articles = Goldencobra::Article.where(url_name: url.split("/").last.to_s.split(".").first)
+      return nil if articles.blank?
+
       article_path = "/#{url.split('.').first}"
-      if articles.count > 0
-        article = articles.select { |a| a.public_url(false) == article_path }.first
-      end
-      return article
+      articles.select { |a| a.public_url(false) == article_path }.first
     end
 
     def parent_path
