@@ -1,40 +1,63 @@
-languages:
-  Ruby: true
-  JavaScript: true
 engines:
-  rubocop:
-    enabled: true
-  brakeman:
-    enabled: true
-  eslint:
-    enabled: true
   csslint:
     enabled: true
   duplication:
     enabled: true
     config:
       languages:
-      - ruby
-      - javascript
+        ruby:
+        javascript:
+          mass_threshold: 91
+  eslint:
+    enabled: true
+    channel: "eslint-2"
+  fixme:
+    enabled: true
+  flog:
+    enabled: true
+  reek:
+    enabled: true
+  rubocop:
+    enabled: true
+    channel: rubocop-0-58
+  scss-lint:
+    enabled: true
 ratings:
   paths:
-  - app/**
-  - lib/**
-  - config/initializers/**
+
+  - "**.erb"
   - "**.rb"
+  - "**.css"
+  - "**.scss"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - config/initializers/**/*
 exclude_paths:
-- spec/**/*
-- test/**/*
-- "**/vendor/**/*"
-- "Gemfile.lock"
-- "db/**/*"
-- app/assets/javascripts/goldencobra/html_editors/**/*.js
+- config/
+- db/
+- node_modules/
+- spec/
+- test/
+- vendor/
+- tmp/
+- log/
+- app/assets/javascripts/goldencobra/html_editors/**/*
 - app/assets/javascripts/goldencobra/**.min.js
-- app/assets/javascripts/goldencobra/jquery.*.js
+- app/assets/javascripts/goldencobra/chosen.jquery.js
+- app/assets/javascripts/goldencobra/chosen.jquery.min.js
+- app/assets/javascripts/goldencobra/countable.js
+- app/assets/javascripts/goldencobra/jquery.*
 - app/assets/javascripts/goldencobra/keymaster.js
 - app/assets/javascripts/goldencobra/moment.js
 - app/assets/javascripts/goldencobra/tiny_mce*.js
 - app/assets/javascripts/goldencobra/togetherjs.js
-- app/assets/javascripts/goldencobra/countable.js
-- app/assets/javascripts/goldencobra/chosen.jquery.js
-- app/assets/javascripts/goldencobra/chosen.jquery.min.js
+- doc/
+- Gemfile.lock
+- .rubocop.yml
+- .codeclimate.yml
+- .scss-lint.yml
+- .eslintrc
+- .csslintrc
+
