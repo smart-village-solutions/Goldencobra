@@ -1,7 +1,7 @@
 # Golden Cobra
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/d97eb9823d2142f079b4/maintainability)](https://codeclimate.com/github/ikuseiGmbH/Goldencobra/maintainability)
-[![Code Climate](https://api.codeclimate.com/v1/badges/d97eb9823d2142f079b4/test_coverage)](https://codeclimate.com/github/ikuseiGmbH/Goldencobra/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d97eb9823d2142f079b4/maintainability)](https://codeclimate.com/github/ikuseiGmbH/Goldencobra/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d97eb9823d2142f079b4/test_coverage)](https://codeclimate.com/github/ikuseiGmbH/Goldencobra/test_coverage)
 
 
 ## Powered by
