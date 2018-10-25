@@ -6,7 +6,7 @@ We love pull requests from everyone. We expect users to follow our
 1. Fork the repo.
 
 2. Run the tests. We only take pull requests with passing tests, and it's great
-to know that you have a clean slate: 
+to know that you have a clean slate:
 ```
 bundle install
 cd test/dummy
@@ -35,17 +35,21 @@ taken straight from the Ruby on Rails guide:
 * Update the documentation, the surrounding one, examples elsewhere, guides,
   whatever is affected by your contribution
 
-Syntax:
+### Syntax
 
 * Two spaces, no tabs.
 * No trailing whitespace. Blank lines should not have any space.
 * Prefer &&/|| over and/or.
 * MyClass.my_method(my_arg) not my_method( my_arg ) or my_method my_arg.
 * a = b and not a=b.
-* Follow the conventions you see used in the source already.
 
+In order to better comply with the complete guidelines, there is a separate project
+with configuration files for linting different programming languages.
+
+* https://github.com/ikuseiGmbH/linters
 
 These guidelines mention the state that we'd like the project to be in. If you find older parts of
 the code, which might be below our common requirements feel free to update it.
+
 
 Thanks for your contribution. It means a lot to us.
