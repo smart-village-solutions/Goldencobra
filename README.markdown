@@ -1,15 +1,15 @@
-#Goldencobra
+# Golden Cobra
 
-[![Test Coverage](https://codeclimate.com/repos/588b6ef861c4e20053000b42/badges/1eacee363878846ec43f/coverage.svg)](https://codeclimate.com/repos/588b6ef861c4e20053000b42/coverage)
-[![Code Climate](https://codeclimate.com/repos/588b6ef861c4e20053000b42/badges/1eacee363878846ec43f/gpa.svg)](https://codeclimate.com/repos/588b6ef861c4e20053000b42/feed)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d97eb9823d2142f079b4/maintainability)](https://codeclimate.com/github/ikuseiGmbH/Goldencobra/maintainability)
+[![Code Climate](https://api.codeclimate.com/v1/badges/d97eb9823d2142f079b4/test_coverage)](https://codeclimate.com/github/ikuseiGmbH/Goldencobra/test_coverage)
 
 
 ## Powered by
-- ActiveAdmin
+* ActiveAdmin
 
-## Current Versions
-1.5.x (branch: release/1.5)
-2.0.x (branch: master)
+## Current versions
+* 1.4.x (branch: [release/1.5](https://github.com/ikuseiGmbH/Goldencobra/tree/release/1.5))
+* 2.x.x (branch: [master](https://github.com/ikuseiGmbH/Goldencobra/tree/master))
 
 # Requirements
 * Ruby 2.2+
@@ -23,7 +23,7 @@ Golden Cobra development, please read this document => [Installation instruction
 
 [Installation instructions for development]: development-instructions.md
 
-## Guided Installation wit rvm,git,capistrano and server deploy
+## Guided Installation wit rvm, git, capistrano and server deploy
 ```ruby
 rails new PROJECTNAME -m https://raw.github.com/ikusei/goldencobra-installer/master/template.rb -d mysql
 ```
@@ -33,11 +33,11 @@ rails new PROJECTNAME -m https://raw.github.com/ikusei/goldencobra-installer/mas
 rails new PROJECTNAME -d mysql
 ```
 
-## Install Goldencobra gem
+## Install Golden Cobra gem
 Add the following to file "PROJECTNAME/Gemfile":
 ``` ruby
-gem 'goldencobra', git: 'git://github.com/ikusei/Goldencobra.git'
-gem 'activeadmin', :git => 'git://github.com/ikusei/active_admin.git', :require => 'activeadmin'
+gem "goldencobra", git: "https://github.com/ikuseiGmbH/Goldencobra.git"
+gem "activeadmin", git: "https://github.com/ikusei/active_admin.git", require: "activeadmin"
 ```
 
 ```ruby
@@ -49,14 +49,14 @@ bundle install
 rake db:create
 ```
 
-## Install prerequisites for Goldencobra
+## Install prerequisites for Golden Cobra
 ```ruby
 rake goldencobra:install:migrations
 rails generate goldencobra:install
 rake db:migrate db:test:prepare
 ```
 
-## If you want to use goldencobra in a subdirectory
+## If you want to use Golden Cobra in a subdirectory
 
 (http://www.domain.de/subdir/), please modify your config/routes.rb
 and setup your domains in "Settings > Domains" in the backendinterface
@@ -71,14 +71,14 @@ Goldencobra::Domain.pluck(:url_prefix).each do |url_prefix|
 end
 ```
 
-# Setup Goldencobra
+# Setup Golden Cobra
 
-If you want to use Batch Actions in Goldencobra (set a batch of articles offline), you need to uncomment the line `# config.batch_actions = true` in config/initializers/active_admin.rb
+If you want to use Batch Actions in Golden Cobra (set a batch of articles offline), you need to uncomment the line `# config.batch_actions = true` in config/initializers/active_admin.rb
 
 This would also be the place where you can override stylesheets and javascripts. Just put them inside the block `# == Register Stylesheets & Javascripts`.
 
 # Create new article types
-Nearly every site in Goldencobra is an article. If the default article isn't enough for your needs you can create new article types. There's a generator for that:
+Nearly every site in Golden Cobra is an article. If the default article isn't enough for your needs you can create new article types. There's a generator for that:
 `rails generate goldencobra:articletype Thing name:string`
 
 Where "Thing" would be your associated model and "name:string" are the usual ruby attributes.
@@ -107,8 +107,7 @@ We have a quite flexible settings system in place.
 In the admin backend you have many values you can customize for your installation.
 
 Important values are
-* Goldencobra-Facebook-AppId
-* Goldencobra-url (should be set without http:// in front)
+* goldencobra.url (should be set without http:// in front)
 * Commentator: If you have a different frontend user model (like 'Visitor') you can set this here. Default is User.
 * Bugherd: If you use [Bugherd.com](http://www.bugherd.com) for tracking frontend problems for your website you should enter the project's API key here. You can further decide wich User should be logged in to be able to track bugs.
 * You have can enable or disable Solr Search Server and decide wether you want to recreate all menues and widgets after updating them. This might be useful for caching.
@@ -292,7 +291,7 @@ See the [CONTRIBUTING] document.
 Thank you, [contributors]!
 
 [CONTRIBUTING]: CONTRIBUTING.md
-[contributors]: https://github.com/ikusei/Goldencobra/graphs/contributors
+[contributors]: https://github.com/ikuseiGmbH/Goldencobra/graphs/contributors
 
 # License
 
@@ -302,5 +301,5 @@ This project uses CC BY-NC-SA 3.0. See [License]
 
 # About
 
-Goldencobra is maintained by [ikusei GmbH](http://ikusei.de) in Berlin.
+Golden Cobra is maintained by [ikusei GmbH](https://www.ikusei.de) in Berlin.
 We like you.
