@@ -1,6 +1,6 @@
 module Goldencobra
   class ArticletypeTemplate < ActiveRecord::Base
-    belongs_to :template
+    belongs_to :template, class_name: "Goldencobra::Template"
     belongs_to :articletype
   end
 end

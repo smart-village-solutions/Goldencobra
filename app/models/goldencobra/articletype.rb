@@ -2,10 +2,11 @@ module Goldencobra
   class Articletype < ActiveRecord::Base
     attr_accessible :default_template_file, :name, :fieldgroups_attributes, :template_ids
 
-    has_many :articles, class_name: Goldencobra::Article, foreign_key: :article_type, primary_key: :name
-    has_many :fieldgroups, class_name: Goldencobra::ArticletypeGroup, dependent: :destroy
+    has_many :articles, class_name: "Goldencobra::Article", foreign_key: :article_type, primary_key: :name
+    has_many :fieldgroups, class_name: "Goldencobra::ArticletypeGroup", dependent: :destroy
     has_many :articletype_templates
-    has_many :templates, through: :articletype_templates
+    has_many :templates, through: :articletype_templates, class_name: "Goldencobra::Template"
+
     accepts_nested_attributes_for :fieldgroups, allow_destroy: true
 
     validates_uniqueness_of :name
@@ -114,6 +115,7 @@ module Goldencobra
       new_a = at.fieldgroups.create(title: title, position: position, foldable: foldable, closed: closed, expert: expert, sorter: sorter)
       new_a.fields.create(fieldname: fieldname, sorter: fieldsorter)
     end
+
   end
 end
 

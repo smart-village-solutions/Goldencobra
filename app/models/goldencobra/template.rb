@@ -2,6 +2,9 @@ module Goldencobra
   class Template < ActiveRecord::Base
     attr_accessible :title, :layout_file_name
 
+    has_many :articletype_templates
+    has_many :articletypes, through: :articletype_templates
+
     # List all layout files found in folder /app/views/layouts
     #
     # @return [Array] List of file names

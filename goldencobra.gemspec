@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_dependency "devise-token_authenticatable"
   # TODO: new token authentication
   s.add_dependency "cancancan"
-  s.add_dependency "activeadmin", "~> 1.0.0"
+  s.add_dependency "activeadmin", '>= 1.1', '<= 1.3'
   s.add_dependency "remove_accents"
   s.add_dependency "sprockets"
   s.add_dependency "sprockets-rails"

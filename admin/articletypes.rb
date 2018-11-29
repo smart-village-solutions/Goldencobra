@@ -6,10 +6,17 @@ ActiveAdmin.register Goldencobra::Articletype, as: "Articletype" do
 
   config.clear_action_items!
 
+  filter :name
+  filter :templates
+  filter :default_template_file
+
   index download_links: proc{ Goldencobra::Setting.for_key("goldencobra.backend.index.download_links") == "true" }.call do
     selectable_column
     column :name
     column :default_template_file
+    column :articles do |at|
+      link_to(at.articles.count, "/admin/articles?" + at.articles.map{|a| "q[id_in][]=#{a.id}"}.join("&") )
+    end
     actions
   end
 

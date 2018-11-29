@@ -1,3 +1,10 @@
+V2.3.7 - 29.11.2018
+  - version change of activeadmin to '>= 1.1', '<= 1.3'
+  - added default filter in article_types
+  - added link to used articles in articletypes
+  - added link to used articletypes in templates
+  - added count of used articles in templates
+  - added association to templates for articletypes
 V2.3.6 - 05.07.2018
   - Small extension to redirector with url params
 V2.3.5 - 05.07.2018
