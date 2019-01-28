@@ -74,7 +74,6 @@ Gem::Specification.new do |s|
   s.add_dependency "actionpack-action_caching"
   s.add_dependency "react-rails", "~> 1.0"
   s.add_dependency "oj" # faster json rendering
-  s.add_dependency "bootstrap-sass", "~> 3.3" # frontend template framework
   s.add_dependency "font-awesome-sass"
   s.add_dependency "autoprefixer-rails" # to provide easy automatic css prefixing
 
