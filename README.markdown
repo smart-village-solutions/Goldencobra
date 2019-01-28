@@ -219,7 +219,7 @@ in your view_templates:
 <%= yield(:article_teaser) %>
 ```
 #### !!!Attention!!!
-The layouts' styling will only work if you include [`gem bootstrap-sass`](https://github.com/twbs/bootstrap-sass) in Your Gemfile.
+The layouts' styling will only work if you include [`gem bootstrap-sass`](https://github.com/twbs/bootstrap-sass) in your Gemfile.
 
 ## Render widgets
 
