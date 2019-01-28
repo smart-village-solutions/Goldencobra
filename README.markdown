@@ -218,6 +218,7 @@ in your view_templates:
 <%= yield(:article_subtitle) %>
 <%= yield(:article_teaser) %>
 ```
+!!!Attention!!! The layouts' styling will only work if you include `gem bootstrap-sass` in Your Gemfile
 
 ## Render widgets
 
