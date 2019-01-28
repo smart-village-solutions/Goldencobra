@@ -1,3 +1,5 @@
+V3.1.0 - 28.01.2019
+  - Removes bootsrap-sass gem for gemspec.
 V2.3.3 - 07.03.2018
   - Adds overview tree to sidebar of article edit view
 V2.3.2 - 19.01.2018
