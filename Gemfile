@@ -38,7 +38,7 @@ group :test do
   gem "factory_girl_rails"
   gem "database_cleaner"
   gem "capybara"
-  gem "capybara-webkit"
+  gem "capybara-webkit", git: "https://github.com/thoughtbot/capybara-webkit", branch: "master"
   gem "selenium-webdriver"
   gem "rspec-core"
 
