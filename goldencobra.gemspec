@@ -32,17 +32,13 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-ui-rails"
   s.add_dependency "devise"
   s.add_dependency "devise-token_authenticatable"
-  # TODO: new token authentication
   s.add_dependency "cancancan"
   s.add_dependency "activeadmin"
   s.add_dependency "remove_accents"
   s.add_dependency "sprockets"
   s.add_dependency "sprockets-rails"
   s.add_dependency "tilt"
-  # s.add_dependency "compass-rails"
-  # s.add_dependency "sass"
-  # s.add_dependency "sass-rails"
-  # s.add_dependency "compass"
+
   s.add_dependency "sidekiq"
   s.add_dependency "sinatra"
   s.add_dependency "omniauth"
