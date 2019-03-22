@@ -11,7 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require bootstrap-sprockets
 
 $(function() {
   $('#get-locale').click(function(e) {
