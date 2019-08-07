@@ -10,6 +10,22 @@ describe Goldencobra::Redirector do
     expect(redirector).to eq nil
   end
 
+  describe 'if url includes a quote' do
+    before(:each) do
+      Goldencobra::Setting.set_value_for_key("http://www.google.de",
+                                             "goldencobra.url",
+                                             data_type_name="string")
+      Goldencobra::Redirector.create(source_url: "www.yourdomain.de/weiteröleitung",
+                                     target_url: "www.google.de",
+                                     active: true)
+    end
+
+    it "should not break and not find anything" do
+      redirector = Goldencobra::Redirector.get_by_request("http://www.yourdomain.de/weiteröleitung'A=0")
+      expect(redirector).to eq nil
+    end
+  end
+
   describe 'if url includes üöä' do
     before(:each) do
       Goldencobra::Setting.set_value_for_key("http://www.google.de",
