@@ -76,7 +76,7 @@ module Goldencobra
       if uri.present?
         request_path = "#{uri.scheme}://#{uri.host}#{uri.path}"
         regexp = "#{Regexp.escape(request_path)}[?$]*.*"
-        redirects = Goldencobra::Redirector.active.where("source_url RLIKE '#{regexp}'")
+        redirects = Goldencobra::Redirector.active.where("source_url RLIKE ?", regexp)
 
         matching_redirection = redirects.select { |r| compare_url_params(url_params_from_url(r.source_url), url_params_from_url(request_original_url)) }.first
 
