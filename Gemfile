@@ -73,7 +73,7 @@ end
 group :test do
   # gem "mysql2"
   gem "cucumber"
-  gem "cucumber-rails", git: "https://github.com/cucumber/cucumber-rails.git"
+  gem "cucumber-rails", "~> 1.4"
   gem "factory_girl"
   gem "factory_girl_rails"
   gem "database_cleaner"
