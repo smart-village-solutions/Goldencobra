@@ -45,3 +45,5 @@ rspec.xml
 test/dummy/results.json
 test/dummy/results.xml
 
+Gemfile.lock
+/Gemfile.lock
