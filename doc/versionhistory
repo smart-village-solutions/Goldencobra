@@ -1,3 +1,7 @@
+V2.3.9 - 14.10.2019
+  - Removed duplicate gem listing for 'mysql2'
+V2.3.8 - 07.08.2019
+  - Security improvment for model Redirector
 V2.3.7 - 29.11.2018
   - version change of activeadmin to '>= 1.1', '<= 1.3'
   - added default filter in article_types
