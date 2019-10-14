@@ -16,7 +16,6 @@ group :development, :test do
   gem "faker" # rspec in dev so the rake tasks run properly
   gem "newrelic_rpm", "~> 3.18.1.330"
   gem "yarjuf"
-  gem "mysql2"
   gem "spring" # Spring speeds up development by keeping your application running in the background.
                # Read more: https://github.com/rails/spring
 end
@@ -28,10 +27,10 @@ group :development do
   gem "pre-commit"
   gem "web-console", "2.3.0"
   gem "benchmark-ips"
-  gem "byebug"
 end
 
 group :test do
+  # gem "mysql2"
   gem "cucumber"
   gem "cucumber-rails", git: "https://github.com/cucumber/cucumber-rails.git", require: false
   gem "factory_girl"
@@ -41,7 +40,6 @@ group :test do
   gem "capybara-webkit"
   gem "selenium-webdriver"
   gem "rspec-core"
-
   gem "guard"
   gem "guard-rspec"
   gem "guard-cucumber"
