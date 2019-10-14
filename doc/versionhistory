@@ -1,3 +1,6 @@
+V1.4.84 - 14.10.2019
+  - Removed Gemfile.lock from git
+
 V1.4.83 - 25.04.2018
   - Add ability to render widgets without wrapper
 
