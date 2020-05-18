@@ -1,9 +1,13 @@
+V3.1.2 - 18.05.202020
+  - Securing access to `active_since` in article methode `active?`
+V3.1.1 - 07.08.2019
+  - Security improvement for model Redirector
 V3.1.0 - 28.01.2019
   - Removes bootsrap-sass gem for gemspec.
 V2.3.3 - 07.03.2018
   - Adds overview tree to sidebar of article edit view
 V2.3.2 - 19.01.2018
-  - API improvments on articles and menues and added new version v3 for show and index of articles
+  - API improvements on articles and menues and added new version v3 for show and index of articles
 V2.3.1 - 12.01.2018
   - Cleanup code of an Activedmin collection task
 V2.3.0 - 08.01.2018
