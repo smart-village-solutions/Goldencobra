@@ -1,4 +1,4 @@
-V3.1.2 - 18.05.202020
+V3.1.2 - 18.05.2020
   - Securing access to `active_since` in article methode `active?`
 V3.1.1.1 - 14.10.2019
   - Removed duplicate gem listing for 'mysql2'
