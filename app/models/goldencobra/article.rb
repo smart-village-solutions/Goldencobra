@@ -183,6 +183,7 @@ module Goldencobra
     def active?
       return false if self.active == false
       return true if self.active_since.present? && self.active_since < Time.now.utc
+      return false if self.active_since.present? && self.active_since > Time.now.utc
 
       true
     end
