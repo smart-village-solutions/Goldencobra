@@ -10,6 +10,7 @@
 ## Current versions
 * 1.4.x (branch: [release/1.5](https://github.com/ikuseiGmbH/Goldencobra/tree/release/1.5))
 * 2.x.x (branch: [master](https://github.com/ikuseiGmbH/Goldencobra/tree/master))
+* 3.x.x (branch: [release/3](https://github.com/ikuseiGmbH/Goldencobra/tree/release/3))
 
 # Requirements
 * Ruby 2.2+
