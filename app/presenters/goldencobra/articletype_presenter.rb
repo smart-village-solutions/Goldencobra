@@ -243,7 +243,7 @@ module Goldencobra
       collection = options[:collection] || nil
       style = options[:style] || nil
       dataplaceholder = options[:dataplaceholder] || nil
-      include_blank = options[:include_blank] || nil
+      include_blank = options[:include_blank]
       label = options[:label] || nil
 
       input_options = {
@@ -257,7 +257,7 @@ module Goldencobra
         label: label
       }
 
-      input_options = input_options.delete_if { |_k, v| v.blank? }
+      input_options = input_options.delete_if { |_k, v| v.nil? }
       @f.input(method_symbol, input_options)
     end
 
