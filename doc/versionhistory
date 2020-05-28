@@ -1,3 +1,5 @@
+V2.3.11 - 28.05.2020
+  - Updated `input_form_for` method to pass `include_blank` values correctly
 V2.3.10 - 18.05.2020
   - Securing access to `active_since` in article methode `active?`
 V2.3.9 - 14.10.2019
