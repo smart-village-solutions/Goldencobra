@@ -36,7 +36,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
       f.input :id, as: :hidden
     end
     f.inputs I18n.t("active_admin.uploads.preview") do
-      image_tag(f.object.image(:large), id: "image_crop") if f.object && f.object.image.present?
+      image_tag(f.object.image(:original), id: "image_crop") if f.object && f.object.image.present?
     end
     f.inputs I18n.t("active_admin.uploads.photo") do
       f.input :crop_image, as: :boolean, hint: I18n.t("active_admin.uploads.photo_hint")
@@ -69,7 +69,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
     column t(I18n.t("active_admin.uploads.preview")) do |upload|
       if upload.image_content_type.present?
         link_to(
-          upload.image_content_type.match(/image|pdf/) ? image_tag(upload.image(:thumb)) : "",
+          upload.image_content_type.match(/image|pdf/) ? image_tag(upload.image(:px200)) : "",
           admin_upload_path(upload),
           class: "member_link edit_link",
           title: I18n.t("active_admin.uploads.title1")
