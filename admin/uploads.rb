@@ -202,16 +202,12 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
   end
 
   sidebar :image_formates do
-    ul do
-      li I18n.t("active_admin.uploads.format_original")
-      li I18n.t("active_admin.uploads.format_large")
-      li I18n.t("active_admin.uploads.format_big")
-      li I18n.t("active_admin.uploads.format_medium")
-      li I18n.t("active_admin.uploads.format_px250")
-      li I18n.t("active_admin.uploads.format_px200")
-      li I18n.t("active_admin.uploads.format_px150")
-      li I18n.t("active_admin.uploads.format_thumb")
-      li I18n.t("active_admin.uploads.format_mini")
+    if ActiveRecord::Base.connection.table_exists?("goldencobra_uploads")
+      ul do
+        Goldencobra::Upload.attachment_definitions[:image][:styles].keys.each do |image_size|
+          li I18n.t("active_admin.uploads.format_#{image_size}")
+        end
+      end
     end
   end
 
