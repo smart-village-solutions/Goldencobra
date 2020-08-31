@@ -559,6 +559,9 @@ de:
       yes_check: "Ja"
       no_check: "Nein"
     widget:
+      sidebar:
+        articles:
+          submit: "Artikel zuordnen"
       as: "Schnipsel"
       parent: "Content-Management"
       title: "Titel"
@@ -647,4 +650,3 @@ de:
           title1: "Bearbeiten"
           link2: "neu"
           title2: "Neu"
-

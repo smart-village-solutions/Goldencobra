@@ -1,3 +1,5 @@
+V2.3.12 - 31.08.2020
+  - Split up admin widget form to separate updates of article-widget-assignments
 V2.3.11 - 28.05.2020
   - Updated `input_form_for` method to pass `include_blank` values correctly
 V2.3.10 - 18.05.2020
