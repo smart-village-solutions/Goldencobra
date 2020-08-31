@@ -1,0 +1,8 @@
+<%= form_for(resource, url: connect_with_articles_admin_widget_path, method: :post) do |f| %>
+  <%= f.select :articles,
+                options_from_collection_for_select(Goldencobra::Article.all, "id", "parent_path", resource.article_ids),
+                { include_blank: true },
+                { multiple: true, class: "chosen-select-deselect" }  %>
+  <br/><br/>
+  <%= f.submit I18n.t('active_admin.widget.sidebar.articles.submit') %>
+<% end %>
