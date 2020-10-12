@@ -23,10 +23,15 @@ ActiveAdmin.register Goldencobra::Articletype, as: "Articletype" do
   form html: { enctype: "multipart/form-data" }  do |f|
     f.actions
     f.inputs I18n.t("active_admin.articletypes.general") do
-      f.input :default_template_file, as: :select,
-              collection: Goldencobra::Template.all.map { |t| [t.title, t.layout_file_name]}, include_blank: false,
+      f.input :default_template_file,
+              as: :select,
+              collection: Goldencobra::Template.order(:layout_file_name).pluck(:layout_file_name).uniq,
+              include_blank: false,
               label: I18n.t("active_admin.articletypes.default_template")
-      f.input :templates, as: :check_boxes, collection: Goldencobra::Template.all.map { |t| [t.title, t.id]}, label: I18n.t("active_admin.articletypes.templates")
+      f.input :templates,
+              as: :check_boxes,
+              collection: Goldencobra::Template.order(:title).map { |t| [t.title, t.id]},
+              label: I18n.t("active_admin.articletypes.templates")
     end
     f.inputs I18n.t("active_admin.articletypes.article_fields"), class: "foldable" do
       f.has_many :fieldgroups, heading: "", new_record: "+ Feldgruppe hinzufügen" do |fg|
