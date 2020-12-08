@@ -47,36 +47,36 @@ module Goldencobra
     end
 
     # Goldencobra::Setting.for_key("test.foo.bar")
-    def self.for_key(name, cacheable=true)
+    def self.for_key(name, cacheable = true)
       @@mtime_setting ||= {}
+      @@key_value ||= {}
       mtime = get_cache_modification_time(name)
+      return for_key_helper(name) unless cacheable
 
-      if cacheable && @@mtime_setting[name].present? && @@mtime_setting[name] >= mtime
-        @@key_value ||= {}
-        @@key_value[name] ||= for_key_helper(name)
-      else
-        @@mtime_setting[name] = mtime
-        for_key_helper(name)
-      end
+      return @@key_value[name] if @@key_value[name].present? && @@mtime_setting[name].present? && @@mtime_setting[name] >= mtime
 
+      @@mtime_setting[name] = mtime
+      @@key_value[name] = for_key_helper(name)
+
+      @@key_value[name]
     end
 
     def self.for_key_helper(name)
-    if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
-      setting_title = name.split(".").last
-      settings = Goldencobra::Setting.where(title: setting_title)
-      if settings.count == 1
-        return settings.first.value
-      elsif settings.count > 1
-        settings.each do |set|
-          if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
-            return set.value
+      if ActiveRecord::Base.connection.table_exists?("goldencobra_settings")
+        setting_title = name.split(".").last
+        settings = Goldencobra::Setting.where(title: setting_title)
+        if settings.count == 1
+          return settings.first.value
+        elsif settings.count > 1
+          settings.each do |set|
+            if [set.ancestors.map(&:title).join("."),setting_title].compact.join('.') == name
+              return set.value
+            end
           end
+        else
+          return setting_title
         end
-      else
-        return setting_title
       end
-    end
     end
 
     def self.set_value_for_key(value, name, data_type_name="string")
