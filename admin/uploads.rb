@@ -260,7 +260,7 @@ ActiveAdmin.register Goldencobra::Upload, as: "Upload" do
         error = message.last.join(", ")
         previous + "<li><span>#{attribute}</span>: #{error}</li>"
       end
-      raw(flash + "</ul>")
+      (flash + "</ul>").html_safe
     end
   end
 end
